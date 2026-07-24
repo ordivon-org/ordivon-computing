@@ -1,0 +1,86 @@
+schema_version: 1
+registry: agent-native-computing-projects
+
+projects:
+  - id: agent-native-computing
+    repository: https://github.com/zycxfyh/agent-native-computing
+    role: research-root
+    maturity: foundation
+    owns:
+      - axioms
+      - stack-map
+      - research-question-registry
+      - cross-project-relationship-map
+    does_not_own:
+      - all implementation code
+      - model provider runtime
+      - project-specific execution state
+
+  - id: Ordivon
+    repository: https://github.com/zycxfyh/Ordivon
+    role: agent-execution-microkernel
+    maturity: dogfood
+    branches:
+      - ANC-KERNEL
+      - ANC-EFFECT
+      - ANC-MEMORY
+    owns:
+      - workspace-identity
+      - task-and-attempt-lifecycle
+      - mutation-preconditions
+      - execution-isolation
+      - artifacts
+      - cancellation
+      - recovery-semantics
+    does_not_own:
+      - model-reasoning
+      - domain-policy
+      - general-purpose-agent-ui
+
+  - id: FinHarness
+    repository: https://github.com/zycxfyh/FinHarness
+    role: capital-governance-domain-testbed
+    maturity: active
+    branches:
+      - ANC-EFFECT
+      - ANC-VERIFY
+      - ANC-ORG
+    owns:
+      - capital-truth
+      - authority
+      - decision-state
+      - execution-identity
+      - reconciliation
+    does_not_own:
+      - general-agent-runtime
+      - universal-broker-behavior
+      - wealth-prediction
+
+  - id: ordinary-prosperity-research
+    repository: https://github.com/zycxfyh/ordinary-prosperity-research
+    role: long-horizon-empirical-research-testbed
+    maturity: active
+    branches:
+      - ANC-MULTI
+      - ANC-VERIFY
+      - ANC-ORG
+    owns:
+      - project-specific-research-questions
+      - empirical-analysis
+      - reproducible-research-artifacts
+    does_not_own:
+      - general-agent-kernel
+      - universal-economic-theory
+
+  - id: ordivon-web
+    repository: https://github.com/zycxfyh/ordivon-web
+    role: public-interface-and-explanation
+    maturity: early
+    branches:
+      - ANC-ORG
+    owns:
+      - public-presentation
+      - project-navigation
+    does_not_own:
+      - execution-kernel-semantics
+      - durable-runtime-state

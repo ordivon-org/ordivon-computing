@@ -1,0 +1,73 @@
+schema_version: 1
+project: agent-native-computing
+status: p0-foundation
+
+baseline:
+  model_architecture:
+    statement: Transformer-family models remain the current mainstream operational baseline.
+    epistemic_status: working_fact
+    permanence_claimed: false
+
+branches:
+  - id: ANC-MODEL
+    name: model-and-cognitive-computation
+  - id: ANC-IR
+    name: agent-language-and-ir
+  - id: ANC-COMPILER
+    name: agent-compiler
+  - id: ANC-KERNEL
+    name: agent-execution-kernel
+  - id: ANC-MEMORY
+    name: memory-and-state
+  - id: ANC-EFFECT
+    name: tools-capabilities-and-effects
+  - id: ANC-MULTI
+    name: multi-agent-systems
+  - id: ANC-HARDWARE
+    name: hardware-isa-and-dataflow
+  - id: ANC-VERIFY
+    name: verification-and-benchmarks
+  - id: ANC-ORG
+    name: organization-economics-and-governance
+
+questions:
+  - id: ANC-IR-001
+    title: Minimum useful Agent Effect IR
+    branch: ANC-IR
+    status: open
+    epistemic_status: research_question
+    question: What is the smallest representation that can express goals, capabilities, effects, commit conditions, retries, and recovery without becoming a second general-purpose language?
+    evidence_required:
+      - literature
+      - executable_prototype
+      - comparative_experiment
+    related_projects:
+      - Ordivon
+
+  - id: ANC-MEMORY-001
+    title: Minimum durable state for long-running task recovery
+    branch: ANC-MEMORY
+    status: open
+    epistemic_status: research_question
+    question: What state must survive model-context loss for a different model instance to safely resume a long-running task?
+    evidence_required:
+      - failure_traces
+      - recovery_experiments
+      - state_minimization_study
+    related_projects:
+      - Ordivon
+      - FinHarness
+
+  - id: ANC-EFFECT-001
+    title: Tool-contract drift detection and negotiation
+    branch: ANC-EFFECT
+    status: open
+    epistemic_status: research_question
+    question: How should a host, agent, and live runtime detect, classify, review, and atomically adopt tool-contract changes during a long-lived session?
+    evidence_required:
+      - protocol_analysis
+      - reproduced_drift_case
+      - compatibility_matrix
+      - prototype
+    related_projects:
+      - Ordivon
