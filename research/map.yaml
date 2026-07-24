@@ -1,12 +1,15 @@
 schema_version: 1
 project: agent-native-computing
-status: p0-foundation
+status: knowledge-architecture-v1
 
 baseline:
   model_architecture:
-    statement: Transformer-family models form the current mainstream operational starting point.
+    statement: Transformer-family models form the current operational starting point.
     epistemic_status: working_fact
     evolution: The baseline follows new architectures, evidence, and observed workloads.
+  repository_architecture:
+    statement: Core, Knowledge, Studies, Research, and Projects form one knowledge-generation loop.
+    epistemic_status: working_structure
 
 branches:
   - id: ANC-MODEL
@@ -33,10 +36,11 @@ branches:
 questions:
   - id: ANC-IR-001
     title: Minimum useful Agent Effect IR
+    file: questions/ANC-IR-001-agent-effect-ir.md
     branch: ANC-IR
     status: open
     epistemic_status: research_question
-    question: What is the smallest representation that expresses goals, capabilities, effects, commit conditions, retries, and recovery across models and runtimes?
+    question: What is the smallest representation that expresses targets, capabilities, effects, results, verification, and recovery across models and runtimes?
     evidence_paths:
       - literature
       - executable_prototype
@@ -46,6 +50,7 @@ questions:
 
   - id: ANC-MEMORY-001
     title: Minimum durable state for long-running task continuity
+    file: questions/ANC-MEMORY-001-task-continuity.md
     branch: ANC-MEMORY
     status: open
     epistemic_status: research_question
@@ -59,11 +64,12 @@ questions:
       - FinHarness
 
   - id: ANC-EFFECT-001
-    title: Tool-contract change detection and negotiation
+    title: Tool-contract change detection and adoption
+    file: questions/ANC-EFFECT-001-tool-contract-evolution.md
     branch: ANC-EFFECT
     status: open
     epistemic_status: research_question
-    question: How can a host, agent, and live runtime detect, classify, review, and atomically adopt tool-contract changes during a long-lived session?
+    question: How can a Host, model, and live Runtime detect, classify, and adopt Tool-contract changes during a long-lived task?
     evidence_paths:
       - protocol_analysis
       - reproduced_change_case
@@ -71,3 +77,19 @@ questions:
       - prototype
     related_projects:
       - Ordivon
+
+  - id: ANC-ORG-001
+    title: Agent-native organization around persistent goals
+    file: questions/ANC-ORG-001-agent-native-organization.md
+    branch: ANC-ORG
+    status: open
+    epistemic_status: research_question
+    question: How should people and multiple Agents coordinate through goals, capabilities, artifacts, facts, and feedback rather than conversation history alone?
+    evidence_paths:
+      - real_multi_agent_workload
+      - handoff_experiment
+      - artifact_join_experiment
+    related_projects:
+      - Ordivon
+      - FinHarness
+      - ordinary-prosperity-research
