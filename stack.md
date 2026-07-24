@@ -1,6 +1,6 @@
 # Agent-Native Computing Stack
 
-This stack is a research map, not a claim that every layer must be rebuilt.
+This stack maps the layers through which probabilistic cognition becomes persistent computation and real-world action. Each layer can produce theories, experiments, interfaces, runtimes, or independent projects.
 
 | Layer | Subject | Central question |
 |---|---|---|
@@ -17,17 +17,17 @@ This stack is a research map, not a claim that every layer must be rebuilt.
 | L10 | Agent language and IR | How are goals lowered into typed, revisable, capability-aware effect plans? |
 | L11 | Agent execution kernel | How are tasks, attempts, workspaces, mutations, artifacts, cancellation, and recovery made durable? |
 | L12 | World and tool interface | How are external systems exposed with explicit effects, authority, schemas, and completion semantics? |
-| L13 | Product and organization | How do humans and agents assign goals, approve actions, verify results, cooperate, and bear responsibility? |
+| L13 | Product and organization | How do humans and agents assign goals, create, verify, cooperate, learn, and bear responsibility? |
 
 ## Cross-cutting planes
 
-Five concerns cross every layer:
+Five concerns connect every layer:
 
 1. **Identity** — stable identity for principals, agents, tasks, workspaces, tools, artifacts, and runtimes.
 2. **Capability** — who may perform which effect, on what object, under which conditions.
-3. **State and memory** — separation of belief, context, task state, durable knowledge, and external reality.
-4. **Evidence and verification** — distinction between claims, process outcomes, tests, receipts, and verified world state.
-5. **Time and recovery** — ordering, interruption, retries, checkpoints, compensation, and resumption.
+3. **State and memory** — the relationship among belief, context, task state, durable knowledge, and external reality.
+4. **Evidence and verification** — the progression from claims and process outcomes to tests, receipts, and verified world state.
+5. **Time and recovery** — ordering, interruption, retries, checkpoints, compensation, continuation, and learning.
 
 ## Current project placement
 
@@ -35,7 +35,7 @@ Five concerns cross every layer:
 Agent-native computing
 ├── execution kernel
 │   └── Ordivon
-├── domain governance systems
+├── domain systems
 │   └── FinHarness
 └── long-horizon empirical research
     └── Ordinary Prosperity Research

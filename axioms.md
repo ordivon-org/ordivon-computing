@@ -1,43 +1,43 @@
-# Research Axioms
+# Working Foundations
 
-These are working axioms: compact decision rules grounded in current systems and open to revision when evidence changes.
+These foundations describe how the project approaches agent-native computing today. Papers, experiments, operating systems, and real failures continuously refine them.
 
-## A0 — Current model reality is a baseline, not a destiny
+## A0 — Begin from the current model reality
 
-The current mainstream foundation-model stack is Transformer-family dominated. Research may assume this operationally without assuming it is the final cognitive architecture.
+Transformer-family systems form the current mainstream foundation-model baseline. They provide the first workload around which the stack can be studied, measured, and rebuilt.
 
-## A1 — The model is not the system of record
+## A1 — Models are cognitive engines
 
-A model may infer, plan, generate, and revise. It must not be the sole owner of durable truth, authority, committed side effects, or completion facts.
+Models interpret, infer, plan, generate, compare, and revise. The wider computing stack turns these probabilistic cognitive capabilities into persistent work in the world.
 
-## A2 — Natural language expresses intent, not sufficient execution contracts
+## A2 — Intent becomes structured execution
 
-Open goals may begin in natural language. Real effects require explicit identities, capabilities, preconditions, effect semantics, and commit conditions.
+Natural language opens goals and expresses meaning. Agent representations carry goals into identities, capabilities, preconditions, effects, commit conditions, and executable actions.
 
-## A3 — Context is not durable memory
+## A3 — Memory is a hierarchy
 
-Model parameters, KV cache, conversation context, working memory, task state, long-term knowledge, and world state are different classes of state and must not be collapsed into one prompt.
+Model parameters, KV state, conversation context, working memory, task state, long-term knowledge, artifacts, and world state form distinct memory layers with different lifetimes and access patterns.
 
-## A4 — Effects are first-class
+## A4 — Effects are first-class computational objects
 
-An external action should be representable by its target, authority, preconditions, idempotency, reversibility, result contract, and completion evidence—not merely by a tool name and JSON arguments.
+An external action carries a target, authority, preconditions, idempotency, reversibility, result contract, and completion evidence. These properties make action understandable across models, runtimes, and time.
 
-## A5 — Failure and recovery are normal execution states
+## A5 — Long-horizon work evolves through recovery
 
-Long-running agent work must assume interruption, stale state, partial progress, retries, cancellation, compensation, and resumption. Recovery is part of the primary design, not an operational afterthought.
+Agent work proceeds through attempts, interruption, partial progress, correction, retries, checkpoints, compensation, and resumption. Errors and friction reveal missing semantics and drive the next improvement.
 
-## A6 — Own irreducible semantics; reuse mature mechanisms
+## A6 — New semantics create new layers
 
-A project should implement the semantics that existing layers cannot reliably express. Mature infrastructure should be reused when it does not constrain those semantics.
+The project builds where a new abstraction creates leverage across many workloads. Existing languages, operating systems, databases, networks, and accelerators provide powerful foundations for testing those abstractions.
 
-## A7 — Stable core, replaceable edge
+## A7 — Thin cores release broad potential
 
-Identity, state transition, authority, effect, and recovery contracts should be strict. Models, providers, transports, interfaces, and experimental policies should remain replaceable.
+A small set of clear primitives for identity, state transition, capability, effect, evidence, and recovery can support many models, providers, interfaces, domains, and future architectures.
 
-## A8 — Evidence outranks architectural narrative
+## A8 — Knowledge grows through evidence and construction
 
-Claims should be distinguished as fact, inference, hypothesis, or preference. Running systems, failure traces, reproducible experiments, and benchmarks are required to promote important hypotheses.
+Claims progress through literature, explicit reasoning, prototypes, failure traces, reproducible experiments, benchmarks, and sustained use. Each form of evidence updates the research map.
 
-## A9 — Code generation is cheap; world-state correctness remains expensive
+## A9 — Agent capability moves the scarce frontier
 
-Agent capability reduces the cost of producing code. It does not eliminate the cost of choosing goals, preserving truth, validating outcomes, resolving conflicting objectives, or maintaining stable interfaces.
+As code production becomes cheaper, greater value concentrates in selecting important questions, constructing useful abstractions, preserving world-state correctness, validating outcomes, and discovering new possibilities.

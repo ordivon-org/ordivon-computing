@@ -4,9 +4,9 @@ status: p0-foundation
 
 baseline:
   model_architecture:
-    statement: Transformer-family models remain the current mainstream operational baseline.
+    statement: Transformer-family models form the current mainstream operational starting point.
     epistemic_status: working_fact
-    permanence_claimed: false
+    evolution: The baseline follows new architectures, evidence, and observed workloads.
 
 branches:
   - id: ANC-MODEL
@@ -28,7 +28,7 @@ branches:
   - id: ANC-VERIFY
     name: verification-and-benchmarks
   - id: ANC-ORG
-    name: organization-economics-and-governance
+    name: organization-economics-and-coordination
 
 questions:
   - id: ANC-IR-001
@@ -36,8 +36,8 @@ questions:
     branch: ANC-IR
     status: open
     epistemic_status: research_question
-    question: What is the smallest representation that can express goals, capabilities, effects, commit conditions, retries, and recovery without becoming a second general-purpose language?
-    evidence_required:
+    question: What is the smallest representation that expresses goals, capabilities, effects, commit conditions, retries, and recovery across models and runtimes?
+    evidence_paths:
       - literature
       - executable_prototype
       - comparative_experiment
@@ -45,12 +45,12 @@ questions:
       - Ordivon
 
   - id: ANC-MEMORY-001
-    title: Minimum durable state for long-running task recovery
+    title: Minimum durable state for long-running task continuity
     branch: ANC-MEMORY
     status: open
     epistemic_status: research_question
-    question: What state must survive model-context loss for a different model instance to safely resume a long-running task?
-    evidence_required:
+    question: What durable state allows a different model instance to understand and continue a long-running task across context and session boundaries?
+    evidence_paths:
       - failure_traces
       - recovery_experiments
       - state_minimization_study
@@ -59,14 +59,14 @@ questions:
       - FinHarness
 
   - id: ANC-EFFECT-001
-    title: Tool-contract drift detection and negotiation
+    title: Tool-contract change detection and negotiation
     branch: ANC-EFFECT
     status: open
     epistemic_status: research_question
-    question: How should a host, agent, and live runtime detect, classify, review, and atomically adopt tool-contract changes during a long-lived session?
-    evidence_required:
+    question: How can a host, agent, and live runtime detect, classify, review, and atomically adopt tool-contract changes during a long-lived session?
+    evidence_paths:
       - protocol_analysis
-      - reproduced_drift_case
+      - reproduced_change_case
       - compatibility_matrix
       - prototype
     related_projects:
