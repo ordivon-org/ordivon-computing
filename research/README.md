@@ -13,7 +13,7 @@ Durable question pages preserve hypotheses and evidence criteria. GitHub Issues 
 
 ## Construction program
 
-The active cross-layer program is [#1 — Construct the Agent-Native Machine](https://github.com/zycxfyh/agent-native-computing/issues/1). Its nine executable tracks are indexed in [`map.yaml`](map.yaml) and carried by GitHub Issues rather than duplicated as roadmap documents.
+The cross-layer program is [#1 — Construct the Agent-Native Machine](https://github.com/zycxfyh/agent-native-computing/issues/1). Its nine construction tracks and stable typed relations are indexed in [`map.yaml`](map.yaml). Changing status, dependency discussion, and the Ready Frontier live in GitHub Issues rather than duplicated roadmap documents.
 
 ## Current questions
 

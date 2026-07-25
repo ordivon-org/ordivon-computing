@@ -102,5 +102,5 @@ A claimed guarantee is complete only when:
 1. its failure can be injected or reproduced;
 2. the forbidden state is mechanically asserted absent;
 3. the required state survives replay where relevant;
-4. the test is linked from `CHARTER-CONFORMANCE.md`;
+4. the test is linked from `CONFORMANCE.md`;
 5. limitations and trust assumptions remain explicit.

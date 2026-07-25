@@ -77,6 +77,31 @@ See [`research/map.yaml`](research/map.yaml) and [`research/questions/`](researc
 
 See [`projects/registry.yaml`](projects/registry.yaml).
 
-## Current phase
+## Executable Semantic Core
 
-The repository now has a first knowledge architecture and a complete computing-stack walkthrough. The next phase converts selected concepts into executable research artifacts, especially Agent Effect IR, task continuity, tool-contract evolution, and task capsules.
+The repository contains an executable reference Kernel at [`research/experiments/semantic-core-v0/`](research/experiments/semantic-core-v0/). It occupies the semantic boundary between probabilistic cognition and classical execution substrates:
+
+```text
+Probabilistic cognition
+        ↓ proposes an Effect
+Role-scoped Semantic Core
+        ↓ admits a Dispatch
+Ordivon / Linux / external systems
+        ↓ produce Observation and Artifact evidence
+Verification
+        ↓
+Fact admission
+```
+
+The core preserves stable intent, concrete boundary attempts, explicit uncertainty, evidence provenance, signed authority, and authenticated replay. Linux, SQLite, Git, and Ordivon continue to provide the classical execution and durability mechanisms beneath it.
+
+Start with:
+
+- [`KERNEL-CHARTER.md`](research/experiments/semantic-core-v0/KERNEL-CHARTER.md) — mission and hard guarantees;
+- [`SPEC.md`](research/experiments/semantic-core-v0/SPEC.md) — objects, state algebra, evidence, and invariants;
+- [`CONFORMANCE.md`](research/experiments/semantic-core-v0/CONFORMANCE.md) — executable and live evidence;
+- [Program #1](https://github.com/zycxfyh/agent-native-computing/issues/1) — dynamic dependency clusters and Ready Frontier.
+
+## Coordination and state
+
+Repository documents describe stable theory, contracts, decisions, and reproducible evidence. GitHub Issues own changing task state, dependencies, discussion, and readiness; Git commits own code revision. The repository does not maintain a second textual “current phase.”

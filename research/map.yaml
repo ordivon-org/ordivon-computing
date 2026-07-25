@@ -1,10 +1,9 @@
-schema_version: 1
+schema_version: 2
 project: agent-native-computing
-status: knowledge-architecture-v1
 
 baseline:
   model_architecture:
-    statement: Transformer-family models form the current operational starting point.
+    statement: Transformer-family models form the operational starting point.
     epistemic_status: working_fact
     evolution: The baseline follows new architectures, evidence, and observed workloads.
   repository_architecture:
@@ -38,7 +37,6 @@ branches:
 construction_program:
   id: ANC-MACHINE-V0
   title: Construct the Agent-Native Machine
-  status: open
   carrier: github_issue
   github_issue: 1
   tracks:
@@ -88,12 +86,60 @@ construction_program:
       github_issue: 10
       layers: [L10, L11, L12, L13]
 
+relation_types:
+  depends_on: The target cannot start or finish without the source.
+  consumes: The target uses a contract, Artifact, or evidence produced by the source.
+  produces: The source creates a contract, Artifact, or evidence used by the target.
+  enables: The source removes a structural blocker for the target.
+  feeds_back_to: Results from the source revise the target model or contract.
+
+relations:
+  - from: ANC-KERNEL-001
+    type: produces
+    to: ANC-IR-001
+    meaning: The proven semantic and authority constraints define what the public Effect IR must preserve.
+  - from: ANC-IR-001
+    type: feeds_back_to
+    to: ANC-EFFECT-001
+    meaning: Effect semantics determine which Tool-contract fields and compatibility classes matter.
+  - from: ANC-EFFECT-001
+    type: feeds_back_to
+    to: ANC-IR-001
+    meaning: Real Tool contracts expose missing or provider-specific assumptions in the Effect IR.
+  - from: ANC-MEMORY-001
+    type: feeds_back_to
+    to: ANC-HOST-001
+    meaning: Continuation experiments determine what context the Host must compile.
+  - from: ANC-HOST-001
+    type: feeds_back_to
+    to: ANC-MEMORY-001
+    meaning: Host replacement and context compilation expose the minimum durable Task state.
+  - from: ANC-IR-001
+    type: enables
+    to: ANC-COMPILER-001
+    meaning: The VM needs stable Effect and waiting semantics before compiling dynamic Task dataflow.
+  - from: ANC-COMPILER-001
+    type: enables
+    to: ANC-MULTI-001
+    meaning: Explicit branch, wait, and join control state supports independent Agent branches.
+  - from: ANC-MULTI-001
+    type: feeds_back_to
+    to: ANC-COMPILER-001
+    meaning: Real branch and join workloads revise the VM control model.
+  - from: ANC-MULTI-001
+    type: enables
+    to: ANC-ORG-001
+    meaning: A Goal workspace needs persistent branch, Artifact, and join objects.
+  - from: ANC-ORG-001
+    type: feeds_back_to
+    to: ANC-MULTI-001
+    meaning: Human redirection and review reveal which coordination objects are operationally useful.
+
 questions:
   - id: ANC-IR-001
     title: Minimum useful Agent Effect IR
     file: questions/ANC-IR-001-agent-effect-ir.md
     branch: ANC-IR
-    status: open
     epistemic_status: research_question
     question: What is the smallest representation that expresses targets, capabilities, effects, results, verification, and recovery across models and runtimes?
     evidence_paths:
@@ -107,7 +153,6 @@ questions:
     title: Minimum durable state for long-running task continuity
     file: questions/ANC-MEMORY-001-task-continuity.md
     branch: ANC-MEMORY
-    status: open
     epistemic_status: research_question
     question: What durable state allows a different model instance to understand and continue a long-running task across context and session boundaries?
     evidence_paths:
@@ -122,7 +167,6 @@ questions:
     title: Tool-contract change detection and adoption
     file: questions/ANC-EFFECT-001-tool-contract-evolution.md
     branch: ANC-EFFECT
-    status: open
     epistemic_status: research_question
     question: How can a Host, model, and live Runtime detect, classify, and adopt Tool-contract changes during a long-lived task?
     evidence_paths:
@@ -137,7 +181,6 @@ questions:
     title: Agent-native organization around persistent goals
     file: questions/ANC-ORG-001-agent-native-organization.md
     branch: ANC-ORG
-    status: open
     epistemic_status: research_question
     question: How should people and multiple Agents coordinate through goals, capabilities, artifacts, facts, and feedback rather than conversation history alone?
     evidence_paths:
