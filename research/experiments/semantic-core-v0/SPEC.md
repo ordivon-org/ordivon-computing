@@ -53,13 +53,15 @@ proposed
 3. Effect events are contiguous, causally ordered, and non-regressing in time.
 4. A pre-dispatch Effect cannot produce Observation or Artifact evidence.
 5. Observation and Artifact evidence must match the Effect's bound Dispatch.
-6. A Claim must identify its owning Effect and target the same world object.
-7. Verification evidence must belong to the Claim's owning Effect.
-8. Accepted Verification must satisfy the Effect's declared method and evidence kinds.
-9. A Fact must reference an accepted Verification and cannot predate it.
-10. Terminal Effect outcomes are immutable.
-11. An unknown outcome cannot trigger automatic redispatch.
-12. Session loss never erases Effect, Dispatch, event, evidence, or terminal identity.
+6. A Claim identifies its originating Effect and a specific world-object subject.
+7. Verification evidence may come from independent Effects only when it targets the same subject and compatible version.
+8. Evidence must exist no later than the Verification that evaluates it.
+9. Accepted Verification must satisfy the originating Effect's declared method and evidence kinds.
+10. A Fact must reference an accepted Verification and cannot predate it.
+11. Terminal Effect outcomes are immutable.
+12. An unknown outcome cannot trigger automatic redispatch.
+13. Observation identity includes causal Effect/Dispatch provenance; equal content does not collapse distinct observations.
+14. Session loss never erases Effect, Dispatch, event, evidence, or terminal identity.
 
 ## Ordivon mapping hypothesis
 

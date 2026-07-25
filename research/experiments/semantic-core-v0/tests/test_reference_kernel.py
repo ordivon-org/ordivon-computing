@@ -177,7 +177,7 @@ class ReferenceKernelTests(unittest.TestCase):
         )
         claim = Claim(
             claim_id=sid(IdKind.CLAIM, "claim:rejected"),
-            effect_id=spec.effect_id,
+            origin_effect_id=spec.effect_id,
             subject=spec.target,
             predicate="content_digest_equals",
             value_digest="sha256:different",
@@ -208,7 +208,7 @@ class ReferenceKernelTests(unittest.TestCase):
         observation, _ = add_evidence(kernel, spec, dispatch, "missing-evidence")
         claim = Claim(
             claim_id=sid(IdKind.CLAIM, "claim:missing-evidence"),
-            effect_id=spec.effect_id,
+            origin_effect_id=spec.effect_id,
             subject=spec.target,
             predicate="content_digest_equals",
             value_digest=observation.payload_digest,
@@ -234,28 +234,127 @@ class ReferenceKernelTests(unittest.TestCase):
                 )
             )
 
-    def test_verification_cannot_borrow_evidence_from_another_effect(self) -> None:
+    def test_verification_accepts_independent_same_subject_evidence(self) -> None:
         kernel = ReferenceKernel()
-        first, _ = start_effect(kernel, "first")
-        second, second_dispatch = start_effect(kernel, "second")
+        origin, _ = start_effect(kernel, "origin")
+        independent_base = sample_effect("independent")
+        independent = replace(
+            independent_base,
+            target=origin.target,
+            capability=replace(
+                independent_base.capability,
+                object_scope=origin.target.object_id,
+            ),
+        )
+        independent_dispatch = sid(IdKind.DISPATCH, "dispatch:independent")
+        kernel.admit_effect(
+            independent,
+            event_id=sid(IdKind.EVENT, "event:independent:0"),
+            recorded_at_ms=1,
+        )
+        kernel.prepare_effect(
+            independent.effect_id,
+            expected_revision=0,
+            event_id=sid(IdKind.EVENT, "event:independent:1"),
+            recorded_at_ms=2,
+        )
+        kernel.begin_dispatch(
+            independent.effect_id,
+            expected_revision=1,
+            dispatch_id=independent_dispatch,
+            event_id=sid(IdKind.EVENT, "event:independent:2"),
+            recorded_at_ms=3,
+            request_digest="sha256:request:independent",
+        )
         observation, artifact = add_evidence(
             kernel,
-            second,
-            second_dispatch,
-            "second",
+            independent,
+            independent_dispatch,
+            "independent",
         )
         claim = Claim(
-            claim_id=sid(IdKind.CLAIM, "claim:first"),
-            effect_id=first.effect_id,
-            subject=first.target,
+            claim_id=sid(IdKind.CLAIM, "claim:origin"),
+            origin_effect_id=origin.effect_id,
+            subject=origin.target,
             predicate="content_digest_equals",
-            value_digest="sha256:payload:first",
+            value_digest=observation.payload_digest,
+        )
+        kernel.admit_claim(claim)
+        kernel.record_verification(
+            Verification(
+                verification_id=sid(
+                    IdKind.VERIFICATION,
+                    "verification:independent",
+                ),
+                claim_id=claim.claim_id,
+                method="digest-and-version",
+                evidence=(
+                    EvidenceRef(
+                        EvidenceKind.OBSERVATION,
+                        observation.observation_id,
+                    ),
+                    EvidenceRef(EvidenceKind.ARTIFACT, artifact.artifact_id),
+                ),
+                decision=VerificationDecision.ACCEPTED,
+                verified_at_ms=6,
+            )
+        )
+        kernel.validate_invariants()
+
+    def test_verification_rejects_evidence_for_wrong_version(self) -> None:
+        kernel = ReferenceKernel()
+        origin, _ = start_effect(kernel, "version-origin")
+        independent_base = sample_effect("version-independent")
+        wrong_version_target = replace(origin.target, version="rev-2")
+        independent = replace(
+            independent_base,
+            target=wrong_version_target,
+            capability=replace(
+                independent_base.capability,
+                object_scope=origin.target.object_id,
+            ),
+        )
+        dispatch = sid(IdKind.DISPATCH, "dispatch:version-independent")
+        kernel.admit_effect(
+            independent,
+            event_id=sid(IdKind.EVENT, "event:version-independent:0"),
+            recorded_at_ms=1,
+        )
+        kernel.prepare_effect(
+            independent.effect_id,
+            expected_revision=0,
+            event_id=sid(IdKind.EVENT, "event:version-independent:1"),
+            recorded_at_ms=2,
+        )
+        kernel.begin_dispatch(
+            independent.effect_id,
+            expected_revision=1,
+            dispatch_id=dispatch,
+            event_id=sid(IdKind.EVENT, "event:version-independent:2"),
+            recorded_at_ms=3,
+            request_digest="sha256:request:version-independent",
+        )
+        observation, artifact = add_evidence(
+            kernel,
+            independent,
+            dispatch,
+            "version-independent",
+        )
+        claim = Claim(
+            claim_id=sid(IdKind.CLAIM, "claim:version-origin"),
+            origin_effect_id=origin.effect_id,
+            subject=origin.target,
+            predicate="content_digest_equals",
+            value_digest=observation.payload_digest,
         )
         kernel.admit_claim(claim)
         with self.assertRaises(InvariantViolation):
             kernel.record_verification(
                 Verification(
-                    verification_id=sid(IdKind.VERIFICATION, "verification:borrowed"),
+                    verification_id=sid(
+                        IdKind.VERIFICATION,
+                        "verification:wrong-version",
+                    ),
                     claim_id=claim.claim_id,
                     method="digest-and-version",
                     evidence=(
@@ -267,6 +366,83 @@ class ReferenceKernelTests(unittest.TestCase):
                     ),
                     decision=VerificationDecision.ACCEPTED,
                     verified_at_ms=6,
+                )
+            )
+
+    def test_verification_rejects_evidence_for_different_subject(self) -> None:
+        kernel = ReferenceKernel()
+        first, _ = start_effect(kernel, "first")
+        second, second_dispatch = start_effect(kernel, "second")
+        observation, artifact = add_evidence(
+            kernel,
+            second,
+            second_dispatch,
+            "second",
+        )
+        claim = Claim(
+            claim_id=sid(IdKind.CLAIM, "claim:first"),
+            origin_effect_id=first.effect_id,
+            subject=first.target,
+            predicate="content_digest_equals",
+            value_digest="sha256:payload:first",
+        )
+        kernel.admit_claim(claim)
+        with self.assertRaises(InvariantViolation):
+            kernel.record_verification(
+                Verification(
+                    verification_id=sid(
+                        IdKind.VERIFICATION,
+                        "verification:wrong-subject",
+                    ),
+                    claim_id=claim.claim_id,
+                    method="digest-and-version",
+                    evidence=(
+                        EvidenceRef(
+                            EvidenceKind.OBSERVATION,
+                            observation.observation_id,
+                        ),
+                        EvidenceRef(EvidenceKind.ARTIFACT, artifact.artifact_id),
+                    ),
+                    decision=VerificationDecision.ACCEPTED,
+                    verified_at_ms=6,
+                )
+            )
+
+    def test_verification_cannot_predate_cross_effect_evidence(self) -> None:
+        kernel = ReferenceKernel()
+        spec, dispatch = start_effect(kernel, "evidence-time")
+        observation, artifact = add_evidence(
+            kernel,
+            spec,
+            dispatch,
+            "evidence-time",
+        )
+        claim = Claim(
+            claim_id=sid(IdKind.CLAIM, "claim:evidence-time"),
+            origin_effect_id=spec.effect_id,
+            subject=spec.target,
+            predicate="content_digest_equals",
+            value_digest=observation.payload_digest,
+        )
+        kernel.admit_claim(claim)
+        with self.assertRaises(InvariantViolation):
+            kernel.record_verification(
+                Verification(
+                    verification_id=sid(
+                        IdKind.VERIFICATION,
+                        "verification:evidence-time",
+                    ),
+                    claim_id=claim.claim_id,
+                    method="digest-and-version",
+                    evidence=(
+                        EvidenceRef(
+                            EvidenceKind.OBSERVATION,
+                            observation.observation_id,
+                        ),
+                        EvidenceRef(EvidenceKind.ARTIFACT, artifact.artifact_id),
+                    ),
+                    decision=VerificationDecision.ACCEPTED,
+                    verified_at_ms=3,
                 )
             )
 
@@ -287,7 +463,7 @@ class ReferenceKernelTests(unittest.TestCase):
         observation, artifact = add_evidence(kernel, spec, dispatch, "fact-time")
         claim = Claim(
             claim_id=sid(IdKind.CLAIM, "claim:fact-time"),
-            effect_id=spec.effect_id,
+            origin_effect_id=spec.effect_id,
             subject=spec.target,
             predicate="content_digest_equals",
             value_digest=observation.payload_digest,

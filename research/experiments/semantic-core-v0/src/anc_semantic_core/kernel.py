@@ -18,6 +18,7 @@ from .model import (
     Observation,
     Verification,
     VerificationDecision,
+    WorldObjectRef,
 )
 from .state import EffectState, can_transition
 
@@ -285,9 +286,9 @@ class ReferenceKernel:
             if existing == claim:
                 return Admission.EXISTING
             raise IdentityConflict(f"claim identity conflict: {claim.claim_id}")
-        effect = self.get_effect(claim.effect_id)
-        if claim.subject.object_id != effect.spec.target.object_id:
-            raise InvariantViolation("claim subject does not match effect target")
+        origin = self.get_effect(claim.origin_effect_id)
+        if claim.subject.object_id != origin.spec.target.object_id:
+            raise InvariantViolation("claim subject does not match origin Effect target")
         self._claims[claim.claim_id] = claim
         return Admission.CREATED
 
@@ -377,10 +378,10 @@ class ReferenceKernel:
         claim = self._claims.get(verification.claim_id)
         if claim is None:
             raise NotFound(f"claim not found: {verification.claim_id}")
-        effect = self.get_effect(claim.effect_id)
-        plan = effect.spec.verification
+        origin = self.get_effect(claim.origin_effect_id)
+        plan = origin.spec.verification
         if verification.method != plan.method:
-            raise InvariantViolation("verification method does not match effect plan")
+            raise InvariantViolation("verification method does not match origin Effect plan")
         observed_kinds: set[EvidenceKind] = set()
         for reference in verification.evidence:
             observed_kinds.add(reference.kind)
@@ -388,26 +389,54 @@ class ReferenceKernel:
                 observation = self._observations.get(reference.evidence_id)
                 if observation is None:
                     raise NotFound(f"observation not found: {reference.evidence_id}")
-                if observation.effect_id != claim.effect_id:
-                    raise InvariantViolation("verification borrowed another Effect's observation")
-                if observation.target.object_id != claim.subject.object_id:
-                    raise InvariantViolation("verification observation has the wrong subject")
-                if (
-                    claim.subject.version is not None
-                    and observation.target.version != claim.subject.version
-                ):
-                    raise InvariantViolation("verification observation has the wrong version")
+                self._require_evidence_scope(
+                    claim,
+                    self.get_effect(observation.effect_id).spec.target,
+                    evidence_time_ms=observation.observed_at_ms,
+                    verification_time_ms=verification.verified_at_ms,
+                    evidence_kind="observation",
+                )
             elif reference.kind is EvidenceKind.ARTIFACT:
                 artifact = self._artifacts.get(reference.evidence_id)
                 if artifact is None:
                     raise NotFound(f"artifact not found: {reference.evidence_id}")
-                if artifact.effect_id != claim.effect_id:
-                    raise InvariantViolation("verification borrowed another Effect's artifact")
+                self._require_evidence_scope(
+                    claim,
+                    self.get_effect(artifact.effect_id).spec.target,
+                    evidence_time_ms=artifact.created_at_ms,
+                    verification_time_ms=verification.verified_at_ms,
+                    evidence_kind="artifact",
+                )
         if verification.decision is VerificationDecision.ACCEPTED:
             missing = set(plan.required_evidence) - observed_kinds
             if missing:
                 names = ", ".join(sorted(kind.value for kind in missing))
                 raise InvariantViolation(f"accepted verification lacks required evidence: {names}")
+
+    @staticmethod
+    def _require_evidence_scope(
+        claim: Claim,
+        evidence_target: WorldObjectRef,
+        *,
+        evidence_time_ms: int,
+        verification_time_ms: int,
+        evidence_kind: str,
+    ) -> None:
+        if evidence_target.object_id != claim.subject.object_id:
+            raise InvariantViolation(
+                f"verification {evidence_kind} has the wrong subject"
+            )
+        if (
+            claim.subject.version is not None
+            and evidence_target.version != claim.subject.version
+        ):
+            raise InvariantViolation(
+                f"verification {evidence_kind} has the wrong version"
+            )
+        if evidence_time_ms > verification_time_ms:
+            raise InvariantViolation(
+                f"verification predates its {evidence_kind} evidence"
+            )
 
     def _transition(
         self,

@@ -12,6 +12,10 @@ from anc_semantic_core.transport import ToolRejected, ToolTransportError
 from anc_semantic_core.model import CapabilityRef, CompletionSemantics, EffectMode
 from anc_semantic_core.ordivon import (
     OrdivonExecution,
+    OrdivonFileMutation,
+    OrdivonMutationMode,
+    OrdivonRead,
+    OrdivonReadMode,
     OrdivonSemanticAdapter,
     semantic_state_from_status,
 )
@@ -36,15 +40,20 @@ class ScriptedClient:
         return response
 
 
-def prepared_exec(kernel: ReferenceKernel, name: str) -> Any:
+def prepared_operation(
+    kernel: ReferenceKernel,
+    name: str,
+    operation: str,
+    mode: EffectMode,
+) -> Any:
     base = sample_effect(name)
     spec = replace(
         base,
-        mode=EffectMode.CHANGE,
-        operation="workspace.exec",
+        mode=mode,
+        operation=operation,
         capability=CapabilityRef(
             base.capability.principal_id,
-            "workspace.exec",
+            operation,
             base.target.object_id,
         ),
         completion=CompletionSemantics.VERIFIED,
@@ -63,6 +72,10 @@ def prepared_exec(kernel: ReferenceKernel, name: str) -> Any:
     return spec
 
 
+def prepared_exec(kernel: ReferenceKernel, name: str) -> Any:
+    return prepared_operation(kernel, name, "workspace.exec", EffectMode.CHANGE)
+
+
 class OrdivonAdapterTests(unittest.TestCase):
     def test_public_status_projection_preserves_uncertainty(self) -> None:
         self.assertIs(semantic_state_from_status("queued"), EffectState.DISPATCHED)
@@ -73,6 +86,184 @@ class OrdivonAdapterTests(unittest.TestCase):
         self.assertIs(semantic_state_from_status("cancelled"), EffectState.CANCELLED)
         self.assertIs(semantic_state_from_status("lost"), EffectState.UNKNOWN)
         self.assertIs(semantic_state_from_status("orphaned"), EffectState.UNKNOWN)
+
+    def test_workspace_read_projects_versioned_observation(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_operation(
+            kernel,
+            "ordivon-read",
+            "workspace.read",
+            EffectMode.OBSERVE,
+        )
+        client = ScriptedClient()
+        client.add(
+            "workspace.read",
+            {
+                "content": "hello\n",
+                "digest": "sha256:file-digest",
+                "eof": True,
+                "fileByteLength": 6,
+            },
+        )
+        adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(5, 100)).__next__,
+        )
+        result = adapter.read_file(
+            spec.effect_id,
+            OrdivonRead(
+                "workspace-test",
+                "README.md",
+                mode=OrdivonReadMode.SLICE,
+                max_bytes=1024,
+            ),
+        )
+        self.assertIs(result.state, EffectState.SUCCEEDED)
+        self.assertEqual(result.observation.target.version, "sha256:file-digest")
+        self.assertEqual(client.calls[0][0], "workspace.read")
+        self.assertEqual(client.calls[0][1]["relativePath"], "README.md")
+        kernel.validate_invariants()
+
+    def test_identical_reads_keep_distinct_causal_observation_identity(self) -> None:
+        kernel = ReferenceKernel()
+        first = prepared_operation(
+            kernel,
+            "ordivon-read-first",
+            "workspace.read",
+            EffectMode.OBSERVE,
+        )
+        second_base = sample_effect("ordivon-read-second")
+        second = replace(
+            second_base,
+            target=first.target,
+            mode=EffectMode.OBSERVE,
+            operation="workspace.read",
+            capability=CapabilityRef(
+                second_base.capability.principal_id,
+                "workspace.read",
+                first.target.object_id,
+            ),
+            completion=CompletionSemantics.VERIFIED,
+        )
+        kernel.admit_effect(
+            second,
+            event_id=sid(IdKind.EVENT, "event:ordivon-read-second:admit"),
+            recorded_at_ms=1,
+        )
+        kernel.prepare_effect(
+            second.effect_id,
+            expected_revision=0,
+            event_id=sid(IdKind.EVENT, "event:ordivon-read-second:prepare"),
+            recorded_at_ms=2,
+        )
+        payload = {
+            "content": "same\n",
+            "digest": "sha256:same",
+        }
+        client = ScriptedClient()
+        client.add("workspace.read", dict(payload))
+        client.add("workspace.read", dict(payload))
+        adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(5, 100)).__next__,
+        )
+        first_result = adapter.read_file(
+            first.effect_id,
+            OrdivonRead("workspace-test", "same.txt"),
+        )
+        second_result = adapter.read_file(
+            second.effect_id,
+            OrdivonRead("workspace-test", "same.txt"),
+        )
+        self.assertEqual(
+            first_result.observation.payload_digest,
+            second_result.observation.payload_digest,
+        )
+        self.assertNotEqual(
+            first_result.observation.observation_id,
+            second_result.observation.observation_id,
+        )
+        kernel.validate_invariants()
+
+    def test_workspace_mutation_projects_after_digest(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_operation(
+            kernel,
+            "ordivon-mutate",
+            "workspace.mutate",
+            EffectMode.CHANGE,
+        )
+        client = ScriptedClient()
+        client.add(
+            "workspace.mutate",
+            {
+                "mutations": [
+                    {
+                        "relativePath": "result.txt",
+                        "afterDigest": "sha256:after",
+                        "byteLength": 6,
+                    }
+                ]
+            },
+        )
+        adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(5, 100)).__next__,
+        )
+        result = adapter.mutate_file(
+            spec.effect_id,
+            OrdivonFileMutation(
+                "workspace-test",
+                "result.txt",
+                OrdivonMutationMode.REPLACE_EXACT,
+                content="after",
+                expected_digest="sha256:before",
+                expected_text="before",
+            ),
+        )
+        self.assertIs(result.state, EffectState.SUCCEEDED)
+        self.assertEqual(result.observation.target.version, "sha256:after")
+        mutation = client.calls[0][1]["mutations"][0]
+        self.assertEqual(mutation["expectedDigest"], "sha256:before")
+        self.assertEqual(mutation["expectedText"], "before")
+        kernel.validate_invariants()
+
+    def test_workspace_mutation_response_loss_is_unknown_and_not_repeated(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_operation(
+            kernel,
+            "ordivon-mutate-loss",
+            "workspace.mutate",
+            EffectMode.CHANGE,
+        )
+        client = ScriptedClient()
+        client.add(
+            "workspace.mutate",
+            ToolTransportError("response lost after delivery"),
+        )
+        adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(5, 100)).__next__,
+        )
+        mutation = OrdivonFileMutation(
+            "workspace-test",
+            "result.txt",
+            OrdivonMutationMode.WRITE,
+            content="value\n",
+        )
+        result = adapter.mutate_file(spec.effect_id, mutation)
+        self.assertIs(result.state, EffectState.UNKNOWN)
+        with self.assertRaises(InvalidTransition):
+            adapter.mutate_file(spec.effect_id, mutation)
+        self.assertEqual(
+            [name for name, _ in client.calls].count("workspace.mutate"),
+            1,
+        )
+        kernel.validate_invariants()
 
     def test_successful_job_projects_observation_and_artifacts(self) -> None:
         kernel = ReferenceKernel()

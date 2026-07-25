@@ -118,7 +118,7 @@ def _successful_verified_effect(kernel: SemanticKernel) -> None:
     assert record.state is EffectState.SUCCEEDED
     claim = Claim(
         claim_id=sid(IdKind.CLAIM, "claim:success"),
-        effect_id=spec.effect_id,
+        origin_effect_id=spec.effect_id,
         subject=spec.target,
         predicate="content_digest_equals",
         value_digest="sha256:payload",

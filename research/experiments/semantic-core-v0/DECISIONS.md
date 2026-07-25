@@ -22,9 +22,9 @@ No response, lost process ownership, stale local state, or disconnected Host is 
 
 Model text, successful transport, process exit, and Artifact existence are not Facts. A Fact is admitted only when an explicit Claim receives an accepted Verification.
 
-## D6 — Bind Claims to Effects
+## D6 — Separate Claim origin from evidence origin
 
-A Verification cannot borrow convenient evidence from unrelated work. Each Claim identifies an owning Effect; accepted evidence must originate from that Effect and satisfy its VerificationPlan.
+A Claim records the Effect that proposed it, but independent verification often requires a different Effect. Cross-Effect evidence is allowed only when its world-object identity and version match the Claim subject, its timestamp does not follow Verification, and it satisfies the originating Effect's VerificationPlan.
 
 ## D7 — Keep retries out of v0
 

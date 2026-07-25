@@ -2,7 +2,7 @@
 
 ## Current status
 
-The adapter has passed its first live asynchronous execution slice through Ordivon's public MCP contract. It is still an experiment rather than a production adapter.
+The adapter has passed live asynchronous execution, versioned read, and atomic mutation slices through Ordivon's public MCP contract. It is still an experiment rather than a production adapter.
 
 Proven live:
 
@@ -18,7 +18,7 @@ Effect preparation
 → Claim → Verification → Fact
 ```
 
-Not yet proven live: versioned read, atomic mutation, response-loss injection, cancellation races, adapter restart, and Tool-schema drift.
+Not yet proven live: response-loss injection, cancellation races, adapter restart, and Tool-schema drift.
 
 ## Boundary
 

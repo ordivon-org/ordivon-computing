@@ -3,36 +3,35 @@
 ## Completed
 
 - M0 semantic reference kernel implemented.
-- 17 unit and conformance tests pass on Python 3.12.13 and 3.14.6.
-- Dispatch is represented independently from Effect.
-- VerificationPlan and evidence ownership are enforced.
-- Scripted Ordivon adapter covers success, rejection, response loss, reconciliation, Artifact projection, uncertainty, and normal running observation.
+- 24 unit and conformance tests pass on Python 3.12.13 and 3.14.6.
+- Effect, Dispatch, Observation content identity, and causal observation identity are distinct.
+- VerificationPlan, subject/version scope, and evidence-time ordering are enforced.
+- Independent read Effects can verify mutation Claims without permitting unrelated evidence.
 - Live Ordivon asynchronous execution passed through the public `/mcp` endpoint.
-- Live evidence was admitted through `Claim → Verification → Fact`.
+- Live versioned read and atomic mutation passed with digest preconditions.
+- Two mutation Claims were independently re-read and admitted as Facts.
+- A stale-digest mutation failed and left final content and digest unchanged.
 
-## Live result
+## Current live coverage
 
 ```text
-Effect initial state: running
-Effect terminal state: succeeded
-Correlated Ordivon Jobs: 1
-Semantic Artifacts: 3
-Duplicate Dispatch: blocked
-stdout markers: independently read and verified
-Fact admission: committed
-Temporary Workspace: closed
+workspace.open
+workspace.read
+workspace.mutate
+workspace.exec
+task.observe
+task.list
+artifact.read
+workspace.close
 ```
 
 ## Current claim boundary
 
-The experiment now proves reference semantics plus one real asynchronous Ordivon execution path. It does not yet prove general backend conformance, persistent semantic durability, injected transport-loss recovery, Tool ABI stability, or production readiness.
+The experiment proves the semantic reference model and the four required operation classes against one real Ordivon backend. It does not yet prove failure recovery under deliberately lost responses, cancellation races, semantic state persistence across restart, Tool-contract evolution, or production readiness.
 
 ## Next executable work
 
-Continue M1 with:
-
-1. versioned Workspace read;
-2. atomic Workspace mutation and independent verification;
-3. deliberate response loss after durable admission;
-4. cancellation racing with natural completion;
-5. adapter restart followed by Job correlation and observation.
+1. deliberately lose the `workspace.exec` response after durable admission and reconcile by identity;
+2. race cancellation against natural completion;
+3. restart the adapter and recover bindings from public Job state;
+4. reproduce pending and running Tool-contract drift.

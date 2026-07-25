@@ -14,7 +14,7 @@ Delivered:
 - explicit unknown-outcome algebra;
 - independent Dispatch identity;
 - causal events and optimistic revisions;
-- evidence ownership and VerificationPlan enforcement;
+- evidence scope, temporal ordering, and VerificationPlan enforcement;
 - invariant scanner;
 - reusable conformance scenarios.
 
@@ -22,31 +22,27 @@ Exit gate: passed on Python 3.12.13 and 3.14.6.
 
 ## M1 — Ordivon semantic adapter
 
-**Status:** active; first live vertical slice passed.
+**Status:** active; four-operation live vertical slice passed.
 
 Passed live:
 
 ```text
-workspace.open
-→ semantic workspace.exec Effect
-→ running Observation
-→ task.observe
-→ succeeded terminal evidence
-→ three semantic Artifacts
-→ artifact.read verification
-→ Fact admission
-→ duplicate Dispatch rejection
-→ workspace.close
+versioned workspace.read
+atomic workspace.mutate with digest preconditions
+asynchronous workspace.exec and task.observe
+Artifact projection and artifact.read
+independent read Effect → Verification → Fact
+stale-digest rejection without state corruption
+duplicate Dispatch rejection
+Workspace cleanup
 ```
 
-Remaining operations and failure cases:
+Remaining failure cases:
 
-1. versioned Workspace read;
-2. atomic Workspace mutation;
-3. response loss after durable admission;
-4. cancellation and natural completion race;
-5. adapter restart and identity re-correlation;
-6. Tool-contract drift while pending and running.
+1. response loss after durable admission;
+2. cancellation and natural completion race;
+3. adapter restart and identity re-correlation;
+4. Tool-contract drift while pending and running.
 
 M1 exit gate:
 

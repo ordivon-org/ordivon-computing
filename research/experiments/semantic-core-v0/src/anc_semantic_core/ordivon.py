@@ -4,12 +4,13 @@ import hashlib
 import json
 import time
 from dataclasses import dataclass, field
+from enum import StrEnum
 from typing import Any, Callable, Protocol
 
 from .identity import IdKind, SemanticId
 from .kernel import InvalidTransition, SemanticKernel
 from .transport import ToolCallError, ToolProtocolError, ToolRejected
-from .model import Admission, Artifact, Observation
+from .model import Admission, Artifact, Observation, WorldObjectRef
 from .state import EffectState
 
 
@@ -62,6 +63,82 @@ class OrdivonExecution:
             "waitMs": wait_ms,
             "stdoutTailBytes": stdout_tail_bytes,
             "stderrTailBytes": stderr_tail_bytes,
+        }
+
+
+class OrdivonReadMode(StrEnum):
+    FULL = "FULL"
+    SLICE = "SLICE"
+
+
+class OrdivonMutationMode(StrEnum):
+    WRITE = "WRITE"
+    APPEND = "APPEND"
+    REPLACE_EXACT = "REPLACE_EXACT"
+
+
+@dataclass(frozen=True, slots=True)
+class OrdivonRead:
+    workspace_id: str
+    relative_path: str
+    mode: OrdivonReadMode = OrdivonReadMode.FULL
+    max_bytes: int = 1024 * 1024
+    offset: int = 0
+
+    def __post_init__(self) -> None:
+        if not self.workspace_id:
+            raise ValueError("workspace identity must not be empty")
+        if not self.relative_path or self.relative_path.startswith("/"):
+            raise ValueError("read path must be relative")
+        if self.max_bytes <= 0 or self.offset < 0:
+            raise ValueError("read bounds are invalid")
+        if self.mode is OrdivonReadMode.FULL and self.offset != 0:
+            raise ValueError("FULL read requires offset zero")
+
+    def as_tool_arguments(self) -> dict[str, Any]:
+        return {
+            "schemaVersion": 1,
+            "workspaceId": self.workspace_id,
+            "relativePath": self.relative_path,
+            "mode": self.mode.value,
+            "offset": self.offset,
+            "maxBytes": self.max_bytes,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class OrdivonFileMutation:
+    workspace_id: str
+    relative_path: str
+    mode: OrdivonMutationMode
+    content: str = ""
+    expected_digest: str | None = None
+    expected_text: str | None = None
+
+    def __post_init__(self) -> None:
+        if not self.workspace_id:
+            raise ValueError("workspace identity must not be empty")
+        if not self.relative_path or self.relative_path.startswith("/"):
+            raise ValueError("mutation path must be relative")
+        if self.mode is OrdivonMutationMode.REPLACE_EXACT and self.expected_text is None:
+            raise ValueError("REPLACE_EXACT requires expected_text")
+        if self.mode is not OrdivonMutationMode.REPLACE_EXACT and self.expected_text is not None:
+            raise ValueError("expected_text is only valid for REPLACE_EXACT")
+
+    def as_tool_arguments(self) -> dict[str, Any]:
+        mutation: dict[str, Any] = {
+            "relativePath": self.relative_path,
+            "mode": self.mode.value,
+            "content": self.content,
+        }
+        if self.expected_digest is not None:
+            mutation["expectedDigest"] = self.expected_digest
+        if self.expected_text is not None:
+            mutation["expectedText"] = self.expected_text
+        return {
+            "schemaVersion": 1,
+            "workspaceId": self.workspace_id,
+            "mutations": [mutation],
         }
 
 
@@ -129,6 +206,72 @@ class OrdivonSemanticAdapter:
         self._clock_ms = clock_ms or (lambda: time.time_ns() // 1_000_000)
         self._pending: dict[SemanticId, _PendingDispatch] = {}
         self._bindings: dict[SemanticId, OrdivonBinding] = {}
+
+    def read_file(
+        self,
+        effect_id: SemanticId,
+        request: OrdivonRead,
+    ) -> AdapterProjection:
+        record = self._kernel.get_effect(effect_id)
+        if record.spec.operation != "workspace.read":
+            raise ValueError("Ordivon read adapter requires operation workspace.read")
+        if record.state is not EffectState.PREPARED:
+            raise InvalidTransition("only a prepared Effect may read through Ordivon")
+        arguments = request.as_tool_arguments()
+        request_digest = _digest(arguments)
+        self._kernel.begin_dispatch(
+            effect_id,
+            expected_revision=record.revision,
+            dispatch_id=_dispatch_id(effect_id, "workspace.read"),
+            event_id=self._event_id(effect_id, "dispatch-read"),
+            recorded_at_ms=self._clock_ms(),
+            request_digest=request_digest,
+        )
+        try:
+            payload = self._client.call_tool("workspace.read", arguments)
+            return self._apply_read_payload(effect_id, payload)
+        except ToolRejected as error:
+            return self._mark_rejected(effect_id, error)
+        except ToolCallError as error:
+            return self._mark_unknown(effect_id, error)
+        except (KeyError, TypeError, ValueError) as error:
+            return self._mark_unknown(
+                effect_id,
+                ToolProtocolError(f"invalid workspace.read payload: {error}"),
+            )
+
+    def mutate_file(
+        self,
+        effect_id: SemanticId,
+        mutation: OrdivonFileMutation,
+    ) -> AdapterProjection:
+        record = self._kernel.get_effect(effect_id)
+        if record.spec.operation != "workspace.mutate":
+            raise ValueError("Ordivon mutation adapter requires operation workspace.mutate")
+        if record.state is not EffectState.PREPARED:
+            raise InvalidTransition("only a prepared Effect may mutate through Ordivon")
+        arguments = mutation.as_tool_arguments()
+        request_digest = _digest(arguments)
+        self._kernel.begin_dispatch(
+            effect_id,
+            expected_revision=record.revision,
+            dispatch_id=_dispatch_id(effect_id, "workspace.mutate"),
+            event_id=self._event_id(effect_id, "dispatch-mutate"),
+            recorded_at_ms=self._clock_ms(),
+            request_digest=request_digest,
+        )
+        try:
+            payload = self._client.call_tool("workspace.mutate", arguments)
+            return self._apply_mutation_payload(effect_id, mutation, payload)
+        except ToolRejected as error:
+            return self._mark_rejected(effect_id, error)
+        except ToolCallError as error:
+            return self._mark_unknown(effect_id, error)
+        except (KeyError, TypeError, ValueError) as error:
+            return self._mark_unknown(
+                effect_id,
+                ToolProtocolError(f"invalid workspace.mutate payload: {error}"),
+            )
 
     def dispatch_exec(
         self,
@@ -230,6 +373,100 @@ class OrdivonSemanticAdapter:
             )
         except ToolCallError as error:
             return self._mark_unknown(effect_id, error)
+
+    def _apply_read_payload(
+        self,
+        effect_id: SemanticId,
+        payload: dict[str, Any],
+    ) -> AdapterProjection:
+        content = payload.get("content")
+        digest = payload.get("digest")
+        if not isinstance(content, str) or not isinstance(digest, str) or not digest:
+            raise ValueError("workspace.read result requires content and digest")
+        payload_digest = _digest(payload)
+        record = self._kernel.get_effect(effect_id)
+        if record.dispatch_id is None:
+            raise ValueError("workspace.read Effect has no Dispatch identity")
+        observation = Observation(
+            observation_id=_observation_id(
+                effect_id,
+                record.dispatch_id,
+                "workspace.read",
+                payload_digest,
+            ),
+            effect_id=effect_id,
+            dispatch_id=record.dispatch_id,
+            target=WorldObjectRef(record.spec.target.object_id, version=digest),
+            observed_at_ms=self._clock_ms(),
+            source="ordivon:mcp/workspace.read",
+            payload_digest=payload_digest,
+        )
+        return self._complete_synchronous(effect_id, observation, payload)
+
+    def _apply_mutation_payload(
+        self,
+        effect_id: SemanticId,
+        mutation: OrdivonFileMutation,
+        payload: dict[str, Any],
+    ) -> AdapterProjection:
+        results = payload.get("mutations")
+        if not isinstance(results, list) or len(results) != 1:
+            raise ValueError("workspace.mutate result requires exactly one mutation")
+        result = results[0]
+        if not isinstance(result, dict):
+            raise ValueError("workspace.mutate result entry must be an object")
+        if result.get("relativePath") != mutation.relative_path:
+            raise ValueError("workspace.mutate result path does not match request")
+        digest = result.get("afterDigest")
+        byte_length = result.get("byteLength")
+        if not isinstance(digest, str) or not digest:
+            raise ValueError("workspace.mutate result has no afterDigest")
+        if not isinstance(byte_length, int) or byte_length < 0:
+            raise ValueError("workspace.mutate result has invalid byteLength")
+        payload_digest = _digest(payload)
+        record = self._kernel.get_effect(effect_id)
+        if record.dispatch_id is None:
+            raise ValueError("workspace.mutate Effect has no Dispatch identity")
+        observation = Observation(
+            observation_id=_observation_id(
+                effect_id,
+                record.dispatch_id,
+                "workspace.mutate",
+                payload_digest,
+            ),
+            effect_id=effect_id,
+            dispatch_id=record.dispatch_id,
+            target=WorldObjectRef(record.spec.target.object_id, version=digest),
+            observed_at_ms=self._clock_ms(),
+            source="ordivon:mcp/workspace.mutate",
+            payload_digest=payload_digest,
+        )
+        return self._complete_synchronous(effect_id, observation, payload)
+
+    def _complete_synchronous(
+        self,
+        effect_id: SemanticId,
+        observation: Observation,
+        payload: dict[str, Any],
+    ) -> AdapterProjection:
+        self._kernel.record_observation(observation)
+        current = self._kernel.get_effect(effect_id)
+        current = self._kernel.advance_effect(
+            effect_id,
+            EffectState.SUCCEEDED,
+            expected_revision=current.revision,
+            event_id=self._event_id(effect_id, "observe-succeeded"),
+            recorded_at_ms=self._clock_ms(),
+            evidence_digest=observation.payload_digest,
+        )
+        self._kernel.validate_invariants()
+        return AdapterProjection(
+            state=current.state,
+            binding=None,
+            observation=observation,
+            artifacts=(),
+            payload=dict(payload),
+        )
 
     def _observe_binding(
         self,
@@ -420,9 +657,11 @@ class OrdivonSemanticAdapter:
         projected = semantic_state_from_status(status)
         payload_digest = _digest(payload)
         observation = Observation(
-            observation_id=SemanticId(
-                IdKind.OBSERVATION,
-                f"ordivon:{binding.job_id}:{payload_digest.removeprefix('sha256:')[:24]}",
+            observation_id=_observation_id(
+                effect_id,
+                binding.dispatch_id,
+                source,
+                payload_digest,
             ),
             effect_id=effect_id,
             dispatch_id=binding.dispatch_id,
@@ -527,6 +766,25 @@ class OrdivonSemanticAdapter:
         revision = self._kernel.get_effect(effect_id).revision + 1
         digest = hashlib.sha256(str(effect_id).encode("utf-8")).hexdigest()[:16]
         return SemanticId(IdKind.EVENT, f"ordivon:{digest}:{revision}:{label}")
+
+
+def _observation_id(
+    effect_id: SemanticId,
+    dispatch_id: SemanticId,
+    source: str,
+    payload_digest: str,
+) -> SemanticId:
+    digest = hashlib.sha256(
+        f"{effect_id}|{dispatch_id}|{source}|{payload_digest}".encode("utf-8")
+    ).hexdigest()[:32]
+    return SemanticId(IdKind.OBSERVATION, f"ordivon:{digest}")
+
+
+def _dispatch_id(effect_id: SemanticId, operation: str) -> SemanticId:
+    digest = hashlib.sha256(
+        f"{effect_id}|{operation}".encode("utf-8")
+    ).hexdigest()[:32]
+    return SemanticId(IdKind.DISPATCH, f"ordivon:{operation}:{digest}")
 
 
 def _client_request_id(effect_id: SemanticId) -> str:
