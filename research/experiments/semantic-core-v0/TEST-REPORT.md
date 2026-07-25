@@ -1,18 +1,24 @@
 # Test Report
 
+## Selected runtime
+
+```text
+Python 3.12.13
+```
+
+
 ## Reference commands
 
 ```bash
-PYTHONPATH=src python -m unittest discover -s tests -v
-PYTHONPATH=src python -m compileall -q src tests scripts
+PYTHONPATH=src python3.12 -m unittest discover -s tests -v
+PYTHONPATH=src python3.12 -m compileall -q src tests scripts
 ```
 
 ## Reference result
 
 ```text
-Python 3.12.13: 31 tests passed
-Python 3.14.6:  31 tests passed
-Bytecode compilation passed on both runtimes
+Python 3.12.13: 35 tests passed
+Bytecode compilation passed
 git diff --check passed
 ```
 
@@ -23,7 +29,8 @@ git diff --check passed
 - non-regressing causal event time;
 - unknown outcome and reconciliation without blind redispatch;
 - retryable pre-admission rejection returns the Effect to prepared with a new future Dispatch;
-- non-retryable rejection terminates the Effect; admitted/unknown Dispatches cannot be rewritten as rejected;
+- non-retryable rejection terminates the Effect;
+- admitted/unknown Dispatches cannot be rewritten as rejected;
 - immutable terminal outcomes;
 - Observation/Artifact binding to Dispatch;
 - equal content across distinct Dispatches retains distinct Observation identity;
@@ -31,40 +38,52 @@ git diff --check passed
 - different-subject, wrong-version, or future evidence is rejected;
 - required evidence kinds and verification methods are enforced;
 - rejected or missing Verification cannot create Fact;
-- normal Ordivon running observation and scripted response-loss reconciliation;
-- synchronous read and mutation payload projection;
-- mutation response loss becomes unknown and is not repeated.
+- versioned read, atomic mutation, receipt identity, and world-drift detection;
+- real response loss becomes UNKNOWN and reconciles to the original Job;
+- adapter-instance restart reconstructs pending identity from Effect and Dispatch records;
+- `workspace.exec` is delivered exactly once during response-loss recovery;
+- cancellation applied to a running Job reaches CANCELLED;
+- natural completion may win the cancellation race and remain SUCCEEDED;
+- a running observation does not erase CANCEL_REQUESTED intent.
 
 ## Live Ordivon results
 
-### Asynchronous execution
+### Response loss and adapter-instance restart
 
 ```text
-initial state: running
+initial state: unknown
 terminal state: succeeded
+workspace.exec deliveries: 1
 correlated Jobs: 1
+original Dispatch preserved: true
+adapter instance restarted: true
 semantic Artifacts: 3
-duplicate Dispatch blocked: true
-stdout markers independently verified: true
-Fact committed: true
 ```
 
-### Versioned read and atomic mutation
+### Cancellation race
 
 ```text
-before digest: sha256:8bf8ee1400851e9b01f687cac287cf26681d3b7ca49a345ce0efd1123d1573dd
-after digest:  sha256:ae422cadc74a5b2f5c4eff147494edb0b68e0f83275c0d4874da986f060e2fb4
-independent reread Fact: committed
-stale mutation state: failed
-stale mutation code: INVALID_REQUEST
+long-running Job: cancelled
+short Job after delayed cancellation: succeeded
+workspace.exec deliveries: 2
+task.cancel calls: 2
+invariant scan: passed
 ```
 
-The sanitized receipts are recorded in [`LIVE-REPORT.md`](LIVE-REPORT.md).
+### Previously completed paths
+
+```text
+asynchronous execution: succeeded with one correlated Job
+versioned read and atomic mutation: passed
+independent digest Fact: committed
+stale mutation: failed without changing final state
+```
+
+The sanitized receipts are recorded in [`LIVE-REPORT.md`](LIVE-REPORT.md) and [`FAILURE-REPORT.md`](FAILURE-REPORT.md).
 
 ## Not yet proven
 
-- deliberately injected live response loss;
-- cancellation races against a real process;
-- adapter or semantic-journal restart continuity;
-- real Tool-schema drift;
-- persistent journal reconstruction.
+- full semantic kernel/process restart continuity;
+- persistent journal reconstruction;
+- real pending/running Tool-schema drift;
+- complete backend conformance.
