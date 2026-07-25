@@ -72,10 +72,10 @@ A feature does not enter the Kernel because another Agent platform calls it an o
 
 The public Effect IR is deferred until the Kernel responsibility boundary, hard guarantees, failure model, and current proof gaps are explicit. Freezing serialization before authority and trust boundaries would convert a prototype API weakness into an ABI obligation.
 
-## D18 — Treat current Facts as Kernel-accepted propositions
+## D18 — Define Fact through positive admission semantics
 
-`Fact` is retained as the current model name, but its precise meaning is a Claim accepted under a recorded Verification method and evidence set. It is not a guarantee of objective truth, independent trust domains, signed evidence, or Byzantine resistance.
+A `Fact` is a Claim admitted through a recorded accepted Verification bound to the required evidence plan. The Kernel preserves the complete Claim, evidence, method, decision, and acceptance history.
 
-## D19 — Keep K9 authority separation visibly open
+## D19 — Build role-scoped authority before external IR
 
-The current Python `SemanticKernel` surface exposes proposal, Dispatch, evidence, Verification, and Fact mutation through one object. This is acceptable for a reference reducer but not for a trusted reference monitor. Conformance therefore carries an intentional skipped K9 gate until distinct authenticated authority surfaces and bypass tests exist.
+M2.5 introduces distinct proposal, Dispatch, Observation, Verification, and Fact authority surfaces before the public Effect IR is frozen. This keeps authority semantics inside the design rather than retrofitting them after serialization.

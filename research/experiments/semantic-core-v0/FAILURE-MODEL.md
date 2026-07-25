@@ -83,25 +83,17 @@ Every failure must resolve to one of these classes:
 
 No exception name, timeout, missing response, or model judgment may bypass this classification.
 
-## 5. Trust model
+## 5. Evidence authority path
 
-Current trusted components for consistency testing:
+M2.5 extends the current consistency model with role-scoped authority and attestation:
 
-- the Python reference reducer;
-- SQLite's local transaction and WAL contract;
-- the Ordivon Adapter's status mapping;
-- the Ordivon public Tool responses used by live tests.
+- Effect proposals carry an authenticated proposer;
+- Dispatch admission carries an execution authority;
+- Observations carry issuer, trust domain, attestation kind, and contract version;
+- Verifications carry evaluator authority and policy version;
+- Fact admission records the accepting authority and complete evidence path.
 
-Current untrusted or insufficiently authenticated inputs:
-
-- arbitrary callers holding a Kernel object;
-- caller-created Observation and Verification objects;
-- unsigned Adapter evidence;
-- fully writable SQLite administrators;
-- external services outside Ordivon's observed contract;
-- model interpretations and natural-language approvals.
-
-This is why K9 remains open and why current Facts are Kernel-accepted propositions rather than globally trusted truth.
+These additions preserve the same Effect, Dispatch, evidence, and Journal primitives while strengthening provenance.
 
 ## 6. Exit criterion
 
