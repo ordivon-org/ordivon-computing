@@ -2,84 +2,53 @@
 
 ## Governing rule
 
-Each layer must solve a failure that cannot be expressed below it. No Host, scheduler, memory platform, Tool catalog, or multi-Agent coordinator is authorized before the semantic core survives real backends.
+Each layer must solve a failure that cannot be expressed below it. Mature classical mechanisms are inherited where they already solve the problem; Agent-native work is limited to missing semantic responsibility.
 
 ## M0 — Semantic constitution
 
-**Status:** complete.
+**Status:** v0 complete.
 
-Delivered:
-
-- WorldObjectRef, EffectSpec, DispatchRecord, Observation, Artifact, Claim, Verification, and Fact;
-- explicit unknown-outcome algebra;
-- independent Dispatch identity and admission/rejection lifecycle;
-- causal events and optimistic revisions;
-- evidence scope, temporal ordering, and VerificationPlan enforcement;
-- invariant scanner;
-- reusable conformance scenarios.
-
-Exit gate: two independent implementations were integrated; 35 tests pass on the selected Python 3.12.13 runtime.
+Delivered identity, Effect, Dispatch, causal events, uncertainty, evidence, Verification, Fact, optimistic revisions, and reusable conformance scenarios.
 
 ## M1 — Ordivon semantic adapter
 
-**Status:** complete for the defined v0 scope.
+**Status:** v0 complete.
 
-Passed live:
+Delivered real versioned I/O, mutation guards, asynchronous execution, Observation/Artifact projection, response-loss recovery, cancellation races, and stable Job correlation through public Tool contracts.
 
-```text
-versioned workspace.read
-atomic workspace.mutate with digest preconditions
-asynchronous workspace.exec and task.observe
-Artifact projection and artifact.read
-independent read Effect → Verification → Fact
-stale-digest rejection without state corruption
-duplicate Dispatch rejection
-response loss after durable admission
-adapter-instance restart and identity re-correlation
-cancellation applied to a running Job
-natural completion winning a cancellation race
-Workspace cleanup
-```
+## M1.5 — Kernel atomicity closure
 
-M1 v0 exit gate:
+**Status:** complete.
 
-- all four required operation classes run through semantic scenarios;
-- response loss reconciles without redispatch;
-- one stable request identity correlates to exactly one Job;
-- `Lost` and `Orphaned` remain unknown;
-- repeated delivery does not duplicate completed work;
-- cancellation intent remains distinct from terminal cancellation;
-- public Tool contracts are sufficient without private Runtime inspection.
+Exit gates passed:
 
-Tool-contract drift is deferred to a focused contract-binding slice rather than expanding M1 indefinitely.
+- a failed command leaves every projection unchanged;
+- multi-command semantic batches are all-or-nothing;
+- Adapter result projection is transactional;
+- malformed backend payloads cannot leave partial binding or evidence;
+- Dispatch state must have corresponding causal Events.
 
 ## M2 — Durable semantic journal
 
-**Status:** next.
+**Status:** v0 complete.
 
-Replace in-memory dictionaries with an append-only store while preserving the same protocol:
+Delivered SQLite WAL/FULL persistence, an append-only command journal, an internal schema-v1 allowlisted codec, chained entry digests, durable head metadata, deterministic reconstruction, process restart, pending-Job correlation, and stale-writer rejection through journal-head CAS.
 
-```text
-effects
-dispatches
-effect_events
-observations
-artifacts
-claims
-verifications
-facts
-```
+Exit gates passed:
 
-Exit gate:
-
-- full process restart preserves identity and event order;
-- projections can be rebuilt from the journal;
+- process restart preserves identity and event order;
+- Effect, Dispatch, Observation, Artifact, Claim, Verification, and Fact projections rebuild;
 - pending Job correlation survives process restart;
-- corruption is reported rather than normalized away.
+- corrupt or incomplete journals fail closed;
+- real Ordivon recovery does not redispatch.
+
+Deferred production work: snapshots, compaction, replication, online schema migration, encryption policy, and performance tuning.
 
 ## M3 — Effect IR codec
 
-Add canonical serialization only after the reference model, durable journal, and live backend agree.
+**Status:** next.
+
+Define an external canonical representation only after M0–M2 agreement.
 
 Required properties:
 
@@ -87,21 +56,24 @@ Required properties:
 - stable semantic digest;
 - explicit schema revision;
 - unknown fields fail closed until compatibility is classified;
-- Tool-specific request bodies remain below adapters.
+- Tool-specific request bodies remain below adapters;
+- internal journal storage encoding remains replaceable.
 
 ## M4 — Tool contract binding
 
-Introduce the normalized contract needed by real operations and test drift while Effects are pending and running.
+Normalize the minimum contract required by real operations and test schema drift while Effects are pending and running.
 
 ## M5 — Task runtime
 
-Only then introduce Goal, Task, Attempt, dependencies, readiness, and completion evidence. Task completion must derive from verified Facts, Artifacts, and Effect outcomes, never model declaration.
+Introduce Goal, Task, Attempt, dependencies, readiness, and completion evidence only after Effect IR and Tool contracts stabilize. Task completion must derive from verified Facts, Artifacts, and Effect outcomes.
 
 ## Deferred
 
 - Task Capsule and context compiler;
 - provider-neutral Agent Host;
+- memory platform;
 - multi-Agent branch/join;
 - organization interface;
 - evaluation and post-training flywheel;
-- Agent VM or hardware work.
+- Agent VM or hardware work;
+- full classical/Agent hybrid product architecture.

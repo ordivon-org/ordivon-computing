@@ -59,7 +59,7 @@ Supported conclusions:
 
 Boundary:
 
-The ReferenceKernel remained in memory. This proves adapter-instance restart, not full process or kernel restart.
+That earlier run kept ReferenceKernel in memory and proved only adapter-instance restart. M2 later added and separately proved full local Python-process reconstruction through `JournalKernel`; see `JOURNAL.md` and `LIVE-REPORT.md`.
 
 ## B. Cancellation race
 
@@ -120,7 +120,7 @@ Supported conclusions:
 
 Not proven in this slice:
 
-- full process restart with journal reconstruction;
+- replicated or multi-host journal recovery;
 - server restart while a Job is running;
 - Tool-schema drift while pending or running;
 - network partitions longer than Job retention;

@@ -573,6 +573,51 @@ class OrdivonAdapterTests(unittest.TestCase):
         self.assertIs(result.state, EffectState.UNKNOWN)
         kernel.validate_invariants()
 
+    def test_malformed_result_rolls_back_projection_and_becomes_unknown(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_exec(kernel, "ordivon-malformed-atomic")
+        client = ScriptedClient()
+        client.add(
+            "workspace.exec",
+            {
+                "jobId": "job-malformed",
+                "attemptId": "attempt-malformed",
+                "workspaceId": "workspace-test",
+                "status": "succeeded",
+                "exitCode": 0,
+                "artifacts": [
+                    {
+                        "artifactId": "broken",
+                        "kind": "stdout",
+                        "digest": "sha256:broken",
+                        "retainedBytes": -1,
+                    }
+                ],
+            },
+        )
+        adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(900, 980)).__next__,
+        )
+        result = adapter.dispatch_exec(
+            spec.effect_id,
+            OrdivonExecution("workspace-test", "/usr/bin/true"),
+        )
+        self.assertIs(result.state, EffectState.UNKNOWN)
+        self.assertEqual(result.error_code, "ToolProtocolError")
+        self.assertIsNone(adapter.binding_for(spec.effect_id))
+        dispatch_id = kernel.get_effect(spec.effect_id).dispatch_id
+        self.assertIsNotNone(dispatch_id)
+        self.assertIs(kernel.get_dispatch(dispatch_id).state, DispatchState.UNKNOWN)
+        self.assertFalse(
+            any(
+                event.kind.value == "dispatch_admitted"
+                for event in kernel.events_for(spec.effect_id)
+            )
+        )
+        kernel.validate_invariants()
+
 
 if __name__ == "__main__":
     unittest.main()

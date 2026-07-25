@@ -1,68 +1,73 @@
 # Semantic Core v0
 
-An executable reference model for the first Agent-native semantic layer:
+An executable Agent-native semantic layer built on mature classical runtime and storage mechanisms:
 
 ```text
 Reality and Evidence
 → Identity and Causality
 → Outcome Algebra
 → Effect Semantics
+→ Atomic Semantic Transactions
+→ Durable Journal and Replay
 ```
 
-The reference kernel uses only the Python standard library at runtime. It is intentionally independent of Linux process state, model providers, conversation history, and concrete Tool transports. Ordivon integration lives in a separate adapter and does not define the core semantics.
+The semantic model is independent of model providers, conversation history, and concrete Tool transports. The reference implementation uses Python 3.12.13 and standard-library SQLite. Ordivon integration remains in adapters and does not define the core semantics.
 
 ## Run
 
-Reference tests:
-
 ```bash
 PYTHONPATH=src python3.12 -m unittest discover -s tests -v
+PYTHONPATH=src python3.12 -m compileall -q src tests scripts
+ruff check src tests scripts
 ```
 
-Live local Ordivon slice:
+Live durable recovery:
 
 ```bash
 set -a
 source /etc/ordivon/ordivon-mcp.env
 set +a
-PYTHONPATH=src python scripts/live_ordivon_exec.py \
-  --source-revision <exact-commit>
+PYTHONPATH=src python3.12 scripts/live_ordivon_journal_restart.py   --source-revision <exact-commit>
 ```
 
-The live script never prints the Bearer token and always attempts to close its temporary Workspace.
+Live scripts never print the Bearer token and close temporary Workspaces.
 
 ## Implemented semantic objects
 
 - typed `SemanticId` identities;
 - versioned `WorldObjectRef` targets;
 - immutable `EffectSpec` intent;
-- independent `DispatchRecord` boundary attempts with STARTED / ADMITTED / UNKNOWN / REJECTED state;
+- independent `DispatchRecord` attempts with STARTED / ADMITTED / UNKNOWN / REJECTED state;
 - ordered `EffectEvent` causality;
 - immutable `Observation` and `Artifact` evidence;
 - `Claim → Verification → Fact` admission;
-- optimistic revisions and invariant scanning.
+- optimistic revisions and invariant scanning;
+- single-command and multi-command semantic atomicity;
+- append-only `JournalKernel` persistence and deterministic replay.
 
 ## Critical rules
 
 - an Effect is not a Tool call;
 - beginning a Dispatch does not prove backend admission or completion;
-- evidence may be recorded only after Dispatch admission; retryable rejection remains distinct from uncertain delivery;
-- response loss becomes `unknown`, never implicit failure;
-- `unknown` must reconcile and cannot blindly redispatch;
+- response loss becomes `UNKNOWN`, never implicit failure;
+- `UNKNOWN` reconciles and cannot blindly redispatch;
+- Adapter projection is all-or-nothing;
 - terminal outcomes are immutable;
 - accepted Verification must satisfy the Effect's declared evidence plan;
-- independent evidence may cross Effects only when it targets the same WorldObject and version and predates Verification;
-- a Fact cannot predate or bypass its accepted Verification.
+- independent evidence may cross Effects only for the same WorldObject/version and valid time order;
+- a Fact cannot predate or bypass accepted Verification;
+- journal corruption and stale writers fail closed.
 
 ## Current maturity
 
-- **runtime:** Python 3.12.13 is the single reference and acceptance version;
-- **M0 semantic reference kernel:** integrated from two independent implementations and covered by 35 unit and conformance tests;
-- **M1 Ordivon adapter:** asynchronous execution, versioned read, atomic mutation, Artifact projection, and Fact admission passed through the public MCP contract;
-- **live proof:** command execution remained single-dispatch; mutation results were independently re-read by separate Effects; two file Facts were admitted; stale-digest mutation was rejected without changing final content;
-- **M1 failure semantics:** injected response loss, adapter-instance restart correlation, and cancellation races passed live;
-- **remaining work:** durable journal/process restart continuity and focused Tool-contract drift tests;
-- **durability:** semantic journal remains in-memory;
-- **wire format:** intentionally deferred until more backend semantics agree.
+- **M0:** semantic constitution v0 complete;
+- **M1:** Ordivon Adapter and failure semantics v0 complete;
+- **M1.5:** Kernel atomicity closure complete;
+- **M2:** local durable semantic journal v0 complete;
+- **verification:** 53 tests, bytecode compilation, ruff, and real process-restart recovery pass;
+- **next:** M3 external Effect IR;
+- **not claimed:** replication, distributed consensus, compaction, public schema compatibility, or production readiness.
 
-See [`SPEC.md`](SPEC.md), [`LIVE-REPORT.md`](LIVE-REPORT.md), [`DECISIONS.md`](DECISIONS.md), and [`ROADMAP.md`](ROADMAP.md).
+The internal journal codec is intentionally not the public Effect IR.
+
+See [`SPEC.md`](SPEC.md), [`JOURNAL.md`](JOURNAL.md), [`DECISIONS.md`](DECISIONS.md), [`TEST-REPORT.md`](TEST-REPORT.md), and [`ROADMAP.md`](ROADMAP.md).

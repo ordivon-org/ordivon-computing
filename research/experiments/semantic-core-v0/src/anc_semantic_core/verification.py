@@ -55,35 +55,36 @@ def verify_digest_fact(
         predicate="content_digest_equals",
         value_digest=expected_digest,
     )
-    kernel.admit_claim(claim)
-    decision = (
-        VerificationDecision.ACCEPTED
-        if observation.target.version == expected_digest
-        else VerificationDecision.REJECTED
-    )
-    verification = Verification(
-        verification_id=SemanticId(IdKind.VERIFICATION, f"digest:{token}"),
-        claim_id=claim.claim_id,
-        method=origin.spec.verification.method,
-        evidence=(
-            EvidenceRef(
-                kind=EvidenceKind.OBSERVATION,
-                evidence_id=observation.observation_id,
-            ),
-        ),
-        decision=decision,
-        verified_at_ms=verified_at_ms,
-    )
-    kernel.record_verification(verification)
-    fact: Fact | None = None
-    if decision is VerificationDecision.ACCEPTED:
-        accepted = verified_at_ms if accepted_at_ms is None else accepted_at_ms
-        fact = Fact(
-            fact_id=SemanticId(IdKind.FACT, f"digest:{token}"),
-            claim_id=claim.claim_id,
-            verification_id=verification.verification_id,
-            accepted_at_ms=accepted,
+    with kernel.transaction():
+        kernel.admit_claim(claim)
+        decision = (
+            VerificationDecision.ACCEPTED
+            if observation.target.version == expected_digest
+            else VerificationDecision.REJECTED
         )
-        kernel.commit_fact(fact)
-    kernel.validate_invariants()
+        verification = Verification(
+            verification_id=SemanticId(IdKind.VERIFICATION, f"digest:{token}"),
+            claim_id=claim.claim_id,
+            method=origin.spec.verification.method,
+            evidence=(
+                EvidenceRef(
+                    kind=EvidenceKind.OBSERVATION,
+                    evidence_id=observation.observation_id,
+                ),
+            ),
+            decision=decision,
+            verified_at_ms=verified_at_ms,
+        )
+        kernel.record_verification(verification)
+        fact: Fact | None = None
+        if decision is VerificationDecision.ACCEPTED:
+            accepted = verified_at_ms if accepted_at_ms is None else accepted_at_ms
+            fact = Fact(
+                fact_id=SemanticId(IdKind.FACT, f"digest:{token}"),
+                claim_id=claim.claim_id,
+                verification_id=verification.verification_id,
+                accepted_at_ms=accepted,
+            )
+            kernel.commit_fact(fact)
+        kernel.validate_invariants()
     return DigestFactResult(claim=claim, verification=verification, fact=fact)

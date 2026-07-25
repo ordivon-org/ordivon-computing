@@ -41,3 +41,24 @@ The semantic core defines Tool-call uncertainty classes but does not implement M
 ## D10 — Keep Goal and Task above the kernel
 
 Goal, Task, scheduling, memory, and model calls consume Effect and evidence state. They do not define the lower semantics.
+
+
+## D11 — Inherit classical durability mechanisms
+
+Semantic Core does not implement a filesystem, WAL, locking protocol, or crash-safe database. M2 uses standard-library SQLite with WAL and `synchronous=FULL`. The Agent-native layer defines semantic commands, replay, identity, and corruption policy above those classical mechanisms.
+
+## D12 — Make semantic commands and projections transactional
+
+A Kernel command must be all-or-nothing. Related commands may be grouped through `SemanticKernel.transaction()`. Dispatch start remains committed before an external Tool call; result admission, evidence projection, and terminal state are committed as a separate atomic batch.
+
+## D13 — Persist commands, rebuild projections
+
+The durable source is an append-only command journal. Effects, Dispatches, Events, evidence, Claims, Verifications, and Facts are deterministic projections rebuilt by replaying the same reference semantics. Mutable snapshot tables are not the source of truth in v0.
+
+## D14 — Keep the journal codec internal
+
+M2 requires a storage encoding, but that encoding is not the public Effect IR. It is schema-versioned, allowlisted, and replaceable. M3 will define external normalization and compatibility only after durable replay has validated the semantics.
+
+## D15 — Reject stale local writers rather than invent distributed consensus
+
+SQLite orders local commits. `JournalKernel` additionally compares the replayed journal head during each write. A stale process receives `JournalConflict` and must reopen. Replication, consensus, and multi-host availability remain outside M2.

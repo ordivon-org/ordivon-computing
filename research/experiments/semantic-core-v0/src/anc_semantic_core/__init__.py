@@ -1,5 +1,14 @@
 from .conformance import run_core_conformance
 from .identity import IdKind, SemanticId
+from .journal import (
+    JOURNAL_SCHEMA_VERSION,
+    JournalConflict,
+    JournalCorruption,
+    JournalError,
+    JournalKernel,
+    JournalSchemaError,
+    SQLiteSemanticJournal,
+)
 from .kernel import (
     IdentityConflict,
     InvalidTransition,
@@ -58,6 +67,12 @@ from .verification import DigestFactResult, verify_digest_fact
 __all__ = [
     "AdapterProjection",
     "Admission",
+    "JOURNAL_SCHEMA_VERSION",
+    "JournalConflict",
+    "JournalCorruption",
+    "JournalError",
+    "JournalKernel",
+    "JournalSchemaError",
     "Artifact",
     "CapabilityRef",
     "Claim",
@@ -97,6 +112,7 @@ __all__ = [
     "SemanticError",
     "SemanticId",
     "SemanticKernel",
+    "SQLiteSemanticJournal",
     "ToolCallError",
     "ToolProtocolError",
     "ToolRejected",

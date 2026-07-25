@@ -1,89 +1,75 @@
 # Test Report
 
-## Selected runtime
+## Runtime
 
 ```text
 Python 3.12.13
 ```
 
-
-## Reference commands
+## Commands
 
 ```bash
 PYTHONPATH=src python3.12 -m unittest discover -s tests -v
 PYTHONPATH=src python3.12 -m compileall -q src tests scripts
+ruff check src tests scripts
 ```
 
-## Reference result
+## Result
 
 ```text
-Python 3.12.13: 35 tests passed
-Bytecode compilation passed
+53 tests passed
+bytecode compilation passed
+ruff passed
 git diff --check passed
 ```
 
-## Covered semantic behaviours
+## M1.5 atomicity coverage
 
-- idempotent Effect admission and identity conflicts;
-- independent Dispatch identity, optimistic revisions, and STARTED / ADMITTED / UNKNOWN / REJECTED lifecycle;
-- non-regressing causal event time;
-- unknown outcome and reconciliation without blind redispatch;
-- retryable pre-admission rejection returns the Effect to prepared with a new future Dispatch;
-- non-retryable rejection terminates the Effect;
-- admitted/unknown Dispatches cannot be rewritten as rejected;
-- immutable terminal outcomes;
-- Observation/Artifact binding to Dispatch;
-- equal content across distinct Dispatches retains distinct Observation identity;
-- independent same-subject evidence may verify a Claim;
-- different-subject, wrong-version, or future evidence is rejected;
-- required evidence kinds and verification methods are enforced;
-- rejected or missing Verification cannot create Fact;
-- versioned read, atomic mutation, receipt identity, and world-drift detection;
-- real response loss becomes UNKNOWN and reconciles to the original Job;
-- adapter-instance restart reconstructs pending identity from Effect and Dispatch records;
-- `workspace.exec` is delivered exactly once during response-loss recovery;
-- cancellation applied to a running Job reaches CANCELLED;
-- natural completion may win the cancellation race and remain SUCCEEDED;
-- a running observation does not erase CANCEL_REQUESTED intent.
+- Dispatch admission event conflict restores all projections;
+- UNKNOWN time regression restores Effect and Dispatch;
+- rejection event conflict restores Effect and Dispatch;
+- an outer semantic transaction rolls back earlier successful commands;
+- failed durable batches append zero journal rows;
+- malformed Ordivon payloads leave no partial Job binding or admission Event and become UNKNOWN.
 
-## Live Ordivon results
+## M2 journal coverage
 
-### Response loss and adapter-instance restart
+- reusable core conformance runs through JournalKernel;
+- Effect and Event order survive reopen;
+- every semantic projection rebuilds after reopen;
+- separate Python processes write and reload the same journal;
+- pending Job correlation survives Kernel reopen;
+- normal successful Adapter projection commits transactionally through JournalKernel;
+- transaction queries read staged state;
+- idempotent no-op admission does not duplicate journal entries;
+- hash-chain mutation, tail truncation, and missing durable-head metadata are detected;
+- stale concurrent writers are rejected without publishing candidate state.
+
+## Existing semantic and Adapter coverage
+
+- Effect identity and revision conflicts;
+- Dispatch STARTED / ADMITTED / UNKNOWN / REJECTED lifecycle;
+- terminal immutability and event-time ordering;
+- Observation and Artifact provenance;
+- cross-Effect evidence scope and version checks;
+- Claim → Verification → Fact admission;
+- versioned read, atomic mutation, stale preconditions, and world drift;
+- response loss, cancellation races, lost/orphaned uncertainty, and duplicate-dispatch prevention.
+
+## Live Ordivon process-restart result
+
+Implementation source revision: `efc5b2bd33f7c94ab28859a8872869e71aa42fd8`
 
 ```text
 initial state: unknown
 terminal state: succeeded
+kernel process restarted: true
 workspace.exec deliveries: 1
 correlated Jobs: 1
-original Dispatch preserved: true
-adapter instance restarted: true
+Dispatch identity preserved: true
 semantic Artifacts: 3
+journal entries before restart: 4
+journal entries after recovery: 11
 ```
 
-### Cancellation race
-
-```text
-long-running Job: cancelled
-short Job after delayed cancellation: succeeded
-workspace.exec deliveries: 2
-task.cancel calls: 2
-invariant scan: passed
-```
-
-### Previously completed paths
-
-```text
-asynchronous execution: succeeded with one correlated Job
-versioned read and atomic mutation: passed
-independent digest Fact: committed
-stale mutation: failed without changing final state
-```
-
-The sanitized receipts are recorded in [`LIVE-REPORT.md`](LIVE-REPORT.md) and [`FAILURE-REPORT.md`](FAILURE-REPORT.md).
-
-## Not yet proven
-
-- full semantic kernel/process restart continuity;
-- persistent journal reconstruction;
-- real pending/running Tool-schema drift;
-- complete backend conformance.
+The detailed design and limits are recorded in [`JOURNAL.md`](JOURNAL.md).
