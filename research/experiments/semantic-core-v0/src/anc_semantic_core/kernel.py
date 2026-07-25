@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from contextlib import contextmanager
 from dataclasses import replace
-from typing import Protocol
+from functools import wraps
+from typing import Any, Callable, Iterator, Protocol, TypeVar
 
 from .identity import IdKind, SemanticId
 from .model import (
@@ -46,6 +48,28 @@ class InvalidTransition(SemanticError):
 
 class InvariantViolation(SemanticError):
     pass
+
+
+_Result = TypeVar("_Result")
+
+
+def _atomic_mutation(
+    method: Callable[..., _Result],
+) -> Callable[..., _Result]:
+    """Make one in-memory semantic command all-or-nothing."""
+
+    @wraps(method)
+    def wrapped(self: "ReferenceKernel", *args: Any, **kwargs: Any) -> _Result:
+        before = self._snapshot()
+        try:
+            result = method(self, *args, **kwargs)
+            self.validate_invariants()
+            return result
+        except BaseException:
+            self._restore(before)
+            raise
+
+    return wrapped
 
 
 class SemanticKernel(Protocol):
@@ -124,6 +148,18 @@ class SemanticKernel(Protocol):
 
     def get_dispatch(self, dispatch_id: SemanticId) -> DispatchRecord: ...
 
+    def events_for(self, effect_id: SemanticId) -> tuple[EffectEvent, ...]: ...
+
+    def get_observation(self, observation_id: SemanticId) -> Observation: ...
+
+    def get_artifact(self, artifact_id: SemanticId) -> Artifact: ...
+
+    def get_claim(self, claim_id: SemanticId) -> Claim: ...
+
+    def get_verification(self, verification_id: SemanticId) -> Verification: ...
+
+    def get_fact(self, fact_id: SemanticId) -> Fact: ...
+
     def record_observation(self, observation: Observation) -> Admission: ...
 
     def register_artifact(self, artifact: Artifact) -> Admission: ...
@@ -135,6 +171,8 @@ class SemanticKernel(Protocol):
     def commit_fact(self, fact: Fact) -> Admission: ...
 
     def validate_invariants(self) -> None: ...
+
+    def transaction(self) -> Any: ...
 
 
 _STATE_EVENT: dict[EffectState, EventKind] = {
@@ -173,6 +211,52 @@ class ReferenceKernel:
         self._verifications: dict[SemanticId, Verification] = {}
         self._facts: dict[SemanticId, Fact] = {}
 
+    def _snapshot(self) -> tuple[dict[Any, Any], ...]:
+        return (
+            dict(self._effects),
+            dict(self._dispatches),
+            dict(self._events),
+            {key: list(value) for key, value in self._events_by_effect.items()},
+            dict(self._observations),
+            dict(self._artifacts),
+            dict(self._claims),
+            dict(self._verifications),
+            dict(self._facts),
+        )
+
+    def _restore(self, snapshot: tuple[dict[Any, Any], ...]) -> None:
+        (
+            self._effects,
+            self._dispatches,
+            self._events,
+            self._events_by_effect,
+            self._observations,
+            self._artifacts,
+            self._claims,
+            self._verifications,
+            self._facts,
+        ) = snapshot
+
+    def clone(self) -> "ReferenceKernel":
+        cloned = ReferenceKernel()
+        cloned._restore(self._snapshot())
+        return cloned
+
+    def state_snapshot(self) -> tuple[dict[Any, Any], ...]:
+        """Return a detached equality-comparable state snapshot for tests and stores."""
+        return self._snapshot()
+
+    @contextmanager
+    def transaction(self) -> Iterator["ReferenceKernel"]:
+        before = self._snapshot()
+        try:
+            yield self
+            self.validate_invariants()
+        except BaseException:
+            self._restore(before)
+            raise
+
+    @_atomic_mutation
     def admit_effect(
         self, spec: EffectSpec, *, event_id: SemanticId, recorded_at_ms: int
     ) -> Admission:
@@ -197,6 +281,7 @@ class ReferenceKernel:
         self._events_by_effect[spec.effect_id] = [event]
         return Admission.CREATED
 
+    @_atomic_mutation
     def prepare_effect(
         self,
         effect_id: SemanticId,
@@ -214,6 +299,7 @@ class ReferenceKernel:
             evidence_digest=None,
         )
 
+    @_atomic_mutation
     def begin_dispatch(
         self,
         effect_id: SemanticId,
@@ -250,6 +336,7 @@ class ReferenceKernel:
         self._dispatches[dispatch_id] = dispatch
         return record
 
+    @_atomic_mutation
     def admit_dispatch(
         self,
         effect_id: SemanticId,
@@ -289,6 +376,7 @@ class ReferenceKernel:
             dispatch_id=dispatch_id,
         )
 
+    @_atomic_mutation
     def mark_dispatch_unknown(
         self,
         effect_id: SemanticId,
@@ -324,6 +412,7 @@ class ReferenceKernel:
             evidence_digest=evidence_digest,
         )
 
+    @_atomic_mutation
     def reject_dispatch(
         self,
         effect_id: SemanticId,
@@ -368,6 +457,7 @@ class ReferenceKernel:
             previous_record=record,
         )
 
+    @_atomic_mutation
     def advance_effect(
         self,
         effect_id: SemanticId,
@@ -425,6 +515,42 @@ class ReferenceKernel:
         self.get_effect(effect_id)
         return tuple(self._events_by_effect[effect_id])
 
+    def get_observation(self, observation_id: SemanticId) -> Observation:
+        observation_id.require(IdKind.OBSERVATION)
+        record = self._observations.get(observation_id)
+        if record is None:
+            raise NotFound(f"observation not found: {observation_id}")
+        return record
+
+    def get_artifact(self, artifact_id: SemanticId) -> Artifact:
+        artifact_id.require(IdKind.ARTIFACT)
+        record = self._artifacts.get(artifact_id)
+        if record is None:
+            raise NotFound(f"artifact not found: {artifact_id}")
+        return record
+
+    def get_claim(self, claim_id: SemanticId) -> Claim:
+        claim_id.require(IdKind.CLAIM)
+        record = self._claims.get(claim_id)
+        if record is None:
+            raise NotFound(f"claim not found: {claim_id}")
+        return record
+
+    def get_verification(self, verification_id: SemanticId) -> Verification:
+        verification_id.require(IdKind.VERIFICATION)
+        record = self._verifications.get(verification_id)
+        if record is None:
+            raise NotFound(f"verification not found: {verification_id}")
+        return record
+
+    def get_fact(self, fact_id: SemanticId) -> Fact:
+        fact_id.require(IdKind.FACT)
+        record = self._facts.get(fact_id)
+        if record is None:
+            raise NotFound(f"fact not found: {fact_id}")
+        return record
+
+    @_atomic_mutation
     def record_observation(self, observation: Observation) -> Admission:
         existing = self._observations.get(observation.observation_id)
         if existing is not None:
@@ -442,6 +568,7 @@ class ReferenceKernel:
         self._observations[observation.observation_id] = observation
         return Admission.CREATED
 
+    @_atomic_mutation
     def register_artifact(self, artifact: Artifact) -> Admission:
         existing = self._artifacts.get(artifact.artifact_id)
         if existing is not None:
@@ -455,6 +582,7 @@ class ReferenceKernel:
         self._artifacts[artifact.artifact_id] = artifact
         return Admission.CREATED
 
+    @_atomic_mutation
     def admit_claim(self, claim: Claim) -> Admission:
         existing = self._claims.get(claim.claim_id)
         if existing is not None:
@@ -467,6 +595,7 @@ class ReferenceKernel:
         self._claims[claim.claim_id] = claim
         return Admission.CREATED
 
+    @_atomic_mutation
     def record_verification(self, verification: Verification) -> Admission:
         existing = self._verifications.get(verification.verification_id)
         if existing is not None:
@@ -479,6 +608,7 @@ class ReferenceKernel:
         self._verifications[verification.verification_id] = verification
         return Admission.CREATED
 
+    @_atomic_mutation
     def commit_fact(self, fact: Fact) -> Admission:
         existing = self._facts.get(fact.fact_id)
         if existing is not None:
@@ -551,6 +681,36 @@ class ReferenceKernel:
                     raise InvariantViolation("uncertain Effect has incompatible Dispatch state")
         for dispatch_id, dispatch in self._dispatches.items():
             effect = self.get_effect(dispatch.effect_id)
+            dispatch_events = [
+                event
+                for event in self._events_by_effect[dispatch.effect_id]
+                if event.dispatch_id == dispatch_id
+            ]
+            started_events = [
+                event for event in dispatch_events if event.kind is EventKind.DISPATCH_STARTED
+            ]
+            if len(started_events) != 1:
+                raise InvariantViolation(
+                    f"Dispatch must have exactly one start event: {dispatch_id}"
+                )
+            if dispatch.state is DispatchState.ADMITTED and not any(
+                event.kind is EventKind.DISPATCH_ADMITTED for event in dispatch_events
+            ):
+                raise InvariantViolation(
+                    f"admitted Dispatch lacks admission event: {dispatch_id}"
+                )
+            if dispatch.state is DispatchState.UNKNOWN and not any(
+                event.kind is EventKind.OUTCOME_UNKNOWN for event in dispatch_events
+            ):
+                raise InvariantViolation(
+                    f"unknown Dispatch lacks outcome event: {dispatch_id}"
+                )
+            if dispatch.state is DispatchState.REJECTED and not any(
+                event.kind is EventKind.DISPATCH_REJECTED for event in dispatch_events
+            ):
+                raise InvariantViolation(
+                    f"rejected Dispatch lacks rejection event: {dispatch_id}"
+                )
             if dispatch.state is DispatchState.REJECTED:
                 if effect.dispatch_id == dispatch_id:
                     raise InvariantViolation(f"rejected Dispatch remains current: {dispatch_id}")

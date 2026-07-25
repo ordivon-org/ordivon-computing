@@ -1,49 +1,65 @@
 # Status
 
-## Completed
-
-- Python 3.12.13 is the single reference and acceptance runtime.
-- M0 semantic reference kernel implemented.
-- 35 unit and conformance tests pass on Python 3.12.13.
-- Effect, Dispatch, backend admission, Observation content identity, and causal observation identity are distinct.
-- VerificationPlan, subject/version scope, and evidence-time ordering are enforced.
-- Independent read Effects can verify mutation Claims without permitting unrelated evidence.
-- Live asynchronous execution, versioned read, atomic mutation, Artifact projection, and digest Fact admission passed through the public Ordivon MCP contract.
-- Retryable and non-retryable pre-admission rejections preserve distinct semantics.
-- Deliberately lost `workspace.exec` responses recover by stable identity without redispatch.
-- A new adapter instance can reconstruct the pending binding from persistent Effect and Dispatch records and recover the same Job.
-- Live cancellation reaches `cancelled` when applied; natural completion may legitimately win the race and remain `succeeded`.
-- Two concurrent Semantic Core implementations and the dedicated I/O subsystem were semantically integrated rather than overwritten.
-
-## Current live coverage
+## Selected runtime
 
 ```text
-workspace.open
-workspace.read
-workspace.mutate
-workspace.exec
-task.observe
-task.list
-task.cancel
-artifact.read
-workspace.close
+Python 3.12.13
+```
+
+## Completed
+
+### M0 — Semantic constitution v0
+
+- typed identity for WorldObject, Effect, Dispatch, Event, Observation, Artifact, Claim, Verification, and Fact;
+- Effect/Dispatch separation and explicit admission state;
+- `UNKNOWN → RECONCILING` without blind redispatch;
+- causal event ordering, optimistic revisions, evidence scope, and Fact admission;
+- independent cross-Effect verification.
+
+### M1 — Ordivon adapter and failure semantics v0
+
+- versioned read and atomic mutation;
+- asynchronous execution and observation;
+- Artifact projection and digest Fact admission;
+- response-loss recovery without duplicate execution;
+- cancellation races;
+- adapter-instance identity recovery.
+
+### M1.5 — Kernel atomicity closure
+
+- every mutating ReferenceKernel command is all-or-nothing;
+- multi-command semantic transactions are supported;
+- Adapter result projection and Claim/Verification/Fact admission use transactions;
+- malformed result payloads roll back partial projection and become `UNKNOWN`;
+- Dispatch/Event correspondence invariants were strengthened.
+
+### M2 — Durable semantic journal v0
+
+- append-only SQLite command journal using WAL and `synchronous=FULL`;
+- internal schema-v1 allowlisted codec;
+- hash-chained entries and durable head marker;
+- corruption, tail truncation, and missing-head detection;
+- semantic replay of all projections;
+- separate-process reconstruction;
+- journal-head compare-and-swap for stale writer rejection;
+- pending Ordivon Job correlation after Kernel process restart;
+- live process-restart recovery with exactly one `workspace.exec` delivery.
+
+## Verification
+
+```text
+53 tests passed
+Python bytecode compilation passed
+ruff passed
+real Ordivon process-restart recovery passed
 ```
 
 ## Current claim boundary
 
-The experiment proves the semantic reference model, the four required operation classes, response-loss recovery, adapter-instance restart correlation, and cancellation races against one real Ordivon backend.
+The current implementation is a durable local Agent Semantic Kernel reference implementation. It proves atomic semantic commands, append-only persistence, deterministic replay, local multi-process writer conflict detection, and real Ordivon recovery across a Python process restart.
 
-It does **not** yet prove:
-
-- persistence across a full kernel/process restart;
-- durable journal reconstruction;
-- pending or running Tool-contract drift;
-- complete Ordivon conformance;
-- production readiness or Goal-level correctness.
+It does not prove distributed consensus, replicated journals, long-journal snapshot/compaction performance, public Effect IR compatibility, pending/running Tool-contract drift, complete Ordivon conformance, or production Goal-level correctness.
 
 ## Next executable work
 
-1. build the durable semantic journal;
-2. reconstruct kernel projections after process restart;
-3. test pending/running Tool-contract drift;
-4. only then consider Effect IR serialization and Task runtime work.
+M3 is next: define the canonical Effect IR codec only after the in-memory semantics and durable journal agree. The internal journal codec is not that public IR.

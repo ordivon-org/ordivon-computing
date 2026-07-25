@@ -141,7 +141,6 @@ This run confirms that the integrated Dispatch admission model, adapter, public 
 ## Not supported by this report alone
 
 - complete Ordivon conformance;
-- semantic state across full process restart;
 - Tool-contract rebinding;
 - production readiness or Goal-level correctness.
 
@@ -157,4 +156,49 @@ stale guard: failed / INVALID_REQUEST
 Workspace cleanup: completed
 ```
 
-The integrated suite contains 35 tests on Python 3.12.13.
+The integrated suite contains 53 tests on Python 3.12.13.
+
+
+# E. Durable Kernel process restart
+
+M2 inherited SQLite WAL and transaction mechanics and added an append-only semantic command journal, hash chain, durable head, replay, and journal-head compare-and-swap.
+
+Executed path:
+
+```text
+workspace.open
+→ JournalKernel admits and prepares Effect
+→ durable Dispatch start
+→ real workspace.exec delivery
+→ successful response deliberately discarded
+→ durable UNKNOWN
+→ first Python process exits
+→ second Python process reopens journal
+→ replay Effect / Dispatch / Events
+→ task.list correlation by stable clientRequestId
+→ task.observe original Job
+→ transactional admission + Observation + three Artifacts + SUCCEEDED
+→ second process exits
+→ third open independently replays terminal projection
+→ workspace.close
+```
+
+Latest sanitized receipt:
+
+```json
+{
+  "beforeRestartJournalEntries": 4,
+  "correlatedJobCount": 1,
+  "dispatchIdPreserved": true,
+  "finalJournalEntries": 11,
+  "initialState": "unknown",
+  "journalPathRemovedAfterTest": true,
+  "kernelProcessRestarted": true,
+  "responseDroppedAfterSuccessfulDelivery": true,
+  "semanticArtifactCount": 3,
+  "terminalState": "succeeded",
+  "workspaceExecDeliveries": 1
+}
+```
+
+This proves local process restart and semantic reconstruction through one durable SQLite journal. It does not prove replication, distributed consensus, remote failover, compaction, or public Effect IR compatibility.

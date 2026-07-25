@@ -4,7 +4,7 @@ Experiments connect open Agent-Native Computing questions to executable artifact
 
 ## Active experiments
 
-- [`semantic-core-v0/`](semantic-core-v0/) — executable reference semantics for Effect identity, Dispatch, evidence, unknown outcomes, Verification, and Fact admission; includes a scripted Ordivon adapter prototype.
+- [`semantic-core-v0/`](semantic-core-v0/) — executable and locally durable reference semantics for Effect identity, Dispatch, evidence, unknown outcomes, Verification, Fact admission, atomic semantic transactions, SQLite journal replay, and Ordivon process-restart recovery.
 
 ## Planned experiment families
 

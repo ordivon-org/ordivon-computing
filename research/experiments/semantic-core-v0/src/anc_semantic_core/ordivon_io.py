@@ -144,61 +144,85 @@ class OrdivonIoAdapter:
             f"ordivon-receipt:workspace.read:{dispatch_id.value}:"
             f"{payload_digest.removeprefix('sha256:')}"
         )
-        self._admit(effect_id, dispatch_id, receipt_id, payload_digest)
-        observation = Observation(
-            observation_id=_observation_id(dispatch_id, payload_digest),
+        return self._commit_read_projection(
             effect_id=effect_id,
             dispatch_id=dispatch_id,
-            target=WorldObjectRef(
-                ordivon_file_object_id(request.workspace_id, request.relative_path),
-                version=content_digest,
-            ),
-            observed_at_ms=self._clock_ms(),
-            source="ordivon:mcp/workspace.read",
+            request=request,
+            payload=payload,
+            content=content,
+            content_digest=content_digest,
             payload_digest=payload_digest,
+            receipt_id=receipt_id,
         )
-        self._kernel.record_observation(observation)
-        current = self._kernel.get_effect(effect_id)
-        expected_version = current.spec.target.version
-        if expected_version is not None and content_digest != expected_version:
+
+    def _commit_read_projection(
+        self,
+        *,
+        effect_id: SemanticId,
+        dispatch_id: SemanticId,
+        request: OrdivonRead,
+        payload: dict[str, Any],
+        content: str,
+        content_digest: str,
+        payload_digest: str,
+        receipt_id: str,
+    ) -> IoProjection:
+        with self._kernel.transaction():
+            self._admit(effect_id, dispatch_id, receipt_id, payload_digest)
+            observation = Observation(
+                observation_id=_observation_id(dispatch_id, payload_digest),
+                effect_id=effect_id,
+                dispatch_id=dispatch_id,
+                target=WorldObjectRef(
+                    ordivon_file_object_id(request.workspace_id, request.relative_path),
+                    version=content_digest,
+                ),
+                observed_at_ms=self._clock_ms(),
+                source="ordivon:mcp/workspace.read",
+                payload_digest=payload_digest,
+            )
+            self._kernel.record_observation(observation)
+            current = self._kernel.get_effect(effect_id)
+            expected_version = current.spec.target.version
+            if expected_version is not None and content_digest != expected_version:
+                current = self._kernel.advance_effect(
+                    effect_id,
+                    EffectState.FAILED,
+                    expected_revision=current.revision,
+                    event_id=self._event_id(effect_id, "version-mismatch"),
+                    recorded_at_ms=self._clock_ms(),
+                    evidence_digest=_digest(
+                        {
+                            "expectedDigest": expected_version,
+                            "observedDigest": content_digest,
+                        }
+                    ),
+                )
+                return IoProjection(
+                    state=current.state,
+                    dispatch_id=dispatch_id,
+                    observation=observation,
+                    payload=dict(payload),
+                    receipt_id=receipt_id,
+                    error_code="VERSION_MISMATCH",
+                    error_message="observed file digest does not match the requested version",
+                )
             current = self._kernel.advance_effect(
                 effect_id,
-                EffectState.FAILED,
+                EffectState.SUCCEEDED,
                 expected_revision=current.revision,
-                event_id=self._event_id(effect_id, "version-mismatch"),
+                event_id=self._event_id(effect_id, "read-succeeded"),
                 recorded_at_ms=self._clock_ms(),
-                evidence_digest=_digest(
-                    {
-                        "expectedDigest": expected_version,
-                        "observedDigest": content_digest,
-                    }
-                ),
+                evidence_digest=payload_digest,
             )
+            self._kernel.validate_invariants()
             return IoProjection(
                 state=current.state,
                 dispatch_id=dispatch_id,
                 observation=observation,
-                payload=dict(payload),
+                payload={"content": content, "digest": content_digest},
                 receipt_id=receipt_id,
-                error_code="VERSION_MISMATCH",
-                error_message="observed file digest does not match the requested version",
             )
-        current = self._kernel.advance_effect(
-            effect_id,
-            EffectState.SUCCEEDED,
-            expected_revision=current.revision,
-            event_id=self._event_id(effect_id, "read-succeeded"),
-            recorded_at_ms=self._clock_ms(),
-            evidence_digest=payload_digest,
-        )
-        self._kernel.validate_invariants()
-        return IoProjection(
-            state=current.state,
-            dispatch_id=dispatch_id,
-            observation=observation,
-            payload={"content": content, "digest": content_digest},
-            receipt_id=receipt_id,
-        )
 
     def dispatch_mutation(
         self,
@@ -232,37 +256,59 @@ class OrdivonIoAdapter:
             f"ordivon-receipt:workspace.mutate:{dispatch_id.value}:"
             f"{payload_digest.removeprefix('sha256:')}"
         )
-        self._admit(effect_id, dispatch_id, receipt_id, payload_digest)
-        observation = Observation(
-            observation_id=_observation_id(dispatch_id, payload_digest),
+        return self._commit_mutation_projection(
             effect_id=effect_id,
             dispatch_id=dispatch_id,
-            target=WorldObjectRef(
-                ordivon_file_object_id(request.workspace_id, request.relative_path),
-                version=after_digest,
-            ),
-            observed_at_ms=self._clock_ms(),
-            source="ordivon:mcp/workspace.mutate",
+            request=request,
+            payload=payload,
+            after_digest=after_digest,
             payload_digest=payload_digest,
-        )
-        self._kernel.record_observation(observation)
-        current = self._kernel.get_effect(effect_id)
-        current = self._kernel.advance_effect(
-            effect_id,
-            EffectState.SUCCEEDED,
-            expected_revision=current.revision,
-            event_id=self._event_id(effect_id, "mutation-accepted"),
-            recorded_at_ms=self._clock_ms(),
-            evidence_digest=payload_digest,
-        )
-        self._kernel.validate_invariants()
-        return IoProjection(
-            state=current.state,
-            dispatch_id=dispatch_id,
-            observation=observation,
-            payload=dict(payload),
             receipt_id=receipt_id,
         )
+
+    def _commit_mutation_projection(
+        self,
+        *,
+        effect_id: SemanticId,
+        dispatch_id: SemanticId,
+        request: OrdivonMutation,
+        payload: dict[str, Any],
+        after_digest: str,
+        payload_digest: str,
+        receipt_id: str,
+    ) -> IoProjection:
+        with self._kernel.transaction():
+            self._admit(effect_id, dispatch_id, receipt_id, payload_digest)
+            observation = Observation(
+                observation_id=_observation_id(dispatch_id, payload_digest),
+                effect_id=effect_id,
+                dispatch_id=dispatch_id,
+                target=WorldObjectRef(
+                    ordivon_file_object_id(request.workspace_id, request.relative_path),
+                    version=after_digest,
+                ),
+                observed_at_ms=self._clock_ms(),
+                source="ordivon:mcp/workspace.mutate",
+                payload_digest=payload_digest,
+            )
+            self._kernel.record_observation(observation)
+            current = self._kernel.get_effect(effect_id)
+            current = self._kernel.advance_effect(
+                effect_id,
+                EffectState.SUCCEEDED,
+                expected_revision=current.revision,
+                event_id=self._event_id(effect_id, "mutation-accepted"),
+                recorded_at_ms=self._clock_ms(),
+                evidence_digest=payload_digest,
+            )
+            self._kernel.validate_invariants()
+            return IoProjection(
+                state=current.state,
+                dispatch_id=dispatch_id,
+                observation=observation,
+                payload=dict(payload),
+                receipt_id=receipt_id,
+            )
 
     def _validate_effect(
         self,

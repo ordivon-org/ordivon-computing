@@ -19,7 +19,7 @@ Effect preparation
 → Claim → Verification → Fact
 ```
 
-Proven live: response-loss recovery without redispatch, adapter-instance restart correlation, cancellation applied to a running Job, and natural completion winning a cancellation race. Full process restart and Tool-schema drift remain open.
+Proven live: response-loss recovery without redispatch, adapter-instance and full local Kernel-process restart correlation, cancellation applied to a running Job, and natural completion winning a cancellation race. Tool-schema drift remains open.
 
 ## Boundary
 
@@ -117,4 +117,4 @@ A zero exit code remains backend evidence; it is not sufficient proof of higher-
 2. Artifact digest or identity mismatch against a live backend;
 3. Tool-schema change while an Effect is pending;
 4. Tool-schema change while a Job is running;
-5. invariant reconstruction after full process restart.
+5. replicated or remote journal recovery after host loss.

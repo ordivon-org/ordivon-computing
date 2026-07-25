@@ -9,7 +9,7 @@ from typing import Any, Callable, Protocol
 from .identity import IdKind, SemanticId
 from .kernel import InvalidTransition, SemanticKernel
 from .transport import ToolCallError, ToolProtocolError, ToolRejected
-from .model import Admission, Artifact, Observation
+from .model import Artifact, Observation
 from .state import EffectState
 
 
@@ -531,6 +531,32 @@ class OrdivonSemanticAdapter:
         return self._bind(effect_id, matches[0])
 
     def _apply_payload(
+        self,
+        effect_id: SemanticId,
+        payload: dict[str, Any],
+        *,
+        source: str,
+    ) -> AdapterProjection:
+        pending_before = dict(self._pending)
+        bindings_before = dict(self._bindings)
+        try:
+            with self._kernel.transaction():
+                return self._apply_payload_in_transaction(
+                    effect_id, payload, source=source
+                )
+        except (TypeError, ValueError) as error:
+            self._pending = pending_before
+            self._bindings = bindings_before
+            return self._mark_unknown(
+                effect_id,
+                ToolProtocolError(f"invalid Ordivon result payload: {error}"),
+            )
+        except BaseException:
+            self._pending = pending_before
+            self._bindings = bindings_before
+            raise
+
+    def _apply_payload_in_transaction(
         self,
         effect_id: SemanticId,
         payload: dict[str, Any],
