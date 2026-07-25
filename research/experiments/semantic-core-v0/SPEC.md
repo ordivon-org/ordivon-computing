@@ -4,6 +4,8 @@
 
 This experiment defines the minimum semantics required before an Agent Host, Task runtime, memory system, Tool ABI, or multi-Agent coordinator can be trustworthy.
 
+The normative responsibility boundary and hard guarantees are defined in [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md). Failure classes and trust assumptions are defined in [`FAILURE-MODEL.md`](FAILURE-MODEL.md). The current implementation must not claim guarantees beyond [`CHARTER-CONFORMANCE.md`](CHARTER-CONFORMANCE.md).
+
 The core answers seven questions:
 
 1. What external object is being observed or changed?
@@ -129,8 +131,10 @@ This mapping remains provisional until live adapter conformance is run.
 ## Non-goals for v0
 
 - Goal decomposition or Task scheduling;
+- LLM/resource scheduling, model routing, token budgeting, or provider selection;
 - model calls, prompts, context compilation, or memory retrieval;
-- general policy or authorization language;
+- process, filesystem, network, device, or sandbox implementation;
+- general policy or authorization language beyond the future minimal authority boundary;
 - generic retry or compensation;
 - provider-neutral Tool catalogs;
 - distributed consensus;

@@ -2,7 +2,7 @@
 
 ## Scope
 
-This report records the failure-continuity slice executed against the local Ordivon public MCP endpoint on July 26, 2026.
+The normative failure taxonomy and required response classes are defined in [`FAILURE-MODEL.md`](FAILURE-MODEL.md). This report records the failure-continuity slice executed against the local Ordivon public MCP endpoint on July 26, 2026.
 
 Selected runtime:
 
