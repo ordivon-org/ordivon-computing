@@ -34,6 +34,17 @@ EffectSpec
 → semantic state transition
 ```
 
+## Authority boundary
+
+The standard runtime supplies `views.execution` to both Ordivon Adapters. This View contains:
+
+```text
+DISPATCH     boundary attempts, backend admission, uncertainty, terminal state
+OBSERVATION  Observation and Artifact attestation
+```
+
+Effect proposal uses `views.effects`. Claim evaluation uses `views.verification`. Fact acceptance uses `views.facts`. Adapter projections return the official attested records read back from the Kernel after admission.
+
 ## Identity binding
 
 | Semantic identity | Initial Ordivon binding |
@@ -111,7 +122,7 @@ workspace.exec
 
 A zero exit code remains backend evidence; it is not sufficient proof of higher-level correctness. The live slice independently read stdout and verified expected markers before admitting Fact.
 
-## Remaining focused tests
+## Continuing conformance
 
 1. `Lost`/`Orphaned` live reconciliation;
 2. Artifact digest or identity mismatch against a live backend;

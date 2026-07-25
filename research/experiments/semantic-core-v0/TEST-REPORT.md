@@ -17,7 +17,7 @@ ruff check src tests scripts
 ## Result
 
 ```text
-62 tests passed
+75 tests passed
 bytecode compilation passed
 ruff passed
 git diff --check passed
@@ -37,6 +37,22 @@ git diff --check passed
 - a drift guard binds all eight Charter clauses to canonical test names.
 
 Detailed mapping: [`CHARTER-CONFORMANCE.md`](CHARTER-CONFORMANCE.md).
+
+## M2.5 Authority and Attestation coverage
+
+- scoped bootstrap exposes Effect, execution, Verification, Fact, and read-only Views;
+- `AuthorizedKernel` construction is rooted in `AuthorityRoot`;
+- role-specific signers cannot escalate into another role;
+- execution Views cannot attest Verification or Fact state;
+- forged Authority grants are rejected;
+- semantic content changes invalidate existing Attestations;
+- invariant scanning detects altered stored evidence;
+- caller-supplied evidence signatures are rejected;
+- Adapter projections return the official attested records;
+- Verification and Fact acceptance retain distinct Authority identities;
+- Attestation provenance survives Journal replay;
+- changed policy fingerprints and wrong authority secrets reject replay;
+- Journal schema v2 binds semantic model, reducer, and authority-policy versions.
 
 ## M1.5 atomicity coverage
 
@@ -73,7 +89,7 @@ Detailed mapping: [`CHARTER-CONFORMANCE.md`](CHARTER-CONFORMANCE.md).
 
 ## Live Ordivon process-restart result
 
-Implementation source revision: `efc5b2bd33f7c94ab28859a8872869e71aa42fd8`
+Implementation source revision: `88678a3c06f406c41eadb0ded484d09aa656ae43`
 
 ```text
 initial state: unknown
@@ -88,3 +104,32 @@ journal entries after recovery: 11
 ```
 
 The detailed design and limits are recorded in [`JOURNAL.md`](JOURNAL.md).
+
+
+## Live M2.5 authority result
+
+Signed Journal restart:
+
+```text
+initial state: unknown
+terminal state: succeeded
+process restarted: true
+workspace.exec deliveries: 1
+correlated Jobs: 1
+Dispatch identity preserved: true
+Journal entries: 4 → 11
+implementation revision: 88678a3c06f406c41eadb0ded484d09aa656ae43
+```
+
+Scoped file path:
+
+```text
+versioned read: passed
+atomic mutation: passed
+independent reread: passed
+Verification authority: recorded
+Fact authority: recorded
+stale mutation: failed / INVALID_REQUEST
+final content and digest: stable
+implementation revision: 88678a3c06f406c41eadb0ded484d09aa656ae43
+```

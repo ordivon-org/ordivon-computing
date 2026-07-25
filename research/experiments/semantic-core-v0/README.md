@@ -43,7 +43,9 @@ Live scripts never print the Bearer token and close temporary Workspaces.
 - `Claim → Verification → Fact` admission;
 - optimistic revisions and invariant scanning;
 - single-command and multi-command semantic atomicity;
-- append-only `JournalKernel` persistence and deterministic replay.
+- append-only Journal persistence and deterministic replay;
+- signed role-scoped Authority grants and content-bound Attestations;
+- scoped Effect, execution, Verification, Fact, and read-only Kernel Views.
 
 ## Kernel responsibility
 
@@ -61,7 +63,9 @@ The normative responsibility boundary is frozen in [`KERNEL-CHARTER.md`](KERNEL-
 - independent evidence may cross Effects only for the same WorldObject/version and valid time order;
 - a Fact cannot predate or bypass accepted Verification;
 - Tool results enter the evidence path and Facts require Claim plus accepted Verification;
-- journal integrity, deterministic replay, and writer conflict detection protect durable state.
+- every mutation and evidence object carries a verified role and content-bound Attestation;
+- Ordivon Adapters receive execution authority while Verification and Fact acceptance use separate Views;
+- journal integrity, signed replay, and writer conflict detection protect durable state.
 
 ## Current maturity
 
@@ -70,9 +74,10 @@ The normative responsibility boundary is frozen in [`KERNEL-CHARTER.md`](KERNEL-
 - **M1.5:** Kernel atomicity closure complete;
 - **M2:** local durable semantic journal v0 complete;
 - **M2.25:** positive Kernel Charter, failure model, and canonical fault-injection gates complete;
-- **verification:** 62 tests passed; bytecode compilation, ruff, and real process-restart recovery pass;
-- **next:** M2.5 authority and attestation boundary.
+- **M2.5:** role-scoped Authority and content-bound Attestation complete;
+- **verification:** 75 tests pass; bytecode compilation, ruff, and real process-restart recovery pass;
+- **next:** M3 external Effect IR.
 
 The internal journal codec is intentionally not the public Effect IR.
 
-See [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md), [`FAILURE-MODEL.md`](FAILURE-MODEL.md), [`CHARTER-CONFORMANCE.md`](CHARTER-CONFORMANCE.md), [`SPEC.md`](SPEC.md), [`JOURNAL.md`](JOURNAL.md), [`DECISIONS.md`](DECISIONS.md), [`TEST-REPORT.md`](TEST-REPORT.md), and [`ROADMAP.md`](ROADMAP.md).
+See [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md), [`AUTHORITY.md`](AUTHORITY.md), [`FAILURE-MODEL.md`](FAILURE-MODEL.md), [`CHARTER-CONFORMANCE.md`](CHARTER-CONFORMANCE.md), [`SPEC.md`](SPEC.md), [`JOURNAL.md`](JOURNAL.md), [`DECISIONS.md`](DECISIONS.md), [`TEST-REPORT.md`](TEST-REPORT.md), and [`ROADMAP.md`](ROADMAP.md).

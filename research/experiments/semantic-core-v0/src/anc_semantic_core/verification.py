@@ -4,7 +4,7 @@ import hashlib
 from dataclasses import dataclass
 
 from .identity import IdKind, SemanticId
-from .kernel import SemanticKernel
+from .authorized import AuthorizedKernel
 from .model import (
     Claim,
     EvidenceKind,
@@ -26,7 +26,8 @@ class DigestFactResult:
 
 
 def verify_digest_fact(
-    kernel: SemanticKernel,
+    verification_kernel: AuthorizedKernel,
+    fact_kernel: AuthorizedKernel,
     *,
     claim_effect_id: SemanticId,
     observation: Observation,
@@ -36,9 +37,10 @@ def verify_digest_fact(
 ) -> DigestFactResult:
     """Verify one Effect's digest claim using an independently produced Observation."""
 
+    verification_kernel.require_same_root(fact_kernel)
     if not expected_digest.startswith("sha256:"):
         raise ValueError("expected digest must use sha256 identity")
-    origin = kernel.get_effect(claim_effect_id)
+    origin = verification_kernel.get_effect(claim_effect_id)
     if origin.state is not EffectState.SUCCEEDED:
         raise ValueError("claim origin Effect must be succeeded")
     if origin.spec.target.object_id != observation.target.object_id:
@@ -55,8 +57,8 @@ def verify_digest_fact(
         predicate="content_digest_equals",
         value_digest=expected_digest,
     )
-    with kernel.transaction():
-        kernel.admit_claim(claim)
+    with verification_kernel.transaction():
+        verification_kernel.admit_claim(claim, proposed_at_ms=verified_at_ms)
         decision = (
             VerificationDecision.ACCEPTED
             if observation.target.version == expected_digest
@@ -75,7 +77,7 @@ def verify_digest_fact(
             decision=decision,
             verified_at_ms=verified_at_ms,
         )
-        kernel.record_verification(verification)
+        verification_kernel.record_verification(verification)
         fact: Fact | None = None
         if decision is VerificationDecision.ACCEPTED:
             accepted = verified_at_ms if accepted_at_ms is None else accepted_at_ms
@@ -85,6 +87,10 @@ def verify_digest_fact(
                 verification_id=verification.verification_id,
                 accepted_at_ms=accepted,
             )
-            kernel.commit_fact(fact)
-        kernel.validate_invariants()
+            fact_kernel.commit_fact(fact)
+        verification_kernel.validate_invariants()
+        claim = verification_kernel.get_claim(claim.claim_id)
+        verification = verification_kernel.get_verification(verification.verification_id)
+        if fact is not None:
+            fact = fact_kernel.get_fact(fact.fact_id)
     return DigestFactResult(claim=claim, verification=verification, fact=fact)

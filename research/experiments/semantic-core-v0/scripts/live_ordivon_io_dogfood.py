@@ -4,12 +4,14 @@ import argparse
 import hashlib
 import json
 import os
+import secrets
 import time
 from dataclasses import replace
 
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind
-from anc_semantic_core.kernel import ReferenceKernel
+from anc_semantic_core.authorized import AuthorizedKernel
+from anc_semantic_core.bootstrap import authorized_reference_views
 from live_support import LocalMcpToolCaller
 from anc_semantic_core.model import (
     CapabilityRef,
@@ -51,7 +53,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def prepare_effect(
-    kernel: ReferenceKernel,
+    kernel: AuthorizedKernel,
     *,
     name: str,
     workspace_id: str,
@@ -103,11 +105,13 @@ def main() -> int:
     if not isinstance(server_name, str) or not server_name.startswith("ordivon-"):
         raise SystemExit("endpoint is not an Ordivon MCP server")
 
-    kernel = ReferenceKernel()
-    adapter = OrdivonIoAdapter(kernel, client)
+    views = authorized_reference_views(
+        secrets.token_bytes(32), namespace="live-io-dogfood"
+    )
+    adapter = OrdivonIoAdapter(views.execution, client)
 
     initial_read = prepare_effect(
-        kernel,
+        views.effects,
         name=f"{args.run_id}-initial-read",
         workspace_id=args.target_workspace,
         relative_path=args.relative_path,
@@ -125,7 +129,7 @@ def main() -> int:
     assert before_digest is not None
 
     mutation = prepare_effect(
-        kernel,
+        views.effects,
         name=f"{args.run_id}-mutation",
         workspace_id=args.target_workspace,
         relative_path=args.relative_path,
@@ -152,7 +156,7 @@ def main() -> int:
         raise SystemExit("mutation receipt digest does not match requested content")
 
     reread = prepare_effect(
-        kernel,
+        views.effects,
         name=f"{args.run_id}-reread",
         workspace_id=args.target_workspace,
         relative_path=args.relative_path,
@@ -168,7 +172,8 @@ def main() -> int:
         raise SystemExit(json.dumps({"stage": "reread", "state": reread_result.state.value}))
 
     fact_result = verify_digest_fact(
-        kernel,
+        views.verification,
+        views.facts,
         claim_effect_id=mutation.effect_id,
         observation=reread_result.observation,
         expected_digest=after_digest,
@@ -178,7 +183,7 @@ def main() -> int:
         raise SystemExit("independent reread rejected the mutation digest claim")
 
     stale = prepare_effect(
-        kernel,
+        views.effects,
         name=f"{args.run_id}-stale-guard",
         workspace_id=args.target_workspace,
         relative_path=args.relative_path,
@@ -199,7 +204,7 @@ def main() -> int:
     if stale_result.state is not EffectState.FAILED:
         raise SystemExit("stale precondition was not rejected")
 
-    kernel.validate_invariants()
+    views.read.validate_invariants()
     print(
         json.dumps(
             {

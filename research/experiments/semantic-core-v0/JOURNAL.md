@@ -5,7 +5,8 @@
 M2 makes Semantic Core state independent of one Python process while deliberately inheriting mature classical mechanisms instead of rebuilding storage from first principles.
 
 ```text
-Semantic command
+Attested semantic command
+→ verify Authority role and exact-content signature
 → validate against a candidate ReferenceKernel
 → SQLite transaction
 → append command entries and durable head
@@ -17,15 +18,16 @@ The semantic layer owns identity, causality, evidence, and replay rules. SQLite 
 
 ## Runtime boundary
 
-`ReferenceKernel` remains the executable semantic oracle. `JournalKernel` implements the same `SemanticKernel` interface and composes:
+`ReferenceKernel` remains the executable semantic reducer. `JournalKernel` composes the reducer with durable storage, while public runtime access is issued through role-scoped `AuthorizedKernel` Views:
 
 ```text
 ReferenceKernel
 SQLiteSemanticJournal
-internal journal codec v1
+internal journal codec v2
+AuthorityPolicy verification
 ```
 
-The internal codec is a storage encoding, not the public Effect IR planned for M3. Only an allowlist of current semantic dataclasses and enums may be decoded.
+The internal codec is a storage encoding, not the public Effect IR planned for M3. Only an allowlist of current semantic dataclasses and enums may be decoded, including `AuthorityRef`, `Attestation`, `AuthorityRole`, and `AttestationKind`.
 
 ## M1.5 atomicity
 
@@ -62,7 +64,7 @@ foreign_keys = ON
 busy_timeout = 5000 ms
 ```
 
-`journal_entries` is append-only through SQLite triggers that reject UPDATE and DELETE. Each row stores sequence, operation, canonical command payload, previous digest, entry digest, and commit time. Commands in one semantic transaction are appended inside one SQLite transaction.
+`journal_entries` is append-only through SQLite triggers that reject UPDATE and DELETE. Each row stores sequence, operation, canonical signed command payload, previous digest, entry digest, and commit time. Commands in one semantic transaction are appended inside one SQLite transaction.
 
 ## Integrity model
 
@@ -75,12 +77,17 @@ entry_digest = SHA-256(previous_digest || canonical_payload)
 The journal also stores a durable head sequence and digest. Startup verifies:
 
 - SQLite `quick_check`;
-- supported schema version;
+- supported Journal schema version;
+- semantic model version;
+- reducer version;
+- authority-policy fingerprint;
 - contiguous sequence numbers;
 - predecessor linkage and every entry digest;
 - operation column/payload agreement;
 - command schema and type allowlist;
 - reconstructed tail against the durable head;
+- Authority grant signatures and required roles;
+- Attestation kind, exact semantic digest, contract version, record time, and signature;
 - semantic replay and all Kernel invariants.
 
 Missing head metadata on a non-empty journal, middle-entry mutation, sequence gaps, and tail truncation are reported as corruption rather than normalized.
@@ -89,7 +96,7 @@ This is integrity checking, not a cryptographic signature against an administrat
 
 ## Replay
 
-Opening `JournalKernel(path)` creates a fresh `ReferenceKernel`, verifies every journal entry, decodes each command, applies it in sequence, and validates the resulting projection.
+Opening the Journal with its `AuthorityPolicy` creates a fresh `ReferenceKernel`, verifies every journal entry and Attestation, decodes each command, applies it in sequence, and validates the resulting projection. The standard bootstrap returns scoped Authority Views over the reconstructed Kernel.
 
 The following projections are rebuilt:
 
@@ -120,7 +127,7 @@ A real `workspace.exec` call was delivered to Ordivon and its successful respons
 
 A second process reopened the journal, rebuilt the Effect and Dispatch, found the original Job by stable identity, observed terminal success, and appended admission, Observation, Artifact, and terminal commands. A third open independently replayed the final state.
 
-Latest sanitized result, executed from implementation commit `efc5b2bd33f7c94ab28859a8872869e71aa42fd8`:
+Latest signed result, executed from implementation commit `88678a3c06f406c41eadb0ded484d09aa656ae43`:
 
 ```text
 initial state: unknown
@@ -132,19 +139,12 @@ Dispatch identity preserved: true
 semantic Artifacts: 3
 journal entries before restart: 4
 journal entries after recovery: 11
+Authority policy reauthenticated: true
+all stored Attestations replayed: true
 ```
 
-## Current limits
+The first process generated one ephemeral 32-byte root secret and used scoped Effect and execution Views. The child process received the same secret through its environment, reconstructed the Authority policy, verified Journal schema v2 metadata, reauthenticated every signed command, and continued the original Dispatch. The secret was not printed or stored in the Journal.
 
-- one local SQLite database; no replication or consensus;
-- one active semantic writer order; stale processes must reopen after conflict;
-- no snapshot, compaction, archival, or garbage collection;
-- replay cost grows with journal length;
-- invariant validation is intentionally expensive in the reference implementation;
-- no online schema migration beyond internal schema v1;
-- no at-rest encryption supplied by Semantic Core;
-- no power-cut laboratory test beyond SQLite's configured durability contract;
-- no public Effect IR compatibility promise;
-- no Tool-contract drift support yet.
+## Production extensions
 
-These are M3+ or production-engineering concerns, not hidden claims of M2 v0.
+The next storage-engineering layers are snapshots, compaction, archival, encryption policy, online schema migration, replicated deployment, and long-Journal performance work. M3 adds the public Effect IR, and M4 binds evolving Tool contracts. These extend the signed local semantic history established by Journal schema v2.

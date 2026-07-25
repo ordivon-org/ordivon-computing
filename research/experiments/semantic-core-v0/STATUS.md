@@ -36,7 +36,7 @@ Python 3.12.13
 ### M2 — Durable semantic journal v0
 
 - append-only SQLite command journal using WAL and `synchronous=FULL`;
-- internal schema-v1 allowlisted codec;
+- internal schema-v2 allowlisted codec with signed Authority and Attestation types;
 - hash-chained entries and durable head marker;
 - corruption, tail truncation, and missing-head detection;
 - semantic replay of all projections;
@@ -53,10 +53,22 @@ Python 3.12.13
 - canonical fault-injection tests for every current guarantee;
 - document/test drift guard.
 
+### M2.5 — Authority and attestation boundary
+
+- signed Authority grants for EFFECT, DISPATCH, OBSERVATION, VERIFICATION, and FACT roles;
+- one derived HMAC signer per Authority;
+- content-, contract-, and time-bound Attestations on every mutation and evidence record;
+- scoped production Views with no public full-authority bootstrap;
+- Ordivon Adapters restricted to DISPATCH + OBSERVATION;
+- separate Verification and Fact acceptance handles;
+- invariant scanning and Journal replay re-authenticate stored history;
+- Journal metadata binds semantic model, reducer, and authority-policy versions;
+- exact-commit live proof authenticates process-restart recovery and scoped reread-to-Fact admission.
+
 ## Verification
 
 ```text
-62 tests passed
+75 tests passed
 Python bytecode compilation passed
 ruff passed
 real Ordivon process-restart recovery passed
@@ -64,10 +76,10 @@ real Ordivon process-restart recovery passed
 
 ## Current claim boundary
 
-The current implementation is a durable local Agent Semantic consistency Kernel reference implementation. It provides atomic semantic commands, append-only persistence, deterministic replay, local multi-process writer conflict detection, real Ordivon recovery across a Python process restart, and executable K1–K8 Charter conformance.
+The current implementation is a durable local Agent Semantic Kernel reference implementation. It provides atomic semantic commands, role-scoped signed admission, attested evidence, append-only persistence, deterministic authenticated replay, local multi-process writer conflict detection, real Ordivon recovery across a Python process restart, and executable K1–K10 Charter conformance.
 
 It does not prove distributed consensus, replicated journals, long-journal snapshot/compaction performance, public Effect IR compatibility, pending/running Tool-contract drift, complete Ordivon conformance, or production Goal-level correctness.
 
 ## Next executable work
 
-M2.5 is next: establish distinct authority and attestation surfaces with role-scoped APIs, evidence issuers, trust domains, and adversarial isolation tests. M3 Effect IR follows that authority boundary. The internal journal codec is not the public IR.
+M3 is next: define the external Effect IR on top of the now-stable semantic, durability, Authority, and Attestation boundaries. The internal Journal codec remains a replaceable storage format.

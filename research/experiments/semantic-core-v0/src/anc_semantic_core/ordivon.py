@@ -584,9 +584,14 @@ class OrdivonSemanticAdapter:
             payload_digest=payload_digest,
         )
         self._kernel.record_observation(observation)
-        artifacts = tuple(self._artifacts(binding, payload))
-        for artifact in artifacts:
+        observation = self._kernel.get_observation(observation.observation_id)
+        artifact_drafts = tuple(self._artifacts(binding, payload))
+        for artifact in artifact_drafts:
             self._kernel.register_artifact(artifact)
+        artifacts = tuple(
+            self._kernel.get_artifact(artifact.artifact_id)
+            for artifact in artifact_drafts
+        )
         current = self._kernel.get_effect(effect_id)
         target = projected
         if current.state is EffectState.RECONCILING and target is EffectState.DISPATCHED:

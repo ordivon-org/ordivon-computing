@@ -4,13 +4,15 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import secrets
 import time
 from dataclasses import replace
 from typing import Any
 
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind, SemanticId
-from anc_semantic_core.kernel import ReferenceKernel
+from anc_semantic_core.authorized import AuthorizedKernel
+from anc_semantic_core.bootstrap import authorized_reference_views
 from anc_semantic_core.model import (
     CapabilityRef,
     CompletionSemantics,
@@ -48,7 +50,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def prepare_effect(
-    kernel: ReferenceKernel,
+    kernel: AuthorizedKernel,
     *,
     name: str,
     target: WorldObjectRef,
@@ -129,12 +131,14 @@ def main() -> None:
         before_digest = setup["mutations"][0]["afterDigest"]
 
         object_id = ordivon_file_object_id(workspace_id, relative_path)
-        kernel = ReferenceKernel()
+        views = authorized_reference_views(
+            secrets.token_bytes(32), namespace="live-files"
+        )
         clock = iter(range(stamp, stamp + 1_000_000)).__next__
-        adapter = OrdivonIoAdapter(kernel, client, clock_ms=clock)
+        adapter = OrdivonIoAdapter(views.execution, client, clock_ms=clock)
 
         read_before_effect = prepare_effect(
-            kernel,
+            views.effects,
             name=f"live-file-read-before:{stamp}",
             target=WorldObjectRef(object_id, version=before_digest),
             operation="workspace.read",
@@ -152,7 +156,7 @@ def main() -> None:
             raise AssertionError("initial read digest differs from setup receipt")
 
         mutation_effect = prepare_effect(
-            kernel,
+            views.effects,
             name=f"live-file-replace:{stamp}",
             target=WorldObjectRef(object_id, version=before_digest),
             operation="workspace.mutate",
@@ -180,7 +184,7 @@ def main() -> None:
             raise AssertionError("atomic replacement did not change the digest")
 
         read_after_effect = prepare_effect(
-            kernel,
+            views.effects,
             name=f"live-file-read-after:{stamp}",
             target=WorldObjectRef(object_id, version=after_digest),
             operation="workspace.read",
@@ -195,7 +199,8 @@ def main() -> None:
         if read_after.payload.get("content") != "after\n":
             raise AssertionError("independent read did not observe replacement content")
         fact_result = verify_digest_fact(
-            kernel,
+            views.verification,
+            views.facts,
             claim_effect_id=mutation_effect.effect_id,
             observation=read_after.observation,
             expected_digest=after_digest,
@@ -206,7 +211,7 @@ def main() -> None:
             raise AssertionError("independent replacement verification did not admit Fact")
 
         stale_effect = prepare_effect(
-            kernel,
+            views.effects,
             name=f"live-file-stale:{stamp}",
             target=WorldObjectRef(object_id, version=before_digest),
             operation="workspace.mutate",
@@ -229,7 +234,7 @@ def main() -> None:
             raise AssertionError(f"stale mutation was not rejected: {stale.state}")
 
         final_read_effect = prepare_effect(
-            kernel,
+            views.effects,
             name=f"live-file-final-read:{stamp}",
             target=WorldObjectRef(object_id, version=after_digest),
             operation="workspace.read",
@@ -246,7 +251,7 @@ def main() -> None:
         if final_read.observation.target.version != after_digest:
             raise AssertionError("stale mutation changed file digest")
 
-        kernel.validate_invariants()
+        views.read.validate_invariants()
         operation_counts: dict[str, int] = {}
         for name, _ in client.calls:
             operation_counts[name] = operation_counts.get(name, 0) + 1

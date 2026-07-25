@@ -6,14 +6,16 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from anc_semantic_core.testing import journal_kernel
 from collections import defaultdict, deque
 from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
+from anc_semantic_core.authorized import AuthorizedKernel
 from anc_semantic_core.conformance import run_core_conformance, sample_effect, sid
 from anc_semantic_core.identity import IdKind
-from anc_semantic_core.journal import JournalConflict, JournalCorruption, JournalKernel
+from anc_semantic_core.journal import JournalConflict, JournalCorruption
 from anc_semantic_core.model import CapabilityRef, CompletionSemantics, EffectMode, WorldObjectRef
 from anc_semantic_core.ordivon import (
     OrdivonExecution,
@@ -43,7 +45,7 @@ class ScriptedClient:
         return response
 
 
-def prepared_exec(kernel: JournalKernel, name: str) -> Any:
+def prepared_exec(kernel: AuthorizedKernel, name: str) -> Any:
     base = sample_effect(name)
     target_id = ordivon_workspace_object_id("workspace-journal")
     spec = replace(
@@ -72,16 +74,16 @@ def prepared_exec(kernel: JournalKernel, name: str) -> Any:
     return spec
 
 
-class JournalKernelTests(unittest.TestCase):
+class AuthorizedKernelTests(unittest.TestCase):
     def test_reference_conformance_replays_through_journal(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            kernels: list[JournalKernel] = []
+            kernels: list[AuthorizedKernel] = []
             counter = 0
 
-            def factory() -> JournalKernel:
+            def factory() -> AuthorizedKernel:
                 nonlocal counter
                 counter += 1
-                kernel = JournalKernel(Path(directory) / f"core-{counter}.sqlite3")
+                kernel = journal_kernel(Path(directory) / f"core-{counter}.sqlite3")
                 kernels.append(kernel)
                 return kernel
 
@@ -96,7 +98,7 @@ class JournalKernelTests(unittest.TestCase):
     def test_reopen_rebuilds_projection_and_preserves_event_order(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "semantic.sqlite3"
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             spec = sample_effect("restart")
             kernel.admit_effect(
                 spec,
@@ -129,7 +131,7 @@ class JournalKernelTests(unittest.TestCase):
             count = kernel.journal_entry_count
             kernel.close()
 
-            reopened = JournalKernel(path)
+            reopened = journal_kernel(path)
             self.assertEqual(reopened.journal_entry_count, count)
             record = reopened.get_effect(spec.effect_id)
             self.assertIs(record.state, EffectState.UNKNOWN)
@@ -144,7 +146,7 @@ class JournalKernelTests(unittest.TestCase):
 
     def test_idempotent_existing_object_does_not_append_duplicate_entry(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            kernel = JournalKernel(Path(directory) / "semantic.sqlite3")
+            kernel = journal_kernel(Path(directory) / "semantic.sqlite3")
             spec = sample_effect("idempotent-journal")
             kernel.admit_effect(
                 spec,
@@ -163,7 +165,7 @@ class JournalKernelTests(unittest.TestCase):
     def test_hash_chain_detects_tampered_entry(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "semantic.sqlite3"
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             spec = sample_effect("tamper")
             kernel.admit_effect(
                 spec,
@@ -179,7 +181,7 @@ class JournalKernelTests(unittest.TestCase):
             connection.commit()
             connection.close()
             with self.assertRaisesRegex(JournalCorruption, "digest mismatch"):
-                JournalKernel(path)
+                journal_kernel(path)
 
     def test_separate_process_can_rebuild_kernel(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -188,20 +190,20 @@ class JournalKernelTests(unittest.TestCase):
             env = dict(os.environ)
             env["PYTHONPATH"] = str(root / "src")
             writer = """
-from anc_semantic_core import JournalKernel
 from anc_semantic_core.conformance import sample_effect, sid
+from anc_semantic_core.testing import journal_kernel
 from anc_semantic_core.identity import IdKind
 import sys
-k=JournalKernel(sys.argv[1]); s=sample_effect('process-restart')
+k=journal_kernel(sys.argv[1]); s=sample_effect('process-restart')
 k.admit_effect(s,event_id=sid(IdKind.EVENT,'process:admit'),recorded_at_ms=1)
 k.prepare_effect(s.effect_id,expected_revision=0,event_id=sid(IdKind.EVENT,'process:prepare'),recorded_at_ms=2)
 k.close()
 """
             reader = """
-from anc_semantic_core import JournalKernel
 from anc_semantic_core.conformance import sample_effect
+from anc_semantic_core.testing import journal_kernel
 import sys
-k=JournalKernel(sys.argv[1]); s=sample_effect('process-restart')
+k=journal_kernel(sys.argv[1]); s=sample_effect('process-restart')
 r=k.get_effect(s.effect_id)
 assert r.state.value == 'prepared' and r.revision == 1
 assert [e.sequence for e in k.events_for(s.effect_id)] == [0,1]
@@ -221,7 +223,7 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "adapter.sqlite3"
             client = ScriptedClient()
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             spec = prepared_exec(kernel, "persistent-correlation")
             client.add(
                 "workspace.exec",
@@ -266,7 +268,7 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
                     "artifacts": [],
                 },
             )
-            reopened = JournalKernel(path)
+            reopened = journal_kernel(path)
             restarted_adapter = OrdivonSemanticAdapter(
                 reopened,
                 client,
@@ -285,7 +287,7 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
     def test_failed_semantic_batch_appends_nothing(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "batch.sqlite3"
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             spec = sample_effect("journal-batch-rollback")
             with self.assertRaises(InvalidTransition):
                 with kernel.transaction():
@@ -310,7 +312,7 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
             with self.assertRaises(NotFound):
                 kernel.get_effect(spec.effect_id)
             kernel.close()
-            reopened = JournalKernel(path)
+            reopened = journal_kernel(path)
             self.assertEqual(reopened.journal_entry_count, 0)
             reopened.validate_invariants()
             reopened.close()
@@ -318,8 +320,8 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
     def test_stale_process_cannot_append_against_changed_journal_head(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "concurrent.sqlite3"
-            first = JournalKernel(path)
-            stale = JournalKernel(path)
+            first = journal_kernel(path)
+            stale = journal_kernel(path)
             first_spec = sample_effect("first-writer")
             stale_spec = sample_effect("stale-writer")
             first.admit_effect(
@@ -338,7 +340,7 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
             self.assertEqual(stale.journal_entry_count, 1)
             first.close()
             stale.close()
-            reopened = JournalKernel(path)
+            reopened = journal_kernel(path)
             self.assertEqual(reopened.get_effect(first_spec.effect_id).revision, 0)
             with self.assertRaises(NotFound):
                 reopened.get_effect(stale_spec.effect_id)
@@ -348,12 +350,12 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
     def test_all_semantic_projections_rebuild_after_reopen(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "all-projections.sqlite3"
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             run_core_conformance(lambda: kernel)
             entry_count = kernel.journal_entry_count
             kernel.close()
 
-            reopened = JournalKernel(path)
+            reopened = journal_kernel(path)
             self.assertEqual(reopened.journal_entry_count, entry_count)
             self.assertIs(
                 reopened.get_effect(sid(IdKind.EFFECT, "effect:success")).state,
@@ -391,7 +393,7 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
     def test_durable_head_detects_tail_truncation(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "truncated.sqlite3"
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             spec = sample_effect("tail-truncation")
             kernel.admit_effect(
                 spec,
@@ -411,12 +413,12 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
             connection.commit()
             connection.close()
             with self.assertRaisesRegex(JournalCorruption, "durable head"):
-                JournalKernel(path)
+                journal_kernel(path)
 
     def test_transaction_queries_see_staged_projection(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "read-own-writes.sqlite3"
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             spec = sample_effect("read-own-writes")
             with kernel.transaction():
                 kernel.admit_effect(
@@ -443,7 +445,7 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
     def test_journal_kernel_commits_successful_adapter_projection(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "adapter-success.sqlite3"
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             spec = prepared_exec(kernel, "journal-adapter-success")
             client = ScriptedClient()
             client.add(
@@ -481,7 +483,7 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
             kernel.validate_invariants()
             kernel.close()
 
-            reopened = JournalKernel(path)
+            reopened = journal_kernel(path)
             self.assertIs(
                 reopened.get_effect(spec.effect_id).state, EffectState.SUCCEEDED
             )
@@ -497,7 +499,7 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
     def test_nonempty_journal_without_head_metadata_is_corruption(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "missing-head.sqlite3"
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             spec = sample_effect("missing-head")
             kernel.admit_effect(
                 spec,
@@ -513,7 +515,7 @@ k.validate_invariants(); print('process-rebuild-ok'); k.close()
             connection.commit()
             connection.close()
             with self.assertRaisesRegex(JournalCorruption, "no durable head"):
-                JournalKernel(path)
+                journal_kernel(path)
 
 
 if __name__ == "__main__":

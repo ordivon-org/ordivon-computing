@@ -43,7 +43,7 @@ These are inherited and delegated rather than reimplemented.
 | A3 | model interprets transport failure as world failure | Kernel preserves `UNKNOWN` independently of model belief |
 | A4 | model self-attests success | Observation, Verification, and Fact authorities must be separated |
 | A5 | Agent autonomously retries or fans out | every attempt must retain causal ownership and budget scope |
-| A6 | plan drifts beyond delegated purpose | future authority layer must bind action to issuer, scope, and plan |
+| A6 | plan drifts beyond delegated purpose | signed Effect authority records issuer, principal, trust domain, and policy version |
 | A7 | context compression drops crucial uncertainty | durable state must not depend on prompt inclusion |
 | A8 | Tool description/schema drift changes meaning | contracts and semantic reducers require explicit versions |
 | A9 | Agent treats exit code or Tool text as goal completion | completion requires declared verification evidence |
@@ -85,7 +85,7 @@ No exception name, timeout, missing response, or model judgment may bypass this 
 
 ## 5. Evidence authority path
 
-M2.5 extends the current consistency model with role-scoped authority and attestation:
+M2.5 extends the consistency model with role-scoped authority and attestation:
 
 - Effect proposals carry an authenticated proposer;
 - Dispatch admission carries an execution authority;
@@ -93,7 +93,7 @@ M2.5 extends the current consistency model with role-scoped authority and attest
 - Verifications carry evaluator authority and policy version;
 - Fact admission records the accepting authority and complete evidence path.
 
-These additions preserve the same Effect, Dispatch, evidence, and Journal primitives while strengthening provenance.
+These signed records preserve the same Effect, Dispatch, evidence, and Journal primitives while making authority provenance replayable and mechanically verifiable.
 
 ## 6. Exit criterion
 
