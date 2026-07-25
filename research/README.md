@@ -6,9 +6,14 @@ Research stores open questions, competing hypotheses, prototypes, experiments, a
 
 - [`map.yaml`](map.yaml) — machine-readable branch and question map;
 - [`questions/`](questions/) — one durable page per active question;
-- [`experiments/`](experiments/) — executable artifacts and experiment records.
+- [`experiments/`](experiments/) — executable artifacts and experiment records;
+- [GitHub Issues](https://github.com/zycxfyh/agent-native-computing/issues) — active construction tracks, sequencing, discussion, and evidence status.
 
-Research is allowed to contain alternatives, failed experiments, changing terminology, and incomplete models. Results move into [`../knowledge/`](../knowledge/) when they become reusable understanding. A small subset may later compress into [`../core/`](../core/).
+Durable question pages preserve hypotheses and evidence criteria. GitHub Issues carry active sequencing and progress; project repositories and `experiments/` carry executable artifacts. Research is allowed to contain alternatives, failed experiments, changing terminology, and incomplete models. Results move into [`../knowledge/`](../knowledge/) when they become reusable understanding. A small subset may later compress into [`../core/`](../core/).
+
+## Construction program
+
+The active cross-layer program is [#1 — Construct the Agent-Native Machine](https://github.com/zycxfyh/agent-native-computing/issues/1). Its nine executable tracks are indexed in [`map.yaml`](map.yaml) and carried by GitHub Issues rather than duplicated as roadmap documents.
 
 ## Current questions
 
