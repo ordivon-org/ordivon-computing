@@ -51,6 +51,22 @@ Every reducer mutation requires an Attestation. The reducer verifies the signed 
 
 Ordivon Adapters use the execution View. Claim evaluation and Fact acceptance use separate Verification and Fact Views. See [`AUTHORITY.md`](AUTHORITY.md).
 
+## Public Views and raw reducers
+
+The public mutation boundary is expressed through precise role protocols:
+
+```text
+KernelReadView
+EffectView
+ExecutionView
+VerificationView
+FactView
+```
+
+`AuthorizedKernel` implements these Views according to its issued grants. `ReferenceReducer` and `JournalReducer` are raw reduction mechanisms below that boundary. The historical `ReferenceKernel` and `JournalKernel` names remain compatibility aliases for experiments and tests, not package-root public capabilities.
+
+Ordivon Adapters accept only `ExecutionView`. Knowledge admission accepts separate `VerificationView` and `FactView` handles.
+
 ## Effect state algebra
 
 ```text
@@ -66,6 +82,27 @@ proposed
 ```
 
 `dispatched` means a boundary attempt with stable identity has begun. It does not assert that the external system accepted the operation.
+
+## Dispatch state algebra
+
+```text
+STARTED
+├── ADMITTED
+├── UNKNOWN
+└── REJECTED
+
+ADMITTED
+└── UNKNOWN
+
+UNKNOWN
+├── ADMITTED
+└── REJECTED
+
+REJECTED
+└── terminal
+```
+
+`ADMITTED → UNKNOWN` preserves the proven backend identity while the later outcome becomes uncertain. `UNKNOWN → ADMITTED` represents identity-preserving reconciliation. `UNKNOWN → REJECTED` is valid only when reconciliation proves the original attempt never crossed the backend admission boundary. A Dispatch carrying a backend operation identity cannot be reclassified as rejected.
 
 ## Synchronous receipt semantics
 
@@ -151,6 +188,19 @@ The internal journal encoding is not an external Effect IR contract.
 | Lost / Orphaned | Unknown | loss of ownership is not proof of world failure |
 
 This mapping remains provisional until live adapter conformance is run.
+
+## Derived read projections
+
+The Kernel exposes canonical records and deterministic read-only projections:
+
+```text
+ExecutionTraceView   Effect + Dispatch + ordered Events + evidence
+RecoveryView         current state + stable Dispatch identity + required next action
+FactProvenanceView   Fact → Verification → Claim → Evidence → producing execution
+AuthorityTraceView   ordered Authority and Attestation provenance
+```
+
+These Views do not persist new state. They are reconstructed from the same canonical projections and therefore cannot become an independent truth source.
 
 ## Layer placement
 

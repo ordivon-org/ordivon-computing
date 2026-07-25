@@ -7,7 +7,7 @@ M2 makes Semantic Core state independent of one Python process while deliberatel
 ```text
 Attested semantic command
 → verify Authority role and exact-content signature
-→ validate against a candidate ReferenceKernel
+→ validate against a candidate ReferenceReducer
 → SQLite transaction
 → append command entries and durable head
 → commit
@@ -18,10 +18,10 @@ The semantic layer owns identity, causality, evidence, and replay rules. SQLite 
 
 ## Runtime boundary
 
-`ReferenceKernel` remains the executable semantic reducer. `JournalKernel` composes the reducer with durable storage, while public runtime access is issued through role-scoped `AuthorizedKernel` Views:
+`ReferenceReducer` remains the executable in-memory semantic reducer. `JournalReducer` composes the reducer with durable storage, while public runtime access is issued through role-scoped `AuthorizedKernel` Views:
 
 ```text
-ReferenceKernel
+ReferenceReducer
 SQLiteSemanticJournal
 internal journal codec v2
 AuthorityPolicy verification
@@ -33,13 +33,13 @@ The internal codec is a storage encoding, not the public Effect IR planned for M
 
 ### Single semantic command
 
-Every mutating `ReferenceKernel` operation snapshots all projections, performs the operation, validates invariants, and restores the complete snapshot on any exception.
+Every mutating `ReferenceReducer` operation snapshots all projections, performs the operation, validates invariants, and restores the complete snapshot on any exception.
 
 An invalid event identity, stale revision, backward time, or cross-object invariant can no longer leave a partial Dispatch, Event, Observation, Claim, or Fact update.
 
 ### Multi-command semantic transaction
 
-`SemanticKernel.transaction()` groups related operations. Successful groups commit together; an exception restores the state that existed before the outer transaction.
+a role-scoped View transaction groups related operations. Successful groups commit together; an exception restores the state that existed before the outer transaction.
 
 The Ordivon adapters use this boundary for:
 
@@ -96,7 +96,7 @@ This is integrity checking, not a cryptographic signature against an administrat
 
 ## Replay
 
-Opening the Journal with its `AuthorityPolicy` creates a fresh `ReferenceKernel`, verifies every journal entry and Attestation, decodes each command, applies it in sequence, and validates the resulting projection. The standard bootstrap returns scoped Authority Views over the reconstructed Kernel.
+Opening the Journal with its `AuthorityPolicy` creates a fresh `ReferenceReducer`, verifies every journal entry and Attestation, decodes each command, applies it in sequence, and validates the resulting projection. The standard bootstrap returns scoped Authority Views over the reconstructed Kernel.
 
 The following projections are rebuilt:
 
@@ -115,7 +115,7 @@ Typed getters expose each rebuilt object.
 
 ## Concurrent writers
 
-Every `JournalKernel` records the journal head observed during replay. A write uses that sequence/digest as a compare-and-swap precondition inside `BEGIN IMMEDIATE`.
+Every `JournalReducer` records the journal head observed during replay. A write uses that sequence/digest as a compare-and-swap precondition inside `BEGIN IMMEDIATE`.
 
 If another process has committed first, the stale process receives `JournalConflict`; its candidate projection is not published and no stale command is appended.
 

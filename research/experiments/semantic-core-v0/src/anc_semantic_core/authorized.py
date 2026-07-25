@@ -14,6 +14,7 @@ from .authority import (
     semantic_digest,
 )
 from .identity import SemanticId
+from .interfaces import RootBoundView
 from .model import Admission, Artifact, Claim, EffectRecord, EffectSpec, Fact, Observation, Verification
 from .state import EffectState
 
@@ -107,7 +108,7 @@ class AuthorizedKernel:
     def authority_for(self, role: AuthorityRole) -> AuthorityRef:
         return self._grant(role).authority
 
-    def require_same_root(self, other: "AuthorizedKernel") -> None:
+    def require_same_root(self, other: RootBoundView) -> None:
         if not isinstance(other, AuthorizedKernel):
             raise AuthorityDenied("authority operation requires another AuthorizedKernel view")
         other._require_root(self._kernel, self._root_seal)
@@ -419,6 +420,12 @@ class AuthorizedKernel:
 
     def events_for(self, effect_id: SemanticId):
         return self._kernel.events_for(effect_id)
+
+    def observations_for(self, effect_id: SemanticId):
+        return self._kernel.observations_for(effect_id)
+
+    def artifacts_for(self, effect_id: SemanticId):
+        return self._kernel.artifacts_for(effect_id)
 
     def get_observation(self, observation_id: SemanticId):
         return self._kernel.get_observation(observation_id)

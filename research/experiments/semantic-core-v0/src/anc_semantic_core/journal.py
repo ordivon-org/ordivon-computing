@@ -18,7 +18,7 @@ from .authority import (
     AuthorityRole,
 )
 from .identity import IdKind, SemanticId
-from .kernel import ReferenceKernel
+from .reducer import ReferenceReducer
 from .model import (
     Admission,
     Artifact,
@@ -449,8 +449,8 @@ class SQLiteSemanticJournal:
         self.close()
 
 
-class JournalKernel:
-    """Durable SemanticKernel backed by an append-only SQLite command journal."""
+class JournalReducer:
+    """Raw durable reducer backed by an append-only SQLite command journal."""
 
     _MUTATIONS = {
         "admit_effect",
@@ -470,9 +470,9 @@ class JournalKernel:
     def __init__(self, path: str | Path, authority_policy: AuthorityPolicy) -> None:
         self._authority_policy = authority_policy
         self._journal = SQLiteSemanticJournal(path, authority_policy)
-        self._kernel = ReferenceKernel(authority_policy)
+        self._kernel = ReferenceReducer(authority_policy)
         self._transaction_depth = 0
-        self._transaction_kernel: ReferenceKernel | None = None
+        self._transaction_kernel: ReferenceReducer | None = None
         self._transaction_commands: list[
             tuple[str, tuple[Any, ...], dict[str, Any]]
         ] = []
@@ -523,7 +523,7 @@ class JournalKernel:
         return result
 
     @contextmanager
-    def transaction(self) -> Iterator["JournalKernel"]:
+    def transaction(self) -> Iterator["JournalReducer"]:
         outermost = self._transaction_depth == 0
         if outermost:
             self._transaction_kernel = self._kernel.clone()
@@ -704,7 +704,7 @@ class JournalKernel:
             attestation=attestation,
         )
 
-    def _view_kernel(self) -> ReferenceKernel:
+    def _view_kernel(self) -> ReferenceReducer:
         if self._transaction_depth and self._transaction_kernel is not None:
             return self._transaction_kernel
         return self._kernel
@@ -717,6 +717,12 @@ class JournalKernel:
 
     def events_for(self, effect_id: SemanticId) -> tuple[EffectEvent, ...]:
         return self._view_kernel().events_for(effect_id)
+
+    def observations_for(self, effect_id: SemanticId) -> tuple[Observation, ...]:
+        return self._view_kernel().observations_for(effect_id)
+
+    def artifacts_for(self, effect_id: SemanticId) -> tuple[Artifact, ...]:
+        return self._view_kernel().artifacts_for(effect_id)
 
     def get_observation(self, observation_id: SemanticId) -> Observation:
         return self._view_kernel().get_observation(observation_id)
@@ -763,8 +769,12 @@ class JournalKernel:
     def close(self) -> None:
         self._journal.close()
 
-    def __enter__(self) -> "JournalKernel":
+    def __enter__(self) -> "JournalReducer":
         return self
 
     def __exit__(self, exc_type: Any, exc: Any, traceback: Any) -> None:
         self.close()
+
+
+# Backward-compatible internal name for existing tests and experiments.
+JournalKernel = JournalReducer

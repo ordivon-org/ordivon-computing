@@ -50,6 +50,19 @@ Live scripts never print the Bearer token and close temporary Workspaces.
 - signed role-scoped Authority grants and content-bound Attestations;
 - scoped Effect, execution, Verification, Fact, and read-only Kernel Views.
 
+## Source architecture
+
+```text
+interfaces.py   public role-scoped read and mutation protocols
+authorized.py   signed Authority-backed implementation of those protocols
+reducer.py      raw in-memory executable reference reducer
+journal.py      raw durable JournalReducer and SQLite command history
+provenance.py   read-only execution, recovery, authority, and Fact projections
+kernel.py       backward-compatible import facade
+```
+
+Adapters depend on `ExecutionView`; Verification and Fact admission depend on separate role protocols. Raw reducers remain below Authority issuance and are not exported from the package root.
+
 ## Kernel responsibility
 
 The Kernel preserves semantic identity, legal transitions, explicit uncertainty, evidence provenance, role-scoped authority, and recoverable history across external action. It is not a model orchestrator, Task scheduler, memory platform, sandbox, or replacement operating system.

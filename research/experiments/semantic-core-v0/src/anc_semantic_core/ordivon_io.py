@@ -9,7 +9,8 @@ from pathlib import PurePosixPath
 from typing import Any, Callable, Protocol
 
 from .identity import IdKind, SemanticId
-from .kernel import InvalidTransition, SemanticKernel
+from .errors import InvalidTransition
+from .interfaces import ExecutionView
 from .model import EffectMode, Observation, WorldObjectRef
 from .state import EffectState
 from .transport import ToolCallError, ToolRejected
@@ -111,7 +112,7 @@ class OrdivonIoAdapter:
 
     def __init__(
         self,
-        kernel: SemanticKernel,
+        kernel: ExecutionView,
         client: ToolCaller,
         *,
         clock_ms: Callable[[], int] | None = None,

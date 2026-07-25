@@ -7,7 +7,8 @@ from dataclasses import dataclass, field
 from typing import Any, Callable, Protocol
 
 from .identity import IdKind, SemanticId
-from .kernel import InvalidTransition, SemanticKernel
+from .errors import InvalidTransition
+from .interfaces import ExecutionView
 from .transport import ToolCallError, ToolProtocolError, ToolRejected
 from .model import Artifact, Observation
 from .state import EffectState
@@ -136,7 +137,7 @@ class OrdivonSemanticAdapter:
 
     def __init__(
         self,
-        kernel: SemanticKernel,
+        kernel: ExecutionView,
         client: ToolCaller,
         *,
         clock_ms: Callable[[], int] | None = None,
