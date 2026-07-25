@@ -1,27 +1,29 @@
-# Experiments
+# Research Experiments
 
-Each experiment connects one research question to an executable artifact and an observable result:
+Experiments connect open Agent-Native Computing questions to executable artifacts and observable results. They are not production components by default.
+
+## Active experiments
+
+- [`semantic-core-v0/`](semantic-core-v0/) — executable reference semantics for Effect identity, Dispatch, evidence, unknown outcomes, Verification, and Fact admission; includes a scripted Ordivon adapter prototype.
+
+## Planned experiment families
+
+- canonical Effect IR normalization and interpretation;
+- minimal Task Capsule transfer across model sessions;
+- Tool contract normalization and semantic diff;
+- long-running Ordivon recovery and handoff;
+- multi-Workspace branch and Artifact join.
+
+Each experiment should record:
 
 ```text
 question
 → hypothesis
-→ constructed artifact
+→ smallest constructed artifact
 → workload
 → observations
-→ interpretation
+→ interpretation or falsification
 → next revision
 ```
 
-## Active
-
-- [`semantic-core-v0/`](semantic-core-v0/) — executable Agent semantic constitution, in-memory reference kernel, reusable conformance scenarios, live Ordivon execution, versioned read, atomic mutation, independent Verification, and Fact admission.
-
-## Planned families
-
-- durable semantic journal;
-- canonical Effect IR and interpreter;
-- minimal Task Capsule transferred across model sessions;
-- Tool catalog normalization and contract-diff prototype;
-- long-running Ordivon recovery and handoff experiments.
-
-Experiment history remains useful when a hypothesis fails because it preserves the boundary exposed by reality.
+Failed hypotheses remain useful when they preserve the exact boundary exposed by reality.

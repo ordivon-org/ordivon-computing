@@ -59,6 +59,15 @@ semantic constitution
 - independent reread Verification and Fact admission;
 - structured rejection and unknown-delivery separation.
 
+The first heterogeneous slice now includes:
+
+- versioned Workspace file reads;
+- atomic mutation against expected text and digest;
+- asynchronous command dispatch and observation;
+- independent cross-Effect verification and Fact admission.
+
+The remaining evidence is concentrated in failure continuity: deliberately lost live responses, cancellation races, adapter restart correlation, and pending/running Tool-contract drift.
+
 ## Current evidence
 
 - synchronous reference execution and asynchronous Ordivon execution share the same semantic state model;
@@ -68,12 +77,12 @@ semantic constitution
 - `Lost` and `Orphaned` remain unresolved rather than becoming invented failure;
 - Effect WorldObject identity is checked against the actual backend Workspace;
 - a live Ordivon Job and Attempt produced a semantic Observation and three Artifacts;
-- the concrete MCP transport remains below the provider-neutral semantic adapter;
-- synchronous read and mutation results are receipt identities rather than invented Jobs;
-- an independent Observation Effect can verify a mutation Claim and admit a Fact;
-- stale expected digests are rejected without overwriting verified state.
+- versioned read and `REPLACE_EXACT` mutation were independently verified into two Facts;
+- stale digest preconditions failed without corrupting final state;
+- two concurrent Semantic Core implementations were integrated, preserving the stronger Dispatch admission/rejection algebra and the stronger cross-Effect evidence semantics;
+- the concrete MCP transport remains below the provider-neutral semantic adapter.
 
-This evidence supports the direction but does not yet close ANC-IR-001. Contract drift, unknown mutation reconciliation, cancellation, continuation, deterministic normalization, and direct-call comparison remain open.
+This evidence supports the direction but does not yet close ANC-IR-001. Failure injection, contract drift, durable continuation, and canonical serialization remain open.
 
 ## Evidence required for closure
 

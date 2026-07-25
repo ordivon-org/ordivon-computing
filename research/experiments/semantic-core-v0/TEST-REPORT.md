@@ -1,132 +1,70 @@
 # Test Report
 
-Date: 2026-07-26
-
-## Unit and conformance verification
+## Reference commands
 
 ```bash
-PYTHONPATH=src python3 -m unittest discover -s tests -v
-python3 -m compileall -q src tests scripts
-git diff --check
+PYTHONPATH=src python -m unittest discover -s tests -v
+PYTHONPATH=src python -m compileall -q src tests scripts
 ```
 
-Result:
+## Reference result
 
 ```text
-22 tests passed
-Python bytecode compilation passed
-Git whitespace validation passed
+Python 3.12.13: 31 tests passed
+Python 3.14.6:  31 tests passed
+Bytecode compilation passed on both runtimes
+git diff --check passed
 ```
 
-Covered semantics:
+## Covered semantic behaviours
 
-- idempotent Effect admission and conflicting identity rejection;
-- independent EffectState and DispatchState machines;
-- Dispatch `started → admitted / unknown / rejected`;
-- retryable rejection preserves Effect=`prepared` and permits a new unique Dispatch;
-- non-retryable rejection produces Effect=`failed`;
-- a Dispatch proven admitted can never be reclassified as rejected;
-- unknown outcome cannot be blindly redispatched;
-- unknown outcome can reconcile through stable request identity;
-- terminal state immutability and optimistic revision conflicts;
-- Observation and Artifact provenance requires proven backend admission;
-- Effect WorldObject must match the actual Ordivon Workspace;
-- `Lost` and `Orphaned` remain semantic `unknown`;
-- Claim → Verification → Fact admission invariants.
+- idempotent Effect admission and identity conflicts;
+- independent Dispatch identity, optimistic revisions, and STARTED / ADMITTED / UNKNOWN / REJECTED lifecycle;
+- non-regressing causal event time;
+- unknown outcome and reconciliation without blind redispatch;
+- retryable pre-admission rejection returns the Effect to prepared with a new future Dispatch;
+- non-retryable rejection terminates the Effect; admitted/unknown Dispatches cannot be rewritten as rejected;
+- immutable terminal outcomes;
+- Observation/Artifact binding to Dispatch;
+- equal content across distinct Dispatches retains distinct Observation identity;
+- independent same-subject evidence may verify a Claim;
+- different-subject, wrong-version, or future evidence is rejected;
+- required evidence kinds and verification methods are enforced;
+- rejected or missing Verification cannot create Fact;
+- normal Ordivon running observation and scripted response-loss reconciliation;
+- synchronous read and mutation payload projection;
+- mutation response loss becomes unknown and is not repeated.
 
-## Live Ordivon success
+## Live Ordivon results
 
-The reproducible dogfood script executed a semantic Effect through the local Streamable HTTP MCP endpoint into a different Ordivon Workspace.
+### Asynchronous execution
 
 ```text
-Semantic state: succeeded
-Ordivon Job: job-019f9a37-d1db-78d3-ba63-5a8eb7b47c18
-Ordivon Attempt: attempt-019f9a37-d1db-78d3-ba63-5a95d149cdfa
-Artifacts: 3
-Observation digest: sha256:2ddc64cffe3ec5de7dc8ee18622654bf838de08ddac2feed4560bff4593542de
-stdout: semantic-core-dual-state-live-success-v2
+initial state: running
+terminal state: succeeded
+correlated Jobs: 1
+semantic Artifacts: 3
+duplicate Dispatch blocked: true
+stdout markers independently verified: true
+Fact committed: true
 ```
 
-Verified path:
+### Versioned read and atomic mutation
 
 ```text
-Effect prepared
-→ Dispatch started
-→ Ordivon Job durably admitted
-→ Dispatch admitted
-→ TaskObservation
-→ Observation + Artifacts
-→ Effect succeeded
+before digest: sha256:8bf8ee1400851e9b01f687cac287cf26681d3b7ca49a345ce0efd1123d1573dd
+after digest:  sha256:ae422cadc74a5b2f5c4eff147494edb0b68e0f83275c0d4874da986f060e2fb4
+independent reread Fact: committed
+stale mutation state: failed
+stale mutation code: INVALID_REQUEST
 ```
 
-## Live retryable admission rejection
-
-A nested execution intentionally targeted the Workspace already holding the outer Job. Ordivon's per-Workspace execution limit is one.
-
-```text
-Effect state: prepared
-Dispatch state: rejected
-Error code: CONCURRENCY_LIMIT
-Message: workspace execution concurrency limit reached (active=1, limit=1)
-Correlated Job: none
-```
-
-The adapter received the structured Tool rejection, searched `task.list` by the stable `clientRequestId`, proved that no Job had been admitted, marked the concrete Dispatch rejected, and returned the durable Effect to prepared. A later execution may create a new Dispatch identity; the rejected attempt remains historical evidence.
-
-## Semantic correction discovered by dogfood
-
-The first implementation treated every Tool error as Effect=`unknown`; the second treated every proven rejection as Effect=`failed`. Both were too coarse. The corrected algebra is:
-
-```text
-transport/protocol uncertainty
-→ Dispatch unknown + Effect unknown
-→ reconcile; never blind redispatch
-
-structured rejection + correlated Job
-→ Dispatch admitted
-→ observe/reconcile the existing Job
-
-structured rejection + no Job + retryable
-→ Dispatch rejected
-→ Effect prepared
-→ a new Dispatch may be attempted later
-
-structured rejection + no Job + non-retryable
-→ Dispatch rejected
-→ Effect failed
-```
-
-## Live contract drift observed
-
-During the experiment the MCP server identity changed from `ordivon-mcp` to `ordivon-runtime-mcp`, and the systemd unit changed to `ordivon-runtime.service`. The public Tool capability remained available. The dogfood client now recognizes the Ordivon server family instead of freezing one historical service name. This is evidence for semantic identity and contract classification above concrete deployment names.
+The sanitized receipts are recorded in [`LIVE-REPORT.md`](LIVE-REPORT.md).
 
 ## Not yet proven
 
-- real response loss after durable Job admission; deterministic transport-loss coverage exists;
-- restart recovery from a durable semantic journal;
-- cancellation racing with natural completion;
-- Tool-contract diff and pending Effect rebinding.
-
-## Live versioned I/O and Fact admission
-
-A disposable Ordivon Workspace was used to execute the second vertical slice:
-
-```text
-read current digest
-→ atomic WRITE with expectedDigest
-→ reread exact afterDigest
-→ accept Verification
-→ commit Fact
-→ retry old digest and prove stale rejection
-```
-
-Evidence:
-
-```text
-Before: sha256:38165db00100bc3ea312f531375560543c391bfbcad75b722e06c6e2c8ad16a7
-After:  sha256:08947d27245828547c51608be7c55bc831848ea23ed2af9ed62c5637e27437a6
-Fact: fact:digest:dc1e3da00335d720fb901ef0
-Stale guard: failed / INVALID_REQUEST
-```
-
-The stale attempt did not overwrite the verified content. The successful mutation receipt and independent reread Observation remained separate evidence objects.
+- deliberately injected live response loss;
+- cancellation races against a real process;
+- adapter or semantic-journal restart continuity;
+- real Tool-schema drift;
+- persistent journal reconstruction.

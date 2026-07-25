@@ -1,115 +1,66 @@
 # Semantic Core v0
 
-An executable reference kernel for the first Agent-native semantic layer:
+An executable reference model for the first Agent-native semantic layer:
 
 ```text
 Reality and Evidence
 → Identity and Causality
 → Outcome Algebra
 → Effect Semantics
-→ Backend Binding
 ```
 
-The semantic core is independent of Ordivon, Linux process state, MCP, model providers, and conversation history. The experiment also includes a thin Ordivon adapter and a separate standard-library Streamable HTTP MCP client so the same semantics can be exercised against a real execution backend without importing MCP into the core.
+The reference kernel uses only the Python standard library at runtime. It is intentionally independent of Linux process state, model providers, conversation history, and concrete Tool transports. Ordivon integration lives in a separate adapter and does not define the core semantics.
 
-## Layering
+## Run
 
-```text
-ReferenceKernel
-    ↑ SemanticKernel protocol
-OrdivonSemanticAdapter
-    ↑ provider-neutral ToolCaller protocol
-StreamableHttpMcpClient
-    ↓
-Ordivon MCP → Ordivon Runtime → Linux
-```
-
-## Execution form
-
-This v0 is intentionally source-run rather than packaged. It has no runtime dependency and does not require a Python build backend. Packaging is deferred until a second consumer needs an installable artifact.
-
-## Run unit and conformance tests
-
-From this directory:
+Reference tests:
 
 ```bash
-PYTHONPATH=src python3 -m unittest discover -s tests -v
-python3 -m compileall -q src tests
+PYTHONPATH=src python -m unittest discover -s tests -v
 ```
 
-Current result: **22 tests pass**.
-
-## Run live Ordivon dogfood
-
-Load the local Ordivon environment without printing its bearer token, then run:
+Live local Ordivon slice:
 
 ```bash
 set -a
-. /etc/ordivon/ordivon-mcp.env
+source /etc/ordivon/ordivon-mcp.env
 set +a
-
-PYTHONPATH=src python3 scripts/live_ordivon_dogfood.py \
-  --target-workspace <workspace-id> \
-  --effect-name <unique-name> \
-  --message semantic-core-live \
-  --expect-state succeeded
+PYTHONPATH=src python scripts/live_ordivon_exec.py \
+  --source-revision <exact-commit>
 ```
 
-The script emits a bounded JSON summary containing semantic state, Job and Attempt identities, Artifact count, stdout tail, and Observation digest. It never prints the bearer token.
+The live script never prints the Bearer token and always attempts to close its temporary Workspace.
 
-## Implemented semantics
+## Implemented semantic objects
 
-- typed semantic identities;
-- idempotent Effect admission with identity-conflict detection;
-- optimistic revisions and ordered Effect events;
-- independent Effect and Dispatch records with separate state machines;
-- explicit `unknown → reconciling` without blind redispatch;
-- immutable terminal outcomes;
-- Observation and Artifact provenance bound to one Dispatch;
-- Claim → Verification → Fact admission;
-- WorldObject-to-Workspace binding before dispatch;
-- retryable Dispatch rejection preserves a prepared Effect;
-- non-retryable Dispatch rejection fails the Effect;
-- uncertain delivery remains non-redispatchable;
-- Ordivon Job correlation through stable `clientRequestId`;
-- an invariant scanner and reusable conformance scenarios.
+- typed `SemanticId` identities;
+- versioned `WorldObjectRef` targets;
+- immutable `EffectSpec` intent;
+- independent `DispatchRecord` boundary attempts with STARTED / ADMITTED / UNKNOWN / REJECTED state;
+- ordered `EffectEvent` causality;
+- immutable `Observation` and `Artifact` evidence;
+- `Claim → Verification → Fact` admission;
+- optimistic revisions and invariant scanning.
 
-## Current backend slices
+## Critical rules
 
-### Asynchronous execution
+- an Effect is not a Tool call;
+- beginning a Dispatch does not prove backend admission or completion;
+- evidence may be recorded only after Dispatch admission; retryable rejection remains distinct from uncertain delivery;
+- response loss becomes `unknown`, never implicit failure;
+- `unknown` must reconcile and cannot blindly redispatch;
+- terminal outcomes are immutable;
+- accepted Verification must satisfy the Effect's declared evidence plan;
+- independent evidence may cross Effects only when it targets the same WorldObject and version and predates Verification;
+- a Fact cannot predate or bypass its accepted Verification.
 
-The first real operation is asynchronous `workspace.exec`:
+## Current maturity
 
-```text
-EffectSpec
-→ validate WorldObject / Workspace binding
-→ begin Dispatch before transport
-→ workspace.exec
-→ Job / Attempt correlation
-→ TaskObservation
-→ semantic Observation and Artifacts
-→ succeeded / failed / cancelled / unknown
-```
+- **M0 semantic reference kernel:** integrated from two independent implementations and covered by 27 reusable conformance tests on Python 3.12 and 3.14;
+- **M1 Ordivon adapter:** asynchronous execution, versioned read, atomic mutation, Artifact projection, and Fact admission passed through the public MCP contract;
+- **live proof:** command execution remained single-dispatch; mutation results were independently re-read by separate Effects; two file Facts were admitted; stale-digest mutation was rejected without changing final content;
+- **remaining M1 work:** injected response loss, cancellation races, adapter restart continuity, and Tool-contract drift;
+- **durability:** semantic journal remains in-memory;
+- **wire format:** intentionally deferred until more backend semantics agree.
 
-A live successful run and a live pre-admission concurrency rejection are recorded in [`TEST-REPORT.md`](TEST-REPORT.md).
-
-### Versioned I/O and Fact admission
-
-```text
-workspace.read
-→ digest-bound Observation
-→ workspace.mutate with expectedDigest
-→ independent reread Effect
-→ Verification
-→ Fact
-```
-
-The live path and its stale-precondition guard are described in [`IO-ADAPTER.md`](IO-ADAPTER.md).
-
-## Next slice
-
-1. unknown mutation reconciliation;
-2. cancellation and duplicate-delivery races;
-3. Tool contract identity and semantic diff;
-4. durable semantic journal;
-5. canonical Effect IR only after the implementations continue to agree.
+See [`SPEC.md`](SPEC.md), [`LIVE-REPORT.md`](LIVE-REPORT.md), [`DECISIONS.md`](DECISIONS.md), and [`ROADMAP.md`](ROADMAP.md).

@@ -50,7 +50,7 @@ def verify_digest_fact(
     ).hexdigest()[:24]
     claim = Claim(
         claim_id=SemanticId(IdKind.CLAIM, f"digest:{token}"),
-        effect_id=claim_effect_id,
+        origin_effect_id=claim_effect_id,
         subject=WorldObjectRef(origin.spec.target.object_id, version=expected_digest),
         predicate="content_digest_equals",
         value_digest=expected_digest,

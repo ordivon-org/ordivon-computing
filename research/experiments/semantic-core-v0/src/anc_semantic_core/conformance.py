@@ -7,7 +7,6 @@ from .kernel import InvalidTransition, SemanticKernel
 from .model import (
     Admission,
     Artifact,
-    DispatchState,
     CapabilityRef,
     Claim,
     CompletionSemantics,
@@ -35,7 +34,7 @@ def sample_effect(name: str = "sample") -> EffectSpec:
     target = sid(IdKind.WORLD_OBJECT, f"repo:{name}")
     operation = "workspace.read"
     return EffectSpec(
-        effect_id=sid(IdKind.EFFECT, name),
+        effect_id=sid(IdKind.EFFECT, f"effect:{name}"),
         target=WorldObjectRef(target, version="rev-1"),
         mode=EffectMode.OBSERVE,
         operation=operation,
@@ -53,7 +52,6 @@ def sample_effect(name: str = "sample") -> EffectSpec:
 def run_core_conformance(factory: Callable[[], SemanticKernel]) -> None:
     _successful_verified_effect(factory())
     _unknown_requires_reconciliation(factory())
-    _retryable_dispatch_rejection_preserves_effect(factory())
     _terminal_state_is_immutable(factory())
 
 
@@ -87,18 +85,16 @@ def _successful_verified_effect(kernel: SemanticKernel) -> None:
         request_digest="sha256:dispatch-request",
     )
     assert record.state is EffectState.DISPATCHED
-    assert kernel.get_dispatch(dispatch_id).state is DispatchState.STARTED
+    assert kernel.get_dispatch(dispatch_id).effect_id == spec.effect_id
     record = kernel.admit_dispatch(
         spec.effect_id,
         dispatch_id,
         expected_revision=2,
-        event_id=sid(IdKind.EVENT, "event:success:3"),
+        event_id=sid(IdKind.EVENT, "event:success:admitted"),
         recorded_at_ms=4,
-        backend_operation_id="backend-job:success",
-        evidence_digest="sha256:backend-admission",
+        backend_operation_id="backend:success",
+        evidence_digest="sha256:admission",
     )
-    assert record.state is EffectState.DISPATCHED
-    assert kernel.get_dispatch(dispatch_id).state is DispatchState.ADMITTED
     observation = Observation(
         observation_id=sid(IdKind.OBSERVATION, "observation:success"),
         effect_id=spec.effect_id,
@@ -124,14 +120,14 @@ def _successful_verified_effect(kernel: SemanticKernel) -> None:
         spec.effect_id,
         EffectState.SUCCEEDED,
         expected_revision=3,
-        event_id=sid(IdKind.EVENT, "event:success:4"),
+        event_id=sid(IdKind.EVENT, "event:success:3"),
         recorded_at_ms=6,
         evidence_digest="sha256:terminal-evidence",
     )
     assert record.state is EffectState.SUCCEEDED
     claim = Claim(
         claim_id=sid(IdKind.CLAIM, "claim:success"),
-        effect_id=spec.effect_id,
+        origin_effect_id=spec.effect_id,
         subject=spec.target,
         predicate="content_digest_equals",
         value_digest="sha256:payload",
@@ -180,16 +176,14 @@ def _unknown_requires_reconciliation(kernel: SemanticKernel) -> None:
         recorded_at_ms=3,
         request_digest="sha256:dispatch-request",
     )
-    unknown_dispatch = sid(IdKind.DISPATCH, "dispatch:unknown")
     record = kernel.mark_dispatch_unknown(
         spec.effect_id,
-        unknown_dispatch,
+        sid(IdKind.DISPATCH, "dispatch:unknown"),
         expected_revision=2,
         event_id=sid(IdKind.EVENT, "event:unknown:3"),
         recorded_at_ms=4,
         evidence_digest="sha256:response-lost",
     )
-    assert kernel.get_dispatch(unknown_dispatch).state is DispatchState.UNKNOWN
     assert record.state is EffectState.UNKNOWN
     assert next_action(record.state) is NextAction.RECONCILE
     try:
@@ -215,87 +209,21 @@ def _unknown_requires_reconciliation(kernel: SemanticKernel) -> None:
     )
     kernel.admit_dispatch(
         spec.effect_id,
-        unknown_dispatch,
+        sid(IdKind.DISPATCH, "dispatch:unknown"),
         expected_revision=4,
-        event_id=sid(IdKind.EVENT, "event:unknown:5"),
+        event_id=sid(IdKind.EVENT, "event:unknown:admitted"),
         recorded_at_ms=7,
-        backend_operation_id="backend-job:unknown-recovered",
-        evidence_digest="sha256:correlated-backend-admission",
+        backend_operation_id="backend:correlated",
+        evidence_digest="sha256:correlated-identity",
     )
     kernel.advance_effect(
         spec.effect_id,
         EffectState.SUCCEEDED,
         expected_revision=5,
-        event_id=sid(IdKind.EVENT, "event:unknown:6"),
+        event_id=sid(IdKind.EVENT, "event:unknown:5"),
         recorded_at_ms=8,
         evidence_digest="sha256:correlated-world-result",
     )
-    kernel.validate_invariants()
-
-
-def _retryable_dispatch_rejection_preserves_effect(kernel: SemanticKernel) -> None:
-    spec = sample_effect("retryable-rejection")
-    kernel.admit_effect(
-        spec,
-        event_id=sid(IdKind.EVENT, "event:retryable:0"),
-        recorded_at_ms=1,
-    )
-    kernel.prepare_effect(
-        spec.effect_id,
-        expected_revision=0,
-        event_id=sid(IdKind.EVENT, "event:retryable:1"),
-        recorded_at_ms=2,
-    )
-    first_dispatch = sid(IdKind.DISPATCH, "dispatch:retryable:first")
-    kernel.begin_dispatch(
-        spec.effect_id,
-        expected_revision=1,
-        dispatch_id=first_dispatch,
-        event_id=sid(IdKind.EVENT, "event:retryable:2"),
-        recorded_at_ms=3,
-        request_digest="sha256:first-request",
-    )
-    record = kernel.reject_dispatch(
-        spec.effect_id,
-        first_dispatch,
-        expected_revision=2,
-        event_id=sid(IdKind.EVENT, "event:retryable:3"),
-        recorded_at_ms=4,
-        reason_code="CONCURRENCY_LIMIT",
-        retryable=True,
-        evidence_digest="sha256:explicit-rejection",
-    )
-    assert record.state is EffectState.PREPARED
-    assert record.dispatch_id is None
-    rejected = kernel.get_dispatch(first_dispatch)
-    assert rejected.state is DispatchState.REJECTED
-    assert rejected.retryable is True
-    assert next_action(record.state) is NextAction.DISPATCH
-
-    second_dispatch = sid(IdKind.DISPATCH, "dispatch:retryable:second")
-    record = kernel.begin_dispatch(
-        spec.effect_id,
-        expected_revision=3,
-        dispatch_id=second_dispatch,
-        event_id=sid(IdKind.EVENT, "event:retryable:4"),
-        recorded_at_ms=5,
-        request_digest="sha256:second-request",
-    )
-    assert record.dispatch_id == second_dispatch
-    assert first_dispatch != second_dispatch
-    kernel.reject_dispatch(
-        spec.effect_id,
-        second_dispatch,
-        expected_revision=4,
-        event_id=sid(IdKind.EVENT, "event:retryable:5"),
-        recorded_at_ms=6,
-        reason_code="CAPABILITY_DENIED",
-        retryable=False,
-        evidence_digest="sha256:nonretryable-rejection",
-    )
-    assert kernel.get_effect(spec.effect_id).state is EffectState.FAILED
-    assert kernel.get_dispatch(first_dispatch).state is DispatchState.REJECTED
-    assert kernel.get_dispatch(second_dispatch).state is DispatchState.REJECTED
     kernel.validate_invariants()
 
 

@@ -10,7 +10,7 @@ from dataclasses import replace
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind
 from anc_semantic_core.kernel import ReferenceKernel
-from anc_semantic_core.mcp_http import StreamableHttpMcpClient
+from live_support import LocalMcpToolCaller
 from anc_semantic_core.model import (
     CapabilityRef,
     CompletionSemantics,
@@ -83,7 +83,7 @@ def main() -> int:
         recorded_at_ms=2,
     )
 
-    client = StreamableHttpMcpClient(args.endpoint, token)
+    client = LocalMcpToolCaller(args.endpoint, token)
     initialized = client.initialize()
     server_name = initialized.get("serverInfo", {}).get("name")
     if not isinstance(server_name, str) or not server_name.startswith("ordivon-"):

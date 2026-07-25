@@ -2,62 +2,42 @@
 
 ## D1 — Start with semantics, not serialization
 
-JSON Schema, protobuf, dataclasses, and Rust structs are encodings. The first artifact defines state, identity, causality, evidence, and forbidden transitions before freezing an Effect IR wire format.
+JSON Schema, protobuf, dataclasses, and Rust structs are encodings. State, identity, causality, evidence, and forbidden transitions are defined before an Effect IR wire format is frozen.
 
 ## D2 — Use an independent reference implementation
 
-The reference kernel is Python and standard-library only. Ordivon is Rust and Linux-specific. Agreement between them is stronger evidence of a universal contract than two implementations sharing the same storage and process assumptions.
+The reference kernel is standard-library Python. Ordivon is Rust and Linux-specific. Agreement between independent implementations is stronger evidence of a universal contract than two implementations sharing one backend's assumptions.
 
-Python is not selected as the production kernel. It is selected as an executable semantic oracle and a rapid falsification surface.
+Python is an executable semantic oracle and falsification surface, not the selected production kernel.
 
 ## D3 — Separate Effect from Dispatch
 
-An Effect expresses the intended observation or change. A Dispatch is one concrete crossing into a Tool or external system. This separation is required for response loss, rebinding, correlation, and no-duplicate guarantees.
+An Effect expresses intended world observation or change. A Dispatch is one concrete boundary attempt. `DispatchRecord` has independent identity, request digest, ownership, time, and a lifecycle: `STARTED`, `ADMITTED`, `UNKNOWN`, or `REJECTED`. Starting a boundary attempt does not claim backend admission.
 
-## D4 — Treat unknown as a first-class state
+## D4 — Separate pre-admission rejection from uncertain delivery
+
+A structured rejection before backend admission may be retryable or terminal. Once a Dispatch is admitted or becomes unknown, it cannot be rewritten as a pre-admission rejection. This prevents a lost response from being normalized into a safe retry.
+
+## D5 — Treat unknown as a first-class state
 
 No response, lost process ownership, stale local state, or disconnected Host is not proof of failure. `unknown → reconciling → observed outcome` is a core path.
 
-## D5 — Facts require evidence-bound verification
+## D6 — Facts require evidence-bound verification
 
-Model text, successful transport, process exit, and Artifact existence are not Facts. A Fact is admitted only when an explicit Claim receives an accepted Verification that references immutable evidence.
+Model text, successful transport, process exit, and Artifact existence are not Facts. A Fact is admitted only when an explicit Claim receives an accepted Verification.
 
-## D6 — Keep retries out of v0
+## D7 — Separate Claim origin from evidence origin
 
-Generic retry semantics are deferred. Blind retry is unsafe once a Dispatch may have crossed the world boundary. A proven retryable pre-admission rejection is different: the rejected Dispatch remains immutable while the Effect returns to prepared and may create a new Dispatch identity. Rebinding, compensation, and retry after unknown outcome remain deferred.
+A Claim records the Effect that proposed it, but independent verification often requires a different Effect. Cross-Effect evidence is allowed only when its world-object identity and version match the Claim subject, its timestamp does not follow Verification, and it satisfies the originating Effect's VerificationPlan.
 
-## D7 — Keep Goal and Task above the kernel
+## D8 — Keep retries out of v0
 
-Goal, Task, scheduling, memory, and model calls depend on lower semantics. They must consume Effect and evidence state, not define it.
+Blind retry is unsafe after a Dispatch may have crossed the world boundary. Later work must distinguish new delivery, rebinding, retry, compensation, and a genuinely new Effect.
 
-## D8 — Bind semantic objects before binding Tools
+## D9 — Keep transport below adapters
 
-A Tool argument such as `workspaceId` is not enough to prove that the Effect targets the intended world object. The adapter must validate a canonical WorldObject identity against the concrete backend object before a Dispatch begins.
+The semantic core defines Tool-call uncertainty classes but does not implement MCP, HTTP, CLI, or RPC transports. Transport protocol correctness belongs to Tool ABI and adapter work.
 
-## D9 — Separate transport uncertainty from explicit rejection
+## D10 — Keep Goal and Task above the kernel
 
-Transport loss or malformed protocol state may leave the world outcome unknown. A structured Tool rejection is different, but the adapter first confirms whether a durable backend Job exists. With no Job, a retryable rejection preserves the Effect as prepared; a non-retryable rejection fails it.
-
-## D10 — Keep concrete protocols below a provider-neutral Tool port
-
-The semantic adapter depends on a minimal `ToolCaller` protocol and generic Tool errors. Streamable HTTP MCP is one concrete transport implementation, not part of Agent semantic truth.
-
-## D11 — Effect and Dispatch have different lifecycles
-
-An Effect is durable intent; a Dispatch is one concrete delivery attempt. Dispatch rejection does not necessarily invalidate the Effect. This distinction is required for capacity pressure, temporary unavailability, schema adaptation, and future backend rebinding.
-
-## D12 — Do not add a packaging substrate before reuse requires one
-
-Semantic Core v0 runs directly from `src/` with no runtime dependency. The local environment has no Python build backend, and packaging is not part of the current research question. A build backend, distribution format, or registry publication will be introduced only when a second consumer requires an installable artifact.
-
-## D13 — Synchronous Tool results are receipts, not Jobs
-
-A successful synchronous read or mutation has no backend Job identity. The structured response is admitted as a receipt whose identity includes Tool, Dispatch, and response digest. This preserves distinct executions even when their content is identical.
-
-## D14 — Independent verification may cross Effect boundaries
-
-A Fact about a change should not rely only on evidence emitted by the changing Effect. Verification may cite an Observation from a separate succeeded Effect when both address the same WorldObject and satisfy version, evidence-kind, and temporal constraints. Artifact borrowing remains narrower because Artifact currently has no WorldObject field.
-
-## D15 — Existing-file mutation requires compare-and-swap
-
-Semantic mutation v0 requires an expected SHA-256 digest. Stale preconditions are explicit rejected Dispatches, not unknown outcomes. New-file and multi-file semantics remain deferred until their identity and rollback requirements are defined.
+Goal, Task, scheduling, memory, and model calls consume Effect and evidence state. They do not define the lower semantics.

@@ -10,7 +10,7 @@ from dataclasses import replace
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind
 from anc_semantic_core.kernel import ReferenceKernel
-from anc_semantic_core.mcp_http import StreamableHttpMcpClient
+from live_support import LocalMcpToolCaller
 from anc_semantic_core.model import (
     CapabilityRef,
     CompletionSemantics,
@@ -98,7 +98,7 @@ def main() -> int:
     token = os.environ.get("ORDIVON_BEARER_TOKEN")
     if not token:
         raise SystemExit("ORDIVON_BEARER_TOKEN is required")
-    client = StreamableHttpMcpClient(args.endpoint, token)
+    client = LocalMcpToolCaller(args.endpoint, token)
     server_name = client.initialize().get("serverInfo", {}).get("name")
     if not isinstance(server_name, str) or not server_name.startswith("ordivon-"):
         raise SystemExit("endpoint is not an Ordivon MCP server")

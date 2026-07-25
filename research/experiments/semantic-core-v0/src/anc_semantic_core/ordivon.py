@@ -8,7 +8,7 @@ from typing import Any, Callable, Protocol
 
 from .identity import IdKind, SemanticId
 from .kernel import InvalidTransition, SemanticKernel
-from .transport import ToolCallError, ToolRejected
+from .transport import ToolCallError, ToolProtocolError, ToolRejected
 from .model import Admission, Artifact, Observation
 from .state import EffectState
 
@@ -205,6 +205,44 @@ class OrdivonSemanticAdapter:
             return self._mark_unknown(effect_id, error)
         return self._apply_payload(effect_id, payload, source="workspace.exec")
 
+    def observe(
+        self,
+        effect_id: SemanticId,
+        *,
+        wait_ms: int = 0,
+        stdout_tail_bytes: int = 4096,
+        stderr_tail_bytes: int = 4096,
+    ) -> AdapterProjection:
+        record = self._kernel.get_effect(effect_id)
+        if record.state not in {
+            EffectState.DISPATCHED,
+            EffectState.RUNNING,
+            EffectState.CANCEL_REQUESTED,
+        }:
+            raise InvalidTransition(
+                "observation requires a dispatched, running, or cancel-requested Effect"
+            )
+        try:
+            binding = self._bindings.get(effect_id)
+            if binding is None:
+                binding = self._find_binding(effect_id)
+            if binding is None:
+                return self._mark_unknown(
+                    effect_id,
+                    ToolProtocolError(
+                        "no Ordivon Job matched the committed request identity"
+                    ),
+                )
+            return self._observe_binding(
+                effect_id,
+                binding,
+                wait_ms=wait_ms,
+                stdout_tail_bytes=stdout_tail_bytes,
+                stderr_tail_bytes=stderr_tail_bytes,
+            )
+        except ToolCallError as error:
+            return self._mark_unknown(effect_id, error)
+
     def _observe_binding(
         self,
         effect_id: SemanticId,
@@ -228,13 +266,12 @@ class OrdivonSemanticAdapter:
 
     def _mark_unknown(self, effect_id: SemanticId, error: ToolCallError) -> AdapterProjection:
         record = self._kernel.get_effect(effect_id)
-        pending = self._pending.get(effect_id)
-        if pending is None:
+        if record.dispatch_id is None:
             raise InvalidTransition("Effect has no committed Ordivon Dispatch")
         if record.state is not EffectState.UNKNOWN:
             record = self._kernel.mark_dispatch_unknown(
                 effect_id,
-                pending.dispatch_id,
+                record.dispatch_id,
                 expected_revision=record.revision,
                 event_id=self._event_id(effect_id, "outcome-unknown"),
                 recorded_at_ms=self._clock_ms(),
@@ -258,12 +295,12 @@ class OrdivonSemanticAdapter:
         error: ToolRejected,
     ) -> AdapterProjection:
         record = self._kernel.get_effect(effect_id)
-        pending = self._pending.get(effect_id)
-        if pending is None:
+        if record.dispatch_id is None:
             raise InvalidTransition("Effect has no committed Ordivon Dispatch")
+        rejected_dispatch_id = record.dispatch_id
         record = self._kernel.reject_dispatch(
             effect_id,
-            pending.dispatch_id,
+            rejected_dispatch_id,
             expected_revision=record.revision,
             event_id=self._event_id(effect_id, "tool-rejected"),
             recorded_at_ms=self._clock_ms(),
@@ -316,12 +353,11 @@ class OrdivonSemanticAdapter:
             return self._mark_unknown(effect_id, error)
         if binding is None:
             current = self._kernel.get_effect(effect_id)
-            pending = self._pending.get(effect_id)
-            if pending is None:
+            if current.dispatch_id is None:
                 raise InvalidTransition("Effect has no committed Ordivon Dispatch")
             current = self._kernel.mark_dispatch_unknown(
                 effect_id,
-                pending.dispatch_id,
+                current.dispatch_id,
                 expected_revision=current.revision,
                 event_id=self._event_id(effect_id, "not-found"),
                 recorded_at_ms=self._clock_ms(),
@@ -405,9 +441,11 @@ class OrdivonSemanticAdapter:
         projected = semantic_state_from_status(status)
         payload_digest = _digest(payload)
         observation = Observation(
-            observation_id=SemanticId(
-                IdKind.OBSERVATION,
-                f"ordivon:{binding.job_id}:{payload_digest.removeprefix('sha256:')[:24]}",
+            observation_id=_observation_id(
+                effect_id,
+                binding.dispatch_id,
+                source,
+                payload_digest,
             ),
             effect_id=effect_id,
             dispatch_id=binding.dispatch_id,
@@ -425,10 +463,12 @@ class OrdivonSemanticAdapter:
         if current.state is EffectState.RECONCILING and target is EffectState.DISPATCHED:
             target = EffectState.RUNNING
         if target is EffectState.UNKNOWN:
+            if current.dispatch_id is None:
+                raise InvalidTransition("observed Effect has no committed Dispatch")
             if current.state is not EffectState.UNKNOWN:
                 current = self._kernel.mark_dispatch_unknown(
                     effect_id,
-                    binding.dispatch_id,
+                    current.dispatch_id,
                     expected_revision=current.revision,
                     event_id=self._event_id(effect_id, "observe-unknown"),
                     recorded_at_ms=self._clock_ms(),
@@ -538,6 +578,18 @@ class OrdivonSemanticAdapter:
         revision = self._kernel.get_effect(effect_id).revision + 1
         digest = hashlib.sha256(str(effect_id).encode("utf-8")).hexdigest()[:16]
         return SemanticId(IdKind.EVENT, f"ordivon:{digest}:{revision}:{label}")
+
+
+def _observation_id(
+    effect_id: SemanticId,
+    dispatch_id: SemanticId,
+    source: str,
+    payload_digest: str,
+) -> SemanticId:
+    digest = hashlib.sha256(
+        f"{effect_id}|{dispatch_id}|{source}|{payload_digest}".encode("utf-8")
+    ).hexdigest()[:32]
+    return SemanticId(IdKind.OBSERVATION, f"ordivon:{digest}")
 
 
 def _client_request_id(effect_id: SemanticId) -> str:

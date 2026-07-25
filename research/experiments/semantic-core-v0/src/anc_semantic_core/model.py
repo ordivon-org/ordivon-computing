@@ -264,14 +264,14 @@ class Artifact:
 @dataclass(frozen=True, slots=True)
 class Claim:
     claim_id: SemanticId
-    effect_id: SemanticId
+    origin_effect_id: SemanticId
     subject: WorldObjectRef
     predicate: str
     value_digest: str
 
     def __post_init__(self) -> None:
         self.claim_id.require(IdKind.CLAIM)
-        self.effect_id.require(IdKind.EFFECT)
+        self.origin_effect_id.require(IdKind.EFFECT)
         if not self.predicate or not self.value_digest:
             raise ValueError("claim predicate and value digest must not be empty")
 
