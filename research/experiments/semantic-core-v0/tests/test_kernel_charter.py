@@ -394,7 +394,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
     def test_charter_documents_bind_every_guarantee_to_evidence(self) -> None:
         root = Path(__file__).resolve().parents[1]
         charter = (root / "KERNEL-CHARTER.md").read_text()
-        conformance = (root / "CHARTER-CONFORMANCE.md").read_text()
+        conformance = (root / "CONFORMANCE.md").read_text()
         canonical_tests = {
             "K1": "test_k1_identity_survives_journal_restart",
             "K2": "test_k2_dispatch_identity_cannot_cross_effects",

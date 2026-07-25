@@ -1,17 +1,19 @@
 # Semantic Core v0
 
-An executable Agent-native semantic layer built on mature classical runtime and storage mechanisms:
+An executable Agent-native semantic layer built on mature classical runtime and storage mechanisms.
 
 ```text
-Reality and Evidence
-→ Identity and Causality
-→ Outcome Algebra
-→ Effect Semantics
-→ Atomic Semantic Transactions
-→ Durable Journal and Replay
+Probabilistic cognition
+→ signed Effect proposal
+→ stable Effect / Dispatch semantics
+→ Ordivon or another execution backend
+→ Observation / Artifact evidence
+→ Verification
+→ Fact admission
+→ authenticated Journal replay
 ```
 
-The semantic model is independent of model providers, conversation history, and concrete Tool transports. The reference implementation uses Python 3.12.13 and standard-library SQLite. Ordivon integration remains in adapters and does not define the core semantics.
+The semantic model is independent of model providers, conversation history, and concrete Tool transports. The reference implementation uses Python 3.12 and standard-library SQLite. Ordivon integration remains in adapters and does not define the core semantics.
 
 ## Run
 
@@ -27,7 +29,8 @@ Live durable recovery:
 set -a
 source /etc/ordivon/ordivon-mcp.env
 set +a
-PYTHONPATH=src python3.12 scripts/live_ordivon_journal_restart.py   --source-revision <exact-commit>
+PYTHONPATH=src python3.12 scripts/live_ordivon_journal_restart.py \
+  --source-revision <exact-commit>
 ```
 
 Live scripts never print the Bearer token and close temporary Workspaces.
@@ -49,35 +52,17 @@ Live scripts never print the Bearer token and close temporary Workspaces.
 
 ## Kernel responsibility
 
-The normative responsibility boundary is frozen in [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md). The Kernel is not a model orchestrator, scheduler, memory platform, sandbox, or replacement operating system. It exists to preserve semantic identity, legal transitions, explicit uncertainty, evidence provenance, and recoverable history across external action.
+The Kernel preserves semantic identity, legal transitions, explicit uncertainty, evidence provenance, role-scoped authority, and recoverable history across external action. It is not a model orchestrator, Task scheduler, memory platform, sandbox, or replacement operating system.
 
-## Critical rules
+## Documentation map
 
-- an Effect is not a Tool call;
-- beginning a Dispatch does not prove backend admission or completion;
-- response loss becomes `UNKNOWN`, never implicit failure;
-- `UNKNOWN` reconciles and cannot blindly redispatch;
-- Adapter projection is all-or-nothing;
-- terminal outcomes are immutable;
-- accepted Verification must satisfy the Effect's declared evidence plan;
-- independent evidence may cross Effects only for the same WorldObject/version and valid time order;
-- a Fact cannot predate or bypass accepted Verification;
-- Tool results enter the evidence path and Facts require Claim plus accepted Verification;
-- every mutation and evidence object carries a verified role and content-bound Attestation;
-- Ordivon Adapters receive execution authority while Verification and Fact acceptance use separate Views;
-- journal integrity, signed replay, and writer conflict detection protect durable state.
+- [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md) — mission, classical foundation, and K1–K10;
+- [`SPEC.md`](SPEC.md) — primitive separation, state algebra, evidence graph, and invariants;
+- [`AUTHORITY.md`](AUTHORITY.md) — role grants, signers, Attestations, and scoped Views;
+- [`JOURNAL.md`](JOURNAL.md) — atomic persistence, integrity, writer conflict, and replay;
+- [`ADAPTERS.md`](ADAPTERS.md) — asynchronous execution and versioned I/O boundaries;
+- [`FAILURE-MODEL.md`](FAILURE-MODEL.md) — failure classes and required responses;
+- [`CONFORMANCE.md`](CONFORMANCE.md) — canonical tests and sanitized live evidence;
+- [`DECISIONS.md`](DECISIONS.md) — retained architecture decisions.
 
-## Current maturity
-
-- **M0:** semantic constitution v0 complete;
-- **M1:** Ordivon Adapter and failure semantics v0 complete;
-- **M1.5:** Kernel atomicity closure complete;
-- **M2:** local durable semantic journal v0 complete;
-- **M2.25:** positive Kernel Charter, failure model, and canonical fault-injection gates complete;
-- **M2.5:** role-scoped Authority and content-bound Attestation complete;
-- **verification:** 75 tests pass; bytecode compilation, ruff, and real process-restart recovery pass;
-- **next:** M3 external Effect IR.
-
-The internal journal codec is intentionally not the public Effect IR.
-
-See [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md), [`AUTHORITY.md`](AUTHORITY.md), [`FAILURE-MODEL.md`](FAILURE-MODEL.md), [`CHARTER-CONFORMANCE.md`](CHARTER-CONFORMANCE.md), [`SPEC.md`](SPEC.md), [`JOURNAL.md`](JOURNAL.md), [`DECISIONS.md`](DECISIONS.md), [`TEST-REPORT.md`](TEST-REPORT.md), and [`ROADMAP.md`](ROADMAP.md).
+Changing task state and readiness live in GitHub Issues. Construction history lives in Git commits and `DECISIONS.md`; it is not duplicated in a local roadmap or status file.

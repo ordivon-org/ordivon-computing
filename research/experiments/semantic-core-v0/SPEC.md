@@ -4,7 +4,7 @@
 
 This experiment defines the minimum semantics required before an Agent Host, Task runtime, memory system, Tool ABI, or multi-Agent coordinator can be trustworthy.
 
-The normative responsibility boundary and hard guarantees are defined in [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md). Failure classes are defined in [`FAILURE-MODEL.md`](FAILURE-MODEL.md). Executable evidence for every current guarantee is indexed in [`CHARTER-CONFORMANCE.md`](CHARTER-CONFORMANCE.md).
+The normative responsibility boundary and hard guarantees are defined in [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md). Failure classes are defined in [`FAILURE-MODEL.md`](FAILURE-MODEL.md). Executable evidence for every current guarantee is indexed in [`CONFORMANCE.md`](CONFORMANCE.md).
 
 The core answers seven questions:
 
