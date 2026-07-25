@@ -21,7 +21,7 @@
     },
     "snapshotId": {
       "type": "string",
-      "pattern": "^[a-z0-9][a-z0-9._:-]{2,127}$"
+      "pattern": "^(?!.*(?:current|latest))[a-z0-9][a-z0-9._:-]{2,127}$"
     },
     "capturedAt": {
       "type": "string",
@@ -41,12 +41,28 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "repository", "revision", "clean"],
+        "required": [
+          "id",
+          "repository",
+          "revision",
+          "clean"
+        ],
         "properties": {
-          "id": {"type": "string", "minLength": 1},
-          "repository": {"type": "string", "format": "uri"},
-          "revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
-          "clean": {"const": true}
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "repository": {
+            "type": "string",
+            "format": "uri"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "clean": {
+            "const": true
+          }
         }
       }
     },
@@ -55,14 +71,48 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "executable", "binaryDigest", "observedState"],
+        "required": [
+          "id",
+          "sourceRepositoryId",
+          "executable",
+          "binaryDigest",
+          "observedState",
+          "contractIds"
+        ],
         "properties": {
-          "id": {"type": "string", "minLength": 1},
-          "executable": {"type": "string", "minLength": 1},
-          "binaryDigest": {"$ref": "#/$defs/digest"},
-          "unitDigest": {"$ref": "#/$defs/digest"},
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "executable": {
+            "type": "string",
+            "minLength": 1
+          },
+          "binaryDigest": {
+            "$ref": "#/$defs/digest"
+          },
+          "unitDigest": {
+            "$ref": "#/$defs/digest"
+          },
           "observedState": {
-            "enum": ["active", "inactive", "failed", "unknown"]
+            "enum": [
+              "active",
+              "inactive",
+              "failed",
+              "unknown"
+            ]
+          },
+          "sourceRepositoryId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "contractIds": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         }
       }
@@ -72,12 +122,27 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "digest"],
+        "required": [
+          "id",
+          "digest"
+        ],
         "properties": {
-          "id": {"type": "string", "minLength": 1},
-          "revision": {"type": "string", "minLength": 1},
-          "digest": {"$ref": "#/$defs/digest"},
-          "source": {"type": "string", "minLength": 1}
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "revision": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!.*(?:current|latest)).+$"
+          },
+          "digest": {
+            "$ref": "#/$defs/digest"
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     },
@@ -87,13 +152,40 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "kind", "digest"],
+        "required": [
+          "id",
+          "kind",
+          "digest"
+        ],
         "properties": {
-          "id": {"type": "string", "minLength": 1},
-          "kind": {"type": "string", "minLength": 1},
-          "digest": {"$ref": "#/$defs/digest"},
-          "path": {"type": "string", "minLength": 1},
-          "producedBy": {"type": "string", "minLength": 1}
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "digest": {
+            "$ref": "#/$defs/digest"
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "producedBy": {
+            "type": "string",
+            "minLength": 1
+          },
+          "repositoryId": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "dependentRequired": {
+          "path": [
+            "repositoryId"
+          ]
         }
       }
     },
@@ -106,11 +198,21 @@
     "integrity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["algorithm", "canonicalization", "payloadDigest"],
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "payloadDigest"
+      ],
       "properties": {
-        "algorithm": {"const": "sha256"},
-        "canonicalization": {"const": "json-sort-keys-v1"},
-        "payloadDigest": {"$ref": "#/$defs/digest"}
+        "algorithm": {
+          "const": "sha256"
+        },
+        "canonicalization": {
+          "const": "json-sort-keys-v1"
+        },
+        "payloadDigest": {
+          "$ref": "#/$defs/digest"
+        }
       }
     }
   },

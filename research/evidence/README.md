@@ -12,15 +12,7 @@ Which evidence Artifacts were produced or consumed?
 When was this combination observed?
 ```
 
-It does not answer:
-
-```text
-What is the current deployment?
-Which project is currently mature?
-Which Issue is currently ready?
-```
-
-Those dynamic facts remain in the implementation repository, live service, or GitHub. A snapshot is historical evidence captured at one time.
+Changing deployment, project, and Issue state remains in the implementation repository, live service, or GitHub. A snapshot binds one historical observation to exact revisions and digests.
 
 ## Files
 
@@ -42,11 +34,11 @@ purpose
 repository revisions
 service binary and unit digests
 Tool-contract digests, when available
-evidence Artifact digests
+evidence Artifact digests and source repository binding
 payload integrity digest
 ```
 
-The integrity digest is SHA-256 over canonical JSON with sorted keys and compact separators after removing the top-level `integrity` object. The validator recomputes this digest.
+The integrity digest is SHA-256 over canonical JSON with sorted keys and compact separators after removing the top-level `integrity` object. The validator recomputes this digest. For an Artifact with `path` and `repositoryId`, the validator reads that path from the exact repository commit recorded in the snapshot and verifies the content digest.
 
 ## Validate
 

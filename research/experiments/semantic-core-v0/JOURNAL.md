@@ -147,4 +147,4 @@ The first process generated one ephemeral 32-byte root secret and used scoped Ef
 
 ## Production extensions
 
-The next storage-engineering layers are snapshots, compaction, archival, encryption policy, online schema migration, replicated deployment, and long-Journal performance work. M3 adds the public Effect IR, and M4 binds evolving Tool contracts. These extend the signed local semantic history established by Journal schema v2.
+The next storage-engineering layers are snapshots, compaction, archival, encryption policy, online schema migration, replicated deployment, and long-Journal performance work. The next semantic vertical slice develops the public Effect IR and evolving Tool contracts together. These extensions build on the signed local semantic history established by Journal schema v2.
