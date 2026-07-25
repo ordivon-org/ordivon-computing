@@ -9,13 +9,27 @@ Reality and Evidence
 → Effect Semantics
 ```
 
-The reference kernel uses only the Python standard library at runtime. It is intentionally independent of Linux process state, model providers, conversation history, and concrete Tool transports. Ordivon integration lives in a separate adapter prototype and does not define the core semantics.
+The reference kernel uses only the Python standard library at runtime. It is intentionally independent of Linux process state, model providers, conversation history, and concrete Tool transports. Ordivon integration lives in a separate adapter and does not define the core semantics.
 
 ## Run
+
+Reference tests:
 
 ```bash
 PYTHONPATH=src python -m unittest discover -s tests -v
 ```
+
+Live local Ordivon slice:
+
+```bash
+set -a
+source /etc/ordivon/ordivon-mcp.env
+set +a
+PYTHONPATH=src python scripts/live_ordivon_exec.py \
+  --source-revision <exact-commit>
+```
+
+The live script never prints the Bearer token and always attempts to close its temporary Workspace.
 
 ## Implemented semantic objects
 
@@ -42,8 +56,10 @@ PYTHONPATH=src python -m unittest discover -s tests -v
 ## Current maturity
 
 - **M0 semantic reference kernel:** implemented and covered by reusable conformance scenarios;
-- **M1 Ordivon adapter:** scripted prototype only; live backend conformance is not yet claimed;
-- **durability:** in-memory only;
-- **wire format:** intentionally deferred until reference and backend semantics agree.
+- **M1 Ordivon adapter:** live asynchronous execution slice passed through the public MCP contract;
+- **live proof:** one Effect reached `running → succeeded`, produced three semantic Artifacts, admitted a verified Fact, correlated to exactly one Job, and rejected duplicate Dispatch;
+- **remaining M1 work:** versioned read, atomic mutation, injected response loss, cancellation races, restart continuity, and Tool-contract drift;
+- **durability:** semantic journal remains in-memory;
+- **wire format:** intentionally deferred until more backend semantics agree.
 
-See [`SPEC.md`](SPEC.md), [`DECISIONS.md`](DECISIONS.md), and [`ROADMAP.md`](ROADMAP.md).
+See [`SPEC.md`](SPEC.md), [`LIVE-REPORT.md`](LIVE-REPORT.md), [`DECISIONS.md`](DECISIONS.md), and [`ROADMAP.md`](ROADMAP.md).

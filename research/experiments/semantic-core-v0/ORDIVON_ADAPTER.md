@@ -2,7 +2,23 @@
 
 ## Current status
 
-A scripted adapter prototype exists. It translates Ordivon's public Tool payloads into the reference semantic model, but it has not yet passed a live backend conformance run. No production MCP client is included in this experiment.
+The adapter has passed its first live asynchronous execution slice through Ordivon's public MCP contract. It is still an experiment rather than a production adapter.
+
+Proven live:
+
+```text
+Effect preparation
+→ stable Dispatch identity
+→ workspace.exec
+→ running Observation
+→ task.observe
+→ succeeded terminal Observation
+→ Artifact projection
+→ artifact.read verification
+→ Claim → Verification → Fact
+```
+
+Not yet proven live: versioned read, atomic mutation, response-loss injection, cancellation races, adapter restart, and Tool-schema drift.
 
 ## Boundary
 
@@ -23,12 +39,32 @@ EffectSpec
 |---|---|
 | EffectId | stable identity supplied above the adapter |
 | DispatchId | stable boundary-attempt identity derived before invocation |
-| WorldObjectId | normalized repository, workspace, file, process, or artifact identity |
+| WorldObjectId | normalized repository, Workspace, file, process, or Artifact identity |
 | ObservationId | digest-bound reading from one public Tool payload |
 | ArtifactId | namespaced Ordivon Artifact identity |
 | EventId | semantic journal identity, not a protocol request ID |
 
 `clientRequestId` is a backend idempotency and correlation key. It is not the universal Effect identity.
+
+## Normal observation and reconciliation
+
+These are separate semantic paths:
+
+```text
+DISPATCHED / RUNNING / CANCEL_REQUESTED
+→ observe()
+→ task.observe
+→ current or terminal evidence
+```
+
+```text
+UNKNOWN
+→ reconcile()
+→ task.list correlation
+→ task.observe or continued UNKNOWN
+```
+
+A normal running Effect must not enter reconciliation merely because it still needs observation.
 
 ## Uncertainty handling
 
@@ -72,18 +108,16 @@ workspace.exec
 → semantic outcome
 ```
 
-A zero exit code remains backend evidence; it is not sufficient proof of higher-level correctness.
+A zero exit code remains backend evidence; it is not sufficient proof of higher-level correctness. The live slice independently read stdout and verified expected markers before admitting Fact.
 
-## Required live tests
+## Required remaining live tests
 
-1. successful Job and Artifact projection;
-2. duplicate delivery without duplicate Job;
-3. response loss after durable admission;
-4. structured rejection before admission;
-5. `Lost`/`Orphaned` reconciliation;
-6. cancellation racing with natural completion;
-7. Artifact digest or identity mismatch;
-8. stale Workspace revision;
-9. Tool-schema change while an Effect is pending;
-10. Tool-schema change while a Job is running;
-11. invariant scan after adapter restart.
+1. duplicate delivery after response loss without duplicate Job;
+2. structured rejection before admission;
+3. `Lost`/`Orphaned` reconciliation;
+4. cancellation racing with natural completion;
+5. Artifact digest or identity mismatch;
+6. stale Workspace revision;
+7. Tool-schema change while an Effect is pending;
+8. Tool-schema change while a Job is running;
+9. invariant scan after adapter restart.

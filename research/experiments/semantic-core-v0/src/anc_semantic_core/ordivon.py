@@ -8,7 +8,7 @@ from typing import Any, Callable, Protocol
 
 from .identity import IdKind, SemanticId
 from .kernel import InvalidTransition, SemanticKernel
-from .transport import ToolCallError, ToolRejected
+from .transport import ToolCallError, ToolProtocolError, ToolRejected
 from .model import Admission, Artifact, Observation
 from .state import EffectState
 
@@ -192,6 +192,44 @@ class OrdivonSemanticAdapter:
         except ToolCallError as error:
             return self._mark_unknown(effect_id, error)
         return self._apply_payload(effect_id, payload, source="workspace.exec")
+
+    def observe(
+        self,
+        effect_id: SemanticId,
+        *,
+        wait_ms: int = 0,
+        stdout_tail_bytes: int = 4096,
+        stderr_tail_bytes: int = 4096,
+    ) -> AdapterProjection:
+        record = self._kernel.get_effect(effect_id)
+        if record.state not in {
+            EffectState.DISPATCHED,
+            EffectState.RUNNING,
+            EffectState.CANCEL_REQUESTED,
+        }:
+            raise InvalidTransition(
+                "observation requires a dispatched, running, or cancel-requested Effect"
+            )
+        try:
+            binding = self._bindings.get(effect_id)
+            if binding is None:
+                binding = self._find_binding(effect_id)
+            if binding is None:
+                return self._mark_unknown(
+                    effect_id,
+                    ToolProtocolError(
+                        "no Ordivon Job matched the committed request identity"
+                    ),
+                )
+            return self._observe_binding(
+                effect_id,
+                binding,
+                wait_ms=wait_ms,
+                stdout_tail_bytes=stdout_tail_bytes,
+                stderr_tail_bytes=stderr_tail_bytes,
+            )
+        except ToolCallError as error:
+            return self._mark_unknown(effect_id, error)
 
     def _observe_binding(
         self,

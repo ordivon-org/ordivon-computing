@@ -2,7 +2,7 @@
 
 ## Governing rule
 
-Each layer must solve a failure that cannot be expressed below it. No Host, scheduler, memory platform, Tool catalog, or multi-Agent coordinator is authorized before the semantic core survives a real backend.
+Each layer must solve a failure that cannot be expressed below it. No Host, scheduler, memory platform, Tool catalog, or multi-Agent coordinator is authorized before the semantic core survives real backends.
 
 ## M0 — Semantic constitution
 
@@ -18,25 +18,39 @@ Delivered:
 - invariant scanner;
 - reusable conformance scenarios.
 
-Exit gate:
-
-- reference tests pass on Python 3.12 and 3.14;
-- no semantic transition depends on conversation state, provider identity, Linux names, or protocol schemas.
+Exit gate: passed on Python 3.12.13 and 3.14.6.
 
 ## M1 — Ordivon semantic adapter
 
-**Status:** scripted prototype; live validation pending.
+**Status:** active; first live vertical slice passed.
 
-First operations:
+Passed live:
+
+```text
+workspace.open
+→ semantic workspace.exec Effect
+→ running Observation
+→ task.observe
+→ succeeded terminal evidence
+→ three semantic Artifacts
+→ artifact.read verification
+→ Fact admission
+→ duplicate Dispatch rejection
+→ workspace.close
+```
+
+Remaining operations and failure cases:
 
 1. versioned Workspace read;
 2. atomic Workspace mutation;
-3. asynchronous command execution and observation;
-4. output Verification into Fact and Artifact state.
+3. response loss after durable admission;
+4. cancellation and natural completion race;
+5. adapter restart and identity re-correlation;
+6. Tool-contract drift while pending and running.
 
-Exit gate:
+M1 exit gate:
 
-- reusable scenarios run through a live Ordivon backend;
+- all four required operations run through reusable semantic scenarios;
 - response loss reconciles without redispatch;
 - `Lost` and `Orphaned` remain unknown;
 - repeated delivery does not duplicate completed work;

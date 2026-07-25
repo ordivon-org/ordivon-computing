@@ -118,6 +118,48 @@ class OrdivonAdapterTests(unittest.TestCase):
             1,
         )
 
+    def test_running_job_can_be_observed_to_terminal_without_reconcile(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_exec(kernel, "ordivon-running")
+        client = ScriptedClient()
+        client.add(
+            "workspace.exec",
+            {
+                "jobId": "job-running",
+                "attemptId": "attempt-running",
+                "workspaceId": "workspace-test",
+                "status": "working",
+                "artifacts": [],
+            },
+        )
+        client.add(
+            "task.observe",
+            {
+                "jobId": "job-running",
+                "attemptId": "attempt-running",
+                "status": "succeeded",
+                "exitCode": 0,
+                "artifacts": [],
+            },
+        )
+        adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(15, 100)).__next__,
+        )
+        first = adapter.dispatch_exec(
+            spec.effect_id,
+            OrdivonExecution("workspace-test", "/usr/bin/true"),
+        )
+        self.assertIs(first.state, EffectState.RUNNING)
+        terminal = adapter.observe(spec.effect_id, wait_ms=30_000)
+        self.assertIs(terminal.state, EffectState.SUCCEEDED)
+        self.assertEqual(
+            [name for name, _ in client.calls],
+            ["workspace.exec", "task.observe"],
+        )
+        kernel.validate_invariants()
+
     def test_response_loss_reconciles_without_redispatch(self) -> None:
         kernel = ReferenceKernel()
         spec = prepared_exec(kernel, "ordivon-response-loss")
