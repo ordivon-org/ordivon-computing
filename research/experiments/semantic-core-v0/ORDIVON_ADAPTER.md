@@ -107,6 +107,10 @@ EffectSpec
 
 A zero process exit is execution evidence, not sufficient proof that a higher-level Goal was achieved. Claim, Verification, and Fact remain separate layers.
 
+## Synchronous file I/O
+
+Versioned `workspace.read` and compare-and-swap `workspace.mutate` are implemented by a separate thin adapter. Synchronous structured responses become receipt identities rather than invented Jobs. Independent reread evidence may verify a mutation Claim and admit a Fact. See [`IO-ADAPTER.md`](IO-ADAPTER.md).
+
 ## Security boundary
 
 The concrete MCP client reads the bearer token from its caller and sends it only in the Authorization header. The dogfood script requires `ORDIVON_BEARER_TOKEN` but never emits it. The semantic journal stores request and evidence digests, not credentials.

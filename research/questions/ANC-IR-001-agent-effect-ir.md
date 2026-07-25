@@ -54,13 +54,10 @@ semantic constitution
 - reusable conformance scenarios;
 - a provider-neutral Tool boundary;
 - a live Ordivon `workspace.exec` adapter slice;
+- versioned `workspace.read` and compare-and-swap `workspace.mutate`;
+- synchronous receipt identities;
+- independent reread Verification and Fact admission;
 - structured rejection and unknown-delivery separation.
-
-The remaining first-slice operations are:
-
-- read a versioned Workspace file;
-- perform an atomic mutation against an expected version;
-- verify independently observed output and record a Fact.
 
 ## Current evidence
 
@@ -71,9 +68,12 @@ The remaining first-slice operations are:
 - `Lost` and `Orphaned` remain unresolved rather than becoming invented failure;
 - Effect WorldObject identity is checked against the actual backend Workspace;
 - a live Ordivon Job and Attempt produced a semantic Observation and three Artifacts;
-- the concrete MCP transport remains below the provider-neutral semantic adapter.
+- the concrete MCP transport remains below the provider-neutral semantic adapter;
+- synchronous read and mutation results are receipt identities rather than invented Jobs;
+- an independent Observation Effect can verify a mutation Claim and admit a Fact;
+- stale expected digests are rejected without overwriting verified state.
 
-This evidence supports the direction but does not yet close ANC-IR-001. Heterogeneous read, mutation, verification, contract drift, and continuation cases remain open.
+This evidence supports the direction but does not yet close ANC-IR-001. Contract drift, unknown mutation reconciliation, cancellation, continuation, deterministic normalization, and direct-call comparison remain open.
 
 ## Evidence required for closure
 

@@ -37,7 +37,7 @@ PYTHONPATH=src python3 -m unittest discover -s tests -v
 python3 -m compileall -q src tests
 ```
 
-Current result: **14 tests pass**.
+Current result: **22 tests pass**.
 
 ## Run live Ordivon dogfood
 
@@ -74,7 +74,9 @@ The script emits a bounded JSON summary containing semantic state, Job and Attem
 - Ordivon Job correlation through stable `clientRequestId`;
 - an invariant scanner and reusable conformance scenarios.
 
-## Current backend slice
+## Current backend slices
+
+### Asynchronous execution
 
 The first real operation is asynchronous `workspace.exec`:
 
@@ -91,10 +93,23 @@ EffectSpec
 
 A live successful run and a live pre-admission concurrency rejection are recorded in [`TEST-REPORT.md`](TEST-REPORT.md).
 
+### Versioned I/O and Fact admission
+
+```text
+workspace.read
+→ digest-bound Observation
+→ workspace.mutate with expectedDigest
+→ independent reread Effect
+→ Verification
+→ Fact
+```
+
+The live path and its stale-precondition guard are described in [`IO-ADAPTER.md`](IO-ADAPTER.md).
+
 ## Next slice
 
-1. versioned `workspace.read`;
-2. atomic `workspace.mutate` with digest/revision preconditions;
-3. live Claim → Verification → Fact from independently re-observed output;
+1. unknown mutation reconciliation;
+2. cancellation and duplicate-delivery races;
+3. Tool contract identity and semantic diff;
 4. durable semantic journal;
-5. canonical Effect IR only after the two implementations continue to agree.
+5. canonical Effect IR only after the implementations continue to agree.

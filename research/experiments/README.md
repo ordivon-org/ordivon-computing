@@ -14,11 +14,10 @@ question
 
 ## Active
 
-- [`semantic-core-v0/`](semantic-core-v0/) — executable Agent semantic constitution, in-memory reference kernel, reusable conformance scenarios, and the first live Ordivon `workspace.exec` adapter slice.
+- [`semantic-core-v0/`](semantic-core-v0/) — executable Agent semantic constitution, in-memory reference kernel, reusable conformance scenarios, live Ordivon execution, versioned read, atomic mutation, independent Verification, and Fact admission.
 
 ## Planned families
 
-- versioned read and atomic mutation semantic bindings;
 - durable semantic journal;
 - canonical Effect IR and interpreter;
 - minimal Task Capsule transferred across model sessions;

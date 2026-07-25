@@ -13,7 +13,7 @@ git diff --check
 Result:
 
 ```text
-14 tests passed
+22 tests passed
 Python bytecode compilation passed
 Git whitespace validation passed
 ```
@@ -105,6 +105,28 @@ During the experiment the MCP server identity changed from `ordivon-mcp` to `ord
 - real response loss after durable Job admission; deterministic transport-loss coverage exists;
 - restart recovery from a durable semantic journal;
 - cancellation racing with natural completion;
-- live versioned read and atomic mutation Effects;
-- live independent Verification and Fact admission;
 - Tool-contract diff and pending Effect rebinding.
+
+## Live versioned I/O and Fact admission
+
+A disposable Ordivon Workspace was used to execute the second vertical slice:
+
+```text
+read current digest
+→ atomic WRITE with expectedDigest
+→ reread exact afterDigest
+→ accept Verification
+→ commit Fact
+→ retry old digest and prove stale rejection
+```
+
+Evidence:
+
+```text
+Before: sha256:38165db00100bc3ea312f531375560543c391bfbcad75b722e06c6e2c8ad16a7
+After:  sha256:08947d27245828547c51608be7c55bc831848ea23ed2af9ed62c5637e27437a6
+Fact: fact:digest:dc1e3da00335d720fb901ef0
+Stale guard: failed / INVALID_REQUEST
+```
+
+The stale attempt did not overwrite the verified content. The successful mutation receipt and independent reread Observation remained separate evidence objects.

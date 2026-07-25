@@ -587,15 +587,23 @@ class ReferenceKernel:
                 observation = self._observations.get(reference.evidence_id)
                 if observation is None:
                     raise NotFound(f"observation not found: {reference.evidence_id}")
-                if observation.effect_id != claim.effect_id:
-                    raise InvariantViolation("verification borrowed another Effect's observation")
+                evidence_effect = self.get_effect(observation.effect_id)
+                if evidence_effect.state is not EffectState.SUCCEEDED:
+                    raise InvariantViolation(
+                        "verification observation comes from an incomplete Effect"
+                    )
+                if observation.observed_at_ms > verification.verified_at_ms:
+                    raise InvariantViolation("verification cannot predate its observation")
                 if observation.target.object_id != claim.subject.object_id:
                     raise InvariantViolation("verification observation has the wrong subject")
                 if (
-                    claim.subject.version is not None
+                    verification.decision is VerificationDecision.ACCEPTED
+                    and claim.subject.version is not None
                     and observation.target.version != claim.subject.version
                 ):
-                    raise InvariantViolation("verification observation has the wrong version")
+                    raise InvariantViolation(
+                        "accepted verification observation has the wrong version"
+                    )
             elif reference.kind is EvidenceKind.ARTIFACT:
                 artifact = self._artifacts.get(reference.evidence_id)
                 if artifact is None:
