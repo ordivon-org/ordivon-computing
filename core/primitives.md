@@ -48,7 +48,7 @@ identity
 + verification plan
 ```
 
-An Effect describes why and what should happen. It is not one concrete Tool call.
+An Effect describes why and what should happen and remains stable across concrete Tool-bound Dispatches.
 
 ### Dispatch
 
@@ -104,7 +104,7 @@ A Claim accepted through a recorded Verification and Fact authority.
 Claim → Verification → Fact
 ```
 
-Tool success, process exit, Observation, Artifact, or model assertion does not bypass this chain.
+Fact admission follows the complete recorded chain: Claim → accepted Verification → Fact authority.
 
 ### AuthorityRef
 
