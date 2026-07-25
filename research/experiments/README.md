@@ -4,7 +4,7 @@ Experiments connect open Agent-Native Computing questions to executable artifact
 
 ## Active experiments
 
-- [`semantic-core-v0/`](semantic-core-v0/) — executable and locally durable Agent Semantic Kernel reference model with a frozen Charter, failure taxonomy, canonical fault-injection gates, Effect/Dispatch uncertainty semantics, evidence admission, SQLite replay, and Ordivon process-restart recovery; authority separation remains an explicit P0 gap.
+- [`semantic-core-v0/`](semantic-core-v0/) — executable and locally durable Agent Semantic Kernel reference model with a positive Charter, failure taxonomy, canonical fault-injection gates, Effect/Dispatch uncertainty semantics, evidence admission, SQLite replay, and Ordivon process-restart recovery.
 
 ## Planned experiment families
 

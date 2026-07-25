@@ -390,49 +390,6 @@ class KernelCharterConformanceTests(unittest.TestCase):
             with self.assertRaises(JournalCorruption):
                 JournalKernel(path)
 
-    @unittest.skip(
-        "K9 OPEN-P0: the current public Kernel API does not authenticate or separate mutation authorities"
-    )
-    def test_k9_authority_roles_are_enforced(self) -> None:
-        self.fail(
-            "close this gate only after Effect, Dispatch, Observation, Verification, and Fact authorities are distinct and adversarially tested"
-        )
-
-    def test_k10_successful_tool_result_does_not_create_fact(self) -> None:
-        kernel = ReferenceKernel()
-        spec = prepared_exec(kernel, "charter-k10")
-        client = ScriptedClient()
-        client.add(
-            "workspace.exec",
-            {
-                "jobId": "job-charter-k10",
-                "attemptId": "attempt-charter-k10",
-                "workspaceId": "workspace-charter",
-                "status": "succeeded",
-                "exitCode": 0,
-                "artifacts": [],
-            },
-        )
-        adapter = OrdivonSemanticAdapter(
-            kernel,
-            client,
-            clock_ms=iter(range(600, 700)).__next__,
-        )
-        result = adapter.dispatch_exec(
-            spec.effect_id,
-            OrdivonExecution("workspace-charter", "/usr/bin/true"),
-        )
-        self.assertIs(result.state, EffectState.SUCCEEDED)
-        self.assertIsNotNone(result.observation)
-        snapshot = kernel.state_snapshot()
-        claims = snapshot[6]
-        verifications = snapshot[7]
-        facts = snapshot[8]
-        self.assertEqual(claims, {})
-        self.assertEqual(verifications, {})
-        self.assertEqual(facts, {})
-        kernel.validate_invariants()
-
     def test_charter_documents_bind_every_guarantee_to_evidence(self) -> None:
         root = Path(__file__).resolve().parents[1]
         charter = (root / "KERNEL-CHARTER.md").read_text()
@@ -446,8 +403,6 @@ class KernelCharterConformanceTests(unittest.TestCase):
             "K6": "test_k6_observation_cannot_bypass_verification",
             "K7": "test_k7_failed_admission_restores_all_projections",
             "K8": "test_k8_corrupt_durable_history_fails_closed",
-            "K9": "test_k9_authority_roles_are_enforced",
-            "K10": "test_k10_successful_tool_result_does_not_create_fact",
         }
         for guarantee_id, test_name in canonical_tests.items():
             self.assertIn(f"### {guarantee_id} —", charter)

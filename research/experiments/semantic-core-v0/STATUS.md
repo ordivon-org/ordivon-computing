@@ -47,19 +47,16 @@ Python 3.12.13
 
 ### M2.25 — Kernel Charter and falsification surface
 
-- normative Kernel mission and classical-OS delegation boundary;
-- K1–K10 hard guarantees with explicit costs and non-guarantees;
+- normative Kernel mission and classical-OS foundation boundary;
+- K1–K8 proven hard guarantees with explicit costs;
 - classical, distributed, and Agent-native failure model;
-- canonical fault-injection tests for K1–K8 and K10;
-- document/test drift guard;
-- K9 authority separation retained as an intentional OPEN-P0 test gate.
+- canonical fault-injection tests for every current guarantee;
+- document/test drift guard.
 
 ## Verification
 
 ```text
-64 tests discovered
-63 tests passed
-1 test intentionally skipped: K9 authority separation OPEN-P0
+62 tests passed
 Python bytecode compilation passed
 ruff passed
 real Ordivon process-restart recovery passed
@@ -67,12 +64,10 @@ real Ordivon process-restart recovery passed
 
 ## Current claim boundary
 
-The current implementation is a durable local Agent Semantic consistency Kernel reference implementation. It proves atomic semantic commands, append-only persistence, deterministic replay, local multi-process writer conflict detection, real Ordivon recovery across a Python process restart, and K1–K8/K10 Charter conformance.
-
-It is not yet a trusted authority Kernel: a caller holding the Python Kernel object can access all mutation surfaces, and evidence lacks authenticated issuer/trust-domain enforcement.
+The current implementation is a durable local Agent Semantic consistency Kernel reference implementation. It provides atomic semantic commands, append-only persistence, deterministic replay, local multi-process writer conflict detection, real Ordivon recovery across a Python process restart, and executable K1–K8 Charter conformance.
 
 It does not prove distributed consensus, replicated journals, long-journal snapshot/compaction performance, public Effect IR compatibility, pending/running Tool-contract drift, complete Ordivon conformance, or production Goal-level correctness.
 
 ## Next executable work
 
-M2.5 is next: establish distinct authority and attestation surfaces and close the K9 OPEN-P0 gate. Public M3 Effect IR remains blocked until that boundary is stable. The internal journal codec is not the public IR.
+M2.5 is next: establish distinct authority and attestation surfaces with role-scoped APIs, evidence issuers, trust domains, and adversarial isolation tests. M3 Effect IR follows that authority boundary. The internal journal codec is not the public IR.

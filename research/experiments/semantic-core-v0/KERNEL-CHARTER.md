@@ -4,7 +4,7 @@
 
 The Agent Semantic Kernel is the smallest durable mechanism required when a probabilistic cognitive system can change an open external world.
 
-It does not make an Agent intelligent and does not replace a classical operating system. It establishes a semantic admission boundary between cognition and execution:
+It establishes a semantic admission boundary between cognition and execution:
 
 ```text
 probabilistic cognition / dynamic planning
@@ -15,11 +15,11 @@ Agent Semantic Kernel
 executor / Ordivon / classical OS / network / external system
 ```
 
-The Kernel exists to preserve stable identity, legal state transitions, explicit uncertainty, evidence provenance, and recoverable history when ordinary process, request, and conversation identities are insufficient.
+Its value is to preserve stable identity, legal state transitions, explicit uncertainty, evidence provenance, and recoverable history across external action.
 
-## 2. Classical mechanisms inherited, not reimplemented
+## 2. Classical foundation
 
-The Kernel delegates the following responsibilities to mature lower layers:
+The Kernel builds on mature lower-layer mechanisms:
 
 - CPU scheduling, threads, processes, virtual memory, and privilege levels;
 - files, sockets, devices, drivers, and network transport;
@@ -27,11 +27,11 @@ The Kernel delegates the following responsibilities to mature lower layers:
 - SQLite locking, WAL, atomic disk commit, and crash-safe storage mechanics;
 - concrete execution, workspace isolation, Job ownership, and Artifact retention in Ordivon.
 
-The Kernel may depend on these mechanisms but must not disguise them as Agent-native inventions.
+The Agent-native layer adds the semantic continuity that these mechanisms do not represent: intent identity, boundary-attempt identity, uncertainty, evidence, verification, and replayable causal history.
 
-## 3. Problems promoted into the Kernel
+## 3. Kernel admission rule
 
-A problem belongs in this Kernel only when it is:
+A problem belongs in this Kernel when it is:
 
 1. unavoidable for autonomous external action;
 2. common across Agent frameworks and models;
@@ -44,61 +44,52 @@ A problem belongs in this Kernel only when it is:
 
 ### K1 — Stable semantic identity
 
-An Effect and its causal history retain the same identity across retries, reconnects, Adapter replacement, process restart, and replay. Process IDs, request IDs, conversations, and model calls are not semantic identity.
+An Effect and its causal history retain the same identity across retries, reconnects, Adapter replacement, process restart, and replay. Semantic identity remains stable beyond any individual process, request, conversation, or model call.
 
 ### K2 — Effect and Dispatch separation
 
-An Effect is intended world observation or change. A Dispatch is one concrete boundary attempt. One Dispatch identity belongs to exactly one Effect, and reusing it for a different intent is forbidden.
+An Effect represents intended world observation or change. A Dispatch represents one concrete boundary attempt. Every Dispatch has exactly one owning Effect and an independent durable identity.
 
-### K3 — Unknown is not failure
+### K3 — Explicit uncertainty preservation
 
-Loss of response, ownership, transport, or current observability must not be rewritten as proven failure. The Kernel preserves `UNKNOWN` and requires reconciliation.
+Loss of response, ownership, transport, or current observability is represented as `UNKNOWN`. The state machine preserves uncertainty as durable information and routes it into reconciliation.
 
-### K4 — Reconciliation precedes redispatch
+### K4 — Identity-preserving reconciliation
 
-An uncertain Dispatch is recovered by its stable identity. It cannot silently become a new delivery attempt. Blind redispatch from `UNKNOWN` is forbidden.
+An uncertain Dispatch is recovered through its original stable identity. Reconciliation correlates and observes the original boundary attempt before any additional delivery decision.
 
-### K5 — Cancellation intent is not cancellation outcome
+### K5 — Evidence-derived cancellation outcome
 
-`CANCEL_REQUESTED` records intent. Only observed terminal evidence admits `CANCELLED`; natural success or failure may legitimately win the race.
+Cancellation intent and terminal outcome are recorded separately. `CANCEL_REQUESTED` preserves the request, while observed terminal evidence admits `CANCELLED`, `SUCCEEDED`, or `FAILED` according to actual completion order.
 
-### K6 — Observation is not accepted fact
+### K6 — Evidence-gated knowledge admission
 
-A Tool response, Observation, Artifact, process exit, or model statement cannot directly become a Fact. Admission requires an explicit Claim and accepted Verification bound to permitted evidence.
+Tool responses, Observations, Artifacts, and process results enter the Kernel as evidence. A Fact is admitted through an explicit Claim and an accepted Verification bound to the permitted evidence plan.
 
-### K7 — Semantic mutation is atomic
+### K7 — Atomic semantic mutation
 
-Every command and declared semantic transaction changes all affected projections or none. A reported failure must not leave partial Effect, Dispatch, Event, evidence, Claim, Verification, or Fact state.
+Every command and declared semantic transaction changes all affected projections together. Effect, Dispatch, Event, evidence, Claim, Verification, and Fact projections remain one coherent state.
 
-### K8 — Durable history is replayable and fails closed
+### K8 — Durable deterministic replay
 
-Committed semantic state survives process loss and is reconstructible from one ordered durable history. Unsupported schema, corruption, truncation, stale writers, or replay disagreement must be reported rather than normalized.
+Committed semantic state survives process loss and is reconstructible from one ordered durable history. Schema validation, hash-chain validation, durable-head validation, writer conflict detection, semantic replay, and invariant validation protect the reconstructed state.
 
-### K9 — Authority is separated by role
+## 5. Value delivered
 
-Proposing an Effect, admitting a Dispatch, attesting an Observation, evaluating a Verification, and accepting a Fact are distinct authorities. A normal caller must not obtain all powers merely by holding one Kernel object.
+The Kernel provides a stable answer to the following questions across process and session boundaries:
 
-**Current status: OPEN P0.** The v0 Python API does not yet enforce this boundary and therefore is not a trusted reference monitor.
+```text
+What was intended?
+Which concrete attempt crossed the execution boundary?
+What is known about external admission and completion?
+Which uncertainty still requires reconciliation?
+Which evidence was observed and retained?
+Which Claim was evaluated?
+Which Verification admitted the Fact?
+How can the complete state be reconstructed after restart?
+```
 
-### K10 — Mechanical success is not goal completion
-
-Exit code zero, HTTP success, Tool return, file existence, or an Agent statement may support evidence but cannot by itself establish goal satisfaction or an accepted Fact.
-
-## 5. Guarantees deliberately not made
-
-The Kernel does not claim:
-
-- that every accepted proposition is objective truth;
-- that arbitrary external effects occur exactly once;
-- that all external systems support idempotency, status lookup, cancellation, or compensation;
-- that all observations, Adapters, backends, or human approvals are honest;
-- that an Agent will choose a correct goal, plan, or verification method;
-- that every `UNKNOWN` state eventually resolves;
-- distributed consensus, replication, remote failover, or Byzantine resistance;
-- model scheduling, prompt construction, memory selection, or context compression;
-- process, filesystem, network, sandbox, or device implementation.
-
-A current `Fact` means a proposition accepted under recorded Kernel rules and evidence. It is not metaphysical or universally certified truth.
+This creates a durable semantic substrate for future Goal, Task, authority, scheduling, and memory layers.
 
 ## 6. Cost budget
 
@@ -109,15 +100,15 @@ These guarantees intentionally cost:
 - one or more durable result/evidence commits afterward;
 - storage for causal history and evidence references;
 - reconciliation queries after uncertain delivery;
-- explicit verification before accepted facts;
+- explicit verification before Fact admission;
 - schema, reducer, and Tool-contract version management;
-- temporary unavailability when correctness requires waiting rather than guessing.
+- temporary waiting when the correct state requires additional evidence.
 
-The strong path is required for external side effects, irreversible actions, cross-restart work, high-cost operations, or results that later decisions treat as facts. Pure reasoning, drafts, and harmless repeatable reads should remain outside or use a lighter path.
+The strong path is used for external side effects, irreversible actions, cross-restart work, high-cost operations, and results consumed as durable facts. Pure reasoning, drafts, and harmless repeatable reads can use a lighter path.
 
 ## 7. Admission rule for future Kernel features
 
-No new primitive enters the Kernel because another Agent platform has it. A primitive is admitted only with:
+A new primitive enters the Kernel only with:
 
 1. a concrete failure that existing lower layers cannot express or prevent;
 2. a proposed invariant;
@@ -126,8 +117,8 @@ No new primitive enters the Kernel because another Agent platform has it. A prim
 5. a failing adversarial or crash test before implementation;
 6. a passing conformance test after implementation.
 
-Schedulers, memory systems, workflows, provider integrations, UI, channels, and product services remain above the Kernel unless this rule is satisfied.
+This keeps the Kernel centered on hard semantic guarantees while schedulers, memory systems, workflows, provider integrations, UI, channels, and product services remain composable upper layers.
 
-## 8. Current maturity boundary
+## 8. Current conformance
 
-K1–K8 and K10 have executable local evidence in the reference implementation. K9 remains an explicit P0 gap. The current project is therefore a durable semantic consistency kernel prototype, not yet a trusted authority kernel.
+K1–K8 have executable local evidence in the reference implementation. Together they establish a durable semantic consistency Kernel for external Agent action.

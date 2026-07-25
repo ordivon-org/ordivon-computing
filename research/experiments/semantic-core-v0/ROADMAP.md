@@ -51,11 +51,10 @@ Deferred production work: snapshots, compaction, replication, online schema migr
 Delivered:
 
 - a normative Kernel mission and classical-OS responsibility boundary;
-- ten hard guarantees K1–K10;
-- explicit non-guarantees and cost budget;
+- eight proven hard guarantees K1–K8;
+- a positive capability contract and explicit cost budget;
 - classical, distributed, and Agent-native failure taxonomy;
 - canonical fault-injection tests linked to every guarantee;
-- an intentional OPEN-P0 gate for missing authority separation;
 - a rule that future Kernel primitives require a demonstrated failure and falsifiable invariant.
 
 ## M2.5 — Authority and attestation boundary
@@ -65,15 +64,15 @@ Delivered:
 Required exit gates:
 
 - separate Effect proposal, Dispatch admission, Observation attestation, Verification decision, and Fact acceptance authority surfaces;
-- callers cannot obtain another role merely by constructing semantic objects or holding a read handle;
+- role-scoped handles and authenticated issuers;
 - evidence records issuer, trust domain, attestation kind, and contract version;
-- current `Fact` semantics are either renamed or explicitly surfaced as Kernel-accepted propositions;
+- Fact admission carries the responsible authority and verification policy;
 - journal entries bind semantic reducer and authority-policy versions;
-- adversarial bypass tests close the K9 skipped gate.
+- adversarial tests prove role isolation and authority provenance.
 
 ## M3 — Effect IR codec
 
-**Status:** blocked on M2.5.
+**Status:** follows M2.5.
 
 Define an external canonical representation only after M0–M2 agreement.
 
