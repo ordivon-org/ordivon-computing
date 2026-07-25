@@ -32,7 +32,7 @@ real workloads, learning, errors, and observations
 | **Core** | Minimal, high-generativity foundations that define the current theory | [`core/`](core/) |
 | **Knowledge** | Reusable explanations, models, comparisons, and cases | [`knowledge/`](knowledge/) |
 | **Studies** | Learning paths and preserved derivations | [`studies/2026-computing-stack-walkthrough/`](studies/2026-computing-stack-walkthrough/) |
-| **Research** | Open questions, hypotheses, and executable experiments | [`research/`](research/) |
+| **Research** | Open questions, hypotheses, executable experiments, and immutable evidence snapshots | [`research/`](research/) |
 | **Projects** | The real systems through which ideas are constructed and tested | [`projects/`](projects/) |
 
 ## Core thesis
@@ -43,7 +43,7 @@ The current core is intentionally compact:
 
 - [`core/foundations.md`](core/foundations.md) — the working foundations;
 - [`core/stack.md`](core/stack.md) — the fourteen-layer stack and five cross-cutting planes;
-- [`core/primitives.md`](core/primitives.md) — the minimum Agent-native object model.
+- [`core/primitives.md`](core/primitives.md) — executable Kernel primitives, backend objects, and future Task-Runtime candidates with explicit boundaries.
 
 ## How the research advances
 
@@ -104,4 +104,4 @@ Start with:
 
 ## Coordination and state
 
-Repository documents describe stable theory, contracts, decisions, and reproducible evidence. GitHub Issues own changing task state, dependencies, discussion, and readiness; Git commits own code revision. The repository does not maintain a second textual “current phase.”
+Repository documents describe stable theory, contracts, decisions, and reproducible evidence. GitHub Issues own changing task state, dependencies, discussion, and readiness; Git commits own code revision. Cross-repository experiments use immutable [`System Snapshots`](research/evidence/) to bind exact revisions and evidence digests. The repository does not maintain a second textual “current phase” or mutable deployment manifest.
