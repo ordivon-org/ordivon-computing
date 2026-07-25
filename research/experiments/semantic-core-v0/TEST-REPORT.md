@@ -17,11 +17,30 @@ ruff check src tests scripts
 ## Result
 
 ```text
-53 tests passed
+64 tests discovered
+63 tests passed
+1 test intentionally skipped: K9 authority separation OPEN-P0
 bytecode compilation passed
 ruff passed
 git diff --check passed
 ```
+
+
+## Kernel Charter conformance
+
+- K1 stable identity survives durable restart;
+- K2 one Dispatch identity cannot cross Effect ownership;
+- K3 transport loss remains UNKNOWN rather than failure;
+- K4 reconciliation reuses the original Dispatch without redispatch;
+- K5 cancellation request remains distinct from cancellation completion;
+- K6 Observation cannot bypass Claim and Verification;
+- K7 injected admission failure restores every projection;
+- K8 corrupted durable history fails closed;
+- K9 authority separation is an intentional OPEN-P0 skipped gate;
+- K10 successful Tool execution does not automatically create a Claim or Fact;
+- a drift guard binds all ten Charter clauses to canonical test names.
+
+Detailed mapping: [`CHARTER-CONFORMANCE.md`](CHARTER-CONFORMANCE.md).
 
 ## M1.5 atomicity coverage
 

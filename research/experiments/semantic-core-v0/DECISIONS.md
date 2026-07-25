@@ -62,3 +62,20 @@ M2 requires a storage encoding, but that encoding is not the public Effect IR. I
 ## D15 — Reject stale local writers rather than invent distributed consensus
 
 SQLite orders local commits. `JournalKernel` additionally compares the replayed journal head during each write. A stale process receives `JournalConflict` and must reopen. Replication, consensus, and multi-host availability remain outside M2.
+
+
+## D16 — Admit Kernel primitives only from failures
+
+A feature does not enter the Kernel because another Agent platform calls it an operating-system primitive. Admission requires a concrete cross-framework failure, a hard invariant, an enforcement boundary, a cost analysis, and a fault test. Scheduler, memory, workflow, provider, channel, and UI capabilities remain above the Kernel unless they satisfy this rule.
+
+## D17 — Freeze the Charter before external IR
+
+The public Effect IR is deferred until the Kernel responsibility boundary, hard guarantees, failure model, and current proof gaps are explicit. Freezing serialization before authority and trust boundaries would convert a prototype API weakness into an ABI obligation.
+
+## D18 — Treat current Facts as Kernel-accepted propositions
+
+`Fact` is retained as the current model name, but its precise meaning is a Claim accepted under a recorded Verification method and evidence set. It is not a guarantee of objective truth, independent trust domains, signed evidence, or Byzantine resistance.
+
+## D19 — Keep K9 authority separation visibly open
+
+The current Python `SemanticKernel` surface exposes proposal, Dispatch, evidence, Verification, and Fact mutation through one object. This is acceptable for a reference reducer but not for a trusted reference monitor. Conformance therefore carries an intentional skipped K9 gate until distinct authenticated authority surfaces and bypass tests exist.
