@@ -20,12 +20,12 @@ Delivered:
 
 Exit evidence:
 
-- 14 tests pass;
+- 22 tests pass;
 - semantics do not depend on conversation state, model provider, Linux process names, or MCP envelopes.
 
 ## M1 — Ordivon semantic adapter
 
-**Status: in progress; first real `workspace.exec` vertical slice passed.**
+**Status: in progress; asynchronous execution and versioned I/O vertical slices passed.**
 
 Delivered:
 
@@ -41,14 +41,21 @@ EffectSpec
 → task.list / task.observe reconciliation
 ```
 
+Delivered in the second slice:
+
+1. versioned `workspace.read` with local content-digest validation;
+2. one-file atomic `workspace.mutate` guarded by expected digest;
+3. synchronous receipt identities;
+4. independent reread Verification and Fact admission;
+5. stale precondition rejection without overwrite.
+
 Still required:
 
-1. versioned `workspace.read`;
-2. atomic `workspace.mutate`;
-3. live output verification into Claim / Verification / Fact;
-4. duplicate delivery after terminal completion;
-5. real response-loss and restart cases;
-6. cancellation and Artifact-integrity races.
+1. duplicate delivery after terminal completion;
+2. real response-loss and restart cases;
+3. unknown mutation reconciliation;
+4. cancellation and Artifact-integrity races;
+5. Tool-contract drift classification and rebinding.
 
 M1 exits only when the shared semantic scenarios are demonstrably portable across the reference model and the real backend. One successful command is evidence for the direction, not completion of the adapter.
 

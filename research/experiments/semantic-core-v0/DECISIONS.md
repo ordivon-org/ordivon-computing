@@ -49,3 +49,15 @@ An Effect is durable intent; a Dispatch is one concrete delivery attempt. Dispat
 ## D12 — Do not add a packaging substrate before reuse requires one
 
 Semantic Core v0 runs directly from `src/` with no runtime dependency. The local environment has no Python build backend, and packaging is not part of the current research question. A build backend, distribution format, or registry publication will be introduced only when a second consumer requires an installable artifact.
+
+## D13 — Synchronous Tool results are receipts, not Jobs
+
+A successful synchronous read or mutation has no backend Job identity. The structured response is admitted as a receipt whose identity includes Tool, Dispatch, and response digest. This preserves distinct executions even when their content is identical.
+
+## D14 — Independent verification may cross Effect boundaries
+
+A Fact about a change should not rely only on evidence emitted by the changing Effect. Verification may cite an Observation from a separate succeeded Effect when both address the same WorldObject and satisfy version, evidence-kind, and temporal constraints. Artifact borrowing remains narrower because Artifact currently has no WorldObject field.
+
+## D15 — Existing-file mutation requires compare-and-swap
+
+Semantic mutation v0 requires an expected SHA-256 digest. Stale preconditions are explicit rejected Dispatches, not unknown outcomes. New-file and multi-file semantics remain deferred until their identity and rollback requirements are defined.

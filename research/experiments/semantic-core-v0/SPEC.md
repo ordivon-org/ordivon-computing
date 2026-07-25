@@ -67,6 +67,28 @@ Rules:
 - terminal and uncertainty transitions require evidence;
 - optimistic revision checks prevent concurrent state loss.
 
+## Synchronous receipt semantics
+
+A synchronous Tool result that has no durable backend Job is admitted through a receipt identity:
+
+```text
+Tool + DispatchId + normalized response digest
+```
+
+The receipt proves that the backend returned the structured result. It does not by itself prove a later world state.
+
+## Cross-Effect verification
+
+A Claim may be verified by an Observation from a different succeeded Effect when:
+
+- both address the same WorldObject;
+- the evidence kind is permitted by the verification plan;
+- accepted version claims match the observed version;
+- Observation time does not follow Verification time;
+- Fact acceptance does not predate Verification.
+
+This allows a change Effect to be verified by an independent reread Effect rather than self-attestation.
+
 ## Core invariants
 
 1. One identity cannot denote two different semantic objects.
@@ -81,6 +103,10 @@ Rules:
 10. A rejected Dispatch is never the current Dispatch of an Effect.
 11. Evidence requires a Dispatch proven admitted.
 12. Session loss never erases Effect, Dispatch, event, evidence, or terminal identity.
+- a synchronous receipt identity includes Dispatch identity and response digest;
+- accepted cross-Effect verification requires a succeeded evidence Effect;
+- Fact acceptance cannot predate Verification;
+
 
 ## Classical-to-Agent mapping
 
