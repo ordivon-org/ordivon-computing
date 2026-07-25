@@ -89,7 +89,7 @@ Detailed mapping: [`CHARTER-CONFORMANCE.md`](CHARTER-CONFORMANCE.md).
 
 ## Live Ordivon process-restart result
 
-Implementation source revision: `efc5b2bd33f7c94ab28859a8872869e71aa42fd8`
+Implementation source revision: `88678a3c06f406c41eadb0ded484d09aa656ae43`
 
 ```text
 initial state: unknown
@@ -104,3 +104,32 @@ journal entries after recovery: 11
 ```
 
 The detailed design and limits are recorded in [`JOURNAL.md`](JOURNAL.md).
+
+
+## Live M2.5 authority result
+
+Signed Journal restart:
+
+```text
+initial state: unknown
+terminal state: succeeded
+process restarted: true
+workspace.exec deliveries: 1
+correlated Jobs: 1
+Dispatch identity preserved: true
+Journal entries: 4 → 11
+implementation revision: 88678a3c06f406c41eadb0ded484d09aa656ae43
+```
+
+Scoped file path:
+
+```text
+versioned read: passed
+atomic mutation: passed
+independent reread: passed
+Verification authority: recorded
+Fact authority: recorded
+stale mutation: failed / INVALID_REQUEST
+final content and digest: stable
+implementation revision: 88678a3c06f406c41eadb0ded484d09aa656ae43
+```

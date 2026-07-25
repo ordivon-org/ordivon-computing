@@ -59,7 +59,7 @@ Supported conclusions:
 
 Boundary:
 
-That earlier run kept ReferenceKernel in memory and proved only adapter-instance restart. M2 later added and separately proved full local Python-process reconstruction through `JournalKernel`; see `JOURNAL.md` and `LIVE-REPORT.md`.
+That earlier run kept the reducer in memory and proved adapter-instance restart. M2 added full local Python-process reconstruction. M2.5 now replays the same recovery path through Journal schema v2, scoped execution Authority, and content-bound Attestations; see `JOURNAL.md`, `AUTHORITY.md`, and `LIVE-REPORT.md`.
 
 ## B. Cancellation race
 

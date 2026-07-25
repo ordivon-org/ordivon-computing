@@ -127,7 +127,7 @@ A real `workspace.exec` call was delivered to Ordivon and its successful respons
 
 A second process reopened the journal, rebuilt the Effect and Dispatch, found the original Job by stable identity, observed terminal success, and appended admission, Observation, Artifact, and terminal commands. A third open independently replayed the final state.
 
-Latest sanitized result, executed from implementation commit `efc5b2bd33f7c94ab28859a8872869e71aa42fd8`:
+Latest signed result, executed from implementation commit `88678a3c06f406c41eadb0ded484d09aa656ae43`:
 
 ```text
 initial state: unknown
@@ -139,7 +139,11 @@ Dispatch identity preserved: true
 semantic Artifacts: 3
 journal entries before restart: 4
 journal entries after recovery: 11
+Authority policy reauthenticated: true
+all stored Attestations replayed: true
 ```
+
+The first process generated one ephemeral 32-byte root secret and used scoped Effect and execution Views. The child process received the same secret through its environment, reconstructed the Authority policy, verified Journal schema v2 metadata, reauthenticated every signed command, and continued the original Dispatch. The secret was not printed or stored in the Journal.
 
 ## Production extensions
 

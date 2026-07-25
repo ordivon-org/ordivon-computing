@@ -156,7 +156,7 @@ stale guard: failed / INVALID_REQUEST
 Workspace cleanup: completed
 ```
 
-The integrated suite contains 53 tests on Python 3.12.13.
+The integrated suite contains 75 tests on Python 3.12.13.
 
 
 # E. Durable Kernel process restart
@@ -183,26 +183,88 @@ workspace.open
 → workspace.close
 ```
 
-Latest sanitized receipt:
+Latest signed M2.5 receipt:
 
 ```json
 {
-  "attemptId": "attempt-019f9ad3-75e9-76d3-a7de-616824e452d3",
+  "attemptId": "attempt-019f9b53-cd0a-73d0-b1cf-c9df7c63509c",
   "beforeRestartJournalEntries": 4,
   "correlatedJobCount": 1,
   "dispatchIdPreserved": true,
   "finalJournalEntries": 11,
   "initialState": "unknown",
-  "jobId": "job-019f9ad3-75e9-76d3-a7de-615353201dce",
+  "jobId": "job-019f9b53-cd0a-73d0-b1cf-c9c32f7f2ac6",
   "journalPathRemovedAfterTest": true,
   "kernelProcessRestarted": true,
   "responseDroppedAfterSuccessfulDelivery": true,
   "semanticArtifactCount": 3,
-  "sourceRevision": "efc5b2bd33f7c94ab28859a8872869e71aa42fd8",
+  "sourceRevision": "88678a3c06f406c41eadb0ded484d09aa656ae43",
   "terminalState": "succeeded",
   "workspaceExecDeliveries": 1,
-  "workspaceId": "anc-live-journal-restart-1785008977199"
+  "workspaceId": "anc-live-journal-restart-1785017388087"
 }
 ```
 
-This proves local process restart and semantic reconstruction through one durable SQLite journal. It does not prove replication, distributed consensus, remote failover, compaction, or public Effect IR compatibility.
+The first process signed Effect admission, Dispatch intent, and UNKNOWN state. The second process received the same ephemeral Authority secret, authenticated Journal schema v2, reverified every Authority grant and Attestation, correlated the original Job, and committed signed Observation, Artifact, and terminal state records. A final reopen authenticated the complete 11-entry history.
+
+
+# F. M2.5 scoped authority and attestation
+
+Implementation revision:
+
+```text
+88678a3c06f406c41eadb0ded484d09aa656ae43
+```
+
+## Signed execution recovery
+
+The durable restart path above now runs through scoped Authority Views:
+
+```text
+views.effects    → admit and prepare Effect
+views.execution  → Dispatch, UNKNOWN, reconciliation, Observation, Artifact
+views.read       → invariant validation and replay inspection
+```
+
+The first and second processes shared only the ephemeral root secret required to re-authenticate the same Authority policy. The secret was passed through process environment, never printed, never stored in the Journal, and removed with the temporary Journal after the run.
+
+## Scoped file mutation and knowledge admission
+
+Executed path:
+
+```text
+workspace.open
+→ views.effects admits read and mutation Effects
+→ views.execution performs versioned read and atomic mutation
+→ views.execution records signed Observations
+→ independent reread observes the resulting digest
+→ views.verification admits Claim and accepted Verification
+→ views.facts accepts Fact
+→ stale mutation fails against the original digest
+→ final reread confirms stable content and digest
+→ invariant scan
+→ workspace.close
+```
+
+Sanitized receipt:
+
+```json
+{
+  "afterDigest": "sha256:7b9a72466d3960eb2aacccfc848939453490db0678bd4725def3f789b891c919",
+  "beforeDigest": "sha256:9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb",
+  "finalContentStable": true,
+  "finalDigestStable": true,
+  "mutationFactsCommitted": 1,
+  "sourceRevision": "88678a3c06f406c41eadb0ded484d09aa656ae43",
+  "staleMutationErrorCode": "INVALID_REQUEST",
+  "staleMutationState": "failed",
+  "toolCallCounts": {
+    "workspace.mutate": 3,
+    "workspace.open": 1,
+    "workspace.read": 3
+  },
+  "workspaceId": "anc-live-files-1785017410130"
+}
+```
+
+This run demonstrates that execution evidence, Verification decision, and Fact acceptance are carried by different scoped Authorities while remaining one atomic semantic history.

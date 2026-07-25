@@ -62,7 +62,8 @@ Python 3.12.13
 - Ordivon Adapters restricted to DISPATCH + OBSERVATION;
 - separate Verification and Fact acceptance handles;
 - invariant scanning and Journal replay re-authenticate stored history;
-- Journal metadata binds semantic model, reducer, and authority-policy versions.
+- Journal metadata binds semantic model, reducer, and authority-policy versions;
+- exact-commit live proof authenticates process-restart recovery and scoped reread-to-Fact admission.
 
 ## Verification
 
