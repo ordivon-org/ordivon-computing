@@ -8,8 +8,9 @@ Proven live:
 
 ```text
 Effect preparation
-→ stable Dispatch identity
+→ stable Dispatch STARTED identity
 → workspace.exec
+→ Dispatch ADMITTED only after Job identity exists
 → running Observation
 → task.observe
 → succeeded terminal Observation
@@ -44,7 +45,7 @@ EffectSpec
 | ArtifactId | namespaced Ordivon Artifact identity |
 | EventId | semantic journal identity, not a protocol request ID |
 
-`clientRequestId` is a backend idempotency and correlation key. It is not the universal Effect identity.
+`clientRequestId` is a backend idempotency and correlation key. It is not the universal Effect identity. A Tool request may begin while the semantic Dispatch remains STARTED; only a correlated Job or synchronous result admits it.
 
 ## Normal observation and reconciliation
 

@@ -12,28 +12,32 @@ Python is an executable semantic oracle and falsification surface, not the selec
 
 ## D3 — Separate Effect from Dispatch
 
-An Effect expresses intended world observation or change. A Dispatch is one concrete boundary attempt. `DispatchRecord` has independent identity, request digest, ownership, and time.
+An Effect expresses intended world observation or change. A Dispatch is one concrete boundary attempt. `DispatchRecord` has independent identity, request digest, ownership, time, and a lifecycle: `STARTED`, `ADMITTED`, `UNKNOWN`, or `REJECTED`. Starting a boundary attempt does not claim backend admission.
 
-## D4 — Treat unknown as a first-class state
+## D4 — Separate pre-admission rejection from uncertain delivery
+
+A structured rejection before backend admission may be retryable or terminal. Once a Dispatch is admitted or becomes unknown, it cannot be rewritten as a pre-admission rejection. This prevents a lost response from being normalized into a safe retry.
+
+## D5 — Treat unknown as a first-class state
 
 No response, lost process ownership, stale local state, or disconnected Host is not proof of failure. `unknown → reconciling → observed outcome` is a core path.
 
-## D5 — Facts require evidence-bound verification
+## D6 — Facts require evidence-bound verification
 
 Model text, successful transport, process exit, and Artifact existence are not Facts. A Fact is admitted only when an explicit Claim receives an accepted Verification.
 
-## D6 — Separate Claim origin from evidence origin
+## D7 — Separate Claim origin from evidence origin
 
 A Claim records the Effect that proposed it, but independent verification often requires a different Effect. Cross-Effect evidence is allowed only when its world-object identity and version match the Claim subject, its timestamp does not follow Verification, and it satisfies the originating Effect's VerificationPlan.
 
-## D7 — Keep retries out of v0
+## D8 — Keep retries out of v0
 
 Blind retry is unsafe after a Dispatch may have crossed the world boundary. Later work must distinguish new delivery, rebinding, retry, compensation, and a genuinely new Effect.
 
-## D8 — Keep transport below adapters
+## D9 — Keep transport below adapters
 
 The semantic core defines Tool-call uncertainty classes but does not implement MCP, HTTP, CLI, or RPC transports. Transport protocol correctness belongs to Tool ABI and adapter work.
 
-## D9 — Keep Goal and Task above the kernel
+## D10 — Keep Goal and Task above the kernel
 
 Goal, Task, scheduling, memory, and model calls consume Effect and evidence state. They do not define the lower semantics.

@@ -3,14 +3,16 @@
 ## Completed
 
 - M0 semantic reference kernel implemented.
-- 24 unit and conformance tests pass on Python 3.12.13 and 3.14.6.
-- Effect, Dispatch, Observation content identity, and causal observation identity are distinct.
+- 27 integrated unit and conformance tests pass on Python 3.12.13 and 3.14.6.
+- Effect, Dispatch, backend admission, Observation content identity, and causal observation identity are distinct.
 - VerificationPlan, subject/version scope, and evidence-time ordering are enforced.
 - Independent read Effects can verify mutation Claims without permitting unrelated evidence.
 - Live Ordivon asynchronous execution passed through the public `/mcp` endpoint.
 - Live versioned read and atomic mutation passed with digest preconditions.
 - Two mutation Claims were independently re-read and admitted as Facts.
 - A stale-digest mutation failed and left final content and digest unchanged.
+- Retryable and non-retryable pre-admission rejections preserve distinct semantics; an admitted unknown Dispatch cannot be retroactively reclassified as rejected.
+- The concurrent `main` implementation was semantically integrated rather than overwritten.
 
 ## Current live coverage
 

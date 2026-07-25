@@ -9,7 +9,13 @@ from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind
 from anc_semantic_core.kernel import InvalidTransition, ReferenceKernel
 from anc_semantic_core.transport import ToolRejected, ToolTransportError
-from anc_semantic_core.model import CapabilityRef, CompletionSemantics, EffectMode
+from anc_semantic_core.model import (
+    CapabilityRef,
+    CompletionSemantics,
+    DispatchState,
+    EffectMode,
+    WorldObjectRef,
+)
 from anc_semantic_core.ordivon import (
     OrdivonExecution,
     OrdivonFileMutation,
@@ -17,6 +23,8 @@ from anc_semantic_core.ordivon import (
     OrdivonRead,
     OrdivonReadMode,
     OrdivonSemanticAdapter,
+    ordivon_file_object_id,
+    ordivon_workspace_object_id,
     semantic_state_from_status,
 )
 from anc_semantic_core.state import EffectState
@@ -45,16 +53,26 @@ def prepared_operation(
     name: str,
     operation: str,
     mode: EffectMode,
+    *,
+    workspace_id: str = "workspace-test",
+    relative_path: str | None = None,
 ) -> Any:
     base = sample_effect(name)
+    if operation == "workspace.exec":
+        target_id = ordivon_workspace_object_id(workspace_id)
+    else:
+        if relative_path is None:
+            raise ValueError("file operation fixture requires relative_path")
+        target_id = ordivon_file_object_id(workspace_id, relative_path)
     spec = replace(
         base,
+        target=WorldObjectRef(target_id),
         mode=mode,
         operation=operation,
         capability=CapabilityRef(
             base.capability.principal_id,
             operation,
-            base.target.object_id,
+            target_id,
         ),
         completion=CompletionSemantics.VERIFIED,
     )
@@ -87,6 +105,25 @@ class OrdivonAdapterTests(unittest.TestCase):
         self.assertIs(semantic_state_from_status("lost"), EffectState.UNKNOWN)
         self.assertIs(semantic_state_from_status("orphaned"), EffectState.UNKNOWN)
 
+    def test_effect_target_must_match_execution_workspace(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_operation(
+            kernel,
+            "ordivon-target",
+            "workspace.exec",
+            EffectMode.CHANGE,
+            workspace_id="workspace-a",
+        )
+        client = ScriptedClient()
+        adapter = OrdivonSemanticAdapter(kernel, client)
+        with self.assertRaisesRegex(ValueError, "target does not match"):
+            adapter.dispatch_exec(
+                spec.effect_id,
+                OrdivonExecution("workspace-b", "/usr/bin/true"),
+            )
+        self.assertEqual(client.calls, [])
+        self.assertIs(kernel.get_effect(spec.effect_id).state, EffectState.PREPARED)
+
     def test_workspace_read_projects_versioned_observation(self) -> None:
         kernel = ReferenceKernel()
         spec = prepared_operation(
@@ -94,6 +131,7 @@ class OrdivonAdapterTests(unittest.TestCase):
             "ordivon-read",
             "workspace.read",
             EffectMode.OBSERVE,
+            relative_path="README.md",
         )
         client = ScriptedClient()
         client.add(
@@ -132,6 +170,7 @@ class OrdivonAdapterTests(unittest.TestCase):
             "ordivon-read-first",
             "workspace.read",
             EffectMode.OBSERVE,
+            relative_path="same.txt",
         )
         second_base = sample_effect("ordivon-read-second")
         second = replace(
@@ -194,6 +233,7 @@ class OrdivonAdapterTests(unittest.TestCase):
             "ordivon-mutate",
             "workspace.mutate",
             EffectMode.CHANGE,
+            relative_path="result.txt",
         )
         client = ScriptedClient()
         client.add(
@@ -238,6 +278,7 @@ class OrdivonAdapterTests(unittest.TestCase):
             "ordivon-mutate-loss",
             "workspace.mutate",
             EffectMode.CHANGE,
+            relative_path="result.txt",
         )
         client = ScriptedClient()
         client.add(
@@ -399,7 +440,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         )
         kernel.validate_invariants()
 
-    def test_explicit_pre_admission_rejection_is_failed_not_unknown(self) -> None:
+    def test_retryable_pre_admission_rejection_preserves_effect(self) -> None:
         kernel = ReferenceKernel()
         spec = prepared_exec(kernel, "ordivon-rejected")
         client = ScriptedClient()
@@ -423,7 +464,7 @@ class OrdivonAdapterTests(unittest.TestCase):
             spec.effect_id,
             OrdivonExecution("workspace-test", "/usr/bin/true"),
         )
-        self.assertIs(result.state, EffectState.FAILED)
+        self.assertIs(result.state, EffectState.PREPARED)
         self.assertEqual(result.error_code, "CONCURRENCY_LIMIT")
         self.assertEqual(
             [name for name, _ in client.calls].count("workspace.exec"),
@@ -433,6 +474,66 @@ class OrdivonAdapterTests(unittest.TestCase):
             [name for name, _ in client.calls].count("task.list"),
             1,
         )
+        rejected_event = kernel.events_for(spec.effect_id)[-1]
+        rejected_dispatch = kernel.get_dispatch(rejected_event.dispatch_id)
+        self.assertIs(rejected_dispatch.state, DispatchState.REJECTED)
+        self.assertTrue(rejected_dispatch.retryable)
+        self.assertIsNone(kernel.get_effect(spec.effect_id).dispatch_id)
+
+        client.add(
+            "workspace.exec",
+            {
+                "jobId": "job-after-rejection",
+                "attemptId": "attempt-after-rejection",
+                "workspaceId": "workspace-test",
+                "status": "succeeded",
+                "exitCode": 0,
+                "artifacts": [],
+            },
+        )
+        second = adapter.dispatch_exec(
+            spec.effect_id,
+            OrdivonExecution("workspace-test", "/usr/bin/true"),
+        )
+        self.assertIs(second.state, EffectState.SUCCEEDED)
+        self.assertNotEqual(second.binding.dispatch_id, rejected_dispatch.dispatch_id)
+        self.assertEqual(
+            [name for name, _ in client.calls].count("workspace.exec"),
+            2,
+        )
+        kernel.validate_invariants()
+
+    def test_non_retryable_pre_admission_rejection_fails_effect(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_exec(kernel, "ordivon-rejected-terminal")
+        client = ScriptedClient()
+        client.add(
+            "workspace.exec",
+            ToolRejected(
+                "workspace.exec",
+                code="INVALID_REQUEST",
+                message="execution contract rejected",
+                field="execution",
+                retryable=False,
+            ),
+        )
+        client.add("task.list", {"jobs": []})
+        adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(25, 100)).__next__,
+        )
+        result = adapter.dispatch_exec(
+            spec.effect_id,
+            OrdivonExecution("workspace-test", "/usr/bin/true"),
+        )
+        self.assertIs(result.state, EffectState.FAILED)
+        self.assertEqual(result.error_code, "INVALID_REQUEST")
+        rejected_event = kernel.events_for(spec.effect_id)[-1]
+        rejected_dispatch = kernel.get_dispatch(rejected_event.dispatch_id)
+        self.assertIs(rejected_dispatch.state, DispatchState.REJECTED)
+        self.assertFalse(rejected_dispatch.retryable)
+        self.assertIsNone(kernel.get_effect(spec.effect_id).dispatch_id)
         kernel.validate_invariants()
 
     def test_orphaned_job_remains_semantically_unknown(self) -> None:

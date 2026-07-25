@@ -41,10 +41,19 @@ class Admission(StrEnum):
     EXISTING = "existing"
 
 
+class DispatchState(StrEnum):
+    STARTED = "started"
+    ADMITTED = "admitted"
+    UNKNOWN = "unknown"
+    REJECTED = "rejected"
+
+
 class EventKind(StrEnum):
     EFFECT_ADMITTED = "effect_admitted"
     EFFECT_PREPARED = "effect_prepared"
     DISPATCH_STARTED = "dispatch_started"
+    DISPATCH_ADMITTED = "dispatch_admitted"
+    DISPATCH_REJECTED = "dispatch_rejected"
     RUNNING_OBSERVED = "running_observed"
     CANCELLATION_REQUESTED = "cancellation_requested"
     OUTCOME_UNKNOWN = "outcome_unknown"
@@ -160,15 +169,36 @@ class DispatchRecord:
     dispatch_id: SemanticId
     effect_id: SemanticId
     request_digest: str
+    state: DispatchState
     started_at_ms: int
+    updated_at_ms: int
+    backend_operation_id: str | None = None
+    reason_code: str | None = None
+    retryable: bool | None = None
 
     def __post_init__(self) -> None:
         self.dispatch_id.require(IdKind.DISPATCH)
         self.effect_id.require(IdKind.EFFECT)
         if not self.request_digest:
             raise ValueError("dispatch request digest must not be empty")
-        if self.started_at_ms < 0:
-            raise ValueError("dispatch time must be non-negative")
+        if self.started_at_ms < 0 or self.updated_at_ms < self.started_at_ms:
+            raise ValueError("dispatch times are invalid")
+        if self.state is DispatchState.STARTED:
+            if self.backend_operation_id is not None or self.reason_code is not None:
+                raise ValueError("started Dispatch cannot have a backend identity or reason")
+        elif self.state is DispatchState.ADMITTED:
+            if not self.backend_operation_id:
+                raise ValueError("admitted Dispatch requires backend operation identity")
+            if self.reason_code is not None or self.retryable is not None:
+                raise ValueError("admitted Dispatch cannot carry rejection fields")
+        elif self.state is DispatchState.REJECTED:
+            if not self.reason_code or self.retryable is None:
+                raise ValueError("rejected Dispatch requires reason and retryability")
+            if self.backend_operation_id is not None:
+                raise ValueError("rejected Dispatch cannot have backend operation identity")
+        elif self.state is DispatchState.UNKNOWN:
+            if self.reason_code is not None or self.retryable is not None:
+                raise ValueError("unknown Dispatch cannot carry rejection fields")
 
 
 @dataclass(frozen=True, slots=True)

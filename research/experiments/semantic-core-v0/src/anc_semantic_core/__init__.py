@@ -17,6 +17,7 @@ from .model import (
     Claim,
     CompletionSemantics,
     DispatchRecord,
+    DispatchState,
     EffectEvent,
     EffectMode,
     EffectRecord,
@@ -42,6 +43,8 @@ from .ordivon import (
     OrdivonRead,
     OrdivonReadMode,
     OrdivonSemanticAdapter,
+    ordivon_file_object_id,
+    ordivon_workspace_object_id,
     semantic_state_from_status,
 )
 from .state import EffectState, NextAction, can_transition, next_action
@@ -55,6 +58,7 @@ __all__ = [
     "Claim",
     "CompletionSemantics",
     "DispatchRecord",
+    "DispatchState",
     "EffectEvent",
     "EffectMode",
     "EffectRecord",
@@ -79,6 +83,8 @@ __all__ = [
     "OrdivonRead",
     "OrdivonReadMode",
     "OrdivonSemanticAdapter",
+    "ordivon_file_object_id",
+    "ordivon_workspace_object_id",
     "Precondition",
     "ReferenceKernel",
     "RevisionConflict",

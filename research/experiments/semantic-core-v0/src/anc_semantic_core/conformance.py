@@ -86,12 +86,21 @@ def _successful_verified_effect(kernel: SemanticKernel) -> None:
     )
     assert record.state is EffectState.DISPATCHED
     assert kernel.get_dispatch(dispatch_id).effect_id == spec.effect_id
+    record = kernel.admit_dispatch(
+        spec.effect_id,
+        dispatch_id,
+        expected_revision=2,
+        event_id=sid(IdKind.EVENT, "event:success:admitted"),
+        recorded_at_ms=4,
+        backend_operation_id="backend:success",
+        evidence_digest="sha256:admission",
+    )
     observation = Observation(
         observation_id=sid(IdKind.OBSERVATION, "observation:success"),
         effect_id=spec.effect_id,
         dispatch_id=dispatch_id,
         target=spec.target,
-        observed_at_ms=4,
+        observed_at_ms=5,
         source="reference-adapter",
         payload_digest="sha256:payload",
     )
@@ -104,15 +113,15 @@ def _successful_verified_effect(kernel: SemanticKernel) -> None:
         digest="sha256:artifact",
         media_type="application/json",
         byte_length=42,
-        created_at_ms=4,
+        created_at_ms=5,
     )
     assert kernel.register_artifact(artifact) is Admission.CREATED
     record = kernel.advance_effect(
         spec.effect_id,
         EffectState.SUCCEEDED,
-        expected_revision=2,
+        expected_revision=3,
         event_id=sid(IdKind.EVENT, "event:success:3"),
-        recorded_at_ms=5,
+        recorded_at_ms=6,
         evidence_digest="sha256:terminal-evidence",
     )
     assert record.state is EffectState.SUCCEEDED
@@ -133,14 +142,14 @@ def _successful_verified_effect(kernel: SemanticKernel) -> None:
             EvidenceRef(EvidenceKind.ARTIFACT, artifact.artifact_id),
         ),
         decision=VerificationDecision.ACCEPTED,
-        verified_at_ms=6,
+        verified_at_ms=7,
     )
     kernel.record_verification(verification)
     fact = Fact(
         fact_id=sid(IdKind.FACT, "fact:success"),
         claim_id=claim.claim_id,
         verification_id=verification.verification_id,
-        accepted_at_ms=7,
+        accepted_at_ms=8,
     )
     kernel.commit_fact(fact)
     kernel.validate_invariants()
@@ -167,9 +176,9 @@ def _unknown_requires_reconciliation(kernel: SemanticKernel) -> None:
         recorded_at_ms=3,
         request_digest="sha256:dispatch-request",
     )
-    record = kernel.advance_effect(
+    record = kernel.mark_dispatch_unknown(
         spec.effect_id,
-        EffectState.UNKNOWN,
+        sid(IdKind.DISPATCH, "dispatch:unknown"),
         expected_revision=2,
         event_id=sid(IdKind.EVENT, "event:unknown:3"),
         recorded_at_ms=4,
@@ -198,12 +207,21 @@ def _unknown_requires_reconciliation(kernel: SemanticKernel) -> None:
         recorded_at_ms=6,
         evidence_digest="sha256:reconciliation-start",
     )
+    kernel.admit_dispatch(
+        spec.effect_id,
+        sid(IdKind.DISPATCH, "dispatch:unknown"),
+        expected_revision=4,
+        event_id=sid(IdKind.EVENT, "event:unknown:admitted"),
+        recorded_at_ms=7,
+        backend_operation_id="backend:correlated",
+        evidence_digest="sha256:correlated-identity",
+    )
     kernel.advance_effect(
         spec.effect_id,
         EffectState.SUCCEEDED,
-        expected_revision=4,
+        expected_revision=5,
         event_id=sid(IdKind.EVENT, "event:unknown:5"),
-        recorded_at_ms=7,
+        recorded_at_ms=8,
         evidence_digest="sha256:correlated-world-result",
     )
     kernel.validate_invariants()

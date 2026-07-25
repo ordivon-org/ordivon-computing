@@ -12,13 +12,13 @@ Delivered:
 
 - WorldObjectRef, EffectSpec, DispatchRecord, Observation, Artifact, Claim, Verification, and Fact;
 - explicit unknown-outcome algebra;
-- independent Dispatch identity;
+- independent Dispatch identity and admission/rejection lifecycle;
 - causal events and optimistic revisions;
 - evidence scope, temporal ordering, and VerificationPlan enforcement;
 - invariant scanner;
 - reusable conformance scenarios.
 
-Exit gate: passed on Python 3.12.13 and 3.14.6.
+Exit gate: two independent implementations were integrated; 27 tests pass on Python 3.12.13 and 3.14.6.
 
 ## M1 — Ordivon semantic adapter
 

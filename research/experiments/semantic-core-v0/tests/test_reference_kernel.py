@@ -8,6 +8,7 @@ from anc_semantic_core.conformance import run_core_conformance, sample_effect, s
 from anc_semantic_core.identity import IdKind
 from anc_semantic_core.kernel import (
     IdentityConflict,
+    InvalidTransition,
     InvariantViolation,
     NotFound,
     ReferenceKernel,
@@ -51,6 +52,15 @@ def start_effect(
         event_id=sid(IdKind.EVENT, f"event:{name}:2"),
         recorded_at_ms=3,
         request_digest=f"sha256:request:{name}",
+    )
+    kernel.admit_dispatch(
+        spec.effect_id,
+        dispatch,
+        expected_revision=2,
+        event_id=sid(IdKind.EVENT, f"event:{name}:admitted"),
+        recorded_at_ms=3,
+        backend_operation_id=f"backend:{name}",
+        evidence_digest=f"sha256:admission:{name}",
     )
     return spec, dispatch
 
@@ -170,7 +180,7 @@ class ReferenceKernelTests(unittest.TestCase):
         kernel.advance_effect(
             spec.effect_id,
             EffectState.SUCCEEDED,
-            expected_revision=2,
+            expected_revision=3,
             event_id=sid(IdKind.EVENT, "event:rejected-fact:3"),
             recorded_at_ms=5,
             evidence_digest="sha256:terminal",
@@ -266,6 +276,15 @@ class ReferenceKernelTests(unittest.TestCase):
             recorded_at_ms=3,
             request_digest="sha256:request:independent",
         )
+        kernel.admit_dispatch(
+            independent.effect_id,
+            independent_dispatch,
+            expected_revision=2,
+            event_id=sid(IdKind.EVENT, "event:independent:admitted"),
+            recorded_at_ms=3,
+            backend_operation_id="backend:independent",
+            evidence_digest="sha256:admission:independent",
+        )
         observation, artifact = add_evidence(
             kernel,
             independent,
@@ -333,6 +352,15 @@ class ReferenceKernelTests(unittest.TestCase):
             event_id=sid(IdKind.EVENT, "event:version-independent:2"),
             recorded_at_ms=3,
             request_digest="sha256:request:version-independent",
+        )
+        kernel.admit_dispatch(
+            independent.effect_id,
+            dispatch,
+            expected_revision=2,
+            event_id=sid(IdKind.EVENT, "event:version-independent:admitted"),
+            recorded_at_ms=3,
+            backend_operation_id="backend:version-independent",
+            evidence_digest="sha256:admission:version-independent",
         )
         observation, artifact = add_evidence(
             kernel,
@@ -445,6 +473,59 @@ class ReferenceKernelTests(unittest.TestCase):
                     verified_at_ms=3,
                 )
             )
+
+    def test_admitted_unknown_dispatch_cannot_be_reclassified_rejected(self) -> None:
+        kernel = ReferenceKernel()
+        spec = sample_effect("admitted-unknown")
+        dispatch = sid(IdKind.DISPATCH, "dispatch:admitted-unknown")
+        kernel.admit_effect(
+            spec,
+            event_id=sid(IdKind.EVENT, "event:admitted-unknown:0"),
+            recorded_at_ms=1,
+        )
+        kernel.prepare_effect(
+            spec.effect_id,
+            expected_revision=0,
+            event_id=sid(IdKind.EVENT, "event:admitted-unknown:1"),
+            recorded_at_ms=2,
+        )
+        kernel.begin_dispatch(
+            spec.effect_id,
+            expected_revision=1,
+            dispatch_id=dispatch,
+            event_id=sid(IdKind.EVENT, "event:admitted-unknown:2"),
+            recorded_at_ms=3,
+            request_digest="sha256:request",
+        )
+        kernel.admit_dispatch(
+            spec.effect_id,
+            dispatch,
+            expected_revision=2,
+            event_id=sid(IdKind.EVENT, "event:admitted-unknown:3"),
+            recorded_at_ms=4,
+            backend_operation_id="backend-job:admitted-unknown",
+            evidence_digest="sha256:admitted",
+        )
+        kernel.mark_dispatch_unknown(
+            spec.effect_id,
+            dispatch,
+            expected_revision=3,
+            event_id=sid(IdKind.EVENT, "event:admitted-unknown:4"),
+            recorded_at_ms=5,
+            evidence_digest="sha256:ownership-lost",
+        )
+        with self.assertRaises(InvalidTransition):
+            kernel.reject_dispatch(
+                spec.effect_id,
+                dispatch,
+                expected_revision=4,
+                event_id=sid(IdKind.EVENT, "event:admitted-unknown:5"),
+                recorded_at_ms=6,
+                reason_code="NOT_FOUND",
+                retryable=True,
+                evidence_digest="sha256:not-found",
+            )
+        kernel.validate_invariants()
 
     def test_fact_requires_existing_claim_and_verification(self) -> None:
         kernel = ReferenceKernel()

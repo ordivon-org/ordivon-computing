@@ -18,15 +18,55 @@ class LocalMcpToolCaller:
         self.request_id = 100
         self.calls: list[tuple[str, dict[str, Any]]] = []
 
+    def initialize(self) -> dict[str, Any]:
+        result = self._rpc(
+            "initialize",
+            {
+                "protocolVersion": "2025-06-18",
+                "capabilities": {},
+                "clientInfo": {
+                    "name": "anc-semantic-core-live",
+                    "version": "0.1.0",
+                },
+            },
+        )
+        if not isinstance(result, dict):
+            raise ToolProtocolError("initialize returned a non-object result")
+        return result
+
     def call_tool(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         self.calls.append((name, arguments))
+        result = self._rpc(
+            "tools/call",
+            {"name": name, "arguments": arguments},
+        )
+        if not isinstance(result, dict):
+            raise ToolProtocolError(f"Tool {name} returned a non-object result")
+        structured = result.get("structuredContent")
+        if result.get("isError") is True:
+            detail = structured.get("error") if isinstance(structured, dict) else None
+            if not isinstance(detail, dict):
+                raise ToolProtocolError(f"unstructured Tool error from {name}")
+            raise ToolRejected(
+                name,
+                code=str(detail.get("code", "TOOL_ERROR")),
+                message=str(detail.get("message", "tool failed")),
+                field=detail.get("field") if isinstance(detail.get("field"), str) else None,
+                retryable=detail.get("retryable") is True,
+                detail=detail,
+            )
+        if not isinstance(structured, dict):
+            raise ToolProtocolError(f"Tool {name} returned no structuredContent")
+        return structured
+
+    def _rpc(self, method: str, params: dict[str, Any]) -> Any:
         self.request_id += 1
         body = json.dumps(
             {
                 "jsonrpc": "2.0",
                 "id": self.request_id,
-                "method": "tools/call",
-                "params": {"name": name, "arguments": arguments},
+                "method": method,
+                "params": params,
             },
             separators=(",", ":"),
         ).encode("utf-8")
@@ -50,25 +90,15 @@ class LocalMcpToolCaller:
             raise ToolTransportError(str(error)) from error
         try:
             envelope = json.loads(payload)
-            result = envelope["result"]
-        except (json.JSONDecodeError, KeyError, TypeError) as error:
-            raise ToolProtocolError("invalid MCP response envelope") from error
-        structured = result.get("structuredContent")
-        if result.get("isError") is True:
-            detail = structured.get("error") if isinstance(structured, dict) else None
-            if not isinstance(detail, dict):
-                raise ToolProtocolError(f"unstructured Tool error from {name}")
-            raise ToolRejected(
-                name,
-                code=str(detail.get("code", "TOOL_ERROR")),
-                message=str(detail.get("message", "tool failed")),
-                field=detail.get("field") if isinstance(detail.get("field"), str) else None,
-                retryable=detail.get("retryable") is True,
-                detail=detail,
-            )
-        if not isinstance(structured, dict):
-            raise ToolProtocolError(f"Tool {name} returned no structuredContent")
-        return structured
+        except json.JSONDecodeError as error:
+            raise ToolProtocolError("invalid MCP JSON response") from error
+        if not isinstance(envelope, dict):
+            raise ToolProtocolError("invalid MCP response envelope")
+        if "error" in envelope:
+            raise ToolProtocolError(f"MCP RPC error: {envelope['error']}")
+        if "result" not in envelope:
+            raise ToolProtocolError("MCP response has no result")
+        return envelope["result"]
 
 
 def digest_text(value: str) -> str:

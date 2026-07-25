@@ -9,6 +9,7 @@ from .model import (
     Artifact,
     Claim,
     DispatchRecord,
+    DispatchState,
     EffectEvent,
     EffectRecord,
     EffectSpec,
@@ -70,6 +71,42 @@ class SemanticKernel(Protocol):
         event_id: SemanticId,
         recorded_at_ms: int,
         request_digest: str,
+    ) -> EffectRecord: ...
+
+    def admit_dispatch(
+        self,
+        effect_id: SemanticId,
+        dispatch_id: SemanticId,
+        *,
+        expected_revision: int,
+        event_id: SemanticId,
+        recorded_at_ms: int,
+        backend_operation_id: str,
+        evidence_digest: str,
+    ) -> EffectRecord: ...
+
+    def mark_dispatch_unknown(
+        self,
+        effect_id: SemanticId,
+        dispatch_id: SemanticId,
+        *,
+        expected_revision: int,
+        event_id: SemanticId,
+        recorded_at_ms: int,
+        evidence_digest: str,
+    ) -> EffectRecord: ...
+
+    def reject_dispatch(
+        self,
+        effect_id: SemanticId,
+        dispatch_id: SemanticId,
+        *,
+        expected_revision: int,
+        event_id: SemanticId,
+        recorded_at_ms: int,
+        reason_code: str,
+        retryable: bool,
+        evidence_digest: str,
     ) -> EffectRecord: ...
 
     def advance_effect(
@@ -191,7 +228,9 @@ class ReferenceKernel:
             dispatch_id=dispatch_id,
             effect_id=effect_id,
             request_digest=request_digest,
+            state=DispatchState.STARTED,
             started_at_ms=recorded_at_ms,
+            updated_at_ms=recorded_at_ms,
         )
         existing = self._dispatches.get(dispatch_id)
         if existing is not None:
@@ -211,6 +250,124 @@ class ReferenceKernel:
         self._dispatches[dispatch_id] = dispatch
         return record
 
+    def admit_dispatch(
+        self,
+        effect_id: SemanticId,
+        dispatch_id: SemanticId,
+        *,
+        expected_revision: int,
+        event_id: SemanticId,
+        recorded_at_ms: int,
+        backend_operation_id: str,
+        evidence_digest: str,
+    ) -> EffectRecord:
+        if not backend_operation_id or not evidence_digest:
+            raise ValueError("dispatch admission requires backend identity and evidence")
+        record, dispatch = self._require_current_dispatch(
+            effect_id, dispatch_id, expected_revision=expected_revision
+        )
+        if dispatch.state is DispatchState.ADMITTED:
+            if dispatch.backend_operation_id == backend_operation_id:
+                return record
+            raise IdentityConflict("Dispatch is already bound to a different backend operation")
+        if dispatch.state not in {DispatchState.STARTED, DispatchState.UNKNOWN}:
+            raise InvalidTransition(f"cannot admit Dispatch from {dispatch.state.value}")
+        self._dispatches[dispatch_id] = replace(
+            dispatch,
+            state=DispatchState.ADMITTED,
+            updated_at_ms=recorded_at_ms,
+            backend_operation_id=backend_operation_id,
+            reason_code=None,
+            retryable=None,
+        )
+        return self._append_effect_event(
+            record,
+            event_id=event_id,
+            recorded_at_ms=recorded_at_ms,
+            kind=EventKind.DISPATCH_ADMITTED,
+            evidence_digest=evidence_digest,
+            dispatch_id=dispatch_id,
+        )
+
+    def mark_dispatch_unknown(
+        self,
+        effect_id: SemanticId,
+        dispatch_id: SemanticId,
+        *,
+        expected_revision: int,
+        event_id: SemanticId,
+        recorded_at_ms: int,
+        evidence_digest: str,
+    ) -> EffectRecord:
+        if not evidence_digest:
+            raise ValueError("unknown Dispatch requires evidence")
+        record, dispatch = self._require_current_dispatch(
+            effect_id, dispatch_id, expected_revision=expected_revision
+        )
+        if dispatch.state is DispatchState.REJECTED:
+            raise InvalidTransition("rejected Dispatch cannot become unknown")
+        self._dispatches[dispatch_id] = replace(
+            dispatch,
+            state=DispatchState.UNKNOWN,
+            updated_at_ms=recorded_at_ms,
+            reason_code=None,
+            retryable=None,
+        )
+        if record.state is EffectState.UNKNOWN:
+            return record
+        return self._transition(
+            effect_id,
+            EffectState.UNKNOWN,
+            expected_revision=expected_revision,
+            event_id=event_id,
+            recorded_at_ms=recorded_at_ms,
+            evidence_digest=evidence_digest,
+        )
+
+    def reject_dispatch(
+        self,
+        effect_id: SemanticId,
+        dispatch_id: SemanticId,
+        *,
+        expected_revision: int,
+        event_id: SemanticId,
+        recorded_at_ms: int,
+        reason_code: str,
+        retryable: bool,
+        evidence_digest: str,
+    ) -> EffectRecord:
+        if not reason_code or not evidence_digest:
+            raise ValueError("Dispatch rejection requires reason and evidence")
+        record, dispatch = self._require_current_dispatch(
+            effect_id, dispatch_id, expected_revision=expected_revision
+        )
+        if dispatch.state is DispatchState.ADMITTED or dispatch.backend_operation_id is not None:
+            raise InvalidTransition(
+                "Dispatch proven admitted cannot be reclassified as rejected"
+            )
+        if dispatch.state is DispatchState.REJECTED:
+            if dispatch.reason_code == reason_code and dispatch.retryable is retryable:
+                return record
+            raise IdentityConflict("Dispatch rejection conflicts with existing outcome")
+        self._dispatches[dispatch_id] = replace(
+            dispatch,
+            state=DispatchState.REJECTED,
+            updated_at_ms=recorded_at_ms,
+            backend_operation_id=None,
+            reason_code=reason_code,
+            retryable=retryable,
+        )
+        target = EffectState.PREPARED if retryable else EffectState.FAILED
+        return self._append_effect_event(
+            replace(record, state=target, dispatch_id=None),
+            event_id=event_id,
+            recorded_at_ms=recorded_at_ms,
+            kind=EventKind.DISPATCH_REJECTED,
+            evidence_digest=evidence_digest,
+            dispatch_id=dispatch_id,
+            previous_record=record,
+        )
+
     def advance_effect(
         self,
         effect_id: SemanticId,
@@ -221,8 +378,26 @@ class ReferenceKernel:
         recorded_at_ms: int,
         evidence_digest: str | None = None,
     ) -> EffectRecord:
-        if target in {EffectState.PROPOSED, EffectState.PREPARED, EffectState.DISPATCHED}:
+        if target in {
+            EffectState.PROPOSED,
+            EffectState.PREPARED,
+            EffectState.DISPATCHED,
+            EffectState.UNKNOWN,
+        }:
             raise InvalidTransition(f"use the dedicated operation for target state {target.value}")
+        record = self.get_effect(effect_id)
+        if record.dispatch_id is not None and target in {
+            EffectState.RUNNING,
+            EffectState.CANCEL_REQUESTED,
+            EffectState.SUCCEEDED,
+            EffectState.FAILED,
+            EffectState.CANCELLED,
+        }:
+            dispatch = self.get_dispatch(record.dispatch_id)
+            if dispatch.state is not DispatchState.ADMITTED:
+                raise InvariantViolation(
+                    f"transition to {target.value} requires an admitted Dispatch"
+                )
         return self._transition(
             effect_id,
             target,
@@ -259,7 +434,7 @@ class ReferenceKernel:
                 f"observation identity conflict: {observation.observation_id}"
             )
         record = self.get_effect(observation.effect_id)
-        self._require_bound_dispatch(record, observation.dispatch_id)
+        self._require_admitted_dispatch(record, observation.dispatch_id)
         if record.state in {EffectState.PROPOSED, EffectState.PREPARED}:
             raise InvariantViolation("pre-dispatch effect cannot produce an observation")
         if observation.target.object_id != record.spec.target.object_id:
@@ -274,7 +449,7 @@ class ReferenceKernel:
                 return Admission.EXISTING
             raise IdentityConflict(f"artifact identity conflict: {artifact.artifact_id}")
         record = self.get_effect(artifact.effect_id)
-        self._require_bound_dispatch(record, artifact.dispatch_id)
+        self._require_admitted_dispatch(record, artifact.dispatch_id)
         if record.state in {EffectState.PROPOSED, EffectState.PREPARED}:
             raise InvariantViolation("pre-dispatch effect cannot produce an artifact")
         self._artifacts[artifact.artifact_id] = artifact
@@ -343,26 +518,50 @@ class ReferenceKernel:
                 if event.recorded_at_ms < previous_time:
                     raise InvariantViolation(f"event time regressed: {effect_id}")
                 previous_time = event.recorded_at_ms
-            if record.dispatch_id is None and record.state not in {
-                EffectState.PROPOSED,
-                EffectState.PREPARED,
-                EffectState.CANCELLED,
-            }:
+            requires_current_dispatch = record.state in {
+                EffectState.DISPATCHED,
+                EffectState.RUNNING,
+                EffectState.CANCEL_REQUESTED,
+                EffectState.UNKNOWN,
+                EffectState.RECONCILING,
+                EffectState.SUCCEEDED,
+            }
+            if requires_current_dispatch and record.dispatch_id is None:
                 raise InvariantViolation(f"post-dispatch state lacks dispatch identity: {effect_id}")
             if record.dispatch_id is not None:
                 dispatch = self.get_dispatch(record.dispatch_id)
                 if dispatch.effect_id != effect_id:
                     raise InvariantViolation(f"dispatch owner mismatch: {record.dispatch_id}")
+                if dispatch.state is DispatchState.REJECTED:
+                    raise InvariantViolation("Effect cannot remain bound to rejected Dispatch")
+                if record.state in {
+                    EffectState.RUNNING,
+                    EffectState.CANCEL_REQUESTED,
+                    EffectState.SUCCEEDED,
+                    EffectState.FAILED,
+                    EffectState.CANCELLED,
+                } and dispatch.state is not DispatchState.ADMITTED:
+                    raise InvariantViolation(
+                        f"Effect state {record.state.value} requires admitted Dispatch"
+                    )
+                if record.state in {EffectState.UNKNOWN, EffectState.RECONCILING} and dispatch.state not in {
+                    DispatchState.UNKNOWN,
+                    DispatchState.ADMITTED,
+                }:
+                    raise InvariantViolation("uncertain Effect has incompatible Dispatch state")
         for dispatch_id, dispatch in self._dispatches.items():
             effect = self.get_effect(dispatch.effect_id)
-            if effect.dispatch_id != dispatch_id:
-                raise InvariantViolation(f"dispatch is not bound by its effect: {dispatch_id}")
+            if dispatch.state is DispatchState.REJECTED:
+                if effect.dispatch_id == dispatch_id:
+                    raise InvariantViolation(f"rejected Dispatch remains current: {dispatch_id}")
+            elif effect.dispatch_id != dispatch_id:
+                raise InvariantViolation(f"active Dispatch is not bound by its Effect: {dispatch_id}")
         for observation in self._observations.values():
             record = self.get_effect(observation.effect_id)
-            self._require_bound_dispatch(record, observation.dispatch_id)
+            self._require_admitted_dispatch(record, observation.dispatch_id)
         for artifact in self._artifacts.values():
             record = self.get_effect(artifact.effect_id)
-            self._require_bound_dispatch(record, artifact.dispatch_id)
+            self._require_admitted_dispatch(record, artifact.dispatch_id)
         for verification in self._verifications.values():
             self._validate_verification(verification)
         for fact in self._facts.values():
@@ -438,6 +637,57 @@ class ReferenceKernel:
                 f"verification predates its {evidence_kind} evidence"
             )
 
+    def _require_current_dispatch(
+        self,
+        effect_id: SemanticId,
+        dispatch_id: SemanticId,
+        *,
+        expected_revision: int,
+    ) -> tuple[EffectRecord, DispatchRecord]:
+        record = self.get_effect(effect_id)
+        if record.revision != expected_revision:
+            raise RevisionConflict(
+                f"expected revision {expected_revision}, found {record.revision}"
+            )
+        if record.dispatch_id != dispatch_id:
+            raise InvariantViolation("Dispatch is not current for Effect")
+        dispatch = self.get_dispatch(dispatch_id)
+        if dispatch.effect_id != effect_id:
+            raise InvariantViolation("Dispatch belongs to a different Effect")
+        return record, dispatch
+
+    def _append_effect_event(
+        self,
+        updated_record: EffectRecord,
+        *,
+        event_id: SemanticId,
+        recorded_at_ms: int,
+        kind: EventKind,
+        evidence_digest: str,
+        dispatch_id: SemanticId | None,
+        previous_record: EffectRecord | None = None,
+    ) -> EffectRecord:
+        event_id.require(IdKind.EVENT)
+        self._require_time(recorded_at_ms)
+        self._require_new_event(event_id)
+        previous = previous_record or self.get_effect(updated_record.spec.effect_id)
+        if recorded_at_ms < self._events_by_effect[previous.spec.effect_id][-1].recorded_at_ms:
+            raise InvariantViolation("effect event time cannot move backwards")
+        updated = replace(updated_record, revision=previous.revision + 1)
+        event = EffectEvent(
+            event_id=event_id,
+            effect_id=updated.spec.effect_id,
+            sequence=updated.revision,
+            kind=kind,
+            recorded_at_ms=recorded_at_ms,
+            evidence_digest=evidence_digest,
+            dispatch_id=dispatch_id,
+        )
+        self._effects[updated.spec.effect_id] = updated
+        self._events[event_id] = event
+        self._events_by_effect[updated.spec.effect_id].append(event)
+        return updated
+
     def _transition(
         self,
         effect_id: SemanticId,
@@ -492,10 +742,22 @@ class ReferenceKernel:
         self._events_by_effect[effect_id].append(event)
         return updated
 
-    @staticmethod
-    def _require_bound_dispatch(record: EffectRecord, dispatch_id: SemanticId) -> None:
+    def _require_admitted_dispatch(
+        self, record: EffectRecord, dispatch_id: SemanticId
+    ) -> DispatchRecord:
         if record.dispatch_id != dispatch_id:
             raise InvariantViolation("evidence dispatch does not match effect dispatch")
+        dispatch = self.get_dispatch(dispatch_id)
+        admitted_or_later_unknown = (
+            dispatch.state is DispatchState.ADMITTED
+            or (
+                dispatch.state is DispatchState.UNKNOWN
+                and dispatch.backend_operation_id is not None
+            )
+        )
+        if not admitted_or_later_unknown:
+            raise InvariantViolation("evidence requires a Dispatch proven admitted")
+        return dispatch
 
     def _require_new_event(self, event_id: SemanticId) -> None:
         if event_id in self._events:

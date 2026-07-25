@@ -36,7 +36,7 @@ The live script never prints the Bearer token and always attempts to close its t
 - typed `SemanticId` identities;
 - versioned `WorldObjectRef` targets;
 - immutable `EffectSpec` intent;
-- independent `DispatchRecord` boundary attempts;
+- independent `DispatchRecord` boundary attempts with STARTED / ADMITTED / UNKNOWN / REJECTED state;
 - ordered `EffectEvent` causality;
 - immutable `Observation` and `Artifact` evidence;
 - `Claim → Verification → Fact` admission;
@@ -45,7 +45,8 @@ The live script never prints the Bearer token and always attempts to close its t
 ## Critical rules
 
 - an Effect is not a Tool call;
-- beginning a Dispatch does not prove acceptance or completion;
+- beginning a Dispatch does not prove backend admission or completion;
+- evidence may be recorded only after Dispatch admission; retryable rejection remains distinct from uncertain delivery;
 - response loss becomes `unknown`, never implicit failure;
 - `unknown` must reconcile and cannot blindly redispatch;
 - terminal outcomes are immutable;
@@ -55,7 +56,7 @@ The live script never prints the Bearer token and always attempts to close its t
 
 ## Current maturity
 
-- **M0 semantic reference kernel:** implemented and covered by reusable conformance scenarios;
+- **M0 semantic reference kernel:** integrated from two independent implementations and covered by 27 reusable conformance tests on Python 3.12 and 3.14;
 - **M1 Ordivon adapter:** asynchronous execution, versioned read, atomic mutation, Artifact projection, and Fact admission passed through the public MCP contract;
 - **live proof:** command execution remained single-dispatch; mutation results were independently re-read by separate Effects; two file Facts were admitted; stale-digest mutation was rejected without changing final content;
 - **remaining M1 work:** injected response loss, cancellation races, adapter restart continuity, and Tool-contract drift;

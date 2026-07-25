@@ -42,18 +42,18 @@ workspace.open
 
 ```json
 {
-  "attemptId": "attempt-019f9a40-0a28-74f3-824e-9b19c8f0d69c",
+  "attemptId": "attempt-019f9a51-02d3-73c1-a67a-347c97947848",
   "correlatedJobCount": 1,
   "duplicateDispatchBlocked": true,
   "factCommitted": true,
   "initialState": "running",
-  "jobId": "job-019f9a40-0a28-74f3-824e-9b0529fefd3f",
+  "jobId": "job-019f9a51-02d3-73c1-a67a-346946652160",
   "semanticArtifactCount": 3,
-  "sourceRevision": "5d6c7125e854ff41679bac937a71192a32423315",
+  "sourceRevision": "1b87a76f2cbc14c788b49428cbdac7811128cf24",
   "stdoutDigest": "sha256:f1c4ddb78f847a90b287e55013dbac94ad5d4475b380a188f0edb0e991d8a5b7",
   "stdoutMarkersVerified": true,
   "terminalState": "succeeded",
-  "workspaceId": "anc-live-semantic-1784999315863"
+  "workspaceId": "anc-live-semantic-1785000428071"
 }
 ```
 
@@ -88,7 +88,7 @@ workspace.open
   "finalContentStable": true,
   "finalDigestStable": true,
   "mutationFactsCommitted": 2,
-  "sourceRevision": "5d6c7125e854ff41679bac937a71192a32423315",
+  "sourceRevision": "1b87a76f2cbc14c788b49428cbdac7811128cf24",
   "staleMutationErrorCode": "INVALID_REQUEST",
   "staleMutationState": "failed",
   "toolCallCounts": {
@@ -96,15 +96,34 @@ workspace.open
     "workspace.open": 1,
     "workspace.read": 3
   },
-  "workspaceId": "anc-live-files-1784999317610"
+  "workspaceId": "anc-live-files-1785000429867"
 }
 ```
+
+# C. Integrated existing-Workspace dogfood
+
+After merging the concurrent Semantic Core implementation, the retained targeted dogfood script ran against an already-open exact-revision Workspace through the consolidated test-only MCP caller.
+
+```json
+{
+  "artifactCount": 3,
+  "attemptId": "attempt-019f9a51-7ec1-7d03-b538-77f1abab4ba7",
+  "errorCode": null,
+  "jobId": "job-019f9a51-7ec1-7d03-b538-77ecb7701f87",
+  "observationDigest": "sha256:e5d695e50cee2296fd7f8be57d5bd1d3de49dfa8be8812e62461ccaba843aea1",
+  "state": "succeeded",
+  "stdoutTail": "merged-semantic-core-live\n"
+}
+```
+
+This run confirms that the integrated Dispatch admission model, adapter, public object identity, and consolidated transport harness remain compatible with the parallel branch's original dogfood surface. The temporary Workspace was closed after the run.
 
 # Findings
 
 ## Supported
 
 - one semantic Effect can own a real Ordivon Job without making Job identity universal;
+- Dispatch STARTED, ADMITTED, UNKNOWN, and REJECTED remain distinct across reference and live adapter paths;
 - normal observation and unknown-outcome reconciliation are distinct paths;
 - exactly one Job correlates to the asynchronous Dispatch;
 - terminal Artifacts retain Effect and Dispatch provenance;
@@ -117,6 +136,7 @@ workspace.open
 
 1. **Overly strict evidence ownership:** Verification cannot be limited to evidence from the Claim-originating Effect; independent verification requires cross-Effect evidence.
 2. **Content-derived Observation identity:** identical payload digests cannot identify an observation event; Effect and Dispatch causality must participate in ObservationId.
+3. **Mechanically choosing one concurrent implementation:** the parallel `main` implementation carried stronger pre-admission rejection semantics, while this branch carried stronger independent verification and file Effects. Neither was sufficient alone; semantic integration was required.
 
 ## Not supported
 

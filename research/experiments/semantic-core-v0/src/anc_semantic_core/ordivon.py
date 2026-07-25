@@ -173,6 +173,23 @@ class _PendingDispatch:
     dispatched_at_ms: int
 
 
+def ordivon_workspace_object_id(workspace_id: str) -> SemanticId:
+    if not workspace_id:
+        raise ValueError("workspace identity must not be empty")
+    return SemanticId(IdKind.WORLD_OBJECT, f"ordivon-workspace:{workspace_id}")
+
+
+def ordivon_file_object_id(workspace_id: str, relative_path: str) -> SemanticId:
+    if not workspace_id:
+        raise ValueError("workspace identity must not be empty")
+    if not relative_path or relative_path.startswith("/"):
+        raise ValueError("file path must be relative")
+    return SemanticId(
+        IdKind.WORLD_OBJECT,
+        f"ordivon-file:{workspace_id}:{relative_path}",
+    )
+
+
 def semantic_state_from_status(status: str) -> EffectState:
     mapping = {
         "queued": EffectState.DISPATCHED,
@@ -215,6 +232,11 @@ class OrdivonSemanticAdapter:
         record = self._kernel.get_effect(effect_id)
         if record.spec.operation != "workspace.read":
             raise ValueError("Ordivon read adapter requires operation workspace.read")
+        expected_target = ordivon_file_object_id(
+            request.workspace_id, request.relative_path
+        )
+        if record.spec.target.object_id != expected_target:
+            raise ValueError("Effect target does not match the Ordivon file")
         if record.state is not EffectState.PREPARED:
             raise InvalidTransition("only a prepared Effect may read through Ordivon")
         arguments = request.as_tool_arguments()
@@ -222,7 +244,7 @@ class OrdivonSemanticAdapter:
         self._kernel.begin_dispatch(
             effect_id,
             expected_revision=record.revision,
-            dispatch_id=_dispatch_id(effect_id, "workspace.read"),
+            dispatch_id=_dispatch_id(effect_id, "workspace.read", record.revision + 1),
             event_id=self._event_id(effect_id, "dispatch-read"),
             recorded_at_ms=self._clock_ms(),
             request_digest=request_digest,
@@ -248,6 +270,11 @@ class OrdivonSemanticAdapter:
         record = self._kernel.get_effect(effect_id)
         if record.spec.operation != "workspace.mutate":
             raise ValueError("Ordivon mutation adapter requires operation workspace.mutate")
+        expected_target = ordivon_file_object_id(
+            mutation.workspace_id, mutation.relative_path
+        )
+        if record.spec.target.object_id != expected_target:
+            raise ValueError("Effect target does not match the Ordivon file")
         if record.state is not EffectState.PREPARED:
             raise InvalidTransition("only a prepared Effect may mutate through Ordivon")
         arguments = mutation.as_tool_arguments()
@@ -255,7 +282,7 @@ class OrdivonSemanticAdapter:
         self._kernel.begin_dispatch(
             effect_id,
             expected_revision=record.revision,
-            dispatch_id=_dispatch_id(effect_id, "workspace.mutate"),
+            dispatch_id=_dispatch_id(effect_id, "workspace.mutate", record.revision + 1),
             event_id=self._event_id(effect_id, "dispatch-mutate"),
             recorded_at_ms=self._clock_ms(),
             request_digest=request_digest,
@@ -285,10 +312,16 @@ class OrdivonSemanticAdapter:
         record = self._kernel.get_effect(effect_id)
         if record.spec.operation != "workspace.exec":
             raise ValueError("Ordivon exec adapter requires operation workspace.exec")
+        expected_target = ordivon_workspace_object_id(execution.workspace_id)
+        if record.spec.target.object_id != expected_target:
+            raise ValueError("Effect target does not match the Ordivon Workspace")
         if record.state is not EffectState.PREPARED:
             raise InvalidTransition("only a prepared Effect may cross the Ordivon boundary")
         client_request_id = _client_request_id(effect_id)
-        dispatch_id = SemanticId(IdKind.DISPATCH, f"ordivon:{client_request_id}")
+        dispatch_id = SemanticId(
+            IdKind.DISPATCH,
+            f"ordivon:{client_request_id}:r{record.revision + 1}",
+        )
         arguments = execution.as_tool_arguments(
             client_request_id,
             wait_ms=wait_ms,
@@ -401,7 +434,12 @@ class OrdivonSemanticAdapter:
             source="ordivon:mcp/workspace.read",
             payload_digest=payload_digest,
         )
-        return self._complete_synchronous(effect_id, observation, payload)
+        return self._complete_synchronous(
+            effect_id,
+            observation,
+            payload,
+            backend_operation_id=f"workspace.read:{payload_digest}",
+        )
 
     def _apply_mutation_payload(
         self,
@@ -441,16 +479,34 @@ class OrdivonSemanticAdapter:
             source="ordivon:mcp/workspace.mutate",
             payload_digest=payload_digest,
         )
-        return self._complete_synchronous(effect_id, observation, payload)
+        return self._complete_synchronous(
+            effect_id,
+            observation,
+            payload,
+            backend_operation_id=f"workspace.mutate:{digest}",
+        )
 
     def _complete_synchronous(
         self,
         effect_id: SemanticId,
         observation: Observation,
         payload: dict[str, Any],
+        *,
+        backend_operation_id: str,
     ) -> AdapterProjection:
-        self._kernel.record_observation(observation)
         current = self._kernel.get_effect(effect_id)
+        if current.dispatch_id is None:
+            raise InvalidTransition("synchronous Effect has no committed Dispatch")
+        current = self._kernel.admit_dispatch(
+            effect_id,
+            current.dispatch_id,
+            expected_revision=current.revision,
+            event_id=self._event_id(effect_id, "backend-admitted"),
+            recorded_at_ms=self._clock_ms(),
+            backend_operation_id=backend_operation_id,
+            evidence_digest=observation.payload_digest,
+        )
+        self._kernel.record_observation(observation)
         current = self._kernel.advance_effect(
             effect_id,
             EffectState.SUCCEEDED,
@@ -491,10 +547,12 @@ class OrdivonSemanticAdapter:
 
     def _mark_unknown(self, effect_id: SemanticId, error: ToolCallError) -> AdapterProjection:
         record = self._kernel.get_effect(effect_id)
+        if record.dispatch_id is None:
+            raise InvalidTransition("Effect has no committed Ordivon Dispatch")
         if record.state is not EffectState.UNKNOWN:
-            record = self._kernel.advance_effect(
+            record = self._kernel.mark_dispatch_unknown(
                 effect_id,
-                EffectState.UNKNOWN,
+                record.dispatch_id,
                 expected_revision=record.revision,
                 event_id=self._event_id(effect_id, "outcome-unknown"),
                 recorded_at_ms=self._clock_ms(),
@@ -518,12 +576,17 @@ class OrdivonSemanticAdapter:
         error: ToolRejected,
     ) -> AdapterProjection:
         record = self._kernel.get_effect(effect_id)
-        record = self._kernel.advance_effect(
+        if record.dispatch_id is None:
+            raise InvalidTransition("Effect has no committed Ordivon Dispatch")
+        rejected_dispatch_id = record.dispatch_id
+        record = self._kernel.reject_dispatch(
             effect_id,
-            EffectState.FAILED,
+            rejected_dispatch_id,
             expected_revision=record.revision,
             event_id=self._event_id(effect_id, "tool-rejected"),
             recorded_at_ms=self._clock_ms(),
+            reason_code=error.code,
+            retryable=error.retryable,
             evidence_digest=_digest(
                 {
                     "code": error.code,
@@ -571,9 +634,11 @@ class OrdivonSemanticAdapter:
             return self._mark_unknown(effect_id, error)
         if binding is None:
             current = self._kernel.get_effect(effect_id)
-            current = self._kernel.advance_effect(
+            if current.dispatch_id is None:
+                raise InvalidTransition("Effect has no committed Ordivon Dispatch")
+            current = self._kernel.mark_dispatch_unknown(
                 effect_id,
-                EffectState.UNKNOWN,
+                current.dispatch_id,
                 expected_revision=current.revision,
                 event_id=self._event_id(effect_id, "not-found"),
                 recorded_at_ms=self._clock_ms(),
@@ -678,7 +743,19 @@ class OrdivonSemanticAdapter:
         target = projected
         if current.state is EffectState.RECONCILING and target is EffectState.DISPATCHED:
             target = EffectState.RUNNING
-        if target is not current.state:
+        if target is EffectState.UNKNOWN:
+            if current.dispatch_id is None:
+                raise InvalidTransition("observed Effect has no committed Dispatch")
+            if current.state is not EffectState.UNKNOWN:
+                current = self._kernel.mark_dispatch_unknown(
+                    effect_id,
+                    current.dispatch_id,
+                    expected_revision=current.revision,
+                    event_id=self._event_id(effect_id, "observe-unknown"),
+                    recorded_at_ms=self._clock_ms(),
+                    evidence_digest=payload_digest,
+                )
+        elif target is not current.state:
             current = self._kernel.advance_effect(
                 effect_id,
                 target,
@@ -720,6 +797,22 @@ class OrdivonSemanticAdapter:
         existing = self._bindings.get(effect_id)
         if existing is not None and existing.job_id != binding.job_id:
             raise ValueError("one Effect resolved to multiple Ordivon Jobs")
+        current = self._kernel.get_effect(effect_id)
+        self._kernel.admit_dispatch(
+            effect_id,
+            pending.dispatch_id,
+            expected_revision=current.revision,
+            event_id=self._event_id(effect_id, "backend-admitted"),
+            recorded_at_ms=self._clock_ms(),
+            backend_operation_id=job_id,
+            evidence_digest=_digest(
+                {
+                    "jobId": job_id,
+                    "attemptId": attempt_id,
+                    "clientRequestId": pending.client_request_id,
+                }
+            ),
+        )
         self._bindings[effect_id] = binding
         return binding
 
@@ -780,11 +873,18 @@ def _observation_id(
     return SemanticId(IdKind.OBSERVATION, f"ordivon:{digest}")
 
 
-def _dispatch_id(effect_id: SemanticId, operation: str) -> SemanticId:
+def _dispatch_id(
+    effect_id: SemanticId,
+    operation: str,
+    revision: int,
+) -> SemanticId:
     digest = hashlib.sha256(
-        f"{effect_id}|{operation}".encode("utf-8")
+        f"{effect_id}|{operation}|{revision}".encode("utf-8")
     ).hexdigest()[:32]
-    return SemanticId(IdKind.DISPATCH, f"ordivon:{operation}:{digest}")
+    return SemanticId(
+        IdKind.DISPATCH,
+        f"ordivon:{operation}:r{revision}:{digest}",
+    )
 
 
 def _client_request_id(effect_id: SemanticId) -> str:

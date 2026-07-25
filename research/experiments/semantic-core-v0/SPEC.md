@@ -19,7 +19,7 @@ The core answers seven questions:
 ```text
 WorldObjectRef  external object identity and optional version
 EffectSpec      intended observation or change
-DispatchRecord  one concrete boundary attempt with request identity
+DispatchRecord  one concrete boundary attempt with request identity and admission state
 EffectEvent     ordered causal transition
 Observation     immutable reading bound to Effect and Dispatch
 Artifact        durable content result with provenance
@@ -51,17 +51,20 @@ proposed
 1. One identity cannot denote two different semantic objects.
 2. One Dispatch identity belongs to exactly one Effect.
 3. Effect events are contiguous, causally ordered, and non-regressing in time.
-4. A pre-dispatch Effect cannot produce Observation or Artifact evidence.
-5. Observation and Artifact evidence must match the Effect's bound Dispatch.
-6. A Claim identifies its originating Effect and a specific world-object subject.
-7. Verification evidence may come from independent Effects only when it targets the same subject and compatible version.
-8. Evidence must exist no later than the Verification that evaluates it.
-9. Accepted Verification must satisfy the originating Effect's declared method and evidence kinds.
-10. A Fact must reference an accepted Verification and cannot predate it.
-11. Terminal Effect outcomes are immutable.
-12. An unknown outcome cannot trigger automatic redispatch.
-13. Observation identity includes causal Effect/Dispatch provenance; equal content does not collapse distinct observations.
-14. Session loss never erases Effect, Dispatch, event, evidence, or terminal identity.
+4. A STARTED Dispatch does not prove backend admission.
+5. Observation and Artifact evidence require an ADMITTED Dispatch.
+6. Retryable rejection returns the Effect to prepared with the rejected Dispatch retained as history; non-retryable rejection fails the Effect.
+7. An ADMITTED or UNKNOWN Dispatch cannot be reclassified as REJECTED.
+8. Observation and Artifact evidence must match the Effect's bound Dispatch.
+9. A Claim identifies its originating Effect and a specific world-object subject.
+10. Verification evidence may come from independent Effects only when it targets the same subject and compatible version.
+11. Evidence must exist no later than the Verification that evaluates it.
+12. Accepted Verification must satisfy the originating Effect's declared method and evidence kinds.
+13. A Fact must reference an accepted Verification and cannot predate it.
+14. Terminal Effect outcomes are immutable.
+15. An unknown outcome cannot trigger automatic redispatch.
+16. Observation identity includes causal Effect/Dispatch provenance; equal content does not collapse distinct observations.
+17. Session loss never erases Effect, Dispatch, event, evidence, or terminal identity.
 
 ## Ordivon mapping hypothesis
 

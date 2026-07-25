@@ -10,8 +10,8 @@ PYTHONPATH=src python -m compileall -q src tests scripts
 ## Reference result
 
 ```text
-Python 3.12.13: 24 tests passed
-Python 3.14.6:  24 tests passed
+Python 3.12.13: 27 tests passed
+Python 3.14.6:  27 tests passed
 Bytecode compilation passed on both runtimes
 git diff --check passed
 ```
@@ -19,9 +19,11 @@ git diff --check passed
 ## Covered semantic behaviours
 
 - idempotent Effect admission and identity conflicts;
-- independent Dispatch identity and optimistic revisions;
+- independent Dispatch identity, optimistic revisions, and STARTED / ADMITTED / UNKNOWN / REJECTED lifecycle;
 - non-regressing causal event time;
 - unknown outcome and reconciliation without blind redispatch;
+- retryable pre-admission rejection returns the Effect to prepared with a new future Dispatch;
+- non-retryable rejection terminates the Effect; admitted/unknown Dispatches cannot be rewritten as rejected;
 - immutable terminal outcomes;
 - Observation/Artifact binding to Dispatch;
 - equal content across distinct Dispatches retains distinct Observation identity;
