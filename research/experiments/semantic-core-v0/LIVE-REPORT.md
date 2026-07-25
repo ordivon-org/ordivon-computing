@@ -187,17 +187,21 @@ Latest sanitized receipt:
 
 ```json
 {
+  "attemptId": "attempt-019f9ad3-75e9-76d3-a7de-616824e452d3",
   "beforeRestartJournalEntries": 4,
   "correlatedJobCount": 1,
   "dispatchIdPreserved": true,
   "finalJournalEntries": 11,
   "initialState": "unknown",
+  "jobId": "job-019f9ad3-75e9-76d3-a7de-615353201dce",
   "journalPathRemovedAfterTest": true,
   "kernelProcessRestarted": true,
   "responseDroppedAfterSuccessfulDelivery": true,
   "semanticArtifactCount": 3,
+  "sourceRevision": "efc5b2bd33f7c94ab28859a8872869e71aa42fd8",
   "terminalState": "succeeded",
-  "workspaceExecDeliveries": 1
+  "workspaceExecDeliveries": 1,
+  "workspaceId": "anc-live-journal-restart-1785008977199"
 }
 ```
 

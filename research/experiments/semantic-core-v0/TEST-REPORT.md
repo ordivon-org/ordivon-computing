@@ -58,6 +58,8 @@ git diff --check passed
 
 ## Live Ordivon process-restart result
 
+Implementation source revision: `efc5b2bd33f7c94ab28859a8872869e71aa42fd8`
+
 ```text
 initial state: unknown
 terminal state: succeeded

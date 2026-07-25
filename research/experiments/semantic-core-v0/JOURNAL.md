@@ -120,7 +120,7 @@ A real `workspace.exec` call was delivered to Ordivon and its successful respons
 
 A second process reopened the journal, rebuilt the Effect and Dispatch, found the original Job by stable identity, observed terminal success, and appended admission, Observation, Artifact, and terminal commands. A third open independently replayed the final state.
 
-Latest sanitized result:
+Latest sanitized result, executed from implementation commit `efc5b2bd33f7c94ab28859a8872869e71aa42fd8`:
 
 ```text
 initial state: unknown
