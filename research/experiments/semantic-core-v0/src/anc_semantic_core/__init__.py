@@ -1,3 +1,21 @@
+from .authority import (
+    Attestation,
+    AttestationError,
+    AttestationKind,
+    AuthorityDenied,
+    AuthorityError,
+    AuthorityPolicy,
+    AuthorityRef,
+    AuthorityRole,
+)
+from .authorized import AuthorityGrant, AuthorityRoot, AuthorizedKernel
+from .bootstrap import (
+    KernelAuthorityViews,
+    authorized_journal_views,
+    authorized_reference_views,
+    issue_authority_views,
+    local_authority_policy,
+)
 from .conformance import run_core_conformance
 from .identity import IdKind, SemanticId
 from .journal import (
@@ -5,16 +23,13 @@ from .journal import (
     JournalConflict,
     JournalCorruption,
     JournalError,
-    JournalKernel,
     JournalSchemaError,
-    SQLiteSemanticJournal,
 )
 from .kernel import (
     IdentityConflict,
     InvalidTransition,
     InvariantViolation,
     NotFound,
-    ReferenceKernel,
     RevisionConflict,
     SemanticError,
     SemanticKernel,
@@ -65,13 +80,27 @@ from .transport import ToolCallError, ToolProtocolError, ToolRejected, ToolTrans
 from .verification import DigestFactResult, verify_digest_fact
 
 __all__ = [
+    "Attestation",
+    "AttestationError",
+    "AttestationKind",
+    "AuthorityDenied",
+    "AuthorityError",
+    "AuthorityGrant",
+    "AuthorityPolicy",
+    "AuthorityRef",
+    "AuthorityRole",
+    "AuthorityRoot",
+    "AuthorizedKernel",
+    "KernelAuthorityViews",
+    "authorized_journal_views",
+    "authorized_reference_views",
+    "issue_authority_views",
     "AdapterProjection",
     "Admission",
     "JOURNAL_SCHEMA_VERSION",
     "JournalConflict",
     "JournalCorruption",
     "JournalError",
-    "JournalKernel",
     "JournalSchemaError",
     "Artifact",
     "CapabilityRef",
@@ -107,12 +136,10 @@ __all__ = [
     "OrdivonSemanticAdapter",
     "Precondition",
     "ReadMode",
-    "ReferenceKernel",
     "RevisionConflict",
     "SemanticError",
     "SemanticId",
     "SemanticKernel",
-    "SQLiteSemanticJournal",
     "ToolCallError",
     "ToolProtocolError",
     "ToolRejected",
@@ -122,6 +149,7 @@ __all__ = [
     "VerificationPlan",
     "WorldObjectRef",
     "can_transition",
+    "local_authority_policy",
     "next_action",
     "ordivon_file_object_id",
     "ordivon_workspace_object_id",

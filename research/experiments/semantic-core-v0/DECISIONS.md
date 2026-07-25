@@ -79,3 +79,24 @@ A `Fact` is a Claim admitted through a recorded accepted Verification bound to t
 ## D19 — Build role-scoped authority before external IR
 
 M2.5 introduces distinct proposal, Dispatch, Observation, Verification, and Fact authority surfaces before the public Effect IR is frozen. This keeps authority semantics inside the design rather than retrofitting them after serialization.
+
+
+## D20 — Separate Authority roles
+
+Effect proposal, Dispatch execution, Observation production, Verification decision, and Fact acceptance are distinct signed roles. The standard runtime bootstrap returns scoped Views and exposes no full-authority convenience View.
+
+## D21 — Derive one signing key per Authority
+
+The root HMAC policy signs Authority grants and derives a separate attestation key for every issued Authority. Runtime Views receive only their own derived signer, so possession of one role signer cannot produce a valid attestation for another role.
+
+## D22 — Bind Attestation to exact semantic content
+
+Every mutation and evidence object is digested from its operation name, positional arguments, keyword arguments, contract version, and record time. Reducer admission, invariant scanning, and replay recompute and verify this binding.
+
+## D23 — Bind durable history to semantic and authority versions
+
+Journal schema v2 stores signed grants and Attestations. Metadata binds the semantic model version, reducer version, and authority-policy fingerprint before replay.
+
+## D24 — Return official attested projections
+
+Adapters and verification helpers return the records retrieved from the Kernel after admission, rather than unsigned draft objects created before admission.

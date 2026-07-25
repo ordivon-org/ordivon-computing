@@ -5,6 +5,13 @@ from dataclasses import replace
 from functools import wraps
 from typing import Any, Callable, Iterator, Protocol, TypeVar
 
+from .authority import (
+    Attestation,
+    AttestationKind,
+    AuthorityPolicy,
+    AuthorityRole,
+    semantic_digest,
+)
 from .identity import IdKind, SemanticId
 from .model import (
     Admission,
@@ -164,7 +171,7 @@ class SemanticKernel(Protocol):
 
     def register_artifact(self, artifact: Artifact) -> Admission: ...
 
-    def admit_claim(self, claim: Claim) -> Admission: ...
+    def admit_claim(self, claim: Claim, *, proposed_at_ms: int = 0) -> Admission: ...
 
     def record_verification(self, verification: Verification) -> Admission: ...
 
@@ -200,7 +207,8 @@ _EVIDENCE_REQUIRED = {
 class ReferenceKernel:
     """In-memory executable reference model for Agent-native semantics."""
 
-    def __init__(self) -> None:
+    def __init__(self, authority_policy: AuthorityPolicy) -> None:
+        self._authority_policy = authority_policy
         self._effects: dict[SemanticId, EffectRecord] = {}
         self._dispatches: dict[SemanticId, DispatchRecord] = {}
         self._events: dict[SemanticId, EffectEvent] = {}
@@ -238,9 +246,13 @@ class ReferenceKernel:
         ) = snapshot
 
     def clone(self) -> "ReferenceKernel":
-        cloned = ReferenceKernel()
+        cloned = ReferenceKernel(self._authority_policy)
         cloned._restore(self._snapshot())
         return cloned
+
+    @property
+    def authority_policy_fingerprint(self) -> str:
+        return self._authority_policy.fingerprint
 
     def state_snapshot(self) -> tuple[dict[Any, Any], ...]:
         """Return a detached equality-comparable state snapshot for tests and stores."""
@@ -258,8 +270,22 @@ class ReferenceKernel:
 
     @_atomic_mutation
     def admit_effect(
-        self, spec: EffectSpec, *, event_id: SemanticId, recorded_at_ms: int
+        self,
+        spec: EffectSpec,
+        *,
+        event_id: SemanticId,
+        recorded_at_ms: int,
+        attestation: Attestation,
     ) -> Admission:
+        self._verify_command_attestation(
+            attestation,
+            role=AuthorityRole.EFFECT,
+            kind=AttestationKind.EFFECT_PROPOSAL,
+            operation="admit_effect",
+            issued_at_ms=recorded_at_ms,
+            args=(spec,),
+            kwargs={"event_id": event_id, "recorded_at_ms": recorded_at_ms},
+        )
         event_id.require(IdKind.EVENT)
         self._require_time(recorded_at_ms)
         existing = self._effects.get(spec.effect_id)
@@ -275,6 +301,7 @@ class ReferenceKernel:
             sequence=0,
             kind=EventKind.EFFECT_ADMITTED,
             recorded_at_ms=recorded_at_ms,
+            attestation=attestation,
         )
         self._effects[spec.effect_id] = record
         self._events[event_id] = event
@@ -289,7 +316,21 @@ class ReferenceKernel:
         expected_revision: int,
         event_id: SemanticId,
         recorded_at_ms: int,
+        attestation: Attestation,
     ) -> EffectRecord:
+        self._verify_command_attestation(
+            attestation,
+            role=AuthorityRole.EFFECT,
+            kind=AttestationKind.EFFECT_PREPARATION,
+            operation="prepare_effect",
+            issued_at_ms=recorded_at_ms,
+            args=(effect_id,),
+            kwargs={
+                "expected_revision": expected_revision,
+                "event_id": event_id,
+                "recorded_at_ms": recorded_at_ms,
+            },
+        )
         return self._transition(
             effect_id,
             EffectState.PREPARED,
@@ -297,6 +338,7 @@ class ReferenceKernel:
             event_id=event_id,
             recorded_at_ms=recorded_at_ms,
             evidence_digest=None,
+            attestation=attestation,
         )
 
     @_atomic_mutation
@@ -309,7 +351,23 @@ class ReferenceKernel:
         event_id: SemanticId,
         recorded_at_ms: int,
         request_digest: str,
+        attestation: Attestation,
     ) -> EffectRecord:
+        self._verify_command_attestation(
+            attestation,
+            role=AuthorityRole.DISPATCH,
+            kind=AttestationKind.DISPATCH_INTENT,
+            operation="begin_dispatch",
+            issued_at_ms=recorded_at_ms,
+            args=(effect_id,),
+            kwargs={
+                "expected_revision": expected_revision,
+                "dispatch_id": dispatch_id,
+                "event_id": event_id,
+                "recorded_at_ms": recorded_at_ms,
+                "request_digest": request_digest,
+            },
+        )
         dispatch = DispatchRecord(
             dispatch_id=dispatch_id,
             effect_id=effect_id,
@@ -332,6 +390,7 @@ class ReferenceKernel:
             evidence_digest=request_digest,
             dispatch_id=dispatch_id,
             event_kind=EventKind.DISPATCH_STARTED,
+            attestation=attestation,
         )
         self._dispatches[dispatch_id] = dispatch
         return record
@@ -347,7 +406,23 @@ class ReferenceKernel:
         recorded_at_ms: int,
         backend_operation_id: str,
         evidence_digest: str,
+        attestation: Attestation,
     ) -> EffectRecord:
+        self._verify_command_attestation(
+            attestation,
+            role=AuthorityRole.DISPATCH,
+            kind=AttestationKind.BACKEND_ADMISSION,
+            operation="admit_dispatch",
+            issued_at_ms=recorded_at_ms,
+            args=(effect_id, dispatch_id),
+            kwargs={
+                "expected_revision": expected_revision,
+                "event_id": event_id,
+                "recorded_at_ms": recorded_at_ms,
+                "backend_operation_id": backend_operation_id,
+                "evidence_digest": evidence_digest,
+            },
+        )
         if not backend_operation_id or not evidence_digest:
             raise ValueError("dispatch admission requires backend identity and evidence")
         record, dispatch = self._require_current_dispatch(
@@ -374,6 +449,7 @@ class ReferenceKernel:
             kind=EventKind.DISPATCH_ADMITTED,
             evidence_digest=evidence_digest,
             dispatch_id=dispatch_id,
+            attestation=attestation,
         )
 
     @_atomic_mutation
@@ -386,7 +462,22 @@ class ReferenceKernel:
         event_id: SemanticId,
         recorded_at_ms: int,
         evidence_digest: str,
+        attestation: Attestation,
     ) -> EffectRecord:
+        self._verify_command_attestation(
+            attestation,
+            role=AuthorityRole.DISPATCH,
+            kind=AttestationKind.OUTCOME_UNCERTAINTY,
+            operation="mark_dispatch_unknown",
+            issued_at_ms=recorded_at_ms,
+            args=(effect_id, dispatch_id),
+            kwargs={
+                "expected_revision": expected_revision,
+                "event_id": event_id,
+                "recorded_at_ms": recorded_at_ms,
+                "evidence_digest": evidence_digest,
+            },
+        )
         if not evidence_digest:
             raise ValueError("unknown Dispatch requires evidence")
         record, dispatch = self._require_current_dispatch(
@@ -410,6 +501,7 @@ class ReferenceKernel:
             event_id=event_id,
             recorded_at_ms=recorded_at_ms,
             evidence_digest=evidence_digest,
+            attestation=attestation,
         )
 
     @_atomic_mutation
@@ -424,7 +516,24 @@ class ReferenceKernel:
         reason_code: str,
         retryable: bool,
         evidence_digest: str,
+        attestation: Attestation,
     ) -> EffectRecord:
+        self._verify_command_attestation(
+            attestation,
+            role=AuthorityRole.DISPATCH,
+            kind=AttestationKind.DISPATCH_REJECTION,
+            operation="reject_dispatch",
+            issued_at_ms=recorded_at_ms,
+            args=(effect_id, dispatch_id),
+            kwargs={
+                "expected_revision": expected_revision,
+                "event_id": event_id,
+                "recorded_at_ms": recorded_at_ms,
+                "reason_code": reason_code,
+                "retryable": retryable,
+                "evidence_digest": evidence_digest,
+            },
+        )
         if not reason_code or not evidence_digest:
             raise ValueError("Dispatch rejection requires reason and evidence")
         record, dispatch = self._require_current_dispatch(
@@ -455,6 +564,7 @@ class ReferenceKernel:
             evidence_digest=evidence_digest,
             dispatch_id=dispatch_id,
             previous_record=record,
+            attestation=attestation,
         )
 
     @_atomic_mutation
@@ -467,7 +577,22 @@ class ReferenceKernel:
         event_id: SemanticId,
         recorded_at_ms: int,
         evidence_digest: str | None = None,
+        attestation: Attestation,
     ) -> EffectRecord:
+        self._verify_command_attestation(
+            attestation,
+            role=AuthorityRole.DISPATCH,
+            kind=AttestationKind.EFFECT_TRANSITION,
+            operation="advance_effect",
+            issued_at_ms=recorded_at_ms,
+            args=(effect_id, target),
+            kwargs={
+                "expected_revision": expected_revision,
+                "event_id": event_id,
+                "recorded_at_ms": recorded_at_ms,
+                "evidence_digest": evidence_digest,
+            },
+        )
         if target in {
             EffectState.PROPOSED,
             EffectState.PREPARED,
@@ -495,6 +620,7 @@ class ReferenceKernel:
             event_id=event_id,
             recorded_at_ms=recorded_at_ms,
             evidence_digest=evidence_digest,
+            attestation=attestation,
         )
 
     def get_effect(self, effect_id: SemanticId) -> EffectRecord:
@@ -552,6 +678,14 @@ class ReferenceKernel:
 
     @_atomic_mutation
     def record_observation(self, observation: Observation) -> Admission:
+        self._verify_record_attestation(
+            observation.attestation,
+            role=AuthorityRole.OBSERVATION,
+            kind=AttestationKind.OBSERVATION,
+            operation="record_observation",
+            record=replace(observation, attestation=None),
+            issued_at_ms=observation.observed_at_ms,
+        )
         existing = self._observations.get(observation.observation_id)
         if existing is not None:
             if existing == observation:
@@ -570,6 +704,14 @@ class ReferenceKernel:
 
     @_atomic_mutation
     def register_artifact(self, artifact: Artifact) -> Admission:
+        self._verify_record_attestation(
+            artifact.attestation,
+            role=AuthorityRole.OBSERVATION,
+            kind=AttestationKind.ARTIFACT,
+            operation="register_artifact",
+            record=replace(artifact, attestation=None),
+            issued_at_ms=artifact.created_at_ms,
+        )
         existing = self._artifacts.get(artifact.artifact_id)
         if existing is not None:
             if existing == artifact:
@@ -583,7 +725,16 @@ class ReferenceKernel:
         return Admission.CREATED
 
     @_atomic_mutation
-    def admit_claim(self, claim: Claim) -> Admission:
+    def admit_claim(self, claim: Claim, *, proposed_at_ms: int = 0) -> Admission:
+        self._verify_record_attestation(
+            claim.attestation,
+            role=AuthorityRole.VERIFICATION,
+            kind=AttestationKind.CLAIM,
+            operation="admit_claim",
+            record=replace(claim, attestation=None),
+            issued_at_ms=proposed_at_ms,
+            proposed_at_ms=proposed_at_ms,
+        )
         existing = self._claims.get(claim.claim_id)
         if existing is not None:
             if existing == claim:
@@ -597,6 +748,14 @@ class ReferenceKernel:
 
     @_atomic_mutation
     def record_verification(self, verification: Verification) -> Admission:
+        self._verify_record_attestation(
+            verification.attestation,
+            role=AuthorityRole.VERIFICATION,
+            kind=AttestationKind.VERIFICATION,
+            operation="record_verification",
+            record=replace(verification, attestation=None),
+            issued_at_ms=verification.verified_at_ms,
+        )
         existing = self._verifications.get(verification.verification_id)
         if existing is not None:
             if existing == verification:
@@ -610,6 +769,14 @@ class ReferenceKernel:
 
     @_atomic_mutation
     def commit_fact(self, fact: Fact) -> Admission:
+        self._verify_record_attestation(
+            fact.attestation,
+            role=AuthorityRole.FACT,
+            kind=AttestationKind.FACT_ACCEPTANCE,
+            operation="commit_fact",
+            record=replace(fact, attestation=None),
+            issued_at_ms=fact.accepted_at_ms,
+        )
         existing = self._facts.get(fact.fact_id)
         if existing is not None:
             if existing == fact:
@@ -647,6 +814,7 @@ class ReferenceKernel:
                     raise InvariantViolation(f"event points to wrong effect: {event.event_id}")
                 if event.recorded_at_ms < previous_time:
                     raise InvariantViolation(f"event time regressed: {effect_id}")
+                self._validate_event_attestation(record, event)
                 previous_time = event.recorded_at_ms
             requires_current_dispatch = record.state in {
                 EffectState.DISPATCHED,
@@ -717,14 +885,58 @@ class ReferenceKernel:
             elif effect.dispatch_id != dispatch_id:
                 raise InvariantViolation(f"active Dispatch is not bound by its Effect: {dispatch_id}")
         for observation in self._observations.values():
+            self._verify_record_attestation(
+                observation.attestation,
+                role=AuthorityRole.OBSERVATION,
+                kind=AttestationKind.OBSERVATION,
+                operation="record_observation",
+                record=replace(observation, attestation=None),
+                issued_at_ms=observation.observed_at_ms,
+            )
             record = self.get_effect(observation.effect_id)
             self._require_admitted_dispatch(record, observation.dispatch_id)
         for artifact in self._artifacts.values():
+            self._verify_record_attestation(
+                artifact.attestation,
+                role=AuthorityRole.OBSERVATION,
+                kind=AttestationKind.ARTIFACT,
+                operation="register_artifact",
+                record=replace(artifact, attestation=None),
+                issued_at_ms=artifact.created_at_ms,
+            )
             record = self.get_effect(artifact.effect_id)
             self._require_admitted_dispatch(record, artifact.dispatch_id)
+        for claim in self._claims.values():
+            if claim.attestation is None:
+                raise InvariantViolation("Claim lacks authority attestation")
+            self._verify_record_attestation(
+                claim.attestation,
+                role=AuthorityRole.VERIFICATION,
+                kind=AttestationKind.CLAIM,
+                operation="admit_claim",
+                record=replace(claim, attestation=None),
+                issued_at_ms=claim.attestation.issued_at_ms,
+                proposed_at_ms=claim.attestation.issued_at_ms,
+            )
         for verification in self._verifications.values():
+            self._verify_record_attestation(
+                verification.attestation,
+                role=AuthorityRole.VERIFICATION,
+                kind=AttestationKind.VERIFICATION,
+                operation="record_verification",
+                record=replace(verification, attestation=None),
+                issued_at_ms=verification.verified_at_ms,
+            )
             self._validate_verification(verification)
         for fact in self._facts.values():
+            self._verify_record_attestation(
+                fact.attestation,
+                role=AuthorityRole.FACT,
+                kind=AttestationKind.FACT_ACCEPTANCE,
+                operation="commit_fact",
+                record=replace(fact, attestation=None),
+                issued_at_ms=fact.accepted_at_ms,
+            )
             verification = self._verifications.get(fact.verification_id)
             if verification is None or verification.decision is not VerificationDecision.ACCEPTED:
                 raise InvariantViolation(f"fact lacks accepted verification: {fact.fact_id}")
@@ -833,6 +1045,7 @@ class ReferenceKernel:
         kind: EventKind,
         evidence_digest: str,
         dispatch_id: SemanticId | None,
+        attestation: Attestation,
         previous_record: EffectRecord | None = None,
     ) -> EffectRecord:
         event_id.require(IdKind.EVENT)
@@ -848,6 +1061,7 @@ class ReferenceKernel:
             sequence=updated.revision,
             kind=kind,
             recorded_at_ms=recorded_at_ms,
+            attestation=attestation,
             evidence_digest=evidence_digest,
             dispatch_id=dispatch_id,
         )
@@ -865,6 +1079,7 @@ class ReferenceKernel:
         event_id: SemanticId,
         recorded_at_ms: int,
         evidence_digest: str | None,
+        attestation: Attestation,
         dispatch_id: SemanticId | None = None,
         event_kind: EventKind | None = None,
     ) -> EffectRecord:
@@ -902,6 +1117,7 @@ class ReferenceKernel:
             sequence=updated.revision,
             kind=event_kind or _STATE_EVENT[target],
             recorded_at_ms=recorded_at_ms,
+            attestation=attestation,
             evidence_digest=evidence_digest,
             dispatch_id=bound_dispatch,
         )
@@ -909,6 +1125,152 @@ class ReferenceKernel:
         self._events[event_id] = event
         self._events_by_effect[effect_id].append(event)
         return updated
+
+    def _validate_event_attestation(
+        self, record: EffectRecord, event: EffectEvent
+    ) -> None:
+        previous_revision = event.sequence - 1
+        common = {
+            "event_id": event.event_id,
+            "recorded_at_ms": event.recorded_at_ms,
+        }
+        if event.kind is EventKind.EFFECT_ADMITTED:
+            operation = "admit_effect"
+            role = AuthorityRole.EFFECT
+            kind = AttestationKind.EFFECT_PROPOSAL
+            args = (record.spec,)
+            kwargs = common
+        elif event.kind is EventKind.EFFECT_PREPARED:
+            operation = "prepare_effect"
+            role = AuthorityRole.EFFECT
+            kind = AttestationKind.EFFECT_PREPARATION
+            args = (event.effect_id,)
+            kwargs = {"expected_revision": previous_revision, **common}
+        elif event.kind is EventKind.DISPATCH_STARTED:
+            if event.dispatch_id is None:
+                raise InvariantViolation("Dispatch start event lacks Dispatch identity")
+            dispatch = self.get_dispatch(event.dispatch_id)
+            operation = "begin_dispatch"
+            role = AuthorityRole.DISPATCH
+            kind = AttestationKind.DISPATCH_INTENT
+            args = (event.effect_id,)
+            kwargs = {
+                "expected_revision": previous_revision,
+                "dispatch_id": event.dispatch_id,
+                **common,
+                "request_digest": dispatch.request_digest,
+            }
+        elif event.kind is EventKind.DISPATCH_ADMITTED:
+            if event.dispatch_id is None:
+                raise InvariantViolation("Dispatch admission event lacks Dispatch identity")
+            dispatch = self.get_dispatch(event.dispatch_id)
+            operation = "admit_dispatch"
+            role = AuthorityRole.DISPATCH
+            kind = AttestationKind.BACKEND_ADMISSION
+            args = (event.effect_id, event.dispatch_id)
+            kwargs = {
+                "expected_revision": previous_revision,
+                **common,
+                "backend_operation_id": dispatch.backend_operation_id,
+                "evidence_digest": event.evidence_digest,
+            }
+        elif event.kind is EventKind.DISPATCH_REJECTED:
+            if event.dispatch_id is None:
+                raise InvariantViolation("Dispatch rejection event lacks Dispatch identity")
+            dispatch = self.get_dispatch(event.dispatch_id)
+            operation = "reject_dispatch"
+            role = AuthorityRole.DISPATCH
+            kind = AttestationKind.DISPATCH_REJECTION
+            args = (event.effect_id, event.dispatch_id)
+            kwargs = {
+                "expected_revision": previous_revision,
+                **common,
+                "reason_code": dispatch.reason_code,
+                "retryable": dispatch.retryable,
+                "evidence_digest": event.evidence_digest,
+            }
+        elif event.kind is EventKind.OUTCOME_UNKNOWN:
+            if event.dispatch_id is None:
+                raise InvariantViolation("Unknown outcome event lacks Dispatch identity")
+            operation = "mark_dispatch_unknown"
+            role = AuthorityRole.DISPATCH
+            kind = AttestationKind.OUTCOME_UNCERTAINTY
+            args = (event.effect_id, event.dispatch_id)
+            kwargs = {
+                "expected_revision": previous_revision,
+                **common,
+                "evidence_digest": event.evidence_digest,
+            }
+        else:
+            targets = {
+                EventKind.RUNNING_OBSERVED: EffectState.RUNNING,
+                EventKind.CANCELLATION_REQUESTED: EffectState.CANCEL_REQUESTED,
+                EventKind.RECONCILIATION_STARTED: EffectState.RECONCILING,
+                EventKind.EFFECT_SUCCEEDED: EffectState.SUCCEEDED,
+                EventKind.EFFECT_FAILED: EffectState.FAILED,
+                EventKind.EFFECT_CANCELLED: EffectState.CANCELLED,
+            }
+            target = targets.get(event.kind)
+            if target is None:
+                raise InvariantViolation(f"unsupported attested event kind: {event.kind}")
+            operation = "advance_effect"
+            role = AuthorityRole.DISPATCH
+            kind = AttestationKind.EFFECT_TRANSITION
+            args = (event.effect_id, target)
+            kwargs = {
+                "expected_revision": previous_revision,
+                **common,
+                "evidence_digest": event.evidence_digest,
+            }
+        self._verify_command_attestation(
+            event.attestation,
+            role=role,
+            kind=kind,
+            operation=operation,
+            issued_at_ms=event.recorded_at_ms,
+            args=args,
+            kwargs=kwargs,
+        )
+
+    def _verify_command_attestation(
+        self,
+        attestation: Attestation,
+        *,
+        role: AuthorityRole,
+        kind: AttestationKind,
+        operation: str,
+        issued_at_ms: int,
+        args: tuple[Any, ...],
+        kwargs: dict[str, Any],
+    ) -> None:
+        self._authority_policy.verify_attestation(
+            attestation,
+            expected_role=role,
+            expected_kind=kind,
+            expected_subject_digest=semantic_digest(operation, *args, **kwargs),
+            expected_issued_at_ms=issued_at_ms,
+        )
+
+    def _verify_record_attestation(
+        self,
+        attestation: Attestation | None,
+        *,
+        role: AuthorityRole,
+        kind: AttestationKind,
+        operation: str,
+        record: Any,
+        issued_at_ms: int,
+        **kwargs: Any,
+    ) -> None:
+        if attestation is None:
+            raise InvariantViolation(f"{operation} requires an authority attestation")
+        self._authority_policy.verify_attestation(
+            attestation,
+            expected_role=role,
+            expected_kind=kind,
+            expected_subject_digest=semantic_digest(operation, record, **kwargs),
+            expected_issued_at_ms=issued_at_ms,
+        )
 
     def _require_admitted_dispatch(
         self, record: EffectRecord, dispatch_id: SemanticId

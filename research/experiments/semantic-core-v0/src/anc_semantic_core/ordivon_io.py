@@ -182,6 +182,7 @@ class OrdivonIoAdapter:
                 payload_digest=payload_digest,
             )
             self._kernel.record_observation(observation)
+            observation = self._kernel.get_observation(observation.observation_id)
             current = self._kernel.get_effect(effect_id)
             expected_version = current.spec.target.version
             if expected_version is not None and content_digest != expected_version:
@@ -292,6 +293,7 @@ class OrdivonIoAdapter:
                 payload_digest=payload_digest,
             )
             self._kernel.record_observation(observation)
+            observation = self._kernel.get_observation(observation.observation_id)
             current = self._kernel.get_effect(effect_id)
             current = self._kernel.advance_effect(
                 effect_id,

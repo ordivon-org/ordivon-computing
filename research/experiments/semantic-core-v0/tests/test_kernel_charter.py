@@ -3,6 +3,7 @@ from __future__ import annotations
 import sqlite3
 import tempfile
 import unittest
+from anc_semantic_core.testing import journal_kernel, reference_kernel
 from collections import defaultdict, deque
 from dataclasses import replace
 from pathlib import Path
@@ -10,8 +11,8 @@ from typing import Any
 
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind
-from anc_semantic_core.journal import JournalCorruption, JournalKernel
-from anc_semantic_core.kernel import IdentityConflict, NotFound, ReferenceKernel
+from anc_semantic_core.journal import JournalCorruption
+from anc_semantic_core.kernel import IdentityConflict, NotFound
 from anc_semantic_core.model import (
     CapabilityRef,
     Claim,
@@ -81,7 +82,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
     def test_k1_identity_survives_journal_restart(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "identity.sqlite3"
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             spec = sample_effect("charter-k1")
             dispatch_id = sid(IdKind.DISPATCH, "charter-k1:dispatch")
             kernel.admit_effect(
@@ -113,7 +114,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
             )
             kernel.close()
 
-            reopened = JournalKernel(path)
+            reopened = journal_kernel(path)
             self.assertEqual(reopened.get_effect(spec.effect_id).spec.effect_id, spec.effect_id)
             self.assertEqual(reopened.get_effect(spec.effect_id).dispatch_id, dispatch_id)
             self.assertEqual(reopened.get_dispatch(dispatch_id).effect_id, spec.effect_id)
@@ -122,7 +123,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
             reopened.close()
 
     def test_k2_dispatch_identity_cannot_cross_effects(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         first = sample_effect("charter-k2-first")
         second = sample_effect("charter-k2-second")
         for index, spec in enumerate((first, second), start=1):
@@ -161,7 +162,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_k3_transport_loss_is_unknown_not_failed(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "charter-k3")
         client = ScriptedClient()
         client.add(
@@ -185,7 +186,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_k4_reconciliation_reuses_original_dispatch(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "charter-k4")
         client = ScriptedClient()
         client.add("workspace.exec", ToolTransportError("response lost"))
@@ -236,7 +237,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_k5_cancel_request_is_not_terminal_cancellation(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "charter-k5")
         client = ScriptedClient()
         client.add(
@@ -284,7 +285,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_k6_observation_cannot_bypass_verification(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "charter-k6")
         client = ScriptedClient()
         client.add(
@@ -329,7 +330,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_k7_failed_admission_restores_all_projections(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = sample_effect("charter-k7")
         kernel.admit_effect(
             spec,
@@ -370,7 +371,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
     def test_k8_corrupt_durable_history_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "corrupt.sqlite3"
-            kernel = JournalKernel(path)
+            kernel = journal_kernel(path)
             spec = sample_effect("charter-k8")
             kernel.admit_effect(
                 spec,
@@ -388,7 +389,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
             connection.close()
 
             with self.assertRaises(JournalCorruption):
-                JournalKernel(path)
+                journal_kernel(path)
 
     def test_charter_documents_bind_every_guarantee_to_evidence(self) -> None:
         root = Path(__file__).resolve().parents[1]
@@ -403,11 +404,16 @@ class KernelCharterConformanceTests(unittest.TestCase):
             "K6": "test_k6_observation_cannot_bypass_verification",
             "K7": "test_k7_failed_admission_restores_all_projections",
             "K8": "test_k8_corrupt_durable_history_fails_closed",
+            "K9": "test_role_specific_signer_cannot_escalate_to_another_role",
+            "K10": "test_attestation_provenance_survives_journal_replay",
         }
+        test_sources = "\n".join(
+            path.read_text() for path in (root / "tests").glob("test_*.py")
+        )
         for guarantee_id, test_name in canonical_tests.items():
             self.assertIn(f"### {guarantee_id} —", charter)
             self.assertIn(test_name, conformance)
-            self.assertTrue(hasattr(type(self), test_name))
+            self.assertIn(f"def {test_name}", test_sources)
 
 
 if __name__ == "__main__":

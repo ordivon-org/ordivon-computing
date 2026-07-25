@@ -15,10 +15,13 @@ The core answers seven questions:
 5. What outcome is known, failed, cancelled, or still unknown?
 6. Which Claim is being evaluated, and which Effect owns it?
 7. Which evidence-bound Verification may admit that Claim as a Fact?
+8. Which Authority signed each semantic mutation and evidence record?
 
 ## Primitive separation
 
 ```text
+AuthorityRef   signed role grant with issuer, principal, trust domain, and policy version
+Attestation    signed binding between Authority, exact semantic content, contract, and time
 WorldObjectRef  external object identity and optional version
 EffectSpec      intended observation or change
 DispatchRecord  one concrete boundary attempt with request identity and admission state
@@ -31,6 +34,22 @@ Fact            Claim admitted through accepted Verification
 ```
 
 A Tool response is not automatically an Effect outcome. A process exit is not automatically Goal completion. An Artifact is not automatically a Fact.
+
+## Authority and attestation
+
+The public runtime exposes scoped Kernel Views:
+
+```text
+effects       EFFECT role
+execution     DISPATCH + OBSERVATION roles
+verification  VERIFICATION role
+facts         FACT role
+read          no mutation role
+```
+
+Every reducer mutation requires an Attestation. The reducer verifies the signed Authority grant, required role, Attestation kind, contract version, record time, and digest of the exact command or evidence object. Stored events and evidence are revalidated by invariant scanning and Journal replay.
+
+Ordivon Adapters use the execution View. Claim evaluation and Fact acceptance use separate Verification and Fact Views. See [`AUTHORITY.md`](AUTHORITY.md).
 
 ## Effect state algebra
 
@@ -94,14 +113,19 @@ This allows a change Effect to be verified by an independent reread Effect rathe
 20. Durable replay into a fresh Kernel reproduces the committed projection.
 21. A stale journal writer cannot append against a changed head.
 22. Journal corruption is reported rather than normalized.
+23. Every semantic Event and evidence object carries a valid Authority Attestation.
+24. An Attestation role must match the mutation role admitted by the reducer.
+25. Attested content, contract version, and record time are immutable under verification.
+26. Verification and Fact acceptance retain distinct Authority identities.
 
 ## Atomicity and durability
 
-Semantic mutation is transactional:
+Semantic mutation is authorized and transactional:
 
 ```text
-validate candidate state
-→ append one or more commands in one SQLite transaction
+verify Authority and exact-content Attestation
+→ validate candidate state
+→ append one or more signed commands in one SQLite transaction
 → commit durable head
 → publish projection
 ```
@@ -128,7 +152,9 @@ The internal journal encoding is not an external Effect IR contract.
 
 This mapping remains provisional until live adapter conformance is run.
 
-## Non-goals for v0
+## Layer placement
+
+The following capabilities compose above this Kernel:
 
 - Goal decomposition or Task scheduling;
 - LLM/resource scheduling, model routing, token budgeting, or provider selection;

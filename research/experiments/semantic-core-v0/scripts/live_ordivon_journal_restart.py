@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import secrets
 import subprocess
 import sys
 import time
@@ -13,7 +14,7 @@ from typing import Any
 
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind, SemanticId
-from anc_semantic_core.journal import JournalKernel
+from anc_semantic_core.bootstrap import KernelAuthorityViews, authorized_journal_views
 from anc_semantic_core.model import (
     CapabilityRef,
     CompletionSemantics,
@@ -65,14 +66,35 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def authority_secret(*, create: bool) -> bytes:
+    encoded = os.environ.get("ANC_AUTHORITY_SECRET_HEX")
+    if encoded:
+        try:
+            secret = bytes.fromhex(encoded)
+        except ValueError as error:
+            raise SystemExit("ANC_AUTHORITY_SECRET_HEX must contain hexadecimal bytes") from error
+        if len(secret) < 32:
+            raise SystemExit("ANC_AUTHORITY_SECRET_HEX must contain at least 32 bytes")
+        return secret
+    if create:
+        return secrets.token_bytes(32)
+    raise SystemExit("ANC_AUTHORITY_SECRET_HEX is required to resume the signed journal")
+
+
 def resume(args: argparse.Namespace, token: str) -> None:
     if not args.journal or not args.effect_id_value:
         raise SystemExit("--resume requires --journal and --effect-id-value")
-    kernel = JournalKernel(args.journal)
+    secret = authority_secret(create=False)
+    views = authorized_journal_views(
+        args.journal,
+        secret,
+        namespace="live-journal-restart",
+        trust_domain="ordivon-live",
+    )
     try:
         effect_id = SemanticId(IdKind.EFFECT, args.effect_id_value)
         adapter = OrdivonSemanticAdapter(
-            kernel,
+            views.execution,
             LocalMcpToolCaller(args.endpoint, token),
         )
         projection = None
@@ -86,7 +108,7 @@ def resume(args: argparse.Namespace, token: str) -> None:
             )
         if projection.binding is None:
             raise AssertionError("process restart produced no Job binding")
-        kernel.validate_invariants()
+        views.read.validate_invariants()
         print(
             json.dumps(
                 {
@@ -95,13 +117,13 @@ def resume(args: argparse.Namespace, token: str) -> None:
                     "jobId": projection.binding.job_id,
                     "attemptId": projection.binding.attempt_id,
                     "semanticArtifactCount": len(projection.artifacts),
-                    "journalEntryCount": kernel.journal_entry_count,
+                    "journalEntryCount": views.read.journal_entry_count,
                 },
                 sort_keys=True,
             )
         )
     finally:
-        kernel.close()
+        views.read.close()
 
 
 def main() -> None:
@@ -121,7 +143,8 @@ def main() -> None:
     workspace_id = f"anc-live-journal-restart-{stamp}"
     journal_path = Path(f"/tmp/anc-semantic-journal-{stamp}.sqlite3")
     opened = False
-    kernel: JournalKernel | None = None
+    views: KernelAuthorityViews | None = None
+    authority_key = authority_secret(create=True)
     try:
         opened_payload = real_client.call_tool(
             "workspace.open",
@@ -149,19 +172,24 @@ def main() -> None:
             completion=CompletionSemantics.VERIFIED,
         )
         clock = iter(range(stamp, stamp + 1_000_000)).__next__
-        kernel = JournalKernel(journal_path)
-        kernel.admit_effect(
+        views = authorized_journal_views(
+            journal_path,
+            authority_key,
+            namespace="live-journal-restart",
+            trust_domain="ordivon-live",
+        )
+        views.effects.admit_effect(
             spec,
             event_id=sid(IdKind.EVENT, f"journal-restart:{stamp}:admit"),
             recorded_at_ms=clock(),
         )
-        kernel.prepare_effect(
+        views.effects.prepare_effect(
             spec.effect_id,
             expected_revision=0,
             event_id=sid(IdKind.EVENT, f"journal-restart:{stamp}:prepare"),
             recorded_at_ms=clock(),
         )
-        adapter = OrdivonSemanticAdapter(kernel, lossy_client, clock_ms=clock)
+        adapter = OrdivonSemanticAdapter(views.execution, lossy_client, clock_ms=clock)
         first = adapter.dispatch_exec(
             spec.effect_id,
             OrdivonExecution(
@@ -178,7 +206,7 @@ def main() -> None:
         )
         if first.state is not EffectState.UNKNOWN:
             raise AssertionError(f"response loss did not produce UNKNOWN: {first.state}")
-        dispatch_id = kernel.get_effect(spec.effect_id).dispatch_id
+        dispatch_id = views.read.get_effect(spec.effect_id).dispatch_id
         if dispatch_id is None:
             raise AssertionError("UNKNOWN Effect lost Dispatch identity")
         client_request_id = next(
@@ -186,9 +214,9 @@ def main() -> None:
             for name, arguments in real_client.calls
             if name == "workspace.exec"
         )
-        before_restart_entries = kernel.journal_entry_count
-        kernel.close()
-        kernel = None
+        before_restart_entries = views.read.journal_entry_count
+        views.read.close()
+        views = None
 
         completed = subprocess.run(
             [
@@ -205,21 +233,29 @@ def main() -> None:
             check=True,
             capture_output=True,
             text=True,
-            env=dict(os.environ),
+            env={
+                **os.environ,
+                "ANC_AUTHORITY_SECRET_HEX": authority_key.hex(),
+            },
         )
         child_receipt = json.loads(completed.stdout.strip().splitlines()[-1])
         if child_receipt["dispatchId"] != str(dispatch_id):
             raise AssertionError("process restart replaced Dispatch identity")
 
-        reopened = JournalKernel(journal_path)
+        reopened = authorized_journal_views(
+            journal_path,
+            authority_key,
+            namespace="live-journal-restart",
+            trust_domain="ordivon-live",
+        )
         try:
-            record = reopened.get_effect(spec.effect_id)
+            record = reopened.read.get_effect(spec.effect_id)
             if record.state is not EffectState.SUCCEEDED:
                 raise AssertionError(f"replayed terminal state is {record.state}")
-            reopened.validate_invariants()
-            final_entries = reopened.journal_entry_count
+            reopened.read.validate_invariants()
+            final_entries = reopened.read.journal_entry_count
         finally:
-            reopened.close()
+            reopened.read.close()
 
         jobs = real_client.call_tool("task.list", {"limit": 100})["jobs"]
         matches = [
@@ -255,8 +291,8 @@ def main() -> None:
             )
         )
     finally:
-        if kernel is not None:
-            kernel.close()
+        if views is not None:
+            views.read.close()
         if opened:
             closed = real_client.call_tool(
                 "workspace.close",

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+from anc_semantic_core.testing import reference_kernel
 from dataclasses import replace
 from typing import Any
 
@@ -11,7 +12,7 @@ from anc_semantic_core.kernel import (
     InvalidTransition,
     InvariantViolation,
     NotFound,
-    ReferenceKernel,
+    SemanticKernel,
     RevisionConflict,
 )
 from anc_semantic_core.model import (
@@ -29,7 +30,7 @@ from anc_semantic_core.state import EffectState
 
 
 def start_effect(
-    kernel: ReferenceKernel,
+    kernel: SemanticKernel,
     name: str,
 ) -> tuple[Any, Any]:
     spec = sample_effect(name)
@@ -66,7 +67,7 @@ def start_effect(
 
 
 def add_evidence(
-    kernel: ReferenceKernel,
+    kernel: SemanticKernel,
     spec: Any,
     dispatch: Any,
     name: str,
@@ -95,12 +96,12 @@ def add_evidence(
     return observation, artifact
 
 
-class ReferenceKernelTests(unittest.TestCase):
+class SemanticKernelTests(unittest.TestCase):
     def test_reference_kernel_passes_reusable_conformance(self) -> None:
-        run_core_conformance(ReferenceKernel)
+        run_core_conformance(reference_kernel)
 
     def test_effect_identity_is_idempotent_but_not_ambiguous(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = sample_effect("identity")
         self.assertIs(
             kernel.admit_effect(
@@ -127,7 +128,7 @@ class ReferenceKernelTests(unittest.TestCase):
             )
 
     def test_revision_conflict_prevents_lost_update(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = sample_effect("revision")
         kernel.admit_effect(
             spec,
@@ -149,7 +150,7 @@ class ReferenceKernelTests(unittest.TestCase):
             )
 
     def test_dispatch_is_a_separate_durable_semantic_object(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec, dispatch_id = start_effect(kernel, "dispatch-record")
         dispatch = kernel.get_dispatch(dispatch_id)
         self.assertEqual(dispatch.effect_id, spec.effect_id)
@@ -158,7 +159,7 @@ class ReferenceKernelTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_effect_event_time_cannot_regress(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = sample_effect("time")
         kernel.admit_effect(
             spec,
@@ -174,7 +175,7 @@ class ReferenceKernelTests(unittest.TestCase):
             )
 
     def test_rejected_verification_cannot_become_fact(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec, dispatch = start_effect(kernel, "rejected-fact")
         observation, _ = add_evidence(kernel, spec, dispatch, "rejected-fact")
         kernel.advance_effect(
@@ -213,7 +214,7 @@ class ReferenceKernelTests(unittest.TestCase):
             )
 
     def test_accepted_verification_requires_the_effect_plan_evidence(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec, dispatch = start_effect(kernel, "missing-evidence")
         observation, _ = add_evidence(kernel, spec, dispatch, "missing-evidence")
         claim = Claim(
@@ -245,7 +246,7 @@ class ReferenceKernelTests(unittest.TestCase):
             )
 
     def test_verification_accepts_independent_same_subject_evidence(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         origin, _ = start_effect(kernel, "origin")
         independent_base = sample_effect("independent")
         independent = replace(
@@ -321,7 +322,7 @@ class ReferenceKernelTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_verification_rejects_evidence_for_wrong_version(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         origin, _ = start_effect(kernel, "version-origin")
         independent_base = sample_effect("version-independent")
         wrong_version_target = replace(origin.target, version="rev-2")
@@ -398,7 +399,7 @@ class ReferenceKernelTests(unittest.TestCase):
             )
 
     def test_verification_rejects_evidence_for_different_subject(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         first, _ = start_effect(kernel, "first")
         second, second_dispatch = start_effect(kernel, "second")
         observation, artifact = add_evidence(
@@ -437,7 +438,7 @@ class ReferenceKernelTests(unittest.TestCase):
             )
 
     def test_verification_cannot_predate_cross_effect_evidence(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec, dispatch = start_effect(kernel, "evidence-time")
         observation, artifact = add_evidence(
             kernel,
@@ -475,7 +476,7 @@ class ReferenceKernelTests(unittest.TestCase):
             )
 
     def test_admitted_unknown_dispatch_cannot_be_reclassified_rejected(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = sample_effect("admitted-unknown")
         dispatch = sid(IdKind.DISPATCH, "dispatch:admitted-unknown")
         kernel.admit_effect(
@@ -528,7 +529,7 @@ class ReferenceKernelTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_fact_requires_existing_claim_and_verification(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         fact = Fact(
             fact_id=sid(IdKind.FACT, "fact:missing"),
             claim_id=sid(IdKind.CLAIM, "claim:missing"),
@@ -539,7 +540,7 @@ class ReferenceKernelTests(unittest.TestCase):
             kernel.commit_fact(fact)
 
     def test_fact_cannot_predate_accepted_verification(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec, dispatch = start_effect(kernel, "fact-time")
         observation, artifact = add_evidence(kernel, spec, dispatch, "fact-time")
         claim = Claim(
@@ -573,7 +574,7 @@ class ReferenceKernelTests(unittest.TestCase):
             )
 
     def test_observation_must_match_bound_dispatch(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec, _ = start_effect(kernel, "dispatch-binding")
         with self.assertRaises(InvariantViolation):
             kernel.record_observation(

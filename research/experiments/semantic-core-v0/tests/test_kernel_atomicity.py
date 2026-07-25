@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+from anc_semantic_core.testing import reference_kernel
 
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind
@@ -9,13 +10,12 @@ from anc_semantic_core.kernel import (
     InvalidTransition,
     InvariantViolation,
     NotFound,
-    ReferenceKernel,
 )
 
 
 class KernelAtomicityTests(unittest.TestCase):
     def _dispatched(self, name: str = "atomic"):
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = sample_effect(name)
         kernel.admit_effect(
             spec,
@@ -88,7 +88,7 @@ class KernelAtomicityTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_outer_transaction_rolls_back_multiple_successful_commands(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = sample_effect("batch-rollback")
         with self.assertRaises(InvalidTransition):
             with kernel.transaction():

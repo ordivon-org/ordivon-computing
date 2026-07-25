@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import hashlib
 import unittest
+from anc_semantic_core.testing import reference_authority_views, reference_kernel
 from collections import defaultdict, deque
 from dataclasses import replace
 from typing import Any
 
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind
-from anc_semantic_core.kernel import InvariantViolation, ReferenceKernel
+from anc_semantic_core.kernel import InvariantViolation, SemanticKernel
 from anc_semantic_core.model import (
     CapabilityRef,
     CompletionSemantics,
@@ -56,7 +57,7 @@ def sha256_text(content: str) -> str:
 
 
 def prepared_io_effect(
-    kernel: ReferenceKernel,
+    kernel: SemanticKernel,
     *,
     name: str,
     workspace_id: str,
@@ -100,7 +101,7 @@ def prepared_io_effect(
 
 class OrdivonIoTests(unittest.TestCase):
     def test_versioned_read_creates_digest_bound_observation(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         content = "alpha\n"
         digest = sha256_text(content)
         spec = prepared_io_effect(
@@ -128,7 +129,7 @@ class OrdivonIoTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_identical_read_payloads_have_distinct_receipt_identities(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         content = "same\n"
         digest = sha256_text(content)
         client = ScriptedClient()
@@ -158,7 +159,7 @@ class OrdivonIoTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_versioned_read_detects_world_drift(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         expected = sha256_text("old\n")
         observed = sha256_text("new\n")
         spec = prepared_io_effect(
@@ -183,7 +184,7 @@ class OrdivonIoTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_atomic_mutation_records_after_digest_receipt(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         before = sha256_text("alpha\n")
         after = sha256_text("beta\n")
         spec = prepared_io_effect(
@@ -229,7 +230,7 @@ class OrdivonIoTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_stale_mutation_precondition_is_proven_rejection(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         before = sha256_text("alpha\n")
         spec = prepared_io_effect(
             kernel,
@@ -271,7 +272,7 @@ class OrdivonIoTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_mutation_transport_loss_remains_unknown(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         before = sha256_text("alpha\n")
         spec = prepared_io_effect(
             kernel,
@@ -303,12 +304,13 @@ class OrdivonIoTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_independent_reread_admits_digest_fact(self) -> None:
-        kernel = ReferenceKernel()
+        views = reference_authority_views(namespace="io-fact-success")
+        kernel = views.read
         before = sha256_text("alpha\n")
         after_content = "beta\n"
         after = sha256_text(after_content)
         mutation = prepared_io_effect(
-            kernel,
+            views.effects,
             name="io-fact-mutation",
             workspace_id="workspace-test",
             relative_path="state.txt",
@@ -330,7 +332,7 @@ class OrdivonIoTests(unittest.TestCase):
             },
         )
         OrdivonIoAdapter(
-            kernel,
+            views.execution,
             mutation_client,
             clock_ms=iter(range(60, 100)).__next__,
         ).dispatch_mutation(
@@ -345,7 +347,7 @@ class OrdivonIoTests(unittest.TestCase):
         )
 
         read = prepared_io_effect(
-            kernel,
+            views.effects,
             name="io-fact-reread",
             workspace_id="workspace-test",
             relative_path="state.txt",
@@ -356,13 +358,14 @@ class OrdivonIoTests(unittest.TestCase):
         read_client = ScriptedClient()
         read_client.add("workspace.read", {"content": after_content, "digest": after})
         read_result = OrdivonIoAdapter(
-            kernel,
+            views.execution,
             read_client,
             clock_ms=iter(range(100, 160)).__next__,
         ).dispatch_read(read.effect_id, OrdivonRead("workspace-test", "state.txt"))
 
         result = verify_digest_fact(
-            kernel,
+            views.verification,
+            views.facts,
             claim_effect_id=mutation.effect_id,
             observation=read_result.observation,
             expected_digest=after,
@@ -373,7 +376,7 @@ class OrdivonIoTests(unittest.TestCase):
         self.assertIsNotNone(result.fact)
         self.assertNotEqual(read.effect_id, mutation.effect_id)
         with self.assertRaises(InvariantViolation):
-            kernel.commit_fact(
+            views.facts.commit_fact(
                 Fact(
                     fact_id=sid(IdKind.FACT, "fact:predates-verification"),
                     claim_id=result.claim.claim_id,
@@ -384,13 +387,14 @@ class OrdivonIoTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_mismatched_reread_rejects_digest_fact(self) -> None:
-        kernel = ReferenceKernel()
+        views = reference_authority_views(namespace="io-fact-rejected")
+        kernel = views.read
         before = sha256_text("alpha\n")
         claimed = sha256_text("beta\n")
         observed_content = "gamma\n"
         observed = sha256_text(observed_content)
         mutation = prepared_io_effect(
-            kernel,
+            views.effects,
             name="io-fact-mismatch-origin",
             workspace_id="workspace-test",
             relative_path="state.txt",
@@ -412,7 +416,7 @@ class OrdivonIoTests(unittest.TestCase):
             },
         )
         OrdivonIoAdapter(
-            kernel,
+            views.execution,
             mutation_client,
             clock_ms=iter(range(160, 200)).__next__,
         ).dispatch_mutation(
@@ -426,7 +430,7 @@ class OrdivonIoTests(unittest.TestCase):
             ),
         )
         read = prepared_io_effect(
-            kernel,
+            views.effects,
             name="io-fact-mismatch-read",
             workspace_id="workspace-test",
             relative_path="state.txt",
@@ -439,12 +443,13 @@ class OrdivonIoTests(unittest.TestCase):
             {"content": observed_content, "digest": observed},
         )
         read_result = OrdivonIoAdapter(
-            kernel,
+            views.execution,
             read_client,
             clock_ms=iter(range(200, 260)).__next__,
         ).dispatch_read(read.effect_id, OrdivonRead("workspace-test", "state.txt"))
         result = verify_digest_fact(
-            kernel,
+            views.verification,
+            views.facts,
             claim_effect_id=mutation.effect_id,
             observation=read_result.observation,
             expected_digest=claimed,

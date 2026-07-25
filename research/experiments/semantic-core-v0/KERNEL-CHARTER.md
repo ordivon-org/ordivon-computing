@@ -74,6 +74,14 @@ Every command and declared semantic transaction changes all affected projections
 
 Committed semantic state survives process loss and is reconstructible from one ordered durable history. Schema validation, hash-chain validation, durable-head validation, writer conflict detection, semantic replay, and invariant validation protect the reconstructed state.
 
+### K9 — Role-scoped semantic authority
+
+Effect proposal, Dispatch execution, Observation attestation, Verification decision, and Fact acceptance use distinct signed Authority roles. Each runtime component receives only the role-scoped Kernel View required for its work.
+
+### K10 — Content-bound attestation
+
+Every semantic mutation and evidence record carries an Attestation binding its Authority, issuer, principal, trust domain, policy version, contract version, exact semantic content digest, and record time. Admission and replay verify the complete binding before state is accepted.
+
 ## 5. Value delivered
 
 The Kernel provides a stable answer to the following questions across process and session boundaries:
@@ -86,7 +94,9 @@ Which uncertainty still requires reconciliation?
 Which evidence was observed and retained?
 Which Claim was evaluated?
 Which Verification admitted the Fact?
-How can the complete state be reconstructed after restart?
+Which Authority signed each transition and evidence record?
+Which trust domain and contract produced the evidence?
+How can the complete state be reconstructed and re-authenticated after restart?
 ```
 
 This creates a durable semantic substrate for future Goal, Task, authority, scheduling, and memory layers.
@@ -121,4 +131,4 @@ This keeps the Kernel centered on hard semantic guarantees while schedulers, mem
 
 ## 8. Current conformance
 
-K1–K8 have executable local evidence in the reference implementation. Together they establish a durable semantic consistency Kernel for external Agent action.
+K1–K10 have executable local evidence in the reference implementation. Together they establish a durable, role-scoped, attested semantic Kernel for external Agent action.

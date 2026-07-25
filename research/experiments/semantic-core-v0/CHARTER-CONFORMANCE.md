@@ -17,6 +17,8 @@
 | K6 | evidence-gated knowledge admission | PROVEN-v0 | `test_k6_observation_cannot_bypass_verification` |
 | K7 | atomic semantic mutation | PROVEN-v0 | `test_k7_failed_admission_restores_all_projections` |
 | K8 | durable deterministic replay | PROVEN-v0 + live | `test_k8_corrupt_durable_history_fails_closed` |
+| K9 | role-scoped semantic authority | PROVEN-v0 | `test_role_specific_signer_cannot_escalate_to_another_role` |
+| K10 | content-bound attestation | PROVEN-v0 | `test_attestation_provenance_survives_journal_replay` |
 
 ## Test command
 
@@ -30,7 +32,7 @@ Expected current result:
 9 passed
 ```
 
-Eight canonical tests prove K1–K8. One drift-guard test binds every Charter clause to its named executable evidence.
+Ten canonical tests prove K1–K10. One drift-guard test binds every Charter clause to its named executable evidence.
 
 ## Promotion rule
 

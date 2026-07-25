@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 import unittest
+from anc_semantic_core.testing import reference_kernel
 from collections import defaultdict, deque
 from dataclasses import replace
 from typing import Any
 
+from anc_semantic_core.authority import AuthorityRole
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind
-from anc_semantic_core.kernel import InvalidTransition, ReferenceKernel
+from anc_semantic_core.kernel import InvalidTransition, SemanticKernel
 from anc_semantic_core.transport import ToolRejected, ToolTransportError
 from anc_semantic_core.model import (
     CapabilityRef,
@@ -44,7 +46,7 @@ class ScriptedClient:
 
 
 def prepared_operation(
-    kernel: ReferenceKernel,
+    kernel: SemanticKernel,
     name: str,
     operation: str,
     mode: EffectMode,
@@ -80,7 +82,7 @@ def prepared_operation(
 
 
 def prepared_exec(
-    kernel: ReferenceKernel,
+    kernel: SemanticKernel,
     name: str,
     *,
     workspace_id: str = "workspace-test",
@@ -106,7 +108,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         self.assertIs(semantic_state_from_status("orphaned"), EffectState.UNKNOWN)
 
     def test_effect_target_must_match_execution_workspace(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(
             kernel,
             "ordivon-target",
@@ -123,7 +125,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         self.assertIs(kernel.get_effect(spec.effect_id).state, EffectState.PREPARED)
 
     def test_successful_job_projects_observation_and_artifacts(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-success")
         client = ScriptedClient()
         client.add(
@@ -155,6 +157,22 @@ class OrdivonAdapterTests(unittest.TestCase):
         self.assertEqual(result.binding.job_id, "job-success")
         self.assertEqual(len(result.artifacts), 1)
         self.assertIsNotNone(result.observation)
+        self.assertEqual(
+            result.observation.attestation.authority.role,
+            AuthorityRole.OBSERVATION,
+        )
+        self.assertEqual(
+            result.artifacts[0].attestation.authority.role,
+            AuthorityRole.OBSERVATION,
+        )
+        dispatch_events = kernel.events_for(spec.effect_id)[2:]
+        self.assertTrue(dispatch_events)
+        self.assertTrue(
+            all(
+                event.attestation.authority.role is AuthorityRole.DISPATCH
+                for event in dispatch_events
+            )
+        )
         kernel.validate_invariants()
         with self.assertRaises(InvalidTransition):
             adapter.dispatch_exec(
@@ -167,7 +185,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         )
 
     def test_cancel_running_job_commits_cancelled_terminal_state(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-cancelled")
         client = ScriptedClient()
         client.add(
@@ -209,7 +227,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_natural_completion_may_win_cancellation_race(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-cancel-race")
         client = ScriptedClient()
         client.add(
@@ -260,7 +278,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_running_observation_does_not_erase_cancel_intent(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-cancel-pending")
         client = ScriptedClient()
         client.add(
@@ -306,7 +324,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_response_loss_reconciles_after_adapter_instance_restart(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-response-loss-restart")
         client = ScriptedClient()
         client.add(
@@ -366,7 +384,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_running_job_can_be_observed_to_terminal_without_reconcile(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-running")
         client = ScriptedClient()
         client.add(
@@ -408,7 +426,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_response_loss_reconciles_without_redispatch(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-response-loss")
         client = ScriptedClient()
         client.add("workspace.exec", ToolTransportError("response lost after delivery"))
@@ -456,7 +474,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_retryable_pre_admission_rejection_preserves_effect(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-rejected")
         client = ScriptedClient()
         client.add(
@@ -519,7 +537,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_non_retryable_pre_admission_rejection_fails_effect(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-rejected-terminal")
         client = ScriptedClient()
         client.add(
@@ -552,7 +570,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_orphaned_job_remains_semantically_unknown(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-orphaned")
         client = ScriptedClient()
         client.add(
@@ -574,7 +592,7 @@ class OrdivonAdapterTests(unittest.TestCase):
         kernel.validate_invariants()
 
     def test_malformed_result_rolls_back_projection_and_becomes_unknown(self) -> None:
-        kernel = ReferenceKernel()
+        kernel = reference_kernel()
         spec = prepared_exec(kernel, "ordivon-malformed-atomic")
         client = ScriptedClient()
         client.add(

@@ -4,12 +4,13 @@ import argparse
 import hashlib
 import json
 import os
+import secrets
 import time
 from dataclasses import replace
 
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind
-from anc_semantic_core.kernel import ReferenceKernel
+from anc_semantic_core.bootstrap import authorized_reference_views
 from live_support import LocalMcpToolCaller
 from anc_semantic_core.model import (
     CapabilityRef,
@@ -54,7 +55,9 @@ def main() -> int:
     if not token:
         raise SystemExit("ORDIVON_BEARER_TOKEN is required")
 
-    kernel = ReferenceKernel()
+    views = authorized_reference_views(
+        secrets.token_bytes(32), namespace="live-dogfood"
+    )
     base = sample_effect(args.effect_name)
     target_id = ordivon_workspace_object_id(args.target_workspace)
     input_digest = "sha256:" + hashlib.sha256(args.message.encode("utf-8")).hexdigest()
@@ -71,12 +74,12 @@ def main() -> int:
         ),
         completion=CompletionSemantics.VERIFIED,
     )
-    kernel.admit_effect(
+    views.effects.admit_effect(
         spec,
         event_id=sid(IdKind.EVENT, f"event:{args.effect_name}:admit"),
         recorded_at_ms=1,
     )
-    kernel.prepare_effect(
+    views.effects.prepare_effect(
         spec.effect_id,
         expected_revision=0,
         event_id=sid(IdKind.EVENT, f"event:{args.effect_name}:prepare"),
@@ -88,7 +91,7 @@ def main() -> int:
     server_name = initialized.get("serverInfo", {}).get("name")
     if not isinstance(server_name, str) or not server_name.startswith("ordivon-"):
         raise SystemExit("endpoint is not an Ordivon MCP server")
-    adapter = OrdivonSemanticAdapter(kernel, client)
+    adapter = OrdivonSemanticAdapter(views.execution, client)
     result = adapter.dispatch_exec(
         spec.effect_id,
         OrdivonExecution(
@@ -101,7 +104,7 @@ def main() -> int:
         ),
         wait_ms=30_000,
     )
-    kernel.validate_invariants()
+    views.read.validate_invariants()
 
     summary = {
         "effectId": str(spec.effect_id),

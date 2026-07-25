@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import StrEnum
 
+from .authority import Attestation
 from .identity import IdKind, SemanticId
 from .state import EffectState
 
@@ -208,6 +209,7 @@ class EffectEvent:
     sequence: int
     kind: EventKind
     recorded_at_ms: int
+    attestation: Attestation
     evidence_digest: str | None = None
     dispatch_id: SemanticId | None = None
 
@@ -229,6 +231,7 @@ class Observation:
     observed_at_ms: int
     source: str
     payload_digest: str
+    attestation: Attestation | None = None
 
     def __post_init__(self) -> None:
         self.observation_id.require(IdKind.OBSERVATION)
@@ -250,6 +253,7 @@ class Artifact:
     media_type: str
     byte_length: int
     created_at_ms: int
+    attestation: Attestation | None = None
 
     def __post_init__(self) -> None:
         self.artifact_id.require(IdKind.ARTIFACT)
@@ -268,6 +272,7 @@ class Claim:
     subject: WorldObjectRef
     predicate: str
     value_digest: str
+    attestation: Attestation | None = None
 
     def __post_init__(self) -> None:
         self.claim_id.require(IdKind.CLAIM)
@@ -297,6 +302,7 @@ class Verification:
     evidence: tuple[EvidenceRef, ...]
     decision: VerificationDecision
     verified_at_ms: int
+    attestation: Attestation | None = None
 
     def __post_init__(self) -> None:
         self.verification_id.require(IdKind.VERIFICATION)
@@ -317,6 +323,7 @@ class Fact:
     claim_id: SemanticId
     verification_id: SemanticId
     accepted_at_ms: int
+    attestation: Attestation | None = None
 
     def __post_init__(self) -> None:
         self.fact_id.require(IdKind.FACT)

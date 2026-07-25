@@ -4,13 +4,14 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import secrets
 import time
 from dataclasses import replace
 from typing import Any
 
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind, SemanticId
-from anc_semantic_core.kernel import ReferenceKernel
+from anc_semantic_core.bootstrap import authorized_reference_views
 from anc_semantic_core.model import (
     CapabilityRef,
     CompletionSemantics,
@@ -98,20 +99,22 @@ def main() -> None:
             ),
             completion=CompletionSemantics.VERIFIED,
         )
-        kernel = ReferenceKernel()
+        views = authorized_reference_views(
+            secrets.token_bytes(32), namespace="live-response-loss"
+        )
         clock = iter(range(stamp, stamp + 1_000_000)).__next__
-        kernel.admit_effect(
+        views.effects.admit_effect(
             spec,
             event_id=sid(IdKind.EVENT, f"response-loss:{stamp}:admit"),
             recorded_at_ms=clock(),
         )
-        kernel.prepare_effect(
+        views.effects.prepare_effect(
             spec.effect_id,
             expected_revision=0,
             event_id=sid(IdKind.EVENT, f"response-loss:{stamp}:prepare"),
             recorded_at_ms=clock(),
         )
-        adapter = OrdivonSemanticAdapter(kernel, lossy_client, clock_ms=clock)
+        adapter = OrdivonSemanticAdapter(views.execution, lossy_client, clock_ms=clock)
         first = adapter.dispatch_exec(
             spec.effect_id,
             OrdivonExecution(
@@ -130,13 +133,13 @@ def main() -> None:
             raise AssertionError(
                 f"injected response loss did not produce UNKNOWN: {first.state}"
             )
-        unknown_dispatch = kernel.get_effect(spec.effect_id).dispatch_id
+        unknown_dispatch = views.read.get_effect(spec.effect_id).dispatch_id
         if unknown_dispatch is None:
             raise AssertionError("unknown Effect lost its Dispatch identity")
 
         # Simulate adapter-instance restart: no pending or Job bindings survive.
         restarted_adapter = OrdivonSemanticAdapter(
-            kernel,
+            views.execution,
             real_client,
             clock_ms=clock,
         )
@@ -176,7 +179,7 @@ def main() -> None:
             raise AssertionError(
                 f"expected one correlated Job, observed {len(matching_jobs)}"
             )
-        kernel.validate_invariants()
+        views.read.validate_invariants()
 
         print(
             json.dumps(

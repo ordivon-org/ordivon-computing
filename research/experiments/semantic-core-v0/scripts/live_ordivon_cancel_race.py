@@ -4,13 +4,15 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import secrets
 import time
 from dataclasses import replace
 from typing import Any
 
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind, SemanticId
-from anc_semantic_core.kernel import ReferenceKernel
+from anc_semantic_core.authorized import AuthorizedKernel
+from anc_semantic_core.bootstrap import authorized_reference_views
 from anc_semantic_core.model import (
     CapabilityRef,
     CompletionSemantics,
@@ -41,7 +43,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def prepare_exec_effect(
-    kernel: ReferenceKernel,
+    kernel: AuthorizedKernel,
     *,
     name: str,
     workspace_id: str,
@@ -110,13 +112,15 @@ def main() -> None:
         )
         opened = True
         resolved_revision = opened_payload["sourceRevision"]
-        kernel = ReferenceKernel()
+        views = authorized_reference_views(
+            secrets.token_bytes(32), namespace="live-cancel-race"
+        )
         clock = iter(range(stamp, stamp + 1_000_000)).__next__
-        adapter = OrdivonSemanticAdapter(kernel, client, clock_ms=clock)
+        adapter = OrdivonSemanticAdapter(views.execution, client, clock_ms=clock)
 
         # Case A: cancellation reaches the backend before natural completion.
         cancelled_effect = prepare_exec_effect(
-            kernel,
+            views.effects,
             name=f"cancel-applied:{stamp}",
             workspace_id=workspace_id,
             source_revision=resolved_revision,
@@ -148,7 +152,7 @@ def main() -> None:
 
         # Case B: the process completes naturally before cancellation is applied.
         completed_effect = prepare_exec_effect(
-            kernel,
+            views.effects,
             name=f"natural-completion:{stamp}",
             workspace_id=workspace_id,
             source_revision=resolved_revision,
@@ -186,7 +190,7 @@ def main() -> None:
             raise AssertionError(f"expected two executions, observed {len(exec_calls)}")
         if len(cancel_calls) != 2:
             raise AssertionError(f"expected two cancel calls, observed {len(cancel_calls)}")
-        kernel.validate_invariants()
+        views.read.validate_invariants()
 
         print(
             json.dumps(

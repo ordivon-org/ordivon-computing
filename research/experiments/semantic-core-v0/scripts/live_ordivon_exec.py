@@ -4,12 +4,14 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import secrets
 import time
 from dataclasses import replace
 
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind, SemanticId
-from anc_semantic_core.kernel import InvalidTransition, ReferenceKernel
+from anc_semantic_core.bootstrap import authorized_reference_views
+from anc_semantic_core.kernel import InvalidTransition
 from anc_semantic_core.model import (
     CapabilityRef,
     Claim,
@@ -84,19 +86,21 @@ def main() -> None:
                 required_evidence=(EvidenceKind.OBSERVATION, EvidenceKind.ARTIFACT),
             ),
         )
-        kernel = ReferenceKernel()
-        kernel.admit_effect(
+        views = authorized_reference_views(
+            secrets.token_bytes(32), namespace="live-exec"
+        )
+        views.effects.admit_effect(
             spec,
             event_id=sid(IdKind.EVENT, f"live:{stamp}:admit"),
             recorded_at_ms=stamp,
         )
-        kernel.prepare_effect(
+        views.effects.prepare_effect(
             spec.effect_id,
             expected_revision=0,
             event_id=sid(IdKind.EVENT, f"live:{stamp}:prepare"),
             recorded_at_ms=stamp + 1,
         )
-        adapter = OrdivonSemanticAdapter(kernel, client)
+        adapter = OrdivonSemanticAdapter(views.execution, client)
         projection = adapter.dispatch_exec(
             spec.effect_id,
             OrdivonExecution(
@@ -178,7 +182,8 @@ def main() -> None:
             predicate="stdout_contains_markers",
             value_digest=digest_text("\n".join(markers)),
         )
-        kernel.admit_claim(claim)
+        verified_at_ms = int(time.time() * 1000)
+        views.verification.admit_claim(claim, proposed_at_ms=verified_at_ms)
         verification = Verification(
             verification_id=sid(IdKind.VERIFICATION, f"live:{stamp}:verification"),
             claim_id=claim.claim_id,
@@ -191,17 +196,17 @@ def main() -> None:
                 EvidenceRef(EvidenceKind.ARTIFACT, stdout_semantic.artifact_id),
             ),
             decision=VerificationDecision.ACCEPTED,
-            verified_at_ms=int(time.time() * 1000),
+            verified_at_ms=verified_at_ms,
         )
-        kernel.record_verification(verification)
+        views.verification.record_verification(verification)
         fact = Fact(
             fact_id=sid(IdKind.FACT, f"live:{stamp}:fact"),
             claim_id=claim.claim_id,
             verification_id=verification.verification_id,
             accepted_at_ms=int(time.time() * 1000),
         )
-        kernel.commit_fact(fact)
-        kernel.validate_invariants()
+        views.facts.commit_fact(fact)
+        views.read.validate_invariants()
 
         print(
             json.dumps(

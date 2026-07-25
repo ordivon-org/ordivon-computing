@@ -32,7 +32,7 @@ Exit gates passed:
 
 **Status:** v0 complete.
 
-Delivered SQLite WAL/FULL persistence, an append-only command journal, an internal schema-v1 allowlisted codec, chained entry digests, durable head metadata, deterministic reconstruction, process restart, pending-Job correlation, and stale-writer rejection through journal-head CAS.
+Delivered SQLite WAL/FULL persistence, an append-only command journal, an internal schema-v2 allowlisted codec, chained entry digests, durable head metadata, deterministic reconstruction, process restart, pending-Job correlation, and stale-writer rejection through journal-head CAS.
 
 Exit gates passed:
 
@@ -59,20 +59,24 @@ Delivered:
 
 ## M2.5 — Authority and attestation boundary
 
-**Status:** next.
+**Status:** complete.
 
-Required exit gates:
+Delivered:
 
-- separate Effect proposal, Dispatch admission, Observation attestation, Verification decision, and Fact acceptance authority surfaces;
-- role-scoped handles and authenticated issuers;
-- evidence records issuer, trust domain, attestation kind, and contract version;
-- Fact admission carries the responsible authority and verification policy;
-- journal entries bind semantic reducer and authority-policy versions;
-- adversarial tests prove role isolation and authority provenance.
+- distinct EFFECT, DISPATCH, OBSERVATION, VERIFICATION, and FACT roles;
+- signed Authority grants with issuer, principal, trust domain, policy version, and key ID;
+- one derived signer per Authority and role-isolation tests;
+- exact-content Attestations with kind, contract version, digest, time, and signature;
+- scoped production Views for Effect proposal, execution, Verification, Fact acceptance, and reading;
+- Ordivon Adapter execution restricted to DISPATCH + OBSERVATION;
+- separate Verification and Fact handles in knowledge admission;
+- Journal schema v2 with semantic-model, reducer, and authority-policy metadata;
+- authenticated replay and invariant revalidation;
+- adversarial tests for forged grants, altered content, wrong role, changed policy, wrong secret, and caller-supplied evidence signatures.
 
 ## M3 — Effect IR codec
 
-**Status:** follows M2.5.
+**Status:** next.
 
 Define an external canonical representation only after M0–M2 agreement.
 

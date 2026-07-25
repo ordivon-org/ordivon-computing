@@ -132,7 +132,7 @@ def _successful_verified_effect(kernel: SemanticKernel) -> None:
         predicate="content_digest_equals",
         value_digest="sha256:payload",
     )
-    kernel.admit_claim(claim)
+    kernel.admit_claim(claim, proposed_at_ms=7)
     verification = Verification(
         verification_id=sid(IdKind.VERIFICATION, "verification:success"),
         claim_id=claim.claim_id,

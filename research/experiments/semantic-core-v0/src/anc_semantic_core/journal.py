@@ -10,6 +10,13 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Iterator
 
+from .authority import (
+    Attestation,
+    AttestationKind,
+    AuthorityPolicy,
+    AuthorityRef,
+    AuthorityRole,
+)
 from .identity import IdKind, SemanticId
 from .kernel import ReferenceKernel
 from .model import (
@@ -39,7 +46,9 @@ from .model import (
 from .state import EffectState
 
 
-JOURNAL_SCHEMA_VERSION = 1
+JOURNAL_SCHEMA_VERSION = 2
+SEMANTIC_MODEL_VERSION = "semantic-core-v2-authority"
+REDUCER_VERSION = "reference-reducer-v2"
 _GENESIS_DIGEST = "sha256:" + ("0" * 64)
 
 
@@ -64,6 +73,10 @@ _ALLOWED_TYPES: dict[str, type[Any]] = {
     for cls in (
         IdKind,
         SemanticId,
+        AuthorityRole,
+        AttestationKind,
+        AuthorityRef,
+        Attestation,
         EffectState,
         EffectMode,
         IdempotencyKind,
@@ -199,8 +212,9 @@ def _entry_digest(previous_digest: str, payload_json: str) -> str:
 class SQLiteSemanticJournal:
     """Append-only SQLite command journal with a verified hash chain."""
 
-    def __init__(self, path: str | Path) -> None:
+    def __init__(self, path: str | Path, authority_policy: AuthorityPolicy) -> None:
         self.path = Path(path)
+        self._authority_policy = authority_policy
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._connection = sqlite3.connect(self.path)
         try:
@@ -253,6 +267,23 @@ class SQLiteSemanticJournal:
             raise JournalSchemaError(
                 f"journal schema {row[0]} is not supported by {JOURNAL_SCHEMA_VERSION}"
             )
+        expected_metadata = {
+            "semantic_model_version": SEMANTIC_MODEL_VERSION,
+            "reducer_version": REDUCER_VERSION,
+            "authority_policy_fingerprint": self._authority_policy.fingerprint,
+        }
+        for key, expected in expected_metadata.items():
+            metadata_row = self._connection.execute(
+                "SELECT value FROM journal_metadata WHERE key = ?", (key,)
+            ).fetchone()
+            if metadata_row is None:
+                self._connection.execute(
+                    "INSERT INTO journal_metadata(key, value) VALUES(?, ?)",
+                    (key, expected),
+                )
+            elif metadata_row[0] != expected:
+                raise JournalSchemaError(f"journal metadata {key} does not match runtime")
+        self._connection.commit()
         actual_head = self._actual_head()
         head_rows = dict(
             self._connection.execute(
@@ -436,9 +467,10 @@ class JournalKernel:
         "commit_fact",
     }
 
-    def __init__(self, path: str | Path) -> None:
-        self._journal = SQLiteSemanticJournal(path)
-        self._kernel = ReferenceKernel()
+    def __init__(self, path: str | Path, authority_policy: AuthorityPolicy) -> None:
+        self._authority_policy = authority_policy
+        self._journal = SQLiteSemanticJournal(path, authority_policy)
+        self._kernel = ReferenceKernel(authority_policy)
         self._transaction_depth = 0
         self._transaction_kernel: ReferenceKernel | None = None
         self._transaction_commands: list[
@@ -451,6 +483,10 @@ class JournalKernel:
         except BaseException:
             self._journal.close()
             raise
+
+    @property
+    def authority_policy_fingerprint(self) -> str:
+        return self._authority_policy.fingerprint
 
     def _replay(self) -> None:
         for sequence, operation, args, kwargs in self._journal.commands():
@@ -518,9 +554,20 @@ class JournalKernel:
                 self._transaction_kernel = None
                 self._transaction_commands = []
 
-    def admit_effect(self, spec: EffectSpec, *, event_id: SemanticId, recorded_at_ms: int) -> Admission:
+    def admit_effect(
+        self,
+        spec: EffectSpec,
+        *,
+        event_id: SemanticId,
+        recorded_at_ms: int,
+        attestation: Attestation,
+    ) -> Admission:
         return self._commit(
-            "admit_effect", spec, event_id=event_id, recorded_at_ms=recorded_at_ms
+            "admit_effect",
+            spec,
+            event_id=event_id,
+            recorded_at_ms=recorded_at_ms,
+            attestation=attestation,
         )
 
     def prepare_effect(
@@ -530,6 +577,7 @@ class JournalKernel:
         expected_revision: int,
         event_id: SemanticId,
         recorded_at_ms: int,
+        attestation: Attestation,
     ) -> EffectRecord:
         return self._commit(
             "prepare_effect",
@@ -537,6 +585,7 @@ class JournalKernel:
             expected_revision=expected_revision,
             event_id=event_id,
             recorded_at_ms=recorded_at_ms,
+            attestation=attestation,
         )
 
     def begin_dispatch(
@@ -548,6 +597,7 @@ class JournalKernel:
         event_id: SemanticId,
         recorded_at_ms: int,
         request_digest: str,
+        attestation: Attestation,
     ) -> EffectRecord:
         return self._commit(
             "begin_dispatch",
@@ -557,6 +607,7 @@ class JournalKernel:
             event_id=event_id,
             recorded_at_ms=recorded_at_ms,
             request_digest=request_digest,
+            attestation=attestation,
         )
 
     def admit_dispatch(
@@ -569,6 +620,7 @@ class JournalKernel:
         recorded_at_ms: int,
         backend_operation_id: str,
         evidence_digest: str,
+        attestation: Attestation,
     ) -> EffectRecord:
         return self._commit(
             "admit_dispatch",
@@ -579,6 +631,7 @@ class JournalKernel:
             recorded_at_ms=recorded_at_ms,
             backend_operation_id=backend_operation_id,
             evidence_digest=evidence_digest,
+            attestation=attestation,
         )
 
     def mark_dispatch_unknown(
@@ -590,6 +643,7 @@ class JournalKernel:
         event_id: SemanticId,
         recorded_at_ms: int,
         evidence_digest: str,
+        attestation: Attestation,
     ) -> EffectRecord:
         return self._commit(
             "mark_dispatch_unknown",
@@ -599,6 +653,7 @@ class JournalKernel:
             event_id=event_id,
             recorded_at_ms=recorded_at_ms,
             evidence_digest=evidence_digest,
+            attestation=attestation,
         )
 
     def reject_dispatch(
@@ -612,6 +667,7 @@ class JournalKernel:
         reason_code: str,
         retryable: bool,
         evidence_digest: str,
+        attestation: Attestation,
     ) -> EffectRecord:
         return self._commit(
             "reject_dispatch",
@@ -623,6 +679,7 @@ class JournalKernel:
             reason_code=reason_code,
             retryable=retryable,
             evidence_digest=evidence_digest,
+            attestation=attestation,
         )
 
     def advance_effect(
@@ -634,6 +691,7 @@ class JournalKernel:
         event_id: SemanticId,
         recorded_at_ms: int,
         evidence_digest: str | None = None,
+        attestation: Attestation,
     ) -> EffectRecord:
         return self._commit(
             "advance_effect",
@@ -643,6 +701,7 @@ class JournalKernel:
             event_id=event_id,
             recorded_at_ms=recorded_at_ms,
             evidence_digest=evidence_digest,
+            attestation=attestation,
         )
 
     def _view_kernel(self) -> ReferenceKernel:
@@ -680,8 +739,12 @@ class JournalKernel:
     def register_artifact(self, artifact: Artifact) -> Admission:
         return self._commit("register_artifact", artifact)
 
-    def admit_claim(self, claim: Claim) -> Admission:
-        return self._commit("admit_claim", claim)
+    def admit_claim(
+        self, claim: Claim, *, proposed_at_ms: int
+    ) -> Admission:
+        return self._commit(
+            "admit_claim", claim, proposed_at_ms=proposed_at_ms
+        )
 
     def record_verification(self, verification: Verification) -> Admission:
         return self._commit("record_verification", verification)

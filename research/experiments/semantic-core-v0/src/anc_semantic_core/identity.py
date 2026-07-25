@@ -6,6 +6,7 @@ from enum import StrEnum
 
 class IdKind(StrEnum):
     PRINCIPAL = "principal"
+    AUTHORITY = "authority"
     WORLD_OBJECT = "world_object"
     TASK = "task"
     ATTEMPT = "attempt"

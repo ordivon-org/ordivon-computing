@@ -17,7 +17,7 @@ ruff check src tests scripts
 ## Result
 
 ```text
-62 tests passed
+75 tests passed
 bytecode compilation passed
 ruff passed
 git diff --check passed
@@ -37,6 +37,22 @@ git diff --check passed
 - a drift guard binds all eight Charter clauses to canonical test names.
 
 Detailed mapping: [`CHARTER-CONFORMANCE.md`](CHARTER-CONFORMANCE.md).
+
+## M2.5 Authority and Attestation coverage
+
+- scoped bootstrap exposes Effect, execution, Verification, Fact, and read-only Views;
+- `AuthorizedKernel` construction is rooted in `AuthorityRoot`;
+- role-specific signers cannot escalate into another role;
+- execution Views cannot attest Verification or Fact state;
+- forged Authority grants are rejected;
+- semantic content changes invalidate existing Attestations;
+- invariant scanning detects altered stored evidence;
+- caller-supplied evidence signatures are rejected;
+- Adapter projections return the official attested records;
+- Verification and Fact acceptance retain distinct Authority identities;
+- Attestation provenance survives Journal replay;
+- changed policy fingerprints and wrong authority secrets reject replay;
+- Journal schema v2 binds semantic model, reducer, and authority-policy versions.
 
 ## M1.5 atomicity coverage
 
