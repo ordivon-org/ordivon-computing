@@ -44,6 +44,24 @@ The boundary suite additionally proves:
 - execution, recovery, Fact provenance, and Authority projections reconstruct canonical records without mutation;
 - UNKNOWN recovery projections preserve the original Dispatch identity and return `RECONCILE` as the next action.
 
+Exact implementation revision: `aec6269b065b36ce9277bdbd072b1bd51e2ab5c5`
+
+Live confirmation on that revision:
+
+```text
+signed Journal restart: UNKNOWN → authenticated replay → SUCCEEDED
+workspace.exec deliveries: 1
+correlated Jobs: 1
+Dispatch identity preserved: true
+Journal entries: 4 → 11
+
+versioned mutation: succeeded
+independent reread: matched resulting digest
+Fact committed: 1
+stale mutation: failed / INVALID_REQUEST
+final content and digest: stable
+```
+
 ## Live evidence summary
 
 ### Signed process-restart recovery
