@@ -54,6 +54,9 @@ semantic constitution
 - reusable conformance scenarios;
 - a provider-neutral Tool boundary;
 - a live Ordivon `workspace.exec` adapter slice;
+- versioned `workspace.read` and compare-and-swap `workspace.mutate`;
+- synchronous receipt identities;
+- independent reread Verification and Fact admission;
 - structured rejection and unknown-delivery separation.
 
 The first heterogeneous slice now includes:

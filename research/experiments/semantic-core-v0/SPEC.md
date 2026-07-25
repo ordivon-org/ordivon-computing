@@ -46,6 +46,28 @@ proposed
 
 `dispatched` means a boundary attempt with stable identity has begun. It does not assert that the external system accepted the operation.
 
+## Synchronous receipt semantics
+
+A synchronous Tool result that has no durable backend Job is admitted through a receipt identity:
+
+```text
+Tool + DispatchId + normalized response digest
+```
+
+The receipt proves that the backend returned the structured result. It does not by itself prove a later world state.
+
+## Cross-Effect verification
+
+A Claim may be verified by an Observation from a different succeeded Effect when:
+
+- both address the same WorldObject;
+- the evidence kind is permitted by the verification plan;
+- accepted version claims match the observed version;
+- Observation time does not follow Verification time;
+- Fact acceptance does not predate Verification.
+
+This allows a change Effect to be verified by an independent reread Effect rather than self-attestation.
+
 ## Core invariants
 
 1. One identity cannot denote two different semantic objects.

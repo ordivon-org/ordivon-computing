@@ -10,8 +10,8 @@ PYTHONPATH=src python -m compileall -q src tests scripts
 ## Reference result
 
 ```text
-Python 3.12.13: 27 tests passed
-Python 3.14.6:  27 tests passed
+Python 3.12.13: 31 tests passed
+Python 3.14.6:  31 tests passed
 Bytecode compilation passed on both runtimes
 git diff --check passed
 ```
@@ -52,12 +52,11 @@ Fact committed: true
 ### Versioned read and atomic mutation
 
 ```text
-WRITE digest: sha256:9160d4be34c8695bd172a76c7c7966587ea5a4d991ad22c87b2b91af54aa9ebb
-REPLACE_EXACT digest: sha256:7b9a72466d3960eb2aacccfc848939453490db0678bd4725def3f789b891c919
-independently verified mutation Facts: 2
+before digest: sha256:8bf8ee1400851e9b01f687cac287cf26681d3b7ca49a345ce0efd1123d1573dd
+after digest:  sha256:ae422cadc74a5b2f5c4eff147494edb0b68e0f83275c0d4874da986f060e2fb4
+independent reread Fact: committed
 stale mutation state: failed
-final content stable: true
-final digest stable: true
+stale mutation code: INVALID_REQUEST
 ```
 
 The sanitized receipts are recorded in [`LIVE-REPORT.md`](LIVE-REPORT.md).

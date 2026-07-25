@@ -18,7 +18,7 @@ Delivered:
 - invariant scanner;
 - reusable conformance scenarios.
 
-Exit gate: two independent implementations were integrated; 27 tests pass on Python 3.12.13 and 3.14.6.
+Exit gate: two independent implementations were integrated; 31 tests pass on Python 3.12.13 and 3.14.6.
 
 ## M1 — Ordivon semantic adapter
 

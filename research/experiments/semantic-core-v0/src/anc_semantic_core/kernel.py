@@ -594,6 +594,9 @@ class ReferenceKernel:
                     evidence_time_ms=observation.observed_at_ms,
                     verification_time_ms=verification.verified_at_ms,
                     evidence_kind="observation",
+                    require_version_match=(
+                        verification.decision is VerificationDecision.ACCEPTED
+                    ),
                 )
             elif reference.kind is EvidenceKind.ARTIFACT:
                 artifact = self._artifacts.get(reference.evidence_id)
@@ -605,6 +608,9 @@ class ReferenceKernel:
                     evidence_time_ms=artifact.created_at_ms,
                     verification_time_ms=verification.verified_at_ms,
                     evidence_kind="artifact",
+                    require_version_match=(
+                        verification.decision is VerificationDecision.ACCEPTED
+                    ),
                 )
         if verification.decision is VerificationDecision.ACCEPTED:
             missing = set(plan.required_evidence) - observed_kinds
@@ -620,13 +626,15 @@ class ReferenceKernel:
         evidence_time_ms: int,
         verification_time_ms: int,
         evidence_kind: str,
+        require_version_match: bool,
     ) -> None:
         if evidence_target.object_id != claim.subject.object_id:
             raise InvariantViolation(
                 f"verification {evidence_kind} has the wrong subject"
             )
         if (
-            claim.subject.version is not None
+            require_version_match
+            and claim.subject.version is not None
             and evidence_target.version != claim.subject.version
         ):
             raise InvariantViolation(
