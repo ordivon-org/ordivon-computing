@@ -19,7 +19,7 @@ Effect preparation
 → Claim → Verification → Fact
 ```
 
-Not yet proven live: response-loss injection, cancellation races, adapter restart, and Tool-schema drift.
+Proven live: response-loss recovery without redispatch, adapter-instance restart correlation, cancellation applied to a running Job, and natural completion winning a cancellation race. Full process restart and Tool-schema drift remain open.
 
 ## Boundary
 
@@ -111,14 +111,10 @@ workspace.exec
 
 A zero exit code remains backend evidence; it is not sufficient proof of higher-level correctness. The live slice independently read stdout and verified expected markers before admitting Fact.
 
-## Required remaining live tests
+## Remaining focused tests
 
-1. duplicate delivery after response loss without duplicate Job;
-2. structured rejection before admission;
-3. `Lost`/`Orphaned` reconciliation;
-4. cancellation racing with natural completion;
-5. Artifact digest or identity mismatch;
-6. stale Workspace revision;
-7. Tool-schema change while an Effect is pending;
-8. Tool-schema change while a Job is running;
-9. invariant scan after adapter restart.
+1. `Lost`/`Orphaned` live reconciliation;
+2. Artifact digest or identity mismatch against a live backend;
+3. Tool-schema change while an Effect is pending;
+4. Tool-schema change while a Job is running;
+5. invariant reconstruction after full process restart.

@@ -166,6 +166,205 @@ class OrdivonAdapterTests(unittest.TestCase):
             1,
         )
 
+    def test_cancel_running_job_commits_cancelled_terminal_state(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_exec(kernel, "ordivon-cancelled")
+        client = ScriptedClient()
+        client.add(
+            "workspace.exec",
+            {
+                "jobId": "job-cancelled",
+                "attemptId": "attempt-cancelled",
+                "workspaceId": "workspace-test",
+                "status": "working",
+                "artifacts": [],
+            },
+        )
+        client.add(
+            "task.cancel",
+            {
+                "jobId": "job-cancelled",
+                "attemptId": "attempt-cancelled",
+                "workspaceId": "workspace-test",
+                "status": "cancelled",
+                "artifacts": [],
+            },
+        )
+        adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(200, 260)).__next__,
+        )
+        running = adapter.dispatch_exec(
+            spec.effect_id,
+            OrdivonExecution("workspace-test", "/usr/bin/sleep", ("10",)),
+        )
+        self.assertIs(running.state, EffectState.RUNNING)
+        cancelled = adapter.cancel(spec.effect_id)
+        self.assertIs(cancelled.state, EffectState.CANCELLED)
+        self.assertEqual(
+            [name for name, _ in client.calls],
+            ["workspace.exec", "task.cancel"],
+        )
+        kernel.validate_invariants()
+
+    def test_natural_completion_may_win_cancellation_race(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_exec(kernel, "ordivon-cancel-race")
+        client = ScriptedClient()
+        client.add(
+            "workspace.exec",
+            {
+                "jobId": "job-cancel-race",
+                "attemptId": "attempt-cancel-race",
+                "workspaceId": "workspace-test",
+                "status": "working",
+                "artifacts": [],
+            },
+        )
+        client.add(
+            "task.cancel",
+            ToolRejected(
+                "task.cancel",
+                code="JOB_ALREADY_RESOLVED",
+                message="Job is already resolved",
+                retryable=False,
+            ),
+        )
+        client.add(
+            "task.observe",
+            {
+                "jobId": "job-cancel-race",
+                "attemptId": "attempt-cancel-race",
+                "workspaceId": "workspace-test",
+                "status": "succeeded",
+                "exitCode": 0,
+                "artifacts": [],
+            },
+        )
+        adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(300, 360)).__next__,
+        )
+        adapter.dispatch_exec(
+            spec.effect_id,
+            OrdivonExecution("workspace-test", "/usr/bin/true"),
+        )
+        terminal = adapter.cancel(spec.effect_id)
+        self.assertIs(terminal.state, EffectState.SUCCEEDED)
+        self.assertEqual(
+            [name for name, _ in client.calls],
+            ["workspace.exec", "task.cancel", "task.observe"],
+        )
+        kernel.validate_invariants()
+
+    def test_running_observation_does_not_erase_cancel_intent(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_exec(kernel, "ordivon-cancel-pending")
+        client = ScriptedClient()
+        client.add(
+            "workspace.exec",
+            {
+                "jobId": "job-cancel-pending",
+                "attemptId": "attempt-cancel-pending",
+                "workspaceId": "workspace-test",
+                "status": "working",
+                "artifacts": [],
+            },
+        )
+        client.add(
+            "task.cancel",
+            ToolRejected(
+                "task.cancel",
+                code="TEMPORARY_CONFLICT",
+                message="cancellation not yet applied",
+                retryable=True,
+            ),
+        )
+        client.add(
+            "task.observe",
+            {
+                "jobId": "job-cancel-pending",
+                "attemptId": "attempt-cancel-pending",
+                "workspaceId": "workspace-test",
+                "status": "working",
+                "artifacts": [],
+            },
+        )
+        adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(400, 460)).__next__,
+        )
+        adapter.dispatch_exec(
+            spec.effect_id,
+            OrdivonExecution("workspace-test", "/usr/bin/sleep", ("10",)),
+        )
+        pending = adapter.cancel(spec.effect_id)
+        self.assertIs(pending.state, EffectState.CANCEL_REQUESTED)
+        kernel.validate_invariants()
+
+    def test_response_loss_reconciles_after_adapter_instance_restart(self) -> None:
+        kernel = ReferenceKernel()
+        spec = prepared_exec(kernel, "ordivon-response-loss-restart")
+        client = ScriptedClient()
+        client.add(
+            "workspace.exec",
+            ToolTransportError("response lost after durable admission"),
+        )
+        first_adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(100, 150)).__next__,
+        )
+        first = first_adapter.dispatch_exec(
+            spec.effect_id,
+            OrdivonExecution("workspace-test", "/usr/bin/true"),
+        )
+        self.assertIs(first.state, EffectState.UNKNOWN)
+        dispatch_id = kernel.get_effect(spec.effect_id).dispatch_id
+        client_request_id = client.calls[0][1]["clientRequestId"]
+
+        client.add(
+            "task.list",
+            {
+                "jobs": [
+                    {
+                        "jobId": "job-after-restart",
+                        "attemptId": "attempt-after-restart",
+                        "clientRequestId": client_request_id,
+                        "workspaceId": "workspace-test",
+                        "status": "running",
+                    }
+                ]
+            },
+        )
+        client.add(
+            "task.observe",
+            {
+                "jobId": "job-after-restart",
+                "attemptId": "attempt-after-restart",
+                "workspaceId": "workspace-test",
+                "status": "succeeded",
+                "exitCode": 0,
+                "artifacts": [],
+            },
+        )
+        restarted_adapter = OrdivonSemanticAdapter(
+            kernel,
+            client,
+            clock_ms=iter(range(150, 200)).__next__,
+        )
+        terminal = restarted_adapter.reconcile(spec.effect_id)
+        self.assertIs(terminal.state, EffectState.SUCCEEDED)
+        self.assertEqual(terminal.binding.dispatch_id, dispatch_id)
+        self.assertEqual(
+            [name for name, _ in client.calls].count("workspace.exec"),
+            1,
+        )
+        kernel.validate_invariants()
+
     def test_running_job_can_be_observed_to_terminal_without_reconcile(self) -> None:
         kernel = ReferenceKernel()
         spec = prepared_exec(kernel, "ordivon-running")

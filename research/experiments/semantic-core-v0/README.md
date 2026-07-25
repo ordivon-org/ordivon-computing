@@ -16,7 +16,7 @@ The reference kernel uses only the Python standard library at runtime. It is int
 Reference tests:
 
 ```bash
-PYTHONPATH=src python -m unittest discover -s tests -v
+PYTHONPATH=src python3.12 -m unittest discover -s tests -v
 ```
 
 Live local Ordivon slice:
@@ -56,10 +56,12 @@ The live script never prints the Bearer token and always attempts to close its t
 
 ## Current maturity
 
-- **M0 semantic reference kernel:** integrated from two independent implementations and covered by 27 reusable conformance tests on Python 3.12 and 3.14;
+- **runtime:** Python 3.12.13 is the single reference and acceptance version;
+- **M0 semantic reference kernel:** integrated from two independent implementations and covered by 35 unit and conformance tests;
 - **M1 Ordivon adapter:** asynchronous execution, versioned read, atomic mutation, Artifact projection, and Fact admission passed through the public MCP contract;
 - **live proof:** command execution remained single-dispatch; mutation results were independently re-read by separate Effects; two file Facts were admitted; stale-digest mutation was rejected without changing final content;
-- **remaining M1 work:** injected response loss, cancellation races, adapter restart continuity, and Tool-contract drift;
+- **M1 failure semantics:** injected response loss, adapter-instance restart correlation, and cancellation races passed live;
+- **remaining work:** durable journal/process restart continuity and focused Tool-contract drift tests;
 - **durability:** semantic journal remains in-memory;
 - **wire format:** intentionally deferred until more backend semantics agree.
 

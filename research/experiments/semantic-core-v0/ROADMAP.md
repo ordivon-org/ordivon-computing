@@ -6,7 +6,7 @@ Each layer must solve a failure that cannot be expressed below it. No Host, sche
 
 ## M0 — Semantic constitution
 
-**Status:** reference implementation complete.
+**Status:** complete.
 
 Delivered:
 
@@ -18,11 +18,11 @@ Delivered:
 - invariant scanner;
 - reusable conformance scenarios.
 
-Exit gate: two independent implementations were integrated; 31 tests pass on Python 3.12.13 and 3.14.6.
+Exit gate: two independent implementations were integrated; 35 tests pass on the selected Python 3.12.13 runtime.
 
 ## M1 — Ordivon semantic adapter
 
-**Status:** active; four-operation live vertical slice passed.
+**Status:** complete for the defined v0 scope.
 
 Passed live:
 
@@ -34,25 +34,28 @@ Artifact projection and artifact.read
 independent read Effect → Verification → Fact
 stale-digest rejection without state corruption
 duplicate Dispatch rejection
+response loss after durable admission
+adapter-instance restart and identity re-correlation
+cancellation applied to a running Job
+natural completion winning a cancellation race
 Workspace cleanup
 ```
 
-Remaining failure cases:
+M1 v0 exit gate:
 
-1. response loss after durable admission;
-2. cancellation and natural completion race;
-3. adapter restart and identity re-correlation;
-4. Tool-contract drift while pending and running.
-
-M1 exit gate:
-
-- all four required operations run through reusable semantic scenarios;
+- all four required operation classes run through semantic scenarios;
 - response loss reconciles without redispatch;
+- one stable request identity correlates to exactly one Job;
 - `Lost` and `Orphaned` remain unknown;
 - repeated delivery does not duplicate completed work;
+- cancellation intent remains distinct from terminal cancellation;
 - public Tool contracts are sufficient without private Runtime inspection.
 
+Tool-contract drift is deferred to a focused contract-binding slice rather than expanding M1 indefinitely.
+
 ## M2 — Durable semantic journal
+
+**Status:** next.
 
 Replace in-memory dictionaries with an append-only store while preserving the same protocol:
 
@@ -69,13 +72,14 @@ facts
 
 Exit gate:
 
-- process restart preserves identity and event order;
+- full process restart preserves identity and event order;
 - projections can be rebuilt from the journal;
+- pending Job correlation survives process restart;
 - corruption is reported rather than normalized away.
 
 ## M3 — Effect IR codec
 
-Add canonical serialization only after the reference model and live backend agree.
+Add canonical serialization only after the reference model, durable journal, and live backend agree.
 
 Required properties:
 
@@ -87,18 +91,7 @@ Required properties:
 
 ## M4 — Tool contract binding
 
-Introduce only the normalized contract needed by the four real operations:
-
-```text
-identity
-revision
-supported semantic operations
-input/output shape
-sync/async behaviour
-completion semantics
-error model
-observation path
-```
+Introduce the normalized contract needed by real operations and test drift while Effects are pending and running.
 
 ## M5 — Task runtime
 

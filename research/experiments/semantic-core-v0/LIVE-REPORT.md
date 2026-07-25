@@ -4,7 +4,7 @@
 
 This report records live Semantic Core v0 execution through the local Ordivon public MCP endpoint on July 26, 2026.
 
-It proves the four required operation classes against one backend: versioned read, atomic mutation, asynchronous execution/observation, and independent reread-to-Fact admission. It does not prove the remaining failure and durability cases.
+It proves the four required operation classes against one backend: versioned read, atomic mutation, asynchronous execution/observation, and independent reread-to-Fact admission. Response-loss and cancellation evidence is recorded separately in `FAILURE-REPORT.md`.
 
 ## Environment boundary
 
@@ -138,16 +138,14 @@ This run confirms that the integrated Dispatch admission model, adapter, public 
 2. **Content-derived Observation identity:** identical payload digests cannot identify an observation event; Effect and Dispatch causality must participate in ObservationId.
 3. **Mechanically choosing one concurrent implementation:** the parallel `main` implementation carried stronger pre-admission rejection semantics, while this branch carried stronger independent verification and file Effects. Neither was sufficient alone; semantic integration was required.
 
-## Not supported
+## Not supported by this report alone
 
 - complete Ordivon conformance;
-- live recovery after deliberately lost responses;
-- cancellation-race semantics;
-- semantic state across process restart;
+- semantic state across full process restart;
 - Tool-contract rebinding;
 - production readiness or Goal-level correctness.
 
-# C. Final integrated I/O regression
+# D. Final integrated I/O regression
 
 After integrating the dedicated `ordivon_io.py` subsystem from the latest `main`, the live path was rerun through the unified public API:
 
@@ -159,4 +157,4 @@ stale guard: failed / INVALID_REQUEST
 Workspace cleanup: completed
 ```
 
-The integrated suite contains 31 tests on both Python 3.12.13 and 3.14.6.
+The integrated suite contains 35 tests on Python 3.12.13.

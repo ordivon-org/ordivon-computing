@@ -66,7 +66,7 @@ The first heterogeneous slice now includes:
 - asynchronous command dispatch and observation;
 - independent cross-Effect verification and Fact admission.
 
-The remaining evidence is concentrated in failure continuity: deliberately lost live responses, cancellation races, adapter restart correlation, and pending/running Tool-contract drift.
+Failure continuity now includes deliberately lost live responses, adapter-instance restart correlation, and cancellation races. Remaining evidence is concentrated in durable process restart and pending/running Tool-contract drift.
 
 ## Current evidence
 

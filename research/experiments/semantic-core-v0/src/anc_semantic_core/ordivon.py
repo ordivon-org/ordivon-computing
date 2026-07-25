@@ -102,6 +102,17 @@ def ordivon_workspace_object_id(workspace_id: str) -> SemanticId:
     return SemanticId(IdKind.WORLD_OBJECT, f"ordivon-workspace:{workspace_id}")
 
 
+def _workspace_id_from_object(object_id: SemanticId) -> str:
+    object_id.require(IdKind.WORLD_OBJECT)
+    prefix = "ordivon-workspace:"
+    if not object_id.value.startswith(prefix):
+        raise ValueError("Effect target is not an Ordivon Workspace object")
+    workspace_id = object_id.value.removeprefix(prefix)
+    if not workspace_id:
+        raise ValueError("Ordivon Workspace object has no identity")
+    return workspace_id
+
+
 def semantic_state_from_status(status: str) -> EffectState:
     mapping = {
         "queued": EffectState.DISPATCHED,
@@ -204,6 +215,75 @@ class OrdivonSemanticAdapter:
         except ToolCallError as error:
             return self._mark_unknown(effect_id, error)
         return self._apply_payload(effect_id, payload, source="workspace.exec")
+
+    def cancel(
+        self,
+        effect_id: SemanticId,
+        *,
+        wait_ms: int = 0,
+        stdout_tail_bytes: int = 4096,
+        stderr_tail_bytes: int = 4096,
+    ) -> AdapterProjection:
+        record = self._kernel.get_effect(effect_id)
+        if record.state.terminal:
+            raise InvalidTransition("terminal Effect cannot accept cancellation intent")
+        if record.state not in {
+            EffectState.DISPATCHED,
+            EffectState.RUNNING,
+            EffectState.CANCEL_REQUESTED,
+        }:
+            raise InvalidTransition(
+                "cancellation requires a dispatched or running Effect"
+            )
+        try:
+            binding = self._bindings.get(effect_id)
+            if binding is None:
+                binding = self._find_binding(effect_id)
+            if binding is None:
+                return self._mark_unknown(
+                    effect_id,
+                    ToolProtocolError(
+                        "no Ordivon Job matched the cancellation target"
+                    ),
+                )
+            if record.state is not EffectState.CANCEL_REQUESTED:
+                record = self._kernel.advance_effect(
+                    effect_id,
+                    EffectState.CANCEL_REQUESTED,
+                    expected_revision=record.revision,
+                    event_id=self._event_id(effect_id, "cancel-requested"),
+                    recorded_at_ms=self._clock_ms(),
+                    evidence_digest=_digest(
+                        {
+                            "jobId": binding.job_id,
+                            "intent": "cancel",
+                        }
+                    ),
+                )
+            try:
+                payload = self._client.call_tool(
+                    "task.cancel",
+                    {
+                        "schemaVersion": 1,
+                        "jobId": binding.job_id,
+                    },
+                )
+            except ToolRejected:
+                # A natural terminal outcome may win before cancellation is applied.
+                return self._observe_binding(
+                    effect_id,
+                    binding,
+                    wait_ms=wait_ms,
+                    stdout_tail_bytes=stdout_tail_bytes,
+                    stderr_tail_bytes=stderr_tail_bytes,
+                )
+            return self._apply_payload(
+                effect_id,
+                payload,
+                source="task.cancel",
+            )
+        except ToolCallError as error:
+            return self._mark_unknown(effect_id, error)
 
     def observe(
         self,
@@ -386,8 +466,31 @@ class OrdivonSemanticAdapter:
     def binding_for(self, effect_id: SemanticId) -> OrdivonBinding | None:
         return self._bindings.get(effect_id)
 
-    def _find_binding(self, effect_id: SemanticId) -> OrdivonBinding | None:
+    def _pending_for(
+        self,
+        effect_id: SemanticId,
+    ) -> _PendingDispatch | None:
         pending = self._pending.get(effect_id)
+        if pending is not None:
+            return pending
+        record = self._kernel.get_effect(effect_id)
+        if record.dispatch_id is None:
+            return None
+        dispatch = self._kernel.get_dispatch(record.dispatch_id)
+        workspace_id = _workspace_id_from_object(record.spec.target.object_id)
+        pending = _PendingDispatch(
+            effect_id=effect_id,
+            dispatch_id=record.dispatch_id,
+            client_request_id=_client_request_id(effect_id),
+            workspace_id=workspace_id,
+            request_digest=dispatch.request_digest,
+            dispatched_at_ms=dispatch.started_at_ms,
+        )
+        self._pending[effect_id] = pending
+        return pending
+
+    def _find_binding(self, effect_id: SemanticId) -> OrdivonBinding | None:
+        pending = self._pending_for(effect_id)
         if pending is None:
             raise InvalidTransition("Effect has no committed Ordivon dispatch")
         cursor: dict[str, Any] | None = None
@@ -474,6 +577,11 @@ class OrdivonSemanticAdapter:
                     recorded_at_ms=self._clock_ms(),
                     evidence_digest=payload_digest,
                 )
+        elif (
+            current.state is EffectState.CANCEL_REQUESTED
+            and target is EffectState.RUNNING
+        ):
+            target = EffectState.CANCEL_REQUESTED
         elif target is not current.state:
             current = self._kernel.advance_effect(
                 effect_id,
@@ -493,7 +601,7 @@ class OrdivonSemanticAdapter:
         )
 
     def _bind(self, effect_id: SemanticId, payload: dict[str, Any]) -> OrdivonBinding:
-        pending = self._pending.get(effect_id)
+        pending = self._pending_for(effect_id)
         if pending is None:
             raise InvalidTransition("Effect has no committed Ordivon dispatch")
         job_id = payload.get("jobId")
