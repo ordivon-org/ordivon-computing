@@ -5,7 +5,7 @@ from enum import StrEnum
 
 from .authority import Attestation
 from .identity import IdKind, SemanticId
-from .state import EffectState
+from .state import DispatchState, EffectState
 
 
 class EffectMode(StrEnum):
@@ -40,13 +40,6 @@ class VerificationDecision(StrEnum):
 class Admission(StrEnum):
     CREATED = "created"
     EXISTING = "existing"
-
-
-class DispatchState(StrEnum):
-    STARTED = "started"
-    ADMITTED = "admitted"
-    UNKNOWN = "unknown"
-    REJECTED = "rejected"
 
 
 class EventKind(StrEnum):

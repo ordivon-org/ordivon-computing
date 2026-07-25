@@ -7,8 +7,8 @@ from .authority import AuthorityPolicy, AuthorityRole
 from .authorized import AuthorityRoot, AuthorizedKernel
 from .identity import IdKind, SemanticId
 from .bootstrap import KernelAuthorityViews, issue_authority_views
-from .journal import JournalKernel
-from .kernel import ReferenceKernel
+from .journal import JournalReducer
+from .reducer import ReferenceReducer
 
 
 _TEST_SECRET = b"agent-native-computing-semantic-core-authority-v1-test-secret"
@@ -55,7 +55,7 @@ def reference_authority_views(
 ) -> KernelAuthorityViews:
     policy = test_authority_policy()
     return issue_authority_views(
-        ReferenceKernel(policy), policy, namespace=namespace
+        ReferenceReducer(policy), policy, namespace=namespace
     )
 
 
@@ -64,7 +64,7 @@ def journal_authority_views(
 ) -> KernelAuthorityViews:
     policy = test_authority_policy()
     return issue_authority_views(
-        JournalKernel(path, policy), policy, namespace=namespace
+        JournalReducer(path, policy), policy, namespace=namespace
     )
 
 
@@ -75,7 +75,7 @@ def reference_kernel(
 ) -> AuthorizedKernel:
     policy = test_authority_policy()
     return authorize_reducer(
-        ReferenceKernel(policy), policy, roles=roles, namespace=namespace
+        ReferenceReducer(policy), policy, roles=roles, namespace=namespace
     )
 
 
@@ -87,5 +87,5 @@ def journal_kernel(
 ) -> AuthorizedKernel:
     policy = test_authority_policy()
     return authorize_reducer(
-        JournalKernel(path, policy), policy, roles=roles, namespace=namespace
+        JournalReducer(path, policy), policy, roles=roles, namespace=namespace
     )

@@ -3,7 +3,8 @@ from __future__ import annotations
 from collections.abc import Callable
 
 from .identity import IdKind, SemanticId
-from .kernel import InvalidTransition, SemanticKernel
+from .errors import InvalidTransition
+from .interfaces import SemanticKernel
 from .model import (
     Admission,
     Artifact,

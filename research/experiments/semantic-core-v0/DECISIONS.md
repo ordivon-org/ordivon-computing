@@ -49,7 +49,7 @@ Semantic Core does not implement a filesystem, WAL, locking protocol, or crash-s
 
 ## D12 — Make semantic commands and projections transactional
 
-A Kernel command must be all-or-nothing. Related commands may be grouped through `SemanticKernel.transaction()`. Dispatch start remains committed before an external Tool call; result admission, evidence projection, and terminal state are committed as a separate atomic batch.
+A Kernel command must be all-or-nothing. Related commands may be grouped through a role-scoped View transaction. Dispatch start remains committed before an external Tool call; result admission, evidence projection, and terminal state are committed as a separate atomic batch.
 
 ## D13 — Persist commands, rebuild projections
 
@@ -61,7 +61,7 @@ M2 requires a storage encoding, but that encoding is not the public Effect IR. I
 
 ## D15 — Reject stale local writers rather than invent distributed consensus
 
-SQLite orders local commits. `JournalKernel` additionally compares the replayed journal head during each write. A stale process receives `JournalConflict` and must reopen. Replication, consensus, and multi-host availability remain outside M2.
+SQLite orders local commits. `JournalReducer` additionally compares the replayed journal head during each write. A stale process receives `JournalConflict` and must reopen. Replication, consensus, and multi-host availability remain outside M2.
 
 
 ## D16 — Admit Kernel primitives only from failures
@@ -100,3 +100,20 @@ Journal schema v2 stores signed grants and Attestations. Metadata binds the sema
 ## D24 — Return official attested projections
 
 Adapters and verification helpers return the records retrieved from the Kernel after admission, rather than unsigned draft objects created before admission.
+
+
+## D25 — Separate public Views from raw reducers
+
+Role-scoped public protocols live in `interfaces.py`. `AuthorizedKernel` implements those protocols with signed Authority grants. `ReferenceReducer` and `JournalReducer` are raw mechanisms below the Authority boundary. Historical Kernel names remain compatibility aliases only.
+
+## D26 — Give Effect and Dispatch separate explicit state graphs
+
+Effect lifecycle and Dispatch admission lifecycle answer different questions. Both transition predicates are now explicit in `state.py`; reducer methods must pass the relevant graph before changing state.
+
+## D27 — Divide invariant validation by semantic responsibility
+
+The complete invariant scan remains one public operation but delegates to five domains: Effect history, Dispatch binding, evidence provenance, knowledge admission, and Attestation validity. This improves fault localization without creating a plugin framework or weakening full-state validation.
+
+## D28 — Derive projections instead of storing explanation state
+
+Execution, recovery, Authority, and Fact-provenance Views are reconstructed from canonical records. Human and Agent explanations therefore gain focused projections without a second mutable truth source.

@@ -4,10 +4,11 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .authority import AuthorityPolicy, AuthorityRole
-from .authorized import AuthorityRoot, AuthorizedKernel
+from .authorized import AuthorityRoot
 from .identity import IdKind, SemanticId
-from .journal import JournalKernel
-from .kernel import ReferenceKernel
+from .interfaces import EffectView, ExecutionView, FactView, KernelReadView, VerificationView
+from .journal import JournalReducer
+from .reducer import ReferenceReducer
 
 
 def local_authority_policy(
@@ -27,11 +28,11 @@ def local_authority_policy(
 
 @dataclass(frozen=True, slots=True)
 class KernelAuthorityViews:
-    effects: AuthorizedKernel
-    execution: AuthorizedKernel
-    verification: AuthorizedKernel
-    facts: AuthorizedKernel
-    read: AuthorizedKernel
+    effects: EffectView
+    execution: ExecutionView
+    verification: VerificationView
+    facts: FactView
+    read: KernelReadView
 
 
 def issue_authority_views(
@@ -75,7 +76,7 @@ def authorized_reference_views(
 ) -> KernelAuthorityViews:
     policy = local_authority_policy(secret)
     return issue_authority_views(
-        ReferenceKernel(policy),
+        ReferenceReducer(policy),
         policy,
         namespace=namespace,
         trust_domain=trust_domain,
@@ -91,7 +92,7 @@ def authorized_journal_views(
 ) -> KernelAuthorityViews:
     policy = local_authority_policy(secret)
     return issue_authority_views(
-        JournalKernel(path, policy),
+        JournalReducer(path, policy),
         policy,
         namespace=namespace,
         trust_domain=trust_domain,

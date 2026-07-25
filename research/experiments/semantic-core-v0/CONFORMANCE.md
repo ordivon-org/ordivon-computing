@@ -33,6 +33,17 @@ ruff check src tests scripts
 
 The suite covers atomic rollback, Journal corruption and stale writers, response loss, cancellation races, versioned I/O, cross-Effect evidence, role escalation, forged grants, changed policy identity, wrong-secret replay, and official attested Adapter projections.
 
+## P1 structural conformance
+
+The boundary suite additionally proves:
+
+- Ordivon Adapters are typed against `ExecutionView`;
+- Verification and Fact admission use separate role protocols;
+- raw reducer names retain compatibility aliases while the implementation boundary is explicit;
+- the Dispatch transition graph contains only the six admitted transitions;
+- execution, recovery, Fact provenance, and Authority projections reconstruct canonical records without mutation;
+- UNKNOWN recovery projections preserve the original Dispatch identity and return `RECONCILE` as the next action.
+
 ## Live evidence summary
 
 ### Signed process-restart recovery

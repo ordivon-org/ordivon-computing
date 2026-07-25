@@ -4,7 +4,7 @@ import hashlib
 from dataclasses import dataclass
 
 from .identity import IdKind, SemanticId
-from .authorized import AuthorizedKernel
+from .interfaces import FactView, VerificationView
 from .model import (
     Claim,
     EvidenceKind,
@@ -26,8 +26,8 @@ class DigestFactResult:
 
 
 def verify_digest_fact(
-    verification_kernel: AuthorizedKernel,
-    fact_kernel: AuthorizedKernel,
+    verification_kernel: VerificationView,
+    fact_kernel: FactView,
     *,
     claim_effect_id: SemanticId,
     observation: Observation,
