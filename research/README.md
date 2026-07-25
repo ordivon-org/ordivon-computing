@@ -1,15 +1,18 @@
 # Research
 
-Research stores open questions, competing hypotheses, prototypes, experiments, and unresolved evidence.
+Research stores open questions, competing hypotheses, prototypes, experiments, immutable evidence manifests, and unresolved evidence.
 
 ## Structure
 
-- [`map.yaml`](map.yaml) — machine-readable branch and question map;
+- [`map.yaml`](map.yaml) — stable typed relations among construction tracks and research questions;
 - [`questions/`](questions/) — one durable page per active question;
 - [`experiments/`](experiments/) — executable artifacts and experiment records;
-- [GitHub Issues](https://github.com/zycxfyh/agent-native-computing/issues) — active construction tracks, sequencing, discussion, and evidence status.
+- [`evidence/`](evidence/) — immutable cross-repository System Snapshots and their validator;
+- [GitHub Issues](https://github.com/zycxfyh/agent-native-computing/issues) — active construction tracks, dependencies, discussion, and Ready Frontier.
 
-Durable question pages preserve hypotheses and evidence criteria. GitHub Issues carry active sequencing and progress; project repositories and `experiments/` carry executable artifacts. Research is allowed to contain alternatives, failed experiments, changing terminology, and incomplete models. Results move into [`../knowledge/`](../knowledge/) when they become reusable understanding. A small subset may later compress into [`../core/`](../core/).
+Durable question pages preserve hypotheses and evidence criteria. GitHub Issues carry active sequencing and progress. Project repositories and `experiments/` carry executable artifacts. `evidence/` binds exact repository commits, services, Tool contracts, and Artifact digests for one historical observation; it never claims to be the current deployment registry.
+
+Research is allowed to contain alternatives, failed experiments, changing terminology, and incomplete models. Results move into [`../knowledge/`](../knowledge/) when they become reusable understanding. A small subset may later compress into [`../core/`](../core/).
 
 ## Construction program
 
