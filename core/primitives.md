@@ -1,40 +1,25 @@
 # Agent-Native Primitives
 
-These are the minimum current objects for expressing persistent Agent work. Domain systems may add richer objects, but these relationships provide the shared substrate.
+These are the current stable objects used to express persistent Agent work. The repository distinguishes **implemented Semantic Core primitives** from **future Task Runtime research objects**.
 
-## Object model
-
-```text
-Goal
-└── Task
-    └── Attempt
-        └── Effect
-            ├── Observation
-            ├── Artifact
-            └── Fact
-```
-
-A **Workspace** binds an Attempt to a versioned operational state. A **Capability** binds an actor to possible Effects. A **Checkpoint** preserves the minimum sufficient continuation state.
-
-## Goal
-
-A durable desired world state. A Goal carries identity, subject, context, current state, and completion evidence.
+## Semantic Core primitives (implemented boundary)
 
 ```text
-Goal = desired state + context + continuity
+Effect
+├── Dispatch
+│   ├── Observation
+│   └── Artifact
+│
+└── Claim
+    └── Verification
+        └── Fact
 ```
 
-## Task
-
-A schedulable semantic unit that advances a Goal. Tasks form a dynamically growing dependency graph and move through states such as pending, ready, running, waiting, completed, failed, and cancelled.
-
-## Attempt
-
-One concrete exploration or execution path for a Task. Attempts preserve hypotheses, Effects, errors, observations, and reusable results so that later Attempts begin from accumulated information.
+These objects define the durable semantic boundary between cognition and external world execution.
 
 ## Effect
 
-A proposed observation or change to an external object. An Effect minimally carries:
+A proposed observation or change to an external object.
 
 ```text
 identity
@@ -46,69 +31,103 @@ identity
 + verification path
 ```
 
+## Dispatch
+
+One concrete attempt to cross the external execution boundary for an Effect. Dispatch records execution identity, backend binding, lifecycle state, and uncertainty when the external result is not immediately known.
+
 ## Observation
 
-A structured reading of external reality: command output, file digest, process state, API response, test result, sensor value, or other environment evidence. Interpretation may change; the Observation remains the recorded input.
+A structured record of external reality: command output, file digest, process state, API response, test result, sensor value, or other evidence.
+
+The interpretation may change; the recorded Observation remains the historical input.
 
 ## Artifact
 
-A durable content-bearing result with stable identity and provenance, such as a patch, log, dataset, report, binary, plan, task graph, or commit.
+A durable content-bearing result with stable identity and provenance, such as a patch, log, dataset, report, binary, or commit.
+
+## Claim
+
+A statement proposed for acceptance based on observations or artifacts.
+
+## Verification
+
+The process and evidence relationship that evaluates whether a Claim can be accepted under current Kernel rules.
 
 ## Fact
 
-A task-relevant statement supported by observations or artifacts and accepted into current persistent state, such as an exact repository revision or a verified test result.
+A Claim accepted into current persistent state through a recorded Verification.
 
-## Workspace
+A Fact means:
 
-A versioned operational address space in which an Attempt can read, compute, and create candidate state. Workspaces support isolation, comparison, branching, integration, and recovery.
+```text
+Claim + Verification + Evidence accepted by Kernel rules
+```
 
-## Capability
+It is not an unqualified assertion outside the system boundary.
 
-A task-bound expression of possible world effects:
+## Cross-cutting primitives
+
+These apply across Semantic Core objects:
+
+### Identity
+
+Stable identity for Effects, Dispatches, observations, artifacts, claims, facts, authorities, and world objects.
+
+### Capability
 
 ```text
 holder + action + object scope + lifetime
 ```
 
-Capabilities are planning inputs as well as execution authority.
+Capabilities describe possible world effects and execution authority.
 
-## Checkpoint
+### Workspace
 
-The minimum sufficient state for another model, process, session, or machine to continue work:
+A versioned operational address space where execution can read, compute, and create candidate state.
+
+### Authority and Attestation
+
+Authority defines who may perform a semantic operation. Attestation binds accepted mutations and evidence to identity, contract version, time, and exact content.
+
+## Future Task Runtime objects (research)
+
+These objects are intentionally above the current Semantic Core boundary.
 
 ```text
 Goal
-+ active Tasks and Attempts
-+ world bindings
-+ verified Facts
-+ relevant Artifacts
-+ next ready work
+└── Task DAG
+    └── Attempt
+        └── Effect
 ```
 
-## Core transitions
+Future Task Runtime research includes:
+
+- Goal;
+- Task;
+- dependency graph;
+- ready / blocked scheduling;
+- Branch and Join;
+- Checkpoint;
+- multi-Agent coordination.
+
+These objects submit Effects into Semantic Core rather than becoming part of the Kernel state machine.
+
+## Core transition direction
 
 ```text
-Intent
-→ Goal
-→ Plan
-→ Task Graph
-→ Effect
-→ Tool Action
-→ Observation
-→ Verification
-→ Fact / Artifact
-→ Goal update
+Goal / Task Runtime
+        ↓
+Effect
+        ↓
+Dispatch
+        ↓
+Observation / Artifact
+        ↓
+Claim
+        ↓
+Verification
+        ↓
+Fact
 ```
 
-Execution is progressive rather than monolithic. Stable facts persist; plans and attempts remain revisable.
-
-## Minimal execution verbs
-
-A compact semantic instruction set can begin with:
-
-```text
-OBSERVE  READ  PROPOSE  PREPARE  EXECUTE  VERIFY
-COMMIT   CHECKPOINT  SPAWN  JOIN  CANCEL  EMIT
-```
-
-These verbs are research candidates rather than a frozen instruction set. Their purpose is to make the transition from open cognition to persistent world state explicit and composable.
+The Kernel protects the semantic boundary. Planning structures remain revisable above it.
