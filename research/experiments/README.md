@@ -1,8 +1,6 @@
 # Experiments
 
-Each experiment should connect one research question to an executable artifact and an observable result.
-
-A compact experiment record can contain:
+Each experiment connects one research question to an executable artifact and an observable result:
 
 ```text
 question
@@ -14,11 +12,17 @@ question
 → next revision
 ```
 
-The first planned families are:
+## Active
 
-- an Effect IR schema and interpreter;
-- a minimal Task Capsule transferred across model sessions;
-- a Tool catalog normalization and contract-diff prototype;
+- [`semantic-core-v0/`](semantic-core-v0/) — executable Agent semantic constitution, in-memory reference kernel, reusable conformance scenarios, and the first live Ordivon `workspace.exec` adapter slice.
+
+## Planned families
+
+- versioned read and atomic mutation semantic bindings;
+- durable semantic journal;
+- canonical Effect IR and interpreter;
+- minimal Task Capsule transferred across model sessions;
+- Tool catalog normalization and contract-diff prototype;
 - long-running Ordivon recovery and handoff experiments.
 
-Experiment history remains useful when the hypothesis fails because it preserves the boundary exposed by reality.
+Experiment history remains useful when a hypothesis fails because it preserves the boundary exposed by reality.
