@@ -62,17 +62,20 @@ def prepared_io_effect(
     name: str,
     workspace_id: str,
     relative_path: str,
-    operation: str,
     mode: EffectMode,
     target_version: str | None = None,
 ):
     base = sample_effect(name)
     target_id = ordivon_file_object_id(workspace_id, relative_path)
+    operation = (
+        "workspace.read"
+        if mode is EffectMode.OBSERVE
+        else "workspace.mutate"
+    )
     spec = replace(
         base,
         target=WorldObjectRef(target_id, version=target_version),
         mode=mode,
-        operation=operation,
         capability=CapabilityRef(base.capability.principal_id, operation, target_id),
         idempotency=IdempotencyKind.NATURAL,
         completion=(
@@ -109,7 +112,6 @@ class OrdivonIoTests(unittest.TestCase):
             name="io-read",
             workspace_id="workspace-test",
             relative_path="state.txt",
-            operation="workspace.read",
             mode=EffectMode.OBSERVE,
             target_version=digest,
         )
@@ -147,7 +149,6 @@ class OrdivonIoTests(unittest.TestCase):
                 name=f"io-identical-read-{suffix}",
                 workspace_id="workspace-test",
                 relative_path="state.txt",
-                operation="workspace.read",
                 mode=EffectMode.OBSERVE,
             )
             result = adapter.dispatch_read(
@@ -167,7 +168,6 @@ class OrdivonIoTests(unittest.TestCase):
             name="io-read-drift",
             workspace_id="workspace-test",
             relative_path="state.txt",
-            operation="workspace.read",
             mode=EffectMode.OBSERVE,
             target_version=expected,
         )
@@ -192,7 +192,6 @@ class OrdivonIoTests(unittest.TestCase):
             name="io-mutate",
             workspace_id="workspace-test",
             relative_path="state.txt",
-            operation="workspace.mutate",
             mode=EffectMode.CHANGE,
             target_version=before,
         )
@@ -237,7 +236,6 @@ class OrdivonIoTests(unittest.TestCase):
             name="io-stale-mutation",
             workspace_id="workspace-test",
             relative_path="state.txt",
-            operation="workspace.mutate",
             mode=EffectMode.CHANGE,
             target_version=before,
         )
@@ -279,7 +277,6 @@ class OrdivonIoTests(unittest.TestCase):
             name="io-mutation-unknown",
             workspace_id="workspace-test",
             relative_path="state.txt",
-            operation="workspace.mutate",
             mode=EffectMode.CHANGE,
             target_version=before,
         )
@@ -314,7 +311,6 @@ class OrdivonIoTests(unittest.TestCase):
             name="io-fact-mutation",
             workspace_id="workspace-test",
             relative_path="state.txt",
-            operation="workspace.mutate",
             mode=EffectMode.CHANGE,
             target_version=before,
         )
@@ -351,7 +347,6 @@ class OrdivonIoTests(unittest.TestCase):
             name="io-fact-reread",
             workspace_id="workspace-test",
             relative_path="state.txt",
-            operation="workspace.read",
             mode=EffectMode.OBSERVE,
             target_version=after,
         )
@@ -398,7 +393,6 @@ class OrdivonIoTests(unittest.TestCase):
             name="io-fact-mismatch-origin",
             workspace_id="workspace-test",
             relative_path="state.txt",
-            operation="workspace.mutate",
             mode=EffectMode.CHANGE,
             target_version=before,
         )
@@ -434,7 +428,6 @@ class OrdivonIoTests(unittest.TestCase):
             name="io-fact-mismatch-read",
             workspace_id="workspace-test",
             relative_path="state.txt",
-            operation="workspace.read",
             mode=EffectMode.OBSERVE,
         )
         read_client = ScriptedClient()

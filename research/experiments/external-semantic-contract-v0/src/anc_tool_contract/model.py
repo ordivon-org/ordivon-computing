@@ -29,7 +29,7 @@ _ALLOWED_SCHEMA = {
     "allOf",
     "items",
 }
-_PRESENTATION = {"title", "description", "examples", "$comment"}
+_PRESENTATION = {"title", "description", "examples", "$comment", "$schema"}
 
 
 class ExecutionKind(StrEnum):
@@ -228,6 +228,52 @@ def normalize_tool_contract(raw: dict[str, Any]) -> ToolContract:
         cancellation=CancellationKind(semantics["cancellation"]),
         evidence=tuple(semantics["evidence"]),
         capability_class=semantics["capabilityClass"],
+    )
+
+
+def normalize_mcp_tool_contract(
+    tool: dict[str, Any],
+    *,
+    provider_id: str,
+    revision: str,
+    semantics: dict[str, Any],
+) -> ToolContract:
+    if not isinstance(tool, dict):
+        raise ValueError("MCP Tool descriptor must be an object")
+    allowed = {
+        "name",
+        "description",
+        "title",
+        "inputSchema",
+        "outputSchema",
+        "annotations",
+        "execution",
+    }
+    if not set(tool).issubset(allowed):
+        raise ValueError("MCP Tool descriptor contains unsupported fields")
+    name = tool.get("name")
+    input_schema = tool.get("inputSchema")
+    if not isinstance(name, str) or not name:
+        raise ValueError("MCP Tool descriptor has no operation name")
+    if not isinstance(input_schema, dict):
+        raise ValueError("MCP Tool descriptor has no input schema")
+    execution = tool.get("execution")
+    if execution is not None:
+        if not isinstance(execution, dict) or set(execution) != {"taskSupport"}:
+            raise ValueError("MCP Tool execution metadata is unsupported")
+        if execution["taskSupport"] not in {"forbidden", "optional", "required"}:
+            raise ValueError("MCP Tool taskSupport value is unsupported")
+    return normalize_tool_contract(
+        {
+            "schemaVersion": 1,
+            "providerId": provider_id,
+            "revision": revision,
+            "name": name,
+            "description": tool.get("description", ""),
+            "inputSchema": input_schema,
+            "outputSchema": tool.get("outputSchema"),
+            "semantics": semantics,
+        }
     )
 
 

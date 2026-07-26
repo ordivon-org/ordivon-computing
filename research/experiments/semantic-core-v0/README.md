@@ -25,13 +25,15 @@ PYTHONPATH=src python3.12 -m compileall -q src tests scripts
 ruff check src tests scripts
 ```
 
-Live durable recovery:
+Canonical real-system Binding evidence is owned by the adjacent external-contract experiment:
 
 ```bash
+cd ../external-semantic-contract-v0
 set -a
 source /etc/ordivon/ordivon-mcp.env
 set +a
-PYTHONPATH=src python3.12 scripts/live_ordivon_journal_restart.py \
+PYTHONPATH=src:../semantic-core-v0/src:../semantic-core-v0/scripts:. \
+  python3.12 scripts/live_bound_ordivon_restart.py \
   --source-revision <exact-commit>
 ```
 
@@ -41,7 +43,7 @@ Live scripts never print the Bearer token and close temporary Workspaces.
 
 - typed `SemanticId` identities;
 - versioned `WorldObjectRef` targets;
-- immutable `EffectSpec` intent;
+- immutable `KernelEffectProjection` intent;
 - independent `DispatchRecord` attempts with STARTED / ADMITTED / UNKNOWN / REJECTED state;
 - ordered `EffectEvent` causality;
 - immutable `Observation` and `Artifact` evidence;
@@ -93,7 +95,7 @@ PYTHONPATH=src python3.12 benchmarks/benchmark_semantic_core.py \
 
 The harness measures growth on one environment, not cross-machine rankings. Baseline and optimized exact-revision results are stored under `benchmark-results/`.
 
-The P2 implementation reduced the 200-Effect in-memory workload from 3,693.445 ms to 37.033 ms and the 100-Effect Journal workload from 963.434 ms to 38.131 ms. After the K12 Binding edge and Journal v4, exact revision `2f4d7ca8...` measured 34.433 ms and 39.351 ms respectively, with 200-entry reopen at 30.327 ms; the new edge did not regress the established cost curve.
+Exact benchmark values are retained only in immutable receipts indexed by [`EVIDENCE.md`](EVIDENCE.md).
 
 ## Kernel responsibility
 
@@ -107,7 +109,8 @@ The Kernel preserves semantic identity, legal transitions, explicit uncertainty,
 - [`JOURNAL.md`](JOURNAL.md) — atomic persistence, integrity, writer conflict, and replay;
 - [`ADAPTERS.md`](ADAPTERS.md) — asynchronous execution and versioned I/O boundaries;
 - [`FAILURE-MODEL.md`](FAILURE-MODEL.md) — failure classes and required responses;
-- [`CONFORMANCE.md`](CONFORMANCE.md) — canonical tests and sanitized live evidence;
+- [`CONFORMANCE.md`](CONFORMANCE.md) — canonical guarantee-to-test mapping;
+- [`EVIDENCE.md`](EVIDENCE.md) — immutable receipt index;
 - [`DECISIONS.md`](DECISIONS.md) — retained architecture decisions.
 
 Changing task state and readiness live in GitHub Issues. Construction history lives in Git commits and `DECISIONS.md`; it is not duplicated in a local roadmap or status file.

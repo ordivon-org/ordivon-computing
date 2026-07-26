@@ -56,7 +56,6 @@ def prepared_exec(kernel: Any, name: str) -> Any:
         base,
         target=WorldObjectRef(target_id),
         mode=EffectMode.CHANGE,
-        operation="workspace.exec",
         capability=CapabilityRef(
             base.capability.principal_id,
             "workspace.exec",

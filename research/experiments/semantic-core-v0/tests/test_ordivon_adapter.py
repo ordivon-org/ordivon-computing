@@ -59,7 +59,6 @@ def prepared_operation(
         base,
         target=WorldObjectRef(target_id),
         mode=mode,
-        operation=operation,
         capability=CapabilityRef(
             base.capability.principal_id,
             operation,

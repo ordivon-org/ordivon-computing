@@ -1,6 +1,6 @@
 # External Semantic Contract v0
 
-This experiment separates public Agent Effect representation, executable Tool contracts, and immutable Effect bindings from the closed Semantic Kernel v0 experiment.
+This experiment owns the public backend-neutral Effect representation, executable Tool contracts, immutable Effect bindings, and the signed projection admitted by the closed Semantic Kernel v0 experiment.
 
 ```text
 anc-canonical
@@ -9,30 +9,40 @@ anc-canonical
             │
 anc-effect-ir ─┴─→ anc-effect-binding
                          │
-                         ▼ BindingAdmission
+                         ▼ signed BindingAdmission
                   Semantic Kernel edge
                          │
                          ▼
                   Adapter / Backend
 ```
 
-The production Kernel does not import this workspace. Integration translates a signed binding into the Kernel's minimal `BindingAdmission` record.
+The Kernel does not import this workspace. Complete signed Bindings remain in a content-addressed external store; Kernel state keeps only the immutable identity, Effect digest, Binding digest, revision, supersedes edge, and Kernel Authority attestation.
 
-## Commands
+## Deterministic gate
 
 ```bash
-PYTHONPATH=src python3.12 -m unittest discover -s tests -v
-PYTHONPATH=src python3.12 scripts/external_contract_report.py --source-revision "$(git rev-parse HEAD)"
+PYTHONPATH=src:../semantic-core-v0/src:. python3.12 -m unittest discover -s tests
+ruff check src integration tests scripts
 rustc --edition=2021 rust/canonical-verifier/main.rs -o /tmp/anc-canonical-verifier
 /tmp/anc-canonical-verifier fixtures/canonical/canonical-vectors.tsv
 ```
 
-## Exact P0–P6 evidence
+## Manual real-system evidence
 
-Implementation: `2f4d7ca8db6756b8add3356db52dcd237ed7a256`
+```bash
+set -a
+source /etc/ordivon/ordivon-mcp.env
+set +a
 
-- [`evidence/external-contract-2f4d7ca.json`](evidence/external-contract-2f4d7ca.json)
-- [`evidence/live-ordivon-2f4d7ca.json`](evidence/live-ordivon-2f4d7ca.json)
-- [`../semantic-core-v0/benchmark-results/binding-edge-2f4d7ca.json`](../semantic-core-v0/benchmark-results/binding-edge-2f4d7ca.json)
+PYTHONPATH=src:../semantic-core-v0/src:../semantic-core-v0/scripts:. \
+  python3.12 scripts/live_bound_ordivon_restart.py \
+  --source-revision <exact-commit>
 
-P0–P6 freezes a minimal Effect IR v1 and closes the public Effect-identity question. It does not claim a complete general Tool ABI, catalog service, Host, compiler, Task Runtime, or plugin platform.
+PYTHONPATH=src:../semantic-core-v0/src:../semantic-core-v0/scripts:. \
+  python3.12 scripts/live_bound_ordivon_files.py \
+  --source-revision <exact-commit>
+```
+
+The public Effect IR v1 is intentionally small. It does not claim a complete general Tool ABI, catalog service, Host, compiler, Task Runtime, Provider selector, or plugin platform.
+
+See [`ARCHITECTURE.md`](ARCHITECTURE.md), [`SPEC.md`](SPEC.md), [`CONFORMANCE.md`](CONFORMANCE.md), and [`EVIDENCE.md`](EVIDENCE.md).

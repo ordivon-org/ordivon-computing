@@ -23,7 +23,7 @@ The core answers seven questions:
 AuthorityRef   signed role grant with issuer, principal, trust domain, and policy version
 Attestation    signed binding between Authority, exact semantic content, contract, and time
 WorldObjectRef  external object identity and optional version
-EffectSpec      intended observation or change
+KernelEffectProjection      intended observation or change
 DispatchRecord  one concrete boundary attempt with request identity and admission state
 EffectEvent     ordered causal transition
 Observation     immutable reading bound to Effect and Dispatch

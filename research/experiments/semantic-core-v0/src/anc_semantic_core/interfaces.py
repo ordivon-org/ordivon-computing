@@ -11,7 +11,7 @@ from .model import (
     DispatchRecord,
     EffectEvent,
     EffectRecord,
-    EffectSpec,
+    KernelEffectProjection,
     Fact,
     Observation,
     Verification,
@@ -72,7 +72,7 @@ class TransactionalView(Protocol):
 
 class EffectView(KernelReadView, RootBoundView, TransactionalView, Protocol):
     def admit_effect(
-        self, spec: EffectSpec, *, event_id: SemanticId, recorded_at_ms: int
+        self, spec: KernelEffectProjection, *, event_id: SemanticId, recorded_at_ms: int
     ) -> Admission: ...
 
     def prepare_effect(
