@@ -452,6 +452,20 @@ class AuthorizedKernel:
     def journal_entry_count(self) -> int:
         return self._kernel.journal_entry_count
 
+    @property
+    def checkpoint_sequence(self) -> int:
+        return self._kernel.checkpoint_sequence
+
+    @property
+    def checkpoint_count(self) -> int:
+        return self._kernel.checkpoint_count
+
+    def checkpoint(self) -> int:
+        return self._kernel.checkpoint()
+
+    def verify_from_genesis(self) -> None:
+        self._kernel.verify_from_genesis()
+
     @contextmanager
     def transaction(self) -> Iterator["AuthorizedKernel"]:
         with self._kernel.transaction():

@@ -50,18 +50,24 @@ _Result = TypeVar("_Result")
 def _atomic_mutation(
     method: Callable[..., _Result],
 ) -> Callable[..., _Result]:
-    """Make one in-memory semantic command all-or-nothing."""
+    """Make one semantic command atomic with a command-local undo savepoint."""
 
     @wraps(method)
     def wrapped(self: "ReferenceReducer", *args: Any, **kwargs: Any) -> _Result:
-        before = self._snapshot()
+        savepoint = len(self._undo_log)
+        serial = self._mutation_serial
         try:
             result = method(self, *args, **kwargs)
-            self.validate_invariants()
+            if len(self._undo_log) != savepoint:
+                self._mutation_serial += 1
             return result
         except BaseException:
-            self._restore(before)
+            self._rollback_to(savepoint)
+            self._mutation_serial = serial
             raise
+        finally:
+            if self._transaction_depth == 0:
+                self._undo_log.clear()
 
     return wrapped
 
@@ -102,6 +108,9 @@ class ReferenceReducer:
         self._claims: dict[SemanticId, Claim] = {}
         self._verifications: dict[SemanticId, Verification] = {}
         self._facts: dict[SemanticId, Fact] = {}
+        self._undo_log: list[Callable[[], None]] = []
+        self._transaction_depth = 0
+        self._mutation_serial = 0
 
     def _snapshot(self) -> tuple[dict[Any, Any], ...]:
         return (
@@ -132,7 +141,40 @@ class ReferenceReducer:
     def clone(self) -> "ReferenceReducer":
         cloned = ReferenceReducer(self._authority_policy)
         cloned._restore(self._snapshot())
+        cloned._mutation_serial = self._mutation_serial
         return cloned
+
+    @property
+    def mutation_serial(self) -> int:
+        return self._mutation_serial
+
+    def _set_item(self, mapping: dict[Any, Any], key: Any, value: Any) -> None:
+        existed = key in mapping
+        previous = mapping.get(key)
+        if existed and previous == value:
+            return
+
+        def undo() -> None:
+            if existed:
+                mapping[key] = previous
+            else:
+                mapping.pop(key, None)
+
+        self._undo_log.append(undo)
+        mapping[key] = value
+
+    def _append_item(self, items: list[Any], value: Any) -> None:
+        previous_length = len(items)
+
+        def undo() -> None:
+            del items[previous_length:]
+
+        self._undo_log.append(undo)
+        items.append(value)
+
+    def _rollback_to(self, savepoint: int) -> None:
+        while len(self._undo_log) > savepoint:
+            self._undo_log.pop()()
 
     @property
     def authority_policy_fingerprint(self) -> str:
@@ -142,22 +184,110 @@ class ReferenceReducer:
         """Return a detached equality-comparable state snapshot for tests and stores."""
         return self._snapshot()
 
+    def export_state(self) -> dict[str, tuple[Any, ...]]:
+        """Return a deterministic canonical state payload for checkpoints."""
+
+        def ordered(values: Any, identity: Callable[[Any], SemanticId]) -> tuple[Any, ...]:
+            return tuple(sorted(values, key=lambda item: str(identity(item))))
+
+        return {
+            "effects": ordered(self._effects.values(), lambda item: item.spec.effect_id),
+            "dispatches": ordered(self._dispatches.values(), lambda item: item.dispatch_id),
+            "events": ordered(self._events.values(), lambda item: item.event_id),
+            "observations": ordered(
+                self._observations.values(), lambda item: item.observation_id
+            ),
+            "artifacts": ordered(self._artifacts.values(), lambda item: item.artifact_id),
+            "claims": ordered(self._claims.values(), lambda item: item.claim_id),
+            "verifications": ordered(
+                self._verifications.values(), lambda item: item.verification_id
+            ),
+            "facts": ordered(self._facts.values(), lambda item: item.fact_id),
+        }
+
+    @classmethod
+    def from_exported_state(
+        cls, authority_policy: AuthorityPolicy, state: dict[str, tuple[Any, ...]]
+    ) -> "ReferenceReducer":
+        expected = {
+            "effects",
+            "dispatches",
+            "events",
+            "observations",
+            "artifacts",
+            "claims",
+            "verifications",
+            "facts",
+        }
+        if set(state) != expected or not all(
+            isinstance(value, tuple) for value in state.values()
+        ):
+            raise InvariantViolation("checkpoint state shape is invalid")
+        reducer = cls(authority_policy)
+        reducer._effects = {item.spec.effect_id: item for item in state["effects"]}
+        reducer._dispatches = {
+            item.dispatch_id: item for item in state["dispatches"]
+        }
+        reducer._events = {item.event_id: item for item in state["events"]}
+        reducer._events_by_effect = {effect_id: [] for effect_id in reducer._effects}
+        for event in sorted(
+            state["events"], key=lambda item: (str(item.effect_id), item.sequence)
+        ):
+            try:
+                reducer._events_by_effect[event.effect_id].append(event)
+            except KeyError as error:
+                raise InvariantViolation(
+                    f"checkpoint event references missing Effect: {event.event_id}"
+                ) from error
+        reducer._observations = {
+            item.observation_id: item for item in state["observations"]
+        }
+        reducer._artifacts = {item.artifact_id: item for item in state["artifacts"]}
+        reducer._claims = {item.claim_id: item for item in state["claims"]}
+        reducer._verifications = {
+            item.verification_id: item for item in state["verifications"]
+        }
+        reducer._facts = {item.fact_id: item for item in state["facts"]}
+        reducer.validate_invariants()
+        return reducer
+
     @property
     def journal_entry_count(self) -> int:
         return 0
+
+    @property
+    def checkpoint_sequence(self) -> int:
+        return 0
+
+    @property
+    def checkpoint_count(self) -> int:
+        return 0
+
+    def checkpoint(self) -> int:
+        self.validate_invariants()
+        return 0
+
+    def verify_from_genesis(self) -> None:
+        self.validate_invariants()
 
     def close(self) -> None:
         return None
 
     @contextmanager
     def transaction(self) -> Iterator["ReferenceReducer"]:
-        before = self._snapshot()
+        savepoint = len(self._undo_log)
+        serial = self._mutation_serial
+        self._transaction_depth += 1
         try:
             yield self
-            self.validate_invariants()
         except BaseException:
-            self._restore(before)
+            self._rollback_to(savepoint)
+            self._mutation_serial = serial
             raise
+        finally:
+            self._transaction_depth -= 1
+            if self._transaction_depth == 0:
+                self._undo_log.clear()
 
     @_atomic_mutation
     def admit_effect(
@@ -194,9 +324,9 @@ class ReferenceReducer:
             recorded_at_ms=recorded_at_ms,
             attestation=attestation,
         )
-        self._effects[spec.effect_id] = record
-        self._events[event_id] = event
-        self._events_by_effect[spec.effect_id] = [event]
+        self._set_item(self._effects, spec.effect_id, record)
+        self._set_item(self._events, event_id, event)
+        self._set_item(self._events_by_effect, spec.effect_id, [event])
         return Admission.CREATED
 
     @_atomic_mutation
@@ -283,7 +413,7 @@ class ReferenceReducer:
             event_kind=EventKind.DISPATCH_STARTED,
             attestation=attestation,
         )
-        self._dispatches[dispatch_id] = dispatch
+        self._set_item(self._dispatches, dispatch_id, dispatch)
         return record
 
     @_atomic_mutation
@@ -324,14 +454,14 @@ class ReferenceReducer:
                 return record
             raise IdentityConflict("Dispatch is already bound to a different backend operation")
         self._require_dispatch_transition(dispatch.state, DispatchState.ADMITTED)
-        self._dispatches[dispatch_id] = replace(
+        self._set_item(self._dispatches, dispatch_id, replace(
             dispatch,
             state=DispatchState.ADMITTED,
             updated_at_ms=recorded_at_ms,
             backend_operation_id=backend_operation_id,
             reason_code=None,
             retryable=None,
-        )
+        ))
         return self._append_effect_event(
             record,
             event_id=event_id,
@@ -375,13 +505,13 @@ class ReferenceReducer:
         )
         if dispatch.state is not DispatchState.UNKNOWN:
             self._require_dispatch_transition(dispatch.state, DispatchState.UNKNOWN)
-        self._dispatches[dispatch_id] = replace(
+        self._set_item(self._dispatches, dispatch_id, replace(
             dispatch,
             state=DispatchState.UNKNOWN,
             updated_at_ms=recorded_at_ms,
             reason_code=None,
             retryable=None,
-        )
+        ))
         if record.state is EffectState.UNKNOWN:
             return record
         return self._transition(
@@ -438,14 +568,14 @@ class ReferenceReducer:
                 return record
             raise IdentityConflict("Dispatch rejection conflicts with existing outcome")
         self._require_dispatch_transition(dispatch.state, DispatchState.REJECTED)
-        self._dispatches[dispatch_id] = replace(
+        self._set_item(self._dispatches, dispatch_id, replace(
             dispatch,
             state=DispatchState.REJECTED,
             updated_at_ms=recorded_at_ms,
             backend_operation_id=None,
             reason_code=reason_code,
             retryable=retryable,
-        )
+        ))
         target = EffectState.PREPARED if retryable else EffectState.FAILED
         return self._append_effect_event(
             replace(record, state=target, dispatch_id=None),
@@ -616,7 +746,7 @@ class ReferenceReducer:
             raise InvariantViolation("pre-dispatch effect cannot produce an observation")
         if observation.target.object_id != record.spec.target.object_id:
             raise InvariantViolation("observation target does not match effect target")
-        self._observations[observation.observation_id] = observation
+        self._set_item(self._observations, observation.observation_id, observation)
         return Admission.CREATED
 
     @_atomic_mutation
@@ -638,7 +768,7 @@ class ReferenceReducer:
         self._require_admitted_dispatch(record, artifact.dispatch_id)
         if record.state in {EffectState.PROPOSED, EffectState.PREPARED}:
             raise InvariantViolation("pre-dispatch effect cannot produce an artifact")
-        self._artifacts[artifact.artifact_id] = artifact
+        self._set_item(self._artifacts, artifact.artifact_id, artifact)
         return Admission.CREATED
 
     @_atomic_mutation
@@ -660,7 +790,7 @@ class ReferenceReducer:
         origin = self.get_effect(claim.origin_effect_id)
         if claim.subject.object_id != origin.spec.target.object_id:
             raise InvariantViolation("claim subject does not match origin Effect target")
-        self._claims[claim.claim_id] = claim
+        self._set_item(self._claims, claim.claim_id, claim)
         return Admission.CREATED
 
     @_atomic_mutation
@@ -681,7 +811,7 @@ class ReferenceReducer:
                 f"verification identity conflict: {verification.verification_id}"
             )
         self._validate_verification(verification)
-        self._verifications[verification.verification_id] = verification
+        self._set_item(self._verifications, verification.verification_id, verification)
         return Admission.CREATED
 
     @_atomic_mutation
@@ -711,7 +841,7 @@ class ReferenceReducer:
             raise InvariantViolation("only an accepted verification can create a fact")
         if fact.accepted_at_ms < verification.verified_at_ms:
             raise InvariantViolation("fact cannot predate its verification")
-        self._facts[fact.fact_id] = fact
+        self._set_item(self._facts, fact.fact_id, fact)
         return Admission.CREATED
 
     def validate_invariants(self) -> None:
@@ -1029,9 +1159,9 @@ class ReferenceReducer:
             evidence_digest=evidence_digest,
             dispatch_id=dispatch_id,
         )
-        self._effects[updated.spec.effect_id] = updated
-        self._events[event_id] = event
-        self._events_by_effect[updated.spec.effect_id].append(event)
+        self._set_item(self._effects, updated.spec.effect_id, updated)
+        self._set_item(self._events, event_id, event)
+        self._append_item(self._events_by_effect[updated.spec.effect_id], event)
         return updated
 
     def _transition(
@@ -1085,9 +1215,9 @@ class ReferenceReducer:
             evidence_digest=evidence_digest,
             dispatch_id=bound_dispatch,
         )
-        self._effects[effect_id] = updated
-        self._events[event_id] = event
-        self._events_by_effect[effect_id].append(event)
+        self._set_item(self._effects, effect_id, updated)
+        self._set_item(self._events, event_id, event)
+        self._append_item(self._events_by_effect[effect_id], event)
         return updated
 
     def _validate_event_attestation(
