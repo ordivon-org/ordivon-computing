@@ -109,12 +109,30 @@ Mutation Effect succeeds
 
 A zero process exit code is also backend evidence, not higher-level correctness. Output markers or other declared evidence must satisfy the originating Effect's Verification plan.
 
-## Construction questions exposed by adapters
+## Two-backend portability result
+
+The Ordivon Adapter and deterministic simulator now run one shared semantic conformance suite despite using different operation names, status words, correlation keys, receipt structures, and backend identities. Their normalized semantic reports are exactly equal.
+
+The comparison separates the boundary as follows:
+
+| Universal semantic record | Backend-local mechanism |
+|---|---|
+| `EffectId` | proposal identity supplied above either Adapter |
+| `DispatchId` | one boundary attempt allocated before either call |
+| opaque backend operation binding | Ordivon Job ID or simulator operation ID |
+| `UNKNOWN` | response loss, orphaned Job, or indeterminate inspection |
+| `RECONCILING` | Job lookup/observe or correlation lookup/inspect |
+| cancellation intent and outcome | `task.cancel` or simulator cancellation flag |
+| Observation / Artifact | backend-specific payload and retained bytes |
+| Authority / Attestation | the same scoped Kernel Views for both Adapters |
+
+Backend implementation objects are scanned out of Kernel snapshots, and neither simulator nor portability driver is exported from the package root.
+
+## Remaining Adapter questions
 
 - Tool-contract identity and schema drift while an Effect is pending or a Job is running;
 - reconciliation of uncertain synchronous mutation when no durable receipt is available;
 - new-file and multi-file atomic mutation semantics;
-- Artifact digest or identity mismatch against a live backend;
-- backend-independent conformance through a second simulator or implementation.
+- Artifact digest or identity mismatch against a live backend.
 
 Executable and live evidence is indexed in [`CONFORMANCE.md`](CONFORMANCE.md).

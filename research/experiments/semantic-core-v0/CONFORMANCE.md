@@ -20,6 +20,7 @@
 | K8 | durable deterministic replay | deterministic + live | `test_k8_corrupt_durable_history_fails_closed` |
 | K9 | role-scoped semantic authority | deterministic | `test_role_specific_signer_cannot_escalate_to_another_role` |
 | K10 | content-bound attestation | deterministic + live | `test_attestation_provenance_survives_journal_replay` |
+| K11 | backend-independent semantic projection | deterministic | `test_same_semantic_contract_runs_against_two_backends` |
 
 A drift-guard test binds every Charter clause to the named executable evidence in this file.
 
@@ -31,7 +32,7 @@ PYTHONPATH=src python3.12 -m compileall -q src tests scripts
 ruff check src tests scripts
 ```
 
-The suite covers atomic rollback, Journal corruption and stale writers, response loss, cancellation races, versioned I/O, cross-Effect evidence, role escalation, forged grants, changed policy identity, wrong-secret replay, and official attested Adapter projections.
+The suite covers atomic rollback, Journal corruption and stale writers, response loss, cancellation races, versioned I/O, cross-Effect evidence, role escalation, forged grants, changed policy identity, wrong-secret replay, official attested Adapter projections, and exact two-backend semantic equivalence.
 
 ## P1 structural conformance
 
@@ -97,6 +98,37 @@ Fact committed: 1
 stale mutation: failed / INVALID_REQUEST
 final content and digest: stable
 ```
+
+## P2E backend portability conformance
+
+The canonical portability suite runs one semantic scenario set through two structurally distinct adapters:
+
+| Property | Ordivon backend | Deterministic backend |
+|---|---|---|
+| execution operation | `workspace.exec` | `simulator.job.launch` |
+| read operation | `workspace.read` | `simulator.object.read` |
+| mutation operation | `workspace.mutate` | `simulator.object.mutate` |
+| running state | `working` | `ACTIVE` |
+| success state | `succeeded` | `COMPLETE` |
+| uncertain state | `lost` / `orphaned` | `INDETERMINATE` |
+| external identity | Job / Attempt / client request | operation / correlation / receipt |
+
+`test_same_semantic_contract_runs_against_two_backends` requires the complete normalized reports to be equal. Both backends prove:
+
+- versioned object read and digest-bound Observation;
+- guarded mutation and stale-version rejection;
+- independent reread, accepted Verification, and Fact admission;
+- asynchronous Job Observation and Artifact projection;
+- response loss as `UNKNOWN`;
+- Adapter replacement and identity-preserving reconciliation without redispatch;
+- cancellation intent before terminal cancellation evidence;
+- one broken execution remaining isolated while unrelated work succeeds;
+- DISPATCH authority on execution Events and OBSERVATION authority on evidence;
+- absence of backend implementation objects from the Kernel state snapshot.
+
+`test_simulator_response_loss_survives_journal_reopen` additionally closes and reopens a Journal-backed Kernel, creates a new simulator Adapter, correlates the already admitted backend operation, preserves the original Dispatch, reaches `SUCCEEDED`, and confirms one backend delivery.
+
+The simulator and shared portability driver are internal experiment modules and are not exported from the package root. They provide executable evidence, not a generic plugin framework or a second production runtime.
 
 ## Live evidence summary
 

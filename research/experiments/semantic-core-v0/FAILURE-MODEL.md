@@ -61,6 +61,8 @@ after backend admission, with response discarded
 inside result projection with malformed evidence
 during cancellation race
 during process restart and journal replay
+during Adapter replacement against a second backend
+during deterministic backend inspection failure while unrelated work proceeds
 during concurrent stale-writer commit
 inside journal entry/hash/head integrity
 before Verification and Fact admission
@@ -95,7 +97,19 @@ M2.5 extends the consistency model with role-scoped authority and attestation:
 
 These signed records preserve the same Effect, Dispatch, evidence, and Journal primitives while making authority provenance replayable and mechanically verifiable.
 
-## 6. Exit criterion
+## 6. Cross-backend failure evidence
+
+P2E reproduces the same semantic failures through two unrelated backend contracts:
+
+```text
+Ordivon response loss      → UNKNOWN → Job correlation → original Dispatch succeeds
+simulator response loss    → UNKNOWN → operation lookup → original Dispatch succeeds
+simulator inspection fault → UNKNOWN while unrelated operation succeeds
+```
+
+Both paths preserve one delivery, the original Dispatch identity, DISPATCH authority on execution Events, OBSERVATION authority on evidence, and complete Journal replay. This demonstrates that the response classes are not artifacts of Ordivon Job terminology.
+
+## 7. Exit criterion
 
 A claimed guarantee is complete only when:
 
