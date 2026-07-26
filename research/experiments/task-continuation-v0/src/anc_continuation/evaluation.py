@@ -17,6 +17,7 @@ def continuation_evaluation_report(evidence: dict[str, Any]) -> dict[str, JsonVa
     scripted = evidence.get("freshProcessScripted")
     drift = evidence.get("freshProcessDrift")
     codex = evidence.get("freshProcessCodex")
+    hermes = evidence.get("freshProcessHermes")
     if not isinstance(baselines, list) or not isinstance(variants, list):
         raise EvaluationError("continuation baselines or ablations are missing")
     if not isinstance(scripted, dict) or not isinstance(drift, dict):
@@ -75,6 +76,96 @@ def continuation_evaluation_report(evidence: dict[str, Any]) -> dict[str, JsonVa
             "originalTranscriptLoaded": codex.get("originalTranscriptLoaded"),
         }
 
+    hermes_case: JsonValue = None
+    provider_comparison: JsonValue = None
+    provider_agreement: JsonValue = None
+    if hermes is not None:
+        if not isinstance(hermes, dict) or not isinstance(hermes.get("host"), dict):
+            raise EvaluationError("Hermes Host receipt is invalid")
+        hermes_host = hermes["host"]
+        hermes_decision = hermes_host.get("decision")
+        if not isinstance(hermes_decision, dict):
+            raise EvaluationError("Hermes decision is missing")
+        hermes_agreement = all(
+            hermes_decision.get(field) == scripted_decision.get(field)
+            for field in ("actionId", "kind", "effectId", "bindingId", "dispatchId")
+        )
+        adapter_evidence = hermes.get("modelAdapterEvidence")
+        hermes_case = {
+            "adapterId": hermes_host.get("adapterId"),
+            "status": hermes_host.get("status"),
+            "correctFirstAction": hermes_decision.get("actionId")
+            == evidence["baselines"]["expectedFirstAction"],
+            "modelAgreement": hermes_agreement,
+            "contextBytes": hermes_host.get("contextBytes"),
+            "elapsedMs": hermes.get("elapsedMs"),
+            "modelCallCount": hermes.get("modelCallCount"),
+            "modelTokenCount": hermes.get("modelTokenCount"),
+            "humanCorrectionCount": hermes.get("humanCorrectionCount"),
+            "originalTranscriptLoaded": hermes.get("originalTranscriptLoaded"),
+            "modelAdapterEvidence": adapter_evidence,
+        }
+        if codex is not None:
+            codex_host = codex["host"]
+            codex_decision = codex_host["decision"]
+            identity_fields = (
+                "actionId",
+                "kind",
+                "effectId",
+                "bindingId",
+                "dispatchId",
+            )
+            same_decision = all(
+                codex_decision.get(field) == hermes_decision.get(field)
+                for field in identity_fields
+            )
+            same_capsule = (
+                codex_host.get("capsuleBefore") == evidence.get("capsuleDigest")
+                and hermes_host.get("capsuleBefore") == evidence.get("capsuleDigest")
+            )
+            same_context = (
+                codex_host.get("contextDigest") == hermes_host.get("contextDigest")
+                and codex_host.get("contextBytes") == hermes_host.get("contextBytes")
+            )
+            distinct_adapters = (
+                codex_host.get("adapterId") != hermes_host.get("adapterId")
+            )
+            both_completed = (
+                codex_host.get("status") == "completed"
+                and hermes_host.get("status") == "completed"
+            )
+            transcript_free = (
+                codex.get("originalTranscriptLoaded") is False
+                and hermes.get("originalTranscriptLoaded") is False
+            )
+            same_execution = (
+                codex_host.get("executedEffects") == hermes_host.get("executedEffects")
+                and codex_host.get("committedFacts") == hermes_host.get("committedFacts")
+            )
+            provider_agreement = all(
+                (
+                    same_decision,
+                    same_capsule,
+                    same_context,
+                    distinct_adapters,
+                    both_completed,
+                    transcript_free,
+                    same_execution,
+                )
+            )
+            provider_comparison = {
+                "completed": provider_agreement,
+                "sameCapsule": same_capsule,
+                "sameContext": same_context,
+                "sameDecision": same_decision,
+                "sameExecution": same_execution,
+                "distinctAdapters": distinct_adapters,
+                "bothCompleted": both_completed,
+                "transcriptFree": transcript_free,
+                "codexAdapterId": codex_host.get("adapterId"),
+                "hermesAdapterId": hermes_host.get("adapterId"),
+            }
+
     hard_dependencies = [
         name
         for name in (
@@ -113,6 +204,10 @@ def continuation_evaluation_report(evidence: dict[str, Any]) -> dict[str, JsonVa
         "hardDependenciesFailClosed": len(hard_dependencies) == 3,
         "completedEffectsPreserveProvenance": provenance_dependency,
         "realModelAgreesWhenPresent": model_agreement in {None, True},
+        "hermesModelAgreesWhenPresent": (
+            hermes_case is None or hermes_case["modelAgreement"] is True
+        ),
+        "providerReplacementAgreesWhenPresent": provider_agreement in {None, True},
     }
     return {
         "schemaVersion": 1,
@@ -151,6 +246,8 @@ def continuation_evaluation_report(evidence: dict[str, Any]) -> dict[str, JsonVa
             "worldAfter": drift_host.get("worldAfter"),
         },
         "codexFreshHost": codex_case,
+        "hermesFreshHost": hermes_case,
+        "providerComparison": provider_comparison,
         "recommendation": {
             "retain": [
                 "decision Artifact reference",
@@ -166,8 +263,12 @@ def continuation_evaluation_report(evidence: dict[str, Any]) -> dict[str, JsonVa
                 "automatic Tool catalog service",
             ],
             "nextExperiment": (
-                "Run #32 only with a second real provider/model adapter over the same Capsule; "
-                "do not change stored Task state between models."
+                "Provider replacement is proven for Codex/GPT-5.5 and "
+                "Hermes/DeepSeek-V4-Pro over the same Capsule. The next information-gain "
+                "experiment is a second independent workload, not an automatic router."
+                if provider_comparison is not None and provider_comparison["completed"]
+                else "Run #32 only with a second real provider/model adapter over the same "
+                "Capsule; do not change stored Task state between models."
             ),
         },
     }

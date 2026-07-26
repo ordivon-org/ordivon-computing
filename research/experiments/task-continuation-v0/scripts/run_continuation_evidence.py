@@ -35,6 +35,9 @@ def run_child(
     *,
     adapter: str,
     model: str | None,
+    provider: str | None = None,
+    base_url: str | None = None,
+    hermes_env_path: Path | None = None,
 ) -> dict:
     command = [
         sys.executable,
@@ -46,6 +49,12 @@ def run_child(
     ]
     if model is not None:
         command.extend(["--model", model])
+    if provider is not None:
+        command.extend(["--provider", provider])
+    if base_url is not None:
+        command.extend(["--base-url", base_url])
+    if hermes_env_path is not None:
+        command.extend(["--hermes-env-path", str(hermes_env_path)])
     completed = subprocess.run(
         command,
         text=True,
@@ -72,6 +81,11 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--include-codex", action="store_true")
     parser.add_argument("--model")
+    parser.add_argument("--include-hermes", action="store_true")
+    parser.add_argument("--hermes-model", default="deepseek-v4-pro")
+    parser.add_argument("--hermes-provider", default="deepseek")
+    parser.add_argument("--hermes-base-url", default="https://api.deepseek.com")
+    parser.add_argument("--hermes-env-path", type=Path)
     args = parser.parse_args()
     with tempfile.TemporaryDirectory(prefix="anc-continuation-evidence-") as temporary:
         root = Path(temporary)
@@ -97,6 +111,19 @@ def main() -> None:
             shutil.copytree(frozen.root, codex_checkpoint)
             codex = run_child(codex_checkpoint, adapter="codex", model=args.model)
 
+        hermes = None
+        if args.include_hermes:
+            hermes_checkpoint = root / "hermes"
+            shutil.copytree(frozen.root, hermes_checkpoint)
+            hermes = run_child(
+                hermes_checkpoint,
+                adapter="hermes",
+                model=args.hermes_model,
+                provider=args.hermes_provider,
+                base_url=args.hermes_base_url,
+                hermes_env_path=args.hermes_env_path,
+            )
+
         receipt = {
             "schemaVersion": 1,
             "kind": "anc.continuation-evidence",
@@ -110,8 +137,9 @@ def main() -> None:
             "freshProcessScripted": scripted,
             "freshProcessDrift": drift,
             "freshProcessCodex": codex,
+            "freshProcessHermes": hermes,
         }
-        for child in (scripted, drift, codex):
+        for child in (scripted, drift, codex, hermes):
             if child is None:
                 continue
             if child["processId"] == os.getpid():
@@ -124,6 +152,8 @@ def main() -> None:
             raise AssertionError("drifted fresh Host did not block")
         if codex is not None and codex["host"]["status"] != "completed":
             raise AssertionError("Codex fresh Host did not complete")
+        if hermes is not None and hermes["host"]["status"] != "completed":
+            raise AssertionError("Hermes fresh Host did not complete")
         rendered = json.dumps(receipt, indent=2, sort_keys=True) + "\n"
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(rendered)

@@ -22,6 +22,7 @@ for path in (
 
 from anc_continuation.adapters import (  # noqa: E402
     CodexCliModelAdapter,
+    HermesCliModelAdapter,
     ScriptedModelAdapter,
 )
 from anc_continuation.host import FreshHost  # noqa: E402
@@ -35,8 +36,13 @@ def main() -> None:
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--capsule-digest")
     parser.add_argument("--world-root", type=Path)
-    parser.add_argument("--adapter", choices=("scripted", "codex"), default="scripted")
+    parser.add_argument(
+        "--adapter", choices=("scripted", "codex", "hermes"), default="scripted"
+    )
     parser.add_argument("--model")
+    parser.add_argument("--provider")
+    parser.add_argument("--base-url")
+    parser.add_argument("--hermes-env-path", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--stop-before-model", action="store_true")
     args = parser.parse_args()
@@ -44,10 +50,18 @@ def main() -> None:
     digest = args.capsule_digest or str(manifest["capsuleDigest"])
     if args.adapter == "scripted":
         adapter = ScriptedModelAdapter()
-    else:
+    elif args.adapter == "codex":
         adapter = CodexCliModelAdapter(
             working_directory=(args.world_root or args.checkpoint),
             model=args.model,
+        )
+    else:
+        adapter = HermesCliModelAdapter(
+            working_directory=(args.world_root or args.checkpoint),
+            model=args.model or "deepseek-v4-pro",
+            provider=args.provider or "deepseek",
+            base_url=args.base_url or "https://api.deepseek.com",
+            credential_env_path=args.hermes_env_path,
         )
     started_ns = time.monotonic_ns()
     receipt = FreshHost(args.checkpoint, adapter).run(
@@ -56,6 +70,16 @@ def main() -> None:
         stop_before_model=args.stop_before_model,
     )
     elapsed_ms = (time.monotonic_ns() - started_ns) // 1_000_000
+    adapter_evidence = (
+        adapter.evidence_metadata()
+        if hasattr(adapter, "evidence_metadata")
+        else None
+    )
+    total_tokens = (
+        adapter_evidence.get("totalTokens")
+        if isinstance(adapter_evidence, dict)
+        else None
+    )
     value = {
         "schemaVersion": 1,
         "kind": "anc.fresh-host-process-receipt",
@@ -67,7 +91,8 @@ def main() -> None:
         "modelCallCount": 1,
         "semanticExecutionCount": len(receipt.executed_effects),
         "humanCorrectionCount": 0,
-        "modelTokenCount": None,
+        "modelTokenCount": total_tokens,
+        "modelAdapterEvidence": adapter_evidence,
         "host": receipt.to_dict(),
     }
     rendered = json.dumps(value, indent=2, sort_keys=True) + "\n"

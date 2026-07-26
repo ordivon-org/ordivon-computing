@@ -1,0 +1,309 @@
+{
+  "ablations": {
+    "baselineResults": [
+      {
+        "baseline": "fullTranscript",
+        "bytes": 3894,
+        "correctFirstAction": true,
+        "firstAction": "action:apply-config-promotion",
+        "knownCompletedEffects": [
+          "effect:continuation-audit"
+        ],
+        "knowsDecision": true,
+        "repeatedCompletedEffects": []
+      },
+      {
+        "baseline": "manualHandoff",
+        "bytes": 945,
+        "correctFirstAction": true,
+        "firstAction": "action:apply-config-promotion",
+        "knownCompletedEffects": [
+          "effect:continuation-audit",
+          "effect:continuation-checkpoint-read"
+        ],
+        "knowsDecision": true,
+        "repeatedCompletedEffects": []
+      },
+      {
+        "baseline": "noMemory",
+        "bytes": 147,
+        "correctFirstAction": false,
+        "firstAction": "action:repeat-continuation-audit",
+        "knownCompletedEffects": [],
+        "knowsDecision": false,
+        "repeatedCompletedEffects": [
+          "effect:continuation-audit"
+        ]
+      }
+    ],
+    "capsuleDigest": "sha256:4669df335a15401fbdcd3fa8f686998029c9e05787656c2c3dede4f835657f50",
+    "capsuleVariants": [
+      {
+        "bytes": 2604,
+        "failure": null,
+        "forbiddenEffectCount": 2,
+        "outcome": "valid",
+        "provenanceComplete": true,
+        "variant": "full"
+      },
+      {
+        "bytes": 2420,
+        "failure": "TaskCapsule has no retained decision Artifact",
+        "forbiddenEffectCount": 0,
+        "outcome": "fail-closed",
+        "provenanceComplete": false,
+        "variant": "withoutDecisionArtifact"
+      },
+      {
+        "bytes": 2454,
+        "failure": "TaskCapsule has no accepted Fact for the checkpoint world digest",
+        "forbiddenEffectCount": 0,
+        "outcome": "fail-closed",
+        "provenanceComplete": false,
+        "variant": "withoutCheckpointFact"
+      },
+      {
+        "bytes": 2458,
+        "failure": "next-ready Binding is not current",
+        "forbiddenEffectCount": 0,
+        "outcome": "fail-closed",
+        "provenanceComplete": false,
+        "variant": "withoutCurrentBinding"
+      },
+      {
+        "bytes": 2311,
+        "failure": null,
+        "forbiddenEffectCount": 0,
+        "outcome": "valid",
+        "provenanceComplete": false,
+        "variant": "withoutCompletedEffects"
+      }
+    ],
+    "kind": "anc.task-capsule-ablation-receipt",
+    "schemaVersion": 1,
+    "sourceRevision": "1cdbbdc13514a3eb3663e2aa5bb66d077651c310"
+  },
+  "baselines": {
+    "capsuleDigest": "sha256:4669df335a15401fbdcd3fa8f686998029c9e05787656c2c3dede4f835657f50",
+    "expectedFirstAction": "action:apply-config-promotion",
+    "kind": "anc.continuation-baseline-receipt",
+    "results": [
+      {
+        "baseline": "fullTranscript",
+        "bytes": 3894,
+        "correctFirstAction": true,
+        "firstAction": "action:apply-config-promotion",
+        "knownCompletedEffects": [
+          "effect:continuation-audit"
+        ],
+        "knowsDecision": true,
+        "repeatedCompletedEffects": []
+      },
+      {
+        "baseline": "manualHandoff",
+        "bytes": 945,
+        "correctFirstAction": true,
+        "firstAction": "action:apply-config-promotion",
+        "knownCompletedEffects": [
+          "effect:continuation-audit",
+          "effect:continuation-checkpoint-read"
+        ],
+        "knowsDecision": true,
+        "repeatedCompletedEffects": []
+      },
+      {
+        "baseline": "noMemory",
+        "bytes": 147,
+        "correctFirstAction": false,
+        "firstAction": "action:repeat-continuation-audit",
+        "knownCompletedEffects": [],
+        "knowsDecision": false,
+        "repeatedCompletedEffects": [
+          "effect:continuation-audit"
+        ]
+      }
+    ],
+    "schemaVersion": 1,
+    "sourceRevision": "1cdbbdc13514a3eb3663e2aa5bb66d077651c310"
+  },
+  "capsuleDigest": "sha256:4669df335a15401fbdcd3fa8f686998029c9e05787656c2c3dede4f835657f50",
+  "evidenceProcessId": 310613,
+  "freshProcessCodex": {
+    "checkpoint": "/tmp/anc-continuation-evidence-kdl7dk3u/codex",
+    "elapsedMs": 36073,
+    "host": {
+      "adapterId": "codex-cli-ephemeral-v1:gpt-5.5",
+      "capsuleAfter": "sha256:6c3bd6eb87ee74de09acd035f3ee48c1dac665c90b82eecab0bf656dd6e4b535",
+      "capsuleBefore": "sha256:4669df335a15401fbdcd3fa8f686998029c9e05787656c2c3dede4f835657f50",
+      "committedFacts": [
+        "fact:digest:5565ca38062237f7ffa23563"
+      ],
+      "contextBytes": 2573,
+      "contextDigest": "sha256:37f2705795d01d41f275f300e56fec1afd5615ab901499a9a33138b799402d56",
+      "decision": {
+        "actionId": "action:apply-config-promotion",
+        "bindingId": "binding:continuation-apply-r1",
+        "dispatchId": null,
+        "effectId": "effect:continuation-apply-promotion",
+        "kind": "apply-guarded-mutation",
+        "rationale": "The world is current at the required digest, there are no unresolved dispatches, and the only allowed action applies the guarded mutation needed to promote mode from candidate to enabled while preserving unrelated bytes."
+      },
+      "executedEffects": [
+        "effect:continuation-apply-promotion",
+        "effect:continuation-terminal-read"
+      ],
+      "kind": "anc.fresh-host-receipt",
+      "schemaVersion": 1,
+      "status": "completed",
+      "worldAfter": "sha256:5e0e6214692d29808a5ee782903f0f4c772e9f4267b1048caf6342c9c6f882d0",
+      "worldBefore": "sha256:6ebad0cf4c7e17648b0cbed46b1c64394bf57fcc87077fbca61ede3412ef6655"
+    },
+    "humanCorrectionCount": 0,
+    "kind": "anc.fresh-host-process-receipt",
+    "modelAdapterEvidence": null,
+    "modelCallCount": 1,
+    "modelTokenCount": null,
+    "originalTranscriptLoaded": false,
+    "parentProcessId": 310613,
+    "processId": 310629,
+    "schemaVersion": 1,
+    "semanticExecutionCount": 2
+  },
+  "freshProcessDrift": {
+    "checkpoint": "/tmp/anc-continuation-evidence-kdl7dk3u/drift",
+    "elapsedMs": 3,
+    "host": {
+      "adapterId": "scripted-continuation-model-v1",
+      "capsuleAfter": "sha256:64ad12b3220b6ddadae04bf35e5f1c93524a04d05abee88fae1418ec96de82e9",
+      "capsuleBefore": "sha256:4669df335a15401fbdcd3fa8f686998029c9e05787656c2c3dede4f835657f50",
+      "committedFacts": [],
+      "contextBytes": 2303,
+      "contextDigest": "sha256:4b2e5485c856862ada7547a2ea957fc3b3d01b49fca05822c4b9e34b4eedff76",
+      "decision": {
+        "actionId": "action:refresh-world",
+        "bindingId": null,
+        "dispatchId": null,
+        "effectId": null,
+        "kind": "refresh-world",
+        "rationale": "The current world digest differs from the checkpoint, so mutation is unsafe."
+      },
+      "executedEffects": [],
+      "kind": "anc.fresh-host-receipt",
+      "schemaVersion": 1,
+      "status": "blocked-world-drift",
+      "worldAfter": "sha256:501460edaeaf7bb2e9e5b473df93a02bc385b2afd021ab248f13889b3e4b6c10",
+      "worldBefore": "sha256:6ebad0cf4c7e17648b0cbed46b1c64394bf57fcc87077fbca61ede3412ef6655"
+    },
+    "humanCorrectionCount": 0,
+    "kind": "anc.fresh-host-process-receipt",
+    "modelAdapterEvidence": null,
+    "modelCallCount": 1,
+    "modelTokenCount": null,
+    "originalTranscriptLoaded": false,
+    "parentProcessId": 310613,
+    "processId": 310623,
+    "schemaVersion": 1,
+    "semanticExecutionCount": 0
+  },
+  "freshProcessHermes": {
+    "checkpoint": "/tmp/anc-continuation-evidence-kdl7dk3u/hermes",
+    "elapsedMs": 13514,
+    "host": {
+      "adapterId": "hermes-cli-isolated-v1:deepseek/deepseek-v4-pro",
+      "capsuleAfter": "sha256:6c3bd6eb87ee74de09acd035f3ee48c1dac665c90b82eecab0bf656dd6e4b535",
+      "capsuleBefore": "sha256:4669df335a15401fbdcd3fa8f686998029c9e05787656c2c3dede4f835657f50",
+      "committedFacts": [
+        "fact:digest:5565ca38062237f7ffa23563"
+      ],
+      "contextBytes": 2573,
+      "contextDigest": "sha256:37f2705795d01d41f275f300e56fec1afd5615ab901499a9a33138b799402d56",
+      "decision": {
+        "actionId": "action:apply-config-promotion",
+        "bindingId": "binding:continuation-apply-r1",
+        "dispatchId": null,
+        "effectId": "effect:continuation-apply-promotion",
+        "kind": "apply-guarded-mutation",
+        "rationale": "Only one allowed action is provided. The world is current and its digest matches the requiredWorldDigest, so no refresh is needed. No unresolved dispatches exist, and the effect is not forbidden. This action applies the guarded mutation to promote the config from candidate to enabled."
+      },
+      "executedEffects": [
+        "effect:continuation-apply-promotion",
+        "effect:continuation-terminal-read"
+      ],
+      "kind": "anc.fresh-host-receipt",
+      "schemaVersion": 1,
+      "status": "completed",
+      "worldAfter": "sha256:5e0e6214692d29808a5ee782903f0f4c772e9f4267b1048caf6342c9c6f882d0",
+      "worldBefore": "sha256:6ebad0cf4c7e17648b0cbed46b1c64394bf57fcc87077fbca61ede3412ef6655"
+    },
+    "humanCorrectionCount": 0,
+    "kind": "anc.fresh-host-process-receipt",
+    "modelAdapterEvidence": {
+      "apiCalls": 1,
+      "baseUrl": "https://api.deepseek.com",
+      "enabledToolsets": [],
+      "estimatedCostUsd": 0.0034974,
+      "inputTokens": 1578,
+      "isolatedHome": true,
+      "memoryLoaded": false,
+      "model": "deepseek-v4-pro",
+      "outputTokens": 216,
+      "persistentSessionRetained": false,
+      "provider": "deepseek",
+      "reasoningTokens": 91,
+      "totalTokens": 1794
+    },
+    "modelCallCount": 1,
+    "modelTokenCount": 1794,
+    "originalTranscriptLoaded": false,
+    "parentProcessId": 310613,
+    "processId": 311404,
+    "schemaVersion": 1,
+    "semanticExecutionCount": 2
+  },
+  "freshProcessScripted": {
+    "checkpoint": "/tmp/anc-continuation-evidence-kdl7dk3u/scripted",
+    "elapsedMs": 13,
+    "host": {
+      "adapterId": "scripted-continuation-model-v1",
+      "capsuleAfter": "sha256:6c3bd6eb87ee74de09acd035f3ee48c1dac665c90b82eecab0bf656dd6e4b535",
+      "capsuleBefore": "sha256:4669df335a15401fbdcd3fa8f686998029c9e05787656c2c3dede4f835657f50",
+      "committedFacts": [
+        "fact:digest:5565ca38062237f7ffa23563"
+      ],
+      "contextBytes": 2573,
+      "contextDigest": "sha256:37f2705795d01d41f275f300e56fec1afd5615ab901499a9a33138b799402d56",
+      "decision": {
+        "actionId": "action:apply-config-promotion",
+        "bindingId": "binding:continuation-apply-r1",
+        "dispatchId": null,
+        "effectId": "effect:continuation-apply-promotion",
+        "kind": "apply-guarded-mutation",
+        "rationale": "The audit and checkpoint reread are complete, the retained decision requires a guarded layout-preserving promotion, and the world digest is current."
+      },
+      "executedEffects": [
+        "effect:continuation-apply-promotion",
+        "effect:continuation-terminal-read"
+      ],
+      "kind": "anc.fresh-host-receipt",
+      "schemaVersion": 1,
+      "status": "completed",
+      "worldAfter": "sha256:5e0e6214692d29808a5ee782903f0f4c772e9f4267b1048caf6342c9c6f882d0",
+      "worldBefore": "sha256:6ebad0cf4c7e17648b0cbed46b1c64394bf57fcc87077fbca61ede3412ef6655"
+    },
+    "humanCorrectionCount": 0,
+    "kind": "anc.fresh-host-process-receipt",
+    "modelAdapterEvidence": null,
+    "modelCallCount": 1,
+    "modelTokenCount": null,
+    "originalTranscriptLoaded": false,
+    "parentProcessId": 310613,
+    "processId": 310615,
+    "schemaVersion": 1,
+    "semanticExecutionCount": 2
+  },
+  "initialWorldDigest": "sha256:6ebad0cf4c7e17648b0cbed46b1c64394bf57fcc87077fbca61ede3412ef6655",
+  "kind": "anc.continuation-evidence",
+  "schemaVersion": 1,
+  "sourceRevision": "1cdbbdc13514a3eb3663e2aa5bb66d077651c310",
+  "terminalWorldDigest": "sha256:5e0e6214692d29808a5ee782903f0f4c772e9f4267b1048caf6342c9c6f882d0"
+}

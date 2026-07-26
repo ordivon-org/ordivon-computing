@@ -22,8 +22,16 @@ A model receives bounded compiled context and returns one structured decision. T
 
 ## C6 — Same-provider fresh Host precedes provider comparison
 
-The deterministic adapter establishes reference behavior and Codex supplies manual real-model evidence. Multi-provider comparison remains #32 and begins only after the same Capsule/Host path is stable.
+The deterministic adapter establishes reference behavior. Codex/GPT-5.5 first proved a real-model fresh Host; Hermes/DeepSeek-V4-Pro then consumed the unchanged Capsule and Context as the second materially different adapter. Provider replacement is an explicit comparison, not a router.
 
 ## C7 — No transcript replay
 
 Fresh-process evidence records `originalTranscriptLoaded=false`. The transcript baseline exists only for comparison and is never an input to the Capsule Host path.
+
+## C8 — Hermes is an adapter, not a second Host
+
+Hermes has its own interactive Agent, Tools, sessions, memory, and project features. Those capabilities are intentionally disabled for this experiment. ANC owns the Host and TaskCapsule; Hermes contributes one replaceable model decision through DeepSeek V4 Pro. Treating the complete Hermes Agent as the replacement would compare two Host architectures rather than two model adapters and would invalidate #32.
+
+## C9 — Provider profiles are ephemeral evidence machinery
+
+A Hermes one-shot normally persists a session. The adapter therefore creates a temporary profile, copies only the Provider credential required for the call, and deletes the profile afterward. Provider session identity and memory are not continuation state.
