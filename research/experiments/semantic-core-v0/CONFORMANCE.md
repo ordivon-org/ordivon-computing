@@ -185,7 +185,23 @@ Deterministic evidence proves:
 - response loss on both Backends reconciles the original bound Dispatch with one delivery;
 - an independent read still admits Verification and Fact after bound mutation.
 
-This is the executable basis for K12. Exact implementation and evidence revisions are recorded in the external contract receipt after implementation freeze.
+This is the executable basis for K12.
+
+Exact implementation revision: `2f4d7ca8db6756b8add3356db52dcd237ed7a256`
+
+Exact results:
+
+```text
+Kernel tests: 99 / 99
+external contract tests: 29 / 29
+System Snapshot tests: 8 / 8
+Python/Rust canonical vectors: 5 / 5
+200-Effect memory workload: 34.433 ms (86.084 µs/command)
+100-Effect Journal workload: 39.351 ms
+200-entry Journal reopen: 30.327 ms
+```
+
+Live Ordivon on the same revision preserved one delivery, the original Dispatch, Journal `UNKNOWN → SUCCEEDED` recovery, three Artifacts, mutation-to-Fact admission, and stale-write rejection. Receipts are stored in the external contract `evidence/` directory and `benchmark-results/binding-edge-2f4d7ca.json`.
 
 ## Live evidence summary
 

@@ -27,3 +27,5 @@ Benchmark result files are immutable evidence bound to a source revision. They a
 - `optimized-dd4730e.json` — final incremental reducer and Journal v3 exact implementation receipt.
 
 The checkpoint prototype remains in Git history but not in the runtime. Its negative result is a decision artifact, not an invitation to maintain an unused feature.
+
+- `binding-edge-2f4d7ca.json` — Journal v4 and optional Binding-edge regression receipt; unbound command cost remains flat after K12.

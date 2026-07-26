@@ -93,7 +93,7 @@ PYTHONPATH=src python3.12 benchmarks/benchmark_semantic_core.py \
 
 The harness measures growth on one environment, not cross-machine rankings. Baseline and optimized exact-revision results are stored under `benchmark-results/`.
 
-The P2 implementation reduced the 200-Effect in-memory workload from 3,693.445 ms to 37.033 ms and the 100-Effect Journal workload from 963.434 ms to 38.131 ms while preserving exact live recovery and Fact admission.
+The P2 implementation reduced the 200-Effect in-memory workload from 3,693.445 ms to 37.033 ms and the 100-Effect Journal workload from 963.434 ms to 38.131 ms. After the K12 Binding edge and Journal v4, exact revision `2f4d7ca8...` measured 34.433 ms and 39.351 ms respectively, with 200-entry reopen at 30.327 ms; the new edge did not regress the established cost curve.
 
 ## Kernel responsibility
 

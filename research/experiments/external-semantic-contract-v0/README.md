@@ -26,3 +26,13 @@ PYTHONPATH=src python3.12 scripts/external_contract_report.py --source-revision 
 rustc --edition=2021 rust/canonical-verifier/main.rs -o /tmp/anc-canonical-verifier
 /tmp/anc-canonical-verifier fixtures/canonical/canonical-vectors.tsv
 ```
+
+## Exact P0–P6 evidence
+
+Implementation: `2f4d7ca8db6756b8add3356db52dcd237ed7a256`
+
+- [`evidence/external-contract-2f4d7ca.json`](evidence/external-contract-2f4d7ca.json)
+- [`evidence/live-ordivon-2f4d7ca.json`](evidence/live-ordivon-2f4d7ca.json)
+- [`../semantic-core-v0/benchmark-results/binding-edge-2f4d7ca.json`](../semantic-core-v0/benchmark-results/binding-edge-2f4d7ca.json)
+
+P0–P6 freezes a minimal Effect IR v1 and closes the public Effect-identity question. It does not claim a complete general Tool ABI, catalog service, Host, compiler, Task Runtime, or plugin platform.
