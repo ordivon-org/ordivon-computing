@@ -8,7 +8,11 @@ from pathlib import Path
 
 
 EVIDENCE_ROOT = Path(__file__).resolve().parents[1]
-REPOSITORY_ROOTS = {"agent-native-computing": EVIDENCE_ROOT.parents[1]}
+REPOSITORY_ROOT = EVIDENCE_ROOT.parents[1]
+REPOSITORY_ROOTS = {
+    "ordivon-architecture": REPOSITORY_ROOT,
+    "agent-native-computing": REPOSITORY_ROOT,
+}
 sys.path.insert(0, str(EVIDENCE_ROOT))
 
 from validate_system_snapshot import canonical_payload, payload_digest, validate  # noqa: E402

@@ -189,8 +189,11 @@ def main() -> int:
         help="checkout used to verify historical path Artifacts",
     )
     args = parser.parse_args()
+    repository_root = Path(__file__).resolve().parents[2]
     repository_roots = {
-        "agent-native-computing": Path(__file__).resolve().parents[2]
+        "ordivon-architecture": repository_root,
+        # Historical immutable snapshots retain the repository identity used when captured.
+        "agent-native-computing": repository_root,
     }
     for binding in args.repository_root:
         repository_id, separator, raw_path = binding.partition("=")

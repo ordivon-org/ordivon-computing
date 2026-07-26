@@ -63,7 +63,7 @@ def parse_args() -> argparse.Namespace:
         "--endpoint",
         default=os.environ.get("ORDIVON_MCP_ENDPOINT", "http://127.0.0.1:8897/mcp"),
     )
-    parser.add_argument("--source-repo", default="/root/projects/agent-native-computing")
+    parser.add_argument("--source-repo", default="/root/projects/ordivon-architecture")
     parser.add_argument("--source-revision")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--journal")
