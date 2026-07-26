@@ -24,16 +24,8 @@ from workloads import admit_and_prepare, open_reducer  # noqa: E402
 
 
 PROFILES = {
-    "smoke": {
-        "memory": (10, 50),
-        "journal": (10, 25),
-        "checkpoint": (100, 80),
-    },
-    "standard": {
-        "memory": (10, 50, 100, 200),
-        "journal": (10, 50, 100),
-        "checkpoint": (1000, 900),
-    },
+    "smoke": {"memory": (10, 50), "journal": (10, 25)},
+    "standard": {"memory": (10, 50, 100, 200), "journal": (10, 50, 100)},
 }
 
 
@@ -100,47 +92,6 @@ def journal_case(count: int, repeats: int) -> dict[str, Any]:
     }
 
 
-def checkpoint_case(total: int, checkpoint_at: int, repeats: int) -> dict[str, Any]:
-    reopen_values: list[float] = []
-    genesis_values: list[float] = []
-    db_sizes: list[int] = []
-    checkpoint_sequences: list[int] = []
-    for repeat in range(repeats):
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "checkpoint-benchmark.sqlite3"
-            reducer, views = open_reducer(
-                "journal", f"bench-checkpoint-{repeat}", path
-            )
-            for index in range(checkpoint_at):
-                admit_and_prepare(views, index, prefix=f"checkpoint-prefix-{repeat}")
-            checkpoint_sequences.append(views.read.checkpoint())
-            for index in range(checkpoint_at, total):
-                admit_and_prepare(views, index, prefix=f"checkpoint-tail-{repeat}")
-            reducer.close()
-            db_sizes.append(path.stat().st_size)
-            started = time.perf_counter()
-            reopened = JournalReducer(path, test_authority_policy())
-            reopen_values.append(time.perf_counter() - started)
-            started = time.perf_counter()
-            reopened.verify_from_genesis()
-            genesis_values.append(time.perf_counter() - started)
-            reopened.close()
-    return {
-        "total_effects": total,
-        "checkpoint_at_effect": checkpoint_at,
-        "total_commands": total * 2,
-        "checkpoint_sequence": int(statistics.median(checkpoint_sequences)),
-        "tail_commands": (total - checkpoint_at) * 2,
-        "median_checkpoint_reopen_ms": round(
-            statistics.median(reopen_values) * 1000, 3
-        ),
-        "median_genesis_verify_ms": round(
-            statistics.median(genesis_values) * 1000, 3
-        ),
-        "median_db_bytes": int(statistics.median(db_sizes)),
-    }
-
-
 def environment(source_revision: str) -> dict[str, Any]:
     return {
         "source_revision": source_revision,
@@ -170,9 +121,6 @@ def main() -> None:
         "repeats": args.repeats,
         "memory_scaling": [memory_case(n, args.repeats) for n in profile["memory"]],
         "journal_scaling": [journal_case(n, args.repeats) for n in profile["journal"]],
-        "checkpoint_replay": checkpoint_case(
-            profile["checkpoint"][0], profile["checkpoint"][1], args.repeats
-        ),
     }
     rendered = json.dumps(result, indent=2, sort_keys=True) + "\n"
     if args.output is not None:

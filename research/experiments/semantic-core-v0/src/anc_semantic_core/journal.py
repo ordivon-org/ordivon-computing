@@ -5,7 +5,7 @@ import json
 import sqlite3
 from contextlib import contextmanager
 import time
-from dataclasses import dataclass, fields, is_dataclass
+from dataclasses import fields, is_dataclass
 from enum import Enum
 from pathlib import Path
 from typing import Any, Iterator
@@ -49,7 +49,6 @@ from .state import EffectState
 JOURNAL_SCHEMA_VERSION = 3
 SEMANTIC_MODEL_VERSION = "semantic-core-v3-slim"
 REDUCER_VERSION = "incremental-reducer-v3"
-CHECKPOINT_SCHEMA_VERSION = 1
 _LEGACY_SCHEMA_VERSION = 2
 _LEGACY_SEMANTIC_MODEL_VERSION = "semantic-core-v2-authority"
 _LEGACY_REDUCER_VERSION = "reference-reducer-v2"
@@ -229,18 +228,7 @@ def _entry_digest(previous_digest: str, payload_json: str) -> str:
     return "sha256:" + hashlib.sha256(material).hexdigest()
 
 
-def _payload_digest(payload_json: str) -> str:
-    return "sha256:" + hashlib.sha256(payload_json.encode("utf-8")).hexdigest()
 
-
-
-
-@dataclass(frozen=True, slots=True)
-class JournalCheckpoint:
-    sequence: int
-    head_digest: str
-    state: dict[str, tuple[Any, ...]]
-    snapshot_digest: str
 
 class SQLiteSemanticJournal:
     """Append-only SQLite command journal with a verified hash chain."""
@@ -284,23 +272,6 @@ class SQLiteSemanticJournal:
             BEFORE DELETE ON journal_entries
             BEGIN
                 SELECT RAISE(ABORT, 'journal entries are append-only');
-            END;
-            CREATE TABLE IF NOT EXISTS journal_checkpoints (
-                sequence INTEGER PRIMARY KEY,
-                head_digest TEXT NOT NULL,
-                payload_json TEXT NOT NULL,
-                snapshot_digest TEXT NOT NULL,
-                created_at_ms INTEGER NOT NULL CHECK (created_at_ms >= 0)
-            );
-            CREATE TRIGGER IF NOT EXISTS journal_checkpoints_no_update
-            BEFORE UPDATE ON journal_checkpoints
-            BEGIN
-                SELECT RAISE(ABORT, 'journal checkpoints are append-only');
-            END;
-            CREATE TRIGGER IF NOT EXISTS journal_checkpoints_no_delete
-            BEFORE DELETE ON journal_checkpoints
-            BEGIN
-                SELECT RAISE(ABORT, 'journal checkpoints are append-only');
             END;
             """
         )
@@ -513,129 +484,6 @@ class SQLiteSemanticJournal:
             raise JournalCorruption("checkpoint sequence exceeds journal head")
         return tuple(commands)
 
-    def write_checkpoint(
-        self, state: dict[str, tuple[Any, ...]], *, expected_head: tuple[int, str]
-    ) -> int:
-        current_head = self.head
-        if current_head != expected_head:
-            raise JournalConflict(
-                f"journal head changed: expected {expected_head[0]}, found {current_head[0]}"
-            )
-        sequence, head_digest = current_head
-        payload = {
-            "schemaVersion": CHECKPOINT_SCHEMA_VERSION,
-            "journalSchemaVersion": JOURNAL_SCHEMA_VERSION,
-            "semanticModelVersion": SEMANTIC_MODEL_VERSION,
-            "reducerVersion": REDUCER_VERSION,
-            "authorityPolicyFingerprint": self._authority_policy.fingerprint,
-            "sequence": sequence,
-            "headDigest": head_digest,
-            "state": _encode(state),
-        }
-        payload_json = json.dumps(
-            payload,
-            sort_keys=True,
-            separators=(",", ":"),
-            ensure_ascii=False,
-            allow_nan=False,
-        )
-        digest = _payload_digest(payload_json)
-        existing = self._connection.execute(
-            "SELECT head_digest, snapshot_digest FROM journal_checkpoints WHERE sequence = ?",
-            (sequence,),
-        ).fetchone()
-        if existing is not None:
-            if (str(existing[0]), str(existing[1])) != (head_digest, digest):
-                raise JournalConflict("checkpoint sequence already has different content")
-            return sequence
-        created_at_ms = time.time_ns() // 1_000_000
-        try:
-            self._connection.execute("BEGIN IMMEDIATE")
-            if self._actual_head() != expected_head:
-                raise JournalConflict("journal head changed while writing checkpoint")
-            self._connection.execute(
-                """
-                INSERT INTO journal_checkpoints(
-                    sequence, head_digest, payload_json, snapshot_digest, created_at_ms
-                ) VALUES (?, ?, ?, ?, ?)
-                """,
-                (sequence, head_digest, payload_json, digest, created_at_ms),
-            )
-            self._connection.commit()
-            return sequence
-        except BaseException:
-            self._connection.rollback()
-            raise
-
-    def latest_checkpoint(self) -> JournalCheckpoint | None:
-        row = self._connection.execute(
-            """
-            SELECT sequence, head_digest, payload_json, snapshot_digest
-            FROM journal_checkpoints ORDER BY sequence DESC LIMIT 1
-            """
-        ).fetchone()
-        if row is None:
-            return None
-        sequence, head_digest, payload_json, stored_digest = row
-        if _payload_digest(payload_json) != stored_digest:
-            raise JournalCorruption("checkpoint snapshot digest mismatch")
-        try:
-            payload = json.loads(payload_json)
-        except json.JSONDecodeError as error:
-            raise JournalCorruption("checkpoint is not valid JSON") from error
-        expected_keys = {
-            "schemaVersion",
-            "journalSchemaVersion",
-            "semanticModelVersion",
-            "reducerVersion",
-            "authorityPolicyFingerprint",
-            "sequence",
-            "headDigest",
-            "state",
-        }
-        if not isinstance(payload, dict) or set(payload) != expected_keys:
-            raise JournalSchemaError("checkpoint payload shape is invalid")
-        expected_metadata = {
-            "schemaVersion": CHECKPOINT_SCHEMA_VERSION,
-            "journalSchemaVersion": JOURNAL_SCHEMA_VERSION,
-            "semanticModelVersion": SEMANTIC_MODEL_VERSION,
-            "reducerVersion": REDUCER_VERSION,
-            "authorityPolicyFingerprint": self._authority_policy.fingerprint,
-            "sequence": int(sequence),
-            "headDigest": str(head_digest),
-        }
-        for key, expected in expected_metadata.items():
-            if payload.get(key) != expected:
-                raise JournalSchemaError(f"checkpoint metadata {key} does not match runtime")
-        if sequence == 0:
-            bound_digest = _GENESIS_DIGEST
-        else:
-            bound_row = self._connection.execute(
-                "SELECT entry_digest FROM journal_entries WHERE sequence = ?",
-                (sequence,),
-            ).fetchone()
-            if bound_row is None:
-                raise JournalCorruption("checkpoint references a missing journal entry")
-            bound_digest = str(bound_row[0])
-        if bound_digest != head_digest:
-            raise JournalCorruption("checkpoint is not bound to its journal prefix")
-        state = _decode(payload["state"], schema_version=JOURNAL_SCHEMA_VERSION)
-        if not isinstance(state, dict):
-            raise JournalSchemaError("checkpoint state is not a mapping")
-        return JournalCheckpoint(
-            sequence=int(sequence),
-            head_digest=str(head_digest),
-            state=state,
-            snapshot_digest=str(stored_digest),
-        )
-
-    @property
-    def checkpoint_count(self) -> int:
-        row = self._connection.execute(
-            "SELECT COUNT(*) FROM journal_checkpoints"
-        ).fetchone()
-        return int(row[0])
-
     @property
     def entry_count(self) -> int:
         row = self._connection.execute("SELECT COUNT(*) FROM journal_entries").fetchone()
@@ -678,7 +526,6 @@ class JournalReducer:
             tuple[str, tuple[Any, ...], dict[str, Any]]
         ] = []
         self._head: tuple[int, str] = (0, _GENESIS_DIGEST)
-        self._checkpoint_sequence = 0
         try:
             self._replay()
             self._head = self._journal.head
@@ -691,18 +538,7 @@ class JournalReducer:
         return self._authority_policy.fingerprint
 
     def _replay(self) -> None:
-        checkpoint = self._journal.latest_checkpoint()
-        if checkpoint is not None:
-            try:
-                self._kernel = ReferenceReducer.from_exported_state(
-                    self._authority_policy, checkpoint.state
-                )
-            except BaseException as error:
-                raise JournalCorruption("checkpoint semantic state is invalid") from error
-            self._checkpoint_sequence = checkpoint.sequence
-        for sequence, operation, args, kwargs in self._journal.commands(
-            after_sequence=self._checkpoint_sequence
-        ):
+        for sequence, operation, args, kwargs in self._journal.commands():
             if operation not in self._MUTATIONS:
                 raise JournalCorruption(
                     f"unsupported operation {operation!r} at journal entry {sequence}"
@@ -964,16 +800,6 @@ class JournalReducer:
         self._view_kernel().validate_invariants()
         self._journal.commands()
 
-    def checkpoint(self) -> int:
-        if self._transaction_depth:
-            raise JournalError("cannot checkpoint an open transaction")
-        self.validate_invariants()
-        sequence = self._journal.write_checkpoint(
-            self._kernel.export_state(), expected_head=self._head
-        )
-        self._checkpoint_sequence = sequence
-        return sequence
-
     def verify_from_genesis(self) -> None:
         candidate = ReferenceReducer(self._authority_policy)
         for sequence, operation, args, kwargs in self._journal.commands():
@@ -992,14 +818,6 @@ class JournalReducer:
             raise JournalCorruption(
                 "checkpoint projection does not match genesis replay"
             )
-
-    @property
-    def checkpoint_sequence(self) -> int:
-        return self._checkpoint_sequence
-
-    @property
-    def checkpoint_count(self) -> int:
-        return self._journal.checkpoint_count
 
     @property
     def journal_entry_count(self) -> int:

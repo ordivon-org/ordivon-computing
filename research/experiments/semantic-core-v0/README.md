@@ -44,9 +44,9 @@ Live scripts never print the Bearer token and close temporary Workspaces.
 - ordered `EffectEvent` causality;
 - immutable `Observation` and `Artifact` evidence;
 - `Claim → Verification → Fact` admission;
-- optimistic revisions and invariant scanning;
+- optimistic revisions, command-local rollback, and explicit full invariant audit;
 - single-command and multi-command semantic atomicity;
-- append-only Journal persistence and deterministic replay;
+- append-only Journal schema v3, v2 migration, and deterministic genesis replay;
 - signed role-scoped Authority grants and content-bound Attestations;
 - scoped Effect, execution, Verification, Fact, and read-only Kernel Views.
 
@@ -62,6 +62,17 @@ kernel.py       backward-compatible import facade
 ```
 
 Adapters depend on `ExecutionView`; Verification and Fact admission depend on separate role protocols. Raw reducers remain below Authority issuance and are not exported from the package root.
+
+## Performance evidence
+
+```bash
+PYTHONPATH=src python3.12 benchmarks/benchmark_semantic_core.py \
+  --profile standard \
+  --source-revision "$(git rev-parse HEAD)" \
+  --output benchmark-results/<revision>.json
+```
+
+The harness measures growth on one environment, not cross-machine rankings. Baseline and optimized exact-revision results are stored under `benchmark-results/`.
 
 ## Kernel responsibility
 

@@ -14,8 +14,6 @@ from anc_semantic_core.errors import InvariantViolation, NotFound
 from anc_semantic_core.identity import IdKind
 from anc_semantic_core.journal import (
     JOURNAL_SCHEMA_VERSION,
-    JournalCorruption,
-    JournalError,
     JournalReducer,
     _GENESIS_DIGEST,
     _entry_digest,
@@ -179,9 +177,6 @@ class P2PerformanceTests(unittest.TestCase):
                 "UPDATE journal_metadata SET value = ? WHERE key = 'head_digest'",
                 (digest,),
             )
-            connection.execute("DROP TRIGGER journal_checkpoints_no_update")
-            connection.execute("DROP TRIGGER journal_checkpoints_no_delete")
-            connection.execute("DROP TABLE journal_checkpoints")
             connection.commit()
             connection.close()
 
@@ -207,64 +202,6 @@ class P2PerformanceTests(unittest.TestCase):
             connection.close()
             self.assertEqual(schema, str(JOURNAL_SCHEMA_VERSION))
             self.assertEqual(command_versions, [2, 3])
-
-    def test_checkpoint_replays_only_tail_and_matches_genesis(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "checkpoint.sqlite3"
-            reducer, views = self._journal(path, "p2-checkpoint")
-            first = self._admit_and_prepare(views, "p2-checkpoint-first", 1)
-            checkpoint_sequence = views.read.checkpoint()
-            second = self._admit_and_prepare(views, "p2-checkpoint-second", 3)
-            self.assertEqual(checkpoint_sequence, 2)
-            self.assertEqual(views.read.checkpoint_count, 1)
-            reducer.close()
-
-            reopened, reopened_views = self._journal(path, "p2-checkpoint-reopen")
-            self.assertEqual(reopened_views.read.checkpoint_sequence, 2)
-            self.assertEqual(reopened_views.read.get_effect(first.effect_id).revision, 1)
-            self.assertEqual(reopened_views.read.get_effect(second.effect_id).revision, 1)
-            reopened_views.read.verify_from_genesis()
-            reopened.close()
-
-    def test_checkpoint_is_idempotent_at_same_head(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            reducer, views = self._journal(
-                Path(directory) / "checkpoint-idempotent.sqlite3",
-                "p2-checkpoint-idempotent",
-            )
-            self._admit_and_prepare(views, "p2-checkpoint-idempotent")
-            self.assertEqual(views.read.checkpoint(), 2)
-            self.assertEqual(views.read.checkpoint(), 2)
-            self.assertEqual(views.read.checkpoint_count, 1)
-            reducer.close()
-
-    def test_checkpoint_rejects_open_transaction(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            reducer, views = self._journal(
-                Path(directory) / "checkpoint-transaction.sqlite3",
-                "p2-checkpoint-transaction",
-            )
-            with reducer.transaction():
-                with self.assertRaisesRegex(JournalError, "open transaction"):
-                    reducer.checkpoint()
-            reducer.close()
-
-    def test_tampered_checkpoint_fails_closed(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "checkpoint-tamper.sqlite3"
-            reducer, views = self._journal(path, "p2-checkpoint-tamper")
-            self._admit_and_prepare(views, "p2-checkpoint-tamper")
-            views.read.checkpoint()
-            reducer.close()
-            connection = sqlite3.connect(path)
-            connection.execute("DROP TRIGGER journal_checkpoints_no_update")
-            connection.execute(
-                "UPDATE journal_checkpoints SET payload_json = payload_json || ' '"
-            )
-            connection.commit()
-            connection.close()
-            with self.assertRaisesRegex(JournalCorruption, "snapshot digest"):
-                JournalReducer(path, test_authority_policy())
 
 
 if __name__ == "__main__":

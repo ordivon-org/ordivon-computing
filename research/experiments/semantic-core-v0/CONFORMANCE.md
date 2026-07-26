@@ -62,6 +62,19 @@ stale mutation: failed / INVALID_REQUEST
 final content and digest: stable
 ```
 
+## P2 performance and compatibility conformance
+
+Deterministic tests prove:
+
+- new Effects reject inactive precondition, Task lineage, keyed-idempotency, and expiry fields;
+- the command hot path does not call complete-state `_snapshot()`;
+- the Journal hot path does not clone `ReferenceReducer`;
+- SQLite append failure rolls back the in-memory projection;
+- explicit full audit still detects cross-projection corruption;
+- a known v2 Journal migrates to v3 and accepts a v3 tail.
+
+Exact baseline revision `bf60668aa7eac1defb4181fcdbeeb8123c7030af` measured 200 Effects / 400 in-memory commands at 3,693.445 ms and 100 Effects / 200 Journal commands at 963.434 ms. The exact checkpoint prototype revision and rejected P2D result are retained in `benchmark-results/prototype-23353fd.json`. Final exact-revision optimized results are recorded in a separate benchmark receipt.
+
 ## Live evidence summary
 
 ### Signed process-restart recovery
@@ -73,7 +86,7 @@ real workspace.exec delivered once
 → successful response deliberately discarded
 → signed Dispatch and Effect become UNKNOWN
 → first Python process exits
-→ second process authenticates Journal schema v2
+→ second process authenticates the versioned Journal schema
 → original Job correlated by stable clientRequestId
 → original Dispatch admitted
 → signed Observation and three Artifacts recorded

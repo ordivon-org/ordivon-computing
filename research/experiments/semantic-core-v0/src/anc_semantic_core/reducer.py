@@ -184,87 +184,8 @@ class ReferenceReducer:
         """Return a detached equality-comparable state snapshot for tests and stores."""
         return self._snapshot()
 
-    def export_state(self) -> dict[str, tuple[Any, ...]]:
-        """Return a deterministic canonical state payload for checkpoints."""
-
-        def ordered(values: Any, identity: Callable[[Any], SemanticId]) -> tuple[Any, ...]:
-            return tuple(sorted(values, key=lambda item: str(identity(item))))
-
-        return {
-            "effects": ordered(self._effects.values(), lambda item: item.spec.effect_id),
-            "dispatches": ordered(self._dispatches.values(), lambda item: item.dispatch_id),
-            "events": ordered(self._events.values(), lambda item: item.event_id),
-            "observations": ordered(
-                self._observations.values(), lambda item: item.observation_id
-            ),
-            "artifacts": ordered(self._artifacts.values(), lambda item: item.artifact_id),
-            "claims": ordered(self._claims.values(), lambda item: item.claim_id),
-            "verifications": ordered(
-                self._verifications.values(), lambda item: item.verification_id
-            ),
-            "facts": ordered(self._facts.values(), lambda item: item.fact_id),
-        }
-
-    @classmethod
-    def from_exported_state(
-        cls, authority_policy: AuthorityPolicy, state: dict[str, tuple[Any, ...]]
-    ) -> "ReferenceReducer":
-        expected = {
-            "effects",
-            "dispatches",
-            "events",
-            "observations",
-            "artifacts",
-            "claims",
-            "verifications",
-            "facts",
-        }
-        if set(state) != expected or not all(
-            isinstance(value, tuple) for value in state.values()
-        ):
-            raise InvariantViolation("checkpoint state shape is invalid")
-        reducer = cls(authority_policy)
-        reducer._effects = {item.spec.effect_id: item for item in state["effects"]}
-        reducer._dispatches = {
-            item.dispatch_id: item for item in state["dispatches"]
-        }
-        reducer._events = {item.event_id: item for item in state["events"]}
-        reducer._events_by_effect = {effect_id: [] for effect_id in reducer._effects}
-        for event in sorted(
-            state["events"], key=lambda item: (str(item.effect_id), item.sequence)
-        ):
-            try:
-                reducer._events_by_effect[event.effect_id].append(event)
-            except KeyError as error:
-                raise InvariantViolation(
-                    f"checkpoint event references missing Effect: {event.event_id}"
-                ) from error
-        reducer._observations = {
-            item.observation_id: item for item in state["observations"]
-        }
-        reducer._artifacts = {item.artifact_id: item for item in state["artifacts"]}
-        reducer._claims = {item.claim_id: item for item in state["claims"]}
-        reducer._verifications = {
-            item.verification_id: item for item in state["verifications"]
-        }
-        reducer._facts = {item.fact_id: item for item in state["facts"]}
-        reducer.validate_invariants()
-        return reducer
-
     @property
     def journal_entry_count(self) -> int:
-        return 0
-
-    @property
-    def checkpoint_sequence(self) -> int:
-        return 0
-
-    @property
-    def checkpoint_count(self) -> int:
-        return 0
-
-    def checkpoint(self) -> int:
-        self.validate_invariants()
         return 0
 
     def verify_from_genesis(self) -> None:

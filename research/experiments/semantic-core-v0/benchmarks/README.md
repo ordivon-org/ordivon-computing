@@ -19,3 +19,11 @@ Interpretation priorities:
 4. absolute latency only after the growth curve is stable.
 
 Benchmark result files are immutable evidence bound to a source revision. They are not a mutable current-status document.
+
+## Retained receipts
+
+- `baseline-bf60668.json` — pre-optimization exact main baseline.
+- `prototype-23353fd.json` — exact incremental reducer plus rejected checkpoint prototype.
+- the final optimized exact-revision receipt is added after implementation commit creation.
+
+The checkpoint prototype remains in Git history but not in the runtime. Its negative result is a decision artifact, not an invitation to maintain an unused feature.

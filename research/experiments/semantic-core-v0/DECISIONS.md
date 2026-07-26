@@ -117,3 +117,24 @@ The complete invariant scan remains one public operation but delegates to five d
 ## D28 — Derive projections instead of storing explanation state
 
 Execution, recovery, Authority, and Fact-provenance Views are reconstructed from canonical records. Human and Agent explanations therefore gain focused projections without a second mutable truth source.
+
+
+## D29 — Use local undo savepoints on the command path
+
+Each reducer command records undo actions only for touched keys and list suffixes. Command admission validates its affected semantic neighborhood. Full cross-projection invariant scanning remains an explicit audit and replay operation rather than a per-command tax.
+
+## D30 — Append Journal commands inside the live reducer transaction
+
+`JournalReducer` no longer clones the complete reducer or compares full snapshots. The live reducer mutation remains rollback-capable until SQLite append succeeds. Append failure and stale-writer conflict therefore undo the in-memory change without duplicating all state.
+
+## D31 — Quarantine unimplemented model fields
+
+Free-text Preconditions, Task/Attempt parent IDs, keyed idempotency keys, and capability expiry remain decode-only Journal-v2 compatibility fields. New Effects reject them until a real Task Runtime, Effect Binding, or policy enforcement mechanism exists.
+
+## D32 — Migrate known Journal v2 histories to schema v3
+
+Migration is allowed only from the exact known v2 semantic-model and reducer versions under the same Authority-policy fingerprint. Historical v2 command payloads remain immutable; new tail entries use v3.
+
+## D33 — Reject the first checkpoint design after measurement
+
+The exact prototype at `23353fdd550badf090c404861755131a70b7807b` duplicated state, enlarged the database, and reopened more slowly than optimized genesis verification. The runtime feature was removed. Future checkpoint work requires a new representation and positive benchmark evidence.
