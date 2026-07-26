@@ -16,6 +16,11 @@ on:
       - "research/experiments/semantic-core-v0/src/**"
       - "research/experiments/semantic-core-v0/tests/**"
       - "research/experiments/semantic-core-v0/scripts/**"
+      - "research/experiments/task-continuation-v0/pyproject.toml"
+      - "research/experiments/task-continuation-v0/src/**"
+      - "research/experiments/task-continuation-v0/tests/**"
+      - "research/experiments/task-continuation-v0/scripts/**"
+      - "research/experiments/task-continuation-v0/fixtures/**"
   push:
     branches: [main]
     paths:
@@ -32,6 +37,11 @@ on:
       - "research/experiments/semantic-core-v0/src/**"
       - "research/experiments/semantic-core-v0/tests/**"
       - "research/experiments/semantic-core-v0/scripts/**"
+      - "research/experiments/task-continuation-v0/pyproject.toml"
+      - "research/experiments/task-continuation-v0/src/**"
+      - "research/experiments/task-continuation-v0/tests/**"
+      - "research/experiments/task-continuation-v0/scripts/**"
+      - "research/experiments/task-continuation-v0/fixtures/**"
 
 permissions:
   contents: read
@@ -56,7 +66,10 @@ jobs:
             research/experiments/external-semantic-contract-v0/scripts \
             research/experiments/semantic-core-v0/src \
             research/experiments/semantic-core-v0/tests \
-            research/experiments/semantic-core-v0/scripts
+            research/experiments/semantic-core-v0/scripts \
+            research/experiments/task-continuation-v0/src \
+            research/experiments/task-continuation-v0/tests \
+            research/experiments/task-continuation-v0/scripts
           ruff check \
             research/experiments/external-semantic-contract-v0/src \
             research/experiments/external-semantic-contract-v0/integration \
@@ -64,7 +77,10 @@ jobs:
             research/experiments/external-semantic-contract-v0/scripts \
             research/experiments/semantic-core-v0/src \
             research/experiments/semantic-core-v0/tests \
-            research/experiments/semantic-core-v0/scripts
+            research/experiments/semantic-core-v0/scripts \
+            research/experiments/task-continuation-v0/src \
+            research/experiments/task-continuation-v0/tests \
+            research/experiments/task-continuation-v0/scripts
       - name: External contract tests
         working-directory: research/experiments/external-semantic-contract-v0
         env:
@@ -74,6 +90,11 @@ jobs:
         working-directory: research/experiments/semantic-core-v0
         env:
           PYTHONPATH: src
+        run: python -m unittest discover -s tests
+      - name: Task continuation tests
+        working-directory: research/experiments/task-continuation-v0
+        env:
+          PYTHONPATH: src:../external-semantic-contract-v0/src:../external-semantic-contract-v0:../semantic-core-v0/src
         run: python -m unittest discover -s tests
       - name: Cross-language canonical vectors
         working-directory: research/experiments/external-semantic-contract-v0
