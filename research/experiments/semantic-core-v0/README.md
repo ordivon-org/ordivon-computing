@@ -74,6 +74,8 @@ PYTHONPATH=src python3.12 -m unittest \
 
 The same versioned I/O, asynchronous execution, uncertainty, reconciliation, cancellation, evidence, Fact, and Authority scenarios produce an identical normalized report for Ordivon and the deterministic second backend. The simulator uses different operation names, status words, IDs, and receipts; no simulator or Ordivon implementation object enters Kernel state.
 
+Exact P2E evidence is retained in [`portability-results/backend-portability-f83764b.json`](portability-results/backend-portability-f83764b.json).
+
 ## Performance evidence
 
 ```bash

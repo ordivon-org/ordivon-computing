@@ -128,6 +128,8 @@ The comparison separates the boundary as follows:
 
 Backend implementation objects are scanned out of Kernel snapshots, and neither simulator nor portability driver is exported from the package root.
 
+Exact two-backend evidence was generated from `f83764b58ae27ea64b93e7f8fa22c4577cf51e84` and is indexed in [`CONFORMANCE.md`](CONFORMANCE.md).
+
 ## Remaining Adapter questions
 
 - Tool-contract identity and schema drift while an Effect is pending or a Job is running;

@@ -130,6 +130,29 @@ The canonical portability suite runs one semantic scenario set through two struc
 
 The simulator and shared portability driver are internal experiment modules and are not exported from the package root. They provide executable evidence, not a generic plugin framework or a second production runtime.
 
+Exact implementation revision: `f83764b58ae27ea64b93e7f8fa22c4577cf51e84`
+
+Deterministic receipt: [`portability-results/backend-portability-f83764b.json`](portability-results/backend-portability-f83764b.json)
+
+The receipt records distinct Backend contracts, `reports_equal: true`, one delivery after response loss, preserved Dispatch identity, ordered cancellation events, accepted Fact admission, isolated broken/unrelated executions, and `backend_objects_leaked: false`.
+
+Exact Ordivon live confirmation on the same revision:
+
+```text
+signed Journal restart: UNKNOWN → authenticated replay → SUCCEEDED
+workspace.exec deliveries: 1
+correlated Jobs: 1
+Dispatch identity preserved: true
+Journal entries: 4 → 11
+semantic Artifacts: 3
+
+versioned mutation: succeeded
+independent reread: matched resulting digest
+Fact committed: 1
+stale mutation: failed / INVALID_REQUEST
+final content and digest: stable
+```
+
 ## Live evidence summary
 
 ### Signed process-restart recovery
