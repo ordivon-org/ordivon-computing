@@ -47,16 +47,19 @@ python3.12 scripts/run_continuation_evidence.py \
   --output evidence/continuation-<short-commit>.json
 ```
 
-To include a real Codex cognitive step:
+To compare two real model adapters over the same Capsule:
 
 ```bash
 python3.12 scripts/run_continuation_evidence.py \
   --source-revision <exact-commit> \
-  --include-codex \
-  --model gpt-5.5 \
-  --output evidence/continuation-codex-<short-commit>.json
+  --include-codex --model gpt-5.5 \
+  --include-hermes \
+  --hermes-model deepseek-v4-pro \
+  --hermes-provider deepseek \
+  --hermes-env-path ~/.hermes/.env \
+  --output evidence/provider-comparison-<short-commit>.json
 ```
 
-Codex execution is manual T3 evidence. CI uses the deterministic model adapter and never requires a model account.
+The Hermes adapter creates an isolated temporary `HOME` and `HERMES_HOME`, copies only the selected Provider API key, disables Tool/MCP/memory surfaces, records usage, and deletes the temporary Hermes session after the decision. Codex and Hermes execution are manual T3 evidence. CI uses fake CLIs and the deterministic adapter and never requires a model account.
 
 See [`SPEC.md`](SPEC.md), [`DECISIONS.md`](DECISIONS.md), and [`EVIDENCE.md`](EVIDENCE.md).

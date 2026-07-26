@@ -37,3 +37,7 @@ python3.12 scripts/run_continuation_evidence.py \
 ```
 
 Real-model evidence remains manual and must not become a pull-request requirement.
+
+## Provider-comparison evidence
+
+A #32 receipt must contain both `freshProcessCodex` and `freshProcessHermes`. The generated report requires identical Capsule and Context digests, identical exact decision identities and semantic execution results, distinct adapter identities, transcript-free processes, and successful completion. Hermes usage must report the requested model/Provider and at least one API call.

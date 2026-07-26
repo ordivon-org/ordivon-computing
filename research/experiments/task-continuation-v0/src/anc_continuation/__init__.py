@@ -1,6 +1,7 @@
 from .ablation import capsule_ablation_receipt
 from .adapters import (
     CodexCliModelAdapter,
+    HermesCliModelAdapter,
     ModelAdapter,
     ModelAdapterError,
     ModelDecision,
@@ -46,6 +47,7 @@ __all__ = [
     "FreshHost",
     "FrozenCheckpoint",
     "GoalSpec",
+    "HermesCliModelAdapter",
     "HostDecisionRejected",
     "HostError",
     "HostInterrupted",
