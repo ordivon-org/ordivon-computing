@@ -1,4 +1,5 @@
-from ordivon_semantics.state import (
+from .identity import IdKind, SemanticId
+from .state import (
     DispatchState,
     EffectState,
     NextAction,
@@ -11,7 +12,9 @@ from ordivon_semantics.state import (
 __all__ = [
     "DispatchState",
     "EffectState",
+    "IdKind",
     "NextAction",
+    "SemanticId",
     "can_transition",
     "can_transition_dispatch",
     "can_transition_effect",

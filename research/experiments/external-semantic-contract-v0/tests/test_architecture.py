@@ -5,7 +5,8 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "src"
+REPOSITORY = ROOT.parents[2]
+SRC = REPOSITORY / "packages" / "ordivon-protocol" / "src"
 
 
 class ArchitectureTests(unittest.TestCase):
@@ -43,6 +44,10 @@ class ArchitectureTests(unittest.TestCase):
                 "anc_effect_binding",
             ):
                 self.assertNotIn(forbidden, source, path)
+
+    def test_experiment_has_no_shadow_protocol_source(self) -> None:
+        shadow = ROOT / "src"
+        self.assertFalse(any(shadow.glob("anc_*")))
 
 
 if __name__ == "__main__":
