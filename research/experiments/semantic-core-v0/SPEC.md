@@ -47,7 +47,7 @@ facts         FACT role
 read          no mutation role
 ```
 
-Every reducer mutation requires an Attestation. The reducer verifies the signed Authority grant, required role, Attestation kind, contract version, record time, and digest of the exact command or evidence object. Stored events and evidence are revalidated by invariant scanning and Journal replay.
+Every reducer mutation requires an Attestation. The reducer verifies the signed Authority grant, required role, Attestation kind, contract version, record time, and digest of the exact command or evidence object. Stored events and evidence are revalidated by explicit full invariant audit and Journal replay. Command admission validates only the affected semantic neighborhood.
 
 Ordivon Adapters use the execution View. Claim evaluation and Fact acceptance use separate Verification and Fact Views. See [`AUTHORITY.md`](AUTHORITY.md).
 
@@ -147,7 +147,7 @@ This allows a change Effect to be verified by an independent reread Effect rathe
 17. Session or process loss never erases committed Effect, Dispatch, event, evidence, or terminal identity.
 18. A failed semantic command leaves every projection unchanged.
 19. A semantic transaction commits all commands or none.
-20. Durable replay into a fresh Kernel reproduces the committed projection.
+20. Durable genesis replay into a fresh Kernel reproduces the committed projection.
 21. A stale journal writer cannot append against a changed head.
 22. Journal corruption is reported rather than normalized.
 23. Every semantic Event and evidence object carries a valid Authority Attestation.
@@ -188,6 +188,18 @@ The internal journal encoding is not an external Effect IR contract.
 | Lost / Orphaned | Unknown | loss of ownership is not proof of world failure |
 
 This mapping remains provisional until live adapter conformance is run.
+
+## Mutation and audit complexity
+
+A semantic command owns a local undo savepoint and validates the identities, revisions, state transitions, evidence, and Attestations it touches. Unrelated Effects are not copied or rescanned.
+
+```text
+command path: local admission + local undo
+audit path:   complete cross-projection invariant scan
+replay path:  verified command sequence + complete final audit
+```
+
+This separation preserves atomicity and corruption detection without making command latency proportional to all historical state.
 
 ## Derived read projections
 

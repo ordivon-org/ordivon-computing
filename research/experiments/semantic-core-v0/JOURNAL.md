@@ -2,60 +2,53 @@
 
 ## Purpose
 
-M2 makes Semantic Core state independent of one Python process while deliberately inheriting mature classical mechanisms instead of rebuilding storage from first principles.
+The Journal makes Semantic Core state independent of one Python process while inheriting SQLite WAL, locking, atomic commit, and crash recovery.
 
 ```text
 Attested semantic command
-→ verify Authority role and exact-content signature
-→ validate against a candidate ReferenceReducer
-→ SQLite transaction
-→ append command entries and durable head
-→ commit
-→ publish the candidate projection
+→ validate the affected identities and local invariants
+→ apply through a command-local undo savepoint
+→ append canonical command and durable head in SQLite
+→ release the in-memory savepoint
 ```
 
-The semantic layer owns identity, causality, evidence, and replay rules. SQLite owns file locking, WAL, atomic commit, durability mechanics, and crash-safe storage.
+The semantic layer owns identity, causality, evidence, authority, and replay rules. SQLite owns durable byte storage.
 
 ## Runtime boundary
 
-`ReferenceReducer` remains the executable in-memory semantic reducer. `JournalReducer` composes the reducer with durable storage, while public runtime access is issued through role-scoped `AuthorizedKernel` Views:
-
 ```text
-ReferenceReducer
-SQLiteSemanticJournal
-internal journal codec v2
-AuthorityPolicy verification
+role-scoped AuthorizedKernel Views
+→ ReferenceReducer local semantic admission
+→ JournalReducer durable command append
+→ SQLiteSemanticJournal
 ```
 
-The internal codec is a storage encoding, not the public Effect IR planned for M3. Only an allowlist of current semantic dataclasses and enums may be decoded, including `AuthorityRef`, `Attestation`, `AuthorityRole`, and `AttestationKind`.
+The internal codec is a storage encoding, not the public Effect IR. Only an explicit allowlist of semantic dataclasses and enums may be decoded.
 
-## M1.5 atomicity
+## Command atomicity
 
-### Single semantic command
+### ReferenceReducer
 
-Every mutating `ReferenceReducer` operation snapshots all projections, performs the operation, validates invariants, and restores the complete snapshot on any exception.
+Each mutation records undo actions only for the dictionary keys and event-list suffixes it touches. Validation is performed before or at the affected mutation boundary. If any later step in the command fails, the reducer rolls back to the command savepoint.
 
-An invalid event identity, stale revision, backward time, or cross-object invariant can no longer leave a partial Dispatch, Event, Observation, Claim, or Fact update.
+The hot path does not clone all projections, compare complete snapshots, or scan unrelated Effects. A full `validate_invariants()` remains available and runs during replay, explicit audit, tests, and `verify_from_genesis()`.
 
-### Multi-command semantic transaction
+### JournalReducer
 
-a role-scoped View transaction groups related operations. Successful groups commit together; an exception restores the state that existed before the outer transaction.
+A durable command runs inside the same reducer transaction that holds its undo log. SQLite append occurs before that transaction is released. Therefore:
 
-The Ordivon adapters use this boundary for:
+```text
+semantic validation fails → no Journal append and no state change
+Journal append fails       → in-memory state rolls back
+stale writer head          → JournalConflict and in-memory state rolls back
+append succeeds            → the command is durable before control returns
+```
 
-- Dispatch admission + Observation + Artifact projection + terminal Effect state;
-- synchronous receipt + Observation + terminal read/mutation state;
-- Claim + Verification + optional Fact admission.
+Multi-command View transactions accumulate commands and append them in one SQLite transaction. Read-own-writes uses the same live reducer projection; no transaction clone is created.
 
-The Dispatch start is intentionally committed before the external Tool call. This preserves the real boundary order and makes response loss recoverable.
+The Dispatch start remains a separate durable command before the external Tool call.
 
-### Malformed backend results
-
-If a backend result cannot be translated consistently, the result projection is rolled back and the original Dispatch becomes `UNKNOWN`. No partial Job binding or evidence remains, and reconciliation is required.
-
-## SQLite storage mechanics
-
-The journal uses Python's standard-library `sqlite3` with:
+## SQLite mechanics
 
 ```text
 journal_mode = WAL
@@ -64,87 +57,76 @@ foreign_keys = ON
 busy_timeout = 5000 ms
 ```
 
-`journal_entries` is append-only through SQLite triggers that reject UPDATE and DELETE. Each row stores sequence, operation, canonical signed command payload, previous digest, entry digest, and commit time. Commands in one semantic transaction are appended inside one SQLite transaction.
+`journal_entries` is append-only through triggers. Each entry stores sequence, operation, canonical signed command payload, previous digest, entry digest, and commit time.
 
 ## Integrity model
-
-Each entry digest binds the previous digest and canonical payload:
 
 ```text
 entry_digest = SHA-256(previous_digest || canonical_payload)
 ```
 
-The journal also stores a durable head sequence and digest. Startup verifies:
+Startup verifies:
 
 - SQLite `quick_check`;
-- supported Journal schema version;
-- semantic model version;
-- reducer version;
-- authority-policy fingerprint;
-- contiguous sequence numbers;
-- predecessor linkage and every entry digest;
-- operation column/payload agreement;
-- command schema and type allowlist;
-- reconstructed tail against the durable head;
-- Authority grant signatures and required roles;
-- Attestation kind, exact semantic digest, contract version, record time, and signature;
-- semantic replay and all Kernel invariants.
+- Journal, semantic-model, reducer, and Authority-policy versions;
+- contiguous sequence and predecessor linkage;
+- every entry digest and durable head;
+- operation/payload agreement and allowlisted types;
+- Authority grants, Attestation roles, exact semantic digests, contract versions, times, and signatures;
+- deterministic replay and the complete Kernel invariant audit.
 
-Missing head metadata on a non-empty journal, middle-entry mutation, sequence gaps, and tail truncation are reported as corruption rather than normalized.
+This detects accidental or partial corruption. It is not a signature against an administrator who rewrites the entire database coherently.
 
-This is integrity checking, not a cryptographic signature against an administrator who can rewrite the entire database and metadata coherently.
+## Journal schema v3
 
-## Replay
+Schema v3 records the incremental reducer and active semantic surface. A known schema-v2 Journal is migrated in place only after its legacy semantic-model version, reducer version, and Authority-policy fingerprint match exactly. Existing v2 command payloads remain immutable and continue to decode with their historical dataclass fields; newly appended commands use schema v3.
 
-Opening the Journal with its `AuthorityPolicy` creates a fresh `ReferenceReducer`, verifies every journal entry and Attestation, decodes each command, applies it in sequence, and validates the resulting projection. The standard bootstrap returns scoped Authority Views over the reconstructed Kernel.
-
-The following projections are rebuilt:
+The following fields remain decode-only compatibility fields and are rejected for new Effects:
 
 ```text
-effects
-dispatches
-effect events
-observations
-artifacts
-claims
-verifications
-facts
+free-text Precondition
+parent_task_id
+parent_attempt_id
+idempotency_key / KEYED idempotency
+CapabilityRef.valid_until_ms
 ```
 
-Typed getters expose each rebuilt object.
+Task lineage belongs above the Kernel. Keyed idempotency and expiry require real Tool Binding or policy enforcement before they re-enter the active model.
+
+## Replay and audit
+
+Normal open verifies and replays the complete command history into a fresh `ReferenceReducer`, then runs the full invariant audit. `verify_from_genesis()` independently repeats this reconstruction and compares the resulting projection with the live one.
+
+Rebuilt projections include Effects, Dispatches, Events, Observations, Artifacts, Claims, Verifications, and Facts.
 
 ## Concurrent writers
 
-Every `JournalReducer` records the journal head observed during replay. A write uses that sequence/digest as a compare-and-swap precondition inside `BEGIN IMMEDIATE`.
+Each `JournalReducer` records the head observed during open. Writes use that sequence/digest as a compare-and-swap precondition inside `BEGIN IMMEDIATE`. A stale process receives `JournalConflict`; no stale command is appended and its in-memory mutation is undone.
 
-If another process has committed first, the stale process receives `JournalConflict`; its candidate projection is not published and no stale command is appended.
+## Checkpoint experiment
 
-This provides one durable SQLite writer order. It is not distributed consensus or multi-host replication.
-
-## Proven live recovery
-
-A real `workspace.exec` call was delivered to Ordivon and its successful response was deliberately discarded. The first Python process persisted Effect preparation, Dispatch start, and an unknown outcome, then exited.
-
-A second process reopened the journal, rebuilt the Effect and Dispatch, found the original Job by stable identity, observed terminal success, and appended admission, Observation, Artifact, and terminal commands. A third open independently replayed the final state.
-
-Latest signed result, executed from implementation commit `88678a3c06f406c41eadb0ded484d09aa656ae43`:
+Checkpoint/tail replay was implemented and benchmarked at exact prototype revision `23353fdd550badf090c404861755131a70b7807b`. At 1,000 Effects / 2,000 commands with a checkpoint after 900 Effects:
 
 ```text
-initial state: unknown
-terminal state: succeeded
-kernel process restarted: true
-workspace.exec deliveries: 1
-correlated Jobs: 1
-Dispatch identity preserved: true
-semantic Artifacts: 3
-journal entries before restart: 4
-journal entries after recovery: 11
-Authority policy reauthenticated: true
-all stored Attestations replayed: true
+checkpoint reopen: 359.628 ms
+genesis verify:    332.942 ms
+database size:     12,464,128 bytes
 ```
 
-The first process generated one ephemeral 32-byte root secret and used scoped Effect and execution Views. The child process received the same secret through its environment, reconstructed the Authority policy, verified Journal schema v2 metadata, reauthenticated every signed command, and continued the original Dispatch. The secret was not printed or stored in the Journal.
+The snapshot duplicated state, increased storage, and was slower than the optimized genesis path. The runtime checkpoint implementation was therefore removed. Git history and `benchmark-results/prototype-23353fd.json` preserve the experiment. Checkpointing remains deferred until a different representation demonstrates positive net value.
 
-## Production extensions
+## Live recovery
 
-The next storage-engineering layers are snapshots, compaction, archival, encryption policy, online schema migration, replicated deployment, and long-Journal performance work. The next semantic vertical slice develops the public Effect IR and evolving Tool contracts together. These extensions build on the signed local semantic history established by Journal schema v2.
+The signed restart scenario still requires exactly one external delivery:
+
+```text
+Dispatch intent persisted
+→ successful response deliberately lost
+→ Effect and Dispatch become UNKNOWN
+→ Python process exits
+→ Journal reopens and reauthenticates commands
+→ original Job is correlated
+→ original Dispatch reaches SUCCEEDED
+```
+
+Exact post-change live evidence is recorded in `CONFORMANCE.md`.

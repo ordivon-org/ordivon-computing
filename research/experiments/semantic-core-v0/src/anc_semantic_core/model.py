@@ -80,12 +80,16 @@ class CapabilityRef:
         self.object_scope.require(IdKind.WORLD_OBJECT)
         if not self.operation:
             raise ValueError("capability operation must not be empty")
-        if self.valid_until_ms is not None and self.valid_until_ms < 0:
-            raise ValueError("capability expiry must be non-negative")
+        if self.valid_until_ms is not None:
+            raise ValueError(
+                "capability expiry is not an implemented Kernel mechanism; bind it in Tool policy"
+            )
 
 
 @dataclass(frozen=True, slots=True)
 class Precondition:
+    """Journal v2 compatibility object; new EffectSpec instances reject it."""
+
     object_ref: WorldObjectRef
     description: str
 
@@ -126,10 +130,14 @@ class EffectSpec:
 
     def __post_init__(self) -> None:
         self.effect_id.require(IdKind.EFFECT)
-        if self.parent_task_id is not None:
-            self.parent_task_id.require(IdKind.TASK)
-        if self.parent_attempt_id is not None:
-            self.parent_attempt_id.require(IdKind.ATTEMPT)
+        if self.preconditions:
+            raise ValueError(
+                "free-text preconditions are not executable Kernel semantics"
+            )
+        if self.parent_task_id is not None or self.parent_attempt_id is not None:
+            raise ValueError(
+                "Task and Attempt lineage belongs to the future Task Runtime"
+            )
         if not self.operation:
             raise ValueError("effect operation must not be empty")
         if not self.input_digest:
@@ -138,10 +146,10 @@ class EffectSpec:
             raise ValueError("capability operation must match effect operation")
         if self.capability.object_scope != self.target.object_id:
             raise ValueError("capability scope must match effect target")
-        if self.idempotency is IdempotencyKind.KEYED and not self.idempotency_key:
-            raise ValueError("keyed idempotency requires idempotency_key")
-        if self.idempotency is not IdempotencyKind.KEYED and self.idempotency_key is not None:
-            raise ValueError("idempotency_key is only valid for keyed idempotency")
+        if self.idempotency is IdempotencyKind.KEYED or self.idempotency_key is not None:
+            raise ValueError(
+                "keyed idempotency requires a real Effect Binding implementation"
+            )
 
 
 @dataclass(frozen=True, slots=True)
