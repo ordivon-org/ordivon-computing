@@ -41,3 +41,16 @@ Real-model evidence remains manual and must not become a pull-request requiremen
 ## Provider-comparison evidence
 
 A #32 receipt must contain both `freshProcessCodex` and `freshProcessHermes`. The generated report requires identical Capsule and Context digests, identical exact decision identities and semantic execution results, distinct adapter identities, transcript-free processes, and successful completion. Hermes usage must report the requested model/Provider and at least one API call.
+
+## Exact provider-replacement evidence
+
+Implementation revision:
+
+```text
+1cdbbdc13514a3eb3663e2aa5bb66d077651c310
+```
+
+- [`evidence/provider-comparison-1cdbbdc.json`](evidence/provider-comparison-1cdbbdc.json) — Codex/GPT-5.5 and isolated Hermes/DeepSeek-V4-Pro fresh-process trajectories over the same Capsule and Context;
+- [`evidence/provider-evaluation-1cdbbdc.json`](evidence/provider-evaluation-1cdbbdc.json) — exact provider-comparison acceptance report.
+
+The exact comparison preserves Capsule identity, Context identity, decision identities, executed Effects, committed Facts, and transcript-free process boundaries. Hermes reports one real `deepseek-v4-pro` API call with zero Toolsets, no loaded memory, and no retained Provider session. Timing and token counts are single-run evidence, not general model-performance claims.
