@@ -190,6 +190,25 @@ The backend operation identity is stored only as the opaque `DispatchRecord.back
 
 Shared conformance compares the resulting semantic projection rather than requiring either backend to adopt the other's contract. This is the executable basis for K11.
 
+## External Binding admission edge
+
+Public Effect IR and Tool contracts are external protocols. The Kernel stores only the minimal signed projection required to preserve delivery identity:
+
+```text
+BindingAdmission
+├── binding_id
+├── effect_id
+├── effect_digest
+├── binding_digest
+├── binding_revision
+├── supersedes_binding_id
+└── Binding Attestation
+```
+
+A Binding may be admitted only for `PROPOSED` or `PREPARED` Effects with no current Dispatch. Revisions are immutable, contiguous, and must preserve one `effect_digest`. `begin_dispatch` may remain unbound for legacy callers or may reference the current Binding identity and digest. Once a bound Dispatch starts, later catalog or contract changes cannot alter that Dispatch edge.
+
+The Kernel intentionally does not store Tool schemas, encoder implementations, provider catalogs, argument values, or contract compatibility decisions.
+
 ## Mutation and audit complexity
 
 A semantic command owns a local undo savepoint and validates the identities, revisions, state transitions, evidence, and Attestations it touches. Unrelated Effects are not copied or rescanned.

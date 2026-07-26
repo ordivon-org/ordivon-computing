@@ -26,6 +26,7 @@ from .journal import (
     JournalSchemaError,
 )
 from .interfaces import (
+    BindingView,
     EffectView,
     ExecutionView,
     FactView,
@@ -45,6 +46,7 @@ from .kernel import (
 from .model import (
     Admission,
     Artifact,
+    BindingAdmission,
     CapabilityRef,
     Claim,
     CompletionSemantics,
@@ -133,6 +135,8 @@ __all__ = [
     "JournalError",
     "JournalSchemaError",
     "Artifact",
+    "BindingAdmission",
+    "BindingView",
     "CapabilityRef",
     "Claim",
     "CompletionSemantics",

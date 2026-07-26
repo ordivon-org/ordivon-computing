@@ -127,7 +127,7 @@ class P2PerformanceTests(unittest.TestCase):
         with self.assertRaisesRegex(InvariantViolation, "event/revision mismatch"):
             reducer.validate_invariants()
 
-    def test_v2_journal_migrates_and_new_tail_uses_v3_commands(self) -> None:
+    def test_v2_journal_migrates_and_new_tail_uses_current_commands(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "legacy-v2.sqlite3"
             reducer, views = self._journal(path, "p2-v2-writer")
@@ -201,7 +201,7 @@ class P2PerformanceTests(unittest.TestCase):
             ]
             connection.close()
             self.assertEqual(schema, str(JOURNAL_SCHEMA_VERSION))
-            self.assertEqual(command_versions, [2, 3])
+            self.assertEqual(command_versions, [2, JOURNAL_SCHEMA_VERSION])
 
 
 if __name__ == "__main__":

@@ -24,6 +24,7 @@ class AttestationError(AuthorityError):
 
 class AuthorityRole(StrEnum):
     EFFECT = "effect"
+    BINDING = "binding"
     DISPATCH = "dispatch"
     OBSERVATION = "observation"
     VERIFICATION = "verification"
@@ -33,6 +34,7 @@ class AuthorityRole(StrEnum):
 class AttestationKind(StrEnum):
     EFFECT_PROPOSAL = "effect_proposal"
     EFFECT_PREPARATION = "effect_preparation"
+    EFFECT_BINDING = "effect_binding"
     DISPATCH_INTENT = "dispatch_intent"
     BACKEND_ADMISSION = "backend_admission"
     OUTCOME_UNCERTAINTY = "outcome_uncertainty"

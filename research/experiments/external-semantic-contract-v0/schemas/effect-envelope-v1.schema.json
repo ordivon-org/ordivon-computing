@@ -1,0 +1,219 @@
+{
+  "$defs": {
+    "jsonValue": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "$ref": "#/$defs/jsonValue"
+          },
+          "type": "array"
+        },
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/jsonValue"
+          },
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$id": "anc.effect-envelope.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "additionalProperties": false,
+      "properties": {
+        "actionId": {
+          "enum": [
+            "anc.object.read.v1",
+            "anc.object.replace-if-version.v1",
+            "anc.execution.launch.v1"
+          ]
+        },
+        "inputType": {
+          "pattern": "\\.v1$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "actionId",
+        "inputType"
+      ],
+      "type": "object"
+    },
+    "capability": {
+      "additionalProperties": false,
+      "properties": {
+        "actionId": {
+          "type": "string"
+        },
+        "objectScope": {
+          "pattern": "^world_object:",
+          "type": "string"
+        },
+        "principalId": {
+          "pattern": "^principal:",
+          "type": "string"
+        }
+      },
+      "required": [
+        "principalId",
+        "actionId",
+        "objectScope"
+      ],
+      "type": "object"
+    },
+    "delivery": {
+      "additionalProperties": false,
+      "properties": {
+        "idempotency": {
+          "enum": [
+            "none",
+            "natural"
+          ]
+        }
+      },
+      "required": [
+        "idempotency"
+      ],
+      "type": "object"
+    },
+    "effectId": {
+      "pattern": "^effect:",
+      "type": "string"
+    },
+    "input": {
+      "additionalProperties": false,
+      "properties": {
+        "digest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "encoding": {
+          "const": "anc-canonical-json-v1"
+        },
+        "value": {
+          "$ref": "#/$defs/jsonValue"
+        }
+      },
+      "required": [
+        "encoding",
+        "digest",
+        "value"
+      ],
+      "type": "object"
+    },
+    "kind": {
+      "const": "anc.effect-envelope"
+    },
+    "mode": {
+      "enum": [
+        "observe",
+        "change"
+      ]
+    },
+    "result": {
+      "additionalProperties": false,
+      "properties": {
+        "completion": {
+          "enum": [
+            "response",
+            "terminal-observation",
+            "accepted-verification"
+          ]
+        },
+        "execution": {
+          "enum": [
+            "synchronous",
+            "asynchronous"
+          ]
+        }
+      },
+      "required": [
+        "execution",
+        "completion"
+      ],
+      "type": "object"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "target": {
+      "additionalProperties": false,
+      "properties": {
+        "objectId": {
+          "pattern": "^world_object:",
+          "type": "string"
+        },
+        "version": {
+          "oneOf": [
+            {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "objectId",
+        "version"
+      ],
+      "type": "object"
+    },
+    "verification": {
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "pattern": "\\.v1$",
+          "type": "string"
+        },
+        "requiredEvidence": {
+          "items": {
+            "enum": [
+              "observation",
+              "artifact"
+            ]
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "method",
+        "requiredEvidence"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "effectId",
+    "target",
+    "mode",
+    "action",
+    "input",
+    "capability",
+    "delivery",
+    "result",
+    "verification"
+  ],
+  "type": "object"
+}

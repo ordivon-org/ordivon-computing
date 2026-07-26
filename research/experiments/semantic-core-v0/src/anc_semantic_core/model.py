@@ -153,6 +153,34 @@ class EffectSpec:
 
 
 @dataclass(frozen=True, slots=True)
+class BindingAdmission:
+    binding_id: SemanticId
+    effect_id: SemanticId
+    effect_digest: str
+    binding_digest: str
+    binding_revision: int
+    admitted_at_ms: int
+    supersedes_binding_id: SemanticId | None = None
+    attestation: Attestation | None = None
+
+    def __post_init__(self) -> None:
+        self.binding_id.require(IdKind.BINDING)
+        self.effect_id.require(IdKind.EFFECT)
+        if not self.effect_digest.startswith("sha256:") or not self.binding_digest.startswith(
+            "sha256:"
+        ):
+            raise ValueError("Binding admission digests must use sha256")
+        if self.binding_revision < 1 or self.admitted_at_ms < 0:
+            raise ValueError("Binding revision and admission time are invalid")
+        if self.supersedes_binding_id is not None:
+            self.supersedes_binding_id.require(IdKind.BINDING)
+            if self.binding_revision < 2 or self.supersedes_binding_id == self.binding_id:
+                raise ValueError("Binding supersedes relation is invalid")
+        elif self.binding_revision != 1:
+            raise ValueError("later Binding revisions must supersede an earlier Binding")
+
+
+@dataclass(frozen=True, slots=True)
 class EffectRecord:
     spec: EffectSpec
     state: EffectState
@@ -177,12 +205,20 @@ class DispatchRecord:
     backend_operation_id: str | None = None
     reason_code: str | None = None
     retryable: bool | None = None
+    binding_id: SemanticId | None = None
+    binding_digest: str | None = None
 
     def __post_init__(self) -> None:
         self.dispatch_id.require(IdKind.DISPATCH)
         self.effect_id.require(IdKind.EFFECT)
         if not self.request_digest:
             raise ValueError("dispatch request digest must not be empty")
+        if (self.binding_id is None) != (self.binding_digest is None):
+            raise ValueError("Dispatch Binding identity and digest must appear together")
+        if self.binding_id is not None:
+            self.binding_id.require(IdKind.BINDING)
+            if not self.binding_digest.startswith("sha256:"):
+                raise ValueError("Dispatch Binding digest must use sha256")
         if self.started_at_ms < 0 or self.updated_at_ms < self.started_at_ms:
             raise ValueError("dispatch times are invalid")
         if self.state is DispatchState.STARTED:

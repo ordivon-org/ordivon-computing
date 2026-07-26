@@ -86,6 +86,10 @@ Every semantic mutation and evidence record carries an Attestation binding its A
 
 Execution substrates with structurally different operation names, correlation mechanisms, status vocabularies, receipt formats, and backend identities can project the same Effect, Dispatch, uncertainty, cancellation, evidence, knowledge, Authority, and replay semantics. Backend implementation objects and protocol envelopes remain below the Kernel state boundary.
 
+### K12 — Stable Effect and Binding separation
+
+A Tool contract, argument encoding, and Binding revision are not the Effect itself. Each admitted Binding is immutable, signed by a distinct Binding Authority, and bound to one stable Effect digest. A bound Dispatch records the exact Binding identity and digest used for that delivery. New Binding revisions are admitted only before delivery or after a proven retryable pre-admission rejection; active, uncertain, reconciling, and terminal Effects cannot be rebound into a new execution.
+
 ## 5. Value delivered
 
 The Kernel provides a stable answer to the following questions across process and session boundaries:
@@ -101,6 +105,7 @@ Which Verification admitted the Fact?
 Which Authority signed each transition and evidence record?
 Which trust domain and contract produced the evidence?
 Which backend-local identity and protocol were projected without becoming Kernel semantics?
+Which immutable Binding and Tool-contract digest authorized this Dispatch?
 How can the complete state be reconstructed and re-authenticated after restart?
 ```
 
@@ -136,4 +141,4 @@ This keeps the Kernel centered on hard semantic guarantees while schedulers, mem
 
 ## 8. Current conformance
 
-K1–K11 have executable local evidence in the reference implementation. Together they establish a durable, role-scoped, attested, backend-independent semantic Kernel for external Agent action.
+K1–K12 have executable local evidence in the reference implementation. Together they establish a durable, role-scoped, attested, backend-independent, Binding-aware semantic Kernel for external Agent action.

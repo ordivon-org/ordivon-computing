@@ -21,6 +21,7 @@
 | K9 | role-scoped semantic authority | deterministic | `test_role_specific_signer_cannot_escalate_to_another_role` |
 | K10 | content-bound attestation | deterministic + live | `test_attestation_provenance_survives_journal_replay` |
 | K11 | backend-independent semantic projection | deterministic | `test_same_semantic_contract_runs_against_two_backends` |
+| K12 | stable Effect / Binding separation | deterministic + integration | `test_k12_effect_binding_separation_survives_journal_restart` |
 
 A drift-guard test binds every Charter clause to the named executable evidence in this file.
 
@@ -72,7 +73,7 @@ Deterministic tests prove:
 - the Journal hot path does not clone `ReferenceReducer`;
 - SQLite append failure rolls back the in-memory projection;
 - explicit full audit still detects cross-projection corruption;
-- a known v2 Journal migrates to v3 and accepts a v3 tail.
+- known v2 and v3 Journals migrate to schema v4 while retaining immutable legacy payloads.
 
 Exact baseline revision `bf60668aa7eac1defb4181fcdbeeb8123c7030af` measured 200 Effects / 400 in-memory commands at 3,693.445 ms and 100 Effects / 200 Journal commands at 963.434 ms. Exact optimized implementation revision `dd4730ef6767eac1a3f3d6f9c73d6dc639ca894a` measured the same workloads at 37.033 ms and 38.131 ms respectively. The 200-Effect in-memory path improved by about 99.7×, the 100-Effect Journal write path by about 25.3×, and 200-entry reopen by about 34.2× (`1,014.054 ms → 29.639 ms`). Per-command memory cost remained approximately flat at 0.09–0.11 ms across 10–200 Effects.
 
@@ -152,6 +153,55 @@ Fact committed: 1
 stale mutation: failed / INVALID_REQUEST
 final content and digest: stable
 ```
+
+## External semantic contract and Binding-edge conformance
+
+The active [`external-semantic-contract-v0`](../external-semantic-contract-v0/) experiment owns canonical JSON, backend-neutral `EffectEnvelope`, normalized `ToolContract`, immutable `EffectBinding`, contract drift decisions, and Backend-specific lowering. The Kernel imports none of those packages.
+
+The only new Kernel edge is `BindingAdmission`:
+
+```text
+binding_id
+effect_id
+effect_digest
+binding_digest
+binding_revision
+supersedes_binding_id
+Binding Authority Attestation
+```
+
+A `DispatchRecord` may reference the exact `binding_id` and `binding_digest` used to create its request. Legacy unbound Dispatches remain valid and Journal v2/v3 histories migrate to schema v4 without rewriting command payloads.
+
+Deterministic evidence proves:
+
+- Effect, Binding, and Dispatch Authorities are distinct;
+- Binding revisions are contiguous, immutable, and linked through `supersedes_binding_id`;
+- the current Binding must match a bound Dispatch at start;
+- retryable pre-admission rejection returns the Effect to `PREPARED` and permits a new Binding revision;
+- `DISPATCHED`, `RUNNING`, `UNKNOWN`, `RECONCILING`, and terminal Effects reject new Binding admission;
+- a bound Dispatch and complete Binding history survive Journal close/reopen and genesis replay;
+- Journal v2 and v3 histories migrate to v4 while legacy unbound Dispatches retain `binding_id = None`;
+- the same external Envelope lowers to different Ordivon and simulator contracts while retaining one Effect digest;
+- response loss on both Backends reconciles the original bound Dispatch with one delivery;
+- an independent read still admits Verification and Fact after bound mutation.
+
+This is the executable basis for K12.
+
+Exact implementation revision: `2f4d7ca8db6756b8add3356db52dcd237ed7a256`
+
+Exact results:
+
+```text
+Kernel tests: 99 / 99
+external contract tests: 29 / 29
+System Snapshot tests: 8 / 8
+Python/Rust canonical vectors: 5 / 5
+200-Effect memory workload: 34.433 ms (86.084 µs/command)
+100-Effect Journal workload: 39.351 ms
+200-entry Journal reopen: 30.327 ms
+```
+
+Live Ordivon on the same revision preserved one delivery, the original Dispatch, Journal `UNKNOWN → SUCCEEDED` recovery, three Artifacts, mutation-to-Fact admission, and stale-write rejection. Receipts are stored in the external contract `evidence/` directory and `benchmark-results/binding-edge-2f4d7ca.json`.
 
 ## Live evidence summary
 

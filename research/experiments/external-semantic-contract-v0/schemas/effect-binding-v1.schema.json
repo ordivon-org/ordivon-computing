@@ -1,0 +1,153 @@
+{
+  "$defs": {
+    "jsonValue": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "$ref": "#/$defs/jsonValue"
+          },
+          "type": "array"
+        },
+        {
+          "additionalProperties": {
+            "$ref": "#/$defs/jsonValue"
+          },
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$id": "anc.effect-binding.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "arguments": {
+      "additionalProperties": false,
+      "properties": {
+        "digest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "encoding": {
+          "const": "anc-canonical-json-v1"
+        },
+        "value": {
+          "$ref": "#/$defs/jsonValue"
+        }
+      },
+      "required": [
+        "encoding",
+        "digest",
+        "value"
+      ],
+      "type": "object"
+    },
+    "bindingId": {
+      "pattern": "^binding:",
+      "type": "string"
+    },
+    "bindingRevision": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "changeClass": {
+      "enum": [
+        "initial",
+        "caller-adaptation",
+        "compatible-extension"
+      ]
+    },
+    "contract": {
+      "additionalProperties": false,
+      "properties": {
+        "contractId": {
+          "pattern": "^tool-contract:",
+          "type": "string"
+        },
+        "digest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "revision": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "contractId",
+        "revision",
+        "digest"
+      ],
+      "type": "object"
+    },
+    "effectDigest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "effectId": {
+      "pattern": "^effect:",
+      "type": "string"
+    },
+    "encoder": {
+      "additionalProperties": false,
+      "properties": {
+        "encoderId": {
+          "pattern": "^anc\\.binding\\.",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "encoderId",
+        "version"
+      ],
+      "type": "object"
+    },
+    "kind": {
+      "const": "anc.effect-binding"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "supersedesBindingId": {
+      "oneOf": [
+        {
+          "pattern": "^binding:",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "bindingId",
+    "bindingRevision",
+    "effectId",
+    "effectDigest",
+    "contract",
+    "encoder",
+    "arguments",
+    "supersedesBindingId",
+    "changeClass"
+  ],
+  "type": "object"
+}

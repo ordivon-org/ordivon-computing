@@ -1,0 +1,57 @@
+{
+  "description": "presentation metadata excluded",
+  "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+      "content": {
+        "type": "string"
+      },
+      "expectedVersion": {
+        "type": "string"
+      },
+      "objectKey": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "objectKey",
+      "expectedVersion",
+      "content"
+    ],
+    "type": "object"
+  },
+  "name": "simulator.object.mutate",
+  "outputSchema": {
+    "additionalProperties": false,
+    "properties": {
+      "afterVersion": {
+        "type": "string"
+      },
+      "beforeVersion": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "beforeVersion",
+      "afterVersion"
+    ],
+    "type": "object"
+  },
+  "providerId": "deterministic-simulator",
+  "revision": "sim-v1",
+  "schemaVersion": 1,
+  "semantics": {
+    "cancellation": "unsupported",
+    "capabilityClass": "workspace-file-mutation",
+    "completion": "response",
+    "correlation": "receipt",
+    "effectClass": "change",
+    "evidence": [
+      "observation",
+      "version"
+    ],
+    "execution": "synchronous",
+    "idempotencySupport": "natural",
+    "semanticAction": "anc.object.replace-if-version.v1"
+  }
+}
