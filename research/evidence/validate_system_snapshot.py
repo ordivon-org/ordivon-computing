@@ -191,6 +191,7 @@ def main() -> int:
     args = parser.parse_args()
     repository_root = Path(__file__).resolve().parents[2]
     repository_roots = {
+        "ordivon-computing": repository_root,
         "ordivon-architecture": repository_root,
         # Historical immutable snapshots retain the repository identity used when captured.
         "agent-native-computing": repository_root,

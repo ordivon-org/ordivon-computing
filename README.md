@@ -1,12 +1,12 @@
-# Ordivon Architecture
+# Ordivon Computing
 
 **Toward a computing stack designed for probabilistic cognition, persistent execution, and human–agent collaboration.**
 
-中文：Ordivon 的智能体原生计算架构、协议与验证研究。
+中文：Ordivon 的智能体原生计算体系、结构化研究、协议与验证母项目。
 
 ## What this repository is
 
-Ordivon Architecture studies and constructs an agent-native computing stack for a world in which foundation models participate directly in reasoning, programming, system operation, research, and coordination.
+Ordivon Computing is the system-level research, specification, and construction root for an agent-native computing stack in which foundation models participate directly in reasoning, programming, system operation, research, and coordination.
 
 The repository is organized as a knowledge-generation system rather than a flat collection of documents:
 
@@ -72,7 +72,6 @@ See [`research/map.yaml`](research/map.yaml) and [`research/questions/`](researc
 
 - **Ordivon Runtime** — durable trusted-local execution, Workspace, Job, Artifact, and recovery plane.
 - **FinHarness** — capital-domain Agent system for truth, authority, decision, execution, and reconciliation.
-- **Ordinary Prosperity Research** — long-horizon empirical research and reproducible inquiry.
 - **Ordivon Web** — public interface and project navigation.
 
 See [`projects/registry.yaml`](projects/registry.yaml).
@@ -100,7 +99,7 @@ Start with:
 - [`KERNEL-CHARTER.md`](research/experiments/semantic-core-v0/KERNEL-CHARTER.md) — mission and hard guarantees;
 - [`SPEC.md`](research/experiments/semantic-core-v0/SPEC.md) — objects, state algebra, evidence, and invariants;
 - [`CONFORMANCE.md`](research/experiments/semantic-core-v0/CONFORMANCE.md) — executable and live evidence;
-- [Program #1](https://github.com/zycxfyh/ordivon-architecture/issues/1) — dynamic dependency clusters and Ready Frontier.
+- [Program #1](https://github.com/zycxfyh/ordivon-computing/issues/1) — dynamic dependency clusters and Ready Frontier.
 
 ## Coordination and state
 

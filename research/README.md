@@ -8,7 +8,7 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 - [`questions/`](questions/) — one durable page per active question;
 - [`experiments/`](experiments/) — executable artifacts and experiment records;
 - [`evidence/`](evidence/) — immutable cross-repository System Snapshots and their validator;
-- [GitHub Issues](https://github.com/zycxfyh/ordivon-architecture/issues) — active construction tracks, dependencies, discussion, and Ready Frontier.
+- [GitHub Issues](https://github.com/zycxfyh/ordivon-computing/issues) — active construction tracks, dependencies, discussion, and Ready Frontier.
 
 Durable question pages preserve hypotheses and evidence criteria. GitHub Issues carry active sequencing and progress. Project repositories and `experiments/` carry executable artifacts. `evidence/` binds exact repository commits, services, Tool contracts, and Artifact digests for one historical observation; it never claims to be the current deployment registry.
 
@@ -16,7 +16,7 @@ Research is allowed to contain alternatives, failed experiments, changing termin
 
 ## Construction program
 
-The cross-layer program is [#1 — Construct the Agent-Native Machine](https://github.com/zycxfyh/ordivon-architecture/issues/1). Its nine construction tracks and stable typed relations are indexed in [`map.yaml`](map.yaml). Changing status, dependency discussion, and the Ready Frontier live in GitHub Issues rather than duplicated roadmap documents.
+The cross-layer program is [#1 — Construct the Agent-Native Machine](https://github.com/zycxfyh/ordivon-computing/issues/1). Its nine construction tracks and stable typed relations are indexed in [`map.yaml`](map.yaml). Changing status, dependency discussion, and the Ready Frontier live in GitHub Issues rather than duplicated roadmap documents.
 
 ## Current questions
 

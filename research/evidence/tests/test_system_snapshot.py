@@ -10,6 +10,7 @@ from pathlib import Path
 EVIDENCE_ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY_ROOT = EVIDENCE_ROOT.parents[1]
 REPOSITORY_ROOTS = {
+    "ordivon-computing": REPOSITORY_ROOT,
     "ordivon-architecture": REPOSITORY_ROOT,
     "agent-native-computing": REPOSITORY_ROOT,
 }
