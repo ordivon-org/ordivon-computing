@@ -27,6 +27,10 @@ PYTHONPATH=src:../semantic-core-v0/src:. python3.12 -m unittest discover -s test
 
 cd ../semantic-core-v0
 PYTHONPATH=src python3.12 -m unittest discover -s tests
+
+cd ../task-continuation-v0
+PYTHONPATH=src:../external-semantic-contract-v0/src:../external-semantic-contract-v0:../semantic-core-v0/src \
+  python3.12 -m unittest discover -s tests
 ```
 
 ## T2 — pull-request CI
@@ -44,6 +48,7 @@ The following are deliberately excluded from ordinary CI:
 - benchmarks;
 - System Snapshot governance checks;
 - exact-revision receipt regeneration;
+- real Codex or other model continuation evidence;
 - repository-wide Markdown audits.
 
 Run them only when the corresponding boundary changes, before release, or during a stage closeout. Their outputs belong in immutable machine receipts, not in mutable status prose.
