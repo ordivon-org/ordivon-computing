@@ -77,9 +77,9 @@ Startup verifies:
 
 This detects accidental or partial corruption. It is not a signature against an administrator who rewrites the entire database coherently.
 
-## Journal schema v3
+## Journal schema v4
 
-Schema v3 records the incremental reducer and active semantic surface. A known schema-v2 Journal is migrated in place only after its legacy semantic-model version, reducer version, and Authority-policy fingerprint match exactly. Existing v2 command payloads remain immutable and continue to decode with their historical dataclass fields; newly appended commands use schema v3.
+Schema v4 adds signed `BindingAdmission` commands and optional Binding references on `DispatchRecord`. Known schema-v2 and schema-v3 Journals migrate in place only after their exact semantic-model version, reducer version, and Authority-policy fingerprint match. Existing legacy command payloads remain immutable; newly appended commands use schema v4. Legacy Dispatches decode with `binding_id = None` and `binding_digest = None`.
 
 The following fields remain decode-only compatibility fields and are rejected for new Effects:
 

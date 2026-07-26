@@ -79,7 +79,7 @@ See [`projects/registry.yaml`](projects/registry.yaml).
 
 ## Executable Semantic Core
 
-The repository contains an executable reference Kernel at [`research/experiments/semantic-core-v0/`](research/experiments/semantic-core-v0/). It occupies the semantic boundary between probabilistic cognition and classical execution substrates:
+The repository contains a completed executable reference Kernel at [`research/experiments/semantic-core-v0/`](research/experiments/semantic-core-v0/) and a separate active external contract experiment at [`research/experiments/external-semantic-contract-v0/`](research/experiments/external-semantic-contract-v0/). It occupies the semantic boundary between probabilistic cognition and classical execution substrates:
 
 ```text
 Probabilistic cognition
@@ -93,7 +93,7 @@ Verification
 Fact admission
 ```
 
-The core preserves stable intent, concrete boundary attempts, explicit uncertainty, evidence provenance, signed authority, and authenticated replay. Linux, SQLite, Git, and Ordivon continue to provide the classical execution and durability mechanisms beneath it.
+The Kernel preserves stable internal intent, concrete boundary attempts, explicit uncertainty, evidence provenance, signed authority, and authenticated replay. The external contract experiment separately owns backend-neutral EffectEnvelope, ToolContract, and immutable EffectBinding representations. Linux, SQLite, Git, and Ordivon continue to provide the classical execution and durability mechanisms beneath them.
 
 Start with:
 

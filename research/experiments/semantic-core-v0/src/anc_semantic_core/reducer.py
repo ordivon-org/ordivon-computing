@@ -23,6 +23,7 @@ from .identity import IdKind, SemanticId
 from .model import (
     Admission,
     Artifact,
+    BindingAdmission,
     Claim,
     DispatchRecord,
     EffectEvent,
@@ -100,6 +101,8 @@ class ReferenceReducer:
     def __init__(self, authority_policy: AuthorityPolicy) -> None:
         self._authority_policy = authority_policy
         self._effects: dict[SemanticId, EffectRecord] = {}
+        self._bindings: dict[SemanticId, BindingAdmission] = {}
+        self._bindings_by_effect: dict[SemanticId, list[BindingAdmission]] = {}
         self._dispatches: dict[SemanticId, DispatchRecord] = {}
         self._events: dict[SemanticId, EffectEvent] = {}
         self._events_by_effect: dict[SemanticId, list[EffectEvent]] = {}
@@ -115,6 +118,8 @@ class ReferenceReducer:
     def _snapshot(self) -> tuple[dict[Any, Any], ...]:
         return (
             dict(self._effects),
+            dict(self._bindings),
+            {key: list(value) for key, value in self._bindings_by_effect.items()},
             dict(self._dispatches),
             dict(self._events),
             {key: list(value) for key, value in self._events_by_effect.items()},
@@ -128,6 +133,8 @@ class ReferenceReducer:
     def _restore(self, snapshot: tuple[dict[Any, Any], ...]) -> None:
         (
             self._effects,
+            self._bindings,
+            self._bindings_by_effect,
             self._dispatches,
             self._events,
             self._events_by_effect,
@@ -251,6 +258,46 @@ class ReferenceReducer:
         return Admission.CREATED
 
     @_atomic_mutation
+    def admit_binding(self, binding: BindingAdmission) -> Admission:
+        unsigned = replace(binding, attestation=None)
+        self._verify_record_attestation(
+            binding.attestation,
+            role=AuthorityRole.BINDING,
+            kind=AttestationKind.EFFECT_BINDING,
+            operation="admit_binding",
+            record=unsigned,
+            issued_at_ms=binding.admitted_at_ms,
+        )
+        existing = self._bindings.get(binding.binding_id)
+        if existing is not None:
+            if existing == binding:
+                return Admission.EXISTING
+            raise IdentityConflict(f"binding identity conflict: {binding.binding_id}")
+        effect = self.get_effect(binding.effect_id)
+        if effect.state not in {EffectState.PROPOSED, EffectState.PREPARED}:
+            raise InvalidTransition(
+                f"cannot admit Binding while Effect is {effect.state.value}"
+            )
+        if effect.dispatch_id is not None:
+            raise InvalidTransition("cannot admit Binding while Effect has a current Dispatch")
+        history = self._bindings_by_effect.get(binding.effect_id, [])
+        if history:
+            previous = history[-1]
+            if binding.binding_revision != previous.binding_revision + 1:
+                raise InvariantViolation("Binding revision must increase by one")
+            if binding.supersedes_binding_id != previous.binding_id:
+                raise InvariantViolation("Binding must supersede the current Binding")
+            if binding.effect_digest != previous.effect_digest:
+                raise IdentityConflict("Binding revisions disagree on Effect digest")
+            self._append_item(history, binding)
+        else:
+            if binding.binding_revision != 1 or binding.supersedes_binding_id is not None:
+                raise InvariantViolation("first Binding must be revision one without supersedes")
+            self._set_item(self._bindings_by_effect, binding.effect_id, [binding])
+        self._set_item(self._bindings, binding.binding_id, binding)
+        return Admission.CREATED
+
+    @_atomic_mutation
     def prepare_effect(
         self,
         effect_id: SemanticId,
@@ -294,7 +341,19 @@ class ReferenceReducer:
         recorded_at_ms: int,
         request_digest: str,
         attestation: Attestation,
+        binding_id: SemanticId | None = None,
+        binding_digest: str | None = None,
     ) -> EffectRecord:
+        attestation_kwargs: dict[str, Any] = {
+            "expected_revision": expected_revision,
+            "dispatch_id": dispatch_id,
+            "event_id": event_id,
+            "recorded_at_ms": recorded_at_ms,
+            "request_digest": request_digest,
+        }
+        if binding_id is not None or binding_digest is not None:
+            attestation_kwargs["binding_id"] = binding_id
+            attestation_kwargs["binding_digest"] = binding_digest
         self._verify_command_attestation(
             attestation,
             role=AuthorityRole.DISPATCH,
@@ -302,14 +361,18 @@ class ReferenceReducer:
             operation="begin_dispatch",
             issued_at_ms=recorded_at_ms,
             args=(effect_id,),
-            kwargs={
-                "expected_revision": expected_revision,
-                "dispatch_id": dispatch_id,
-                "event_id": event_id,
-                "recorded_at_ms": recorded_at_ms,
-                "request_digest": request_digest,
-            },
+            kwargs=attestation_kwargs,
         )
+        if (binding_id is None) != (binding_digest is None):
+            raise ValueError("Dispatch Binding identity and digest must appear together")
+        if binding_id is not None:
+            current_binding = self.current_binding_for(effect_id)
+            if current_binding is None:
+                raise NotFound("bound Dispatch requires an admitted Binding")
+            if current_binding.binding_id != binding_id:
+                raise InvariantViolation("Dispatch does not reference the current Binding")
+            if current_binding.binding_digest != binding_digest:
+                raise InvariantViolation("Dispatch Binding digest does not match admission")
         dispatch = DispatchRecord(
             dispatch_id=dispatch_id,
             effect_id=effect_id,
@@ -317,6 +380,8 @@ class ReferenceReducer:
             state=DispatchState.STARTED,
             started_at_ms=recorded_at_ms,
             updated_at_ms=recorded_at_ms,
+            binding_id=binding_id,
+            binding_digest=binding_digest,
         )
         existing = self._dispatches.get(dispatch_id)
         if existing is not None:
@@ -572,6 +637,21 @@ class ReferenceReducer:
             raise NotFound(f"effect not found: {effect_id}")
         return record
 
+    def get_binding(self, binding_id: SemanticId) -> BindingAdmission:
+        binding_id.require(IdKind.BINDING)
+        record = self._bindings.get(binding_id)
+        if record is None:
+            raise NotFound(f"binding not found: {binding_id}")
+        return record
+
+    def bindings_for(self, effect_id: SemanticId) -> tuple[BindingAdmission, ...]:
+        self.get_effect(effect_id)
+        return tuple(self._bindings_by_effect.get(effect_id, ()))
+
+    def current_binding_for(self, effect_id: SemanticId) -> BindingAdmission | None:
+        history = self.bindings_for(effect_id)
+        return history[-1] if history else None
+
     def get_dispatch(self, dispatch_id: SemanticId) -> DispatchRecord:
         dispatch_id.require(IdKind.DISPATCH)
         record = self._dispatches.get(dispatch_id)
@@ -767,6 +847,7 @@ class ReferenceReducer:
 
     def validate_invariants(self) -> None:
         self._validate_effect_histories()
+        self._validate_binding_histories()
         self._validate_dispatch_bindings()
         self._validate_evidence_provenance()
         self._validate_knowledge_admission()
@@ -790,6 +871,30 @@ class ReferenceReducer:
                 if event.recorded_at_ms < previous_time:
                     raise InvariantViolation(f"event time regressed: {effect_id}")
                 previous_time = event.recorded_at_ms
+
+    def _validate_binding_histories(self) -> None:
+        for effect_id, history in self._bindings_by_effect.items():
+            self.get_effect(effect_id)
+            if not history:
+                raise InvariantViolation(f"empty Binding history: {effect_id}")
+            expected_effect_digest = history[0].effect_digest
+            previous: BindingAdmission | None = None
+            for expected_revision, binding in enumerate(history, start=1):
+                if self._bindings.get(binding.binding_id) != binding:
+                    raise InvariantViolation(f"Binding index mismatch: {binding.binding_id}")
+                if binding.effect_id != effect_id:
+                    raise InvariantViolation("Binding history contains the wrong Effect")
+                if binding.binding_revision != expected_revision:
+                    raise InvariantViolation("Binding history revision is not contiguous")
+                if binding.effect_digest != expected_effect_digest:
+                    raise InvariantViolation("Binding history changes Effect digest")
+                expected_supersedes = previous.binding_id if previous is not None else None
+                if binding.supersedes_binding_id != expected_supersedes:
+                    raise InvariantViolation("Binding history supersedes edge is invalid")
+                previous = binding
+        for binding_id, binding in self._bindings.items():
+            if binding not in self._bindings_by_effect.get(binding.effect_id, []):
+                raise InvariantViolation(f"orphan Binding: {binding_id}")
 
     def _validate_dispatch_bindings(self) -> None:
         for effect_id, record in self._effects.items():
@@ -833,6 +938,12 @@ class ReferenceReducer:
 
         for dispatch_id, dispatch in self._dispatches.items():
             effect = self.get_effect(dispatch.effect_id)
+            if dispatch.binding_id is not None:
+                binding = self.get_binding(dispatch.binding_id)
+                if binding.effect_id != dispatch.effect_id:
+                    raise InvariantViolation("Dispatch Binding belongs to another Effect")
+                if binding.binding_digest != dispatch.binding_digest:
+                    raise InvariantViolation("Dispatch Binding digest is inconsistent")
             dispatch_events = [
                 event
                 for event in self._events_by_effect[dispatch.effect_id]
@@ -870,6 +981,15 @@ class ReferenceReducer:
                 raise InvariantViolation(f"active Dispatch is not bound by its Effect: {dispatch_id}")
 
     def _validate_evidence_provenance(self) -> None:
+        for binding in self._bindings.values():
+            self._verify_record_attestation(
+                binding.attestation,
+                role=AuthorityRole.BINDING,
+                kind=AttestationKind.EFFECT_BINDING,
+                operation="admit_binding",
+                record=replace(binding, attestation=None),
+                issued_at_ms=binding.admitted_at_ms,
+            )
         for observation in self._observations.values():
             record = self.get_effect(observation.effect_id)
             self._require_admitted_dispatch(record, observation.dispatch_id)
@@ -1175,6 +1295,9 @@ class ReferenceReducer:
                 **common,
                 "request_digest": dispatch.request_digest,
             }
+            if dispatch.binding_id is not None:
+                kwargs["binding_id"] = dispatch.binding_id
+                kwargs["binding_digest"] = dispatch.binding_digest
         elif event.kind is EventKind.DISPATCH_ADMITTED:
             if event.dispatch_id is None:
                 raise InvariantViolation("Dispatch admission event lacks Dispatch identity")

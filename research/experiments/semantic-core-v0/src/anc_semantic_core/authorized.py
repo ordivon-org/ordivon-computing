@@ -15,7 +15,17 @@ from .authority import (
 )
 from .identity import SemanticId
 from .interfaces import RootBoundView
-from .model import Admission, Artifact, Claim, EffectRecord, EffectSpec, Fact, Observation, Verification
+from .model import (
+    Admission,
+    Artifact,
+    BindingAdmission,
+    Claim,
+    EffectRecord,
+    EffectSpec,
+    Fact,
+    Observation,
+    Verification,
+)
 from .state import EffectState
 
 
@@ -182,6 +192,22 @@ class AuthorizedKernel:
             attestation=attestation,
         )
 
+    def admit_binding(self, binding: BindingAdmission) -> Admission:
+        if binding.attestation is not None:
+            raise AuthorityDenied(
+                "Binding attestation is assigned by the authority view"
+            )
+        grant = self._grant(AuthorityRole.BINDING)
+        unsigned = replace(binding, attestation=None)
+        attestation = grant.signer.attest(
+            kind=AttestationKind.EFFECT_BINDING,
+            subject_digest=semantic_digest("admit_binding", unsigned),
+            issued_at_ms=binding.admitted_at_ms,
+        )
+        return self._kernel.admit_binding(
+            replace(binding, attestation=attestation)
+        )
+
     def begin_dispatch(
         self,
         effect_id: SemanticId,
@@ -191,26 +217,30 @@ class AuthorizedKernel:
         event_id: SemanticId,
         recorded_at_ms: int,
         request_digest: str,
+        binding_id: SemanticId | None = None,
+        binding_digest: str | None = None,
     ) -> EffectRecord:
+        attestation_kwargs: dict[str, Any] = {
+            "expected_revision": expected_revision,
+            "dispatch_id": dispatch_id,
+            "event_id": event_id,
+            "recorded_at_ms": recorded_at_ms,
+            "request_digest": request_digest,
+        }
+        if binding_id is not None or binding_digest is not None:
+            attestation_kwargs["binding_id"] = binding_id
+            attestation_kwargs["binding_digest"] = binding_digest
         attestation = self._attest(
             AuthorityRole.DISPATCH,
             AttestationKind.DISPATCH_INTENT,
             "begin_dispatch",
             recorded_at_ms,
             effect_id,
-            expected_revision=expected_revision,
-            dispatch_id=dispatch_id,
-            event_id=event_id,
-            recorded_at_ms=recorded_at_ms,
-            request_digest=request_digest,
+            **attestation_kwargs,
         )
         return self._kernel.begin_dispatch(
             effect_id,
-            expected_revision=expected_revision,
-            dispatch_id=dispatch_id,
-            event_id=event_id,
-            recorded_at_ms=recorded_at_ms,
-            request_digest=request_digest,
+            **attestation_kwargs,
             attestation=attestation,
         )
 
@@ -417,6 +447,15 @@ class AuthorizedKernel:
 
     def get_dispatch(self, dispatch_id: SemanticId):
         return self._kernel.get_dispatch(dispatch_id)
+
+    def get_binding(self, binding_id: SemanticId):
+        return self._kernel.get_binding(binding_id)
+
+    def bindings_for(self, effect_id: SemanticId):
+        return self._kernel.bindings_for(effect_id)
+
+    def current_binding_for(self, effect_id: SemanticId):
+        return self._kernel.current_binding_for(effect_id)
 
     def events_for(self, effect_id: SemanticId):
         return self._kernel.events_for(effect_id)

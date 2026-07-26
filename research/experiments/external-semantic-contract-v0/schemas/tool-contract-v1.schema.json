@@ -1,0 +1,111 @@
+{
+  "$id": "anc.tool-contract.v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "cancellation": {
+      "enum": [
+        "supported",
+        "unsupported"
+      ]
+    },
+    "capabilityClass": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "completion": {
+      "enum": [
+        "response",
+        "terminal-observation",
+        "accepted-verification"
+      ]
+    },
+    "contractId": {
+      "pattern": "^tool-contract:",
+      "type": "string"
+    },
+    "correlation": {
+      "enum": [
+        "receipt",
+        "stable-key",
+        "none"
+      ]
+    },
+    "effectClass": {
+      "enum": [
+        "observe",
+        "change",
+        "opaque"
+      ]
+    },
+    "evidence": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "execution": {
+      "enum": [
+        "synchronous",
+        "asynchronous"
+      ]
+    },
+    "idempotencySupport": {
+      "enum": [
+        "none",
+        "natural",
+        "keyed"
+      ]
+    },
+    "inputSchema": {
+      "type": "object"
+    },
+    "kind": {
+      "const": "anc.tool-contract"
+    },
+    "operation": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "outputSchema": {
+      "type": "object"
+    },
+    "providerId": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "revision": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "semanticAction": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "contractId",
+    "revision",
+    "providerId",
+    "operation",
+    "semanticAction",
+    "inputSchema",
+    "outputSchema",
+    "execution",
+    "completion",
+    "effectClass",
+    "idempotencySupport",
+    "correlation",
+    "cancellation",
+    "evidence",
+    "capabilityClass"
+  ],
+  "type": "object"
+}

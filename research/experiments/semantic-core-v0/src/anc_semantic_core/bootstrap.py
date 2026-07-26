@@ -6,7 +6,14 @@ from pathlib import Path
 from .authority import AuthorityPolicy, AuthorityRole
 from .authorized import AuthorityRoot
 from .identity import IdKind, SemanticId
-from .interfaces import EffectView, ExecutionView, FactView, KernelReadView, VerificationView
+from .interfaces import (
+    BindingView,
+    EffectView,
+    ExecutionView,
+    FactView,
+    KernelReadView,
+    VerificationView,
+)
 from .journal import JournalReducer
 from .reducer import ReferenceReducer
 
@@ -29,6 +36,7 @@ def local_authority_policy(
 @dataclass(frozen=True, slots=True)
 class KernelAuthorityViews:
     effects: EffectView
+    bindings: BindingView
     execution: ExecutionView
     verification: VerificationView
     facts: FactView
@@ -59,6 +67,7 @@ def issue_authority_views(
     }
     return KernelAuthorityViews(
         effects=issued[AuthorityRole.EFFECT],
+        bindings=issued[AuthorityRole.BINDING],
         execution=root.combine(
             issued[AuthorityRole.DISPATCH], issued[AuthorityRole.OBSERVATION]
         ),

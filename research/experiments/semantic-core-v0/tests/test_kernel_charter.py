@@ -407,6 +407,7 @@ class KernelCharterConformanceTests(unittest.TestCase):
             "K9": "test_role_specific_signer_cannot_escalate_to_another_role",
             "K10": "test_attestation_provenance_survives_journal_replay",
             "K11": "test_same_semantic_contract_runs_against_two_backends",
+            "K12": "test_k12_effect_binding_separation_survives_journal_restart",
         }
         test_sources = "\n".join(
             path.read_text() for path in (root / "tests").glob("test_*.py")

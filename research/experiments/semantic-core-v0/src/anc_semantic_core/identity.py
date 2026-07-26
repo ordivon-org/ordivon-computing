@@ -11,6 +11,7 @@ class IdKind(StrEnum):
     TASK = "task"
     ATTEMPT = "attempt"
     EFFECT = "effect"
+    BINDING = "binding"
     DISPATCH = "dispatch"
     OBSERVATION = "observation"
     ARTIFACT = "artifact"

@@ -131,9 +131,9 @@ Each reducer command records undo actions only for touched keys and list suffixe
 
 Free-text Preconditions, Task/Attempt parent IDs, keyed idempotency keys, and capability expiry remain decode-only Journal-v2 compatibility fields. New Effects reject them until a real Task Runtime, Effect Binding, or policy enforcement mechanism exists.
 
-## D32 — Migrate known Journal v2 histories to schema v3
+## D32 — Migrate known Journal histories without rewriting commands
 
-Migration is allowed only from the exact known v2 semantic-model and reducer versions under the same Authority-policy fingerprint. Historical v2 command payloads remain immutable; new tail entries use v3.
+Migration is allowed only from the exact known v2 or v3 semantic-model and reducer versions under the same Authority-policy fingerprint. Historical command payloads remain immutable; new tail entries use the current schema.
 
 ## D33 — Reject the first checkpoint design after measurement
 
@@ -151,3 +151,20 @@ Portable conformance compares Effect states, Dispatch preservation, Event kinds,
 ## D36 — Keep the portability oracle internal
 
 The deterministic backend and `BackendPortabilityDriver` are experiment and conformance mechanisms. They are not package-root exports, a generic Backend interface, or a production plugin framework. A future public execution ABI must be justified separately by the Effect IR and Tool-contract work.
+
+
+## D37 — Keep public contracts outside the Kernel
+
+The Kernel does not import canonical JSON, `EffectEnvelope`, `ToolContract`, encoder, or contract-diff packages. It receives only a signed `BindingAdmission` projection and persists the exact Binding edge used by a Dispatch.
+
+## D38 — Separate Effect, Binding, and Dispatch authority
+
+Effect Authority admits stable intent, Binding Authority attests the selected contract and argument digest, and Dispatch Authority records one actual boundary attempt. No one role implicitly grants the other two.
+
+## D39 — Rebinding is not retry
+
+A new immutable Binding revision is allowed only while an Effect is pre-dispatch or after a retryable rejection proven to occur before Backend admission. Active, uncertain, reconciling, and terminal Effects retain the original Binding and cannot use catalog refresh to create another delivery.
+
+## D40 — Journal schema v4 preserves legacy unbound Dispatches
+
+Binding support is optional on `DispatchRecord`. Exact v2/v3 histories replay as unbound legacy Dispatches, while v4 commands may carry a signed Binding edge. Migration updates metadata only and never rewrites historical command payloads.

@@ -4,14 +4,17 @@ Experiments connect open Agent-Native Computing questions to executable artifact
 
 ## Active experiments
 
-- [`semantic-core-v0/`](semantic-core-v0/) — executable and locally durable Agent Semantic Kernel reference model with a positive Charter, role-scoped signed Authority, content-bound Attestation, Effect/Dispatch uncertainty semantics, evidence admission, authenticated SQLite replay, and Ordivon process-restart recovery.
+- [`external-semantic-contract-v0/`](external-semantic-contract-v0/) — backend-neutral canonical encoding, public Effect IR, ToolContract normalization and diff, immutable Effect Binding, the minimal signed Kernel admission edge, dual-backend integration, and exact evidence.
+
+## Closed reference experiments
+
+- [`semantic-core-v0/`](semantic-core-v0/) — completed Agent Semantic Kernel v0 reference experiment. It established K1–K11, durable replay, role-scoped Authority, incremental command cost, Ordivon recovery, and structurally distinct second-backend portability. It now accepts only bug fixes, regression evidence, and genuinely universal Kernel invariants.
 
 ## Planned experiment families
 
-- canonical Effect IR normalization and interpretation;
 - minimal Task Capsule transfer across model sessions;
-- Tool contract normalization and semantic diff;
-- long-running Ordivon recovery and handoff;
+- long-running Host replacement and context compilation;
+- dynamic Task dataflow and Agent VM control;
 - multi-Workspace branch and Artifact join.
 
 Each experiment should record:

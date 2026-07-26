@@ -6,6 +6,7 @@ from .identity import SemanticId
 from .model import (
     Admission,
     Artifact,
+    BindingAdmission,
     Claim,
     DispatchRecord,
     EffectEvent,
@@ -24,6 +25,12 @@ class KernelReadView(Protocol):
     def get_effect(self, effect_id: SemanticId) -> EffectRecord: ...
 
     def get_dispatch(self, dispatch_id: SemanticId) -> DispatchRecord: ...
+
+    def get_binding(self, binding_id: SemanticId) -> BindingAdmission: ...
+
+    def bindings_for(self, effect_id: SemanticId) -> tuple[BindingAdmission, ...]: ...
+
+    def current_binding_for(self, effect_id: SemanticId) -> BindingAdmission | None: ...
 
     def events_for(self, effect_id: SemanticId) -> tuple[EffectEvent, ...]: ...
 
@@ -78,6 +85,10 @@ class EffectView(KernelReadView, RootBoundView, TransactionalView, Protocol):
     ) -> EffectRecord: ...
 
 
+class BindingView(KernelReadView, RootBoundView, TransactionalView, Protocol):
+    def admit_binding(self, binding: BindingAdmission) -> Admission: ...
+
+
 class ExecutionView(KernelReadView, RootBoundView, TransactionalView, Protocol):
     def begin_dispatch(
         self,
@@ -88,6 +99,8 @@ class ExecutionView(KernelReadView, RootBoundView, TransactionalView, Protocol):
         event_id: SemanticId,
         recorded_at_ms: int,
         request_digest: str,
+        binding_id: SemanticId | None = None,
+        binding_digest: str | None = None,
     ) -> EffectRecord: ...
 
     def admit_dispatch(
@@ -152,5 +165,7 @@ class FactView(KernelReadView, RootBoundView, TransactionalView, Protocol):
     def commit_fact(self, fact: Fact) -> Admission: ...
 
 
-class SemanticKernel(EffectView, ExecutionView, VerificationView, FactView, Protocol):
+class SemanticKernel(
+    EffectView, BindingView, ExecutionView, VerificationView, FactView, Protocol
+):
     """Compatibility aggregate for tests that intentionally exercise all public roles."""

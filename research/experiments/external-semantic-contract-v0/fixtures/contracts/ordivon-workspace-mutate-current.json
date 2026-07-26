@@ -1,0 +1,84 @@
+{
+  "description": "presentation metadata excluded",
+  "inputSchema": {
+    "additionalProperties": false,
+    "properties": {
+      "mutations": {
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "content": {
+              "type": "string"
+            },
+            "expectedDigest": {
+              "type": "string"
+            },
+            "mode": {
+              "enum": [
+                "WRITE"
+              ]
+            },
+            "relativePath": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "relativePath",
+            "mode",
+            "content",
+            "expectedDigest"
+          ],
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "schemaVersion": {
+        "const": 1,
+        "default": 1,
+        "description": "current",
+        "maximum": 1,
+        "minimum": 1,
+        "type": "integer"
+      },
+      "workspaceId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "schemaVersion",
+      "workspaceId",
+      "mutations"
+    ],
+    "type": "object"
+  },
+  "name": "workspace.mutate",
+  "outputSchema": {
+    "additionalProperties": false,
+    "properties": {
+      "mutations": {
+        "type": "array"
+      }
+    },
+    "required": [
+      "mutations"
+    ],
+    "type": "object"
+  },
+  "providerId": "ordivon-runtime",
+  "revision": "runtime-schema-v1",
+  "schemaVersion": 1,
+  "semantics": {
+    "cancellation": "unsupported",
+    "capabilityClass": "workspace-file-mutation",
+    "completion": "response",
+    "correlation": "receipt",
+    "effectClass": "change",
+    "evidence": [
+      "observation",
+      "version"
+    ],
+    "execution": "synchronous",
+    "idempotencySupport": "natural",
+    "semanticAction": "anc.object.replace-if-version.v1"
+  }
+}

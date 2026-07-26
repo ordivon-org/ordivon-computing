@@ -22,6 +22,7 @@ from .reducer import ReferenceReducer
 from .model import (
     Admission,
     Artifact,
+    BindingAdmission,
     CapabilityRef,
     Claim,
     CompletionSemantics,
@@ -46,12 +47,14 @@ from .model import (
 from .state import EffectState
 
 
-JOURNAL_SCHEMA_VERSION = 3
-SEMANTIC_MODEL_VERSION = "semantic-core-v3-slim"
-REDUCER_VERSION = "incremental-reducer-v3"
-_LEGACY_SCHEMA_VERSION = 2
-_LEGACY_SEMANTIC_MODEL_VERSION = "semantic-core-v2-authority"
-_LEGACY_REDUCER_VERSION = "reference-reducer-v2"
+JOURNAL_SCHEMA_VERSION = 4
+SEMANTIC_MODEL_VERSION = "semantic-core-v4-binding-edge"
+REDUCER_VERSION = "incremental-reducer-v4-binding-edge"
+_LEGACY_SCHEMA_VERSIONS = {2, 3}
+_LEGACY_METADATA = {
+    2: ("semantic-core-v2-authority", "reference-reducer-v2"),
+    3: ("semantic-core-v3-slim", "incremental-reducer-v3"),
+}
 _GENESIS_DIGEST = "sha256:" + ("0" * 64)
 
 
@@ -99,6 +102,7 @@ _ALLOWED_TYPES: dict[str, type[Any]] = {
         EffectEvent,
         Observation,
         Artifact,
+        BindingAdmission,
         Claim,
         EvidenceRef,
         Verification,
@@ -155,13 +159,22 @@ def _decode(value: Any, *, schema_version: int) -> Any:
         if not isinstance(encoded_fields, dict):
             raise JournalSchemaError(f"invalid journal dataclass fields: {name}")
         expected = {field.name for field in fields(data_type)}
-        if set(encoded_fields) != expected:
+        actual = set(encoded_fields)
+        legacy_dispatch = (
+            schema_version in _LEGACY_SCHEMA_VERSIONS
+            and data_type is DispatchRecord
+            and actual == expected - {"binding_id", "binding_digest"}
+        )
+        if actual != expected and not legacy_dispatch:
             raise JournalSchemaError(f"journal field mismatch for {name}")
         decoded_fields = {
             key: _decode(item, schema_version=schema_version)
             for key, item in encoded_fields.items()
         }
-        if schema_version == _LEGACY_SCHEMA_VERSION and data_type in {
+        if legacy_dispatch:
+            decoded_fields["binding_id"] = None
+            decoded_fields["binding_digest"] = None
+        if schema_version == 2 and data_type in {
             CapabilityRef, Precondition, EffectSpec
         }:
             instance = object.__new__(data_type)
@@ -211,7 +224,7 @@ def _decode_command(payload_json: str) -> tuple[str, tuple[Any, ...], dict[str, 
     if set(payload) != {"schemaVersion", "operation", "args", "kwargs"}:
         raise JournalSchemaError("journal command has unexpected fields")
     schema_version = payload.get("schemaVersion")
-    if schema_version not in {_LEGACY_SCHEMA_VERSION, JOURNAL_SCHEMA_VERSION}:
+    if schema_version not in _LEGACY_SCHEMA_VERSIONS | {JOURNAL_SCHEMA_VERSION}:
         raise JournalSchemaError("unsupported journal command schema")
     operation = payload.get("operation")
     if not isinstance(operation, str) or not operation:
@@ -292,40 +305,46 @@ class SQLiteSemanticJournal:
                 "INSERT INTO journal_metadata(key, value) VALUES(?, ?)",
                 tuple(metadata.items()),
             )
-        elif stored_schema == str(_LEGACY_SCHEMA_VERSION):
-            expected_legacy = {
-                "semantic_model_version": _LEGACY_SEMANTIC_MODEL_VERSION,
-                "reducer_version": _LEGACY_REDUCER_VERSION,
-                "authority_policy_fingerprint": self._authority_policy.fingerprint,
-            }
-            for key, expected in expected_legacy.items():
-                if metadata.get(key) != expected:
-                    raise JournalSchemaError(
-                        f"legacy journal metadata {key} does not match runtime"
-                    )
-            self._connection.executemany(
-                "UPDATE journal_metadata SET value = ? WHERE key = ?",
-                (
-                    (str(JOURNAL_SCHEMA_VERSION), "schema_version"),
-                    (SEMANTIC_MODEL_VERSION, "semantic_model_version"),
-                    (REDUCER_VERSION, "reducer_version"),
-                ),
-            )
-        elif stored_schema == str(JOURNAL_SCHEMA_VERSION):
-            expected_current = {
-                "semantic_model_version": SEMANTIC_MODEL_VERSION,
-                "reducer_version": REDUCER_VERSION,
-                "authority_policy_fingerprint": self._authority_policy.fingerprint,
-            }
-            for key, expected in expected_current.items():
-                if metadata.get(key) != expected:
-                    raise JournalSchemaError(
-                        f"journal metadata {key} does not match runtime"
-                    )
         else:
-            raise JournalSchemaError(
-                f"journal schema {stored_schema} is not supported by {JOURNAL_SCHEMA_VERSION}"
-            )
+            try:
+                stored_version = int(stored_schema)
+            except ValueError as error:
+                raise JournalSchemaError("journal schema version is not an integer") from error
+            if stored_version in _LEGACY_SCHEMA_VERSIONS:
+                legacy_model, legacy_reducer = _LEGACY_METADATA[stored_version]
+                expected_legacy = {
+                    "semantic_model_version": legacy_model,
+                    "reducer_version": legacy_reducer,
+                    "authority_policy_fingerprint": self._authority_policy.fingerprint,
+                }
+                for key, expected in expected_legacy.items():
+                    if metadata.get(key) != expected:
+                        raise JournalSchemaError(
+                            f"legacy journal metadata {key} does not match runtime"
+                        )
+                self._connection.executemany(
+                    "UPDATE journal_metadata SET value = ? WHERE key = ?",
+                    (
+                        (str(JOURNAL_SCHEMA_VERSION), "schema_version"),
+                        (SEMANTIC_MODEL_VERSION, "semantic_model_version"),
+                        (REDUCER_VERSION, "reducer_version"),
+                    ),
+                )
+            elif stored_version == JOURNAL_SCHEMA_VERSION:
+                expected_current = {
+                    "semantic_model_version": SEMANTIC_MODEL_VERSION,
+                    "reducer_version": REDUCER_VERSION,
+                    "authority_policy_fingerprint": self._authority_policy.fingerprint,
+                }
+                for key, expected in expected_current.items():
+                    if metadata.get(key) != expected:
+                        raise JournalSchemaError(
+                            f"journal metadata {key} does not match runtime"
+                        )
+            else:
+                raise JournalSchemaError(
+                    f"journal schema {stored_schema} is not supported by {JOURNAL_SCHEMA_VERSION}"
+                )
         self._connection.commit()
         actual_head = self._actual_head()
         head_rows = dict(
@@ -504,6 +523,7 @@ class JournalReducer:
 
     _MUTATIONS = {
         "admit_effect",
+        "admit_binding",
         "prepare_effect",
         "begin_dispatch",
         "admit_dispatch",
@@ -610,6 +630,9 @@ class JournalReducer:
             attestation=attestation,
         )
 
+    def admit_binding(self, binding: BindingAdmission) -> Admission:
+        return self._commit("admit_binding", binding)
+
     def prepare_effect(
         self,
         effect_id: SemanticId,
@@ -638,17 +661,21 @@ class JournalReducer:
         recorded_at_ms: int,
         request_digest: str,
         attestation: Attestation,
+        binding_id: SemanticId | None = None,
+        binding_digest: str | None = None,
     ) -> EffectRecord:
-        return self._commit(
-            "begin_dispatch",
-            effect_id,
-            expected_revision=expected_revision,
-            dispatch_id=dispatch_id,
-            event_id=event_id,
-            recorded_at_ms=recorded_at_ms,
-            request_digest=request_digest,
-            attestation=attestation,
-        )
+        kwargs: dict[str, Any] = {
+            "expected_revision": expected_revision,
+            "dispatch_id": dispatch_id,
+            "event_id": event_id,
+            "recorded_at_ms": recorded_at_ms,
+            "request_digest": request_digest,
+            "attestation": attestation,
+        }
+        if binding_id is not None or binding_digest is not None:
+            kwargs["binding_id"] = binding_id
+            kwargs["binding_digest"] = binding_digest
+        return self._commit("begin_dispatch", effect_id, **kwargs)
 
     def admit_dispatch(
         self,
@@ -752,6 +779,15 @@ class JournalReducer:
 
     def get_dispatch(self, dispatch_id: SemanticId) -> DispatchRecord:
         return self._view_kernel().get_dispatch(dispatch_id)
+
+    def get_binding(self, binding_id: SemanticId) -> BindingAdmission:
+        return self._view_kernel().get_binding(binding_id)
+
+    def bindings_for(self, effect_id: SemanticId) -> tuple[BindingAdmission, ...]:
+        return self._view_kernel().bindings_for(effect_id)
+
+    def current_binding_for(self, effect_id: SemanticId) -> BindingAdmission | None:
+        return self._view_kernel().current_binding_for(effect_id)
 
     def events_for(self, effect_id: SemanticId) -> tuple[EffectEvent, ...]:
         return self._view_kernel().events_for(effect_id)

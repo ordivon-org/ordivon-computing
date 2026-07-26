@@ -1,3 +1,5 @@
+> **Track status:** Kernel v0 construction closed at K1–K12 after the minimal external Binding edge. This directory is a frozen reference experiment, not the destination for Effect IR, ToolContract, Binding compiler, Host, Task Runtime, or VM work. Only bug fixes, regression evidence, and newly demonstrated universal Kernel invariants belong here.
+
 # Semantic Core v0
 
 An executable Agent-native semantic layer built on mature classical runtime and storage mechanisms.
@@ -46,7 +48,7 @@ Live scripts never print the Bearer token and close temporary Workspaces.
 - `Claim → Verification → Fact` admission;
 - optimistic revisions, command-local rollback, and explicit full invariant audit;
 - single-command and multi-command semantic atomicity;
-- append-only Journal schema v3, v2 migration, and deterministic genesis replay;
+- append-only Journal schema v4, v2/v3 migration, and deterministic genesis replay;
 - signed role-scoped Authority grants and content-bound Attestations;
 - scoped Effect, execution, Verification, Fact, and read-only Kernel Views.
 
@@ -64,6 +66,10 @@ kernel.py       backward-compatible import facade
 ```
 
 Adapters depend on `ExecutionView`; Verification and Fact admission depend on separate role protocols. Raw reducers, the deterministic backend, and the portability driver remain below Authority issuance and are not exported from the package root.
+
+## External Binding edge
+
+The Kernel does not parse public Effect IR or Tool schemas. It accepts only a signed `BindingAdmission`, preserves immutable Binding revision history, and records the exact Binding identity/digest on a bound Dispatch. Contract normalization, argument encoding, rebind planning, and Backend lowering live in the separate [`external-semantic-contract-v0`](../external-semantic-contract-v0/) experiment.
 
 ## Backend portability evidence
 
@@ -95,7 +101,7 @@ The Kernel preserves semantic identity, legal transitions, explicit uncertainty,
 
 ## Documentation map
 
-- [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md) — mission, classical foundation, and K1–K11;
+- [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md) — mission, classical foundation, and K1–K12;
 - [`SPEC.md`](SPEC.md) — primitive separation, state algebra, evidence graph, and invariants;
 - [`AUTHORITY.md`](AUTHORITY.md) — role grants, signers, Attestations, and scoped Views;
 - [`JOURNAL.md`](JOURNAL.md) — atomic persistence, integrity, writer conflict, and replay;
