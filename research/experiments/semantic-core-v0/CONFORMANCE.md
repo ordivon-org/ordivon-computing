@@ -73,7 +73,30 @@ Deterministic tests prove:
 - explicit full audit still detects cross-projection corruption;
 - a known v2 Journal migrates to v3 and accepts a v3 tail.
 
-Exact baseline revision `bf60668aa7eac1defb4181fcdbeeb8123c7030af` measured 200 Effects / 400 in-memory commands at 3,693.445 ms and 100 Effects / 200 Journal commands at 963.434 ms. The exact checkpoint prototype revision and rejected P2D result are retained in `benchmark-results/prototype-23353fd.json`. Final exact-revision optimized results are recorded in a separate benchmark receipt.
+Exact baseline revision `bf60668aa7eac1defb4181fcdbeeb8123c7030af` measured 200 Effects / 400 in-memory commands at 3,693.445 ms and 100 Effects / 200 Journal commands at 963.434 ms. Exact optimized implementation revision `dd4730ef6767eac1a3f3d6f9c73d6dc639ca894a` measured the same workloads at 37.033 ms and 38.131 ms respectively. The 200-Effect in-memory path improved by about 99.7×, the 100-Effect Journal write path by about 25.3×, and 200-entry reopen by about 34.2× (`1,014.054 ms → 29.639 ms`). Per-command memory cost remained approximately flat at 0.09–0.11 ms across 10–200 Effects.
+
+Receipts:
+
+- `benchmark-results/baseline-bf60668.json`;
+- `benchmark-results/optimized-dd4730e.json`;
+- `benchmark-results/prototype-23353fd.json` for the rejected checkpoint design.
+
+Exact live confirmation on `dd4730ef6767eac1a3f3d6f9c73d6dc639ca894a`:
+
+```text
+signed restart: UNKNOWN → authenticated replay → SUCCEEDED
+workspace.exec deliveries: 1
+correlated Jobs: 1
+Dispatch identity preserved: true
+Journal entries: 4 → 11
+semantic Artifacts: 3
+
+versioned mutation: succeeded
+independent reread: matched resulting digest
+Fact committed: 1
+stale mutation: failed / INVALID_REQUEST
+final content and digest: stable
+```
 
 ## Live evidence summary
 

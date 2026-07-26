@@ -74,6 +74,8 @@ PYTHONPATH=src python3.12 benchmarks/benchmark_semantic_core.py \
 
 The harness measures growth on one environment, not cross-machine rankings. Baseline and optimized exact-revision results are stored under `benchmark-results/`.
 
+The P2 implementation reduced the 200-Effect in-memory workload from 3,693.445 ms to 37.033 ms and the 100-Effect Journal workload from 963.434 ms to 38.131 ms while preserving exact live recovery and Fact admission.
+
 ## Kernel responsibility
 
 The Kernel preserves semantic identity, legal transitions, explicit uncertainty, evidence provenance, role-scoped authority, and recoverable history across external action. It is not a model orchestrator, Task scheduler, memory platform, sandbox, or replacement operating system.

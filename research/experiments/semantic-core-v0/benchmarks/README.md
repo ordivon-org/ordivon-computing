@@ -24,6 +24,6 @@ Benchmark result files are immutable evidence bound to a source revision. They a
 
 - `baseline-bf60668.json` — pre-optimization exact main baseline.
 - `prototype-23353fd.json` — exact incremental reducer plus rejected checkpoint prototype.
-- the final optimized exact-revision receipt is added after implementation commit creation.
+- `optimized-dd4730e.json` — final incremental reducer and Journal v3 exact implementation receipt.
 
 The checkpoint prototype remains in Git history but not in the runtime. Its negative result is a decision artifact, not an invitation to maintain an unused feature.
