@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import sys
+import tempfile
 import unittest
 from collections import defaultdict, deque
 from pathlib import Path
@@ -17,9 +18,10 @@ if str(KERNEL_SRC) not in sys.path:
 
 from anc_effect_binding import (  # noqa: E402
     BindingDecision,
+    FileBindingStore,
     assess_binding,
+    bind_effect,
     lower_to_ordivon,
-    lower_to_simulator,
 )
 from anc_effect_ir import (  # noqa: E402
     CanonicalInput,
@@ -31,8 +33,10 @@ from anc_effect_ir import (  # noqa: E402
     EvidenceKind,
     ExecutionKind,
     IdempotencyKind,
+    ProtocolAuthority,
     ResultSemantics,
     SemanticAction,
+    SignedEffectEnvelope,
     TargetRef,
     VerificationPlan,
     effect_digest,
@@ -43,9 +47,9 @@ from anc_tool_contract import (  # noqa: E402
     normalize_tool_contract,
 )
 from integration import (  # noqa: E402
+    BindingAuthorityService,
     BoundExecutionView,
     admit_bound_effect,
-    project_binding_admission,
 )
 from anc_semantic_core.identity import SemanticId  # noqa: E402
 from anc_semantic_core.ordivon import (  # noqa: E402
@@ -142,6 +146,60 @@ def envelope(
     )
 
 
+def exact_simulator_read_binding(effect_value, contract_value, request, *, binding_id):
+    return bind_effect(
+        effect_value,
+        contract_value,
+        encoder_id="anc.binding.simulator.exact-read",
+        binding_id=binding_id,
+        revision=1,
+        arguments={"method": "fetch", "object": request.object_key},
+    )
+
+
+def exact_simulator_mutation_binding(effect_value, contract_value, request, *, binding_id):
+    return bind_effect(
+        effect_value,
+        contract_value,
+        encoder_id="anc.binding.simulator.exact-mutation",
+        binding_id=binding_id,
+        revision=1,
+        arguments={
+            "method": "replace_if_version",
+            "object": request.object_key,
+            "expected": request.expected_version,
+            "contentDigest": sha256_text(request.content),
+        },
+    )
+
+
+def exact_simulator_job_binding(effect_value, contract_value, request, *, binding_id):
+    correlation = hashlib.sha256(effect_value.effect_id.encode("utf-8")).hexdigest()[:32]
+    return bind_effect(
+        effect_value,
+        contract_value,
+        encoder_id="anc.binding.simulator.exact-job",
+        binding_id=binding_id,
+        revision=1,
+        arguments={
+            "method": "launch",
+            "correlation": f"sim-correlation-{correlation}",
+            "object": request.object_key,
+            "action": request.action,
+            "statusPlan": [status.value for status in request.status_plan],
+            "artifacts": [
+                {
+                    "name": artifact.name,
+                    "kind": artifact.kind,
+                    "digest": artifact.digest,
+                    "bytes": len(artifact.content),
+                }
+                for artifact in request.artifacts
+            ],
+        },
+    )
+
+
 def bound_dispatch(views, effect_id: SemanticId):
     dispatch_id = views.read.get_effect(effect_id).dispatch_id
     if dispatch_id is None:
@@ -150,6 +208,48 @@ def bound_dispatch(views, effect_id: SemanticId):
 
 
 class VerticalIntegrationTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temporary = tempfile.TemporaryDirectory()
+        self.effect_authority = ProtocolAuthority(
+            authority_id="authority:test-effect",
+            issuer_id="principal:test-issuer",
+            principal_id="principal:portable-agent",
+            role="effect",
+            trust_domain="test",
+            policy_version="v1",
+            key_id="effect-key",
+            secret=b"e" * 32,
+        )
+        binding_authority = ProtocolAuthority(
+            authority_id="authority:test-binding",
+            issuer_id="principal:test-issuer",
+            principal_id="principal:binding-service",
+            role="binding",
+            trust_domain="test",
+            policy_version="v1",
+            key_id="binding-key",
+            secret=b"b" * 32,
+        )
+        self.binding_service = BindingAuthorityService(
+            effect_authority=self.effect_authority,
+            binding_authority=binding_authority,
+            store=FileBindingStore(Path(self.temporary.name) / "bindings"),
+        )
+
+    def tearDown(self) -> None:
+        self.temporary.cleanup()
+
+    def signed(self, value: EffectEnvelope) -> SignedEffectEnvelope:
+        return SignedEffectEnvelope(
+            value,
+            self.effect_authority.attest(
+                kind="effect_proposal",
+                contract_version="effect-envelope-v1",
+                subject_digest=effect_digest(value),
+                issued_at_ms=1,
+            ),
+        )
+
     def test_same_mutation_envelope_executes_through_two_bound_backends(self) -> None:
         before = sha256_text("alpha\n")
         after = sha256_text("beta\n")
@@ -169,9 +269,10 @@ class VerticalIntegrationTests(unittest.TestCase):
         ordivon_views = reference_authority_views(namespace="vertical-ordivon")
         ordivon_spec, ordivon_admission = admit_bound_effect(
             ordivon_views,
-            shared,
+            self.signed(shared),
             ordivon_contract,
             ordivon_binding,
+            self.binding_service,
             backend_target=ordivon_file_object_id("workspace-001", "config.toml"),
             event_namespace="vertical-ordivon",
         )
@@ -189,7 +290,11 @@ class VerticalIntegrationTests(unittest.TestCase):
             },
         )
         ordivon_adapter = OrdivonIoAdapter(
-            BoundExecutionView(ordivon_views.execution, ordivon_admission),
+            BoundExecutionView(
+                ordivon_views.execution,
+                ordivon_admission,
+                self.binding_service.resolve(ordivon_admission).binding,
+            ),
             client,
             clock_ms=iter(range(10, 100)).__next__,
         )
@@ -205,30 +310,36 @@ class VerticalIntegrationTests(unittest.TestCase):
         )
 
         simulator_contract = load_contract("simulator-object-mutate.json")
-        simulator_binding = lower_to_simulator(
+        simulator_request = SimulatorMutation("config.toml", before, "beta\n")
+        simulator_binding = exact_simulator_mutation_binding(
             shared,
             simulator_contract,
+            simulator_request,
             binding_id="binding:shared-mutation-simulator",
         )
         simulator_views = reference_authority_views(namespace="vertical-simulator")
         simulator_spec, simulator_admission = admit_bound_effect(
             simulator_views,
-            shared,
+            self.signed(shared),
             simulator_contract,
             simulator_binding,
+            self.binding_service,
             backend_target=simulator_object_id("config.toml"),
             event_namespace="vertical-simulator",
         )
         backend = DeterministicBackend()
         backend.seed_object("config.toml", "alpha\n")
         simulator_adapter = DeterministicBackendAdapter(
-            BoundExecutionView(simulator_views.execution, simulator_admission),
+            BoundExecutionView(
+                simulator_views.execution,
+                simulator_admission,
+                self.binding_service.resolve(simulator_admission).binding,
+            ),
             backend,
             clock_ms=iter(range(10, 100)).__next__,
         )
         simulator_result = simulator_adapter.dispatch_mutation(
-            simulator_spec.effect_id,
-            SimulatorMutation("config.toml", before, "beta\n"),
+            simulator_spec.effect_id, simulator_request
         )
 
         self.assertIs(ordivon_result.state, EffectState.SUCCEEDED)
@@ -255,47 +366,62 @@ class VerticalIntegrationTests(unittest.TestCase):
             content="beta\n",
         )
         mutation_contract = load_contract("simulator-object-mutate.json")
-        mutation_binding = lower_to_simulator(
-            mutation, mutation_contract, binding_id="binding:fact-mutation"
+        mutation_request = SimulatorMutation("config.toml", before, "beta\n")
+        mutation_binding = exact_simulator_mutation_binding(
+            mutation,
+            mutation_contract,
+            mutation_request,
+            binding_id="binding:fact-mutation",
         )
         mutation_spec, mutation_admission = admit_bound_effect(
             views,
-            mutation,
+            self.signed(mutation),
             mutation_contract,
             mutation_binding,
+            self.binding_service,
             backend_target=simulator_object_id("config.toml"),
             event_namespace="vertical-fact-mutation",
         )
         DeterministicBackendAdapter(
-            BoundExecutionView(views.execution, mutation_admission),
+            BoundExecutionView(
+                views.execution,
+                mutation_admission,
+                self.binding_service.resolve(mutation_admission).binding,
+            ),
             backend,
             clock_ms=iter(range(10, 100)).__next__,
-        ).dispatch_mutation(
-            mutation_spec.effect_id,
-            SimulatorMutation("config.toml", before, "beta\n"),
-        )
+        ).dispatch_mutation(mutation_spec.effect_id, mutation_request)
 
         read = envelope(
             "fact-read", "anc.object.read.v1", version=after
         )
         read_contract = load_contract("simulator-object-read.json")
-        read_binding = lower_to_simulator(
-            read, read_contract, binding_id="binding:fact-read"
+        read_request = SimulatorRead("config.toml")
+        read_binding = exact_simulator_read_binding(
+            read,
+            read_contract,
+            read_request,
+            binding_id="binding:fact-read",
         )
         read_spec, read_admission = admit_bound_effect(
             views,
-            read,
+            self.signed(read),
             read_contract,
             read_binding,
+            self.binding_service,
             backend_target=simulator_object_id("config.toml"),
             event_namespace="vertical-fact-read",
             admitted_at_ms=100,
         )
         read_result = DeterministicBackendAdapter(
-            BoundExecutionView(views.execution, read_admission),
+            BoundExecutionView(
+                views.execution,
+                read_admission,
+                self.binding_service.resolve(read_admission).binding,
+            ),
             backend,
             clock_ms=iter(range(110, 200)).__next__,
-        ).dispatch_read(read_spec.effect_id, SimulatorRead("config.toml"))
+        ).dispatch_read(read_spec.effect_id, read_request)
         fact = verify_digest_fact(
             views.verification,
             views.facts,
@@ -312,38 +438,48 @@ class VerticalIntegrationTests(unittest.TestCase):
         shared = envelope("shared-launch", "anc.execution.launch.v1")
 
         simulator_contract = load_contract("simulator-job-launch.json")
-        simulator_binding = lower_to_simulator(
+        simulator_request = SimulatorJobRequest(
+            "portable",
+            "run",
+            (SimulatorStatus.ACTIVE, SimulatorStatus.COMPLETE),
+        )
+        simulator_binding = exact_simulator_job_binding(
             shared,
             simulator_contract,
+            simulator_request,
             binding_id="binding:shared-launch-simulator",
         )
         simulator_views = reference_authority_views(namespace="launch-simulator")
         simulator_spec, simulator_admission = admit_bound_effect(
             simulator_views,
-            shared,
+            self.signed(shared),
             simulator_contract,
             simulator_binding,
+            self.binding_service,
             backend_target=simulator_object_id("portable"),
             event_namespace="launch-simulator",
         )
         backend = DeterministicBackend()
         backend.lose_next_launch_response = True
         simulator_adapter = DeterministicBackendAdapter(
-            BoundExecutionView(simulator_views.execution, simulator_admission),
+            BoundExecutionView(
+                simulator_views.execution,
+                simulator_admission,
+                self.binding_service.resolve(simulator_admission).binding,
+            ),
             backend,
             clock_ms=iter(range(10, 100)).__next__,
         )
         lost = simulator_adapter.dispatch_job(
-            simulator_spec.effect_id,
-            SimulatorJobRequest(
-                "portable",
-                "run",
-                (SimulatorStatus.ACTIVE, SimulatorStatus.COMPLETE),
-            ),
+            simulator_spec.effect_id, simulator_request
         )
         simulator_dispatch = bound_dispatch(simulator_views, simulator_spec.effect_id)
         recovered = DeterministicBackendAdapter(
-            BoundExecutionView(simulator_views.execution, simulator_admission),
+            BoundExecutionView(
+                simulator_views.execution,
+                simulator_admission,
+                self.binding_service.resolve(simulator_admission).binding,
+            ),
             backend,
             clock_ms=iter(range(100, 200)).__next__,
         ).reconcile(simulator_spec.effect_id)
@@ -361,9 +497,10 @@ class VerticalIntegrationTests(unittest.TestCase):
         ordivon_views = reference_authority_views(namespace="launch-ordivon")
         ordivon_spec, ordivon_admission = admit_bound_effect(
             ordivon_views,
-            shared,
+            self.signed(shared),
             ordivon_contract,
             ordivon_binding,
+            self.binding_service,
             backend_target=ordivon_workspace_object_id("workspace-001"),
             event_namespace="launch-ordivon",
         )
@@ -373,7 +510,11 @@ class VerticalIntegrationTests(unittest.TestCase):
             ToolTransportError("response lost after backend admission"),
         )
         first_adapter = OrdivonSemanticAdapter(
-            BoundExecutionView(ordivon_views.execution, ordivon_admission),
+            BoundExecutionView(
+                ordivon_views.execution,
+                ordivon_admission,
+                self.binding_service.resolve(ordivon_admission).binding,
+            ),
             client,
             clock_ms=iter(range(10, 100)).__next__,
         )
@@ -409,7 +550,11 @@ class VerticalIntegrationTests(unittest.TestCase):
         )
         client.add("task.observe", {**job, "status": "succeeded", "exitCode": 0})
         restarted = OrdivonSemanticAdapter(
-            BoundExecutionView(ordivon_views.execution, ordivon_admission),
+            BoundExecutionView(
+                ordivon_views.execution,
+                ordivon_admission,
+                self.binding_service.resolve(ordivon_admission).binding,
+            ),
             client,
             clock_ms=iter(range(100, 200)).__next__,
         )
@@ -446,14 +591,19 @@ class VerticalIntegrationTests(unittest.TestCase):
         views = reference_authority_views(namespace="drift-pending")
         _, old_admission = admit_bound_effect(
             views,
-            shared,
+            self.signed(shared),
             old_contract,
             old_binding,
+            self.binding_service,
             backend_target=ordivon_workspace_object_id("workspace-001"),
             event_namespace="drift-pending",
         )
-        views.bindings.admit_binding(
-            project_binding_admission(new_binding, admitted_at_ms=10)
+        self.binding_service.admit(
+            views,
+            self.signed(shared),
+            new_contract,
+            new_binding,
+            admitted_at_ms=10,
         )
         current = views.read.current_binding_for(old_admission.effect_id)
         self.assertEqual(current.binding_revision, 2)
@@ -462,7 +612,11 @@ class VerticalIntegrationTests(unittest.TestCase):
         client = ScriptedClient()
         client.add("workspace.exec", ToolTransportError("ambiguous response"))
         adapter = OrdivonSemanticAdapter(
-            BoundExecutionView(views.execution, current),
+            BoundExecutionView(
+                views.execution,
+                current,
+                self.binding_service.resolve(current).binding,
+            ),
             client,
             clock_ms=iter(range(20, 100)).__next__,
         )
@@ -473,8 +627,12 @@ class VerticalIntegrationTests(unittest.TestCase):
         from anc_semantic_core.errors import InvalidTransition
 
         with self.assertRaisesRegex(InvalidTransition, "cannot admit Binding"):
-            views.bindings.admit_binding(
-                replace_binding_revision(new_binding, 3, "binding:drift-r3")
+            self.binding_service.admit(
+                views,
+                self.signed(shared),
+                new_contract,
+                replace_binding_revision(new_binding, 3, "binding:drift-r3"),
+                admitted_at_ms=30,
             )
         self.assertIs(
             assess_binding("unknown", ContractChange.CALLER_ADAPTATION),
@@ -484,8 +642,7 @@ class VerticalIntegrationTests(unittest.TestCase):
 
 def replace_binding_revision(binding, revision: int, binding_id: str):
     previous = binding.binding_id
-    return project_binding_admission(
-        type(binding)(
+    return type(binding)(
             binding_id=binding_id,
             binding_revision=revision,
             effect_id=binding.effect_id,
@@ -495,9 +652,7 @@ def replace_binding_revision(binding, revision: int, binding_id: str):
             arguments=binding.arguments,
             supersedes_binding_id=previous,
             change_class=binding.change_class,
-        ),
-        admitted_at_ms=30,
-    )
+        )
 
 
 if __name__ == "__main__":

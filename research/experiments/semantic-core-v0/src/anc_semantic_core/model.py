@@ -88,7 +88,7 @@ class CapabilityRef:
 
 @dataclass(frozen=True, slots=True)
 class Precondition:
-    """Journal v2 compatibility object; new EffectSpec instances reject it."""
+    """Journal v2 compatibility object; new KernelEffectProjection instances reject it."""
 
     object_ref: WorldObjectRef
     description: str
@@ -113,11 +113,12 @@ class VerificationPlan:
 
 
 @dataclass(frozen=True, slots=True)
-class EffectSpec:
+class KernelEffectProjection:
+    """Kernel-local projection of one public Effect; not a public Effect IR."""
+
     effect_id: SemanticId
     target: WorldObjectRef
     mode: EffectMode
-    operation: str
     input_digest: str
     capability: CapabilityRef
     idempotency: IdempotencyKind
@@ -138,18 +139,18 @@ class EffectSpec:
             raise ValueError(
                 "Task and Attempt lineage belongs to the future Task Runtime"
             )
-        if not self.operation:
-            raise ValueError("effect operation must not be empty")
         if not self.input_digest:
             raise ValueError("effect input digest must not be empty")
-        if self.capability.operation != self.operation:
-            raise ValueError("capability operation must match effect operation")
         if self.capability.object_scope != self.target.object_id:
             raise ValueError("capability scope must match effect target")
         if self.idempotency is IdempotencyKind.KEYED or self.idempotency_key is not None:
             raise ValueError(
                 "keyed idempotency requires a real Effect Binding implementation"
             )
+
+
+# Journal/source compatibility only. New code imports KernelEffectProjection.
+EffectSpec = KernelEffectProjection
 
 
 @dataclass(frozen=True, slots=True)
@@ -182,7 +183,7 @@ class BindingAdmission:
 
 @dataclass(frozen=True, slots=True)
 class EffectRecord:
-    spec: EffectSpec
+    spec: KernelEffectProjection
     state: EffectState
     revision: int
     dispatch_id: SemanticId | None = None

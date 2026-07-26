@@ -307,6 +307,40 @@ class ProtocolAttestation:
         if self.issued_at_ms < 0 or not self.role or not self.kind or not self.contract_version:
             raise ValueError("invalid protocol attestation")
 
+    @classmethod
+    def from_dict(cls, value: dict[str, Any]) -> "ProtocolAttestation":
+        expected = {
+            "authorityId",
+            "issuerId",
+            "principalId",
+            "role",
+            "trustDomain",
+            "policyVersion",
+            "keyId",
+            "authoritySignature",
+            "kind",
+            "contractVersion",
+            "subjectDigest",
+            "issuedAtMs",
+            "signature",
+        }
+        _exact(value, expected, "ProtocolAttestation")
+        return cls(
+            authority_id=value["authorityId"],
+            issuer_id=value["issuerId"],
+            principal_id=value["principalId"],
+            role=value["role"],
+            trust_domain=value["trustDomain"],
+            policy_version=value["policyVersion"],
+            key_id=value["keyId"],
+            authority_signature=value["authoritySignature"],
+            kind=value["kind"],
+            contract_version=value["contractVersion"],
+            subject_digest=value["subjectDigest"],
+            issued_at_ms=value["issuedAtMs"],
+            signature=value["signature"],
+        )
+
     def to_dict(self) -> dict[str, JsonValue]:
         return {
             "authorityId": self.authority_id,

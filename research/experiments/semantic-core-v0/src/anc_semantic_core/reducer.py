@@ -28,7 +28,7 @@ from .model import (
     DispatchRecord,
     EffectEvent,
     EffectRecord,
-    EffectSpec,
+    KernelEffectProjection,
     EventKind,
     EvidenceKind,
     Fact,
@@ -220,7 +220,7 @@ class ReferenceReducer:
     @_atomic_mutation
     def admit_effect(
         self,
-        spec: EffectSpec,
+        spec: KernelEffectProjection,
         *,
         event_id: SemanticId,
         recorded_at_ms: int,

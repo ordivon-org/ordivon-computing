@@ -324,8 +324,12 @@ class OrdivonIoAdapter:
         record = self._kernel.get_effect(effect_id)
         if record.state is not EffectState.PREPARED:
             raise InvalidTransition("only a prepared Effect may cross the Tool boundary")
-        if record.spec.operation != operation:
-            raise ValueError(f"Effect operation must be {operation}")
+        semantic_action = {
+            "workspace.read": "anc.object.read.v1",
+            "workspace.mutate": "anc.object.replace-if-version.v1",
+        }[operation]
+        if record.spec.capability.operation not in {semantic_action, operation}:
+            raise ValueError(f"Effect semantic action must be {semantic_action}")
         if record.spec.mode is not mode:
             raise ValueError(f"Effect mode must be {mode.value}")
         if record.spec.target.object_id != target:

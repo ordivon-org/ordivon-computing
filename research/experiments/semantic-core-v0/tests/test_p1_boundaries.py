@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import tempfile
 import unittest
+from dataclasses import fields
 from pathlib import Path
 from typing import get_type_hints
 
@@ -14,6 +15,7 @@ from anc_semantic_core.interfaces import (
     VerificationView,
 )
 from anc_semantic_core.journal import JournalKernel, JournalReducer
+from anc_semantic_core.model import KernelEffectProjection
 from anc_semantic_core.kernel import ReferenceKernel, ReferenceReducer
 from anc_semantic_core.ordivon import OrdivonSemanticAdapter
 from anc_semantic_core.ordivon_io import OrdivonIoAdapter
@@ -43,6 +45,18 @@ class P1BoundaryTests(unittest.TestCase):
         self.assertIs(io_hints["kernel"], ExecutionView)
         self.assertIs(verification_hints["verification_kernel"], VerificationView)
         self.assertIs(verification_hints["fact_kernel"], FactView)
+
+    def test_kernel_projection_does_not_store_provider_operation(self) -> None:
+        import anc_semantic_core
+
+        projection = sample_effect("projection-boundary")
+        self.assertIsInstance(projection, KernelEffectProjection)
+        self.assertNotIn("operation", {field.name for field in fields(projection)})
+        self.assertFalse(hasattr(projection, "operation"))
+        self.assertFalse(hasattr(anc_semantic_core, "EffectSpec"))
+        self.assertTrue(
+            projection.capability.operation.startswith("workspace.")
+        )  # legacy sample remains decodable through the internal projection
 
     def test_raw_reducer_compatibility_names_are_aliases(self) -> None:
         self.assertIs(ReferenceKernel, ReferenceReducer)

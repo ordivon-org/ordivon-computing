@@ -3,8 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from anc_canonical import canonical_digest
 from anc_effect_binding import EffectBinding, binding_digest
-from anc_effect_ir import CompletionKind, EffectEnvelope, ExecutionKind, effect_digest
+from anc_effect_ir import CompletionKind, EffectEnvelope, ExecutionKind, SignedEffectEnvelope, effect_digest
 from anc_tool_contract import ToolContract, contract_digest
 from anc_semantic_core.identity import IdKind, SemanticId
 from anc_semantic_core.model import (
@@ -12,7 +13,7 @@ from anc_semantic_core.model import (
     CapabilityRef,
     CompletionSemantics,
     EffectMode,
-    EffectSpec,
+    KernelEffectProjection,
     EvidenceKind,
     IdempotencyKind,
     VerificationPlan,
@@ -27,14 +28,11 @@ def semantic_id(value: str, expected: IdKind) -> SemanticId:
     return SemanticId(expected, value.removeprefix(prefix))
 
 
-def internal_effect_spec(
+def internal_effect_projection(
     envelope: EffectEnvelope,
-    contract: ToolContract,
     *,
     backend_target: SemanticId,
-) -> EffectSpec:
-    if contract.semantic_action != envelope.action.action_id:
-        raise ValueError("ToolContract does not implement Effect semantic action")
+) -> KernelEffectProjection:
     mode = EffectMode.OBSERVE if envelope.mode.value == "observe" else EffectMode.CHANGE
     if envelope.result.execution is ExecutionKind.ASYNCHRONOUS:
         completion = CompletionSemantics.ASYNCHRONOUS
@@ -51,13 +49,14 @@ def internal_effect_spec(
         EvidenceKind(item.value) for item in envelope.verification.required_evidence
     )
     principal = semantic_id(envelope.capability.principal_id, IdKind.PRINCIPAL)
-    return EffectSpec(
+    return KernelEffectProjection(
         effect_id=semantic_id(envelope.effect_id, IdKind.EFFECT),
         target=WorldObjectRef(backend_target, version=envelope.target.version),
         mode=mode,
-        operation=contract.operation,
         input_digest=envelope.input.digest,
-        capability=CapabilityRef(principal, contract.operation, backend_target),
+        capability=CapabilityRef(
+            principal, envelope.action.action_id, backend_target
+        ),
         idempotency=idempotency,
         completion=completion,
         verification=VerificationPlan(
@@ -68,14 +67,16 @@ def internal_effect_spec(
 
 def admit_bound_effect(
     views: Any,
-    envelope: EffectEnvelope,
+    signed_effect: SignedEffectEnvelope,
     contract: ToolContract,
     binding: EffectBinding,
+    binding_authority: Any,
     *,
     backend_target: SemanticId,
     event_namespace: str,
     admitted_at_ms: int = 1,
-) -> tuple[EffectSpec, BindingAdmission]:
+) -> tuple[KernelEffectProjection, BindingAdmission]:
+    envelope = signed_effect.envelope
     if binding.effect_id != envelope.effect_id:
         raise ValueError("Binding and Envelope Effect identities differ")
     if binding.effect_digest != effect_digest(envelope):
@@ -84,7 +85,7 @@ def admit_bound_effect(
         raise ValueError("Binding references a different ToolContract")
     if binding.contract.digest != contract_digest(contract):
         raise ValueError("Binding ToolContract digest is stale")
-    spec = internal_effect_spec(envelope, contract, backend_target=backend_target)
+    spec = internal_effect_projection(envelope, backend_target=backend_target)
     views.effects.admit_effect(
         spec,
         event_id=SemanticId(IdKind.EVENT, f"{event_namespace}:effect-admit"),
@@ -96,11 +97,14 @@ def admit_bound_effect(
         event_id=SemanticId(IdKind.EVENT, f"{event_namespace}:effect-prepare"),
         recorded_at_ms=admitted_at_ms + 1,
     )
-    admission = project_binding_admission(
-        binding, admitted_at_ms=admitted_at_ms + 2
+    admission, _ = binding_authority.admit(
+        views,
+        signed_effect,
+        contract,
+        binding,
+        admitted_at_ms=admitted_at_ms + 2,
     )
-    views.bindings.admit_binding(admission)
-    return spec, views.read.get_binding(admission.binding_id)
+    return spec, admission
 
 
 def project_binding_admission(
@@ -123,19 +127,29 @@ def project_binding_admission(
 
 @dataclass(slots=True)
 class BoundExecutionView:
-    """Inject one immutable Binding edge without exposing ToolContract to the Kernel."""
+    """Inject and enforce one immutable complete Binding at the Kernel edge."""
 
     execution: Any
-    binding: BindingAdmission
+    admission: BindingAdmission
+    complete_binding: EffectBinding
+
+    def __post_init__(self) -> None:
+        if binding_digest(self.complete_binding) != self.admission.binding_digest:
+            raise ValueError("complete Binding does not match Kernel admission")
+        if self.complete_binding.effect_id != str(self.admission.effect_id):
+            raise ValueError("complete Binding belongs to another Effect")
 
     def begin_dispatch(self, effect_id: SemanticId, **kwargs: Any):
-        if effect_id != self.binding.effect_id:
+        if effect_id != self.admission.effect_id:
             raise ValueError("Bound execution view cannot dispatch another Effect")
+        request_digest = kwargs.get("request_digest")
+        if request_digest != canonical_digest(self.complete_binding.arguments):
+            raise ValueError("actual Tool request differs from admitted Binding arguments")
         return self.execution.begin_dispatch(
             effect_id,
             **kwargs,
-            binding_id=self.binding.binding_id,
-            binding_digest=self.binding.binding_digest,
+            binding_id=self.admission.binding_id,
+            binding_digest=self.admission.binding_digest,
         )
 
     def __getattr__(self, name: str) -> Any:

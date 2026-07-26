@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import hashlib
 from enum import StrEnum
 
 from anc_canonical import JsonValue, canonical_digest
@@ -51,6 +52,16 @@ class ContractRef:
         if not self.revision:
             raise ValueError("contract revision is required")
 
+    @classmethod
+    def from_dict(cls, value: dict[str, object]) -> "ContractRef":
+        if set(value) != {"contractId", "revision", "digest"}:
+            raise ValueError("ContractRef fields differ")
+        return cls(
+            contract_id=str(value["contractId"]),
+            revision=str(value["revision"]),
+            digest=str(value["digest"]),
+        )
+
     def to_dict(self) -> dict[str, JsonValue]:
         return {
             "contractId": self.contract_id,
@@ -67,6 +78,12 @@ class EncoderRef:
     def __post_init__(self) -> None:
         if not self.encoder_id.startswith("anc.binding.") or self.version < 1:
             raise ValueError("invalid encoder identity")
+
+    @classmethod
+    def from_dict(cls, value: dict[str, object]) -> "EncoderRef":
+        if set(value) != {"encoderId", "version"}:
+            raise ValueError("EncoderRef fields differ")
+        return cls(encoder_id=str(value["encoderId"]), version=int(value["version"]))
 
     def to_dict(self) -> dict[str, JsonValue]:
         return {"encoderId": self.encoder_id, "version": self.version}
@@ -109,6 +126,50 @@ class EffectBinding:
         elif self.binding_revision != 1:
             raise ValueError("later Binding revisions must supersede an earlier Binding")
 
+    @classmethod
+    def from_dict(cls, value: dict[str, object]) -> "EffectBinding":
+        expected = {
+            "schemaVersion",
+            "kind",
+            "bindingId",
+            "bindingRevision",
+            "effectId",
+            "effectDigest",
+            "contract",
+            "encoder",
+            "arguments",
+            "supersedesBindingId",
+            "changeClass",
+        }
+        if set(value) != expected:
+            raise ValueError("EffectBinding fields differ")
+        contract = value["contract"]
+        encoder = value["encoder"]
+        arguments = value["arguments"]
+        if not isinstance(contract, dict) or not isinstance(encoder, dict) or not isinstance(arguments, dict):
+            raise ValueError("EffectBinding nested records must be objects")
+        if set(arguments) != {"encoding", "digest", "value"}:
+            raise ValueError("EffectBinding arguments fields differ")
+        if arguments["encoding"] != "anc-canonical-json-v1":
+            raise ValueError("unsupported Binding argument encoding")
+        supersedes = value["supersedesBindingId"]
+        if supersedes is not None and not isinstance(supersedes, str):
+            raise ValueError("supersedes Binding identity is invalid")
+        return cls(
+            schema_version=int(value["schemaVersion"]),
+            kind=str(value["kind"]),
+            binding_id=str(value["bindingId"]),
+            binding_revision=int(value["bindingRevision"]),
+            effect_id=str(value["effectId"]),
+            effect_digest=str(value["effectDigest"]),
+            contract=ContractRef.from_dict(contract),
+            encoder=EncoderRef.from_dict(encoder),
+            arguments=arguments["value"],
+            argument_digest=str(arguments["digest"]),
+            supersedes_binding_id=supersedes,
+            change_class=BindingChangeClass(str(value["changeClass"])),
+        )
+
     def to_dict(self) -> dict[str, JsonValue]:
         return {
             "schemaVersion": self.schema_version,
@@ -140,6 +201,25 @@ class SignedEffectBinding:
         if self.attestation.subject_digest != binding_digest(self.binding):
             raise ValueError("Binding attestation digest mismatch")
 
+    def to_dict(self) -> dict[str, JsonValue]:
+        return {
+            "binding": self.binding.to_dict(),
+            "attestation": self.attestation.to_dict(),
+        }
+
+
+def signed_effect_binding_from_dict(value: dict[str, object]) -> SignedEffectBinding:
+    if set(value) != {"binding", "attestation"}:
+        raise ValueError("SignedEffectBinding fields differ")
+    binding = value["binding"]
+    attestation = value["attestation"]
+    if not isinstance(binding, dict) or not isinstance(attestation, dict):
+        raise ValueError("SignedEffectBinding nested records must be objects")
+    return SignedEffectBinding(
+        EffectBinding.from_dict(binding),
+        ProtocolAttestation.from_dict(attestation),
+    )
+
 
 def binding_digest(binding: EffectBinding) -> str:
     return canonical_digest(binding.to_dict())
@@ -169,11 +249,11 @@ def assess_binding(effect_state: str, change: ContractChange) -> BindingDecision
     }[change]
 
 
-def _binding(
+def bind_effect(
     effect: EffectEnvelope,
     contract: ToolContract,
     *,
-    backend: str,
+    encoder_id: str,
     binding_id: str,
     revision: int,
     arguments: JsonValue,
@@ -192,9 +272,7 @@ def _binding(
             contract.revision,
             contract_digest(contract),
         ),
-        encoder=EncoderRef(
-            f"anc.binding.{backend}.{contract.operation.replace('.', '-')}", 1
-        ),
+        encoder=EncoderRef(encoder_id, 1),
         arguments=arguments,
         supersedes_binding_id=supersedes,
         change_class=change_class,
@@ -217,41 +295,64 @@ def lower_to_ordivon(
             "schemaVersion": 1,
             "workspaceId": workspace_id,
             "relativePath": _target_path(effect),
+            "mode": "FULL",
+            "offset": 0,
+            "maxBytes": 4_194_304,
         }
     elif action == "anc.object.replace-if-version.v1":
         if (
             not isinstance(value, dict)
-            or set(value) != {"content"}
+            or "content" not in value
             or effect.target.version is None
         ):
             raise ValueError("replace input requires content and target version")
+        mode = value.get("mode", "WRITE")
+        if mode not in {"WRITE", "APPEND", "REPLACE_EXACT"}:
+            raise ValueError("replace input mode is unsupported")
+        mutation: dict[str, JsonValue] = {
+            "relativePath": _target_path(effect),
+            "mode": mode,
+            "content": value["content"],
+            "expectedDigest": effect.target.version,
+        }
+        expected_text = value.get("expectedText")
+        if mode == "REPLACE_EXACT":
+            if not isinstance(expected_text, str) or not expected_text:
+                raise ValueError("REPLACE_EXACT requires expectedText")
+            mutation["expectedText"] = expected_text
+        elif expected_text is not None:
+            raise ValueError("expectedText is only valid for REPLACE_EXACT")
         arguments = {
             "schemaVersion": 1,
             "workspaceId": workspace_id,
-            "mutations": [
-                {
-                    "relativePath": _target_path(effect),
-                    "mode": "WRITE",
-                    "content": value["content"],
-                    "expectedDigest": effect.target.version,
-                }
-            ],
+            "mutations": [mutation],
         }
     elif action == "anc.execution.launch.v1":
         if not isinstance(value, dict) or not {"executable", "args"}.issubset(value):
             raise ValueError("launch input requires executable and args")
         arguments = {
             "schemaVersion": 1,
-            "workspaceId": workspace_id,
-            "executable": value["executable"],
-            "args": value["args"],
+            "clientRequestId": _ordivon_client_request_id(effect.effect_id),
+            "execution": {
+                "workspaceId": workspace_id,
+                "executable": value["executable"],
+                "args": value["args"],
+                "cwdRelative": value.get("cwdRelative", "."),
+                "env": value.get("env", {}),
+                "timeoutMs": value.get("timeoutMs", 30_000),
+                "stdoutLimitBytes": value.get("stdoutLimitBytes", 65_536),
+                "stderrLimitBytes": value.get("stderrLimitBytes", 65_536),
+            },
+            "waitMs": value.get("waitMs", 0),
+            "stdoutTailBytes": value.get("stdoutTailBytes", 4_096),
+            "stderrTailBytes": value.get("stderrTailBytes", 4_096),
         }
     else:
         raise ValueError("unsupported Ordivon semantic action")
-    return _binding(
+    return bind_effect(
         effect,
         contract,
-        backend="ordivon",
+        encoder_id=f"anc.binding.ordivon.{contract.operation.replace('.', '-')}",
         binding_id=binding_id,
         revision=revision,
         arguments=arguments,
@@ -298,10 +399,10 @@ def lower_to_simulator(
         }
     else:
         raise ValueError("unsupported simulator semantic action")
-    return _binding(
+    return bind_effect(
         effect,
         contract,
-        backend="simulator",
+        encoder_id=f"anc.binding.simulator.{contract.operation.replace('.', '-')}",
         binding_id=binding_id,
         revision=revision,
         arguments=arguments,
@@ -312,6 +413,11 @@ def lower_to_simulator(
             else BindingChangeClass.INITIAL
         ),
     )
+
+
+def _ordivon_client_request_id(effect_id: str) -> str:
+    digest = hashlib.sha256(effect_id.encode("utf-8")).hexdigest()[:32]
+    return f"anc-effect-{digest}"
 
 
 def _target_path(effect: EffectEnvelope) -> str:

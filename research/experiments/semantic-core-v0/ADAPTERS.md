@@ -5,7 +5,7 @@
 Adapters translate backend-specific Tool contracts into stable Semantic Core objects without leaking Git worktrees, systemd units, SQLite layouts, process IDs, or protocol envelopes into Kernel semantics.
 
 ```text
-EffectSpec
+KernelEffectProjection
 → stable Dispatch identity before invocation
 → backend Tool request
 → backend Job or synchronous receipt

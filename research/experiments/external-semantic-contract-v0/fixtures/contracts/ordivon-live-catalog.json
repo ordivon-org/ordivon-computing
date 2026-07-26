@@ -1,0 +1,460 @@
+{
+  "catalogRevision": "mcp-catalog:dd1b2aae1ad32ceb2a8fc108548e995ee7a148b22112a06b2af38360bb6bff81",
+  "contracts": {
+    "artifact.read": {
+      "cancellation": "unsupported",
+      "capabilityClass": "job-artifact-read",
+      "completion": "response",
+      "contractId": "tool-contract:ordivon-runtime/artifact.read",
+      "correlation": "stable-key",
+      "effectClass": "observe",
+      "evidence": [
+        "artifact-bytes",
+        "artifact-digest"
+      ],
+      "execution": "synchronous",
+      "idempotencySupport": "natural",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "artifactId": {
+            "type": "string"
+          },
+          "jobId": {
+            "type": "string"
+          },
+          "maxBytes": {
+            "format": "uint64",
+            "maximum": 1048576,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "offset": {
+            "format": "uint64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "schemaVersion": {
+            "const": 1,
+            "format": "uint32",
+            "maximum": 1,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "jobId",
+          "artifactId",
+          "offset",
+          "maxBytes"
+        ],
+        "type": "object"
+      },
+      "kind": "anc.tool-contract",
+      "operation": "artifact.read",
+      "outputSchema": null,
+      "providerId": "ordivon-runtime",
+      "revision": "mcp-catalog:dd1b2aae1ad32ceb2a8fc108548e995ee7a148b22112a06b2af38360bb6bff81",
+      "schemaVersion": 1,
+      "semanticAction": "anc.artifact.read.v1"
+    },
+    "task.observe": {
+      "cancellation": "unsupported",
+      "capabilityClass": "job-observation",
+      "completion": "response",
+      "contractId": "tool-contract:ordivon-runtime/task.observe",
+      "correlation": "stable-key",
+      "effectClass": "observe",
+      "evidence": [
+        "observation",
+        "artifact-reference"
+      ],
+      "execution": "synchronous",
+      "idempotencySupport": "natural",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "jobId": {
+            "type": "string"
+          },
+          "schemaVersion": {
+            "const": 1,
+            "format": "uint32",
+            "maximum": 1,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "stderrOffset": {
+            "format": "uint64",
+            "minimum": 0,
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "stderrTailBytes": {
+            "default": 4096,
+            "format": "uint64",
+            "maximum": 65536,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "stdoutOffset": {
+            "format": "uint64",
+            "minimum": 0,
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "stdoutTailBytes": {
+            "default": 4096,
+            "format": "uint64",
+            "maximum": 65536,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "waitMs": {
+            "default": 0,
+            "format": "uint64",
+            "maximum": 30000,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "jobId"
+        ],
+        "type": "object"
+      },
+      "kind": "anc.tool-contract",
+      "operation": "task.observe",
+      "outputSchema": null,
+      "providerId": "ordivon-runtime",
+      "revision": "mcp-catalog:dd1b2aae1ad32ceb2a8fc108548e995ee7a148b22112a06b2af38360bb6bff81",
+      "schemaVersion": 1,
+      "semanticAction": "anc.execution.observe.v1"
+    },
+    "workspace.exec": {
+      "cancellation": "supported",
+      "capabilityClass": "workspace-execution",
+      "completion": "terminal-observation",
+      "contractId": "tool-contract:ordivon-runtime/workspace.exec",
+      "correlation": "stable-key",
+      "effectClass": "change",
+      "evidence": [
+        "observation",
+        "artifact"
+      ],
+      "execution": "asynchronous",
+      "idempotencySupport": "keyed",
+      "inputSchema": {
+        "$defs": {
+          "ExecutionBudget": {
+            "additionalProperties": false,
+            "properties": {
+              "cpuQuotaPercent": {
+                "format": "uint32",
+                "maximum": 10000,
+                "minimum": 1,
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "memoryMaxBytes": {
+                "format": "uint64",
+                "maximum": 1099511627776,
+                "minimum": 16777216,
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "tasksMax": {
+                "format": "uint32",
+                "maximum": 1000000,
+                "minimum": 1,
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            },
+            "type": "object"
+          },
+          "UniversalExecutionRequest": {
+            "additionalProperties": false,
+            "properties": {
+              "args": {
+                "default": [],
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "budget": {
+                "$ref": "#/$defs/ExecutionBudget"
+              },
+              "cwdRelative": {
+                "type": "string"
+              },
+              "env": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "default": {},
+                "type": "object"
+              },
+              "executable": {
+                "type": "string"
+              },
+              "stderrLimitBytes": {
+                "format": "uint64",
+                "minimum": 0,
+                "type": "integer"
+              },
+              "stdoutLimitBytes": {
+                "format": "uint64",
+                "minimum": 0,
+                "type": "integer"
+              },
+              "timeoutMs": {
+                "format": "uint64",
+                "minimum": 0,
+                "type": "integer"
+              },
+              "workspaceId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "workspaceId",
+              "executable",
+              "cwdRelative",
+              "timeoutMs",
+              "stdoutLimitBytes",
+              "stderrLimitBytes"
+            ],
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "clientRequestId": {
+            "type": "string"
+          },
+          "execution": {
+            "$ref": "#/$defs/UniversalExecutionRequest"
+          },
+          "schemaVersion": {
+            "const": 1,
+            "format": "uint32",
+            "maximum": 1,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "stderrTailBytes": {
+            "default": 4096,
+            "format": "uint64",
+            "maximum": 65536,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "stdoutTailBytes": {
+            "default": 4096,
+            "format": "uint64",
+            "maximum": 65536,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "waitMs": {
+            "default": 30000,
+            "format": "uint64",
+            "maximum": 30000,
+            "minimum": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "clientRequestId",
+          "execution"
+        ],
+        "type": "object"
+      },
+      "kind": "anc.tool-contract",
+      "operation": "workspace.exec",
+      "outputSchema": null,
+      "providerId": "ordivon-runtime",
+      "revision": "mcp-catalog:dd1b2aae1ad32ceb2a8fc108548e995ee7a148b22112a06b2af38360bb6bff81",
+      "schemaVersion": 1,
+      "semanticAction": "anc.execution.launch.v1"
+    },
+    "workspace.mutate": {
+      "cancellation": "unsupported",
+      "capabilityClass": "workspace-file-mutation",
+      "completion": "response",
+      "contractId": "tool-contract:ordivon-runtime/workspace.mutate",
+      "correlation": "receipt",
+      "effectClass": "change",
+      "evidence": [
+        "observation",
+        "version"
+      ],
+      "execution": "synchronous",
+      "idempotencySupport": "natural",
+      "inputSchema": {
+        "$defs": {
+          "WorkspaceMutation": {
+            "additionalProperties": false,
+            "properties": {
+              "content": {
+                "default": "",
+                "type": "string"
+              },
+              "expectedDigest": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "expectedText": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "mode": {
+                "enum": [
+                  "WRITE",
+                  "APPEND",
+                  "REPLACE_EXACT"
+                ],
+                "type": "string"
+              },
+              "relativePath": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "relativePath",
+              "mode"
+            ],
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "mutations": {
+            "items": {
+              "$ref": "#/$defs/WorkspaceMutation"
+            },
+            "maxItems": 32,
+            "minItems": 1,
+            "type": "array"
+          },
+          "schemaVersion": {
+            "const": 1,
+            "format": "uint32",
+            "maximum": 1,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "workspaceId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "workspaceId",
+          "mutations"
+        ],
+        "type": "object"
+      },
+      "kind": "anc.tool-contract",
+      "operation": "workspace.mutate",
+      "outputSchema": null,
+      "providerId": "ordivon-runtime",
+      "revision": "mcp-catalog:dd1b2aae1ad32ceb2a8fc108548e995ee7a148b22112a06b2af38360bb6bff81",
+      "schemaVersion": 1,
+      "semanticAction": "anc.object.replace-if-version.v1"
+    },
+    "workspace.read": {
+      "cancellation": "unsupported",
+      "capabilityClass": "workspace-file-read",
+      "completion": "response",
+      "contractId": "tool-contract:ordivon-runtime/workspace.read",
+      "correlation": "receipt",
+      "effectClass": "observe",
+      "evidence": [
+        "observation",
+        "version"
+      ],
+      "execution": "synchronous",
+      "idempotencySupport": "natural",
+      "inputSchema": {
+        "$defs": {
+          "WorkspaceReadMode": {
+            "enum": [
+              "FULL",
+              "SLICE"
+            ],
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "maxBytes": {
+            "format": "uint64",
+            "maximum": 4194304,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "mode": {
+            "$ref": "#/$defs/WorkspaceReadMode"
+          },
+          "offset": {
+            "default": 0,
+            "format": "uint64",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "relativePath": {
+            "type": "string"
+          },
+          "schemaVersion": {
+            "const": 1,
+            "format": "uint32",
+            "maximum": 1,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "workspaceId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "workspaceId",
+          "relativePath",
+          "mode",
+          "maxBytes"
+        ],
+        "type": "object"
+      },
+      "kind": "anc.tool-contract",
+      "operation": "workspace.read",
+      "outputSchema": null,
+      "providerId": "ordivon-runtime",
+      "revision": "mcp-catalog:dd1b2aae1ad32ceb2a8fc108548e995ee7a148b22112a06b2af38360bb6bff81",
+      "schemaVersion": 1,
+      "semanticAction": "anc.object.read.v1"
+    }
+  },
+  "mcpProtocolVersion": "2025-06-18",
+  "providerId": "ordivon-runtime",
+  "schemaVersion": 1
+}

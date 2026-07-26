@@ -21,7 +21,7 @@ from .model import (
     BindingAdmission,
     Claim,
     EffectRecord,
-    EffectSpec,
+    KernelEffectProjection,
     Fact,
     Observation,
     Verification,
@@ -148,7 +148,7 @@ class AuthorizedKernel:
         )
 
     def admit_effect(
-        self, spec: EffectSpec, *, event_id: SemanticId, recorded_at_ms: int
+        self, spec: KernelEffectProjection, *, event_id: SemanticId, recorded_at_ms: int
     ) -> Admission:
         attestation = self._attest(
             AuthorityRole.EFFECT,

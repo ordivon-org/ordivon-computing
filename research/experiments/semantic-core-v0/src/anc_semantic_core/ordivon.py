@@ -158,8 +158,13 @@ class OrdivonSemanticAdapter:
         stderr_tail_bytes: int = 4096,
     ) -> AdapterProjection:
         record = self._kernel.get_effect(effect_id)
-        if record.spec.operation != "workspace.exec":
-            raise ValueError("Ordivon exec adapter requires operation workspace.exec")
+        if record.spec.capability.operation not in {
+            "anc.execution.launch.v1",
+            "workspace.exec",
+        }:
+            raise ValueError(
+                "Ordivon exec adapter requires anc.execution.launch.v1"
+            )
         expected_target = ordivon_workspace_object_id(execution.workspace_id)
         if record.spec.target.object_id != expected_target:
             raise ValueError("Effect target does not match the Ordivon Workspace")

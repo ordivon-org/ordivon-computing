@@ -121,7 +121,6 @@ class OrdivonPortabilityDriver:
             name,
             target=ordivon_file_object_id("p2e-workspace", object_key),
             version=version,
-            operation="workspace.read",
             mode=EffectMode.OBSERVE,
             completion=CompletionSemantics.VERIFIED,
             verification=VerificationPlan(
@@ -137,7 +136,6 @@ class OrdivonPortabilityDriver:
             name,
             target=ordivon_file_object_id("p2e-workspace", object_key),
             version=expected_version,
-            operation="workspace.mutate",
             mode=EffectMode.CHANGE,
             completion=CompletionSemantics.ACCEPTED,
             verification=VerificationPlan(
@@ -151,7 +149,6 @@ class OrdivonPortabilityDriver:
             name,
             target=ordivon_workspace_object_id(object_key),
             version=None,
-            operation="workspace.exec",
             mode=EffectMode.CHANGE,
             completion=CompletionSemantics.ASYNCHRONOUS,
             verification=VerificationPlan(
@@ -358,17 +355,24 @@ class OrdivonPortabilityDriver:
         *,
         target: SemanticId,
         version: str | None,
-        operation: str,
         mode: EffectMode,
         completion: CompletionSemantics,
         verification: VerificationPlan,
     ) -> SemanticId:
         base = sample_effect(name)
+        operation = (
+            "workspace.read"
+            if mode is EffectMode.OBSERVE
+            else (
+                "workspace.exec"
+                if completion is CompletionSemantics.ASYNCHRONOUS
+                else "workspace.mutate"
+            )
+        )
         spec = replace(
             base,
             target=WorldObjectRef(target, version=version),
             mode=mode,
-            operation=operation,
             capability=CapabilityRef(base.capability.principal_id, operation, target),
             idempotency=IdempotencyKind.NATURAL,
             completion=completion,
@@ -477,7 +481,6 @@ class SimulatorPortabilityDriver:
             name,
             object_key=object_key,
             version=version,
-            operation=DeterministicBackendAdapter.READ_OPERATION,
             mode=EffectMode.OBSERVE,
             completion=CompletionSemantics.VERIFIED,
             verification=VerificationPlan(
@@ -493,7 +496,6 @@ class SimulatorPortabilityDriver:
             name,
             object_key=object_key,
             version=expected_version,
-            operation=DeterministicBackendAdapter.MUTATION_OPERATION,
             mode=EffectMode.CHANGE,
             completion=CompletionSemantics.ACCEPTED,
             verification=VerificationPlan(
@@ -507,7 +509,6 @@ class SimulatorPortabilityDriver:
             name,
             object_key=object_key,
             version=None,
-            operation=DeterministicBackendAdapter.JOB_OPERATION,
             mode=EffectMode.CHANGE,
             completion=CompletionSemantics.ASYNCHRONOUS,
             verification=VerificationPlan(
@@ -591,18 +592,25 @@ class SimulatorPortabilityDriver:
         *,
         object_key: str,
         version: str | None,
-        operation: str,
         mode: EffectMode,
         completion: CompletionSemantics,
         verification: VerificationPlan,
     ) -> SemanticId:
         base = sample_effect(name)
         target = simulator_object_id(object_key)
+        operation = (
+            DeterministicBackendAdapter.READ_OPERATION
+            if mode is EffectMode.OBSERVE
+            else (
+                DeterministicBackendAdapter.JOB_OPERATION
+                if completion is CompletionSemantics.ASYNCHRONOUS
+                else DeterministicBackendAdapter.MUTATION_OPERATION
+            )
+        )
         spec = replace(
             base,
             target=WorldObjectRef(target, version=version),
             mode=mode,
-            operation=operation,
             capability=CapabilityRef(base.capability.principal_id, operation, target),
             idempotency=IdempotencyKind.NATURAL,
             completion=completion,

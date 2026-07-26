@@ -12,7 +12,7 @@ from .model import (
     Claim,
     CompletionSemantics,
     EffectMode,
-    EffectSpec,
+    KernelEffectProjection,
     EvidenceKind,
     EvidenceRef,
     Fact,
@@ -30,15 +30,14 @@ def sid(kind: IdKind, value: str) -> SemanticId:
     return SemanticId(kind, value)
 
 
-def sample_effect(name: str = "sample") -> EffectSpec:
+def sample_effect(name: str = "sample") -> KernelEffectProjection:
     principal = sid(IdKind.PRINCIPAL, "agent:reference")
     target = sid(IdKind.WORLD_OBJECT, f"repo:{name}")
     operation = "workspace.read"
-    return EffectSpec(
+    return KernelEffectProjection(
         effect_id=sid(IdKind.EFFECT, f"effect:{name}"),
         target=WorldObjectRef(target, version="rev-1"),
         mode=EffectMode.OBSERVE,
-        operation=operation,
         input_digest="sha256:input",
         capability=CapabilityRef(principal, operation, target),
         idempotency=IdempotencyKind.NATURAL,

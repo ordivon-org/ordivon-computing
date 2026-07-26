@@ -31,7 +31,7 @@ from .model import (
     EffectEvent,
     EffectMode,
     EffectRecord,
-    EffectSpec,
+    KernelEffectProjection,
     EventKind,
     EvidenceKind,
     EvidenceRef,
@@ -96,7 +96,7 @@ _ALLOWED_TYPES: dict[str, type[Any]] = {
         CapabilityRef,
         Precondition,
         VerificationPlan,
-        EffectSpec,
+        KernelEffectProjection,
         EffectRecord,
         DispatchRecord,
         EffectEvent,
@@ -109,6 +109,7 @@ _ALLOWED_TYPES: dict[str, type[Any]] = {
         Fact,
     )
 }
+_ALLOWED_TYPES["EffectSpec"] = KernelEffectProjection
 
 
 def _encode(value: Any) -> Any:
@@ -160,12 +161,16 @@ def _decode(value: Any, *, schema_version: int) -> Any:
             raise JournalSchemaError(f"invalid journal dataclass fields: {name}")
         expected = {field.name for field in fields(data_type)}
         actual = set(encoded_fields)
+        legacy_projection = (
+            data_type is KernelEffectProjection
+            and actual == expected | {"operation"}
+        )
         legacy_dispatch = (
             schema_version in _LEGACY_SCHEMA_VERSIONS
             and data_type is DispatchRecord
             and actual == expected - {"binding_id", "binding_digest"}
         )
-        if actual != expected and not legacy_dispatch:
+        if actual != expected and not legacy_dispatch and not legacy_projection:
             raise JournalSchemaError(f"journal field mismatch for {name}")
         decoded_fields = {
             key: _decode(item, schema_version=schema_version)
@@ -174,13 +179,24 @@ def _decode(value: Any, *, schema_version: int) -> Any:
         if legacy_dispatch:
             decoded_fields["binding_id"] = None
             decoded_fields["binding_digest"] = None
+        legacy_operation = decoded_fields.pop("operation", None) if legacy_projection else None
         if schema_version == 2 and data_type in {
-            CapabilityRef, Precondition, EffectSpec
+            CapabilityRef, Precondition, KernelEffectProjection
         }:
             instance = object.__new__(data_type)
             for field in fields(data_type):
                 object.__setattr__(instance, field.name, decoded_fields[field.name])
             return instance
+        if data_type is KernelEffectProjection:
+            projection = data_type(**decoded_fields)
+            if (
+                legacy_operation is not None
+                and projection.capability.operation != legacy_operation
+            ):
+                raise JournalSchemaError(
+                    "legacy Effect operation differs from capability operation"
+                )
+            return projection
         return data_type(**decoded_fields)
     if "$tuple" in value:
         if set(value) != {"$tuple"}:
@@ -616,7 +632,7 @@ class JournalReducer:
 
     def admit_effect(
         self,
-        spec: EffectSpec,
+        spec: KernelEffectProjection,
         *,
         event_id: SemanticId,
         recorded_at_ms: int,

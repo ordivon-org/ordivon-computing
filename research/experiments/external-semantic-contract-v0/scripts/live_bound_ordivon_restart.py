@@ -5,27 +5,35 @@ import argparse
 import json
 import os
 import secrets
+import shutil
 import subprocess
 import sys
 import time
-from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
-from anc_semantic_core.conformance import sample_effect, sid
-from anc_semantic_core.identity import IdKind, SemanticId
-from anc_semantic_core.bootstrap import KernelAuthorityViews, authorized_journal_views
-from anc_semantic_core.model import (
-    CapabilityRef,
-    CompletionSemantics,
+from live_bound_support import LiveBindingContext
+
+from anc_effect_binding import lower_to_ordivon
+from anc_effect_ir import (
+    CanonicalInput,
+    CapabilityRequirement,
+    CompletionKind,
+    DeliverySemantics,
+    EffectEnvelope,
     EffectMode,
-    WorldObjectRef,
+    EvidenceKind,
+    ExecutionKind,
+    IdempotencyKind,
+    ResultSemantics,
+    SemanticAction,
+    TargetRef,
+    VerificationPlan,
 )
-from anc_semantic_core.ordivon import (
-    OrdivonExecution,
-    OrdivonSemanticAdapter,
-    ordivon_workspace_object_id,
-)
+from integration import BoundExecutionView, admit_bound_effect, discover_ordivon_contracts
+from anc_semantic_core.bootstrap import authorized_journal_views
+from anc_semantic_core.identity import IdKind, SemanticId
+from anc_semantic_core.ordivon import OrdivonExecution, OrdivonSemanticAdapter, ordivon_workspace_object_id
 from anc_semantic_core.state import EffectState
 from anc_semantic_core.transport import ToolTransportError
 from live_support import LocalMcpToolCaller
@@ -49,24 +57,22 @@ class DropFirstSuccessfulResponse:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Prove durable Semantic Kernel recovery across a real process restart"
+        description="Prove a signed external Binding survives real Ordivon response loss and process restart"
     )
     parser.add_argument(
         "--endpoint",
         default=os.environ.get("ORDIVON_MCP_ENDPOINT", "http://127.0.0.1:8897/mcp"),
     )
-    parser.add_argument(
-        "--source-repo",
-        default="/root/projects/agent-native-computing",
-    )
+    parser.add_argument("--source-repo", default="/root/projects/agent-native-computing")
     parser.add_argument("--source-revision")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--journal")
+    parser.add_argument("--binding-store")
     parser.add_argument("--effect-id-value")
     return parser.parse_args()
 
 
-def authority_secret(*, create: bool) -> bytes:
+def kernel_secret(*, create: bool) -> bytes:
     encoded = os.environ.get("ANC_AUTHORITY_SECRET_HEX")
     if encoded:
         try:
@@ -78,23 +84,66 @@ def authority_secret(*, create: bool) -> bytes:
         return secret
     if create:
         return secrets.token_bytes(32)
-    raise SystemExit("ANC_AUTHORITY_SECRET_HEX is required to resume the signed journal")
+    raise SystemExit("ANC_AUTHORITY_SECRET_HEX is required to resume the signed Journal")
+
+
+def launch_envelope(stamp: int, workspace_id: str, execution: OrdivonExecution) -> EffectEnvelope:
+    action = "anc.execution.launch.v1"
+    target = TargetRef(f"world_object:execution-scope:{workspace_id}")
+    return EffectEnvelope(
+        effect_id=f"effect:live-bound-restart:{stamp}",
+        target=target,
+        mode=EffectMode.CHANGE,
+        action=SemanticAction(action, "anc.execution-input.v1"),
+        input=CanonicalInput(
+            {
+                "executable": execution.executable,
+                "args": list(execution.args),
+                "cwdRelative": execution.cwd_relative,
+                "env": dict(execution.env),
+                "timeoutMs": execution.timeout_ms,
+                "stdoutLimitBytes": execution.stdout_limit_bytes,
+                "stderrLimitBytes": execution.stderr_limit_bytes,
+                "waitMs": 0,
+                "stdoutTailBytes": 4_096,
+                "stderrTailBytes": 4_096,
+            }
+        ),
+        capability=CapabilityRequirement(
+            "principal:ordivon-live-agent", action, target.object_id
+        ),
+        delivery=DeliverySemantics(IdempotencyKind.NONE),
+        result=ResultSemantics(
+            ExecutionKind.ASYNCHRONOUS,
+            CompletionKind.TERMINAL_OBSERVATION,
+        ),
+        verification=VerificationPlan(
+            "terminal-job-observation.v1",
+            (EvidenceKind.OBSERVATION, EvidenceKind.ARTIFACT),
+        ),
+    )
 
 
 def resume(args: argparse.Namespace, token: str) -> None:
-    if not args.journal or not args.effect_id_value:
-        raise SystemExit("--resume requires --journal and --effect-id-value")
-    secret = authority_secret(create=False)
+    if not args.journal or not args.binding_store or not args.effect_id_value:
+        raise SystemExit(
+            "--resume requires --journal, --binding-store, and --effect-id-value"
+        )
     views = authorized_journal_views(
         args.journal,
-        secret,
-        namespace="live-journal-restart",
+        kernel_secret(create=False),
+        namespace="live-bound-journal-restart",
         trust_domain="ordivon-live",
     )
+    context = LiveBindingContext.open(args.binding_store, create_secrets=False)
     try:
         effect_id = SemanticId(IdKind.EFFECT, args.effect_id_value)
+        admission = views.read.current_binding_for(effect_id)
+        if admission is None:
+            raise AssertionError("restarted Kernel has no current Binding admission")
+        complete = context.service.resolve(admission).binding
         adapter = OrdivonSemanticAdapter(
-            views.execution,
+            BoundExecutionView(views.execution, admission, complete),
             LocalMcpToolCaller(args.endpoint, token),
         )
         projection = None
@@ -107,13 +156,20 @@ def resume(args: argparse.Namespace, token: str) -> None:
                 f"process restart did not recover success: {getattr(projection, 'state', None)}"
             )
         if projection.binding is None:
-            raise AssertionError("process restart produced no Job binding")
-        views.read.validate_invariants()
+            raise AssertionError("process restart produced no Ordivon Job binding")
+        dispatch = views.read.get_dispatch(projection.binding.dispatch_id)
+        if dispatch.binding_id != admission.binding_id:
+            raise AssertionError("process restart changed the external Binding identity")
+        if dispatch.binding_digest != admission.binding_digest:
+            raise AssertionError("process restart changed the external Binding digest")
+        views.read.verify_from_genesis()
         print(
             json.dumps(
                 {
                     "terminalState": projection.state.value,
                     "dispatchId": str(projection.binding.dispatch_id),
+                    "bindingId": str(admission.binding_id),
+                    "bindingDigest": admission.binding_digest,
                     "jobId": projection.binding.job_id,
                     "attemptId": projection.binding.attempt_id,
                     "semanticArtifactCount": len(projection.artifacts),
@@ -138,13 +194,17 @@ def main() -> None:
         raise SystemExit("--source-revision is required")
 
     real_client = LocalMcpToolCaller(args.endpoint, token)
+    real_client.initialize()
+    contracts = discover_ordivon_contracts(real_client)
     lossy_client = DropFirstSuccessfulResponse(real_client, "workspace.exec")
-    stamp = int(time.time() * 1000)
-    workspace_id = f"anc-live-journal-restart-{stamp}"
-    journal_path = Path(f"/tmp/anc-semantic-journal-{stamp}.sqlite3")
+    stamp = int(time.time() * 1_000)
+    workspace_id = f"anc-live-bound-restart-{stamp}"
+    journal_path = Path(f"/tmp/anc-bound-journal-{stamp}.sqlite3")
+    binding_store_path = Path(f"/tmp/anc-bound-bindings-{stamp}")
     opened = False
-    views: KernelAuthorityViews | None = None
-    authority_key = authority_secret(create=True)
+    views = None
+    kernel_key = kernel_secret(create=True)
+    context = LiveBindingContext.open(binding_store_path, create_secrets=True)
     try:
         opened_payload = real_client.call_tool(
             "workspace.open",
@@ -157,58 +217,57 @@ def main() -> None:
         )
         opened = True
         resolved_revision = opened_payload["sourceRevision"]
-        target_id = ordivon_workspace_object_id(workspace_id)
-        base = sample_effect(f"journal-restart-{stamp}")
-        spec = replace(
-            base,
-            target=WorldObjectRef(target_id, version=resolved_revision),
-            mode=EffectMode.CHANGE,
-            operation="workspace.exec",
-            capability=CapabilityRef(
-                SemanticId(IdKind.PRINCIPAL, "agent:journal-restart-conformance"),
-                "workspace.exec",
-                target_id,
+        execution = OrdivonExecution(
+            workspace_id=workspace_id,
+            executable="/usr/bin/bash",
+            args=(
+                "-lc",
+                "printf 'bound-restart-start\\n'; sleep 1; printf 'bound-restart-done\\n'",
             ),
-            completion=CompletionSemantics.VERIFIED,
+            timeout_ms=20_000,
+        )
+        envelope = launch_envelope(stamp, workspace_id, execution)
+        signed_effect = context.sign(envelope, issued_at_ms=stamp)
+        binding = lower_to_ordivon(
+            envelope,
+            contracts["workspace.exec"],
+            binding_id=f"binding:live-bound-restart:{stamp}:r1",
+            workspace_id=workspace_id,
         )
         clock = iter(range(stamp, stamp + 1_000_000)).__next__
         views = authorized_journal_views(
             journal_path,
-            authority_key,
-            namespace="live-journal-restart",
+            kernel_key,
+            namespace="live-bound-journal-restart",
             trust_domain="ordivon-live",
         )
-        views.effects.admit_effect(
-            spec,
-            event_id=sid(IdKind.EVENT, f"journal-restart:{stamp}:admit"),
-            recorded_at_ms=clock(),
+        projection, admission = admit_bound_effect(
+            views,
+            signed_effect,
+            contracts["workspace.exec"],
+            binding,
+            context.service,
+            backend_target=ordivon_workspace_object_id(workspace_id),
+            event_namespace=f"live-bound-restart:{stamp}",
+            admitted_at_ms=clock(),
         )
-        views.effects.prepare_effect(
-            spec.effect_id,
-            expected_revision=0,
-            event_id=sid(IdKind.EVENT, f"journal-restart:{stamp}:prepare"),
-            recorded_at_ms=clock(),
+        complete = context.service.resolve(admission).binding
+        adapter = OrdivonSemanticAdapter(
+            BoundExecutionView(views.execution, admission, complete),
+            lossy_client,
+            clock_ms=clock,
         )
-        adapter = OrdivonSemanticAdapter(views.execution, lossy_client, clock_ms=clock)
-        first = adapter.dispatch_exec(
-            spec.effect_id,
-            OrdivonExecution(
-                workspace_id=workspace_id,
-                executable="/usr/bin/bash",
-                args=(
-                    "-lc",
-                    "printf 'journal-restart-start\\n'; sleep 1; "
-                    "printf 'journal-restart-done\\n'",
-                ),
-                timeout_ms=20_000,
-            ),
-            wait_ms=0,
-        )
+        first = adapter.dispatch_exec(projection.effect_id, execution, wait_ms=0)
         if first.state is not EffectState.UNKNOWN:
             raise AssertionError(f"response loss did not produce UNKNOWN: {first.state}")
-        dispatch_id = views.read.get_effect(spec.effect_id).dispatch_id
+        dispatch_id = views.read.get_effect(projection.effect_id).dispatch_id
         if dispatch_id is None:
             raise AssertionError("UNKNOWN Effect lost Dispatch identity")
+        dispatch = views.read.get_dispatch(dispatch_id)
+        if dispatch.binding_id != admission.binding_id:
+            raise AssertionError("bound Dispatch omitted the admitted Binding")
+        if dispatch.binding_digest != admission.binding_digest:
+            raise AssertionError("bound Dispatch recorded the wrong Binding digest")
         client_request_id = next(
             arguments["clientRequestId"]
             for name, arguments in real_client.calls
@@ -227,32 +286,41 @@ def main() -> None:
                 args.endpoint,
                 "--journal",
                 str(journal_path),
+                "--binding-store",
+                str(binding_store_path),
                 "--effect-id-value",
-                spec.effect_id.value,
+                projection.effect_id.value,
             ],
             check=True,
             capture_output=True,
             text=True,
             env={
                 **os.environ,
-                "ANC_AUTHORITY_SECRET_HEX": authority_key.hex(),
+                "ANC_AUTHORITY_SECRET_HEX": kernel_key.hex(),
+                **context.child_environment(),
             },
         )
         child_receipt = json.loads(completed.stdout.strip().splitlines()[-1])
         if child_receipt["dispatchId"] != str(dispatch_id):
             raise AssertionError("process restart replaced Dispatch identity")
+        if child_receipt["bindingDigest"] != admission.binding_digest:
+            raise AssertionError("process restart replaced Binding identity")
 
         reopened = authorized_journal_views(
             journal_path,
-            authority_key,
-            namespace="live-journal-restart",
+            kernel_key,
+            namespace="live-bound-journal-restart",
             trust_domain="ordivon-live",
         )
         try:
-            record = reopened.read.get_effect(spec.effect_id)
+            record = reopened.read.get_effect(projection.effect_id)
             if record.state is not EffectState.SUCCEEDED:
                 raise AssertionError(f"replayed terminal state is {record.state}")
-            reopened.read.validate_invariants()
+            current = reopened.read.current_binding_for(projection.effect_id)
+            if current is None:
+                raise AssertionError("replayed Effect lost Binding admission")
+            context.service.resolve(current)
+            reopened.read.verify_from_genesis()
             final_entries = reopened.read.journal_entry_count
         finally:
             reopened.read.close()
@@ -272,8 +340,14 @@ def main() -> None:
                 {
                     "workspaceId": workspace_id,
                     "sourceRevision": resolved_revision,
+                    "catalogRevision": contracts["workspace.exec"].revision,
+                    "contractDigest": binding.contract.digest,
                     "initialState": first.state.value,
                     "terminalState": child_receipt["terminalState"],
+                    "dispatchId": str(dispatch_id),
+                    "bindingId": str(admission.binding_id),
+                    "bindingDigest": admission.binding_digest,
+                    "bindingArtifactResolvedAfterRestart": True,
                     "dispatchIdPreserved": True,
                     "jobId": child_receipt["jobId"],
                     "attemptId": child_receipt["attemptId"],
@@ -284,7 +358,6 @@ def main() -> None:
                     "beforeRestartJournalEntries": before_restart_entries,
                     "finalJournalEntries": final_entries,
                     "semanticArtifactCount": child_receipt["semanticArtifactCount"],
-                    "journalPathRemovedAfterTest": True,
                 },
                 indent=2,
                 sort_keys=True,
@@ -302,6 +375,7 @@ def main() -> None:
                 raise AssertionError("workspace close identity mismatch")
         for suffix in ("", "-wal", "-shm"):
             Path(str(journal_path) + suffix).unlink(missing_ok=True)
+        shutil.rmtree(binding_store_path, ignore_errors=True)
 
 
 if __name__ == "__main__":

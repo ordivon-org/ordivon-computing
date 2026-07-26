@@ -34,6 +34,17 @@ class LocalMcpToolCaller:
             raise ToolProtocolError("initialize returned a non-object result")
         return result
 
+    def list_tools(self) -> tuple[dict[str, Any], ...]:
+        result = self._rpc("tools/list", {})
+        if not isinstance(result, dict) or not isinstance(result.get("tools"), list):
+            raise ToolProtocolError("tools/list returned an invalid Tool catalog")
+        tools: list[dict[str, Any]] = []
+        for item in result["tools"]:
+            if not isinstance(item, dict):
+                raise ToolProtocolError("tools/list contains a non-object Tool descriptor")
+            tools.append(dict(item))
+        return tuple(tools)
+
     def call_tool(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         self.calls.append((name, arguments))
         result = self._rpc(
