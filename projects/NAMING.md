@@ -12,7 +12,7 @@ The suffix describes the state the project owns and its durable role in the syst
 
 | Repository | Stable responsibility | Does not own |
 |---|---|---|
-| `ordivon-architecture` | Cross-layer architecture, specifications, reference implementations, conformance, and evaluation | Production Tasks, Jobs, processes, or user-facing workspaces |
+| `ordivon-computing` | System-level research structure, cross-layer architecture, protocols, reference implementations, conformance, evaluation, and cross-project synthesis | Production Tasks, Jobs, processes, or user-facing workspaces |
 | `ordivon-runtime` | Durable trusted-local execution: Workspace, Job, Attempt, Artifact, cancellation, observation, and recovery | Model cognition, Goal planning, or product UI |
 | `ordivon-edge` | Connectivity, transport observation and selection, recovery, and remote Runtime reachability | Task semantics or local process ownership |
 | `ordivon-web` | Public website, project presentation, and documentation entrypoint | Private Goal/Task operations |
@@ -24,10 +24,10 @@ Domain systems may retain a distinct product noun until a deliberate migration i
 
 1. Use lowercase kebab-case for repository names.
 2. Prefix Ordivon platform projects with `ordivon-`.
-3. Choose one stable responsibility noun: `architecture`, `runtime`, `edge`, `workbench`, or `web`.
+3. Choose one stable responsibility noun: `computing`, `runtime`, `edge`, `workbench`, or `web`.
 4. Do not use `core`; it is ambiguous across the Semantic Kernel, Runtime Core, and product core.
 5. Do not use `platform`; it hides the actual state owner.
-6. Do not use `research` for a repository that also carries stable specifications and executable conformance.
+6. Use `computing` only for the system-level mother project that owns the research structure, architecture, protocols, reference systems, and conformance. Do not use `research` for a repository that also carries stable specifications and executable conformance.
 7. Do not rename stable protocol namespaces merely to match branding. `ANC-*` issue IDs and `anc_*` packages remain the technical namespace for agent-native computing contracts.
 8. Historical receipts, fixtures, revisions, and repository IDs remain immutable. Active validators may carry aliases for old identities.
 
