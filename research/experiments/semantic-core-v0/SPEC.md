@@ -173,21 +173,22 @@ The durable journal is replayed into a fresh Kernel. Replay must reproduce all o
 
 The internal journal encoding is not an external Effect IR contract.
 
-## Ordivon mapping hypothesis
+## Backend projection mappings
 
-| Ordivon runtime state | Semantic state | Reason |
+Backend status vocabularies are Adapter inputs, not Kernel enums or public protocol values. Two independent mappings currently satisfy the same semantic contract:
+
+| Semantic state | Ordivon Adapter input | Deterministic Adapter input |
 |---|---|---|
-| Accepted with validated plan | Prepared | admitted locally, not yet externally running |
-| Starting after dispatch intent | Dispatched | a correlated execution attempt exists |
-| Running | Running | process identity is observed |
-| Stopping | Cancel requested | cancellation intent is not terminal evidence |
-| Recovering | Reconciling | runtime is reconstructing external truth |
-| Succeeded | Succeeded | terminal process evidence is committed |
-| Failed / Timed out | Failed | definitive process-level terminal evidence |
-| Cancelled | Cancelled | cancellation terminal evidence exists |
-| Lost / Orphaned | Unknown | loss of ownership is not proof of world failure |
+| `DISPATCHED` | `queued` | `ACCEPTED` |
+| `RUNNING` | `working` | `ACTIVE` |
+| `SUCCEEDED` | `succeeded` | `COMPLETE` |
+| `FAILED` | `failed` / `timed_out` | `ERROR` |
+| `CANCELLED` | `cancelled` | `ABORTED` |
+| `UNKNOWN` | `lost` / `orphaned` | `INDETERMINATE` |
 
-This mapping remains provisional until live adapter conformance is run.
+The backend operation identity is stored only as the opaque `DispatchRecord.backend_operation_id`. Job IDs, Attempt IDs, simulator operation IDs, correlation keys, receipt structures, transport envelopes, and status terms remain Adapter-local.
+
+Shared conformance compares the resulting semantic projection rather than requiring either backend to adopt the other's contract. This is the executable basis for K11.
 
 ## Mutation and audit complexity
 

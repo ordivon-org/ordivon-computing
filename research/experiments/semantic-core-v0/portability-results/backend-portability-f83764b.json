@@ -1,0 +1,89 @@
+{
+  "backend_contracts": {
+    "ordivon": {
+      "operations": [
+        "workspace.read",
+        "workspace.mutate",
+        "workspace.exec",
+        "task.list",
+        "task.observe",
+        "task.cancel"
+      ],
+      "status_vocabulary": [
+        "working",
+        "succeeded",
+        "failed",
+        "cancelled",
+        "orphaned"
+      ]
+    },
+    "simulator": {
+      "operations": [
+        "simulator.object.read",
+        "simulator.object.mutate",
+        "simulator.job.launch",
+        "lookup",
+        "inspect",
+        "request_cancel"
+      ],
+      "status_vocabulary": [
+        "ACTIVE",
+        "COMPLETE",
+        "ERROR",
+        "ABORTED",
+        "INDETERMINATE"
+      ]
+    }
+  },
+  "reports_equal": true,
+  "schema_version": 1,
+  "semantic_report": {
+    "backend_objects_leaked": false,
+    "broken_state": "unknown",
+    "cancel_events": [
+      "effect_admitted",
+      "effect_prepared",
+      "dispatch_started",
+      "dispatch_admitted",
+      "running_observed",
+      "cancellation_requested",
+      "effect_cancelled"
+    ],
+    "cancel_intent_state": "cancel_requested",
+    "cancel_terminal_state": "cancelled",
+    "fact_committed": true,
+    "fact_decision": "accepted",
+    "mutation_state": "succeeded",
+    "read_state": "succeeded",
+    "response_loss_delivery_count": 1,
+    "response_loss_dispatch_preserved": true,
+    "response_loss_events": [
+      "effect_admitted",
+      "effect_prepared",
+      "dispatch_started",
+      "outcome_unknown",
+      "reconciliation_started",
+      "dispatch_admitted",
+      "effect_succeeded"
+    ],
+    "response_loss_initial_state": "unknown",
+    "response_loss_recovered_state": "succeeded",
+    "stale_mutation_state": "failed",
+    "success_artifact_roles": [
+      "observation"
+    ],
+    "success_events": [
+      "effect_admitted",
+      "effect_prepared",
+      "dispatch_started",
+      "dispatch_admitted",
+      "effect_succeeded"
+    ],
+    "success_observation_roles": [
+      "observation"
+    ],
+    "success_state": "succeeded",
+    "unrelated_state": "succeeded"
+  },
+  "source_revision": "f83764b58ae27ea64b93e7f8fa22c4577cf51e84"
+}

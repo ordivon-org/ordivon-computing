@@ -138,3 +138,16 @@ Migration is allowed only from the exact known v2 semantic-model and reducer ver
 ## D33 — Reject the first checkpoint design after measurement
 
 The exact prototype at `23353fdd550badf090c404861755131a70b7807b` duplicated state, enlarged the database, and reopened more slowly than optimized genesis verification. The runtime feature was removed. Future checkpoint work requires a new representation and positive benchmark evidence.
+
+
+## D34 — Prove portability with a structurally distinct backend
+
+A second backend must differ in operation names, status vocabulary, correlation identity, receipt shape, and implementation objects. Replaying Ordivon payloads through a mock would test only the Ordivon Adapter. The deterministic simulator therefore defines its own object, Job, mutation, status, and failure contracts.
+
+## D35 — Compare semantic projections, not backend payloads
+
+Portable conformance compares Effect states, Dispatch preservation, Event kinds, evidence, Fact admission, Authority roles, delivery count, and fault isolation. Backend Job IDs, operation IDs, status words, and receipt envelopes remain opaque Adapter bindings and are intentionally absent from the normalized report.
+
+## D36 — Keep the portability oracle internal
+
+The deterministic backend and `BackendPortabilityDriver` are experiment and conformance mechanisms. They are not package-root exports, a generic Backend interface, or a production plugin framework. A future public execution ABI must be justified separately by the Effect IR and Tool-contract work.

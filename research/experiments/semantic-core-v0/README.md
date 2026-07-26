@@ -13,7 +13,7 @@ Probabilistic cognition
 → authenticated Journal replay
 ```
 
-The semantic model is independent of model providers, conversation history, and concrete Tool transports. The reference implementation uses Python 3.12 and standard-library SQLite. Ordivon integration remains in adapters and does not define the core semantics.
+The semantic model is independent of model providers, conversation history, and concrete Tool transports. The reference implementation uses Python 3.12 and standard-library SQLite. P2E runs one semantic conformance suite through Ordivon and a structurally distinct deterministic backend, proving that either backend remains an Adapter concern rather than Kernel semantics.
 
 ## Run
 
@@ -58,10 +58,23 @@ authorized.py   signed Authority-backed implementation of those protocols
 reducer.py      raw in-memory executable reference reducer
 journal.py      raw durable JournalReducer and SQLite command history
 provenance.py   read-only execution, recovery, authority, and Fact projections
+backend_conformance.py  internal two-backend semantic oracle
+simulator.py    internal deterministic second-backend experiment
 kernel.py       backward-compatible import facade
 ```
 
-Adapters depend on `ExecutionView`; Verification and Fact admission depend on separate role protocols. Raw reducers remain below Authority issuance and are not exported from the package root.
+Adapters depend on `ExecutionView`; Verification and Fact admission depend on separate role protocols. Raw reducers, the deterministic backend, and the portability driver remain below Authority issuance and are not exported from the package root.
+
+## Backend portability evidence
+
+```bash
+PYTHONPATH=src python3.12 -m unittest \
+  tests.test_backend_portability -v
+```
+
+The same versioned I/O, asynchronous execution, uncertainty, reconciliation, cancellation, evidence, Fact, and Authority scenarios produce an identical normalized report for Ordivon and the deterministic second backend. The simulator uses different operation names, status words, IDs, and receipts; no simulator or Ordivon implementation object enters Kernel state.
+
+Exact P2E evidence is retained in [`portability-results/backend-portability-f83764b.json`](portability-results/backend-portability-f83764b.json).
 
 ## Performance evidence
 
@@ -82,7 +95,7 @@ The Kernel preserves semantic identity, legal transitions, explicit uncertainty,
 
 ## Documentation map
 
-- [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md) — mission, classical foundation, and K1–K10;
+- [`KERNEL-CHARTER.md`](KERNEL-CHARTER.md) — mission, classical foundation, and K1–K11;
 - [`SPEC.md`](SPEC.md) — primitive separation, state algebra, evidence graph, and invariants;
 - [`AUTHORITY.md`](AUTHORITY.md) — role grants, signers, Attestations, and scoped Views;
 - [`JOURNAL.md`](JOURNAL.md) — atomic persistence, integrity, writer conflict, and replay;

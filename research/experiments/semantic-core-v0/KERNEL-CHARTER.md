@@ -82,6 +82,10 @@ Effect proposal, Dispatch execution, Observation attestation, Verification decis
 
 Every semantic mutation and evidence record carries an Attestation binding its Authority, issuer, principal, trust domain, policy version, contract version, exact semantic content digest, and record time. Admission and replay verify the complete binding before state is accepted.
 
+### K11 — Backend-independent semantic projection
+
+Execution substrates with structurally different operation names, correlation mechanisms, status vocabularies, receipt formats, and backend identities can project the same Effect, Dispatch, uncertainty, cancellation, evidence, knowledge, Authority, and replay semantics. Backend implementation objects and protocol envelopes remain below the Kernel state boundary.
+
 ## 5. Value delivered
 
 The Kernel provides a stable answer to the following questions across process and session boundaries:
@@ -96,6 +100,7 @@ Which Claim was evaluated?
 Which Verification admitted the Fact?
 Which Authority signed each transition and evidence record?
 Which trust domain and contract produced the evidence?
+Which backend-local identity and protocol were projected without becoming Kernel semantics?
 How can the complete state be reconstructed and re-authenticated after restart?
 ```
 
@@ -131,4 +136,4 @@ This keeps the Kernel centered on hard semantic guarantees while schedulers, mem
 
 ## 8. Current conformance
 
-K1–K10 have executable local evidence in the reference implementation. Together they establish a durable, role-scoped, attested semantic Kernel for external Agent action.
+K1–K11 have executable local evidence in the reference implementation. Together they establish a durable, role-scoped, attested, backend-independent semantic Kernel for external Agent action.
