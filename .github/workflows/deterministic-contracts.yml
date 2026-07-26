@@ -1,0 +1,82 @@
+name: Deterministic contracts
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/deterministic-contracts.yml"
+      - "research/experiments/external-semantic-contract-v0/pyproject.toml"
+      - "research/experiments/external-semantic-contract-v0/src/**"
+      - "research/experiments/external-semantic-contract-v0/integration/**"
+      - "research/experiments/external-semantic-contract-v0/tests/**"
+      - "research/experiments/external-semantic-contract-v0/schemas/**"
+      - "research/experiments/external-semantic-contract-v0/fixtures/**"
+      - "research/experiments/external-semantic-contract-v0/rust/**"
+      - "research/experiments/external-semantic-contract-v0/scripts/**"
+      - "research/experiments/semantic-core-v0/pyproject.toml"
+      - "research/experiments/semantic-core-v0/src/**"
+      - "research/experiments/semantic-core-v0/tests/**"
+      - "research/experiments/semantic-core-v0/scripts/**"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/deterministic-contracts.yml"
+      - "research/experiments/external-semantic-contract-v0/pyproject.toml"
+      - "research/experiments/external-semantic-contract-v0/src/**"
+      - "research/experiments/external-semantic-contract-v0/integration/**"
+      - "research/experiments/external-semantic-contract-v0/tests/**"
+      - "research/experiments/external-semantic-contract-v0/schemas/**"
+      - "research/experiments/external-semantic-contract-v0/fixtures/**"
+      - "research/experiments/external-semantic-contract-v0/rust/**"
+      - "research/experiments/external-semantic-contract-v0/scripts/**"
+      - "research/experiments/semantic-core-v0/pyproject.toml"
+      - "research/experiments/semantic-core-v0/src/**"
+      - "research/experiments/semantic-core-v0/tests/**"
+      - "research/experiments/semantic-core-v0/scripts/**"
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: dtolnay/rust-toolchain@stable
+      - run: python -m pip install --disable-pip-version-check ruff
+      - name: Static checks
+        run: |
+          python -m compileall -q \
+            research/experiments/external-semantic-contract-v0/src \
+            research/experiments/external-semantic-contract-v0/integration \
+            research/experiments/external-semantic-contract-v0/tests \
+            research/experiments/external-semantic-contract-v0/scripts \
+            research/experiments/semantic-core-v0/src \
+            research/experiments/semantic-core-v0/tests \
+            research/experiments/semantic-core-v0/scripts
+          ruff check \
+            research/experiments/external-semantic-contract-v0/src \
+            research/experiments/external-semantic-contract-v0/integration \
+            research/experiments/external-semantic-contract-v0/tests \
+            research/experiments/external-semantic-contract-v0/scripts \
+            research/experiments/semantic-core-v0/src \
+            research/experiments/semantic-core-v0/tests \
+            research/experiments/semantic-core-v0/scripts
+      - name: External contract tests
+        working-directory: research/experiments/external-semantic-contract-v0
+        env:
+          PYTHONPATH: src:../semantic-core-v0/src:.
+        run: python -m unittest discover -s tests
+      - name: Semantic Kernel tests
+        working-directory: research/experiments/semantic-core-v0
+        env:
+          PYTHONPATH: src
+        run: python -m unittest discover -s tests
+      - name: Cross-language canonical vectors
+        working-directory: research/experiments/external-semantic-contract-v0
+        run: |
+          rustc --edition=2021 rust/canonical-verifier/main.rs -o /tmp/anc-canonical-verifier
+          /tmp/anc-canonical-verifier fixtures/canonical/canonical-vectors.tsv
