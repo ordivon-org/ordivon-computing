@@ -36,7 +36,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--source-repo",
-        default="/root/projects/agent-native-computing",
+        default="/root/projects/ordivon-architecture",
     )
     parser.add_argument("--source-revision", required=True)
     return parser.parse_args()
