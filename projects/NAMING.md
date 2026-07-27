@@ -14,9 +14,10 @@ The suffix describes the state the project owns and its durable role in the syst
 |---|---|---|
 | `ordivon-computing` | System-level research structure, cross-layer architecture, protocols, reference implementations, conformance, evaluation, and cross-project synthesis | Production Tasks, Jobs, processes, or user-facing workspaces |
 | `ordivon-runtime` | Durable trusted-local execution: Workspace, Job, Attempt, Artifact, cancellation, observation, and recovery | Model cognition, Goal planning, or product UI |
+| `ordivon-host` | Durable Goal and Task continuity, Host event state, bounded cognition, deterministic admission, Runtime Dispatch correlation, verification, and task outcomes | Linux process ownership, Runtime Job truth, protocol research, or user-interface presentation |
 | `ordivon-edge` | Connectivity, transport observation and selection, recovery, and remote Runtime reachability | Task semantics or local process ownership |
 | `ordivon-web` | Public website, project presentation, and documentation entrypoint | Private Goal/Task operations |
-| `ordivon-workbench` | Planned user-facing Agent Host, thin Task controller, review, and approval surface | Linux process ownership or protocol research |
+| `ordivon-workbench` | Planned user-facing review, approval, and Task interaction surface over Host contracts | Durable Task ownership, Linux process ownership, or protocol research |
 
 Domain systems may retain a distinct product noun until a deliberate migration is completed. They must still declare their relationship to Ordivon in metadata and documentation.
 
@@ -24,7 +25,7 @@ Domain systems may retain a distinct product noun until a deliberate migration i
 
 1. Use lowercase kebab-case for repository names.
 2. Prefix Ordivon platform projects with `ordivon-`.
-3. Choose one stable responsibility noun: `computing`, `runtime`, `edge`, `workbench`, or `web`.
+3. Choose one stable responsibility noun: `computing`, `runtime`, `host`, `edge`, `workbench`, or `web`.
 4. Do not use `core`; it is ambiguous across the Semantic Kernel, Runtime Core, and product core.
 5. Do not use `platform`; it hides the actual state owner.
 6. Use `computing` only for the system-level mother project that owns the research structure, architecture, protocols, reference systems, and conformance. Do not use `research` for a repository that also carries stable specifications and executable conformance.
