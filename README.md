@@ -65,6 +65,7 @@ Knowledge moves toward the core only after repeated use shows that it is stable,
 - What durable state allows a long-running task to continue across model and session boundaries?
 - How should hosts, agents, and runtimes detect and adopt tool-contract changes?
 - How should people and multiple Agents coordinate around persistent goals and artifacts?
+- How can an Agent system learn across tasks, compile capabilities, regulate cognition, and evolve itself through evidence-governed change?
 
 See [`research/map.yaml`](research/map.yaml) and [`research/questions/`](research/questions/).
 

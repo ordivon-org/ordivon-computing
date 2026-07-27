@@ -23,4 +23,5 @@ The cross-layer program is [#1 — Construct the Agent-Native Machine](https://g
 - [`ANC-IR-001`](questions/ANC-IR-001-agent-effect-ir.md) — minimum useful Agent Effect IR;
 - [`ANC-MEMORY-001`](questions/ANC-MEMORY-001-task-continuity.md) — minimum durable state for task continuity;
 - [`ANC-EFFECT-001`](questions/ANC-EFFECT-001-tool-contract-evolution.md) — Tool-contract change detection and adoption;
-- [`ANC-ORG-001`](questions/ANC-ORG-001-agent-native-organization.md) — human and multi-Agent coordination around persistent work.
+- [`ANC-ORG-001`](questions/ANC-ORG-001-agent-native-organization.md) — human and multi-Agent coordination around persistent work;
+- [`ANC-ADAPT-001`](questions/ANC-ADAPT-001-agent-era-capabilities.md) — cross-task learning, capability compilation, cognition control, multi-Agent ownership, and evidence-governed self-evolution.
