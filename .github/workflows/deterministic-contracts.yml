@@ -4,8 +4,9 @@ on:
   pull_request:
     paths:
       - ".github/workflows/deterministic-contracts.yml"
+      - "packages/ordivon-protocol/**"
+      - "incubation/host-v0/**"
       - "research/experiments/external-semantic-contract-v0/pyproject.toml"
-      - "research/experiments/external-semantic-contract-v0/src/**"
       - "research/experiments/external-semantic-contract-v0/integration/**"
       - "research/experiments/external-semantic-contract-v0/tests/**"
       - "research/experiments/external-semantic-contract-v0/schemas/**"
@@ -25,8 +26,9 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/deterministic-contracts.yml"
+      - "packages/ordivon-protocol/**"
+      - "incubation/host-v0/**"
       - "research/experiments/external-semantic-contract-v0/pyproject.toml"
-      - "research/experiments/external-semantic-contract-v0/src/**"
       - "research/experiments/external-semantic-contract-v0/integration/**"
       - "research/experiments/external-semantic-contract-v0/tests/**"
       - "research/experiments/external-semantic-contract-v0/schemas/**"
@@ -60,7 +62,11 @@ jobs:
       - name: Static checks
         run: |
           python -m compileall -q \
-            research/experiments/external-semantic-contract-v0/src \
+            packages/ordivon-protocol/src \
+            packages/ordivon-protocol/tests \
+            incubation/host-v0/src \
+            incubation/host-v0/tests \
+            incubation/host-v0/scripts \
             research/experiments/external-semantic-contract-v0/integration \
             research/experiments/external-semantic-contract-v0/tests \
             research/experiments/external-semantic-contract-v0/scripts \
@@ -71,7 +77,11 @@ jobs:
             research/experiments/task-continuation-v0/tests \
             research/experiments/task-continuation-v0/scripts
           ruff check \
-            research/experiments/external-semantic-contract-v0/src \
+            packages/ordivon-protocol/src \
+            packages/ordivon-protocol/tests \
+            incubation/host-v0/src \
+            incubation/host-v0/tests \
+            incubation/host-v0/scripts \
             research/experiments/external-semantic-contract-v0/integration \
             research/experiments/external-semantic-contract-v0/tests \
             research/experiments/external-semantic-contract-v0/scripts \
@@ -81,20 +91,30 @@ jobs:
             research/experiments/task-continuation-v0/src \
             research/experiments/task-continuation-v0/tests \
             research/experiments/task-continuation-v0/scripts
+      - name: Promoted protocol tests
+        working-directory: packages/ordivon-protocol
+        env:
+          PYTHONPATH: src
+        run: python -m unittest discover -s tests
       - name: External contract tests
         working-directory: research/experiments/external-semantic-contract-v0
         env:
-          PYTHONPATH: src:../semantic-core-v0/src:.
+          PYTHONPATH: ../../../packages/ordivon-protocol/src:../semantic-core-v0/src:.
         run: python -m unittest discover -s tests
       - name: Semantic Kernel tests
         working-directory: research/experiments/semantic-core-v0
         env:
-          PYTHONPATH: src
+          PYTHONPATH: ../../../packages/ordivon-protocol/src:src
         run: python -m unittest discover -s tests
       - name: Task continuation tests
         working-directory: research/experiments/task-continuation-v0
         env:
-          PYTHONPATH: src:../external-semantic-contract-v0/src:../external-semantic-contract-v0:../semantic-core-v0/src
+          PYTHONPATH: ../../../packages/ordivon-protocol/src:src:../external-semantic-contract-v0:../semantic-core-v0/src
+        run: python -m unittest discover -s tests
+      - name: Host incubator boundary tests
+        working-directory: incubation/host-v0
+        env:
+          PYTHONPATH: src:../../packages/ordivon-protocol/src
         run: python -m unittest discover -s tests
       - name: Cross-language canonical vectors
         working-directory: research/experiments/external-semantic-contract-v0

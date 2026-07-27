@@ -187,7 +187,8 @@ class AuthorizedKernelTests(unittest.TestCase):
             path = Path(directory) / "process.sqlite3"
             root = Path(__file__).resolve().parents[1]
             env = dict(os.environ)
-            env["PYTHONPATH"] = str(root / "src")
+            protocol = root.parents[2] / "packages" / "ordivon-protocol" / "src"
+            env["PYTHONPATH"] = os.pathsep.join((str(protocol), str(root / "src")))
             writer = """
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.testing import journal_kernel
