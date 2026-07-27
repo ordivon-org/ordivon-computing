@@ -4,7 +4,7 @@ Tests are protection for explicit semantic invariants, not a mandatory precondit
 
 ## Source layers
 
-Production-candidate protocol code lives under `packages/ordivon-protocol/`. Executable experiments, fixtures, live evidence scripts, and conformance suites remain under `research/experiments/`. The Host remains under `incubation/host-v0/` until real guarded mutation and asynchronous recovery gates pass.
+Production-candidate protocol code lives under `packages/ordivon-protocol/`. Executable experiments, fixtures, live evidence scripts, and conformance suites remain under `research/experiments/`. `incubation/host-v0/` now records the closed H2-H6 Host proof and its extraction source; after the history-preserving split, active Host product development belongs in `ordivon-host`.
 
 Experiments import the promoted package directly. They must not retain shadow copies of promoted source.
 
