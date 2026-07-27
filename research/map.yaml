@@ -31,6 +31,8 @@ branches:
     name: hardware-isa-and-dataflow
   - id: ANC-VERIFY
     name: verification-and-benchmarks
+  - id: ANC-ADAPT
+    name: agent-adaptation-and-self-evolution
   - id: ANC-ORG
     name: organization-economics-and-coordination
 
@@ -134,6 +136,26 @@ relations:
     type: feeds_back_to
     to: ANC-MULTI-001
     meaning: Human redirection and review reveal which coordination objects are operationally useful.
+  - from: ANC-MEMORY-001
+    type: enables
+    to: ANC-ADAPT-001
+    meaning: Cross-task learning requires durable trajectories and compact continuation state rather than raw conversation history.
+  - from: ANC-EFFECT-001
+    type: enables
+    to: ANC-ADAPT-001
+    meaning: Capability compilation requires stable Tool identity, Effect semantics, and contract-change handling.
+  - from: ANC-MULTI-001
+    type: feeds_back_to
+    to: ANC-ADAPT-001
+    meaning: Real ownership, handoff, and join failures determine which coordination policies should adapt.
+  - from: ANC-VERIFY-001
+    type: enables
+    to: ANC-ADAPT-001
+    meaning: Replay, evaluation, and counterfactual evidence are required before a learned change can be promoted.
+  - from: ANC-ADAPT-001
+    type: feeds_back_to
+    to: ANC-HOST-001
+    meaning: Evidence from adaptation experiments revises context compilation, provider choice, stopping, and escalation policy.
 
 questions:
   - id: ANC-IR-001
@@ -190,3 +212,24 @@ questions:
     related_projects:
       - Ordivon
       - FinHarness
+
+  - id: ANC-ADAPT-001
+    title: Agent-era adaptation and self-evolution
+    file: questions/ANC-ADAPT-001-agent-era-capabilities.md
+    branch: ANC-ADAPT
+    epistemic_status: research_question
+    question: How can an Agent system learn across tasks, compile capabilities, coordinate cognitive actors, regulate cognition quality, and improve itself without surrendering evidence, authority, reversibility, or human control?
+    evidence_paths:
+      - trajectory_analysis
+      - comparative_evaluation
+      - skill_compilation_experiment
+      - multi_agent_coordination_experiment
+      - cognition_fault_injection
+      - canary_self_change_experiment
+    related_projects:
+      - Ordivon Host
+      - Ordivon Runtime
+      - Ordivon Game
+      - Ordivon Finance
+      - Ordivon Edge
+      - Ordivon Link
