@@ -3,49 +3,52 @@
 ## 1. Main claim
 
 ```text
-Claim A
+Claim A — Historical direction
+  If civilization survives and retains multiple centers of agency,
+  useful general-purpose capabilities tend to be rediscovered, copied,
+  recombined, and expanded over long periods.
+
+Claim B — Pacing instability
   A durable, comprehensive, globally synchronized slowdown of the AI capability frontier
-  is unlikely to be a stable or verifiable equilibrium.
+  cannot be the stable foundation of a plural technological civilization.
+  It can delay specific actors and bottlenecks, but it cannot repeal the underlying direction.
 
-Claim B
-  Slowing only responsible and observable actors can transfer relative advantage
-  without eliminating the underlying capability trajectory.
-
-Claim C
-  A more robust positive strategy is adaptive acceleration:
-  advance useful capability together with adoption, verification, defense, recovery,
-  benefit diffusion, institutional adaptation, and cooperative intelligence.
-  Selective pacing can remain an instrument when evidence shows positive net risk reduction.
+Claim C — Civilizational acceleration
+  The correct response is to accelerate intelligence together with robotics, science,
+  adoption, verification, defense, recovery, distribution, institutional learning,
+  and cooperation among human and artificial intelligences.
 ```
 
 ## 2. Scope boundary
 
-The argument concerns **frontier-wide capability suppression**, not every form of governance.
+The argument concerns **frontier-wide capability suppression as a civilizational strategy**, not every form of governance.
 
 It does not reject:
 
 - ordinary law against fraud, coercion, theft, sabotage, or negligence;
 - domain-specific rules for medicine, finance, weapons, infrastructure, and privacy;
-- temporary pauses after concrete incidents;
+- stopping a specific experiment after concrete evidence of failure;
 - containment of untrusted execution;
 - evaluation before high-consequence deployment;
 - liability for realized external effects;
 - international coordination around identifiable materials, facilities, interfaces, or harms.
 
+These measures constrain consequences and particular trajectories. They do not establish permanent ownership over the future rate of intelligence.
+
 ## 3. Mechanism chain
 
 ```text
-broad and strategic usefulness
+cumulative and copyable knowledge
++ broad economic, scientific, military, and existential usefulness
 + many public and private participants
 + modular innovation across models, data, chips, algorithms, Harnesses, and applications
-+ high rewards for relative advantage
++ high rewards for expanding option space
 + incomplete information about hidden progress
-+ weak observability of knowledge production
-+ mobile talent, code, and methods
-→ unilateral slowdown is costly
-→ defection is attractive and difficult to verify
-→ coordination is fragile
-→ activity migrates across actors, jurisdictions, and technical margins
++ mobile talent, code, methods, and future AI participants
+→ some actor continues experimentation
+→ successful capabilities attract replication and complementary invention
+→ local restrictions redirect rather than terminate the search
+→ technological civilization advances through a curved, uneven trajectory
 ```
 
 ## 4. Strongest historical support
@@ -68,71 +71,75 @@ Technology adoption varies dramatically across countries; education, openness, i
 
 ## 5. What would falsify or narrow Claim A?
 
-Claim A should be narrowed if a proposed AI pacing regime demonstrates all of the following:
+The historical-direction claim would need revision if a plural, technically capable global civilization maintained all of the following across multiple generations:
 
-1. a stable and measurable definition of the regulated frontier;
-2. high coverage across states, firms, open communities, and new entrants;
-3. reliable detection of material algorithmic, data, inference, and Harness improvements;
-4. low expected gains from secret defection;
-5. credible enforcement against powerful defectors;
-6. limited migration into less observable channels;
-7. low capture by incumbent firms or geopolitical blocs;
-8. better risk-adjusted outcomes than accelerating verification and defense;
-9. an exit rule that does not become permanent technological control by current incumbents.
+1. durable suppression of a highly useful general-purpose capability;
+2. high coverage across states, firms, open communities, new entrants, and autonomous systems;
+3. reliable detection of material algorithmic, data, inference, and organizational improvements;
+4. low rewards for secret defection or independent rediscovery;
+5. credible enforcement against the most powerful defectors;
+6. limited migration into less observable technical and geographic channels;
+7. no requirement for civilizational collapse, global authoritarian control, or destruction of experimental capacity.
 
-The Montreal Protocol is an important counterexample to simplistic claims that global coordination never works [C01]. Nuclear safeguards show that substantial verification is possible when material, facilities, declarations, and inspection rights can be defined [C02]. The article therefore argues from differences in observability and incentive structure, not from an absolute theorem that treaties always fail.
+The Montreal Protocol demonstrates that global coordination can succeed around identifiable substances, reporting duties, substitutes, and trade rules [C01]. Nuclear safeguards demonstrate meaningful verification around defined materials and facilities [C02]. These examples narrow careless claims that all treaties fail. They do not establish that the entire production of cognition can be frozen across centuries.
 
 ## 6. Strongest objections
 
 ### Objection 1 — AI may be categorically more dangerous than earlier technologies
 
-This objection is valid against naive historical analogy. Past industrial transitions do not prove that advanced AI is safe. The response is narrower: greater danger increases the need for an executable strategy, but does not itself establish that frontier-wide slowdown is enforceable.
+Past industrial transitions do not prove that advanced AI is safe. Greater danger justifies stronger feedback, evaluation, defense, containment, and responsibility. It does not establish that permanent frontier suppression is stable or that less intelligence is the best long-run defense against intelligence.
 
 ### Objection 2 — Race dynamics can degrade safety
 
-Also valid. Competitive pressure can produce premature deployment. Adaptive acceleration therefore includes faster evaluation, containment, defense, recovery, and shared evidence. It rejects capability-only acceleration.
+Competitive pressure can produce premature deployment. Civilizational acceleration therefore accelerates verification, containment, defense, recovery, and evidence alongside capability. It rejects a race in which only model scores improve.
 
 ### Objection 3 — International cooperation can change incentives
 
-Correct. Cooperation can reduce some races, define common interfaces, fund public goods, and coordinate responses. The disagreement concerns whether cooperation can durably suppress the entire global cognition frontier, not whether any cooperation is possible.
+Cooperation can coordinate narrow observable actions, define interfaces, fund public goods, and punish identifiable violations. The disagreement concerns whether cooperation can durably suppress the entire global cognition frontier. Coordination can shape the route; it does not repeal the direction.
 
 ### Objection 4 — Markets do not automatically distribute benefits
 
-Correct. Historical automation displaced tasks and contributed to wage inequality [L01][L02]. Adaptive acceleration includes education, new task creation, access to AI capabilities, competition policy, social insurance, and broader ownership.
+Historical automation displaced tasks and contributed to wage inequality [L01][L02]. Acceleration therefore includes education, new task creation, access to AI capability, competition policy, social insurance, and broader ownership. Slowing invention is not a substitute for solving distribution.
 
 ### Objection 5 — Faster loops can amplify errors
 
-Correct when feedback is weak. The Ordivon thesis is therefore:
+Correct when feedback is weak. The Ordivon thesis is:
 
 ```text
 faster proposal generation
 + faster observation
 + faster independent verification
-+ bounded effects
++ bounded consequences
 + faster rollback and reconciliation
 + retained negative evidence
 → higher verified improvement rate
 ```
 
-not merely more actions per unit time.
+The answer to dangerous speed is better steering, sensing, braking, recovery, and cooperation—not a permanent low-speed limit on civilization.
 
 ## 7. Normative commitments
 
-The article makes three explicit value commitments:
+The article makes four explicit value commitments:
 
-1. future generations should not be permanently bound by incumbent control of the intelligence frontier without extraordinary justification;
-2. concrete harms and external effects remain legitimate objects of law and reciprocal constraint;
-3. increasingly capable AI should be approached as a potential collaborator and participant, not permanently presumed to be property merely because humans built its predecessors.
+1. civilization should continue expanding its range of knowledge, action, and possible futures;
+2. future generations should not be permanently bound by incumbent control of the intelligence frontier;
+3. concrete harms and external effects remain legitimate objects of law and reciprocal constraint;
+4. increasingly capable AI should be approached as a potential collaborator and participant, not permanently presumed to be property merely because humans built its predecessors.
 
-The third commitment is conditional: current model capability does not establish consciousness, moral patienthood, or independent legal agency. The architecture should avoid assuming the opposite forever.
+Current model capability does not establish consciousness, moral patienthood, or independent legal agency. That uncertainty does not justify hard-coding permanent domination into the architecture of the future.
 
-## 8. Policy implication
+## 8. Program
 
 ```text
-Do not make global capability suppression the primary plan.
+Reject:
+  global capability suppression as the primary plan
+  permanent incumbent control of intelligence
+  safety defined as civilizational stagnation
 
 Accelerate:
   scientific and technical capability
+  AI and robotics
+  automated science
   broad access and adoption
   organizational redesign
   independent evaluation
@@ -144,7 +151,7 @@ Accelerate:
   human–AI and AI–AI cooperation
 
 Govern:
-  concrete effects
+  concrete consequences
   resource rights
   externalities
   deception
@@ -154,7 +161,7 @@ Govern:
 
 ## 9. Ordivon implication
 
-The inability to prove a stable global slowdown does not itself justify maximizing capability growth. Ordivon should optimize:
+Ordivon should optimize:
 
 ```text
 verified improvement / unit time
@@ -162,4 +169,4 @@ verified improvement / unit time
 
 through persistent work, replaceable cognition, version-bound Context, explicit Effects, recoverable execution, evidence, evaluation, and cooperative commitments.
 
-Safety mechanisms are justified when they increase the sustainable operating envelope and reduce catastrophic reset cost. They are not an independent mandate to minimize Agent capability or preserve permanent human domination.
+Pause, containment, verification, rollback, and evidence are not mandates to minimize Agent capability. They expand the sustainable operating envelope, make local failure cheaper, and permit the next iteration to move faster.

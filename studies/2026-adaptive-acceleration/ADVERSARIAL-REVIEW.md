@@ -1,5 +1,7 @@
 # Adversarial Review — Draft 0.1
 
+> **Editorial status after Draft 0.3:** this review correctly identified logical gaps, but Draft 0.2 over-promoted those objections into a neutral policy position. Draft 0.3 retains the logical corrections while restoring the article's intended historical and accelerationist thesis. The review is evidence against sloppy reasoning, not a veto on strong judgment.
+
 ## 1. Review standard
 
 The review treats the article as a claim that must survive the strongest available alternative, not as a manifesto whose conclusion is fixed in advance.
@@ -110,17 +112,25 @@ This position is not refuted by saying “innovation always escapes.” It must 
 - risk concentration in incumbents;
 - exit and revision rules.
 
-## 5. Revised thesis
+## 5. Editorial resolution in Draft 0.3
 
-Draft 0.2 should defend:
+The review produced three corrections that remain binding:
 
-> No current evidence establishes that comprehensive, long-term, globally synchronized suppression of the entire AI capability frontier is a stable, complete, and legitimate primary strategy. Selective pacing around observable bottlenecks and high-consequence thresholds may be rational. The robust positive program is adaptive acceleration: use advancing intelligence to increase verification, defense, recovery, diffusion, institutional learning, and broad capability faster than risk accumulates.
+1. difficulty of global pacing does not by itself prove that every capability increase is beneficial;
+2. concentrated compute and frontier organizations provide real governance levers;
+3. repeated games can coordinate narrow, observable actions.
 
-This is narrower than “slowdown is impossible” and stronger than unconditional accelerationism.
+It did **not** establish that Ordivon should become neutral between acceleration and restraint. Draft 0.2 mistakenly allowed the red-team objections to become the article's governing voice.
+
+Draft 0.3 therefore restores the stronger thesis:
+
+> If civilization survives and remains plural, useful general-purpose capabilities will continue to be discovered, copied, recombined, and expanded. Pacing may interrupt a specific trajectory, but it cannot serve as the stable foundation of technological civilization. Ordivon chooses to accelerate intelligence together with verification, defense, recovery, diffusion, institutional learning, and cooperation.
+
+Unanswered questions remain research problems. They are not automatically vetoes on movement.
 
 ## 6. Promotion decision
 
-- Article remains **Draft**.
-- Ordivon route remains centered on faster verified-improvement loops.
+- Article remains **Draft** because it still requires compression and publication editing, not because its position is undecided.
+- Ordivon remains centered on faster verified-improvement loops and expanding cooperation.
 - No new Core primitive or `AccelerationEnvelope` is justified.
-- Before Web publication, Draft 0.2 needs a compression pass and one independent hostile review focused on compute governance and catastrophic-risk expected value.
+- The next review should attack historical claims and prose precision without converting the article back into a neutral policy paper.
