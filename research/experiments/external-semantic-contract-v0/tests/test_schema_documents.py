@@ -41,6 +41,7 @@ class SchemaDocumentTests(unittest.TestCase):
                 "anc.object.read.v1",
                 "anc.object.replace-if-version.v1",
                 "anc.execution.launch.v1",
+                "anc.source.change.v1",
             ],
         )
 

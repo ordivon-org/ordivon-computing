@@ -91,5 +91,49 @@ class PromotedBoundaryTests(unittest.TestCase):
             self.assertTrue(project_imports.issubset(permitted), (package, project_imports))
 
 
+class SourceChangeProtocolTests(unittest.TestCase):
+    def test_source_change_effect_is_semantic_and_repository_bound(self) -> None:
+        from anc_effect_ir import (
+            SourceChangeSpec,
+            SourceFileChange,
+            source_change_effect,
+        )
+
+        content = "VALUE = 2\n"
+        spec = SourceChangeSpec(
+            repository_id="repository:ordivon-host",
+            base_revision="a" * 40,
+            files=(
+                SourceFileChange(
+                    "src/example.py",
+                    "sha256:" + "1" * 64,
+                    digest_text(content),
+                    content,
+                ),
+            ),
+            verification_ids=("ruff", "tests"),
+        )
+        effect = source_change_effect(
+            effect_id="effect:source-change-test",
+            principal_id="principal:local-owner",
+            spec=spec,
+        )
+        self.assertEqual(effect.action.action_id, "anc.source.change.v1")
+        self.assertEqual(effect.target.object_id, "world_object:repository:ordivon-host")
+        self.assertEqual(effect.result.completion.value, "accepted-verification")
+        self.assertNotIn("sourceRepo", effect.input.value)
+
+    def test_source_change_rejects_content_digest_mismatch(self) -> None:
+        from anc_effect_ir import SourceFileChange
+
+        with self.assertRaisesRegex(ValueError, "does not match content"):
+            SourceFileChange(
+                "src/example.py",
+                "sha256:" + "1" * 64,
+                "sha256:" + "2" * 64,
+                "VALUE = 2\n",
+            )
+
+
 if __name__ == "__main__":
     unittest.main()

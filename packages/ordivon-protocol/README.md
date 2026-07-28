@@ -5,7 +5,7 @@ This distribution contains the smallest production-candidate primitives promoted
 It owns:
 
 - strict canonical JSON, content digests, and normative canonical vectors;
-- public Effect envelopes;
+- public Effect envelopes, including repository-bound source changes;
 - Tool contracts and change classification;
 - immutable Effect bindings;
 - normative JSON Schemas for those public wire objects;
