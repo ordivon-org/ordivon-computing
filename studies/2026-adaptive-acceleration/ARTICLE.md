@@ -2,7 +2,7 @@
 
 ## Why the AI Revolution Needs Faster Improvement Loops, Not a Global Frontier Slowdown
 
-> **Draft 0.1 — Ordivon Computing research version**
+> **Draft 0.2 — Ordivon Computing research version**
 >
 > This is not yet the compressed publication version for Ordivon Web. Historical claims, counterarguments, and source boundaries remain visible so that later editing does not turn a research argument into a slogan.
 
@@ -14,7 +14,7 @@ None of this establishes that a comprehensive slowdown of the artificial-intelli
 
 AI is a general-purpose, strategically valuable, modular, and partially knowledge-diffusing technology. Progress occurs not only through larger training runs but through algorithms, data, post-training, inference, chips, compilers, tools, Agent Harnesses, scientific workflows, organizational learning, and open implementation. The relevant participants are not a small closed guild. They include states, firms, universities, open communities, military organizations, and independent developers. Their capabilities are incompletely observed, their incentives differ, and the private reward from relative advantage can be enormous.
 
-Under these conditions, a durable global agreement to suppress the entire capability frontier faces a structural problem: unilateral restraint is costly, hidden defection is valuable, meaningful progress is difficult to define and verify, and restrictions on visible responsible actors can transfer advantage to less visible or less constrained actors. This does not mean that every treaty fails or every rule is harmful. The Montreal Protocol and nuclear safeguards show that international coordination can work when regulated objects, reporting duties, inspection rights, substitutes, and enforcement mechanisms are sufficiently concrete. The question is whether the same conditions hold for the production of machine cognition. At present, they do not.
+Under these conditions, a durable global agreement to suppress the entire capability frontier faces a structural problem: unilateral restraint is costly, hidden defection is valuable, meaningful progress is difficult to define, and restrictions on visible responsible actors can transfer advantage to less visible or less constrained actors. This does not mean that every treaty fails or every rule is harmful. The Montreal Protocol and nuclear safeguards show that international coordination can work when regulated objects, reporting duties, inspection rights, substitutes, and enforcement mechanisms are sufficiently concrete. Advanced compute also provides more observability and leverage than a pure “knowledge cannot be governed” argument admits [G01][G02]. The defensible conclusion is narrower: current evidence does not establish a mechanism that can verify and durably suppress the *entire* cognition frontier across compute, algorithms, data, organizational knowledge, inference, and downstream systems.
 
 The alternative is not reckless capability maximalism. Civilization does not have one speed. It has several:
 
@@ -30,7 +30,7 @@ I — institutional experimentation and correction
 
 The dangerous condition is not simply a high `C`. It is a widening gap in which capability outruns adoption quality, verification, defense, recovery, and distribution. A strategy that focuses only on lowering `C` leaves the other variables weak and assumes an international control equilibrium that may never materialize.
 
-This essay argues for **adaptive acceleration**: accelerate scientific and technical capability while accelerating the complementary systems that make capability useful, contestable, recoverable, broadly accessible, and compatible with cooperation among increasingly capable forms of intelligence. Govern concrete effects and externalities. Do not make permanent suppression of the global cognition frontier the primary plan.
+This essay argues for **adaptive acceleration**: continue plural scientific and technical progress while accelerating the complementary systems that make capability useful, contestable, recoverable, broadly accessible, and compatible with cooperation among increasingly capable forms of intelligence. Selective pauses, compute reporting, audits, security requirements, and deployment gates may be rational where they are measurable and risk-linked. They should remain instruments inside an adaptation strategy, not substitutes for one or a permanent claim of ownership over the global cognition frontier.
 
 ---
 
@@ -66,7 +66,7 @@ The article makes a narrower positive claim:
 
 It then makes a normative and engineering claim:
 
-> A more executable strategy is to accelerate the entire adaptation stack: capability, diffusion, organizational redesign, independent evaluation, defense, recovery, education, institutional learning, benefit distribution, and cooperation among intelligent participants.
+> A more robust positive strategy is to accelerate the entire adaptation stack: useful capability, diffusion, organizational redesign, independent evaluation, defense, recovery, education, institutional learning, benefit distribution, and cooperation among intelligent participants. This conclusion requires its own evidence; it does not follow merely from the difficulty of pacing.
 
 This distinction matters. A temporary pause after a concrete failure is not the same as an indefinite frontier-wide slowdown. A rule against a dangerous external effect is not the same as claiming authority over the rate at which all future intelligence may develop. A contained experiment is not a commitment to make the experimenter permanently subordinate. A recovery mechanism is not a philosophy of stagnation.
 
@@ -106,7 +106,7 @@ C grows much faster than D, A, V, S, B, and I.
 
 A society can possess powerful models while failing to diffuse them beyond a few firms. It can deploy them widely while lacking reliable evaluation. It can automate tasks while failing to create new roles or share ownership. It can build defensive systems more slowly than attackers adopt offensive tools. It can accumulate capability without the institutional capacity to revise errors.
 
-The `Pacing the Frontier` statement identifies one real asymmetry: AI capability may advance faster than society can understand and govern it [A07]. But its primary proposed response is to develop the option to slow frontier progress. That is only one possible control strategy.
+The `Pacing the Frontier` statement identifies one real asymmetry: AI capability may advance faster than society can understand and govern it [A07]. Its proposed response is not simply permanent stagnation; it asks for the option to pace automated AI-development progress when needed. That is a stronger and more defensible position than a blanket pause. It remains only one possible control strategy, and its value depends on what can be observed, who participates, how time is used, and which defensive capabilities are delayed with the frontier.
 
 The alternative is to raise the response variables:
 
@@ -321,14 +321,16 @@ These differences strengthen the argument for better evaluation and resilience. 
 
 The `Pacing the Frontier` statement correctly identifies competitive pressure: no company or country wants to slow unilaterally [A07]. The statement treats this as a reason to build coordination mechanisms. That is coherent. But the existence of a coordination problem does not prove that the desired coordinated equilibrium is attainable or preferable.
 
-Consider two actors, each choosing between restraint and continued acceleration.
+A two-actor matrix illustrates the pressure but does not prove an impossibility theorem:
 
 | | B restrains | B accelerates |
 |---|---:|---:|
 | **A restrains** | lower joint speed, uncertain compliance | A loses relative capability |
 | **A accelerates** | A gains relative advantage | continued competition |
 
-The matrix becomes more difficult when:
+Repeated games can support cooperation when monitoring is credible, violations are attributable, retaliation is proportionate, future benefits matter, side payments exist, and important entrants can be incorporated. Audits, compute-provider records, certification, export controls, and shared evaluations can change the payoff structure [G01][G02][G05]. The empirical question is whether a proposed regime creates enough coverage and confidence before technical substitution and geopolitical incentives erode it.
+
+The coordination problem becomes harder when:
 
 - actors value leadership differently;
 - some actors expect military or regime-survival benefits;
@@ -359,7 +361,7 @@ What counts as frontier progress?
 - integrating tools and persistent memory;
 - reorganizing a research team around AI.
 
-A rule narrow enough to verify can be evaded through adjacent margins. A rule broad enough to cover all meaningful cognition improvement becomes difficult to define without regulating a large share of computing and research.
+A rule narrow enough to verify can be evaded through adjacent margins. A rule broad enough to cover all meaningful cognition improvement becomes difficult to define without regulating a large share of computing and research. This does not make verification empty. Large training runs and cloud workloads may be observable enough to trigger reporting and review [G01][G02], and recent work proposes research-inspection and hardware mechanisms [G03][G04]. The unsolved problem is coverage: no present mechanism produces a complete capability inventory across large training, algorithmic progress, inference, stolen or distributed compute, organizational redesign, and downstream Agent systems.
 
 ### 7.2 Defection value
 
@@ -410,7 +412,7 @@ These cases reveal conditions that make coordination more plausible:
 | civilian and military uses separable | relatively high | partial | often low |
 | inspection can verify key stock | yes | partially | no equivalent complete capability inventory |
 
-The comparison does not prove AI coordination must fail. It shows that coordination success depends on properties that cannot simply be assumed.
+The comparison does not prove AI coordination must fail. It shows that coordination success depends on properties that cannot simply be assumed. The Biological Weapons Convention provides a closer warning: states can establish a powerful prohibition in a dual-use knowledge domain while still lacking a dedicated verification organization comparable to the IAEA [G06]. Normative coordination, behavioral restraint, and comprehensive verification are different achievements.
 
 A plausible AI agreement may target concrete and observable interfaces:
 
@@ -447,7 +449,20 @@ Its strongest version is:
 4. competitive pressure can cause premature deployment;
 5. therefore society should preserve the option to slow frontier development and buy time.
 
-Each premise is plausible. The disagreement begins at the policy transition.
+Each premise is plausible. If the probability-weighted irreversible loss is large enough, even an incomplete delay may be rational. Competition and evasion do not by themselves defeat that expected-value argument. The disagreement begins at the policy transition and at the empirical estimate of net effect.
+
+A serious assessment should make the trade explicit:
+
+```text
+net pacing value
+= reduction in catastrophic risk from delayed capability and deployment
+- risk added by delayed defense, evaluation, and adaptation
+- evasion and hidden-development effects
+- concentration and leadership-composition effects
+- enforcement, privacy, legitimacy, and opportunity costs
+```
+
+The terms are uncertain. That uncertainty supports experiments, audits, and reversible policy—not confidence that either maximal acceleration or maximal restraint is automatically optimal.
 
 ### 9.1 Buying time for whom?
 
@@ -503,9 +518,9 @@ The burden of proof should not rest only on acceleration. Pacing should also dem
 
 The answer to fragile pacing is not a mindless race. It is a broader acceleration program.
 
-## 10.1 Accelerate scientific and technical capability
+## 10.1 Advance useful scientific and technical capability
 
-Continue improving models, algorithms, inference efficiency, data quality, tools, Agent systems, and scientific applications. Preserve plural research paths rather than allowing one incumbent architecture or institution to define the future.
+Continue improving models, algorithms, inference efficiency, data quality, tools, Agent systems, and scientific applications across plural research paths. This is not a command to maximize `C` independently of every other variable. Development and high-consequence deployment should be sequenced by evidence, reversibility, defensive readiness, and the capacity to observe resulting effects.
 
 The objective is not capability as spectacle. It is useful cognition:
 
@@ -641,7 +656,9 @@ Instead of waiting for one global final constitution for AI, societies can run b
 
 Institutional acceleration does not mean eliminating due process. It means shortening the cycle from observed failure to tested correction.
 
-## 10.9 Accelerate cooperation among intelligences
+## 10.9 Preserve the path toward cooperation among intelligences
+
+This section is a long-horizon normative implication, not a premise of the historical or game-theoretic argument. The central case for adaptive acceleration remains valid even if current and future AI systems never acquire moral patienthood.
 
 The usual framing assumes a human principal and an AI instrument. That may describe many current systems, but it should not be treated as an eternal moral law.
 
@@ -668,7 +685,7 @@ Acceleration here means increasing the rate at which different forms of intellig
 
 ---
 
-## 11. Govern effects, not the existence of intelligence
+## 11. Govern concrete effects and observable enabling bottlenecks—not intelligence as property
 
 The adaptive-acceleration position still needs boundaries.
 
@@ -685,7 +702,7 @@ A society may legitimately govern:
 - irreversible environmental effects;
 - use of another participant's identity or property.
 
-These are concrete relations among actors, resources, and consequences.
+These are concrete relations among actors, resources, and consequences. Upstream obligations may also be legitimate where an enabling bottleneck is observable and strongly connected to severe risk—for example large-compute reporting, third-party audits, secure-development standards, capability evaluations, or restricted access to a high-consequence deployment surface. Such controls should be evidence-linked, revisable, proportionate, and subject to review rather than treated as permanent ownership of research.
 
 The stronger and more questionable claim is that present institutions own the rate at which all future cognition may improve.
 
@@ -823,7 +840,7 @@ The industrial revolutions do not prove that AI is safe. They prove something mo
 
 AI adds stronger reasons for caution and stronger reasons to doubt global pacing. It acts on cognition, crosses civilian and strategic domains, improves through many technical margins, and can participate in its own development ecosystem. The same features that make it consequential make comprehensive restraint difficult to define, verify, and stabilize.
 
-The choice is therefore not:
+The choice is therefore not exhausted by:
 
 ```text
 reckless acceleration
@@ -831,16 +848,16 @@ or
 safe global slowdown
 ```
 
-The real choice is between different acceleration structures.
+Selective pacing may be one instrument inside a wider adaptation system. The central choice is the architecture of change: which capabilities advance, which deployments wait for evidence, how quickly verification and defense improve, who receives access and gains, and whether institutions can revise themselves under pressure.
 
 One path accelerates capability while leaving evaluation, defense, institutions, and distribution behind. That path is unstable.
 
 Another path tries to freeze the capability frontier through institutions that may lack coverage, observability, legitimacy, and durable incentives. That path may restrain the visible while selecting for the hidden.
 
-The Ordivon position is a third path:
+The Ordivon position is an adaptive path:
 
 ```text
-accelerate capability
+advance useful capability
 accelerate diffusion
 accelerate adaptation
 accelerate verification
@@ -848,7 +865,8 @@ accelerate defense
 accelerate recovery
 accelerate benefit distribution
 accelerate institutional learning
-accelerate cooperation among intelligences
+preserve the path toward cooperation among intelligences
+use selective pacing where evidence shows positive net risk reduction
 ```
 
 The future cannot be made safe merely by asking it to arrive slowly. It becomes more governable when the systems that observe, learn, repair, distribute, and cooperate improve as quickly as the systems that generate new capability.

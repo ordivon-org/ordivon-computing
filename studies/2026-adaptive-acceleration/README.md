@@ -9,13 +9,14 @@ Its central claim is deliberately narrower than unconditional accelerationism:
 ## Route
 
 1. [Article draft — *Accelerate Adaptation*](ARTICLE.md)
-2. [Argument map and falsifiers](ARGUMENT-MAP.md)
-3. [Source ledger](REFERENCES.md)
+2. [Adversarial review of Draft 0.1](ADVERSARIAL-REVIEW.md)
+3. [Argument map and falsifiers](ARGUMENT-MAP.md)
+4. [Source ledger](REFERENCES.md)
 
 ## Status
 
-- Version: `0.1`
-- Status: research draft, not yet a public Ordivon Web article
+- Version: `0.2`
+- Status: adversarially revised research draft, not yet a public Ordivon Web article
 - Trigger: the July 2026 `Pacing the Frontier` statement
 - Next stage: adversarial review, factual tightening, compression, and Web adaptation
 

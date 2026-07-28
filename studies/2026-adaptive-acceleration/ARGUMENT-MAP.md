@@ -12,9 +12,10 @@ Claim B
   without eliminating the underlying capability trajectory.
 
 Claim C
-  A more executable strategy is adaptive acceleration:
-  raise capability together with adoption, verification, defense, recovery,
+  A more robust positive strategy is adaptive acceleration:
+  advance useful capability together with adoption, verification, defense, recovery,
   benefit diffusion, institutional adaptation, and cooperative intelligence.
+  Selective pacing can remain an instrument when evidence shows positive net risk reduction.
 ```
 
 ## 2. Scope boundary
@@ -153,7 +154,7 @@ Govern:
 
 ## 9. Ordivon implication
 
-Ordivon should optimize:
+The inability to prove a stable global slowdown does not itself justify maximizing capability growth. Ordivon should optimize:
 
 ```text
 verified improvement / unit time

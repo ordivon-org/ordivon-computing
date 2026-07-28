@@ -186,3 +186,55 @@ The ledger records what each source can and cannot support. Historical analogy i
   - <https://www.energy.gov/nnsa/nuclear-nexus-international-nuclear-safeguards>
 - Supports: international verification can combine declarations, material accounting, facility access, containment, surveillance, and monitoring around physically defined nuclear materials and facilities.
 - Limitation: safeguards are incomplete, jurisdiction-dependent, and materially easier to anchor than distributed algorithmic and organizational knowledge production.
+
+
+## Compute governance, auditing, and verification
+
+### G01 — Computing power and AI governance
+
+- Source: Girish Sastry et al., “Computing Power and the Governance of Artificial Intelligence,” 2024.
+- URL: <https://law-ai.org/computing-power-and-the-governance-of-artificial-intelligence/>
+- Supports: advanced compute is comparatively detectable, excludable, quantifiable, and concentrated; it can provide visibility, allocation, and enforcement levers.
+- Limitation: readiness varies substantially; compute does not measure all algorithmic, data, organizational, inference, or downstream capability progress, and poorly scoped governance can increase privacy and concentration risks.
+
+### G02 — Training-compute thresholds
+
+- Source: Lennart Heim and Leonie Koessler, “Training Compute Thresholds: Features and Functions in AI Regulation,” 2024.
+- URL: <https://www.governance.ai/research-paper/training-compute-thresholds-features-and-functions-in-ai-regulation>
+- Supports: training compute can serve as an externally verifiable initial filter for reporting and regulatory scrutiny.
+- Limitation: compute is an imperfect proxy for risk and should not independently determine mitigation; thresholds require updating and capability evaluation.
+
+### G03 — Verification of frontier-AI research restrictions
+
+- Source: Aaron Scher, “Verifying Restrictions on Frontier AI Research,” arXiv:2606.28694, 2026.
+- URL: <https://arxiv.org/abs/2606.28694>
+- Supports: proposed AI research restrictions have a non-empty verification design space, including infrastructure records, code review, inspections, intelligence, and whistleblowers.
+- Limitation: many mechanisms are preliminary, intrusive, undesirable, or not implementation-ready; cataloguing mechanisms does not establish an effective treaty.
+
+### G04 — Hardware-level AI compute governance
+
+- Source: Samar Ansari, “Hardware-Level Governance of AI Compute: A Feasibility Taxonomy for Regulatory Compliance and Treaty Verification,” arXiv:2604.04712, 2026.
+- URL: <https://arxiv.org/abs/2604.04712>
+- Supports: monitoring, verification, and enforcement mechanisms can be evaluated technically; some domestic mechanisms are feasible and treaty-grade mechanisms remain an active engineering agenda.
+- Limitation: recent preprint; it reports that the mechanisms most valuable for treaty verification are among the least mature and face adversarial and sovereignty constraints.
+
+### G05 — Frontier AI auditing
+
+- Source: Miles Brundage et al., “Frontier AI Auditing: Toward Rigorous Third-Party Assessment of Safety and Security Practices at Leading AI Companies,” 2026.
+- URL: <https://www.governance.ai/research-paper/frontier-ai-auditing-toward-rigorous-third-party-assessment-of-safety-and-security-practices-at-leading-ai-companies>
+- Supports: deep-access third-party audits can evaluate organization-level safety, internal deployment, security, and decision processes beyond public model testing.
+- Limitation: auditing can lag, become a checkbox exercise, depend on access and standards, and cannot alone cover non-participating states or hidden actors.
+
+### G06 — Biological Weapons Convention verification limit
+
+- Source: United Nations Office of Legal Affairs, “Convention on the Prohibition of Biological and Toxin Weapons,” historical note.
+- URL: <https://legal.un.org/avl/ha/cpdpsbbtwd/cpdpsbbtwd.html>
+- Supports: the Biological Weapons Convention prohibits a highly consequential dual-use domain but does not establish a dedicated verification regime comparable to IAEA safeguards.
+- Limitation: biological-weapons governance is not identical to AI; lack of a verification regime does not prove prohibition has no normative or behavioral effect.
+
+### G07 — Frontier capability and safeguard trends
+
+- Source: UK AI Security Institute, “Frontier AI Trends Report,” 2025.
+- URL: <https://www.aisi.gov.uk/frontier-ai-trends-report>
+- Supports: frontier capabilities are improving rapidly across tested domains, strengthening the case for empirical monitoring, evaluation, and mitigation capacity.
+- Limitation: evaluation trends do not establish a specific optimal governance regime or forecast exact future capability dates.
