@@ -19,11 +19,11 @@ The study does not pretend to be neutral between acceleration and restraint. It 
 
 ## Status
 
-- Version: `0.4`
+- Version: `0.5`
 - Research status: source-grounded manifesto retained as the full argument
-- Publication status: first edited candidate prepared for Ordivon Web
+- Publication status: responsive HTML implementation prepared in [Ordivon Web Draft PR #28](https://github.com/zycxfyh/ordivon-web/pull/28)
 - Trigger: the July 2026 `Pacing the Frontier` statement
-- Next stage: final citation presentation, line edit, Web metadata, and HTML adaptation
+- Next stage: human editorial approval and merge decision
 
 ## Writing discipline
 

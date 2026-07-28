@@ -1,4 +1,4 @@
-# Publication Edit — Candidate 0.1
+# Publication Edit — Candidate 0.2
 
 ## Purpose
 
@@ -34,7 +34,7 @@ Convert the source-grounded research manifesto into an Ordivon Web article witho
 
 ## Publication structure
 
-1. Opening tension: every revolution arrives before readiness.
+1. Opening tension: major revolutions rarely wait for readiness.
 2. Long-run historical mechanism: cumulative knowledge and competitive adoption.
 3. Organizational complementarity: electricity, computing, and AI absorption.
 4. AI discontinuity: intelligence enters the production of knowledge.
@@ -44,9 +44,43 @@ Convert the source-grounded research manifesto into an Ordivon Web article witho
 8. Ordivon as a concrete response.
 9. Strong but restrained conclusion.
 
+## Web implementation
+
+The publication candidate has been adapted in [Ordivon Web Draft PR #28](https://github.com/zycxfyh/ordivon-web/pull/28).
+
+The Web version adds:
+
+- canonical Article metadata, Open Graph, Twitter metadata, and JSON-LD;
+- a visible seven-part table of contents;
+- a central-thesis callout;
+- a six-stage long-horizon technology path;
+- a six-part civilizational-acceleration model;
+- 13 grouped endnotes derived from 22 study reference identifiers;
+- inline numbered citations with back-links;
+- a direct route to this full research record;
+- responsive desktop, tablet, and mobile layouts;
+- Notes, homepage, Atom, and Sitemap integration.
+
+The rendered copy makes a few publication-level refinements without changing the thesis. For example, “the demand is not foolish” becomes “the concern is not frivolous,” and the `Pacing the Frontier` trigger is introduced directly rather than left implicit.
+
+The Web branch was rebased onto the latest `ordivon-web/main` after removal of the retired Finance and FinHarness surfaces. The publication does not restore those routes, assets, or narratives.
+
+## Validation
+
+- Computing conformance validates the research record and source identifiers;
+- Web dependency-free contract passes across 19 HTML routes;
+- Playwright passes 57 checks: 19 routes across desktop, tablet, and mobile;
+- article-specific checks require a visible TOC, six future-path cards, six acceleration cards, and 13 source groups at every viewport;
+- no horizontal overflow, serious or critical accessibility violations, console errors, or missing local assets were found;
+- external-link sampling includes the full research branch and passed;
+- `git diff --check` passed.
+
 ## Current assessment
 
 - Research strength: high
 - Position clarity: high
-- Publication readability: substantially improved
-- Remaining work: citation presentation, final line edit, metadata, visual treatment, and adaptation into Ordivon Web HTML
+- Publication readability: ready for review
+- Citation presentation: complete
+- Responsive visual treatment: complete
+- Web implementation: Draft PR prepared, not merged or live
+- Remaining work: human editorial approval and merge decision

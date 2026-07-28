@@ -2,7 +2,9 @@
 
 ## Why the AI Revolution Calls for Civilizational Acceleration
 
-> **Publication candidate 0.1**
+> **Publication candidate 0.2**
+>
+> Final HTML adaptation, grouped citations, and responsive visual treatment are tracked in [Ordivon Web Draft PR #28](https://github.com/zycxfyh/ordivon-web/pull/28). This Markdown file remains the portable publication copy; minor wording and structural refinements in the Web rendering are recorded in `PUBLICATION-EDIT.md`.
 >
 > The answer to fast intelligence is not to make the frontier slow. It is to make science, verification, resilience, access, and cooperation move faster with it.
 
