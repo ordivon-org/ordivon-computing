@@ -13,8 +13,9 @@ class ArchitectureTests(unittest.TestCase):
     def test_package_dependency_direction(self) -> None:
         allowed = {
             "anc_canonical": set(),
-            "anc_effect_ir": {"anc_canonical"},
-            "anc_tool_contract": {"anc_canonical"},
+            "anc_protocol_types": set(),
+            "anc_effect_ir": {"anc_canonical", "anc_protocol_types"},
+            "anc_tool_contract": {"anc_canonical", "anc_protocol_types"},
             "anc_effect_binding": {
                 "anc_canonical",
                 "anc_effect_ir",
@@ -30,7 +31,11 @@ class ArchitectureTests(unittest.TestCase):
                         imported.update(alias.name.split(".")[0] for alias in node.names)
                     elif isinstance(node, ast.ImportFrom) and node.module:
                         imported.add(node.module.split(".")[0])
-            project_imports = {name for name in imported if name.startswith("anc_")}
+            project_imports = {
+                name
+                for name in imported
+                if name.startswith("anc_") or name == "ordivon_semantics"
+            }
             self.assertTrue(project_imports.issubset(permitted), (package, project_imports))
 
     def test_kernel_does_not_import_external_contract_packages(self) -> None:

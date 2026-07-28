@@ -24,5 +24,32 @@ from .model import (
     effect_digest,
     encode_effect_envelope,
 )
+from .source_change import SourceChangeSpec, SourceFileChange, source_change_effect
 
-__all__ = ['CanonicalInput', 'CapabilityRequirement', 'CompletionKind', 'DeliverySemantics', 'EffectEnvelope', 'EffectMode', 'EvidenceKind', 'ExecutionKind', 'IdempotencyKind', 'ProtocolAttestation', 'ResultSemantics', 'SemanticAction', 'SignedEffectEnvelope', 'TargetRef', 'VerificationPlan', 'decode_effect_envelope', 'effect_digest', 'encode_effect_envelope', 'ProtocolAttestationError', 'ProtocolAuthority', 'ProtocolAuthorityDenied', 'ProtocolAuthorityError']
+__all__ = [
+    "CanonicalInput",
+    "CapabilityRequirement",
+    "CompletionKind",
+    "DeliverySemantics",
+    "EffectEnvelope",
+    "EffectMode",
+    "EvidenceKind",
+    "ExecutionKind",
+    "IdempotencyKind",
+    "ProtocolAttestation",
+    "ProtocolAttestationError",
+    "ProtocolAuthority",
+    "ProtocolAuthorityDenied",
+    "ProtocolAuthorityError",
+    "ResultSemantics",
+    "SemanticAction",
+    "SignedEffectEnvelope",
+    "SourceChangeSpec",
+    "SourceFileChange",
+    "TargetRef",
+    "VerificationPlan",
+    "decode_effect_envelope",
+    "effect_digest",
+    "encode_effect_envelope",
+    "source_change_effect",
+]

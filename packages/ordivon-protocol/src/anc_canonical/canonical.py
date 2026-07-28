@@ -75,5 +75,28 @@ def canonical_text(value: JsonValue) -> str:
     return canonical_bytes(value).decode("utf-8")
 
 
+def digest_bytes(value: bytes) -> str:
+    if not isinstance(value, bytes):
+        raise TypeError("digest input must be bytes")
+    return "sha256:" + hashlib.sha256(value).hexdigest()
+
+
+def digest_text(value: str) -> str:
+    if not isinstance(value, str):
+        raise TypeError("digest input must be text")
+    return digest_bytes(value.encode("utf-8"))
+
+
+def validate_digest(value: str) -> str:
+    if (
+        not isinstance(value, str)
+        or len(value) != 71
+        or not value.startswith("sha256:")
+        or any(character not in "0123456789abcdef" for character in value[7:])
+    ):
+        raise ValueError("digest must be sha256:<64 lowercase hex>")
+    return value
+
+
 def canonical_digest(value: JsonValue) -> str:
-    return "sha256:" + hashlib.sha256(canonical_bytes(value)).hexdigest()
+    return digest_bytes(canonical_bytes(value))

@@ -2,18 +2,13 @@ from __future__ import annotations
 
 import json
 import unittest
-from pathlib import Path
-
 from anc_canonical import CanonicalError, canonical_digest, canonical_text, loads_strict
-
-ROOT = Path(__file__).resolve().parents[1]
+from ordivon_protocol import vector_text
 
 
 class CanonicalTests(unittest.TestCase):
     def test_golden_vectors(self) -> None:
-        vectors = json.loads(
-            (ROOT / "fixtures/canonical/canonical-vectors.json").read_text()
-        )
+        vectors = json.loads(vector_text("canonical-vectors.json"))
         for vector in vectors:
             with self.subTest(vector=vector["name"]):
                 self.assertEqual(canonical_text(vector["value"]), vector["canonical"])

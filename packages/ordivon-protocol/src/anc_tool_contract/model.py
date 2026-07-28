@@ -5,6 +5,7 @@ from enum import StrEnum
 from typing import Any
 
 from anc_canonical import JsonValue, canonical_digest, validate_json_value
+from anc_protocol_types import CompletionKind, ExecutionKind
 
 _ALLOWED_SCHEMA = {
     "type",
@@ -30,17 +31,6 @@ _ALLOWED_SCHEMA = {
     "items",
 }
 _PRESENTATION = {"title", "description", "examples", "$comment", "$schema"}
-
-
-class ExecutionKind(StrEnum):
-    SYNCHRONOUS = "synchronous"
-    ASYNCHRONOUS = "asynchronous"
-
-
-class CompletionKind(StrEnum):
-    RESPONSE = "response"
-    TERMINAL_OBSERVATION = "terminal-observation"
-    ACCEPTED_VERIFICATION = "accepted-verification"
 
 
 class EffectClass(StrEnum):

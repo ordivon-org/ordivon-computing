@@ -4,7 +4,15 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import Any
 
-from anc_canonical import JsonValue, canonical_bytes, canonical_digest, loads_strict, validate_json_value
+from anc_canonical import (
+    JsonValue,
+    canonical_bytes,
+    canonical_digest,
+    loads_strict,
+    validate_digest,
+    validate_json_value,
+)
+from anc_protocol_types import CompletionKind, ExecutionKind
 
 _EFFECT_KIND = "anc.effect-envelope"
 _SCHEMA_VERSION = 1
@@ -12,23 +20,13 @@ _ACTIONS = {
     "anc.object.read.v1",
     "anc.object.replace-if-version.v1",
     "anc.execution.launch.v1",
+    "anc.source.change.v1",
 }
 
 
 class EffectMode(StrEnum):
     OBSERVE = "observe"
     CHANGE = "change"
-
-
-class ExecutionKind(StrEnum):
-    SYNCHRONOUS = "synchronous"
-    ASYNCHRONOUS = "asynchronous"
-
-
-class CompletionKind(StrEnum):
-    RESPONSE = "response"
-    TERMINAL_OBSERVATION = "terminal-observation"
-    ACCEPTED_VERIFICATION = "accepted-verification"
 
 
 class EvidenceKind(StrEnum):
@@ -49,14 +47,6 @@ def _identifier(value: str, prefix: str) -> str:
     return value
 
 
-def _digest(value: str) -> str:
-    if not isinstance(value, str) or len(value) != 71 or not value.startswith("sha256:"):
-        raise ValueError("digest must be sha256:<64 lowercase hex>")
-    if any(ch not in "0123456789abcdef" for ch in value[7:]):
-        raise ValueError("digest must use lowercase hexadecimal")
-    return value
-
-
 def _exact(value: dict[str, Any], expected: set[str], label: str) -> None:
     if set(value) != expected:
         raise ValueError(f"{label} fields differ: {sorted(set(value) ^ expected)}")
@@ -70,7 +60,7 @@ class TargetRef:
     def __post_init__(self) -> None:
         _identifier(self.object_id, "world_object")
         if self.version is not None:
-            _digest(self.version)
+            validate_digest(self.version)
 
     def to_dict(self) -> dict[str, JsonValue]:
         return {"objectId": self.object_id, "version": self.version}
@@ -104,7 +94,7 @@ class CanonicalInput:
         calculated = canonical_digest(self.value)
         if self.digest is None:
             object.__setattr__(self, "digest", calculated)
-        elif _digest(self.digest) != calculated:
+        elif validate_digest(self.digest) != calculated:
             raise ValueError("input digest does not match canonical value")
 
     def to_dict(self) -> dict[str, JsonValue]:
@@ -303,7 +293,7 @@ class ProtocolAttestation:
         _identifier(self.authority_id, "authority")
         _identifier(self.issuer_id, "principal")
         _identifier(self.principal_id, "principal")
-        _digest(self.subject_digest)
+        validate_digest(self.subject_digest)
         if self.issued_at_ms < 0 or not self.role or not self.kind or not self.contract_version:
             raise ValueError("invalid protocol attestation")
 

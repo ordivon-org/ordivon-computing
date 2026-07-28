@@ -23,6 +23,7 @@ v0 freezes only:
 anc.object.read.v1
 anc.object.replace-if-version.v1
 anc.execution.launch.v1
+anc.source.change.v1
 ```
 
 Execution and completion are orthogonal. Public delivery requirements expose `none` and `natural`; concrete Tool contracts may provide stronger keyed correlation. Preconditions, Task lineage, Provider selection and scheduling remain outside v0.
