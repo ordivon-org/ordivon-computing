@@ -1,25 +1,44 @@
-# Agent-Native Primitives
+# Agent-Native Primitives and Responsibility Boundaries
 
-This file separates the primitives already enforced by the executable Semantic Core from higher-level objects that remain research candidates for a future Task Runtime.
-
-The boundary matters:
+This file distinguishes classical backend objects, executable Semantic Core primitives, Host-proven work objects, and research candidates. Similar names do not imply shared authority.
 
 ```text
-Future Task Runtime
-Goal / Task / Attempt / Branch / Join / Checkpoint
-                    ↓ submits Effects
-Executable Semantic Core
-Effect / Dispatch / Evidence / Verification / Authority / Replay
-                    ↓ binds through Adapters
-Classical substrates and external systems
-Workspace / Job / Tool contract / process / file / network
+Open-work and context layer
+Goal / Task / Attempt / Context / Branch / Join / Decision
+                         ↓ proposes
+Semantic commitment layer
+Authority / Effect / Binding / Dispatch / Observation / Artifact
+Claim / Verification / Fact / durable replay
+                         ↓ adapts to
+Classical substrate
+Workspace / process / Job / transaction / file / network / Tool
 ```
 
-A concept belongs in the Semantic Core only when external Agent action requires a stable, non-bypassable invariant that lower layers do not already provide.
+A concept belongs in a shared Agent-native layer only when external probabilistic action requires a stable, non-bypassable invariant that lower mechanisms do not already own.
 
-## Executable Kernel primitives
+## 1. Classical backend objects
 
-These objects are implemented in `research/experiments/semantic-core-v0` and covered by K1–K10 conformance.
+These are essential but are not universal Agent-native primitives.
+
+### Workspace
+
+A version-bound operational address space supplied by a Host or backend. A Git worktree can isolate candidate source state from another candidate. It is not by itself a security sandbox.
+
+### Process and Job
+
+A process is an operating-system execution object. A backend Job is a durable execution-control object. Either may implement one part of a Task Attempt; neither owns the human Goal or open-work semantics.
+
+### Transaction and durable workflow
+
+Databases own atomic state updates. Durable workflow systems own replay and continuation of declared workflow logic. Agent layers may use both without claiming their mechanisms as new.
+
+### Tool
+
+A Tool is an executable interface. Tool availability or process credentials establish possible reach, not semantic authorization for every generated call.
+
+## 2. Executable Semantic Core primitives
+
+The following objects are implemented in `research/experiments/semantic-core-v0` and protected by its conformance suite.
 
 ### WorldObjectRef
 
@@ -29,7 +48,7 @@ A stable external object identity with an optional observed or expected version.
 object identity + version binding
 ```
 
-It may refer to a repository, Workspace, file, process, Artifact, API object, or another externally observable target. The concrete backend representation remains below the Kernel.
+Concrete repository, file, process, API, account, or simulator representations remain backend concerns.
 
 ### Effect
 
@@ -37,22 +56,21 @@ A stable semantic proposal to observe or change a WorldObject.
 
 ```text
 identity
-+ target
-+ mode
-+ operation semantics
++ target and expected version
++ mode and operation semantics
 + preconditions
-+ required capability
++ required authority or capability reference
 + input digest
-+ idempotency semantics
++ declared idempotency behavior
 + completion semantics
 + verification plan
 ```
 
-An Effect describes why and what should happen and remains stable across concrete Tool-bound Dispatches.
+Effect identity makes intent recoverable. It does not make the external operation inherently idempotent.
 
 ### Dispatch
 
-One concrete attempt to cross the external world boundary for an Effect.
+One concrete attempt to cross the external boundary for an Effect.
 
 ```text
 EffectId
@@ -62,29 +80,29 @@ EffectId
 + attempt state
 ```
 
-Effect identity remains stable across recovery. Dispatch identity distinguishes separate attempts. A backend Job or synchronous receipt binds to a Dispatch rather than replacing it.
+Effect identity remains stable across recovery. Dispatch identity distinguishes physical attempts. A backend Job or synchronous receipt binds to a Dispatch rather than replacing it.
 
 ### EffectEvent
 
-One ordered, attested transition in an Effect history. Each Effect has a local event sequence; the durable Journal supplies a global append-only command sequence.
+One ordered, attested transition in an Effect history. The durable Journal provides a global append-only semantic command sequence.
 
 ### Observation
 
-An immutable, attested reading of external reality, such as file content and digest, process state, command output, API response, test result, or sensor value.
+An immutable, attested reading of external reality, such as content and digest, process state, command output, API response, test result, or sensor value.
 
-Interpretation may change. The recorded Observation and its provenance do not.
+Interpretation may change. Recorded content and provenance do not.
 
 ### Artifact
 
-A durable content-bearing result with stable identity, digest, Effect and Dispatch provenance, such as a patch, log, dataset, report, binary, or execution result.
+A durable content-bearing output with stable identity, digest, and Effect or Dispatch provenance, such as a patch, log, dataset, report, binary, or execution result.
 
 ### Claim
 
-A proposition about a WorldObject proposed for evidence-based evaluation.
+A proposition about a WorldObject proposed for evidence-based evaluation. A model output may create a Claim; it does not automatically create a Fact.
 
 ### Verification
 
-A recorded decision that evaluates one Claim under a declared method and one or more Evidence references.
+A recorded decision that evaluates one Claim under a declared method and one or more evidence references.
 
 ```text
 Claim
@@ -94,109 +112,128 @@ Claim
 + Verification authority
 ```
 
-A multi-evidence Verification is the current limited hyperedge: several evidence objects jointly support one decision without requiring a general Hypergraph runtime.
+Domain policy determines what methods and evidence are sufficient.
 
 ### Fact
 
-A Claim accepted through a recorded Verification and Fact authority.
+A Claim admitted through a recorded Verification and Fact authority for a bounded domain and world version.
 
 ```text
 Claim → Verification → Fact
 ```
 
-Fact admission follows the complete recorded chain: Claim → accepted Verification → Fact authority.
+Facts may later be invalidated or superseded by world drift or stronger evidence.
 
 ### AuthorityRef
 
-A signed role grant binding issuer, principal, role, trust domain, policy version, and key identity.
+A signed role grant binding issuer, principal, role, trust domain, policy version, and key identity. Current Semantic Core roles separate Effect proposal, Dispatch execution, Observation production, Verification decision, and Fact acceptance.
 
-Current roles separate Effect proposal, Dispatch execution, Observation production, Verification decision, and Fact acceptance.
+A complete purpose- and consequence-bound capability system remains a research target above or beside the Core.
 
 ### Attestation
 
-A signed binding between one Authority, an exact semantic operation or evidence object, its contract version, content digest, and record time.
+A signed binding among one Authority, an exact semantic operation or evidence object, contract version, content digest, and record time.
 
 ### Semantic Journal
 
-The append-only, hash-linked command history from which the complete Kernel projection and Authority provenance can be authenticated and replayed after process loss.
+The append-only, hash-linked command history from which Kernel projections and authority provenance can be authenticated and replayed after process loss. SQLite owns durable byte transactions; the Semantic Journal owns command meaning and replay invariants.
 
-## Backend and host objects
+## 3. Promoted protocol objects
 
-These objects are essential to real execution but are not universal Semantic Core primitives.
+These objects are implemented in `packages/ordivon-protocol/` and directly consumed by Ordivon Host.
 
-### Workspace
+### ToolContract
 
-A versioned operational address space supplied by a host or backend. Ordivon Workspaces provide isolation, exact repository binding, mutation, comparison, and recovery.
+A normalized description of one executable interface revision, including the shape needed to detect material contract change.
 
-### Job and Attempt
+### EffectBinding
 
-A backend Job is a concrete runtime execution entity. A broader Task Attempt may contain multiple Effects and Dispatches. Neither is identical to an Effect.
-
-### ToolContract and EffectBinding
-
-A ToolContract describes one executable interface revision. An EffectBinding maps a stable Effect to one ToolContract revision and normalized request digest. These are the joint research target of ANC-IR-001 and ANC-EFFECT-001, not frozen Kernel objects yet.
-
-### Capability
-
-Capability spans planning and enforcement:
+An immutable mapping from one stable Effect to one ToolContract revision and normalized request digest.
 
 ```text
-holder + action + object scope + lifetime
+Effect semantics
++ exact Tool contract revision
++ normalized request
+→ immutable Binding
 ```
 
-The current Kernel enforces semantic Authority roles and records a capability reference on Effects. A complete delegated capability system remains above or beside the Kernel.
+The Binding does not authorize the Effect or prove that execution occurred.
 
-## Future Task Runtime candidates
+### EffectEnvelope and SourceChangeSpec
 
-The following objects belong to the future coordination layer that submits Effects to the Semantic Core. They are not implemented Kernel guarantees.
+Public production-candidate representations for selected stable Effect semantics. Their existence does not require every domain project to use the same internal object model.
+
+## 4. Host-proven open-work objects
+
+Ordivon Host implements these objects for bounded vertical slices. They are real product objects but not yet universal shared-kernel guarantees.
 
 ### Goal
 
-A durable desired world state carrying identity, context, current evidence, and completion criteria.
+A durable desired world condition with identity, constraints, current evidence, and completion criteria.
 
 ### Task
 
-A schedulable semantic unit that advances a Goal. Tasks form a dynamically growing partial order with states such as pending, ready, running, waiting, completed, failed, and cancelled.
+A persistent semantic work unit that advances a Goal and carries current state, frontier, and outcome. A Task can outlive model sessions, Host processes, Runtime Jobs, and failed Attempts.
 
 ### Attempt
 
-One exploration or execution path for a Task. An Attempt may preserve hypotheses, Effects, errors, observations, and reusable results across interruption.
+One exploration or execution path for a Task. It may preserve hypotheses, model invocations, Effects, errors, Observations, and reusable Artifacts.
 
-### Branch
+### Context
 
-An independently executable Task subgraph with explicit inputs, world bindings, capabilities, and expected outputs.
+A bounded selected view of task, policy, Tool, evidence, and world state supplied to one model invocation. Context is derived from durable state and must not become its hidden replacement.
 
-### Join
+## 5. Research candidates
 
-A node that consumes multiple Artifacts, verified Facts, or completed predecessor Tasks before producing an integrated result. Join semantics may later use limited hyperedges or Petri-Net analysis when real concurrency requires them.
+These objects require further cross-domain evidence before promotion.
+
+### Branch and Join
+
+A Branch is an independently executable Task subgraph with explicit inputs, world bindings, authority, and expected outputs. A Join consumes multiple Artifacts, verified Facts, or predecessor Tasks under a declared integration rule.
 
 ### Checkpoint
 
-The minimum sufficient continuation Artifact for another model, process, session, or machine:
+The minimum sufficient continuation record for another model, Host, process, or machine:
 
 ```text
 Goal
-+ active Task partial order
-+ Attempts
-+ world bindings
-+ verified Facts
++ active Task frontier and Attempts
++ relevant world and contract revisions
++ explicit uncertainty and blockers
++ verified Facts and Claims still under evaluation
 + relevant Artifacts
-+ repository and contract revision set
-+ next ready work
++ next admissible work
 ```
 
-## Layered object model
+The minimum schema remains an experimental question.
+
+### ContextSelection
+
+A reproducible or explainable binding between durable sources and one invocation context, including source revisions, selection method, omissions or compression, and invalidation conditions.
+
+### ConsequenceEnvelope
+
+A bounded description of the maximum allowed external consequence for delegated work. Security and Finance provide strong domain evidence, but no universal enforcement contract is yet promoted.
+
+### DecisionRequest
+
+A structured escalation to the human consequence owner with reason, alternatives, evidence, reversibility, cost of delay, and permitted responses. No current Ordivon product owns a complete operator decision plane.
+
+## 6. Combined object model
 
 ```text
 Goal
-└── Task partial order
+└── Task frontier
     ├── Attempt / Branch
+    │   ├── Context → model invocation → candidate Claim or Effect
     │   └── Effect
-    │       └── Dispatch
-    │           ├── Observation
-    │           └── Artifact
+    │       └── EffectBinding
+    │           └── Dispatch
+    │               ├── backend Job or synchronous receipt
+    │               ├── Observation
+    │               └── Artifact
     └── Join
-        └── consumes Artifacts and verified Facts
+        └── consumes Artifacts, Verifications, or Facts
 
 Claim
 └── Verification
@@ -206,23 +243,28 @@ Claim
        Fact
 ```
 
-The Task layer may grow and revise its graph. The Semantic Core preserves each selected Effect path through linear admission, external execution, evidence, Verification, and durable commit.
+The open-work layer may revise its graph. The commitment layer preserves each selected Effect path through admission, execution, evidence, and durable semantic history.
 
-## Structural rule
+## 7. Structural rule
 
-Use the smallest sufficient structure for each problem:
+Use the smallest sufficient structure:
 
 ```text
-fact history             append-only sequence
-Effect / Dispatch life   state graph
-Task readiness           DAG / partial order
-Evidence provenance      typed DAG with limited multi-input edges
-cross-project research   typed directed multigraph
-system evolution         feedback loop
+physical execution             process / Job / transaction
+Effect and Dispatch lifecycle  state graph
+Task readiness                 partial order or dynamic DAG
+Evidence provenance            typed DAG with bounded multi-input relations
+cross-project research         typed directed multigraph
+system evolution               feedback loop
 ```
 
-Global planning is a graph. One selected local execution remains a bounded path:
+One local commitment remains a bounded path:
 
 ```text
-observe → decide → mutate → verify → commit
+bind world
+→ admit authority
+→ dispatch
+→ observe
+→ verify
+→ update work
 ```

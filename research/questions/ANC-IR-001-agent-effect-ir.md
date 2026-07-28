@@ -15,7 +15,7 @@ identity
 + preconditions / guards
 + required capability
 + payload
-+ idempotent identity
++ declared idempotency and retry semantics
 + result semantics
 + verification path
 ```

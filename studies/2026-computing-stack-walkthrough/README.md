@@ -1,8 +1,8 @@
 # 2026 Computing-Stack Walkthrough
 
-This study preserves the learning path through which the repository’s current stack, primitives, and research questions were derived.
+This study preserves the physical-to-institutional learning path through the complete computing world. It explains how hardware, machine execution, model systems, Agent semantics, and human organization relate.
 
-It is intentionally more explanatory than the core. The chapters keep examples, analogies, historical transitions, and cross-layer connections that are useful for learning but too detailed for the minimal theory.
+It is a research map, not an assertion that Ordivon should implement every layer. The stricter question—what remains classical, what Agent workloads merely amplify, and what responsibilities are genuinely rewritten—is derived separately in [`../2026-classical-to-agent-native-computing/`](../2026-classical-to-agent-native-computing/).
 
 ## Route
 
@@ -39,6 +39,6 @@ physical reality
 
 ## Reading principle
 
-The sequence is a spiral rather than a strict prerequisite graph. Later layers reveal why earlier mechanisms matter; earlier layers constrain what later abstractions can actually do.
+The sequence is a spiral rather than a strict prerequisite graph. Later subjects reveal why earlier mechanisms matter; earlier mechanisms constrain what later abstractions can do.
 
-The condensed current theory is in [`../../core/`](../../core/). Reusable cross-topic models are in [`../../knowledge/`](../../knowledge/).
+The current compact responsibility model is in [`../../core/stack.md`](../../core/stack.md). Reusable cross-topic explanations are in [`../../knowledge/`](../../knowledge/).

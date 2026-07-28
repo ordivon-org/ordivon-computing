@@ -1,78 +1,99 @@
-# Goal, Task, Attempt, and Effect
+# Goal, Task, Attempt, Context, and Effect
 
-Agent-native execution benefits from separating four concepts that are often compressed into one Prompt.
+Agent systems often compress these objects into one prompt. They carry different identities, lifetimes, and authority.
 
 ## Goal
 
-A Goal expresses a desired world state and the context that gives it meaning.
-
-```text
-Goal = subject + desired state + context + completion evidence
-```
-
-A Goal may persist across many models, sessions, tasks, and days.
-
-## Task
-
-A Task is a schedulable semantic unit that advances a Goal. Tasks form a dependency graph and can be created dynamically as new observations reveal the structure of the problem.
+A Goal expresses a desired world condition and why it matters.
 
 ```text
 Goal
-├── inspect current system
-├── reproduce friction
-├── construct a candidate
-└── validate in a real workload
+= subject
++ desired condition
++ constraints and non-goals
++ completion evidence
++ consequence owner
 ```
 
-A Plan explains a strategy. A Task Graph gives that strategy stable identities, dependencies, and runtime state.
+A Goal can persist across models, sessions, tasks, and days. It does not need to contain the full execution plan.
+
+## Task
+
+A Task is one durable semantic unit that advances a Goal. Its dependencies and ready frontier can change as evidence reveals the problem.
+
+```text
+Goal
+├── inspect the current system
+├── reproduce the failure
+├── construct candidates
+└── validate the accepted result
+```
+
+A Task is not identical to a process, Kubernetes Job, Temporal Workflow, model session, or Tool call. Those can implement parts of it.
 
 ## Attempt
 
-An Attempt is one concrete path through a Task. It carries a hypothesis, world binding, Effects, observations, artifacts, and an end state.
+An Attempt is one exploration or execution path through a Task. It preserves a hypothesis, context binding, candidate actions, Effects, observations, Artifacts, cost, and end state.
+
+The Task survives a failed Attempt. Failure can add evidence rather than erase the path.
+
+## Context
+
+Context is the bounded selected view supplied to one model invocation.
 
 ```text
-Task: improve recovery
-├── Attempt 1: memory-only progress
-├── Attempt 2: synchronous event persistence
-└── Attempt 3: staged checkpoints
+durable Task, world, policy, Tool, and evidence state
+→ selection and compression
+→ Context
 ```
 
-The Task survives individual failed Attempts. Each Attempt adds information to the next.
+It should retain source and revision bindings sufficient to detect staleness. Context is not the authoritative store merely because the model can see it.
 
 ## Effect
 
-An Effect is an external observation or change prepared for execution. It minimally identifies:
+An Effect is a stable semantic proposal to observe or change an external object. It minimally identifies:
 
-- the target object;
-- the expected world state;
-- the required capability;
-- the payload;
-- a stable identity for retry and reconciliation;
-- the expected result and verification path.
+- target and expected version;
+- operation and input digest;
+- preconditions;
+- required authority or capability reference;
+- declared idempotency behavior;
+- completion semantics;
+- verification and recovery path.
 
-A Task can contain many Effects. “Verify the implementation” may lower into reading configuration, starting tests, observing a long-running process, reading a log artifact, and recording the exact result.
+A stable Effect identifier supports correlation and reconciliation. It does not make an operation safe to repeat.
+
+## Dispatch
+
+A Dispatch is one concrete attempt to execute an Effect through a specific Tool or backend contract. A backend Job is an execution object owned by that backend.
+
+```text
+Effect
+→ immutable Binding to Tool contract and request
+→ Dispatch
+→ Job or synchronous result
+```
+
+Response loss leaves the Dispatch outcome `UNKNOWN` until the world is re-observed.
 
 ## Progressive lowering
 
 ```text
-Intent
-→ structured Goal
-→ candidate Plan
-→ dynamic Task Graph
-→ Effect IR
-→ concrete Tool Call
-→ Observation
-→ Fact and Artifact
+human purpose
+→ Goal
+→ dynamic Task frontier
+→ Attempt and Context
+→ candidate Claim or Effect
+→ authority admission
+→ Tool-bound Dispatch
+→ Observation and Artifact
+→ Verification and Task update
 ```
 
-Each layer preserves a different kind of meaning. Natural language preserves openness; Task structure preserves continuity; Effect IR binds cognition to a specific reality.
+Natural language preserves openness. Task state preserves continuity. Context scopes one cognitive episode. Effect and Dispatch identity bind cognition to external reality.
 
-## Pure computation and effects
+## Design rule
 
-Pure computation transforms values without changing external state and is easy to cache or repeat. Effects observe or change files, processes, databases, services, people, or devices. Mixing the two hides recovery and retry semantics.
+Do not promote a field to a shared primitive merely because one product needs it. The field must protect a specific failure across materially different workloads and remain stable across model and provider change.
 
-## Why this matters
-
-A long task should not be represented only by the latest model message. Stable Goal, Task, Attempt, and Effect identities let the system know what persists, what may be revised, what has actually run, and what remains to be verified.
-
-See [`../../core/primitives.md`](../../core/primitives.md) and the [Agent language study](../../studies/2026-computing-stack-walkthrough/12-agent-language.md).
+See [`task-context-authority-effect-evidence.md`](task-context-authority-effect-evidence.md) and [`../../core/primitives.md`](../../core/primitives.md).
