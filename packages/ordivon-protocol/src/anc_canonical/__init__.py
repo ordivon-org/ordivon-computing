@@ -4,7 +4,10 @@ from .canonical import (
     canonical_bytes,
     canonical_digest,
     canonical_text,
+    digest_bytes,
+    digest_text,
     loads_strict,
+    validate_digest,
     validate_json_value,
 )
 
@@ -14,6 +17,9 @@ __all__ = [
     "canonical_bytes",
     "canonical_digest",
     "canonical_text",
+    "digest_bytes",
+    "digest_text",
     "loads_strict",
+    "validate_digest",
     "validate_json_value",
 ]

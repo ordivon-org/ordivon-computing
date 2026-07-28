@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import hashlib
 from enum import StrEnum
 
-from anc_canonical import JsonValue, canonical_digest
+from anc_canonical import JsonValue, canonical_digest, validate_digest
 from anc_effect_ir import EffectEnvelope, ProtocolAttestation, effect_digest
 from anc_tool_contract import ContractChange, ToolContract, contract_digest
 
@@ -30,16 +30,6 @@ def _identity(value: str, prefix: str) -> str:
     return value
 
 
-def _digest(value: str) -> str:
-    if (
-        len(value) != 71
-        or not value.startswith("sha256:")
-        or any(ch not in "0123456789abcdef" for ch in value[7:])
-    ):
-        raise ValueError("invalid sha256 digest")
-    return value
-
-
 @dataclass(frozen=True, slots=True)
 class ContractRef:
     contract_id: str
@@ -48,7 +38,7 @@ class ContractRef:
 
     def __post_init__(self) -> None:
         _identity(self.contract_id, "tool-contract")
-        _digest(self.digest)
+        validate_digest(self.digest)
         if not self.revision:
             raise ValueError("contract revision is required")
 
@@ -107,7 +97,7 @@ class EffectBinding:
     def __post_init__(self) -> None:
         _identity(self.binding_id, "binding")
         _identity(self.effect_id, "effect")
-        _digest(self.effect_digest)
+        validate_digest(self.effect_digest)
         if (
             self.binding_revision < 1
             or self.schema_version != 1
@@ -117,7 +107,7 @@ class EffectBinding:
         calculated = canonical_digest(self.arguments)
         if self.argument_digest is None:
             object.__setattr__(self, "argument_digest", calculated)
-        elif _digest(self.argument_digest) != calculated:
+        elif validate_digest(self.argument_digest) != calculated:
             raise ValueError("argument digest mismatch")
         if self.supersedes_binding_id is not None:
             _identity(self.supersedes_binding_id, "binding")

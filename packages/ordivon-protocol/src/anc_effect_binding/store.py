@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from typing import Protocol
 
-from anc_canonical import canonical_bytes, loads_strict
+from anc_canonical import canonical_bytes, loads_strict, validate_digest
 
 from .model import (
     SignedEffectBinding,
@@ -67,10 +67,5 @@ class FileBindingStore:
         return signed
 
     def _path(self, digest: str) -> Path:
-        if (
-            len(digest) != 71
-            or not digest.startswith("sha256:")
-            or any(ch not in "0123456789abcdef" for ch in digest[7:])
-        ):
-            raise ValueError("Binding store key must be a sha256 digest")
+        validate_digest(digest)
         return self.root / f"{digest[7:]}.json"

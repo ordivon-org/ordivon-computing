@@ -4,10 +4,24 @@ import ast
 import unittest
 from pathlib import Path
 
-from anc_canonical import canonical_digest
+from anc_canonical import (
+    canonical_digest,
+    digest_bytes,
+    digest_text,
+    validate_digest,
+)
 from anc_effect_binding import BindingDecision, assess_binding
-from anc_effect_ir import EffectMode
-from anc_tool_contract import ContractChange
+from anc_effect_ir import (
+    CompletionKind as EffectCompletionKind,
+    EffectMode,
+    ExecutionKind as EffectExecutionKind,
+)
+from anc_tool_contract import (
+    CompletionKind as ContractCompletionKind,
+    ContractChange,
+    ExecutionKind as ContractExecutionKind,
+)
+from ordivon_protocol import SCHEMA_FILES, VECTOR_FILES, schema_text, vector_text
 from ordivon_semantics import DispatchState, EffectState, IdKind, SemanticId, next_action
 
 
@@ -19,6 +33,23 @@ class PromotedBoundaryTests(unittest.TestCase):
             assess_binding("unknown", ContractChange.IDENTICAL),
             BindingDecision.OBSERVE_ORIGINAL,
         )
+
+    def test_shared_execution_semantics_have_one_runtime_type(self) -> None:
+        self.assertIs(EffectExecutionKind, ContractExecutionKind)
+        self.assertIs(EffectCompletionKind, ContractCompletionKind)
+
+    def test_canonical_digest_helpers_share_one_format_validator(self) -> None:
+        digest = digest_text("ordivon")
+        self.assertEqual(digest, digest_bytes(b"ordivon"))
+        self.assertEqual(validate_digest(digest), digest)
+        with self.assertRaises(ValueError):
+            validate_digest("sha256:ABC")
+
+    def test_normative_resources_ship_with_the_distribution(self) -> None:
+        self.assertEqual(len(SCHEMA_FILES), 3)
+        self.assertEqual(len(VECTOR_FILES), 2)
+        self.assertIn("anc.effect-envelope.v1", schema_text(SCHEMA_FILES[1]))
+        self.assertIn("sha256:", vector_text("canonical-vectors.tsv"))
 
     def test_unknown_requires_reconciliation(self) -> None:
         self.assertTrue(EffectState.UNKNOWN.requires_reconciliation)
@@ -33,8 +64,9 @@ class PromotedBoundaryTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[1] / "src"
         allowed = {
             "anc_canonical": set(),
-            "anc_effect_ir": {"anc_canonical"},
-            "anc_tool_contract": {"anc_canonical"},
+            "anc_protocol_types": set(),
+            "anc_effect_ir": {"anc_canonical", "anc_protocol_types"},
+            "anc_tool_contract": {"anc_canonical", "anc_protocol_types"},
             "anc_effect_binding": {
                 "anc_canonical",
                 "anc_effect_ir",

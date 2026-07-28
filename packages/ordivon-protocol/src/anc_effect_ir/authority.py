@@ -4,7 +4,7 @@ import hashlib
 import hmac
 from dataclasses import dataclass
 
-from anc_canonical import JsonValue, canonical_bytes
+from anc_canonical import JsonValue, canonical_bytes, canonical_digest
 
 from .model import ProtocolAttestation
 
@@ -58,7 +58,7 @@ class ProtocolAuthority:
 
     @property
     def fingerprint(self) -> str:
-        return "sha256:" + hashlib.sha256(canonical_bytes(self._grant_payload())).hexdigest()
+        return canonical_digest(self._grant_payload())
 
     def attest(
         self,

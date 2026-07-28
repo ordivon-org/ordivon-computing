@@ -42,6 +42,7 @@ from anc_tool_contract import (  # noqa: E402
     contract_digest,
     normalize_tool_contract,
 )
+from ordivon_protocol import SCHEMA_FILES, schema_text, vector_text  # noqa: E402
 
 
 def load_contract(name: str):
@@ -145,9 +146,7 @@ def main() -> None:
         "schema_version": 1,
         "source_revision": args.source_revision,
         "tests_run": tests_run,
-        "canonical_vectors": len(
-            json.loads((ROOT / "fixtures/canonical/canonical-vectors.json").read_text())
-        ),
+        "canonical_vectors": len(json.loads(vector_text("canonical-vectors.json"))),
         "effect": {
             "effect_id": effect.effect_id,
             "digest": effect_digest(effect),
@@ -194,7 +193,7 @@ def main() -> None:
             "active_or_unknown_rebinds": False,
         },
         "schema_bytes": {
-            path.name: path.stat().st_size for path in sorted((ROOT / "schemas").glob("*.json"))
+            name: len(schema_text(name).encode("utf-8")) for name in SCHEMA_FILES
         },
     }
     rendered = json.dumps(result, indent=2, sort_keys=True) + "\n"

@@ -6,7 +6,7 @@
 PYTHONPATH=src:../semantic-core-v0/src:. python3.12 -m unittest discover -s tests
 ruff check src integration tests scripts
 rustc --edition=2021 rust/canonical-verifier/main.rs -o /tmp/anc-canonical-verifier
-/tmp/anc-canonical-verifier fixtures/canonical/canonical-vectors.tsv
+/tmp/anc-canonical-verifier ../../../packages/ordivon-protocol/src/ordivon_protocol/vectors/canonical-vectors.tsv
 ```
 
 ## Boundary matrix

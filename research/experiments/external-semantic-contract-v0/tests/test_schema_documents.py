@@ -2,9 +2,8 @@ from __future__ import annotations
 
 import json
 import unittest
-from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+from ordivon_protocol import schema_text
 
 
 class SchemaDocumentTests(unittest.TestCase):
@@ -16,7 +15,7 @@ class SchemaDocumentTests(unittest.TestCase):
         }
         for filename, schema_id in expected.items():
             with self.subTest(filename=filename):
-                schema = json.loads((ROOT / "schemas" / filename).read_text())
+                schema = json.loads(schema_text(filename))
                 self.assertEqual(schema["$id"], schema_id)
                 self.assertFalse(schema["additionalProperties"])
                 self.assertEqual(schema["type"], "object")
@@ -27,16 +26,14 @@ class SchemaDocumentTests(unittest.TestCase):
             "effect-envelope-v1.schema.json",
             "effect-binding-v1.schema.json",
         ):
-            schema = json.loads((ROOT / "schemas" / filename).read_text())
+            schema = json.loads(schema_text(filename))
             branches = schema["$defs"]["jsonValue"]["oneOf"]
             scalar_types = {branch.get("type") for branch in branches if "type" in branch}
             self.assertIn("integer", scalar_types)
             self.assertNotIn("number", scalar_types)
 
     def test_effect_schema_freezes_only_proven_actions(self) -> None:
-        schema = json.loads(
-            (ROOT / "schemas/effect-envelope-v1.schema.json").read_text()
-        )
+        schema = json.loads(schema_text("effect-envelope-v1.schema.json"))
         actions = schema["properties"]["action"]["properties"]["actionId"]["enum"]
         self.assertEqual(
             actions,
