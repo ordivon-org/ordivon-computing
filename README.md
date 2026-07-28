@@ -71,8 +71,13 @@ See [`research/map.yaml`](research/map.yaml) and [`research/questions/`](researc
 
 ## Active project branches
 
+- **Ordivon Host** — durable Agent control plane, cognition context, Task continuity, and Runtime coordination.
 - **Ordivon Runtime** — durable trusted-local execution, Workspace, Job, Artifact, and recovery plane.
-- **FinHarness** — capital-domain Agent system for truth, authority, decision, execution, and reconciliation.
+- **Ordivon Link** — programmable network and communication fabric; current implementation is the local observation and controlled-egress slice.
+- **Ordivon Edge** — distributed external presence and execution fabric; current implementation is the Cloudflare production slice.
+- **Ordivon Finance** — capital-domain Agent application for truth, authority, decision, execution, and reconciliation.
+- **Ordivon Game** — Agent-native virtual world, replay, and evaluation application.
+- **Ordivon Security** — full-spectrum adversarial Agent systems laboratory.
 - **Ordivon Web** — public interface and project navigation.
 
 See [`projects/registry.yaml`](projects/registry.yaml).
