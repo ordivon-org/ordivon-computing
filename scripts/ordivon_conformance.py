@@ -137,14 +137,12 @@ def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT
     projects: list[ProjectSpec] = []
     for raw in raw_projects:
         require(isinstance(raw, dict), "project declaration must be an object")
-        required = {"id", "repository", "local_path", "relationship", "profiles"}
+        required = {"id", "relationship", "profiles"}
         optional = {"protocol_requirement", "dependency_file"}
         require(set(raw) >= required and set(raw) <= required | optional, "project declaration fields are invalid")
         project_id = raw["id"]
         require(bool(re.fullmatch(r"ordivon-[a-z0-9-]+", project_id)), f"invalid project id: {project_id}")
-        require(raw["local_path"] == project_id, f"local_path must equal project id: {project_id}")
         expected_repository = f"https://github.com/zycxfyh/{project_id}"
-        require(raw["repository"] == expected_repository, f"unexpected repository for {project_id}")
         require(raw["relationship"] in _ALLOWED_RELATIONSHIPS, f"invalid relationship for {project_id}")
         dependency_file = raw.get("dependency_file")
         dependency_path = None if dependency_file is None else PurePosixPath(dependency_file)
@@ -155,8 +153,8 @@ def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT
             )
         project = ProjectSpec(
             id=project_id,
-            repository=raw["repository"],
-            local_path=raw["local_path"],
+            repository=expected_repository,
+            local_path=project_id,
             relationship=raw["relationship"],
             profiles=_unique_strings(raw["profiles"], f"{project_id} profiles"),
             protocol_requirement=raw.get("protocol_requirement"),
@@ -440,9 +438,6 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     static_paths = [
         "packages/ordivon-protocol/src",
         "packages/ordivon-protocol/tests",
-        "incubation/host-v0/src",
-        "incubation/host-v0/tests",
-        "incubation/host-v0/scripts",
         "research/experiments/external-semantic-contract-v0/integration",
         "research/experiments/external-semantic-contract-v0/tests",
         "research/experiments/external-semantic-contract-v0/scripts",
@@ -484,12 +479,6 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
                 "PYTHONPATH": "../../../packages/ordivon-protocol/src:src:../external-semantic-contract-v0:../semantic-core-v0/src",
                 "TMPDIR": "/tmp",
             },
-        ),
-        (
-            "host-incubator",
-            [python, "-m", "unittest", "discover", "-s", "tests"],
-            ROOT / "incubation" / "host-v0",
-            {"PYTHONPATH": "src:../../packages/ordivon-protocol/src"},
         ),
         (
             "evidence-and-conformance",

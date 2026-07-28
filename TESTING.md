@@ -4,7 +4,7 @@ Tests protect explicit semantic invariants; they are not a mandatory preconditio
 
 ## Source layers
 
-Production-candidate protocol code, normative Schemas, and canonical vectors live under `packages/ordivon-protocol/`. Executable experiments, workload fixtures, live evidence scripts, and conformance suites remain under `research/experiments/`. `incubation/host-v0/` records the closed H2-H6 Host proof and its extraction source; active Host product development belongs in `ordivon-host`.
+Production-candidate protocol code, normative Schemas, and canonical vectors live under `packages/ordivon-protocol/`. Executable experiments, workload fixtures, live evidence scripts, and conformance suites remain under `research/experiments/`. The closed H2-H6 Host incubator remains recoverable from Git history and the independent `ordivon-host` repository; Computing no longer tests or carries a second Host product tree.
 
 Experiments import the promoted package directly. They must not retain shadow copies of promoted source.
 
@@ -27,7 +27,7 @@ PYTHONPATH=../../../packages/ordivon-protocol/src:../semantic-core-v0/src:. \
 
 ## T1 — complete deterministic gate
 
-The repository root owns the canonical gate. It validates the project and Protocol manifest, performs static checks, runs every deterministic Protocol, semantic, continuation, Host-incubator, evidence, and conformance suite, and verifies the Rust canonical vectors.
+The repository root owns the canonical gate. It validates the project and Protocol manifest, performs static checks, runs every deterministic Protocol, semantic, continuation, evidence, and conformance suite, and verifies the Rust canonical vectors.
 
 ```bash
 python3.12 scripts/ordivon_conformance.py gate \

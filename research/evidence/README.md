@@ -40,7 +40,7 @@ evidence Artifact digests and source repository binding
 payload integrity digest
 ```
 
-The integrity digest is SHA-256 over canonical JSON with sorted keys and compact separators after removing the top-level `integrity` object. The validator recomputes this digest. For an Artifact with `path` and `repositoryId`, the validator reads that path from the exact repository commit recorded in the snapshot and verifies the content digest.
+The integrity digest is SHA-256 over canonical JSON with sorted keys and compact separators after removing the top-level `integrity` object. The validator recomputes this digest. For an Artifact with `path` and `repositoryId`, the validator reads that path from the exact repository commit recorded in the snapshot and verifies the content digest. The path does not need to remain in the current tree; validation requires the recorded Git commit to remain reachable, so CI checks out complete history.
 
 ## Capture repository state
 
