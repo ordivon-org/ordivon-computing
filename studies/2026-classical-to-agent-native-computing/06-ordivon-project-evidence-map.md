@@ -11,7 +11,6 @@ This map records inspected local repository revisions on 2026-07-29. It assigns 
 | `ordivon-host` | `332f30c84f50ca755f7f41ac827da5bc46b67b6c` |
 | `ordivon-link` | `4cd9d2d2f4208c9799a522619ca7173befc31755` |
 | `ordivon-edge` | `01e98385d0e4cdc59dd264633af143b5b71e0ebc` |
-| `ordivon-finance` | `998f4b7ca611b11c478dba1508db7924b8828f25` |
 | `ordivon-game` | `b1edae453c27c87939c899d9aa64731c567e414f` |
 | `ordivon-security` | `4ca7ca16880a06f40032ca4dd93994482979ae34` |
 | `ordivon-web` | `b94b23cfc109b774a0b5c644e5f5cc722e815139` |
@@ -22,14 +21,14 @@ The revisions are historical evidence for this study, not a mutable deployment m
 
 | Responsibility | Current evidence | Level | Strict conclusion |
 |---|---|---:|---|
-| R0 purpose and consequence ownership | Host Goal/Task plans; Finance decisions; Security Campaign objectives | E2–E3 | represented in domains, no unified human-purpose authority |
+| R0 purpose and consequence ownership | Host Goal/Task plans; Security Campaign objectives | E2–E3 | represented in domains, no unified human-purpose authority |
 | R1 operator attention and governance | CLI inspection, reports, GitHub review, external ChatGPT UI | E1–E2 | no Ordivon-owned decision queue or attention plane |
 | R2 open-work continuity | Host durable Goal, Task, event projection, recovery across fresh processes and Runtime restart | E4 | bounded code-change and cognition slices proven; not a general dynamic work runtime |
 | R3 context and memory compilation | task-continuation experiment; Host bounded cognition contexts; Game actor-local contexts | E4 | context compilation proven for bounded workloads; long-term memory, invalidation, and cross-task governance remain open |
 | R4 cognition and coordination | Host multi-candidate admission; Game Team coordinator and provider paths | E3–E4 | local patterns exist; no general cognitive scheduler or cross-project coordination kernel |
-| R5 authority and consequence admission | Semantic Core role authority; Host capability decisions; Finance authority; Security consequence envelopes; Edge policy | E3–E5 | strong shared evidence for separation, but no unified production authority model |
+| R5 authority and consequence admission | Semantic Core role authority; Host capability decisions; Security consequence envelopes; Edge policy | E3–E5 | strong shared evidence for separation, but no unified production authority model |
 | R6 Effect commitment and reconciliation | Runtime Job/Attempt/recovery; Host Effect/Binding/Dispatch; Protocol; Semantic Core two-backend conformance | E4–E5 | strongest Ordivon layer; universal claims still bounded by current adapters and workloads |
-| R7 evidence, verification, epistemic state | Runtime receipts; Host verification; Finance lineage; Game replay; Security ledger; Semantic Core Claim/Verification/Fact | E3–E5 | recurring cross-domain structure exists; domain verification policy remains intentionally separate |
+| R7 evidence, verification, epistemic state | Runtime receipts; Host verification; Game replay; Security ledger; Semantic Core Claim/Verification/Fact | E3–E5 | recurring cross-domain structure exists; domain verification policy remains intentionally separate |
 
 ## 3. `ordivon-runtime`
 
@@ -167,33 +166,8 @@ E4 for the Cloudflare external-capability profile; E3 for the provider-neutral N
 - production VM or container fleet manager;
 - proof of multi-provider remote body portability.
 
-## 8. `ordivon-finance`
 
-### Proven responsibility
-
-Finance is a real domain system with:
-
-- observable capital state and imports;
-- valuation, exposure, data quality, and explicit unknowns;
-- authority, decision basis, effect acceptance, reconciliation, and recovery;
-- deterministic core, local runtime, provider paths, and extensive tests.
-
-### Contribution to the overlay
-
-Finance supplies strong domain evidence that:
-
-```text
-evidence ≠ authority
-provider output ≠ domain truth
-receipt ≠ accepted account state
-unknown outcome requires reconciliation
-```
-
-### Does not count as
-
-A generic Host, Runtime, or universal epistemic engine.
-
-## 9. `ordivon-game`
+## 8. `ordivon-game`
 
 ### Proven responsibility
 
@@ -218,7 +192,7 @@ Game is the strongest current laboratory for R3/R4 coordination, role-local cont
 
 Mechanical conformance to the promoted cross-repository Protocol or a general Host replacement.
 
-## 10. `ordivon-security`
+## 9. `ordivon-security`
 
 ### Proven responsibility
 
@@ -247,7 +221,7 @@ E3 for Campaign and lifecycle contracts and fault cases.
 
 The repository explicitly states that no executable attack implementation exists.
 
-## 11. `ordivon-web`
+## 10. `ordivon-web`
 
 ### Proven responsibility
 
@@ -259,7 +233,7 @@ Web is a small public publication surface with maintained routes, canonical meta
 - Task control plane;
 - Host or Runtime interface.
 
-## 12. Current unowned or weakly owned responsibilities
+## 11. Current unowned or weakly owned responsibilities
 
 ### Operator attention
 
@@ -281,7 +255,7 @@ Several strong local models exist, but principal, Goal binding, world version, c
 
 Claim, evidence, verification, and fact recur across projects. A stable minimal relation is plausible, but no shared production package or second direct consumer yet proves the exact boundary.
 
-## 13. Overall conclusion
+## 12. Overall conclusion
 
 The Ordivon series has not built a full alternative computer stack. It has built meaningful vertical evidence around the point where probabilistic proposals meet durable effects and world evidence.
 
