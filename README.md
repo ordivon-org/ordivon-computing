@@ -105,7 +105,6 @@ See [`research/map.yaml`](research/map.yaml).
 - **Ordivon Runtime** — trusted-local Workspace, Job, Attempt, Artifact, physical dispatch, cancellation, reconciliation, and recovery;
 - **Ordivon Link** — local network observation, controlled egress, Network World, and reference transport slices;
 - **Ordivon Edge** — Cloudflare external Fetch, Browser, Artifact, receipt, and remote-body lifecycle experiments;
-- **Ordivon Finance** — capital-domain truth, authority, decision, effect, and reconciliation laboratory;
 - **Ordivon Game** — deterministic world, role-local context, coordination, replay, and evaluation laboratory;
 - **Ordivon Security** — Campaign, consequence-envelope, independent judge, evidence, and reconstruction contracts;
 - **Ordivon Web** — public publication and project navigation.

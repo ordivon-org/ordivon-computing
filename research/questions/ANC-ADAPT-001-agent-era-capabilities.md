@@ -69,7 +69,7 @@ This question depends on evidence from existing branches rather than replacing t
 
 ## First evidence program
 
-Use Ordivon Game and Ordivon Finance as two deliberately different workload families.
+Use Ordivon Game and Ordivon Security as two deliberately different workload families.
 
 1. Record normalized Task, Decision, Effect, Observation, Verification, Outcome, cost, and failure trajectories.
 2. Compare providers and policies on repeatable workloads without putting full conversations into long-term memory.
