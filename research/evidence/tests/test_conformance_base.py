@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 import subprocess
 import sys
 import tempfile
@@ -53,6 +54,28 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(manifest.projects[0].id, "ordivon-computing")
         self.assertEqual(manifest.project("ordivon-host").protocol_requirement, "0.2.0")
         self.assertEqual(len(manifest.projects), 9)
+
+    def test_research_map_uses_registry_project_ids(self) -> None:
+        registry_text = (ROOT / "projects" / "registry.yaml").read_text()
+        registry_ids = {
+            match.group(1)
+            for line in registry_text.splitlines()
+            if (match := re.fullmatch(r"  - id: (ordivon-[a-z0-9-]+)", line))
+        }
+        related_projects: list[str] = []
+        inside_related_projects = False
+        for line in (ROOT / "research" / "map.yaml").read_text().splitlines():
+            if line == "    related_projects:":
+                inside_related_projects = True
+            elif inside_related_projects and line.startswith("      - "):
+                related_projects.append(line.removeprefix("      - "))
+            elif inside_related_projects and line.strip():
+                inside_related_projects = False
+        self.assertTrue(related_projects)
+        for project_id in related_projects:
+            self.assertRegex(project_id, r"^ordivon-[a-z0-9-]+$")
+            self.assertIn(project_id, registry_ids)
+        self.assertNotIn("    current_slice:", registry_text)
 
     def test_manifest_rejects_protocol_version_drift(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

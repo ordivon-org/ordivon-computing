@@ -69,12 +69,12 @@ Knowledge moves toward the core only after repeated use shows that it is stable,
 
 See [`research/map.yaml`](research/map.yaml) and [`research/questions/`](research/questions/).
 
-## Active project branches
+## Project roles
 
 - **Ordivon Host** — durable Agent control plane, cognition context, Task continuity, and Runtime coordination.
 - **Ordivon Runtime** — durable trusted-local execution, Workspace, Job, Artifact, and recovery plane.
-- **Ordivon Link** — programmable network and communication fabric; current implementation is the local observation and controlled-egress slice.
-- **Ordivon Edge** — distributed external presence and execution fabric; current implementation is the Cloudflare production slice.
+- **Ordivon Link** — programmable network and communication fabric.
+- **Ordivon Edge** — distributed external presence and execution fabric.
 - **Ordivon Finance** — capital-domain Agent application for truth, authority, decision, execution, and reconciliation.
 - **Ordivon Game** — Agent-native virtual world, replay, and evaluation application.
 - **Ordivon Security** — full-spectrum adversarial Agent systems laboratory.
