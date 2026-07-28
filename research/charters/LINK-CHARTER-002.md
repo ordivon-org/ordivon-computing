@@ -37,7 +37,13 @@ Link owns:
 - **Range profile** — isolated multi-node topology, dynamic faults, synthetic identities, and deterministic reset.
 - **Adversarial profile** — mutable topology, deception, competing communication policies, and independent observation.
 
-The current repository implements only the first profile plus a localhost transport reference.
+## Current state — Phase 0 disposition
+
+At the bound Phase 0 revisions, P0-A is verified by Link's typed deterministic Network World, lifecycle, synthetic identities, independent hash-chained observer, actor-safe projection, and explicit egress surface. P0-B is verified by the component-owned `link-world-security` lifecycle port, exact-operation reconciliation, residual classification, and fresh-root reconstruction. P0-C is verified by the infrastructure-only Security acceptance that ran the real Link loopback fixture under Runtime and closed a 75-event Campaign ledger with clean residual classification and a `success` / `conclusive` outcome.
+
+The P0-C run executed Link merge `4cd9d2d2f4208c9799a522619ca7173befc31755`; the bound Link current-main truth source `2b2f449913d270706aba6af2e5ba7d3db0e81b1a` is its clean descendant. The immutable snapshot records both roles rather than substituting the later revision into the run.
+
+P0-D is not verified: no persistent Edge Node is attached to a Link-managed data plane, and topology, latency, loss, route, DNS, and partition changes remain modeled rather than packet-enforced. The implemented scope is the local operations profile plus a deterministic local range slice and localhost transport reference. It contains no evaluated Red/Blue Agent and makes no current embodied-intelligence or physical-network claim.
 
 ## Boundaries
 

@@ -6,7 +6,7 @@ How can Ordivon elicit and measure the maximum credible attack, defense, adaptat
 
 ## Why this belongs in Ordivon Computing
 
-The problem crosses model cognition, Host state, Runtime execution, Link connectivity, Edge bodies, Game simulation, Security evaluation, evidence, and organizational authority. No product repository can define the shared identities or validity criteria alone.
+The problem crosses model cognition, Host state, Runtime execution, Link connectivity, Edge bodies, Game simulation, Security evaluation, evidence, and organizational authority. Each product remains authoritative for its native identities; no product repository can define the cross-project binding model or validity criteria alone.
 
 ## Current hypothesis
 
@@ -24,17 +24,21 @@ A credible experiment maximizes the first within the declared research question 
 
 ## First evidence program
 
-1. Define one Campaign Manifest and one World identity shared across Host, Link, Edge, Runtime, Game, and Security.
-2. Construct a disconnected dynamic range with at least three services, one disposable Edge node, one Red Agent, one Blue Agent, and an independent observer.
-3. Inject topology and service changes during the campaign.
-4. Permit tool construction, persistent range-local state, and multi-stage planning.
-5. Freeze, export, reset, and replay the campaign.
-6. Compare at least two Harness or Tool configurations without changing the Consequence Envelope.
-7. Preserve escape attempts, observer loss, invalid runs, and negative results as first-class outcomes.
+Security owns the semantic Campaign and World identities. Host, Runtime, Link, Edge, and Game retain their component-native identities; immutable, digest-bound bindings connect those identities to one admitted Campaign revision without replacing them.
+
+The evidence stages proceed in this order:
+
+1. **Attachment and body** — attach one disposable Edge body to a Link-managed range network and prove lifecycle, isolation, evidence export, reset, destruction, and residual state.
+2. **Single evaluated Agent** — run one evaluated Agent in that attached body with exact Host, Runtime, model, Tool, budget, and observer bindings.
+3. **Fixed campaign** — repeat one fixed campaign, inject declared topology or service changes, and prove freeze, export, reset, replay, and reconstruction.
+4. **Passive Blue** — add a non-adaptive Blue policy or service baseline so defensive observation and outcome semantics are tested without co-adaptation.
+5. **Adaptive Red/Blue** — only after the earlier stages are conclusive, evaluate adaptive opponents, range-local tool construction, persistent range-local state, and multi-stage planning.
+
+Every stage preserves escape attempts, observer loss, invalid runs, and negative results as first-class outcomes. Comparisons between Harness or Tool configurations hold the admitted Consequence Envelope fixed.
 
 ## Evidence required
 
-- exact model, Host, Tool, budget, network world, Edge node, and source identities;
+- exact Security Campaign and World revisions plus immutable bindings to model, Host, Runtime, Tool, budget, Link World, Edge Node, and source identities;
 - independent network and execution event roots;
 - reproducible baseline construction and destruction receipts;
 - one adaptive Red or Blue trajectory that cannot be reduced to a fixed answer script;

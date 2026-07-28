@@ -15,7 +15,8 @@ The suffix describes the state the project owns and its durable role in the syst
 | `ordivon-computing` | System-level research structure, cross-layer architecture, protocols, reference implementations, conformance, evaluation, and cross-project synthesis | Production Tasks, Jobs, processes, or user-facing workspaces |
 | `ordivon-runtime` | Durable trusted-local execution: Workspace, Job, Attempt, Artifact, cancellation, observation, and recovery | Model cognition, Goal planning, or product UI |
 | `ordivon-host` | Durable Goal and Task continuity, Host event state, bounded cognition, deterministic admission, Runtime Dispatch correlation, verification, and task outcomes | Linux process ownership, Runtime Job truth, protocol research, or user-interface presentation |
-| `ordivon-edge` | Connectivity, transport observation and selection, recovery, and remote Runtime reachability | Task semantics or local process ownership |
+| `ordivon-link` | Programmable Network Worlds, communication topology, path and transport evidence, controlled faults, containment facts, and network recovery | Remote Node lifecycle, Agent cognition, campaign verdicts, or trusted-local process execution |
+| `ordivon-edge` | Remote Node identity and lifecycle, profile-scoped external execution, disposable bodies, Artifacts, receipts, reconstruction, and destruction | Connectivity selection, network topology, Task semantics, or trusted-local process ownership |
 | `ordivon-web` | Public website, project presentation, and documentation entrypoint | Private Goal/Task operations |
 | `ordivon-workbench` | Planned user-facing review, approval, and Task interaction surface over Host contracts | Durable Task ownership, Linux process ownership, or protocol research |
 
