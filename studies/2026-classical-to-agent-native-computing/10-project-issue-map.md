@@ -37,8 +37,6 @@ The research source is Ordivon Computing PR #55. The comparative program is coor
 | `ordivon-runtime` | #58 — migrate MCP adapter to the 2026 stateless core | retire legacy Core Tasks while preserving Runtime Job truth |
 | `ordivon-edge` | #24 — expose a Host-consumable Fetch/Browser Effect backend | provide the second real Effect backend requested by Host and Computing |
 | `ordivon-link` | #18 — expose versioned network observations as Host Context sources | provide network evidence without moving Context ownership into Link |
-| `ordivon-finance` | #525 — complete an external paper-broker Effect/Receipt/reconciliation loop | create a real high-consequence R5/R6/R7 workload |
-| `ordivon-finance` | #526 — compare embedded Finance Runtime with shared Host/Runtime | decide keep, hybridize, or migrate from measured evidence |
 | `ordivon-game` | #40 — run equal-budget single-Agent and multi-Agent ablations | test R4 without confusing architecture benefit with additional compute |
 | `ordivon-security` | #10 — build Context-poisoning and Tool-output injection campaigns | adversarially test R3, R5, containment, and trust escalation |
 | `ordivon-web` | #25 — publish the substrate/overlay project taxonomy | remove obsolete single-stack and parallel-product implications |

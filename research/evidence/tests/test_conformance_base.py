@@ -53,7 +53,7 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(manifest.protocol.version, "0.2.0")
         self.assertEqual(manifest.projects[0].id, "ordivon-computing")
         self.assertEqual(manifest.project("ordivon-host").protocol_requirement, "0.2.0")
-        self.assertEqual(len(manifest.projects), 9)
+        self.assertEqual(len(manifest.projects), 8)
 
     def test_research_map_uses_registry_project_ids(self) -> None:
         registry_text = (ROOT / "projects" / "registry.yaml").read_text()
@@ -95,15 +95,15 @@ class RepositoryIdentityTests(unittest.TestCase):
     def test_github_https_and_ssh_remotes_share_one_identity(self) -> None:
         self.assertEqual(
             CONFORMANCE.normalize_repository_url(
-                "git@github.com:zycxfyh/ordivon-finance.git"
+                "git@github.com:zycxfyh/ordivon-host.git"
             ),
-            "https://github.com/zycxfyh/ordivon-finance",
+            "https://github.com/zycxfyh/ordivon-host",
         )
         self.assertEqual(
             CONFORMANCE.normalize_repository_url(
-                "ssh://git@github.com/zycxfyh/ordivon-finance.git"
+                "ssh://git@github.com/zycxfyh/ordivon-host.git"
             ),
-            "https://github.com/zycxfyh/ordivon-finance",
+            "https://github.com/zycxfyh/ordivon-host",
         )
 
 

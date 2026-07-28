@@ -41,4 +41,4 @@ Run the branches through separate Workspaces or Agents and join them through Art
 
 - [`../../knowledge/institutions/human-agent-organization.md`](../../knowledge/institutions/human-agent-organization.md)
 - [`../../studies/2026-computing-stack-walkthrough/15-products-and-institutions.md`](../../studies/2026-computing-stack-walkthrough/15-products-and-institutions.md)
-- `ordivon-host`, `ordivon-game`, and `ordivon-finance`
+- `ordivon-host` and `ordivon-game`
