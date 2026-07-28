@@ -37,6 +37,8 @@ branches:
     name: organization-economics-and-coordination
   - id: ANC-SECURITY
     name: adversarial-agent-systems-and-containment
+  - id: ANC-GAME
+    name: agent-native-games-and-virtual-worlds
 
 construction_program:
   id: ANC-MACHINE-V0
@@ -158,6 +160,22 @@ relations:
     type: feeds_back_to
     to: ANC-HOST-001
     meaning: Evidence from adaptation experiments revises context compilation, provider choice, stopping, and escalation policy.
+  - from: ANC-GAME-001
+    type: feeds_back_to
+    to: ANC-HOST-001
+    meaning: Game workloads expose the minimum reusable Actor, coordination, executor, authority, and verification extensions required without creating a second Host.
+  - from: ANC-HOST-001
+    type: enables
+    to: ANC-GAME-001
+    meaning: Durable Host contracts allow uncertain game policies to survive Provider and process replacement while deterministic World authority remains in Game.
+  - from: ANC-MULTI-001
+    type: feeds_back_to
+    to: ANC-GAME-001
+    meaning: Multi-Agent ownership, wait, handoff, and join experiments determine which coordination objects are reusable across game families.
+  - from: ANC-GAME-001
+    type: feeds_back_to
+    to: ANC-VERIFY-001
+    meaning: Scenario Cases, point-in-time replay, invalid-action evidence, and player interventions revise distributional Agent evaluation requirements.
 
 questions:
   - id: ANC-IR-001
@@ -256,3 +274,20 @@ questions:
       - ordivon-edge
       - ordivon-game
       - ordivon-security
+  - id: ANC-GAME-001
+    title: Agent-native game boundary and Host convergence
+    file: questions/ANC-GAME-001-agent-native-game-host-boundary.md
+    branch: ANC-GAME
+    epistemic_status: research_question
+    question: Which game layers are changed by uncertain runtime Agents, and how should those layers reuse one Ordivon Host without rebuilding the classical engine or retaining a second Game-private Host?
+    evidence_paths:
+      - cross_repository_ownership_audit
+      - protocol_conformance_matrix
+      - embedded_sidecar_comparison
+      - single_actor_dual_run
+      - multi_actor_joint_effect_experiment
+      - cross_game_falsification
+    related_projects:
+      - ordivon-host
+      - ordivon-game
+      - ordivon-runtime
