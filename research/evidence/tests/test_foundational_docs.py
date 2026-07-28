@@ -43,7 +43,7 @@ class FoundationalDocsTests(unittest.TestCase):
             (study / "README.md").write_text("Unknown [A99].\n", encoding="utf-8")
             self.assertEqual(
                 CHECK.reference_issues(root),
-                ["undeclared primary-source reference: A99"],
+                ["undeclared primary-source reference in 2026-classical-to-agent-native-computing: A99"],
             )
 
 

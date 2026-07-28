@@ -11,8 +11,13 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
-REFERENCE = re.compile(r"\[([CAP]\d{2})\]")
-REFERENCE_HEADING = re.compile(r"^### ([CAP]\d{2}) — ", re.MULTILINE)
+REFERENCE = re.compile(r"\[([A-Z]\d{2})\]")
+REFERENCE_HEADING = re.compile(r"^### ([A-Z]\d{2}) — ", re.MULTILINE)
+
+SOURCE_LEDGER_STUDIES = (
+    "2026-classical-to-agent-native-computing",
+    "2026-adaptive-acceleration",
+)
 
 REQUIRED_PATHS = (
     "README.md",
@@ -26,6 +31,10 @@ REQUIRED_PATHS = (
     "research/questions/ANC-STACK-001-classical-to-agent-native-transition.md",
     "studies/2026-classical-to-agent-native-computing/README.md",
     "studies/2026-classical-to-agent-native-computing/REFERENCES.md",
+    "studies/2026-adaptive-acceleration/README.md",
+    "studies/2026-adaptive-acceleration/ARTICLE.md",
+    "studies/2026-adaptive-acceleration/ARGUMENT-MAP.md",
+    "studies/2026-adaptive-acceleration/REFERENCES.md",
 )
 
 
@@ -88,23 +97,31 @@ def broken_relative_links(root: Path, paths: list[Path]) -> list[str]:
 
 
 def reference_issues(root: Path) -> list[str]:
-    study = root / "studies" / "2026-classical-to-agent-native-computing"
-    ledger = study / "REFERENCES.md"
-    if not ledger.is_file():
-        return ["primary-source ledger is missing"]
-    declared = set(REFERENCE_HEADING.findall(ledger.read_text(encoding="utf-8")))
     issues: list[str] = []
-    if not declared:
-        issues.append("primary-source ledger declares no reference identifiers")
-    used: set[str] = set()
-    for path in sorted(study.glob("*.md")):
-        if path == ledger:
+    for study_name in SOURCE_LEDGER_STUDIES:
+        study = root / "studies" / study_name
+        if not study.exists():
             continue
-        used.update(REFERENCE.findall(path.read_text(encoding="utf-8")))
-    for identifier in sorted(used - declared):
-        issues.append(f"undeclared primary-source reference: {identifier}")
-    if not used:
-        issues.append("transition study uses no primary-source references")
+        ledger = study / "REFERENCES.md"
+        if not ledger.is_file():
+            issues.append(f"primary-source ledger is missing: {study_name}")
+            continue
+        declared = set(REFERENCE_HEADING.findall(ledger.read_text(encoding="utf-8")))
+        if not declared:
+            issues.append(
+                f"primary-source ledger declares no reference identifiers: {study_name}"
+            )
+        used: set[str] = set()
+        for path in sorted(study.glob("*.md")):
+            if path == ledger:
+                continue
+            used.update(REFERENCE.findall(path.read_text(encoding="utf-8")))
+        for identifier in sorted(used - declared):
+            issues.append(
+                f"undeclared primary-source reference in {study_name}: {identifier}"
+            )
+        if not used:
+            issues.append(f"study uses no primary-source references: {study_name}")
     return issues
 
 

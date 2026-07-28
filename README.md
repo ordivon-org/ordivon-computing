@@ -48,10 +48,11 @@ real workloads, primary sources, failures, and observations
 | **Research** | Questions, competing hypotheses, experiments, and immutable evidence | [`research/`](research/) |
 | **Projects** | Real systems through which ideas are constructed and tested | [`projects/`](projects/) |
 
-Two studies are especially important:
+Three studies are especially important:
 
 - [`studies/2026-computing-stack-walkthrough/`](studies/2026-computing-stack-walkthrough/) — the complete physical-to-institutional computing route;
-- [`studies/2026-classical-to-agent-native-computing/`](studies/2026-classical-to-agent-native-computing/) — the strict derivation of what remains classical, what Agents merely amplify, and what responsibilities are genuinely rewritten or new.
+- [`studies/2026-classical-to-agent-native-computing/`](studies/2026-classical-to-agent-native-computing/) — the strict derivation of what remains classical, what Agents merely amplify, and what responsibilities are genuinely rewritten or new;
+- [`studies/2026-adaptive-acceleration/`](studies/2026-adaptive-acceleration/) — the historical and cross-disciplinary argument for accelerating capability together with adoption, verification, defense, recovery, distribution, and cooperative intelligence rather than relying on a global frontier slowdown.
 
 ## Core thesis
 
