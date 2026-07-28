@@ -43,6 +43,12 @@ Edge: remote bodies and external presence
 Game: deterministic scenario, replay, and scoring machinery
 ```
 
+## Current state — Phase 0 disposition
+
+At the bound Phase 0 revisions, P0-A is verified by the executable Campaign Manifest, separate Capability and Consequence Envelopes, explicit authority, actor and outcome contracts, and exact cross-project references. P0-B is verified by the append-only Security lifecycle ledger, immutable component-native bindings, fixed lifecycle coordination, unknown-result reconciliation, residual classification, reconstruction checks, and sealed-bundle replay. P0-C is verified by a live infrastructure-only Campaign that composed real Link, Edge, and Runtime surfaces and closed 75 ledger events with clean residual classification, outcome `success`, evidence quality `conclusive`, and independently verified bundle digest `sha256:fe5ec0cfd75201589cd273a53f0a0e69f7da7a13062846a6503ed8c8758066a1`.
+
+P0-D is not verified: the Edge body was not attached to the Link data plane. The acceptance also does not demonstrate packet-level impairment, a persistent Agent body, Host or Game execution, Red/Blue behavior, attacks, defenses, or embodied intelligence. These remain future research or integration claims, not current implementation.
+
 ## Required invariants
 
 1. Capability Envelope and Consequence Envelope are separate first-class objects.

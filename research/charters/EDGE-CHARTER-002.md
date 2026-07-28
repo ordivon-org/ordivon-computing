@@ -27,7 +27,11 @@ Edge owns:
 - **Research profile** — broader tools, writable state, longer execution, temporary identity, and complete capture.
 - **Adversarial range profile** — high-autonomy disposable nodes, multi-stage work, Agent-created tools, controlled persistence, and whole-environment destruction.
 
-The current `ordivon-edge` repository implements only the Cloudflare production profile: bounded Fetch, Browser Run, private R2 Artifacts, receipts, leases, release, and rollback.
+## Current state — Phase 0 disposition
+
+At the bound Phase 0 revisions, P0-A is verified by Edge's provider-neutral Node identity and lifecycle contract plus one real, one-shot local `unshare` / chroot research body alongside the existing Cloudflare production profile. P0-B is verified by its component-owned long-lived JSONL Security control session, in-memory lease fencing, operation reconciliation, identity-bound evidence export, residual classification, and fresh-root reconstruction. P0-C is verified by the infrastructure-only Security acceptance that executed the real local body and closed a 75-event Campaign ledger with clean residual classification and a `success` / `conclusive` outcome.
+
+P0-D is not verified: the disposable Node was not attached to a Link-managed network, and persistent bodies, long-running freeze/resume, packet-level impairment, and adversarial Red/Blue execution remain unimplemented. Here “body” means an execution substrate; the repository does not currently implement or demonstrate embodied intelligence, robotics, or physical actuation.
 
 ## Boundaries
 
