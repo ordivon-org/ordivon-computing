@@ -6,11 +6,13 @@ from typing import Final
 SCHEMA_FILES: Final[tuple[str, ...]] = (
     "effect-binding-v1.schema.json",
     "effect-envelope-v1.schema.json",
+    "host-workload-v1.schema.json",
     "tool-contract-v1.schema.json",
 )
 VECTOR_FILES: Final[tuple[str, ...]] = (
     "canonical-vectors.json",
     "canonical-vectors.tsv",
+    "host-workload-vectors-v1.json",
 )
 
 

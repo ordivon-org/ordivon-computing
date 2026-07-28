@@ -46,10 +46,21 @@ class PromotedBoundaryTests(unittest.TestCase):
             validate_digest("sha256:ABC")
 
     def test_normative_resources_ship_with_the_distribution(self) -> None:
-        self.assertEqual(len(SCHEMA_FILES), 3)
-        self.assertEqual(len(VECTOR_FILES), 2)
-        self.assertIn("anc.effect-envelope.v1", schema_text(SCHEMA_FILES[1]))
+        self.assertEqual(len(SCHEMA_FILES), 4)
+        self.assertEqual(len(VECTOR_FILES), 3)
+        self.assertIn(
+            "anc.effect-envelope.v1",
+            schema_text("effect-envelope-v1.schema.json"),
+        )
+        self.assertIn(
+            "ordivon.host-task-descriptor",
+            schema_text("host-workload-v1.schema.json"),
+        )
         self.assertIn("sha256:", vector_text("canonical-vectors.tsv"))
+        self.assertIn(
+            "host-workload-v1",
+            vector_text("host-workload-vectors-v1.json"),
+        )
 
     def test_unknown_requires_reconciliation(self) -> None:
         self.assertTrue(EffectState.UNKNOWN.requires_reconciliation)

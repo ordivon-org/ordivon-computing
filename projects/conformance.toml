@@ -3,13 +3,14 @@ registry = "ordivon-conformance"
 
 [protocol]
 package = "ordivon-protocol"
-version = "0.2.0"
+version = "0.3.0"
 source = "packages/ordivon-protocol"
 profiles = [
   "canonical-json-v1",
   "effect-envelope-v1",
   "tool-contract-v1",
   "effect-binding-v1",
+  "host-workload-v1",
   "semantic-state-v1",
 ]
 
@@ -26,8 +27,8 @@ profiles = ["effect-dispatch-backend", "artifact-evidence", "recovery"]
 [[projects]]
 id = "ordivon-host"
 relationship = "direct-consumer"
-profiles = ["task-continuity", "effect-binding-consumer", "runtime-coordination"]
-protocol_requirement = "0.2.0"
+profiles = ["task-continuity", "effect-binding-consumer", "runtime-coordination", "host-workload-v1"]
+protocol_requirement = "0.3.0"
 dependency_file = "pyproject.toml"
 
 [[projects]]
@@ -44,7 +45,7 @@ profiles = ["edge-node", "remote-artifact", "lifecycle-reconciliation"]
 [[projects]]
 id = "ordivon-game"
 relationship = "domain-consumer"
-profiles = ["deterministic-world", "multi-agent-task", "evidence-replay"]
+profiles = ["deterministic-world", "multi-agent-task", "evidence-replay", "host-workload-v1"]
 
 [[projects]]
 id = "ordivon-security"
