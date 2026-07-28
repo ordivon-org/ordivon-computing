@@ -112,4 +112,4 @@ This question does not justify:
 - [`../../core/stack.md`](../../core/stack.md)
 - [`../../knowledge/agents/goal-task-effect.md`](../../knowledge/agents/goal-task-effect.md)
 - [`../../knowledge/institutions/human-agent-organization.md`](../../knowledge/institutions/human-agent-organization.md)
-- Ordivon Host, Runtime, Game, Finance, Edge, and Link
+- `ordivon-host`, `ordivon-runtime`, `ordivon-game`, `ordivon-finance`, `ordivon-edge`, and `ordivon-link`

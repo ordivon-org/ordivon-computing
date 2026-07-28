@@ -43,4 +43,4 @@ Compare capsules of different sizes to find information that is necessary, redun
 - [`../../knowledge/computing/state-computation-and-memory.md`](../../knowledge/computing/state-computation-and-memory.md)
 - [`../../knowledge/agents/execution-kernel.md`](../../knowledge/agents/execution-kernel.md)
 - [`../../studies/2026-computing-stack-walkthrough/13-agent-kernel.md`](../../studies/2026-computing-stack-walkthrough/13-agent-kernel.md)
-- Ordivon and FinHarness
+- `ordivon-host`, `ordivon-runtime`, and `ordivon-finance`
