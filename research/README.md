@@ -28,3 +28,4 @@ The cross-layer program is [#1 — Construct the Agent-Native Machine](https://g
 - [`ANC-ORG-001`](questions/ANC-ORG-001-agent-native-organization.md) — human and multi-Agent coordination around persistent work;
 - [`ANC-ADAPT-001`](questions/ANC-ADAPT-001-agent-era-capabilities.md) — cross-task learning, capability compilation, cognition control, multi-Agent ownership, and evidence-governed self-evolution.
 - [`ANC-SECURITY-001`](questions/ANC-SECURITY-001-adversarial-agent-systems.md) — maximum-capability adversarial Agent research under independently verified consequence containment.
+- [`ANC-GAME-001`](questions/ANC-GAME-001-agent-native-game-host-boundary.md) — Agent-native game boundaries, classical-engine reuse, and convergence on one logical Ordivon Host.
