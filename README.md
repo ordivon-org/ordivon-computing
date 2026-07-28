@@ -82,6 +82,26 @@ See [`research/map.yaml`](research/map.yaml) and [`research/questions/`](researc
 
 See [`projects/registry.yaml`](projects/registry.yaml).
 
+## Protocol and conformance base
+
+[`packages/ordivon-protocol/`](packages/ordivon-protocol/) is the authoritative production-candidate Protocol source. [`projects/conformance.toml`](projects/conformance.toml) declares stable repository identities, Protocol relationships, and conformance profiles without duplicating mutable deployment or maturity state.
+
+One root command owns the complete deterministic gate:
+
+```bash
+python3.12 scripts/ordivon_conformance.py gate \
+  --receipt /tmp/ordivon-conformance-receipt.json
+```
+
+The same executable can inspect a real sibling-repository installation, verify the independent Host's exact Protocol pin, and emit an integrity-bound revision vector or immutable System Snapshot:
+
+```bash
+python3.12 scripts/ordivon_conformance.py vector \
+  --require-all --require-clean
+```
+
+This makes Computing the Protocol, conformance, and cross-project synthesis base without moving product code or live state back into the mother repository.
+
 ## Executable Semantic Core
 
 The repository contains a completed executable reference Kernel at [`research/experiments/semantic-core-v0/`](research/experiments/semantic-core-v0/) and a separate active external contract experiment at [`research/experiments/external-semantic-contract-v0/`](research/experiments/external-semantic-contract-v0/). It occupies the semantic boundary between probabilistic cognition and classical execution substrates:
