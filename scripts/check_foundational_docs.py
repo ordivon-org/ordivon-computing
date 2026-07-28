@@ -33,6 +33,8 @@ REQUIRED_PATHS = (
     "studies/2026-classical-to-agent-native-computing/REFERENCES.md",
     "studies/2026-adaptive-acceleration/README.md",
     "studies/2026-adaptive-acceleration/ARTICLE.md",
+    "studies/2026-adaptive-acceleration/PUBLICATION-DRAFT.md",
+    "studies/2026-adaptive-acceleration/PUBLICATION-EDIT.md",
     "studies/2026-adaptive-acceleration/ARGUMENT-MAP.md",
     "studies/2026-adaptive-acceleration/REFERENCES.md",
 )

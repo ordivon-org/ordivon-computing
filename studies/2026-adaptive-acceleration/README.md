@@ -11,16 +11,19 @@ The study does not pretend to be neutral between acceleration and restraint. It 
 ## Route
 
 1. [Research manifesto — *The Future Will Not Wait*](ARTICLE.md)
-2. [Adversarial review of Draft 0.1](ADVERSARIAL-REVIEW.md)
-3. [Argument map and falsifiers](ARGUMENT-MAP.md)
-4. [Source ledger](REFERENCES.md)
+2. [Publication candidate](PUBLICATION-DRAFT.md)
+3. [Publication edit record](PUBLICATION-EDIT.md)
+4. [Adversarial review of Draft 0.1](ADVERSARIAL-REVIEW.md)
+5. [Argument map and falsifiers](ARGUMENT-MAP.md)
+6. [Source ledger](REFERENCES.md)
 
 ## Status
 
-- Version: `0.3`
-- Status: source-grounded research manifesto, not yet a public Ordivon Web article
+- Version: `0.4`
+- Research status: source-grounded manifesto retained as the full argument
+- Publication status: first edited candidate prepared for Ordivon Web
 - Trigger: the July 2026 `Pacing the Frontier` statement
-- Next stage: strengthen the historical voice, remove policy-paper residue, compress, and adapt for Ordivon Web
+- Next stage: final citation presentation, line edit, Web metadata, and HTML adaptation
 
 ## Writing discipline
 
