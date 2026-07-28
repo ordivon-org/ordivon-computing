@@ -36,6 +36,11 @@ class SystemSnapshotTests(unittest.TestCase):
     def test_committed_baseline_validates(self) -> None:
         self.validate(self.document)
 
+    def test_all_committed_snapshots_validate_from_history(self) -> None:
+        for path in sorted((EVIDENCE_ROOT / "snapshots").glob("*.json")):
+            with self.subTest(snapshot=path.name):
+                self.validate(json.loads(path.read_text()))
+
     def test_digest_is_independent_of_json_key_order(self) -> None:
         reversed_document = dict(reversed(list(self.document.items())))
         self.assertEqual(canonical_payload(reversed_document), canonical_payload(self.document))
