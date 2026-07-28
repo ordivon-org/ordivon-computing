@@ -6,6 +6,10 @@ on:
       - ".github/workflows/deterministic-contracts.yml"
       - "packages/ordivon-protocol/**"
       - "incubation/host-v0/**"
+      - "projects/conformance.toml"
+      - "projects/registry.yaml"
+      - "scripts/ordivon_conformance.py"
+      - "research/evidence/**"
       - "research/experiments/external-semantic-contract-v0/pyproject.toml"
       - "research/experiments/external-semantic-contract-v0/integration/**"
       - "research/experiments/external-semantic-contract-v0/tests/**"
@@ -27,6 +31,10 @@ on:
       - ".github/workflows/deterministic-contracts.yml"
       - "packages/ordivon-protocol/**"
       - "incubation/host-v0/**"
+      - "projects/conformance.toml"
+      - "projects/registry.yaml"
+      - "scripts/ordivon_conformance.py"
+      - "research/evidence/**"
       - "research/experiments/external-semantic-contract-v0/pyproject.toml"
       - "research/experiments/external-semantic-contract-v0/integration/**"
       - "research/experiments/external-semantic-contract-v0/tests/**"
@@ -49,7 +57,7 @@ permissions:
 jobs:
   deterministic:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -57,65 +65,7 @@ jobs:
           python-version: "3.12"
       - uses: dtolnay/rust-toolchain@stable
       - run: python -m pip install --disable-pip-version-check ruff==0.15.14
-      - name: Static checks
+      - name: Computing conformance gate
         run: |
-          python -m compileall -q \
-            packages/ordivon-protocol/src \
-            packages/ordivon-protocol/tests \
-            incubation/host-v0/src \
-            incubation/host-v0/tests \
-            incubation/host-v0/scripts \
-            research/experiments/external-semantic-contract-v0/integration \
-            research/experiments/external-semantic-contract-v0/tests \
-            research/experiments/external-semantic-contract-v0/scripts \
-            research/experiments/semantic-core-v0/src \
-            research/experiments/semantic-core-v0/tests \
-            research/experiments/semantic-core-v0/scripts \
-            research/experiments/task-continuation-v0/src \
-            research/experiments/task-continuation-v0/tests \
-            research/experiments/task-continuation-v0/scripts
-          ruff check \
-            packages/ordivon-protocol/src \
-            packages/ordivon-protocol/tests \
-            incubation/host-v0/src \
-            incubation/host-v0/tests \
-            incubation/host-v0/scripts \
-            research/experiments/external-semantic-contract-v0/integration \
-            research/experiments/external-semantic-contract-v0/tests \
-            research/experiments/external-semantic-contract-v0/scripts \
-            research/experiments/semantic-core-v0/src \
-            research/experiments/semantic-core-v0/tests \
-            research/experiments/semantic-core-v0/scripts \
-            research/experiments/task-continuation-v0/src \
-            research/experiments/task-continuation-v0/tests \
-            research/experiments/task-continuation-v0/scripts
-      - name: Promoted protocol tests
-        working-directory: packages/ordivon-protocol
-        env:
-          PYTHONPATH: src
-        run: python -m unittest discover -s tests
-      - name: External contract tests
-        working-directory: research/experiments/external-semantic-contract-v0
-        env:
-          PYTHONPATH: ../../../packages/ordivon-protocol/src:../semantic-core-v0/src:.
-        run: python -m unittest discover -s tests
-      - name: Semantic Kernel tests
-        working-directory: research/experiments/semantic-core-v0
-        env:
-          PYTHONPATH: ../../../packages/ordivon-protocol/src:src
-        run: python -m unittest discover -s tests
-      - name: Task continuation tests
-        working-directory: research/experiments/task-continuation-v0
-        env:
-          PYTHONPATH: ../../../packages/ordivon-protocol/src:src:../external-semantic-contract-v0:../semantic-core-v0/src
-        run: python -m unittest discover -s tests
-      - name: Host incubator boundary tests
-        working-directory: incubation/host-v0
-        env:
-          PYTHONPATH: src:../../packages/ordivon-protocol/src
-        run: python -m unittest discover -s tests
-      - name: Cross-language canonical vectors
-        working-directory: research/experiments/external-semantic-contract-v0
-        run: |
-          rustc --edition=2021 rust/canonical-verifier/main.rs -o /tmp/anc-canonical-verifier
-          /tmp/anc-canonical-verifier ../../../packages/ordivon-protocol/src/ordivon_protocol/vectors/canonical-vectors.tsv
+          python scripts/ordivon_conformance.py gate \
+            --receipt /tmp/ordivon-conformance-receipt.json

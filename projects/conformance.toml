@@ -1,0 +1,79 @@
+schema_version = 1
+registry = "ordivon-conformance"
+
+[protocol]
+package = "ordivon-protocol"
+version = "0.2.0"
+source = "packages/ordivon-protocol"
+profiles = [
+  "canonical-json-v1",
+  "effect-envelope-v1",
+  "tool-contract-v1",
+  "effect-binding-v1",
+  "semantic-state-v1",
+]
+
+[[projects]]
+id = "ordivon-computing"
+repository = "https://github.com/zycxfyh/ordivon-computing"
+local_path = "ordivon-computing"
+relationship = "producer"
+profiles = ["protocol-source", "semantic-reference", "system-snapshot"]
+
+[[projects]]
+id = "ordivon-runtime"
+repository = "https://github.com/zycxfyh/ordivon-runtime"
+local_path = "ordivon-runtime"
+relationship = "semantic-backend"
+profiles = ["effect-dispatch-backend", "artifact-evidence", "recovery"]
+
+[[projects]]
+id = "ordivon-host"
+repository = "https://github.com/zycxfyh/ordivon-host"
+local_path = "ordivon-host"
+relationship = "direct-consumer"
+profiles = ["task-continuity", "effect-binding-consumer", "runtime-coordination"]
+protocol_requirement = "0.2.0"
+dependency_file = "pyproject.toml"
+
+[[projects]]
+id = "ordivon-link"
+repository = "https://github.com/zycxfyh/ordivon-link"
+local_path = "ordivon-link"
+relationship = "infrastructure-consumer"
+profiles = ["network-world", "connection-evidence", "controlled-egress"]
+
+[[projects]]
+id = "ordivon-edge"
+repository = "https://github.com/zycxfyh/ordivon-edge"
+local_path = "ordivon-edge"
+relationship = "infrastructure-consumer"
+profiles = ["edge-node", "remote-artifact", "lifecycle-reconciliation"]
+
+[[projects]]
+id = "ordivon-finance"
+repository = "https://github.com/zycxfyh/ordivon-finance"
+local_path = "ordivon-finance"
+relationship = "domain-consumer"
+profiles = ["domain-fact", "authority", "decision-reconciliation"]
+
+[[projects]]
+id = "ordivon-game"
+repository = "https://github.com/zycxfyh/ordivon-game"
+local_path = "ordivon-game"
+relationship = "domain-consumer"
+profiles = ["deterministic-world", "multi-agent-task", "evidence-replay"]
+
+[[projects]]
+id = "ordivon-security"
+repository = "https://github.com/zycxfyh/ordivon-security"
+local_path = "ordivon-security"
+relationship = "research-consumer"
+profiles = ["campaign-world", "independent-observer", "reset-replay"]
+
+[[projects]]
+id = "ordivon-web"
+repository = "https://github.com/zycxfyh/ordivon-web"
+local_path = "ordivon-web"
+relationship = "interface-consumer"
+profiles = ["project-navigation", "artifact-presentation"]
