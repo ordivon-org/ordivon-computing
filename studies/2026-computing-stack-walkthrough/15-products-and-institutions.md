@@ -98,4 +98,4 @@ human value and goal
 → revised goal
 ```
 
-This closes the fourteen-layer stack from physical state to institution.
+This completes the walkthrough from physical state to institution. It is a whole-world research route, not a claim that Ordivon should implement every layer; the current responsibility boundary is derived in [`../2026-classical-to-agent-native-computing/`](../2026-classical-to-agent-native-computing/).

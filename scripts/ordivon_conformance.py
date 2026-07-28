@@ -448,11 +448,18 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "research/experiments/task-continuation-v0/tests",
         "research/experiments/task-continuation-v0/scripts",
         "research/evidence",
+        "scripts/check_foundational_docs.py",
         "scripts/ordivon_conformance.py",
     ]
     commands: list[tuple[str, list[str], Path, dict[str, str]]] = [
         ("compileall", [python, "-m", "compileall", "-q", *static_paths], ROOT, {}),
         ("ruff", [ruff, "check", *static_paths], ROOT, {}),
+        (
+            "foundational-docs",
+            [python, "scripts/check_foundational_docs.py"],
+            ROOT,
+            {},
+        ),
         (
             "protocol",
             [python, "-m", "unittest", "discover", "-s", "tests"],

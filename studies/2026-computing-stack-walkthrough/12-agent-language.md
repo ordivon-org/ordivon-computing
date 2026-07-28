@@ -33,7 +33,7 @@ Stable work units and their true dependencies. It supports scheduling, parallel 
 
 ### Effect IR
 
-A concrete proposed observation or world change carrying target, preconditions, capability, payload, idempotent identity, result semantics, and verification.
+A concrete proposed observation or world change carrying stable identity, target, preconditions, capability, payload, declared idempotency and retry semantics, result semantics, and verification. Stable identity supports reconciliation but does not make the external operation inherently idempotent.
 
 ### Fact
 

@@ -1,0 +1,175 @@
+#!/usr/bin/env python3
+"""Validate foundational Ordivon Computing documents without network access."""
+
+from __future__ import annotations
+
+import json
+import re
+from pathlib import Path
+from urllib.parse import unquote, urlsplit
+
+
+ROOT = Path(__file__).resolve().parents[1]
+LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
+REFERENCE = re.compile(r"\[([CAP]\d{2})\]")
+REFERENCE_HEADING = re.compile(r"^### ([CAP]\d{2}) — ", re.MULTILINE)
+
+REQUIRED_PATHS = (
+    "README.md",
+    "core/README.md",
+    "core/foundations.md",
+    "core/stack.md",
+    "core/primitives.md",
+    "knowledge/computing/classical-substrate-and-agent-overlay.md",
+    "knowledge/agents/probabilistic-work-control-loop.md",
+    "knowledge/agents/task-context-authority-effect-evidence.md",
+    "research/questions/ANC-STACK-001-classical-to-agent-native-transition.md",
+    "studies/2026-classical-to-agent-native-computing/README.md",
+    "studies/2026-classical-to-agent-native-computing/REFERENCES.md",
+)
+
+
+def markdown_paths(root: Path) -> list[Path]:
+    paths = [root / "README.md", root / "research" / "README.md"]
+    for directory in (
+        root / "core",
+        root / "knowledge",
+        root / "studies",
+    ):
+        paths.extend(sorted(directory.rglob("*.md")))
+    paths.append(
+        root
+        / "research"
+        / "questions"
+        / "ANC-STACK-001-classical-to-agent-native-transition.md"
+    )
+    return sorted(set(paths))
+
+
+def _link_target(raw: str) -> str:
+    raw = raw.strip()
+    if raw.startswith("<") and raw.endswith(">"):
+        raw = raw[1:-1]
+    # Optional Markdown titles are not used by foundational documents. Splitting
+    # protects a future simple title without turning it into a filesystem path.
+    if " \"" in raw:
+        raw = raw.split(" \"", 1)[0]
+    return raw
+
+
+def broken_relative_links(root: Path, paths: list[Path]) -> list[str]:
+    issues: list[str] = []
+    for path in paths:
+        if not path.is_file():
+            issues.append(f"missing foundational document: {path.relative_to(root)}")
+            continue
+        text = path.read_text(encoding="utf-8")
+        for match in LINK.finditer(text):
+            raw = _link_target(match.group(1))
+            parsed = urlsplit(raw)
+            if parsed.scheme or parsed.netloc or raw.startswith(("#", "mailto:")):
+                continue
+            target_text = unquote(parsed.path)
+            if not target_text:
+                continue
+            target = (path.parent / target_text).resolve()
+            try:
+                target.relative_to(root.resolve())
+            except ValueError:
+                issues.append(
+                    f"link escapes repository: {path.relative_to(root)} -> {raw}"
+                )
+                continue
+            if not target.exists():
+                issues.append(
+                    f"broken relative link: {path.relative_to(root)} -> {raw}"
+                )
+    return issues
+
+
+def reference_issues(root: Path) -> list[str]:
+    study = root / "studies" / "2026-classical-to-agent-native-computing"
+    ledger = study / "REFERENCES.md"
+    if not ledger.is_file():
+        return ["primary-source ledger is missing"]
+    declared = set(REFERENCE_HEADING.findall(ledger.read_text(encoding="utf-8")))
+    issues: list[str] = []
+    if not declared:
+        issues.append("primary-source ledger declares no reference identifiers")
+    used: set[str] = set()
+    for path in sorted(study.glob("*.md")):
+        if path == ledger:
+            continue
+        used.update(REFERENCE.findall(path.read_text(encoding="utf-8")))
+    for identifier in sorted(used - declared):
+        issues.append(f"undeclared primary-source reference: {identifier}")
+    if not used:
+        issues.append("transition study uses no primary-source references")
+    return issues
+
+
+def architecture_issues(root: Path) -> list[str]:
+    issues: list[str] = []
+    stack = (root / "core" / "stack.md").read_text(encoding="utf-8")
+    if "## 1. Inherited substrate map" not in stack:
+        issues.append("core stack lacks inherited substrate map")
+    if "## 2. Agent-native responsibility overlay" not in stack:
+        issues.append("core stack lacks Agent-native responsibility overlay")
+
+    for relative in ("README.md", "core/README.md", "core/stack.md"):
+        text = (root / relative).read_text(encoding="utf-8").lower()
+        if "fourteen-layer stack" in text or "fourteen vertical layers" in text:
+            issues.append(f"obsolete single-stack wording remains in {relative}")
+
+    for path in markdown_paths(root):
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8").lower()
+        if "idempotent identity" in text:
+            issues.append(
+                f"Effect identity is still conflated with idempotency in {path.relative_to(root)}"
+            )
+
+    research_map = (root / "research" / "map.yaml").read_text(encoding="utf-8")
+    required = (
+        "schema_version: 3",
+        "- id: ANC-STACK",
+        "- id: ANC-STACK-001",
+        "file: questions/ANC-STACK-001-classical-to-agent-native-transition.md",
+        "responsibilities: [",
+    )
+    for fragment in required:
+        if fragment not in research_map:
+            issues.append(f"research map lacks required fragment: {fragment}")
+    if re.search(r"^\s+layers:", research_map, re.MULTILINE):
+        issues.append("research map still binds construction tracks to obsolete L-layers")
+    return issues
+
+
+def check_repository(root: Path = ROOT) -> list[str]:
+    issues: list[str] = []
+    for relative in REQUIRED_PATHS:
+        if not (root / relative).is_file():
+            issues.append(f"required path is missing: {relative}")
+    paths = markdown_paths(root)
+    issues.extend(broken_relative_links(root, paths))
+    issues.extend(reference_issues(root))
+    issues.extend(architecture_issues(root))
+    return sorted(set(issues))
+
+
+def main() -> int:
+    issues = check_repository()
+    document = {
+        "schemaVersion": 1,
+        "kind": "ordivon-foundational-docs-check",
+        "checkedMarkdownFiles": len(markdown_paths(ROOT)),
+        "ok": not issues,
+        "issues": issues,
+    }
+    print(json.dumps(document, indent=2, ensure_ascii=False, sort_keys=True))
+    return 0 if not issues else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

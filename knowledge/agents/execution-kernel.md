@@ -1,100 +1,93 @@
-# Agent Execution Kernel
+# Open-Work Control and Effect Execution
 
-An Agent execution kernel makes work persist beyond a single model response or conversation.
+The phrase “Agent execution kernel” can hide two different responsibilities. They should be separated.
 
-## Kernel role
+## 1. Open-work control
 
-Linux manages processes, files, memory, devices, and networking. An Agent kernel manages higher-level semantic objects:
+Open-work control preserves the meaning and frontier of a Goal whose decomposition can change through model cognition and new evidence.
 
 ```text
 Goal
-Task
-Attempt
+→ dynamic Task frontier
+→ Attempt or Branch
+→ bounded Context
+→ candidate Claim or Effect
+→ revised Task state
+```
+
+It owns semantic continuity across:
+
+- model and provider replacement;
+- context reset or compaction;
+- failed Attempts;
+- Host and Runtime restart;
+- changing repository or Tool revisions;
+- human redirection;
+- new evidence that invalidates the plan.
+
+This is not generic durable workflow. Kubernetes Jobs and Temporal Workflows already preserve declared work across process and machine failure. The Agent-specific problem is preserving and revising work whose path is not completely encoded in advance.
+
+## 2. Effect execution
+
+Effect execution preserves the commitment boundary between a selected proposal and classical reality.
+
+```text
 Effect
-Workspace
-Observation
-Artifact
-Checkpoint
-Fact
+→ authority and contract Binding
+→ Dispatch
+→ backend Job or synchronous operation
+→ Observation / Artifact
+→ reconciliation and verification
 ```
 
-It connects model cognition to durable execution without replacing the operating system beneath it.
+It owns:
 
-## Execution loop
+- stable Effect identity;
+- concrete Dispatch identity;
+- Tool-contract binding;
+- declared retry and idempotency semantics;
+- explicit unknown outcome;
+- physical execution evidence;
+- cancellation and recovery.
 
-```text
-load persistent task state
-→ find ready Tasks
-→ create or resume an Attempt
-→ request the next cognitive step
-→ prepare Effects
-→ execute through tools
-→ preserve Observations and Artifacts
-→ update the Task Graph
-→ checkpoint at useful boundaries
-```
+The operating system, database, Tool, or remote service still owns the physical mechanism.
 
-The model is a replaceable cognitive component inside this loop. The Task and its world state remain stable.
+## 3. Why one monolithic kernel is undesirable
 
-## Asynchronous work
+Collapsing both responsibilities creates several errors:
 
-Long operations return an execution identity rather than holding one model call open:
+- a Runtime Job is mistaken for a Task;
+- process completion is mistaken for Goal completion;
+- a Task planner is forced into the trusted execution boundary;
+- a model-generated plan can rewrite physical history;
+- generic workflow durability is incorrectly claimed as Agent-native;
+- every domain is pressured into one universal object model.
 
-```text
-submit
-→ accepted with execution_id
-→ observe progress
-→ completed / failed / unknown
-```
+A thin commitment kernel can remain stable while Hosts, planners, memory systems, and products evolve more rapidly.
 
-Progress should expose semantic phases and recent activity, not merely “running.” This allows both users and later models to distinguish active work from a stalled process.
+## 4. Recovery differs at each boundary
 
-## Recovery
+### Physical recovery
 
-Recovery starts from persistent state and re-observes reality:
+Re-observe process, Job, file, service, or remote object state. Reconcile a lost response without blind redispatch.
 
-1. load the latest checkpoint;
-2. verify workspace and repository bindings;
-3. find active processes and completed effects;
-4. reconcile effects with unknown outcomes;
-5. rebuild the set of ready Tasks;
-6. continue from the current world.
+### Semantic recovery
 
-Recovery is not a replay of the entire conversation. It is a reconstruction of the minimum sufficient current state.
+Restore the current Goal, Task frontier, Attempts, world bindings, Claims, accepted Facts, and relevant Artifacts. Recompile context for a new cognitive episode.
 
-## Unknown outcome
+### Human recovery
 
-A connection can disappear after an effect was dispatched. The action may have succeeded, failed, or remained in progress. The correct state is `unknown`, followed by a new observation of the target system.
+Present an unresolved decision, consequence, or ambiguity with evidence and alternatives.
 
-```text
-lost response
-→ inspect world state
-→ identify actual outcome
-→ continue
-```
+No single conversation transcript is sufficient for all three.
 
-## Versioned workspaces
+## 5. Ordivon mapping
 
-A Workspace acts as a versioned logical address space. Multiple Attempts can branch from the same base, construct candidates independently, and later compare or integrate them. This reduces coordination through global mutable state.
+- `ordivon-runtime` implements a trusted-local Effect execution and recovery boundary;
+- `ordivon-host` implements bounded open-work, context, admission, and verification slices;
+- `ordivon-protocol` carries selected Effect, ToolContract, and Binding contracts;
+- the Semantic Core experiment tests stable identity, uncertainty, authority, evidence, and replay across two backends.
 
-## Event history and current state
+The general Task runtime, cognitive scheduler, memory governance, and operator decision plane remain incomplete research areas.
 
-A kernel can preserve both:
-
-- an event history for explanation, learning, and reconstruction;
-- materialized current state for fast scheduling and continuation.
-
-The event history records what happened. The current state records what is true now.
-
-## Design consequence
-
-The central kernel property is continuity:
-
-```text
-models may change
-connections may change
-attempts may fail
-but Goal, state, artifacts, and verified facts continue
-```
-
-See the [Agent kernel study](../../studies/2026-computing-stack-walkthrough/13-agent-kernel.md) and the [Ordivon case](../cases/ordivon-as-agent-kernel.md).
+See [`probabilistic-work-control-loop.md`](probabilistic-work-control-loop.md) and the [transition study](../../studies/2026-classical-to-agent-native-computing/README.md).

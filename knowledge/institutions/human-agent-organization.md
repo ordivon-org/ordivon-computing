@@ -1,91 +1,122 @@
 # Human–Agent Products and Organization
 
-The final layer of the stack turns Agent cognition and execution into sustained human value.
+Agent capability changes the allocation of work, attention, and responsibility. It does not remove human purpose or consequence ownership.
 
-## Product objects
+## Persistent product objects
 
-A chat message is an effective entry point for open goals, but long-running work needs visible persistent objects:
+A conversation is an effective entry point for an open Goal, but sustained work needs visible durable objects:
 
 ```text
-Conversation
-+ Goal
-+ Task Graph
-+ Workspace
-+ Execution Timeline
-+ Artifacts
-+ Current Facts
+Goal and constraints
++ Task frontier and Attempts
++ current world bindings
++ Context inputs
++ Effects and Dispatches
++ Artifacts, Claims, and verified Facts
++ decisions that require the operator
 ```
 
-Conversation carries meaning and negotiation. The workspace carries continuing work.
+Conversation carries negotiation and explanation. Durable work objects carry continuity and authority.
 
-## Human and Agent strengths
+## Division of responsibility
 
-People contribute direction, values, social context, importance judgments, and responsibility for consequences. Agents contribute high-throughput reading, candidate generation, repeated execution, cross-tool coordination, and continuous observation.
+People contribute:
 
-The useful division is not “human commands, Agent obeys,” but:
+- purpose and priority;
+- values and tradeoffs;
+- social and domain context;
+- acceptance of irreversible consequences;
+- judgment where evidence is incomplete or objectives conflict.
+
+Agents contribute:
+
+- high-throughput reading and candidate generation;
+- repeated bounded execution;
+- cross-tool observation;
+- independent alternatives and counterexamples;
+- continuous maintenance when completion criteria are explicit.
+
+The useful structure is:
 
 ```text
-human direction and meaning
+human purpose and consequence ownership
 + Agent exploration and execution
-+ shared feedback from reality
++ deterministic evidence from reality
 ```
+
+## Operator attention is a system resource
+
+As Agent throughput rises, per-action approval becomes both expensive and unreliable. A product should distinguish:
+
+- reversible exploration that can proceed under a bounded grant;
+- ordinary effects covered by an explicit policy;
+- novel, ambiguous, costly, or irreversible effects that require escalation;
+- claims that lack sufficient evidence for acceptance;
+- conflicts among Goals or projects that require human priority.
+
+A decision request should include the reason, alternatives, evidence, consequence, reversibility, and cost of delay. Asking the user to approve every Tool call transfers policy execution back to a fatigued human.
 
 ## Multi-Agent collaboration
 
-Multiple Agents create value when the Task Graph contains real independent structure and results can be joined through stable artifacts. Common patterns include:
+Multiple Agents create value only when work contains real independent structure and results can be compared or joined through stable artifacts.
 
-- pipelines across research, implementation, testing, and integration;
-- parallel candidate exploration in isolated workspaces;
-- specialist routing by task capability;
-- a shared blackboard of Goals, Tasks, Facts, and Artifacts;
-- manager–worker decomposition for coherent large goals.
+Useful forms include:
 
-A join is not merely waiting for several messages. It is a state-reduction step that combines independently produced artifacts into a new task context.
+- independent research or design candidates;
+- specialist execution against separate Workspaces;
+- actor and independent verifier separation;
+- pipeline stages with explicit input and output contracts;
+- bounded adversarial or counterexample search.
+
+A Join is a state-reduction operation, not merely several messages arriving:
+
+```text
+independent Attempts
+→ Artifacts, Claims, and evidence
+→ explicit comparison or integration rule
+→ accepted result or unresolved conflict
+```
+
+More Agents can also increase duplicate work, shared-error amplification, token cost, and merge complexity. Agent count is not a maturity metric.
 
 ## Handoff and institutional memory
 
-A Task Capsule can transfer:
+A continuation record should transfer current semantic state rather than an unfiltered transcript:
 
 ```text
 Goal
-current state
-world bindings
-verified facts
-relevant artifacts
-available capabilities
-next ready work
+active Task frontier
+world and contract revisions
+Attempts and unresolved uncertainty
+verified Facts and Claims under evaluation
+relevant Artifacts
+next admissible work
 ```
 
-This is more useful than transferring an unfiltered conversation history.
-
-Organizational memory grows through layers:
+Organizational memory can then evolve through explicit promotion:
 
 ```text
 raw events
-→ artifacts
-→ facts
-→ reusable knowledge
-→ current system models
-→ core principles
+→ Observations and Artifacts
+→ verified Facts
+→ reusable Knowledge
+→ challenged Core principles
 ```
 
-## Feedback and evaluation
+## Evaluation and economics
 
-What a system measures shapes Agent behaviour. Local metrics such as number of commits or tests passed are useful signals but do not fully represent Goal progress. Evaluation should remain connected to actual world outcomes, reusable knowledge, continuity, and resource cost.
+Local metrics such as commits, tests, tokens, or Agent turns can be useful operational signals. They do not establish Goal progress.
 
-Errors are organizational learning inputs. Repeated friction can reveal an incorrect world model, a missing abstraction, a poor task boundary, or a weak interface.
+A personal Agent system should optimize for outcomes such as:
 
-## Economic implication
+- accepted results per active human minute;
+- recovery after interruption;
+- independent verification rate;
+- duplicate or abandoned work;
+- cost per accepted result;
+- entropy introduced into repositories and operations;
+- important decisions surfaced without approval fatigue.
 
-As code and information production become less scarce, value shifts toward:
+As generation becomes cheaper, value moves toward problem selection, unique world access, reliable verification, durable continuity, user trust, and responsibility for consequences.
 
-- selecting meaningful problems;
-- unique data and world access;
-- reliable verification;
-- user trust and distribution;
-- stateful execution networks;
-- responsibility for long-term consequences.
-
-Agent-native organizations therefore coordinate Goals, capabilities, execution, artifacts, and feedback rather than only fixed reporting lines.
-
-See the [products and institutions study](../../studies/2026-computing-stack-walkthrough/15-products-and-institutions.md).
+See the [probabilistic work-control loop](../agents/probabilistic-work-control-loop.md) and the [transition study](../../studies/2026-classical-to-agent-native-computing/README.md).

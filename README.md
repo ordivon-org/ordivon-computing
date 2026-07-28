@@ -1,132 +1,145 @@
 # Ordivon Computing
 
-**Toward a computing stack designed for probabilistic cognition, persistent execution, and human–agent collaboration.**
+**Researching and constructing the semantic control layer between probabilistic cognition and classical computing.**
 
-中文：Ordivon 的智能体原生计算体系、结构化研究、协议与验证母项目。
+中文：Ordivon 的智能体原生计算研究、协议、参考实验与跨项目验证母项目。
 
 ## What this repository is
 
-Ordivon Computing is the system-level research, specification, and construction root for an agent-native computing stack in which foundation models participate directly in reasoning, programming, system operation, research, and coordination.
+Ordivon Computing studies the complete computing world, but it does not treat that world as an implementation roadmap. Mature operating systems, databases, networks, version-control systems, compilers, isolation mechanisms, model runtimes, and durable workflow engines remain the classical substrate.
 
-The repository is organized as a knowledge-generation system rather than a flat collection of documents:
+The repository focuses construction where probabilistic model cognition creates an unowned system responsibility:
 
 ```text
-real workloads, learning, errors, and observations
+human purpose
+→ persistent open work
+→ version-bound context
+→ probabilistic proposal
+→ authority and Effect admission
+→ classical execution
+→ Observation and Artifact evidence
+→ Verification, revised work, or human decision
+```
+
+Its role is research synthesis, specification, reference experiments, protocol promotion, conformance, and evidence—not ownership of every product implementation or lower computing layer.
+
+## Knowledge-generation system
+
+```text
+real workloads, primary sources, failures, and observations
                     ↓
                  Studies
                     ↓ distill
                 Knowledge
                     ↓ compress
                    Core
-                    ↓ generate questions
+                    ↓ generate falsifiable questions
                  Research
                     ↓ construct and test
                  Projects
-                    └────────→ new observations
+                    └────────→ new evidence
 ```
-
-## Repository map
 
 | Area | Role | Entry point |
 |---|---|---|
-| **Core** | Minimal, high-generativity foundations that define the current theory | [`core/`](core/) |
-| **Knowledge** | Reusable explanations, models, comparisons, and cases | [`knowledge/`](knowledge/) |
-| **Studies** | Learning paths and preserved derivations | [`studies/2026-computing-stack-walkthrough/`](studies/2026-computing-stack-walkthrough/) |
-| **Research** | Open questions, hypotheses, executable experiments, and immutable evidence snapshots | [`research/`](research/) |
-| **Projects** | The real systems through which ideas are constructed and tested | [`projects/`](projects/) |
+| **Core** | Minimal current theory and responsibility boundaries | [`core/`](core/) |
+| **Knowledge** | Reusable explanations, comparisons, and cases | [`knowledge/`](knowledge/) |
+| **Studies** | Preserved derivations and source-grounded learning paths | [`studies/`](studies/) |
+| **Research** | Questions, competing hypotheses, experiments, and immutable evidence | [`research/`](research/) |
+| **Projects** | Real systems through which ideas are constructed and tested | [`projects/`](projects/) |
+
+Two studies are especially important:
+
+- [`studies/2026-computing-stack-walkthrough/`](studies/2026-computing-stack-walkthrough/) — the complete physical-to-institutional computing route;
+- [`studies/2026-classical-to-agent-native-computing/`](studies/2026-classical-to-agent-native-computing/) — the strict derivation of what remains classical, what Agents merely amplify, and what responsibilities are genuinely rewritten or new.
 
 ## Core thesis
 
-Foundation models provide probabilistic cognition: interpretation, inference, planning, generation, comparison, and revision. A wider computing stack turns that cognition into persistent work through structured effects, durable state, world interfaces, verification, recovery, and human direction.
+Foundation models provide useful probabilistic proposals under selected context. They do not automatically provide durable work state, current authority, external observations, verified facts, or responsibility for consequences.
 
-The current core is intentionally compact:
-
-- [`core/foundations.md`](core/foundations.md) — the working foundations;
-- [`core/stack.md`](core/stack.md) — the fourteen-layer stack and five cross-cutting planes;
-- [`core/primitives.md`](core/primitives.md) — executable Kernel primitives, backend objects, and future Task-Runtime candidates with explicit boundaries.
-
-## How the research advances
+Ordivon therefore studies and constructs a hybrid boundary:
 
 ```text
-observe a real workload
-→ form a question
-→ build the smallest useful artifact
-→ run it in practice
-→ treat errors and friction as information
-→ revise the idea and implementation
-→ preserve the result as reusable knowledge or a project branch
+probabilistic cognition
+inside
+persistent deterministic identity, authority, commitment, and evidence
+above
+classical execution, storage, networking, isolation, and model serving
 ```
 
-Knowledge moves toward the core only after repeated use shows that it is stable, generative, and shared across projects. The Git history preserves replaced formulations; the repository foregrounds the current best structure.
+The compact Core is:
 
-## Initial executable questions
+- [`core/foundations.md`](core/foundations.md) — working foundations;
+- [`core/stack.md`](core/stack.md) — inherited substrate and Agent-native responsibility overlay;
+- [`core/primitives.md`](core/primitives.md) — backend objects, executable semantic primitives, promoted protocol objects, Host-proven work objects, and explicit research candidates.
 
-- What is the minimum useful Agent Effect IR?
-- What durable state allows a long-running task to continue across model and session boundaries?
-- How should hosts, agents, and runtimes detect and adopt tool-contract changes?
-- How should people and multiple Agents coordinate around persistent goals and artifacts?
-- How can an Agent system learn across tasks, compile capabilities, regulate cognition, and evolve itself through evidence-governed change?
+## Research discipline
 
-See [`research/map.yaml`](research/map.yaml) and [`research/questions/`](research/questions/).
+A proposed Agent-native layer must answer:
+
+```text
+Which mature lower mechanism is insufficient?
+What exact invariant remains unowned?
+What realistic trajectory fails if it is bypassed?
+What second workload demonstrates the same responsibility?
+Why is a new shared component better than a local policy or adapter?
+```
+
+Research interest does not imply implementation. A concept moves toward Core only after primary-source comparison, executable evidence, counterexamples, and deletion tests.
+
+## Current questions
+
+- [`ANC-STACK-001`](research/questions/ANC-STACK-001-classical-to-agent-native-transition.md) — classical substrate versus Agent-native responsibility;
+- [`ANC-IR-001`](research/questions/ANC-IR-001-agent-effect-ir.md) — minimum useful Agent Effect IR;
+- [`ANC-MEMORY-001`](research/questions/ANC-MEMORY-001-task-continuity.md) — minimum durable state for open-work continuity;
+- [`ANC-EFFECT-001`](research/questions/ANC-EFFECT-001-tool-contract-evolution.md) — Tool-contract change and rebinding;
+- [`ANC-ORG-001`](research/questions/ANC-ORG-001-agent-native-organization.md) — human and multi-Agent coordination around persistent work;
+- [`ANC-ADAPT-001`](research/questions/ANC-ADAPT-001-agent-era-capabilities.md) — evidence-governed adaptation;
+- [`ANC-SECURITY-001`](research/questions/ANC-SECURITY-001-adversarial-agent-systems.md) — adversarial Agent capability under independently bounded consequence.
+
+See [`research/map.yaml`](research/map.yaml).
 
 ## Project roles
 
-- **Ordivon Host** — durable Agent control plane, cognition context, Task continuity, and Runtime coordination.
-- **Ordivon Runtime** — durable trusted-local execution, Workspace, Job, Artifact, and recovery plane.
-- **Ordivon Link** — programmable network and communication fabric.
-- **Ordivon Edge** — distributed external presence and execution fabric.
-- **Ordivon Finance** — capital-domain Agent application for truth, authority, decision, execution, and reconciliation.
-- **Ordivon Game** — Agent-native virtual world, replay, and evaluation application.
-- **Ordivon Security** — full-spectrum adversarial Agent systems laboratory.
-- **Ordivon Web** — public interface and project navigation.
+- **Ordivon Host** — bounded durable Goal and Task control, context compilation, candidate admission, Effect coordination, verification, and recovery;
+- **Ordivon Runtime** — trusted-local Workspace, Job, Attempt, Artifact, physical dispatch, cancellation, reconciliation, and recovery;
+- **Ordivon Link** — local network observation, controlled egress, Network World, and reference transport slices;
+- **Ordivon Edge** — Cloudflare external Fetch, Browser, Artifact, receipt, and remote-body lifecycle experiments;
+- **Ordivon Finance** — capital-domain truth, authority, decision, effect, and reconciliation laboratory;
+- **Ordivon Game** — deterministic world, role-local context, coordination, replay, and evaluation laboratory;
+- **Ordivon Security** — Campaign, consequence-envelope, independent judge, evidence, and reconstruction contracts;
+- **Ordivon Web** — public publication and project navigation.
 
-See [`projects/registry.yaml`](projects/registry.yaml).
+The exact stable declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each product repository.
 
-## Protocol and conformance base
+## Protocol and conformance
 
-[`packages/ordivon-protocol/`](packages/ordivon-protocol/) is the authoritative production-candidate Protocol source. [`projects/conformance.toml`](projects/conformance.toml) declares stable repository identities, Protocol relationships, and conformance profiles without duplicating mutable deployment or maturity state.
+[`packages/ordivon-protocol/`](packages/ordivon-protocol/) is the production-candidate source for selected cross-boundary contracts. It is not a universal internal ontology. Direct consumption and conformance must be demonstrated mechanically rather than inferred from similar terminology.
 
-One root command owns the complete deterministic gate:
+The deterministic gate is:
 
 ```bash
 python3.12 scripts/ordivon_conformance.py gate \
   --receipt /tmp/ordivon-conformance-receipt.json
 ```
 
-The same executable can inspect a real sibling-repository installation, verify the independent Host's exact Protocol pin, and emit an integrity-bound revision vector or immutable System Snapshot:
-
-```bash
-python3.12 scripts/ordivon_conformance.py vector \
-  --require-all --require-clean
-```
-
-This makes Computing the Protocol, conformance, and cross-project synthesis base without moving product code or live state back into the mother repository.
+It validates protocol, experiments, evidence, project identity, cross-language canonical vectors, and foundational-document integrity.
 
 ## Executable Semantic Core
 
-The repository contains a completed executable reference Kernel at [`research/experiments/semantic-core-v0/`](research/experiments/semantic-core-v0/) and a separate active external contract experiment at [`research/experiments/external-semantic-contract-v0/`](research/experiments/external-semantic-contract-v0/). It occupies the semantic boundary between probabilistic cognition and classical execution substrates:
+[`research/experiments/semantic-core-v0/`](research/experiments/semantic-core-v0/) is a closed reference experiment at the semantic commitment boundary:
 
 ```text
-Probabilistic cognition
-        ↓ proposes an Effect
-Role-scoped Semantic Core
-        ↓ admits a Dispatch
-Ordivon / Linux / external systems
-        ↓ produce Observation and Artifact evidence
-Verification
-        ↓
-Fact admission
+probabilistic proposal
+→ role-scoped Effect admission
+→ concrete Dispatch through a backend
+→ Observation and Artifact evidence
+→ Verification
+→ bounded Fact admission
 ```
 
-The Kernel preserves stable internal intent, concrete boundary attempts, explicit uncertainty, evidence provenance, signed authority, and authenticated replay. The external contract experiment separately owns backend-neutral EffectEnvelope, ToolContract, and immutable EffectBinding representations. Linux, SQLite, Git, and Ordivon continue to provide the classical execution and durability mechanisms beneath them.
-
-Start with:
-
-- [`KERNEL-CHARTER.md`](research/experiments/semantic-core-v0/KERNEL-CHARTER.md) — mission and hard guarantees;
-- [`SPEC.md`](research/experiments/semantic-core-v0/SPEC.md) — objects, state algebra, evidence, and invariants;
-- [`CONFORMANCE.md`](research/experiments/semantic-core-v0/CONFORMANCE.md) — executable and live evidence;
-- [Program #1](https://github.com/zycxfyh/ordivon-computing/issues/1) — dynamic dependency clusters and Ready Frontier.
+It preserves identity, explicit uncertainty, evidence provenance, authority, and replay while delegating byte durability, processes, files, and transport to classical systems. [`research/experiments/external-semantic-contract-v0/`](research/experiments/external-semantic-contract-v0/) separately tests public Effect, ToolContract, and EffectBinding boundaries.
 
 ## Coordination and state
 
-Repository documents describe stable theory, contracts, decisions, and reproducible evidence. GitHub Issues own changing task state, dependencies, discussion, and readiness; Git commits own code revision. Cross-repository experiments use immutable [`System Snapshots`](research/evidence/) to bind exact revisions and evidence digests. The repository does not maintain a second textual “current phase” or mutable deployment manifest.
+Documents preserve stable theory, contracts, sources, and reproducible evidence. GitHub Issues own changing task state and dependencies. Git commits own code revision. Immutable [`System Snapshots`](research/evidence/) bind exact historical repository and Artifact combinations without becoming a second mutable deployment registry.

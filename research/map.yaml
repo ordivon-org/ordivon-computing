@@ -1,16 +1,22 @@
-schema_version: 2
+schema_version: 3
 project: ordivon-computing
 
 baseline:
   model_architecture:
-    statement: Transformer-family models form the operational starting point.
+    statement: Foundation models provide the current operational baseline for probabilistic cognition under selected context.
     epistemic_status: working_fact
-    evolution: The baseline follows new architectures, evidence, and observed workloads.
+    evolution: Stable responsibilities should survive model, provider, and harness replacement.
+  substrate_boundary:
+    statement: Mature classical systems remain authoritative for physical execution, isolation, transactions, transport, version control, model serving, and declared durable workflows.
+    epistemic_status: working_structure
+    evolution: Lower-layer implementation begins only after evidence demonstrates an unowned invariant or material bottleneck.
   repository_architecture:
     statement: Core, Knowledge, Studies, Research, and Projects form one knowledge-generation loop.
     epistemic_status: working_structure
 
 branches:
+  - id: ANC-STACK
+    name: classical-substrate-and-agent-native-responsibility
   - id: ANC-MODEL
     name: model-and-cognitive-computation
   - id: ANC-HOST
@@ -20,21 +26,21 @@ branches:
   - id: ANC-COMPILER
     name: agent-compiler
   - id: ANC-KERNEL
-    name: agent-execution-kernel
+    name: semantic-effect-commitment-kernel
   - id: ANC-MEMORY
-    name: memory-and-state
+    name: context-memory-and-open-work-continuity
   - id: ANC-EFFECT
-    name: tools-capabilities-and-effects
+    name: tools-authority-capabilities-and-effects
   - id: ANC-MULTI
-    name: multi-agent-systems
+    name: cognition-and-multi-agent-coordination
   - id: ANC-HARDWARE
-    name: hardware-isa-and-dataflow
+    name: hardware-isa-and-dataflow-research
   - id: ANC-VERIFY
-    name: verification-and-benchmarks
+    name: evidence-verification-and-benchmarks
   - id: ANC-ADAPT
     name: agent-adaptation-and-self-evolution
   - id: ANC-ORG
-    name: organization-economics-and-coordination
+    name: operator-governance-organization-and-economics
   - id: ANC-SECURITY
     name: adversarial-agent-systems-and-containment
   - id: ANC-GAME
@@ -42,7 +48,7 @@ branches:
 
 construction_program:
   id: ANC-MACHINE-V0
-  title: Construct the Agent-Native Machine
+  title: Construct the Agent-Native Responsibility Overlay
   carrier: github_issue
   github_issue: 1
   tracks:
@@ -50,47 +56,47 @@ construction_program:
       name: public-agent-effect-ir
       branch: ANC-IR
       github_issue: 2
-      layers: [L6, L10]
+      responsibilities: [R5, R6, R7]
     - id: ANC-KERNEL-001
-      name: portable-durable-agent-execution-kernel
+      name: portable-semantic-effect-commitment-kernel
       branch: ANC-KERNEL
       github_issue: 3
-      layers: [L5, L11]
+      responsibilities: [R5, R6, R7]
     - id: ANC-MEMORY-001
-      name: task-capsule-and-agent-memory-runtime
+      name: task-capsule-context-and-open-work-continuity
       branch: ANC-MEMORY
       github_issue: 4
-      layers: [L2, L7, L10, L11]
+      responsibilities: [R2, R3, R7]
     - id: ANC-HOST-001
       name: provider-neutral-agent-host-and-context-compiler
       branch: ANC-HOST
       github_issue: 5
-      layers: [L7, L10, L11]
+      responsibilities: [R2, R3, R4, R5, R6, R7]
     - id: ANC-EFFECT-001
-      name: tool-abi-catalog-identity-and-contract-rebinding
+      name: tool-contract-identity-and-effect-rebinding
       branch: ANC-EFFECT
       github_issue: 6
-      layers: [L10, L12]
+      responsibilities: [R5, R6]
     - id: ANC-COMPILER-001
-      name: agent-vm-and-dynamic-task-dataflow
+      name: dynamic-task-dataflow-and-cognitive-control
       branch: ANC-COMPILER
       github_issue: 7
-      layers: [L3, L4, L6, L10]
+      responsibilities: [R2, R4, R6]
     - id: ANC-MULTI-001
       name: multi-agent-branch-join-and-artifact-coordination
       branch: ANC-MULTI
       github_issue: 8
-      layers: [L11, L13]
+      responsibilities: [R2, R3, R4, R7]
     - id: ANC-VERIFY-001
       name: agent-evaluation-replay-and-post-training-flywheel
       branch: ANC-VERIFY
       github_issue: 9
-      layers: [L9, L10, L11, L12, L13]
+      responsibilities: [R4, R7]
     - id: ANC-ORG-001
-      name: goal-workspace-and-agent-native-organization-interface
+      name: operator-governance-and-agent-native-organization-interface
       branch: ANC-ORG
       github_issue: 10
-      layers: [L10, L11, L12, L13]
+      responsibilities: [R0, R1, R2, R4, R5, R7]
 
 relation_types:
   depends_on: The target cannot start or finish without the source.
@@ -100,10 +106,22 @@ relation_types:
   feeds_back_to: Results from the source revise the target model or contract.
 
 relations:
+  - from: ANC-STACK-001
+    type: feeds_back_to
+    to: ANC-KERNEL-001
+    meaning: Classical baselines and layer-admission tests constrain what may be claimed as a semantic Kernel invariant.
+  - from: ANC-STACK-001
+    type: feeds_back_to
+    to: ANC-HOST-001
+    meaning: The substrate-overlay boundary separates generic workflow durability from open-work, context, authority, and evidence responsibilities.
+  - from: ANC-STACK-001
+    type: feeds_back_to
+    to: ANC-ORG-001
+    meaning: Human purpose, consequence ownership, and attention are distinguished from ordinary user-interface or approval mechanisms.
   - from: ANC-KERNEL-001
     type: produces
     to: ANC-IR-001
-    meaning: The closed Kernel v0 track produced the semantic, authority, uncertainty, and recovery constraints that the public Effect IR must preserve.
+    meaning: The closed Kernel v0 track produced semantic, authority, uncertainty, and recovery constraints that the public Effect IR must preserve.
   - from: ANC-IR-001
     type: feeds_back_to
     to: ANC-EFFECT-001
@@ -115,31 +133,31 @@ relations:
   - from: ANC-MEMORY-001
     type: feeds_back_to
     to: ANC-HOST-001
-    meaning: Continuation experiments determine what context the Host must compile.
+    meaning: Continuation and invalidation experiments determine what context the Host must compile.
   - from: ANC-HOST-001
     type: feeds_back_to
     to: ANC-MEMORY-001
-    meaning: Host replacement and context compilation expose the minimum durable Task state.
+    meaning: Host replacement and context compilation expose the minimum durable open-work state.
   - from: ANC-IR-001
     type: enables
     to: ANC-COMPILER-001
-    meaning: The VM needs stable Effect and waiting semantics before compiling dynamic Task dataflow.
+    meaning: Dynamic control needs stable Effect, wait, and evidence semantics before compiling revisable Task dataflow.
   - from: ANC-COMPILER-001
     type: enables
     to: ANC-MULTI-001
-    meaning: Explicit branch, wait, and join control state supports independent Agent branches.
+    meaning: Explicit branch, wait, and join control state supports independent Agent Attempts.
   - from: ANC-MULTI-001
     type: feeds_back_to
     to: ANC-COMPILER-001
-    meaning: Real branch and join workloads revise the VM control model.
+    meaning: Real branch and Join workloads revise cognitive control and stopping policy.
   - from: ANC-MULTI-001
     type: enables
     to: ANC-ORG-001
-    meaning: A Goal workspace needs persistent branch, Artifact, and join objects.
+    meaning: An operator workspace needs persistent branch, Artifact, comparison, and Join objects.
   - from: ANC-ORG-001
     type: feeds_back_to
     to: ANC-MULTI-001
-    meaning: Human redirection and review reveal which coordination objects are operationally useful.
+    meaning: Human redirection and review reveal which coordination objects create value rather than overhead.
   - from: ANC-MEMORY-001
     type: enables
     to: ANC-ADAPT-001
@@ -147,19 +165,19 @@ relations:
   - from: ANC-EFFECT-001
     type: enables
     to: ANC-ADAPT-001
-    meaning: Capability compilation requires stable Tool identity, Effect semantics, and contract-change handling.
+    meaning: Capability compilation requires stable Tool identity, Effect semantics, authority, and contract-change handling.
   - from: ANC-MULTI-001
     type: feeds_back_to
     to: ANC-ADAPT-001
-    meaning: Real ownership, handoff, and join failures determine which coordination policies should adapt.
+    meaning: Real ownership, handoff, duplication, and Join failures determine which coordination policies should adapt.
   - from: ANC-VERIFY-001
     type: enables
     to: ANC-ADAPT-001
-    meaning: Replay, evaluation, and counterfactual evidence are required before a learned change can be promoted.
+    meaning: Replay, evaluation, counterfactual evidence, and rollback are required before a learned change can be promoted.
   - from: ANC-ADAPT-001
     type: feeds_back_to
     to: ANC-HOST-001
-    meaning: Evidence from adaptation experiments revises context compilation, provider choice, stopping, and escalation policy.
+    meaning: Adaptation evidence revises context compilation, provider choice, stopping, and escalation policy.
   - from: ANC-GAME-001
     type: feeds_back_to
     to: ANC-HOST-001
@@ -171,7 +189,7 @@ relations:
   - from: ANC-MULTI-001
     type: feeds_back_to
     to: ANC-GAME-001
-    meaning: Multi-Agent ownership, wait, handoff, and join experiments determine which coordination objects are reusable across game families.
+    meaning: Multi-Agent ownership, wait, handoff, and Join experiments determine which coordination objects are reusable across game families.
   - from: ANC-GAME-001
     type: feeds_back_to
     to: ANC-VERIFY-001
@@ -190,40 +208,62 @@ relations:
     meaning: Reproducible evaluation infrastructure is required to test the proposed Capability-Consequence, residual-closure, and Network-World hypotheses.
 
 questions:
+  - id: ANC-STACK-001
+    title: Classical substrate and Agent-native responsibility transition
+    file: questions/ANC-STACK-001-classical-to-agent-native-transition.md
+    branch: ANC-STACK
+    epistemic_status: research_question
+    question: Which responsibilities remain classical, which are only amplified by Agent workloads, and which become structurally new when probabilistic cognition selects and revises actions inside a persistent world-changing loop?
+    evidence_paths:
+      - primary_source_comparison
+      - classical_baseline
+      - cross_project_audit
+      - falsification_experiment
+    related_projects:
+      - ordivon-computing
+      - ordivon-host
+      - ordivon-runtime
+      - ordivon-finance
+      - ordivon-game
+      - ordivon-security
+
   - id: ANC-IR-001
     title: Minimum useful Agent Effect IR
     file: questions/ANC-IR-001-agent-effect-ir.md
     branch: ANC-IR
     epistemic_status: research_question
-    question: What is the smallest representation that expresses targets, capabilities, effects, results, verification, and recovery across models and runtimes?
+    question: What is the smallest representation that expresses targets, authority, effects, results, verification, and recovery across models and runtimes?
     evidence_paths:
       - literature
       - executable_prototype
       - comparative_experiment
     related_projects:
       - ordivon-runtime
+      - ordivon-host
 
   - id: ANC-MEMORY-001
-    title: Minimum durable state for long-running task continuity
+    title: Minimum durable state for open-work continuity
     file: questions/ANC-MEMORY-001-task-continuity.md
     branch: ANC-MEMORY
     epistemic_status: research_question
-    question: What durable state allows a different model instance to understand and continue a long-running task across context and session boundaries?
+    question: What durable state allows a different model and fresh Host to understand, revise, and continue open work across context, process, provider, and world-version boundaries?
     evidence_paths:
       - failure_traces
       - recovery_experiments
+      - durable_workflow_comparison
       - state_minimization_study
     related_projects:
       - ordivon-host
       - ordivon-runtime
       - ordivon-finance
+      - ordivon-game
 
   - id: ANC-EFFECT-001
     title: Tool-contract change detection and adoption
     file: questions/ANC-EFFECT-001-tool-contract-evolution.md
     branch: ANC-EFFECT
     epistemic_status: research_question
-    question: How can a Host, model, and live Runtime detect, classify, and adopt Tool-contract changes during a long-lived task?
+    question: How can a Host, model, and live Runtime detect, classify, and adopt Tool-contract changes during long-lived work without silently changing Effect meaning?
     evidence_paths:
       - protocol_analysis
       - reproduced_change_case
@@ -231,17 +271,19 @@ questions:
       - prototype
     related_projects:
       - ordivon-runtime
+      - ordivon-host
 
   - id: ANC-ORG-001
     title: Agent-native organization around persistent goals
     file: questions/ANC-ORG-001-agent-native-organization.md
     branch: ANC-ORG
     epistemic_status: research_question
-    question: How should people and multiple Agents coordinate through goals, capabilities, artifacts, facts, and feedback rather than conversation history alone?
+    question: How should people and multiple Agents coordinate through Goals, decisions, capabilities, Artifacts, evidence, and feedback while treating human attention as a scarce governed resource?
     evidence_paths:
       - real_multi_agent_workload
       - handoff_experiment
       - artifact_join_experiment
+      - operator_attention_measurement
     related_projects:
       - ordivon-host
       - ordivon-game
@@ -267,6 +309,7 @@ questions:
       - ordivon-finance
       - ordivon-edge
       - ordivon-link
+
   - id: ANC-SECURITY-001
     title: Full-spectrum adversarial Agent systems
     file: questions/ANC-SECURITY-001-adversarial-agent-systems.md
@@ -303,7 +346,6 @@ questions:
       - ordivon-host
       - ordivon-game
       - ordivon-runtime
-
   - id: ANC-SECURITY-002
     title: Agent World, Body, Evaluation, and Evidence Alignment
     file: questions/ANC-SECURITY-002-agent-world-body-evidence-alignment.md

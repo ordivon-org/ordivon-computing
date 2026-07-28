@@ -1,57 +1,82 @@
-# Case: Ordivon as an Agent Execution Microkernel
+# Case: Ordivon Runtime as an Effect Execution Kernel
 
-Ordivon connects a model-hosted conversation to a persistent Linux execution environment. Its importance is not the presence of command execution alone, but the semantic objects exposed around execution.
+Ordivon Runtime connects model-hosted or Host-managed work to a persistent Linux execution environment. Its importance is not command execution alone, but the durable commitment objects around physical execution.
 
 ## Current correspondence
 
-| Agent-kernel concept | Ordivon object or Tool |
+| Commitment concept | Runtime object or Tool |
 |---|---|
-| Workspace | `workspace.open` and a version-bound isolated worktree |
-| Read | `workspace.read` |
-| Candidate state | `workspace.mutate` |
-| Difference from base | `workspace.diff` |
-| Compute or command Effect | `workspace.exec` |
-| Long-running execution identity | Job ID and Attempt ID |
-| Observation | `task.observe` |
-| Active execution discovery | `task.list` |
-| Cancellation | `task.cancel` |
-| Durable output | Job Artifact and `artifact.read` |
-| Workspace lifecycle | `workspace.close` |
+| version-bound operational address space | `workspace.open` and Workspace identity |
+| bounded read and mutation | `workspace.read`, `workspace.mutate`, `workspace.patch` |
+| candidate comparison | `workspace.diff` |
+| physical execution | `workspace.exec`, `workspace.execPlan` |
+| execution identity | Job ID and Attempt ID |
+| progress and result observation | `task.observe`, `task.list` |
+| cancellation | `task.cancel` |
+| durable output | retained Artifact and `artifact.read` |
+| lifecycle closure | `workspace.close` |
 
-## Why this is more than a shell bridge
+## More than a shell bridge
 
-A shell primarily accepts a command string and returns process output. Ordivon adds:
+A shell accepts commands and returns process output. Runtime adds:
 
-- server-owned semantic identities;
-- version-bound workspaces;
-- atomic mutations;
-- idempotent client request identities;
-- asynchronous jobs;
-- retained artifacts;
+- service-owned semantic identities;
+- exact source binding;
+- atomic validated mutations;
+- duplicate request admission control;
+- asynchronous Jobs and Attempts;
+- retained evidence and Artifacts;
+- process-tree ownership;
 - cancellation and closure semantics;
-- recovery through later observation.
+- startup reconciliation and orphan recovery.
 
-These objects allow a model session to leave while the task state continues.
+These properties allow the physical execution history to survive a model session or network response.
 
-## Workspace as logical address space
+## What Runtime does not own
 
-A Workspace begins at an exact repository revision and contains an isolated candidate state. Multiple workspaces can branch from the same revision, explore different changes, and later be compared or integrated.
+Runtime is deliberately trusted-local. A Workspace or Git worktree separates candidate source state; it is not an untrusted-code security sandbox.
 
-This resembles copy-on-write memory and register renaming: shared base state remains stable while candidate versions receive independent identities.
+Runtime also does not own:
 
-## Jobs and attempts
+- human Goal meaning;
+- task decomposition;
+- long-term memory;
+- model choice or context compilation;
+- semantic approval of every Effect;
+- domain Fact admission;
+- operator interface.
 
-A long command returns a Job identity. Observers can reconnect, read progress, inspect retained stdout and stderr, and obtain result artifacts. A failed execution becomes an Attempt with durable evidence rather than an erased conversational moment.
+Those responsibilities remain above or beside it.
+
+## Workspace as versioned candidate state
+
+A Workspace begins from an exact source revision and receives an independent candidate identity. Several Workspaces can explore alternatives without mutating one global checkout.
+
+The analogy to copy-on-write memory is useful for reasoning about identity and branching, but it is not architectural equivalence: Git and the filesystem remain the actual mechanisms.
+
+## Job, Attempt, and Effect
+
+A Runtime Job is a concrete execution-control object. An Attempt records one physical execution path. A semantic Effect can bind to a Job or synchronous receipt through a concrete Dispatch.
+
+```text
+Effect intent
+≠ Dispatch attempt
+≠ Runtime Job
+≠ process
+```
+
+The distinction matters when a response is lost. The system must inspect durable execution evidence rather than ask a new model episode to guess whether the operation happened.
 
 ## Current research leverage
 
-Real dogfood has exposed questions about:
+Real dogfood has exposed:
 
-- progress semantics for multi-hour work;
-- distinguishing active, stalled, failed, and unknown execution;
-- retaining the minimum sufficient continuation state;
-- Tool catalog revision and contract drift;
-- joining multiple workspace branches;
-- exposing task-level objects above raw command execution.
+- semantic progress for long-running work;
+- active, stalled, terminal, orphaned, and unknown execution;
+- at-most-once physical dispatch admission;
+- Tool-contract revision and rebinding;
+- minimum continuation state above Runtime;
+- multi-Workspace candidate integration;
+- boundaries between trusted execution and containment.
 
-These are direct inputs to [`../../research/questions/`](../../research/questions/) and make Ordivon an experimental branch of the wider Agent-native stack.
+These observations feed Host, Protocol, and Computing research. They do not make Runtime a replacement operating system or complete Agent Host.
