@@ -1,5 +1,8 @@
 # Cross-Project Issue Map
 
+> **World migration:** the final narrow Edge #24 and Link #18 experiments were merged into `ordivon-world` #1. Their original rows below remain historical assignments, not active project boundaries.
+
+
 > **Historical issue map:** this chapter records the assignments produced during the earlier classical-to-Agent-native comparison. On 2026-07-29, Computing #57, Edge #21/#25/#26, and Link #13/#19/#20/#21/#22/#23 were closed or frozen. They are not pending roadmap obligations. Current World Interface research is Computing #66/#67/#68, with only Edge #24 and Link #18 retained as narrow product-side evidence carriers.
 
 
