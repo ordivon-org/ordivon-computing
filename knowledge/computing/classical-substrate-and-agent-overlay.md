@@ -20,24 +20,27 @@ An Agent system should inherit these mechanisms rather than rename them.
 A foundation model moves part of semantic program construction into runtime. It receives selected context and produces a statistically generated proposal whose path was not completely encoded when the surrounding application was deployed.
 
 ```text
-open human goal
+participant Goal or request
 → selected context
-→ probabilistic proposal
-→ deterministic admission
+→ open probabilistic proposal
+→ capability and consequence resolution
+→ deterministic commitment
 → classical execution
 → evidence
-→ revised work
+→ revised work or negotiation
 ```
 
 The new responsibility lies around the proposal and its durable consequence:
 
 - preserving open work across replaceable model episodes;
 - compiling bounded context from authoritative state;
-- treating model output as a candidate rather than a fact or command;
-- binding authority to purpose, target, version, budget, and consequence;
+- treating model output as an open candidate rather than a Fact or command;
+- lowering Action Proposals into executable Effects without limiting cognition to a fixed menu;
+- binding capability and consequence to participant, target, version, budget, ownership, and world rules;
 - preserving Effect identity separately from physical Dispatch;
 - distinguishing Observation, Claim, Verification, and Fact;
-- escalating only meaningful decisions to the human consequence owner.
+- routing only meaningful commitments to the responsible participant, verifier, resource owner, or institution;
+- preserving refusal, revocation, and exit where the domain supports them.
 
 ## Five outcomes
 
@@ -62,22 +65,37 @@ durable workflow
   preserves declared control logic
 
 open-work continuity
-  preserves and revises Goal meaning, hypotheses,
-  task frontier, uncertainty, authority, and evidence
+  preserves and revises Goal meaning, proposals,
+  Task frontier, commitments, uncertainty, and evidence
 ```
 
 If a conventional durable workflow can express a workload without losing these semantics, Ordivon should reuse it.
 
+## Capability is not consequence
+
+A system can grant broad capability for reversible private exploration while independently preventing unauthorized use of another participant’s resources or unbounded external consequence.
+
+```text
+stronger cognition and Tools
++ isolation, evidence, resource identity, and recovery
+≠
+weaker cognition plus universal approval gates
+```
+
+Security mechanisms are valuable when they enlarge the sustainable operating envelope. They are not valuable merely because they block actions.
+
 ## Boundary rule
 
-A new Ordivon layer or repository requires:
+A new Ordivon layer, repository, gate, or compatibility path requires:
 
-- a real repeated failure;
+- a real repeated failure or consumer;
 - an invariant not already owned by a mature substrate;
 - a non-bypassable enforcement or evidence boundary;
 - value across multiple workloads;
-- greater benefit than adaptation of an existing project.
+- greater benefit than adaptation of an existing project;
+- measured verification, recovery, or consequence reduction greater than its latency, maintenance, compatibility, and control cost;
+- a deletion trigger when the consumer or protected failure disappears.
 
 Research can remain broader. Studying chips, memory, storage, networks, or model architecture does not obligate Ordivon to implement them.
 
-See the full derivation in [`../../studies/2026-classical-to-agent-native-computing/`](../../studies/2026-classical-to-agent-native-computing/).
+See the full derivation in [`../../studies/2026-classical-to-agent-native-computing/`](../../studies/2026-classical-to-agent-native-computing/) and the civilizational direction in [`../../studies/2026-adaptive-acceleration/`](../../studies/2026-adaptive-acceleration/).

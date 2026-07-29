@@ -1,20 +1,20 @@
 # Agent-Native Primitives and Responsibility Boundaries
 
-This file distinguishes classical backend objects, executable Semantic Core primitives, Host-proven work objects, and research candidates. Similar names do not imply shared authority.
+This file distinguishes classical backend objects, executable Semantic Core primitives, Host-proven work objects, and research candidates. Similar names do not imply shared authority or permanent hierarchy.
 
 ```text
-Open-work and context layer
-Goal / Task / Attempt / Context / Branch / Join / Decision
-                         ↓ proposes
-Semantic commitment layer
-Authority / Effect / Binding / Dispatch / Observation / Artifact
-Claim / Verification / Fact / durable replay
-                         ↓ adapts to
+Participation and open-work layer
+Participant / Goal / Task / Attempt / Context / Branch / Join / DecisionRequest
+                                  ↓ proposes or negotiates
+Proposal and semantic commitment layer
+ActionProposal / CapabilityProfile / Authority / Effect / Binding / Dispatch
+Observation / Artifact / Claim / Verification / Fact / durable replay
+                                  ↓ adapts to
 Classical substrate
 Workspace / process / Job / transaction / file / network / Tool
 ```
 
-A concept belongs in a shared Agent-native layer only when external probabilistic action requires a stable, non-bypassable invariant that lower mechanisms do not already own.
+A concept belongs in a shared Agent-native layer only when persistent probabilistic action requires a stable, non-bypassable invariant that lower mechanisms do not already own and the abstraction produces net acceleration after its costs are counted.
 
 ## 1. Classical backend objects
 
@@ -26,7 +26,7 @@ A version-bound operational address space supplied by a Host or backend. A Git w
 
 ### Process and Job
 
-A process is an operating-system execution object. A backend Job is a durable execution-control object. Either may implement one part of a Task Attempt; neither owns the human Goal or open-work semantics.
+A process is an operating-system execution object. A backend Job is a durable execution-control object. Either may implement one part of a Task Attempt; neither owns the originating participant, Goal, commitment, or open-work semantics.
 
 ### Transaction and durable workflow
 
@@ -34,11 +34,11 @@ Databases own atomic state updates. Durable workflow systems own replay and cont
 
 ### Tool
 
-A Tool is an executable interface. Tool availability or process credentials establish possible reach, not semantic authorization for every generated call.
+A Tool is an executable interface. Tool availability or process credentials establish possible physical reach, not the right to use another participant’s resources or commit every generated action.
 
 ## 2. Executable Semantic Core primitives
 
-The following objects are implemented in `research/experiments/semantic-core-v0` and protected by its conformance suite.
+The following objects are implemented in `research/experiments/semantic-core-v0` and protected by its conformance suite. The experiment is closed reference evidence. Its historical migration and compatibility paths are not automatically permanent product obligations.
 
 ### WorldObjectRef
 
@@ -52,7 +52,7 @@ Concrete repository, file, process, API, account, or simulator representations r
 
 ### Effect
 
-A stable semantic proposal to observe or change a WorldObject.
+A stable semantic proposal selected for commitment to observe or change a WorldObject.
 
 ```text
 identity
@@ -66,7 +66,7 @@ identity
 + verification plan
 ```
 
-Effect identity makes intent recoverable. It does not make the external operation inherently idempotent.
+An Effect is downstream of open cognition: a model may first produce an ActionProposal that Host or domain code resolves into an executable Effect. Effect identity makes selected intent recoverable. It does not make the external operation inherently idempotent.
 
 ### Dispatch
 
@@ -84,7 +84,7 @@ Effect identity remains stable across recovery. Dispatch identity distinguishes 
 
 ### EffectEvent
 
-One ordered, attested transition in an Effect history. The durable Journal provides a global append-only semantic command sequence.
+One ordered, attested transition in an Effect history. The durable Journal provides a global append-only semantic command sequence for the reference experiment.
 
 ### Observation
 
@@ -98,7 +98,7 @@ A durable content-bearing output with stable identity, digest, and Effect or Dis
 
 ### Claim
 
-A proposition about a WorldObject proposed for evidence-based evaluation. A model output may create a Claim; it does not automatically create a Fact.
+A proposition about a WorldObject proposed for evidence-based evaluation. A model output, human statement, or institutional assertion may create a Claim; none automatically creates a Fact.
 
 ### Verification
 
@@ -126,9 +126,9 @@ Facts may later be invalidated or superseded by world drift or stronger evidence
 
 ### AuthorityRef
 
-A signed role grant binding issuer, principal, role, trust domain, policy version, and key identity. Current Semantic Core roles separate Effect proposal, Dispatch execution, Observation production, Verification decision, and Fact acceptance.
+A signed role grant binding issuer, principal or participant, role, trust domain, policy version, and key identity. Current Semantic Core roles separate Effect proposal, Dispatch execution, Observation production, Verification decision, and Fact acceptance.
 
-A complete purpose- and consequence-bound capability system remains a research target above or beside the Core.
+Authority is relational and scoped. It is not proof of moral superiority, consciousness, or permanent ownership.
 
 ### Attestation
 
@@ -136,7 +136,7 @@ A signed binding among one Authority, an exact semantic operation or evidence ob
 
 ### Semantic Journal
 
-The append-only, hash-linked command history from which Kernel projections and authority provenance can be authenticated and replayed after process loss. SQLite owns durable byte transactions; the Semantic Journal owns command meaning and replay invariants.
+The append-only, hash-linked command history from which Kernel projections and authority provenance can be authenticated and replayed after process loss. SQLite owns durable byte transactions; the Semantic Journal owns command meaning and replay invariants for the reference experiment.
 
 ## 3. Promoted protocol objects
 
@@ -169,7 +169,7 @@ Ordivon Host implements these objects for bounded vertical slices. They are real
 
 ### Goal
 
-A durable desired world condition with identity, constraints, current evidence, and completion criteria.
+A durable desired world condition with identity, originating or accepting participants, constraints, current evidence, and completion criteria.
 
 ### Task
 
@@ -181,22 +181,52 @@ One exploration or execution path for a Task. It may preserve hypotheses, model 
 
 ### Context
 
-A bounded selected view of task, policy, Tool, evidence, and world state supplied to one model invocation. Context is derived from durable state and must not become its hidden replacement.
+A bounded selected view of task, capability, policy, Tool, evidence, commitment, and world state supplied to one model invocation. Context is derived from durable state and must not become its hidden replacement.
+
+### Bounded CandidateAction admission
+
+The current Host can compile two to eight exact CandidateActions and require a model to select one. This proves context identity, stale-world rejection, provider replacement, and deterministic admission for narrow vertical slices.
+
+It is not the universal cognition contract. A permanent Host must also support open ActionProposal lowering so stronger cognition can discover new actions, decompositions, Tools, subgoals, and verification paths without being confined to a pre-enumerated menu.
 
 ## 5. Research candidates
 
 These objects require further cross-domain evidence before promotion.
 
+### ParticipantRef and Commitment
+
+A ParticipantRef identifies an actor in a domain without asserting consciousness or legal personhood. A Commitment binds one or more participants to a Goal, resource, promise, responsibility, refusal, or exit condition under a domain contract.
+
+Current products should use the smallest local representation until at least two materially different domains demonstrate shared semantics.
+
+### ActionProposal
+
+An open cognitive proposal that may describe a target, intended change or observation, rationale, preconditions, expected consequence, reversibility, required capability, candidate Tool or method, and verification plan.
+
+```text
+Context
+→ ActionProposal
+→ Tool and capability resolution
+→ consequence analysis
+→ Effect compilation, negotiation, revision, or rejection
+```
+
+An ActionProposal is not authorized merely because a model produced it. Its purpose is to preserve open cognition before deterministic commitment, rather than forcing cognition to choose only from exact prebuilt action identifiers.
+
+### CapabilityProfile
+
+A declared capability mode for a participant or workload. It may distinguish broad owner-trusted private exploration from public, multi-tenant, hostile, or high-consequence execution. CapabilityProfile should reduce repeated per-action friction without erasing resource ownership or consequence boundaries.
+
 ### Branch and Join
 
-A Branch is an independently executable Task subgraph with explicit inputs, world bindings, authority, and expected outputs. A Join consumes multiple Artifacts, verified Facts, or predecessor Tasks under a declared integration rule.
+A Branch is an independently executable Task subgraph with explicit inputs, world bindings, capability, and expected outputs. A Join consumes multiple Artifacts, verified Facts, or predecessor Tasks under a declared integration rule.
 
 ### Checkpoint
 
 The minimum sufficient continuation record for another model, Host, process, or machine:
 
 ```text
-Goal
+Goal and commitments
 + active Task frontier and Attempts
 + relevant world and contract revisions
 + explicit uncertainty and blockers
@@ -213,27 +243,36 @@ A reproducible or explainable binding between durable sources and one invocation
 
 ### ConsequenceEnvelope
 
-A bounded description of the maximum allowed external consequence for delegated work. Security and Finance provide strong domain evidence, but no universal enforcement contract is yet promoted.
+A bounded description of the maximum allowed external consequence for delegated or autonomous work. Security and Game provide strong domain evidence, but no universal enforcement contract is yet promoted.
 
 ### DecisionRequest
 
-A structured escalation to the human consequence owner with reason, alternatives, evidence, reversibility, cost of delay, and permitted responses. No current Ordivon product owns a complete operator decision plane.
+A structured request to the participant or institution responsible for a missing commitment, resource, consequence, or unresolved conflict. It should carry reason, alternatives, evidence, reversibility, cost of delay, and permitted responses.
+
+The receiver may be a person, organization, resource owner, verifier, team role, another Agent, or future artificial participant. Escalation is routing to the correct responsibility owner, not a universal synonym for asking a human.
+
+### Refusal and Exit
+
+A participant may need to refuse a proposed commitment, revoke delegation, leave a collaboration, or terminate a relationship under declared consequences. No universal protocol is promoted, but architecture must not assume permanent obedience or ownership as the only coordination model.
 
 ## 6. Combined object model
 
 ```text
-Goal
-└── Task frontier
-    ├── Attempt / Branch
-    │   ├── Context → model invocation → candidate Claim or Effect
-    │   └── Effect
-    │       └── EffectBinding
-    │           └── Dispatch
-    │               ├── backend Job or synchronous receipt
-    │               ├── Observation
-    │               └── Artifact
-    └── Join
-        └── consumes Artifacts, Verifications, or Facts
+Participant / institution / resource owner
+└── Goal and Commitments
+    └── Task frontier
+        ├── Attempt / Branch
+        │   ├── Context → model invocation → Claim or ActionProposal
+        │   └── ActionProposal
+        │       └── Effect compilation or DecisionRequest
+        │           └── Effect
+        │               └── EffectBinding
+        │                   └── Dispatch
+        │                       ├── backend Job or synchronous receipt
+        │                       ├── Observation
+        │                       └── Artifact
+        └── Join
+            └── consumes Artifacts, Verifications, or Facts
 
 Claim
 └── Verification
@@ -243,7 +282,7 @@ Claim
        Fact
 ```
 
-The open-work layer may revise its graph. The commitment layer preserves each selected Effect path through admission, execution, evidence, and durable semantic history.
+The open-work layer may revise its graph and negotiate commitments. The commitment layer preserves each selected Effect path through admission, execution, evidence, and durable semantic history.
 
 ## 7. Structural rule
 
@@ -251,9 +290,12 @@ Use the smallest sufficient structure:
 
 ```text
 physical execution             process / Job / transaction
+reversible exploration         Workspace / Branch / disposable environment
+open cognition                 ActionProposal / Claim
 Effect and Dispatch lifecycle  state graph
 Task readiness                 partial order or dynamic DAG
 Evidence provenance            typed DAG with bounded multi-input relations
+participant commitments        domain-scoped relation or state machine
 cross-project research         typed directed multigraph
 system evolution               feedback loop
 ```
@@ -261,10 +303,15 @@ system evolution               feedback loop
 One local commitment remains a bounded path:
 
 ```text
-bind world
-→ admit authority
+propose
+→ bind world, capability, and consequence
+→ admit or negotiate commitment
 → dispatch
 → observe
 → verify
-→ update work
+→ update work and participant state
 ```
+
+## 8. Constraint admission rule
+
+A persistent field, state, approval, compatibility layer, policy, or shared object is not justified by caution alone. It must identify its current consumer, protected failure, evidence, operating cost, and deletion trigger. Historical proof may remain in Git, receipts, or a closed experiment without remaining executable in every active path.
