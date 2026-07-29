@@ -1,5 +1,7 @@
 # Agent World Interfaces: Placement, Connectivity, and Continuity
 
+
+> **Historical derivation:** this study separated placement and connectivity to identify their classical boundaries. The later conclusion was to unify them as one Task-to-World Interaction research object. Active work continues in [`../2026-task-to-world-interaction/`](../2026-task-to-world-interaction/).
 This study re-derives Ordivon Edge and Ordivon Link from the classical execution
 and networking stacks instead of treating existing repository objects as
 permanent architecture.

@@ -1,5 +1,7 @@
 # ANC-WORLD-001 — Edge/Link World-Interface Composition
 
+
+> **Completed composition question:** the repository and research objects were unified as `ordivon-world`; active research continues in [`ANC-WORLD-002`](ANC-WORLD-002-task-to-world-interaction-continuity.md) and Computing #78.
 ## Status
 
 - Epistemic status: active cross-boundary research question

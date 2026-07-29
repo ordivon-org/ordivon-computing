@@ -1,5 +1,7 @@
 # ANC-EDGE-001 — Task Placement and External Execution Continuity
 
+
+> **Historical intermediate question:** superseded by [`ANC-WORLD-002`](ANC-WORLD-002-task-to-world-interaction-continuity.md) and Computing #78.
 ## Status
 
 - Epistemic status: active foundational research question

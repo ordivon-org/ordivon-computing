@@ -1,5 +1,7 @@
 # EDGE-CHARTER-003 — Task-to-External-Execution Continuity Overlay
 
+
+> **Historical intermediate charter:** superseded by [`WORLD-CHARTER-001`](WORLD-CHARTER-001.md) after external placement and connectivity were unified as one Task-to-World Interaction responsibility.
 Status: active research charter
 
 Supersedes the long-term responsibility claim in

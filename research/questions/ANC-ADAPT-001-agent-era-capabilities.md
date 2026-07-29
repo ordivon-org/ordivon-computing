@@ -130,4 +130,4 @@ This question does not justify:
 - [`../../knowledge/agents/goal-task-effect.md`](../../knowledge/agents/goal-task-effect.md)
 - [`../../knowledge/institutions/plural-intelligence-organization.md`](../../knowledge/institutions/plural-intelligence-organization.md)
 - [`../../studies/2026-adaptive-acceleration/README.md`](../../studies/2026-adaptive-acceleration/README.md)
-- `ordivon-host`, `ordivon-runtime`, `ordivon-game`, `ordivon-security`, `ordivon-edge`, and `ordivon-link`
+- `ordivon-host`, `ordivon-runtime`, `ordivon-game`, `ordivon-security`, and `ordivon-world`

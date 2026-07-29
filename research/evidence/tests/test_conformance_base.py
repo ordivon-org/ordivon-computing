@@ -53,7 +53,18 @@ class ManifestTests(unittest.TestCase):
         self.assertEqual(manifest.protocol.version, "0.3.0")
         self.assertEqual(manifest.projects[0].id, "ordivon-computing")
         self.assertEqual(manifest.project("ordivon-host").protocol_requirement, "0.3.0")
-        self.assertEqual(len(manifest.projects), 8)
+        self.assertEqual(
+            [project.id for project in manifest.projects],
+            [
+                "ordivon-computing",
+                "ordivon-runtime",
+                "ordivon-host",
+                "ordivon-world",
+                "ordivon-game",
+                "ordivon-security",
+                "ordivon-web",
+            ],
+        )
 
     def test_research_map_uses_registry_project_ids(self) -> None:
         registry_text = (ROOT / "projects" / "registry.yaml").read_text()
