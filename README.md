@@ -65,10 +65,11 @@ real workloads, primary sources, failures, and observations
 | **Research** | Questions, competing hypotheses, experiments, and immutable evidence | [`research/`](research/) |
 | **Projects** | Real systems through which ideas are constructed and tested | [`projects/`](projects/) |
 
-Three studies are especially important:
+Four studies are especially important:
 
 - [`studies/2026-computing-stack-walkthrough/`](studies/2026-computing-stack-walkthrough/) — the complete physical-to-institutional computing route;
 - [`studies/2026-classical-to-agent-native-computing/`](studies/2026-classical-to-agent-native-computing/) — the strict derivation of what remains classical, what Agents merely amplify, and what responsibilities are genuinely rewritten or new;
+- [`studies/2026-agent-native-adversarial-systems/`](studies/2026-agent-native-adversarial-systems/) — the strategic re-derivation of Ordivon Security from classical offense/defense, autonomous cyber operations, game theory, opponent modelling, deception, organization, and coevolution;
 - [`studies/2026-adaptive-acceleration/`](studies/2026-adaptive-acceleration/) — the historical and cross-disciplinary argument for accelerating capability together with adoption, verification, defense, recovery, distribution, and cooperative intelligence rather than relying on a global frontier slowdown.
 
 ## Core thesis
@@ -115,7 +116,11 @@ Research interest does not imply implementation. A concept moves toward Core onl
 - [`ANC-EFFECT-001`](research/questions/ANC-EFFECT-001-tool-contract-evolution.md) — Tool-contract change and rebinding;
 - [`ANC-ORG-001`](research/questions/ANC-ORG-001-agent-native-organization.md) — plural participants coordinating around persistent work and commitments;
 - [`ANC-ADAPT-001`](research/questions/ANC-ADAPT-001-agent-era-capabilities.md) — evidence-driven adaptation and self-improvement;
-- [`ANC-SECURITY-001`](research/questions/ANC-SECURITY-001-adversarial-agent-systems.md) — maximum internal Agent capability under independently bounded external consequence;
+- [`ANC-SECURITY-001`](research/questions/ANC-SECURITY-001-adversarial-agent-systems.md) — umbrella question for Agent-native strategic adversarial systems;
+- [`ANC-SECURITY-003`](research/questions/ANC-SECURITY-003-strategic-adversarial-agency.md) — strategic adversarial agency, Contest, Campaign synthesis, initiative, and resources;
+- [`ANC-SECURITY-004`](research/questions/ANC-SECURITY-004-opponent-modeling-and-deception.md) — opponent modelling, belief state, deception, and information position;
+- [`ANC-SECURITY-005`](research/questions/ANC-SECURITY-005-adversarial-organization.md) — multi-Agent command, compartmentalization, compromise, collusion, and reorganization;
+- [`ANC-SECURITY-006`](research/questions/ANC-SECURITY-006-coevolution-and-evaluation.md) — attack-defense coevolution, adversarial evaluation, held-out opponents, and transfer;
 - [`ANC-EDGE-001`](research/questions/ANC-EDGE-001-task-placement-and-external-continuity.md) — Task placement and external execution continuity;
 - [`ANC-LINK-001`](research/questions/ANC-LINK-001-task-connectivity-and-evidence-continuity.md) — Task connectivity and path-conditioned evidence continuity;
 - [`ANC-WORLD-001`](research/questions/ANC-WORLD-001-edge-link-world-interface-composition.md) — Edge/Link World-Interface composition.
@@ -129,7 +134,7 @@ See [`research/map.yaml`](research/map.yaml).
 - **Ordivon Link** — Task-to-connectivity research overlay above mature networking, with path observations, controlled egress, evidence continuity, and Network World experiments;
 - **Ordivon Edge** — Task-to-external-execution research overlay above mature providers, with Cloudflare Fetch/Browser, receipts, Artifacts, and body-continuity experiments;
 - **Ordivon Game** — deterministic world, multi-participant coordination, replay, evaluation, and interaction laboratory;
-- **Ordivon Security** — maximum-capability Campaigns with independently bounded consequence, observation, judging, evidence, and reconstruction;
+- **Ordivon Security** — strategic adversarial-systems research: conflicting actors, Campaigns, opponent models, information conflict, adaptive offense/defense, organization, coevolution, and adversarial evaluation above mature classical mechanisms;
 - **Ordivon Web** — public memory, publication, project navigation, and current evidence surfaces.
 
 The exact stable declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each product repository.
