@@ -1,5 +1,8 @@
 # Cross-Project Issue Map
 
+> **Historical issue map:** this chapter records the assignments produced during the earlier classical-to-Agent-native comparison. On 2026-07-29, Computing #57, Edge #21/#25/#26, and Link #13/#19/#20/#21/#22/#23 were closed or frozen. They are not pending roadmap obligations. Current World Interface research is Computing #66/#67/#68, with only Edge #24 and Link #18 retained as narrow product-side evidence carriers.
+
+
 ## 1. Routing rule
 
 Research synthesis belongs in Ordivon Computing. Executable questions belong in the repository that owns the mechanism, data, or decision required to answer them.
@@ -64,10 +67,10 @@ The following routes apply the provider-owns-the-request rule:
 ### Security requires containment and world bodies
 
 - Runtime #57 owns the contained local execution profile.
-- Edge #21 owns the persistent network-attached adversarial body design.
-- Link #13 owns the persistent range data plane and attachment.
+- Edge #21 historically owned the persistent network-attached body design; it is closed as not planned.
+- Link #13 historically owned the persistent range data plane; it is closed as not planned.
 - Security #10 owns the poisoning campaign and evaluation result.
-- Computing `ANC-SECURITY-002` owns comparison with mature substrates and evaluation science.
+- Computing `ANC-SECURITY-002` completed the historical comparison; #66/#67/#68 now own active World Interface research.
 
 ### Finance requires generic execution comparison
 
@@ -81,9 +84,9 @@ The following routes apply the provider-owns-the-request rule:
 
 | Repository | Issue | Owned correction or experiment |
 |---|---|---|
-| `ordivon-computing` | #57 — align Agent world, body, evaluation, and evidence | comparative owner for the Link/Edge/Security hypothesis set |
-| `ordivon-edge` | #25 — separate Agent presence, Sandbox, and Execution identity/lifecycle | correct the overloaded Edge Node identity before persistent providers |
-| `ordivon-link` | #19 — define a CNI-compatible NetworkAttachment evidence contract | add Agent-specific identity/evidence above mature network backends |
+| `ordivon-computing` | #57 — closed historical comparison | superseded by #66/#67/#68 |
+| `ordivon-edge` | #25 — closed, not planned | persistent Agent-presence hierarchy was not admitted |
+| `ordivon-link` | #19 — closed, not planned | NetworkAttachment was premature without a real Task failure |
 | `ordivon-security` | #11 — replace uniform component verbs with Campaign phases/native plans | stop Security from overriding component-native lifecycles |
 | `ordivon-security` | #12 — separate reconstruction equivalence and outcome dimensions | distinguish run validity, closure, objective, containment, and evidence quality |
 | `ordivon-security` | #13 — repeated evaluation, hidden scoring, and cheating review | establish trial families, uncertainty, controls, and grader-gaming review |
@@ -105,8 +108,8 @@ The following Issues already owned related work and were reused:
 - Computing #46 — adversarial Agent systems program;
 - Host #2 — operator handoff capsule;
 - Host #4 — Game-requested Host compatibility investigation;
-- Edge #21 — persistent network-attached adversarial Node;
-- Link #13 — persistent range data plane and Edge attachment;
+- Edge #21 — closed historical persistent-body route;
+- Link #13 — closed historical range-data-plane route;
 - Game #7 — M5 replay, evaluation, and first playable receipt;
 - Game #39 — Game-side Host convergence;
 - Security #4 — adaptive Red/Blue maximum-elicitation campaign.
