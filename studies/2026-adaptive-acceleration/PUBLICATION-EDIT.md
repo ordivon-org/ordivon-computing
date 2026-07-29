@@ -46,7 +46,7 @@ Convert the source-grounded research manifesto into an Ordivon Web article witho
 
 ## Web implementation
 
-The publication candidate has been adapted in [Ordivon Web Draft PR #28](https://github.com/zycxfyh/ordivon-web/pull/28).
+The publication candidate is live at [ordivon.com/notes/the-future-will-not-wait/](https://ordivon.com/notes/the-future-will-not-wait/) through merged [Ordivon Web PR #28](https://github.com/zycxfyh/ordivon-web/pull/28).
 
 The Web version adds:
 
@@ -82,5 +82,5 @@ The Web branch was rebased onto the latest `ordivon-web/main` after removal of t
 - Publication readability: ready for review
 - Citation presentation: complete
 - Responsive visual treatment: complete
-- Web implementation: Draft PR prepared, not merged or live
-- Remaining work: human editorial approval and merge decision
+- Web implementation: merged and publicly live
+- Remaining work: post-publication revision only when evidence, critique, or the underlying position changes
