@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anc-core-work-system"
+version = "0.1.0"
+description = "Round 1 strong-baseline experiment for open-work continuity, Context provenance, Effect commitment, and operator attention."
+requires-python = ">=3.12,<3.13"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "langgraph>=1.2,<1.3",
+  "langgraph-checkpoint-sqlite>=3,<4",
+  "temporalio>=1.18,<2",
+]
+
+[project.scripts]
+anc-core-work-system = "anc_core_work_system.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
