@@ -1,5 +1,7 @@
 # LINK-CHARTER-002 — Programmable Adversarial Network Fabric
 
+
+> **Historical charter:** superseded for future responsibility and roadmap by [`LINK-CHARTER-003.md`](LINK-CHARTER-003.md). Phase 0 evidence below remains valid within its original claim boundary.
 Status: working charter
 
 ## Mission

@@ -1,5 +1,7 @@
 # EDGE-CHARTER-002 — Distributed External Presence and Execution Fabric
 
+
+> **Historical charter:** superseded for future responsibility and roadmap by [`EDGE-CHARTER-003.md`](EDGE-CHARTER-003.md). Phase 0 evidence below remains valid within its original claim boundary.
 Status: working charter
 
 ## Mission
