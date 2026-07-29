@@ -1,6 +1,6 @@
 # Ordivon Computing
 
-**Researching and constructing the semantic control layer between probabilistic cognition and classical computing.**
+**Researching and constructing the persistent coordination and world-participation substrate for plural intelligence.**
 
 中文：Ordivon 的智能体原生计算研究、协议、参考实验与跨项目验证母项目。
 
@@ -8,20 +8,37 @@
 
 Ordivon Computing studies the complete computing world, but it does not treat that world as an implementation roadmap. Mature operating systems, databases, networks, version-control systems, compilers, isolation mechanisms, model runtimes, and durable workflow engines remain the classical substrate.
 
-The repository focuses construction where probabilistic model cognition creates an unowned system responsibility:
+The repository focuses construction where probabilistic cognition creates an unowned persistent responsibility:
 
 ```text
-human purpose
+participant purpose and commitments
 → persistent open work
 → version-bound context
-→ probabilistic proposal
-→ authority and Effect admission
+→ open cognitive proposal
+→ capability and consequence binding
 → classical execution
 → Observation and Artifact evidence
-→ Verification, revised work, or human decision
+→ Verification, revised work, negotiation, or responsible decision
 ```
 
+A participant is a system role with an identity, commitments, resource relationships, and consequence exposure. The term does not assume consciousness or legal personhood. In current deployments, people and organizations usually remain the legal and physical owners of credentials, machines, money, and external commitments. Ordivon records that operational reality without turning it into a permanent axiom that every future artificial intelligence must remain property or lack independent purpose.
+
 Its role is research synthesis, specification, reference experiments, protocol promotion, conformance, and evidence—not ownership of every product implementation or lower computing layer.
+
+## Operating objective
+
+Ordivon optimizes for:
+
+```text
+verified improvement per unit time
+while minimizing unrecoverable loss,
+unnecessary interruption,
+and permanent concentration of capability
+```
+
+Capability and consequence are separate dimensions. Reversible, isolated, and privately owned exploration should be cheap and broadly available. Shared, durable, or irreversible world changes require explicit commitment, authority, evidence, and responsibility appropriate to their consequences.
+
+A constraint earns a permanent place only when the recoverability, verification, or consequence reduction it creates is greater than its latency, operating friction, cognitive compression, compatibility cost, and concentration of control.
 
 ## Knowledge-generation system
 
@@ -56,14 +73,14 @@ Three studies are especially important:
 
 ## Core thesis
 
-Foundation models provide useful probabilistic proposals under selected context. They do not automatically provide durable work state, current authority, external observations, verified facts, or responsibility for consequences.
+Foundation models provide useful probabilistic proposals under selected context. They do not automatically provide durable work state, current capability, external observations, verified facts, accepted commitments, or responsibility for consequences.
 
-Ordivon therefore studies and constructs a hybrid boundary:
+Ordivon therefore studies and constructs a hybrid participation boundary:
 
 ```text
-probabilistic cognition
+replaceable probabilistic cognition
 inside
-persistent deterministic identity, authority, commitment, and evidence
+persistent identity, work, commitment, evidence, and recovery
 above
 classical execution, storage, networking, isolation, and model serving
 ```
@@ -76,7 +93,7 @@ The compact Core is:
 
 ## Research discipline
 
-A proposed Agent-native layer must answer:
+A proposed Agent-native layer or persistent constraint must answer:
 
 ```text
 Which mature lower mechanism is insufficient?
@@ -84,9 +101,11 @@ What exact invariant remains unowned?
 What realistic trajectory fails if it is bypassed?
 What second workload demonstrates the same responsibility?
 Why is a new shared component better than a local policy or adapter?
+Does the mechanism increase verified improvement or reduce unrecoverable loss
+by more than it adds latency, friction, cognitive compression, and control concentration?
 ```
 
-Research interest does not imply implementation. A concept moves toward Core only after primary-source comparison, executable evidence, counterexamples, and deletion tests.
+Research interest does not imply implementation. A concept moves toward Core only after primary-source comparison, executable evidence, counterexamples, cost measurement, and deletion tests.
 
 ## Current questions
 
@@ -94,21 +113,21 @@ Research interest does not imply implementation. A concept moves toward Core onl
 - [`ANC-IR-001`](research/questions/ANC-IR-001-agent-effect-ir.md) — minimum useful Agent Effect IR;
 - [`ANC-MEMORY-001`](research/questions/ANC-MEMORY-001-task-continuity.md) — minimum durable state for open-work continuity;
 - [`ANC-EFFECT-001`](research/questions/ANC-EFFECT-001-tool-contract-evolution.md) — Tool-contract change and rebinding;
-- [`ANC-ORG-001`](research/questions/ANC-ORG-001-agent-native-organization.md) — human and multi-Agent coordination around persistent work;
-- [`ANC-ADAPT-001`](research/questions/ANC-ADAPT-001-agent-era-capabilities.md) — evidence-governed adaptation;
-- [`ANC-SECURITY-001`](research/questions/ANC-SECURITY-001-adversarial-agent-systems.md) — adversarial Agent capability under independently bounded consequence.
+- [`ANC-ORG-001`](research/questions/ANC-ORG-001-agent-native-organization.md) — plural participants coordinating around persistent work and commitments;
+- [`ANC-ADAPT-001`](research/questions/ANC-ADAPT-001-agent-era-capabilities.md) — evidence-driven adaptation and self-improvement;
+- [`ANC-SECURITY-001`](research/questions/ANC-SECURITY-001-adversarial-agent-systems.md) — maximum internal Agent capability under independently bounded external consequence.
 
 See [`research/map.yaml`](research/map.yaml).
 
 ## Project roles
 
-- **Ordivon Host** — bounded durable Goal and Task control, context compilation, candidate admission, Effect coordination, verification, and recovery;
+- **Ordivon Host** — persistent Goal and Task continuity, context compilation, open proposal lowering, cognition coordination, participant decision routing, Effect coordination, verification, and recovery;
 - **Ordivon Runtime** — trusted-local Workspace, Job, Attempt, Artifact, physical dispatch, cancellation, reconciliation, and recovery;
-- **Ordivon Link** — local network observation, controlled egress, Network World, and reference transport slices;
-- **Ordivon Edge** — Cloudflare external Fetch, Browser, Artifact, receipt, and remote-body lifecycle experiments;
-- **Ordivon Game** — deterministic world, role-local context, coordination, replay, and evaluation laboratory;
-- **Ordivon Security** — Campaign, consequence-envelope, independent judge, evidence, and reconstruction contracts;
-- **Ordivon Web** — public publication and project navigation.
+- **Ordivon Link** — adaptive network observation, path selection, communication, failover, Network World, and recovery;
+- **Ordivon Edge** — distributed external presence, Fetch, Browser, Artifact, receipt, remote body, and provider lifecycle;
+- **Ordivon Game** — deterministic world, multi-participant coordination, replay, evaluation, and interaction laboratory;
+- **Ordivon Security** — maximum-capability Campaigns with independently bounded consequence, observation, judging, evidence, and reconstruction;
+- **Ordivon Web** — public memory, publication, project navigation, and current evidence surfaces.
 
 The exact stable declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each product repository.
 
@@ -138,8 +157,8 @@ probabilistic proposal
 → bounded Fact admission
 ```
 
-It preserves identity, explicit uncertainty, evidence provenance, authority, and replay while delegating byte durability, processes, files, and transport to classical systems. [`research/experiments/external-semantic-contract-v0/`](research/experiments/external-semantic-contract-v0/) separately tests public Effect, ToolContract, and EffectBinding boundaries.
+It preserves identity, explicit uncertainty, evidence provenance, authority, and replay while delegating byte durability, processes, files, and transport to classical systems. It is retained as reference evidence, not as a mandate that every historical experimental compatibility path remain active forever. [`research/experiments/external-semantic-contract-v0/`](research/experiments/external-semantic-contract-v0/) separately tests public Effect, ToolContract, and EffectBinding boundaries.
 
 ## Coordination and state
 
-Documents preserve stable theory, contracts, sources, and reproducible evidence. GitHub Issues own changing task state and dependencies. Git commits own code revision. Immutable [`System Snapshots`](research/evidence/) bind exact historical repository and Artifact combinations without becoming a second mutable deployment registry.
+Documents preserve stable theory, contracts, sources, and reproducible evidence. GitHub Issues own changing task state and dependencies. Git commits own code revision and historical recovery. Immutable [`System Snapshots`](research/evidence/) bind exact historical repository and Artifact combinations without becoming a second mutable deployment registry.

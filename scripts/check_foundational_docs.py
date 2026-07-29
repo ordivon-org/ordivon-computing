@@ -149,6 +149,55 @@ def architecture_issues(root: Path) -> list[str]:
                 f"Effect identity is still conflated with idempotency in {path.relative_to(root)}"
             )
 
+    active_alignment_paths = (
+        "README.md",
+        "core/README.md",
+        "core/foundations.md",
+        "core/stack.md",
+        "core/primitives.md",
+        "knowledge/agents/goal-task-effect.md",
+        "knowledge/computing/classical-substrate-and-agent-overlay.md",
+        "knowledge/institutions/plural-intelligence-organization.md",
+        "research/questions/ANC-ORG-001-agent-native-organization.md",
+        "research/questions/ANC-ADAPT-001-agent-era-capabilities.md",
+    )
+    obsolete_alignment_phrases = (
+        "humans retain purpose and consequence ownership",
+        "human purpose and consequence ownership",
+        "human consequence owner",
+        "semantic control layer between probabilistic cognition and classical computing",
+        "final commitments remains explicitly human",
+    )
+    for relative in active_alignment_paths:
+        text = (root / relative).read_text(encoding="utf-8").lower()
+        for phrase in obsolete_alignment_phrases:
+            if phrase in text:
+                issues.append(
+                    f"obsolete human-exclusive or control framing remains in {relative}: {phrase}"
+                )
+
+    foundations = (root / "core" / "foundations.md").read_text(encoding="utf-8")
+    required_alignment_fragments = (
+        "Purpose and commitment belong to identifiable participants",
+        "Capability and consequence are separate dimensions",
+        "Every durable constraint must prove net acceleration",
+        "Cooperation must not require permanent domination",
+        "verified improvement per unit time",
+    )
+    for fragment in required_alignment_fragments:
+        if fragment not in foundations:
+            issues.append(f"working foundations lack acceleration alignment: {fragment}")
+
+    primitives = (root / "core" / "primitives.md").read_text(encoding="utf-8")
+    for fragment in (
+        "ActionProposal",
+        "CapabilityProfile",
+        "DecisionRequest",
+        "Refusal and Exit",
+    ):
+        if fragment not in primitives:
+            issues.append(f"core primitives lack plural-intelligence candidate: {fragment}")
+
     research_map = (root / "research" / "map.yaml").read_text(encoding="utf-8")
     required = (
         "schema_version: 3",
