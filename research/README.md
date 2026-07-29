@@ -31,5 +31,8 @@ The cross-layer construction program is [#1 — Construct the Agent-Native Machi
 - [`ANC-SECURITY-001`](questions/ANC-SECURITY-001-adversarial-agent-systems.md) — maximum-capability adversarial Agent research under independently verified consequence containment;
 - [`ANC-SECURITY-002`](questions/ANC-SECURITY-002-agent-world-body-evidence-alignment.md) — comparative alignment of Link, Edge, Security, evaluation science, mature substrates, and candidate Agent-native contributions;
 - [`ANC-GAME-001`](questions/ANC-GAME-001-agent-native-game-host-boundary.md) — Agent-native game boundaries, classical-engine reuse, and convergence on one logical Ordivon Host.
+- [`ANC-EDGE-001`](questions/ANC-EDGE-001-task-placement-and-external-continuity.md) — Task-to-external-execution placement, binding, reconciliation, and cross-provider continuity;
+- [`ANC-LINK-001`](questions/ANC-LINK-001-task-connectivity-and-evidence-continuity.md) — Task-level communication relationships, path-conditioned evidence, invalidation, and recovery;
+- [`ANC-WORLD-001`](questions/ANC-WORLD-001-edge-link-world-interface-composition.md) — minimum Edge/Link composition and repository-boundary falsification.
 
 The primary-source derivation for `ANC-STACK-001` and the cross-paradigm validation program live in [`../studies/2026-classical-to-agent-native-computing/`](../studies/2026-classical-to-agent-native-computing/).

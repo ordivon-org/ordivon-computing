@@ -115,7 +115,10 @@ Research interest does not imply implementation. A concept moves toward Core onl
 - [`ANC-EFFECT-001`](research/questions/ANC-EFFECT-001-tool-contract-evolution.md) — Tool-contract change and rebinding;
 - [`ANC-ORG-001`](research/questions/ANC-ORG-001-agent-native-organization.md) — plural participants coordinating around persistent work and commitments;
 - [`ANC-ADAPT-001`](research/questions/ANC-ADAPT-001-agent-era-capabilities.md) — evidence-driven adaptation and self-improvement;
-- [`ANC-SECURITY-001`](research/questions/ANC-SECURITY-001-adversarial-agent-systems.md) — maximum internal Agent capability under independently bounded external consequence.
+- [`ANC-SECURITY-001`](research/questions/ANC-SECURITY-001-adversarial-agent-systems.md) — maximum internal Agent capability under independently bounded external consequence;
+- [`ANC-EDGE-001`](research/questions/ANC-EDGE-001-task-placement-and-external-continuity.md) — Task placement and external execution continuity;
+- [`ANC-LINK-001`](research/questions/ANC-LINK-001-task-connectivity-and-evidence-continuity.md) — Task connectivity and path-conditioned evidence continuity;
+- [`ANC-WORLD-001`](research/questions/ANC-WORLD-001-edge-link-world-interface-composition.md) — Edge/Link World-Interface composition.
 
 See [`research/map.yaml`](research/map.yaml).
 
@@ -123,8 +126,8 @@ See [`research/map.yaml`](research/map.yaml).
 
 - **Ordivon Host** — persistent Goal and Task continuity, context compilation, open proposal lowering, cognition coordination, participant decision routing, Effect coordination, verification, and recovery;
 - **Ordivon Runtime** — trusted-local Workspace, Job, Attempt, Artifact, physical dispatch, cancellation, reconciliation, and recovery;
-- **Ordivon Link** — adaptive network observation, path selection, communication, failover, Network World, and recovery;
-- **Ordivon Edge** — distributed external presence, Fetch, Browser, Artifact, receipt, remote body, and provider lifecycle;
+- **Ordivon Link** — Task-to-connectivity research overlay above mature networking, with path observations, controlled egress, evidence continuity, and Network World experiments;
+- **Ordivon Edge** — Task-to-external-execution research overlay above mature providers, with Cloudflare Fetch/Browser, receipts, Artifacts, and body-continuity experiments;
 - **Ordivon Game** — deterministic world, multi-participant coordination, replay, evaluation, and interaction laboratory;
 - **Ordivon Security** — maximum-capability Campaigns with independently bounded consequence, observation, judging, evidence, and reconstruction;
 - **Ordivon Web** — public memory, publication, project navigation, and current evidence surfaces.
