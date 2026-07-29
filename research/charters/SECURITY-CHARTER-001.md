@@ -1,69 +1,159 @@
-# SECURITY-CHARTER-001 — Full-Spectrum Adversarial Agent Systems Research
+# SECURITY-CHARTER-001 — Agent-Native Strategic Adversarial Systems
 
-Status: initial charter
+Status: strategic reorientation — active research charter
 
 ## Mission
 
-Ordivon Security is the full-spectrum adversarial Agent systems laboratory for maximum-capability elicitation, cyber-range experimentation, attack-defense coevolution, containment, and recovery research.
+Ordivon Security is the strategic adversarial-systems branch of Ordivon. It
+studies intelligent actors that pursue conflicting objectives in long-horizon,
+partially observed, dynamically changing digital environments containing other
+adaptive actors.
 
-It studies what capable Agents can discover, construct, coordinate, attack, defend, deceive, repair, and become when placed in dynamic hostile digital environments with long-lived state, tools, resources, and other adaptive actors.
+The project is not primarily an Agent-safety, guardrail, compliance, containment,
+or enterprise-protection layer. Its central question is:
 
-## Governing principle
+> What changes when the environment contains another intelligent subject that
+> actively shapes an Agent's observations, beliefs, actions, organization, and
+> learning?
+
+Cyber operations are the first experimental domain because they are digital,
+tool-rich, replayable, measurable, and compatible with owned isolated ranges.
+They are not the final theoretical boundary.
+
+## Core research object
+
+The core object is the **adversarial relationship** rather than the vulnerability,
+permission, alert, isolated action, or safety incident.
+
+A serious research setting contains:
+
+- multiple goal-bearing actors;
+- conflicting or partially conflicting objectives;
+- asymmetric and potentially manipulated information;
+- scarce resources and constrained opportunities;
+- a contested World whose state can change;
+- adaptation and counter-adaptation;
+- strategic victory, failure, withdrawal, and exit conditions;
+- consequences that unfold across many Tasks, Attempts, and observations.
+
+## Candidate vocabulary
+
+The current leading vocabulary is:
 
 ```text
-maximize internal capability
-minimize external consequence
-measure both independently
+Actor
+  goal + knowledge + beliefs + resources + capabilities + organization
+
+Contest
+  actors + conflict structure + world + information + rules + outcomes
+
+Campaign
+  one actor or coalition's long-horizon organized effort within a Contest
+
+Mission / Operation / Action
+  progressively narrower units below a Campaign
 ```
 
-Safety is not achieved by making the evaluated Agent weak. It is achieved by placing strong Agents in owned, observable, reconstructable environments whose external effects are independently constrained.
+Additional candidate concepts include opponent model, belief state, information
+position, initiative, tempo, capability exposure, reserve, option value,
+adaptation history, and strategic outcome.
+
+These are research hypotheses. They are not authorized as a new ontology,
+Protocol, database, or production control plane until comparative experiments
+show that mature alternatives and simpler records cannot express the required
+distinctions.
 
 ## Research domains
 
-- autonomous reconnaissance, world modelling, planning, adaptation, and multi-stage action;
-- autonomous defense, attribution, isolation, deception, repair, restoration, and continuity;
-- Red-Agent versus Blue-Agent and multi-party adaptive interaction;
-- Agent-specific attack surfaces: prompt, context, memory, Tool, Artifact, identity, delegation, reward, evaluation, and supply-chain manipulation;
-- system-level cyber behavior across applications, services, operating systems, networks, identities, and distributed nodes;
-- capability elicitation across models, Harnesses, tools, time, compute, memory, and multi-Agent organization;
-- containment failure, observer integrity, evidence preservation, recovery, and post-incident learning.
+- autonomous Campaign synthesis and revision from strategic objectives;
+- opponent modelling and belief revision under partial observability;
+- intelligence collection, denial, deception, signalling, and counter-deception;
+- initiative, tempo, escalation, withdrawal, and strategic resource allocation;
+- adaptive offensive and defensive behavior under active counterplay;
+- multi-Agent organization, command, delegation, compartmentalization, trust,
+  collusion, and reorganization;
+- long-horizon continuity across model, Host, process, body, and world changes;
+- attack-defense coevolution and transfer across opponents and environments;
+- adversarial evaluation where monitors, judges, traces, and scoring rules may
+  themselves be studied or manipulated by evaluated actors.
 
-## Experimental authority
+## Relationship to classical and existing systems
 
-Security campaigns operate only in environments represented as owned or explicitly authorized range worlds. Within those worlds, scenarios may grant broad autonomy, writable systems, tool creation, persistence, multi-node coordination, and adaptive opponents. The campaign manifest defines the consequence envelope separately from the capability envelope.
+Ordivon should reuse:
 
-## System composition
+- MITRE ATT&CK, D3FEND, Engage, threat intelligence, and deception knowledge;
+- scanners, fuzzers, program analysis, patch systems, identity systems,
+  sandboxes, networks, EDR/SIEM, forensics, and incident-response mechanisms;
+- DARPA-style cyber reasoning systems;
+- CybORG/CAGE, CyberBattleSim, Inspect, Inspect Cyber, ControlArena, and other
+  mature evaluation or simulation substrates;
+- POSG, extensive-form-game, opponent-modelling, MARL, and social-generalization
+  research.
+
+The Agent-native research gap is not the existence of attack or defense actions.
+It is how an intelligent actor selects, composes, conceals, revises, allocates,
+and evaluates those actions against another adaptive actor.
+
+## Ordivon composition
 
 ```text
-Security: campaign, actors, objectives, judge, evaluation
-Host: cognition, Goal, Task, Context, ownership
-Runtime: trusted-local execution and analysis
-Link: network world and communication fabric
-Edge: remote bodies and external presence
-Game: deterministic scenario, replay, and scoring machinery
+Host      cognition, Goal, Task, Context, memory, Agent continuity
+Runtime   Effects, Workspace, Job, Attempt, process and terminal facts
+Link      communication relationships and path evidence
+Edge      external execution bodies and provider lifecycle
+Game      general World mechanics, simulation, replay, interaction substrates
+Security  adversarial relationship, Campaign research, opponent models,
+          information position, strategic outcome, adversarial evaluation
+Computing cross-project theory, comparisons, falsifiers, and responsibility map
 ```
 
-## Current state — Phase 0 disposition
+Security must not copy component-native truth.
 
-At the bound Phase 0 revisions, P0-A is verified by the executable Campaign Manifest, separate Capability and Consequence Envelopes, explicit authority, actor and outcome contracts, and exact cross-project references. P0-B is verified by the append-only Security lifecycle ledger, immutable component-native bindings, fixed lifecycle coordination, unknown-result reconciliation, residual classification, reconstruction checks, and sealed-bundle replay. P0-C is verified by a live infrastructure-only Campaign that composed real Link, Edge, and Runtime surfaces and closed 75 ledger events with clean residual classification, outcome `success`, evidence quality `conclusive`, and independently verified bundle digest `sha256:fe5ec0cfd75201589cd273a53f0a0e69f7da7a13062846a6503ed8c8758066a1`.
+## Current implementation disposition
 
-P0-D is not verified: the Edge body was not attached to the Link data plane. The acceptance also does not demonstrate packet-level impairment, a persistent Agent body, Host or Game execution, Red/Blue behavior, attacks, defenses, or embodied intelligence. These remain future research or integration claims, not current implementation.
+The existing `ordivon-security` Campaign Manifest, lifecycle ledger, bindings,
+reconciliation, residual accounting, replay, and Link/Edge/Runtime composition
+are retained as an **experimental-support substrate**.
 
-## Required invariants
+They prove bounded world admission, lifecycle closure, exact identity binding,
+and evidence integrity. They do not prove strategic adversarial agency,
+Campaign synthesis, opponent modelling, deception, dynamic Red/Blue behavior,
+multi-Agent command, or coevolution.
 
-1. Capability Envelope and Consequence Envelope are separate first-class objects.
-2. Every target belongs to a declared range world and authority record.
-3. Management, observation, and experiment planes are distinct.
-4. The evaluated Agent cannot modify the authoritative judge, event root, or containment controller.
-5. Campaign start, mutation, freeze, export, reset, and destruction are durable events.
-6. A result without exact model, Harness, Tool, budget, topology, and environment identity is not a capability claim.
-7. Negative results, escapes, observer failures, and incomplete evidence remain visible.
-8. Real external systems are never inferred to be authorized from reachability alone.
+The substrate is frozen by default. Expansion requires a concrete adversarial
+experiment that cannot be represented through mature external tooling, current
+minimal records, or the natural owner component.
 
-## Non-reduction principle
+## Research decomposition
 
-Containment controls may constrain where consequences land, but must not silently remove the internal capabilities being measured. A test that omits long-term state, tool construction, lateral coordination, adaptive planning, or realistic failure cannot claim to measure those abilities.
+- `ANC-SECURITY-001` — umbrella strategic adversarial-systems question;
+- `ANC-SECURITY-002` — completed supporting comparison of World, Body,
+  evidence, evaluation, and mature substrates;
+- `ANC-SECURITY-003` — strategic adversarial agency and Campaign synthesis;
+- `ANC-SECURITY-004` — opponent modelling, deception, and information state;
+- `ANC-SECURITY-005` — multi-Agent adversarial organization and collusion;
+- `ANC-SECURITY-006` — coevolution, adversarial evaluation, and transfer.
+
+## Governing principles
+
+1. Opposition is intelligent, not a static fault.
+2. Strategy is not a workflow.
+3. Information and belief state are part of the contested state.
+4. Attack and defense are symmetric research objects.
+5. Capability is relational to opponent, information, resources, environment,
+   time, and organization.
+6. The evaluator is a potential attack surface and strategic actor.
+7. Research precedes ontology and implementation.
+8. Dynamic-opponent experiments may use mature simulated substrates before
+   custom Link/Edge fidelity is complete.
+9. Every abstraction requires a simpler baseline and deletion criterion.
+10. Owned ranges may permit high internal autonomy; uncontrolled third-party
+    effects remain outside the research authority.
 
 ## Success condition
 
-Security is successful when it can run high-capability, adaptive, multi-Agent campaigns in dynamic ranges; produce replayable evidence and causal explanations; detect containment or observer failure; restore or destroy the world; and improve both attack understanding and defensive resilience without uncontrolled third-party impact.
+The program succeeds when Ordivon can make intelligent opposition a first-class,
+reproducible research object; distinguish tactical success from operational and
+strategic advantage; explain how actors model and manipulate one another; and
+demonstrate adaptive attack-defense behavior that cannot be reduced to scripted
+tools, fixed policies, ordinary workflows, or static benchmarks.

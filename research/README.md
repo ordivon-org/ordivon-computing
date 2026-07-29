@@ -28,8 +28,12 @@ The cross-layer construction program is [#1 — Construct the Agent-Native Machi
 - [`ANC-EFFECT-001`](questions/ANC-EFFECT-001-tool-contract-evolution.md) — Tool-contract change detection and adoption;
 - [`ANC-ORG-001`](questions/ANC-ORG-001-agent-native-organization.md) — human and multi-Agent coordination around persistent work;
 - [`ANC-ADAPT-001`](questions/ANC-ADAPT-001-agent-era-capabilities.md) — cross-task learning, capability compilation, cognition control, coordination, and evidence-governed self-evolution;
-- [`ANC-SECURITY-001`](questions/ANC-SECURITY-001-adversarial-agent-systems.md) — maximum-capability adversarial Agent research under independently verified consequence containment;
-- [`ANC-GAME-001`](questions/ANC-GAME-001-agent-native-game-host-boundary.md) — Agent-native game boundaries, classical-engine reuse, and convergence on one logical Ordivon Host.
+- [`ANC-SECURITY-001`](questions/ANC-SECURITY-001-adversarial-agent-systems.md) — umbrella question for Agent-native strategic adversarial systems;
+- [`ANC-SECURITY-003`](questions/ANC-SECURITY-003-strategic-adversarial-agency.md) — strategic adversarial agency, Contest, Campaign synthesis, initiative, and resources;
+- [`ANC-SECURITY-004`](questions/ANC-SECURITY-004-opponent-modeling-and-deception.md) — opponent modelling, belief state, deception, and information position;
+- [`ANC-SECURITY-005`](questions/ANC-SECURITY-005-adversarial-organization.md) — multi-Agent command, compartmentalization, compromise, collusion, and reorganization;
+- [`ANC-SECURITY-006`](questions/ANC-SECURITY-006-coevolution-and-evaluation.md) — attack-defense coevolution, adversarial evaluation, held-out opponents, and transfer;
+- [`ANC-GAME-001`](questions/ANC-GAME-001-agent-native-game-host-boundary.md) — Agent-native game boundaries, classical-engine reuse, and convergence on one logical Ordivon Host;
 - [`ANC-EDGE-001`](questions/ANC-EDGE-001-task-placement-and-external-continuity.md) — Task-to-external-execution placement, binding, reconciliation, and cross-provider continuity;
 - [`ANC-LINK-001`](questions/ANC-LINK-001-task-connectivity-and-evidence-continuity.md) — Task-level communication relationships, path-conditioned evidence, invalidation, and recovery;
 - [`ANC-WORLD-001`](questions/ANC-WORLD-001-edge-link-world-interface-composition.md) — minimum Edge/Link composition and repository-boundary falsification.
@@ -40,3 +44,5 @@ The cross-layer construction program is [#1 — Construct the Agent-Native Machi
 - [`ANC-SECURITY-002`](questions/ANC-SECURITY-002-agent-world-body-evidence-alignment.md) — completed Phase 0 comparison of Link, Edge, Security, mature substrates, and evaluation science. Its former AgentPresence, NetworkAttachment, and persistent-data-plane implementation graph is retired; active world-interface research is now `ANC-EDGE-001`, `ANC-LINK-001`, and `ANC-WORLD-001`.
 
 The primary-source derivation for `ANC-STACK-001` and the cross-paradigm validation program live in [`../studies/2026-classical-to-agent-native-computing/`](../studies/2026-classical-to-agent-native-computing/).
+
+The strategic adversarial-systems reorientation, source comparison, insertion map, and research program live in [`../studies/2026-agent-native-adversarial-systems/`](../studies/2026-agent-native-adversarial-systems/).
