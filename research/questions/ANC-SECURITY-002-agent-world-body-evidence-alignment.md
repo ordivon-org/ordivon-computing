@@ -2,12 +2,15 @@
 
 ## Status
 
-- Epistemic status: active comparative research question
+- Epistemic status: completed historical comparative study
 - Parent program: `ordivon-computing` #46
 - Related construction track: `ANC-VERIFY-001`
 - Related research question: `ANC-SECURITY-001`
 - Implementation owners: Ordivon Link, Edge, Security, Host, and Runtime
 - Baseline reviewed: merged Phase 0 main revisions recorded on 2026-07-29
+- GitHub issue: #57 — closed as completed and superseded
+- Active successors: `ANC-EDGE-001` / #66, `ANC-LINK-001` / #67, and `ANC-WORLD-001` / #68
+- Route disposition: former persistent Agent-presence, NetworkAttachment, and P0-D implementation routes are retired and do not constrain product repositories
 
 ## Question
 
@@ -308,9 +311,9 @@ Required additions at the evaluation-family layer:
 These should not all be forced into one Campaign Manifest revision. A separate
 evaluation-family and aggregate-result layer is likely required.
 
-## Cross-project ownership rule
+## Historical cross-project ownership graph
 
-A compatibility request is filed in the repository that must implement it:
+The following graph records the assignment produced by this historical study. It is not active planning. Edge #25, Link #19, Edge #21, and Link #13 were later closed after the responsibility model was re-derived:
 
 - Edge owns stable Agent-presence identity, Sandbox generation, Provider
   capabilities, and attachment-handle production;
@@ -324,6 +327,10 @@ A compatibility request is filed in the repository that must implement it:
 The requesting project links to the target Issue instead of creating a shadow
 implementation Issue in its own repository.
 
+## Supersession
+
+This study completed its comparative purpose: it exposed that the Phase 0 Node and Network World models were hypotheses rather than proven long-term cores. Future work no longer follows its implementation graph. Edge research proceeds through Task-to-external-execution continuity; Link research proceeds through Task-to-connectivity and evidence continuity; their composition is tested independently.
+
 ## Research program
 
 ### Track A — Evaluation science now
@@ -331,12 +338,12 @@ implementation Issue in its own repository.
 Do not wait for P0-D. Run a single evaluated Agent using a mature Sandbox and
 establish repeated trials, hidden scoring, trace review, and aggregate metrics.
 
-### Track B — Correct Edge identity before persistent providers
+### Historical Track B — retired Edge identity route
 
 Do not build OCI/runc on the current `node_id` semantics. First split stable
 presence, specification, Sandbox generation, and Execution identity.
 
-### Track C — CNI-compatible P0-D
+### Historical Track C — retired NetworkAttachment route
 
 Design `NetworkAttachment` as an Agent-specific evidence and binding layer above
 mature network mechanisms. Do not implement a general CNI replacement.
