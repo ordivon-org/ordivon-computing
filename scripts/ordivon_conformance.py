@@ -387,6 +387,7 @@ def build_system_snapshot(
         PurePosixPath("packages/ordivon-protocol/src/ordivon_protocol/schemas/effect-envelope-v1.schema.json"),
         PurePosixPath("packages/ordivon-protocol/src/ordivon_protocol/schemas/tool-contract-v1.schema.json"),
         PurePosixPath("packages/ordivon-protocol/src/ordivon_protocol/schemas/effect-binding-v1.schema.json"),
+        PurePosixPath("packages/ordivon-protocol/src/ordivon_protocol/schemas/host-workload-v1.schema.json"),
     )
     contracts = [
         {
@@ -397,16 +398,24 @@ def build_system_snapshot(
         }
         for path in schema_paths
     ]
-    vector_path = PurePosixPath(
-        "packages/ordivon-protocol/src/ordivon_protocol/vectors/canonical-vectors.json"
+    vector_paths = (
+        PurePosixPath(
+            "packages/ordivon-protocol/src/ordivon_protocol/vectors/canonical-vectors.json"
+        ),
+        PurePosixPath(
+            "packages/ordivon-protocol/src/ordivon_protocol/vectors/host-workload-vectors-v1.json"
+        ),
     )
-    artifact = {
-        "id": "ordivon-protocol:canonical-vectors-v1",
-        "kind": "conformance-vectors",
-        "digest": file_digest(git_blob(computing_root, revision, vector_path)),
-        "path": vector_path.as_posix(),
-        "repositoryId": "ordivon-computing",
-    }
+    artifacts = [
+        {
+            "id": f"ordivon-protocol:{path.name.removesuffix('.json')}",
+            "kind": "conformance-vectors",
+            "digest": file_digest(git_blob(computing_root, revision, path)),
+            "path": path.as_posix(),
+            "repositoryId": "ordivon-computing",
+        }
+        for path in vector_paths
+    ]
     document: dict[str, Any] = {
         "schemaVersion": 1,
         "snapshotId": snapshot_id,
@@ -415,7 +424,7 @@ def build_system_snapshot(
         "repositories": repository_entries,
         "services": [],
         "contracts": contracts,
-        "artifacts": [artifact],
+        "artifacts": artifacts,
         "environment": {"protocolVersion": manifest.protocol.version},
     }
     document["integrity"] = integrity(document)

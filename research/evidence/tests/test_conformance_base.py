@@ -50,9 +50,9 @@ def commit_all(root: Path, message: str) -> str:
 class ManifestTests(unittest.TestCase):
     def test_manifest_matches_protocol_and_project_registry(self) -> None:
         manifest = CONFORMANCE.load_manifest()
-        self.assertEqual(manifest.protocol.version, "0.2.0")
+        self.assertEqual(manifest.protocol.version, "0.3.0")
         self.assertEqual(manifest.projects[0].id, "ordivon-computing")
-        self.assertEqual(manifest.project("ordivon-host").protocol_requirement, "0.2.0")
+        self.assertEqual(manifest.project("ordivon-host").protocol_requirement, "0.3.0")
         self.assertEqual(len(manifest.projects), 8)
 
     def test_research_map_uses_registry_project_ids(self) -> None:
@@ -117,15 +117,17 @@ class RevisionVectorTests(unittest.TestCase):
         (resources / "schemas").mkdir(parents=True)
         (resources / "vectors").mkdir(parents=True)
         (protocol / "pyproject.toml").write_text(
-            '[project]\nname = "ordivon-protocol"\nversion = "0.2.0"\n'
+            '[project]\nname = "ordivon-protocol"\nversion = "0.3.0"\n'
         )
         for name in (
             "effect-envelope-v1.schema.json",
             "tool-contract-v1.schema.json",
             "effect-binding-v1.schema.json",
+            "host-workload-v1.schema.json",
         ):
             (resources / "schemas" / name).write_text('{"schema":1}\n')
         (resources / "vectors" / "canonical-vectors.json").write_text('{"vectors":[]}\n')
+        (resources / "vectors" / "host-workload-vectors-v1.json").write_text('{"cases":[]}\n')
         computing_revision = commit_all(computing, "protocol")
 
         init_repository(host, "https://github.com/zycxfyh/ordivon-host")
@@ -155,7 +157,7 @@ class RevisionVectorTests(unittest.TestCase):
             )
             self.assertEqual(document["protocol"]["sourceRevision"], revision)
             self.assertEqual(document["hostProtocolPin"]["computingRevision"], revision)
-            self.assertEqual(document["hostProtocolPin"]["protocolVersion"], "0.2.0")
+            self.assertEqual(document["hostProtocolPin"]["protocolVersion"], "0.3.0")
             self.assertEqual(document["integrity"], CONFORMANCE.integrity(document))
 
     def test_system_snapshot_uses_committed_protocol_resources(self) -> None:
@@ -168,8 +170,14 @@ class RevisionVectorTests(unittest.TestCase):
                 purpose="verify deterministic snapshot generation",
             )
             self.assertEqual(len(document["repositories"]), 2)
-            self.assertEqual(len(document["contracts"]), 3)
-            self.assertEqual(document["artifacts"][0]["repositoryId"], "ordivon-computing")
+            self.assertEqual(len(document["contracts"]), 4)
+            self.assertEqual(len(document["artifacts"]), 2)
+            self.assertTrue(
+                all(
+                    artifact["repositoryId"] == "ordivon-computing"
+                    for artifact in document["artifacts"]
+                )
+            )
             self.assertEqual(document["integrity"], CONFORMANCE.integrity(document))
             from research.evidence.validate_system_snapshot import validate
 

@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/protocol/host-workload-v1.schema.json",
+  "title": "Ordivon Host workload wire objects v1",
+  "oneOf": [
+    { "$ref": "#/$defs/taskDescriptor" },
+    { "$ref": "#/$defs/compiledContextEnvelope" },
+    { "$ref": "#/$defs/modelInvocationIntent" },
+    { "$ref": "#/$defs/modelDecision" },
+    { "$ref": "#/$defs/admittedDecision" },
+    { "$ref": "#/$defs/dispatchEnvelope" },
+    { "$ref": "#/$defs/observationEnvelope" },
+    { "$ref": "#/$defs/verificationReceipt" },
+    { "$ref": "#/$defs/taskOutcome" }
+  ],
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "stateRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "digest"],
+      "properties": {
+        "ref": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "artifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "kind", "digest"],
+      "properties": {
+        "ref": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "kind": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "digest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "taskDescriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "taskId", "goalId", "workloadId", "assigneeRef", "providerPolicyRef", "domainRef", "configurationDigests"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "ordivon.host-task-descriptor" },
+        "taskId": { "type": "string", "pattern": "^task:" },
+        "goalId": { "type": "string", "pattern": "^goal:" },
+        "workloadId": { "type": "string", "minLength": 1 },
+        "assigneeRef": { "type": ["string", "null"] },
+        "providerPolicyRef": { "type": ["string", "null"] },
+        "domainRef": { "type": ["string", "null"] },
+        "configurationDigests": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/digest" } }
+      }
+    },
+    "contextBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["blockId", "kind", "priority", "required", "freshness", "sourceRef", "sourceOwner", "sourceDigest", "trust", "validityRefs", "payload"],
+      "properties": {
+        "blockId": { "type": "string", "pattern": "^context-block:" },
+        "kind": { "type": "string", "minLength": 1 },
+        "priority": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "required": { "type": "boolean" },
+        "freshness": { "enum": ["current", "checkpoint", "historical"] },
+        "sourceRef": { "type": "string", "minLength": 1 },
+        "sourceOwner": { "enum": ["host", "runtime", "domain", "provider", "human"] },
+        "sourceDigest": { "$ref": "#/$defs/digest" },
+        "trust": { "enum": ["authoritative", "verified", "reported", "inferred"] },
+        "validityRefs": { "type": "array", "items": { "$ref": "#/$defs/stateRef" } },
+        "payload": {}
+      }
+    },
+    "decisionCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateId", "kind", "summary", "proposalDigest", "effectId", "dispatchId", "requiredStateRefs"],
+      "properties": {
+        "candidateId": { "type": "string", "pattern": "^candidate:" },
+        "kind": { "enum": ["domain-action", "propose-effect", "observe-dispatch", "request-human", "wait", "finish"] },
+        "summary": { "type": "string", "minLength": 1 },
+        "proposalDigest": { "oneOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+        "effectId": { "type": ["string", "null"] },
+        "dispatchId": { "type": ["string", "null"] },
+        "requiredStateRefs": { "type": "array", "items": { "$ref": "#/$defs/stateRef" } }
+      }
+    },
+    "contextManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tokenBudget", "estimatedTokens", "selectedBlockIds", "omittedBlockIds"],
+      "properties": {
+        "tokenBudget": { "type": "integer", "minimum": 1 },
+        "estimatedTokens": { "type": "integer", "minimum": 1 },
+        "selectedBlockIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^context-block:" } },
+        "omittedBlockIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^context-block:" } }
+      }
+    },
+    "compiledContextPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "taskId", "workloadId", "stateRefs", "blocks", "candidates", "completedEffectIds", "unresolvedDispatchIds", "instruction"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "ordivon.compiled-context" },
+        "taskId": { "type": "string", "pattern": "^task:" },
+        "workloadId": { "type": "string", "minLength": 1 },
+        "stateRefs": { "type": "array", "items": { "$ref": "#/$defs/stateRef" } },
+        "blocks": { "type": "array", "items": { "$ref": "#/$defs/contextBlock" } },
+        "candidates": { "type": "array", "minItems": 1, "maxItems": 16, "items": { "$ref": "#/$defs/decisionCandidate" } },
+        "completedEffectIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^effect:" } },
+        "unresolvedDispatchIds": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^dispatch:" } },
+        "instruction": { "type": "string", "minLength": 1 }
+      }
+    },
+    "compiledContextEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "digest", "byteLength", "manifest", "payload"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "ordivon.compiled-context-envelope" },
+        "digest": { "$ref": "#/$defs/digest" },
+        "byteLength": { "type": "integer", "minimum": 1 },
+        "manifest": { "$ref": "#/$defs/contextManifest" },
+        "payload": { "$ref": "#/$defs/compiledContextPayload" }
+      }
+    },
+    "modelInvocationIntent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "invocationId", "taskId", "contextDigest", "contextObjectDigest", "providerPolicyRef"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "ordivon.model-invocation-intent" },
+        "invocationId": { "type": "string", "pattern": "^invocation:" },
+        "taskId": { "type": "string", "pattern": "^task:" },
+        "contextDigest": { "$ref": "#/$defs/digest" },
+        "contextObjectDigest": { "$ref": "#/$defs/digest" },
+        "providerPolicyRef": { "type": "string", "minLength": 1 }
+      }
+    },
+    "modelDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "invocationId", "contextDigest", "candidateId", "providerId", "confidencePermille", "rationale"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "ordivon.model-decision" },
+        "invocationId": { "type": "string", "pattern": "^invocation:" },
+        "contextDigest": { "$ref": "#/$defs/digest" },
+        "candidateId": { "type": ["string", "null"] },
+        "providerId": { "type": "string", "minLength": 1 },
+        "confidencePermille": { "type": "integer", "minimum": 0, "maximum": 1000 },
+        "rationale": { "type": "string", "minLength": 1 }
+      }
+    },
+    "admittedDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "contextDigest", "candidate", "providerId", "confidencePermille", "rationale"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "ordivon.admitted-decision" },
+        "contextDigest": { "$ref": "#/$defs/digest" },
+        "candidate": { "oneOf": [{ "$ref": "#/$defs/decisionCandidate" }, { "type": "null" }] },
+        "providerId": { "type": "string", "minLength": 1 },
+        "confidencePermille": { "type": "integer", "minimum": 0, "maximum": 1000 },
+        "rationale": { "type": "string", "minLength": 1 }
+      }
+    },
+    "dispatchEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "dispatchId", "effectId", "executorId", "requestDigest", "idempotencyKey", "requiredStateRefs", "expectedObservationKind"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "ordivon.dispatch-envelope" },
+        "dispatchId": { "type": "string", "pattern": "^dispatch:" },
+        "effectId": { "type": "string", "pattern": "^effect:" },
+        "executorId": { "type": "string", "minLength": 1 },
+        "requestDigest": { "$ref": "#/$defs/digest" },
+        "idempotencyKey": { "type": "string", "minLength": 1 },
+        "requiredStateRefs": { "type": "array", "items": { "$ref": "#/$defs/stateRef" } },
+        "expectedObservationKind": { "type": "string", "minLength": 1 }
+      }
+    },
+    "observationEnvelope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "dispatchId", "executorId", "status", "payloadDigest", "evidenceRefs"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "ordivon.observation-envelope" },
+        "dispatchId": { "type": "string", "pattern": "^dispatch:" },
+        "executorId": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["accepted", "running", "succeeded", "failed", "rejected", "unknown"] },
+        "payloadDigest": { "$ref": "#/$defs/digest" },
+        "evidenceRefs": { "type": "array", "items": { "$ref": "#/$defs/artifactRef" } }
+      }
+    },
+    "verificationResultItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subjectRef", "decisionDigest", "status", "reason", "evidenceDigest"],
+      "properties": {
+        "subjectRef": { "type": "string", "minLength": 1 },
+        "decisionDigest": { "$ref": "#/$defs/digest" },
+        "status": { "enum": ["succeeded", "failed", "rejected", "not-selected"] },
+        "reason": { "type": ["string", "null"] },
+        "evidenceDigest": { "$ref": "#/$defs/digest" }
+      }
+    },
+    "verificationReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "dispatchId", "method", "accepted", "observationDigest", "resultItems"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "ordivon.verification-receipt" },
+        "dispatchId": { "type": "string", "pattern": "^dispatch:" },
+        "method": { "type": "string", "minLength": 1 },
+        "accepted": { "type": "boolean" },
+        "observationDigest": { "$ref": "#/$defs/digest" },
+        "resultItems": { "type": "array", "items": { "$ref": "#/$defs/verificationResultItem" } }
+      }
+    },
+    "taskOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "kind", "taskId", "goalId", "status", "verificationDigest", "artifactRefs"],
+      "properties": {
+        "schemaVersion": { "const": 1 },
+        "kind": { "const": "ordivon.task-outcome" },
+        "taskId": { "type": "string", "pattern": "^task:" },
+        "goalId": { "type": "string", "pattern": "^goal:" },
+        "status": { "enum": ["completed", "failed", "cancelled", "blocked"] },
+        "verificationDigest": { "oneOf": [{ "$ref": "#/$defs/digest" }, { "type": "null" }] },
+        "artifactRefs": { "type": "array", "items": { "$ref": "#/$defs/artifactRef" } }
+      }
+    }
+  }
+}
