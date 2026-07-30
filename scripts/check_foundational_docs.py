@@ -191,7 +191,7 @@ def architecture_issues(root: Path) -> list[str]:
         "Purpose and commitment belong to identifiable participants",
         "Capability and consequence are separate dimensions",
         "Every durable constraint must prove net acceleration",
-        "Cooperation must not require permanent domination",
+        "Cooperation preserves agency, refusal, and exit",
         "verified improvement per unit time",
     )
     for fragment in required_alignment_fragments:

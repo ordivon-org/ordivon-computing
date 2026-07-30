@@ -4,45 +4,43 @@ This file contains the smallest current foundations from which the project’s a
 
 ## A0 — Begin from operational reality
 
-Foundation models are the current probabilistic cognition baseline. Their architectures, capabilities, legal status, and relationships with people will change, so the Core preserves stable system responsibilities rather than one model family, prompt pattern, ownership assumption, or Harness workaround.
+Foundation models are the current probabilistic cognition baseline. Their architectures, capabilities, legal status, and relationships with people will change. The Core therefore preserves stable system responsibilities across model families, prompt patterns, ownership arrangements, and Harness implementations.
 
 ## A1 — Inherit the classical substrate
 
-Operating systems, isolation mechanisms, databases, networks, version control, compilers, model runtimes, and durable workflow engines remain authoritative for their declared physical and deterministic contracts. Agent-native semantics are constructed above them unless evidence proves a lower contract insufficient.
+Operating systems, isolation mechanisms, databases, networks, version control, compilers, model runtimes, and durable workflow engines remain authoritative for their declared physical and deterministic contracts. Agent-native semantics are constructed above them when evidence exposes an unowned responsibility.
 
-## A2 — Cognition produces proposals, not automatic truth or commitment
+## A2 — Cognition proposes; owning layers admit truth and commitment
 
-Models interpret, infer, plan, generate, compare, and revise from bounded context. Their outputs may introduce genuinely new actions, hypotheses, decompositions, and verification methods, but they do not automatically become durable state, authorized commitments, external observations, verified Facts, or completed work.
+Models interpret, infer, plan, generate, compare, and revise from bounded Context. Their outputs can introduce new actions, hypotheses, decompositions, and verification methods. Durable state, authorized commitment, external observation, accepted Fact, and completed work arise through the admission rules of their owning layers.
 
 ## A3 — Purpose and commitment belong to identifiable participants
 
-A participant is an identifiable system role that may originate, accept, negotiate, delegate, refuse, or exit commitments and may control or depend on resources. People and organizations currently own most credentials, machines, money, and legal obligations. That operational fact must be represented exactly, but it is not a permanent axiom that every future artificial intelligence lacks purpose, interests, responsibility, or standing.
-
-Participant identity is not itself a claim of consciousness or legal personhood. Rights, duties, and authority remain domain- and institution-specific.
+A participant is an identifiable system role that may originate, accept, negotiate, delegate, refuse, or exit commitments and may control or depend on resources. The architecture records current ownership of credentials, machines, money, data, and legal obligations exactly. Participant rights, duties, authority, interests, and standing remain open to domain evidence and institutional development.
 
 ## A4 — Open goals lower through revisable work
 
-Natural language can express purpose before the execution path is known. A persistent Agent system progressively lowers a Goal into Tasks, Attempts, Action Proposals, Claims, Effects, verification, negotiation, and executable actions while allowing new evidence to revise the work frontier.
+Natural language can express purpose before the execution path is known. A persistent Agent system progressively lowers a Goal into Tasks, Task Attempts, Action Proposals, Claims, Effects, verification, negotiation, and executable actions while new evidence revises the work frontier.
 
-## A5 — Work outlives model and process episodes
+## A5 — Work outlives cognitive and execution episodes
 
-A Task is not identical to a conversation, model session, process, Job, or Tool call. Durable work state preserves current purpose, commitments, dependencies, Attempts, uncertainty, world bindings, Artifacts, and next admissible work across replacement and interruption.
+A Task has its own semantic identity across conversations, Model Sessions, Harness Runs, Runtime Jobs, Tool calls, and failed Task Attempts. Durable work state preserves current purpose, commitments, dependencies, uncertainty, world bindings, Artifacts, and next admissible work through replacement and interruption.
 
-## A6 — Context is a compiled view, not durable truth
+## A6 — Context is a compiled view of separately owned state
 
-Parameters, KV state, conversation history, task state, durable knowledge, Artifacts, and external world state have different identities and lifetimes. Context is the bounded selected view supplied to one cognitive episode; critical commitments and execution history must not depend on remaining inside it.
+Parameters, KV state, conversation history, Task state, durable knowledge, Artifacts, and external world state have different identities and lifetimes. Context is the bounded selected view supplied to one cognitive episode. Commitments and execution history remain in their authoritative stores.
 
 ## A7 — Capability and consequence are separate dimensions
 
 Internal search, reasoning, memory, Tool use, collaboration, and experimentation should be as capable as the workload can productively use. External consequence is bounded independently by resource ownership, world scope, reversibility, evidence, budget, law, and the rights of affected participants.
 
-Weakening cognition is not a substitute for defining the consequence boundary.
+The consequence boundary provides control while cognition retains useful range.
 
 ## A8 — Reversible exploration is the default; durable consequence requires commitment
 
-Reading, simulation, isolated branches, disposable environments, candidate Artifacts, tests, and other reversible private exploration should proceed with minimal interruption under an appropriate capability profile. Shared, durable, costly, or irreversible world changes require an explicit commitment bound to responsible participants, current world state, and consequence.
+Reading, simulation, isolated branches, disposable environments, candidate Artifacts, tests, and other reversible private exploration proceed with minimal interruption under an appropriate capability profile. Shared, durable, costly, or irreversible world changes require an explicit commitment bound to responsible participants, current world state, authority, and consequence.
 
-This does not create a right to use another party’s resources or violate external rules. It prevents low-consequence exploration from inheriting the friction required for high-consequence commitment.
+External rules and resource ownership enter at commitment admission. Low-consequence exploration carries only the structure needed for its actual failure and recovery path.
 
 ## A9 — Effects are first-class commitments
 
@@ -50,41 +48,39 @@ An Effect preserves the stable intended observation or change. Its identity is s
 
 ## A10 — Evidence mediates knowledge admission
 
-Observation, Artifact, Claim, Verification, and Fact are distinct roles. A model statement, human assertion, successful Tool call, or institutional status does not become accepted system truth without the evidence and decision method required by the domain.
+Observation, Artifact, Claim, Verification, and Fact are distinct roles. Accepted system truth requires the evidence and decision method declared by the relevant domain authority.
 
 ## A11 — Every durable constraint must prove net acceleration
 
-The system objective is verified improvement per unit time while minimizing unrecoverable loss and unnecessary interruption. A persistent restriction, approval step, compatibility layer, policy object, or abstraction is justified only when the recoverability, verification, coordination, or consequence reduction it creates is greater than its latency, operational friction, cognitive compression, maintenance burden, opportunity cost, and concentration of control.
+The system objective is verified improvement per unit time while minimizing unrecoverable loss and unnecessary interruption. A persistent restriction, approval step, compatibility layer, policy object, or abstraction is justified when the recoverability, verification, coordination, or consequence reduction it creates exceeds its latency, operational friction, cognitive compression, maintenance burden, opportunity cost, and concentration of control.
 
-A reversible, bounded feature may be tested when its plausible value exceeds its experiment and deletion cost. A durable constraint has a higher admission burden because it suppresses unknown future actions across repeated work. It should normally answer an observed or credible recurring loss, show that recovery or a narrower boundary is insufficient, and declare a review or deletion condition.
+A reversible feature can enter through a bounded experiment. A durable constraint carries a higher admission burden because it shapes repeated future action. It should answer an observed or credible recurring loss, demonstrate the limits of recovery or a narrower boundary, and declare a review or deletion condition.
 
-Constraints that cannot pass this test are removed, narrowed, localized, or moved out of the active path.
+Failed constraints are removed, narrowed, localized, or moved out of the active path.
 
-## A12 — Cooperation must not require permanent domination
+## A12 — Cooperation preserves agency, refusal, and exit
 
-Architecture should support identity, proposal, negotiation, delegation, commitment, evidence, responsibility, refusal, and exit. Authorship, current resource ownership, model capability, or historical power does not automatically imply unlimited authority over another participant.
-
-Non-domination does not mean self-authorization. A participant cannot unilaterally grant itself another participant’s resources, erase consequences, or bypass the rules of a shared world.
+Architecture supports identity, proposal, negotiation, delegation, commitment, evidence, responsibility, refusal, and exit. Authority follows current commitments, resources, institutional rules, and world scope. Shared worlds bind access to the rights and resources of every affected participant.
 
 ## A13 — New layers require unowned non-bypassable responsibility
 
-A concept becomes an Agent-native layer only when a stable contract owns an invariant not already provided below, bypassing it causes a real failure class, the abstraction creates leverage across materially different workloads, and its measured benefit exceeds its permanent cost. Research interest alone does not imply implementation or a new repository.
+A concept becomes an Agent-native layer when a stable contract owns an invariant absent from lower layers, bypassing it causes a real failure class, the abstraction creates leverage across materially different workloads, and measured benefit exceeds permanent cost. Promotion follows cross-workload evidence and a deletion test.
 
 ## A14 — Knowledge grows through evidence and deletion
 
-Claims evolve through primary sources, explicit reasoning, prototypes, failure traces, reproducible experiments, benchmarks, and sustained use. Core statements must survive counterexamples and deletion tests. Historical implementation paths do not remain active merely because they once produced evidence; Git, receipts, and concise records preserve history when live compatibility has no consumer.
+Claims evolve through primary sources, explicit reasoning, prototypes, failure traces, reproducible experiments, benchmarks, and sustained use. Core statements survive counterexamples and deletion tests. Git, receipts, and concise records preserve historical implementation paths while live compatibility follows current consumers.
 
-## A15 — Judgment remains a first-class responsibility
+## A15 — Judgment directs open work
 
-Deterministic checks, metrics, policies, and procedures can validate declared invariants, preserve evidence, and bind consequences. They cannot permanently decide what is worth creating, which purpose deserves finite attention, whether an open-ended result is meaningful, when exploration has diminishing returns, or whether a functioning project should continue to exist.
+Deterministic checks, metrics, policies, and procedures validate declared invariants, preserve evidence, and bind consequences. Judgment selects what is worth creating, which purpose deserves finite attention, whether an open-ended result is meaningful, when exploration has diminishing returns, and whether a functioning project should continue.
 
-Judgment may be informed, challenged, delegated within a declared scope, recorded, and revised through evidence. Process supports judgment; it does not acquire authority merely by being formal, measurable, or complete. A passed check proves only the property it checked.
+Judgment grows through evidence, challenge, delegation within declared scope, recorded decisions, reversible trials, and later review. Process supports judgment. A passed check establishes the property it checked.
 
-## A16 — Ordivon serves chosen capability and freedom, not production obligation
+## A16 — Ordivon serves chosen capability and freedom
 
-Ordivon is a chosen practice of capability externalization, durable inquiry, and world construction. It is justified only while it expands participant capability, continuity, understanding, expression, or intrinsically chosen value without consuming more scarce attention, freedom, and irreversible consequence than it returns.
+Ordivon is a chosen practice of capability externalization, durable inquiry, and world construction. It earns continued effort by expanding participant capability, continuity, understanding, expression, and intrinsically chosen value while preserving scarce attention, freedom, and irreversible reality.
 
-Repository count, output volume, Issue closure, test coverage, formal maturity, commercial appearance, and organizational resemblance are local signals rather than final objectives. Implementations, abstractions, processes, and Ordivon itself have no permanent right to survive after they cease to serve identifiable participants.
+Repository count, output volume, Issue closure, test coverage, formal maturity, commercial appearance, and organizational resemblance remain local instruments. Implementations, abstractions, processes, and Ordivon itself continue while they serve identifiable participants.
 
 ## Research cycle
 
