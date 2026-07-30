@@ -19,5 +19,11 @@ content-addressed and must not be rewritten as success.
 
 - `evidence/deterministic-matrix.json` preserves all 16 isolated baseline trials.
 - `evidence/live-provider-gauntlet.json` preserves six physical Codex/Hermes trials.
-- `evidence/round1-closeout.json` derives the architectural dispositions from those receipts.
+- `evidence/report-statistics.json` derives report aggregates and preserves measurement caveats.
+- `evidence/round1-closeout.json` derives the architectural dispositions from the primary receipts.
 - `evidence/round1-source-receipt.json` binds the Computing implementation commit, Host implementation and receipt, evidence digests, and clean-environment verification.
+
+The full narrative interpretation is in [`REPORT.md`](REPORT.md). Numerical
+claims in its aggregate tables must remain derivable from
+`report-statistics.json`; prose may explain significance but must not silently
+replace canonical evidence.
