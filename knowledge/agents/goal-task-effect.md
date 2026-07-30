@@ -1,4 +1,4 @@
-# Goal, Task, Attempt, Context, Action Proposal, and Effect
+# Goal, Task, Task Attempt, Context, Action Proposal, and Effect
 
 Agent systems often compress these objects into one prompt. They carry different identities, lifetimes, commitments, and authority.
 
@@ -31,11 +31,11 @@ Goal
 
 A Task is not identical to a process, Kubernetes Job, Temporal Workflow, model session, or Tool call. Those can implement parts of it.
 
-## Attempt
+## Task Attempt
 
-An Attempt is one exploration or execution path through a Task. It preserves a hypothesis, context binding, Action Proposals, Effects, observations, Artifacts, cost, and end state.
+A Task Attempt is one semantic exploration or execution path through a Task. It preserves a hypothesis, context binding, Action Proposals, Effects, observations, Artifacts, cost, and end state.
 
-The Task survives a failed Attempt. Failure can add evidence rather than erase the path.
+The Task survives a failed Task Attempt. Failure can add evidence rather than erase the path.
 
 ## Context
 
@@ -116,7 +116,7 @@ This separation allows stronger cognition and faster exploration without treatin
 participant purpose or request
 → Goal and commitments
 → dynamic Task frontier
-→ Attempt and Context
+→ Task Attempt and Context
 → candidate Claim or ActionProposal
 → capability and consequence resolution
 → Effect admission

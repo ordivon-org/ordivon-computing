@@ -10,7 +10,7 @@ Ordivon Runtime connects model-hosted or Host-managed work to a persistent Linux
 | bounded read and mutation | `workspace.read`, `workspace.mutate`, `workspace.patch` |
 | candidate comparison | `workspace.diff` |
 | physical execution | `workspace.exec`, `workspace.execPlan` |
-| execution identity | Job ID and Attempt ID |
+| execution identity | Job ID and Runtime Attempt ID |
 | progress and result observation | `task.observe`, `task.list` |
 | cancellation | `task.cancel` |
 | durable output | retained Artifact and `artifact.read` |
@@ -54,9 +54,9 @@ A Workspace begins from an exact source revision and receives an independent can
 
 The analogy to copy-on-write memory is useful for reasoning about identity and branching, but it is not architectural equivalence: Git and the filesystem remain the actual mechanisms.
 
-## Job, Attempt, and Effect
+## Job, Runtime Attempt, and Effect
 
-A Runtime Job is a concrete execution-control object. An Attempt records one physical execution path. A semantic Effect can bind to a Job or synchronous receipt through a concrete Dispatch.
+A Runtime Job is a concrete execution-control object. A Runtime Attempt records one physical execution path. A semantic Effect can bind to a Job or synchronous receipt through a concrete Dispatch.
 
 ```text
 Effect intent

@@ -9,7 +9,7 @@ Open-work control preserves the meaning and frontier of a Goal whose decompositi
 ```text
 Goal
 → dynamic Task frontier
-→ Attempt or Branch
+→ Task Attempt or Branch
 → bounded Context
 → candidate Claim or Effect
 → revised Task state

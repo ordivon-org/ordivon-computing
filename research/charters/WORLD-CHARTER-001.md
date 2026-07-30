@@ -14,7 +14,7 @@ providers, Agents, humans, devices, and data without depending on one path,
 endpoint, identity, transport, provider, body, participant, or response channel.
 
 ```text
-Goal / Task / Attempt / Effect
+Goal / Task / Task Attempt / Effect
               │ foreign semantic references
               ▼
       World Interaction intent
@@ -63,11 +63,11 @@ World may own the following only after cross-workload evidence:
 
 1. **Interaction intent** — bounded external relation, capability, consequence,
    data, locality, identity, evidence, duration, callback, and continuity needs
-   of one Attempt or Effect.
+   of one Task Attempt or Effect.
 2. **Candidate Observation** — versioned, expiring facts about targets,
    participants, endpoints, paths, transports, providers, capabilities, cost,
    policy, availability, and uncertainty.
-3. **Interaction Binding** — immutable correlation from Task/Attempt/Effect/
+3. **Interaction Binding** — immutable correlation from Task, Task Attempt, Effect, and
    Dispatch references to exact target, identity, path, transport, provider,
    physical execution, authority, policy, and observation revisions.
 4. **Delivery and execution correlation** — explicit distinction among message
@@ -93,7 +93,7 @@ These are field inventories, not admitted protocol schemas.
 
 World references but does not redefine:
 
-- Goal, Task, Attempt, Effect, Claim, Verification, commitment, strategy, and
+- Goal, Task, Task Attempt, Effect, Claim, Verification, commitment, strategy, and
   completion;
 - trusted-local Workspace, Job, process, cancellation, and recovery;
 - packets, routes, DNS, VPNs, proxies, meshes, transports, PKI, and workload

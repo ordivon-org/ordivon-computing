@@ -2,7 +2,7 @@
 
 
 > **Historical intermediate charter:** superseded by [`WORLD-CHARTER-001`](WORLD-CHARTER-001.md) after external placement and connectivity were unified as one Task-to-World Interaction responsibility.
-Status: active research charter
+Status: historical intermediate charter — superseded by WORLD-CHARTER-001
 
 Supersedes the long-term responsibility claim in
 [`EDGE-CHARTER-002`](EDGE-CHARTER-002.md). Charter 002 remains a historical
@@ -22,7 +22,7 @@ lifecycle. Edge adds the Task-level placement, binding, reconciliation,
 provenance, and continuation semantics that those substrates do not own.
 
 ```text
-Goal / Task / Attempt / Effect
+Goal / Task / Task Attempt / Effect
               │ foreign semantic references
               ▼
       placement requirement
@@ -61,7 +61,7 @@ shared and non-bypassable:
 
 1. **Placement Requirement** — a bounded description of the execution
    capabilities, data, locality, credential domain, duration, resource class,
-   reversibility, evidence, and consequence requirements of one Attempt or
+   reversibility, evidence, and consequence requirements of one Task Attempt or
    Effect.
 2. **Provider Capability Observation** — versioned, time-bounded facts about
    what a provider currently offers, under which policy, cost class, quota,
@@ -69,7 +69,7 @@ shared and non-bypassable:
 3. **Placement Candidate** — one provider-native way to satisfy a Placement
    Requirement, with explicit strengths, limitations, uncertainty, and binding
    inputs.
-4. **Placement Binding** — an immutable relation from Task/Attempt/Effect
+4. **Placement Binding** — an immutable relation from Task, Task Attempt, and Effect
    references to the exact provider, body or Sandbox generation, capability and
    policy revision, and provider execution identity used by a Dispatch.
 5. **External execution reconciliation** — preservation of `accepted`,
@@ -92,7 +92,7 @@ Core or Protocol until two materially different workloads prove them.
 
 Edge references but does not redefine:
 
-- Goal, Task, Attempt, Effect, Dispatch, Claim, Verification, and Fact identities;
+- Goal, Task, Task Attempt, Effect, Dispatch, Claim, Verification, and Fact identities;
 - human or organizational authority and consequence ownership;
 - local Workspace, Job, process, and recovery lifecycle;
 - network path, communication identity, route, and connectivity evidence;
