@@ -12,6 +12,14 @@ one frozen maintenance world
 + one combined gauntlet after isolated faults pass
 ```
 
+## Documents
+
+- [`REPORT.md`](REPORT.md) — complete experiment report: principles, implementation, comparisons, data, engineering problems, limitations, and architectural consequences;
+- [`RESULTS.md`](RESULTS.md) — compact result and disposition summary;
+- [`SPEC.md`](SPEC.md) — frozen claim, workload, fairness, and hard-failure contract;
+- [`DECISIONS.md`](DECISIONS.md) — retained, shrunk, localized, and deferred decisions;
+- [`EVIDENCE.md`](EVIDENCE.md) — evidence and receipt contract.
+
 ## Work packages
 
 - `continuity`: transcript/summary, LangGraph SQLite checkpoints, Temporal Workflow state, and Ordivon-style typed work state;
@@ -22,8 +30,9 @@ one frozen maintenance world
 ## Deterministic gate
 
 ```bash
-uv sync
-uv run python -m unittest discover -s tests
+uv sync --frozen
+uv run python -m unittest discover -s tests -v
+uv run ruff check src tests scripts
 uv run anc-core-work-system freeze --output fixtures/contract-rebind-maintenance-v1
 uv run anc-core-work-system matrix \
   --fixture fixtures/contract-rebind-maintenance-v1 \
@@ -33,10 +42,22 @@ uv run anc-core-work-system matrix \
 Live model trials are a later command over the same frozen fixture and do not
 change scoring, fault schedules, or hard-failure definitions.
 
+## Report statistics
+
+The report's aggregate tables are derived from the bound receipts rather than
+maintained manually:
+
+```bash
+uv run python scripts/report_statistics.py \
+  --matrix evidence/deterministic-matrix.json \
+  --live evidence/live-provider-gauntlet.json \
+  --output evidence/report-statistics.json
+```
+
 ## Closeout
 
-The deterministic and live evidence is summarized in [`RESULTS.md`](RESULTS.md).
-Generate the machine-readable closeout after the evidence files exist:
+Generate the machine-readable architectural closeout after the evidence files
+exist:
 
 ```bash
 uv run python scripts/report_closeout.py \

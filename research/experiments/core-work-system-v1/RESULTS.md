@@ -1,5 +1,9 @@
 # Round 1 Results
 
+For the complete methodology, implementation detail, per-variant data,
+engineering problems, limitations, and interpretation, read
+[`REPORT.md`](REPORT.md).
+
 ## Result boundary
 
 Round 1 compared one frozen maintenance workload across strong persistence,

@@ -4,7 +4,7 @@ Experiments connect open Agent-Native Computing questions to executable artifact
 
 ## Active experiments
 
-- [`core-work-system-v1/`](core-work-system-v1/) — Round 1 strong-baseline comparison across open-work continuity, Context invalidation, Effect ambiguity, operator attention, and live Codex/Hermes Provider replacement. Its closeout localizes or shrinks every shared-layer claim except the bounded provider-neutral state boundary.
+- [`core-work-system-v1/`](core-work-system-v1/) — Round 1 strong-baseline comparison across open-work continuity, Context invalidation, Effect ambiguity, operator attention, and live Codex/Hermes Provider replacement. Its [full report](core-work-system-v1/REPORT.md) documents the principles, implementation, complete data, engineering problems, limitations, and the localization or reduction of every shared-layer claim except bounded Provider-neutral state.
 - [`task-continuation-v0/`](task-continuation-v0/) — frozen continuation workload, content-addressed TaskCapsule, field ablations, bounded Context Compiler, and fresh-process Host continuation.
 - [`external-semantic-contract-v0/`](external-semantic-contract-v0/) — backend-neutral canonical encoding, public Effect IR, ToolContract normalization and diff, immutable Effect Binding, the minimal signed Kernel admission edge, dual-backend integration, and exact evidence.
 
