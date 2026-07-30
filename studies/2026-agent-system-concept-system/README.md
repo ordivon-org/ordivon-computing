@@ -41,6 +41,7 @@ This study therefore asks:
 - [`05-durability-coordination-and-recovery.md`](05-durability-coordination-and-recovery.md) — checkpoints, journals, leases, fencing, idempotency, compensation, queues, and recovery.
 - [`06-mature-baselines-and-standards.md`](06-mature-baselines-and-standards.md) — comparison with Codex, Claude Code, Temporal, Kubernetes, MCP, OpenTelemetry, and LangGraph.
 - [`07-ordivon-research-program.md`](07-ordivon-research-program.md) — prioritized experiments, repository requirements, falsifiers, and stop conditions.
+- [`08-project-issue-map.md`](08-project-issue-map.md) — accepted cross-repository issue ownership and execution order.
 - [`REFERENCES.md`](REFERENCES.md) — primary sources and mature implementation references.
 
 ## Compact map
