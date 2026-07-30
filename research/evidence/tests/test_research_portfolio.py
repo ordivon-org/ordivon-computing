@@ -1,0 +1,51 @@
+from __future__ import annotations
+
+import importlib.util
+import json
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+
+
+def _load(name: str, relative: str):
+    spec = importlib.util.spec_from_file_location(name, ROOT / relative)
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+CHECK = _load("check_research_portfolio", "scripts/check_research_portfolio.py")
+RENDER = _load("render_research_portfolio", "scripts/render_research_portfolio.py")
+
+
+class ResearchPortfolioTests(unittest.TestCase):
+    def test_repository_portfolio_is_valid(self) -> None:
+        self.assertEqual(CHECK.check_portfolio(ROOT), [])
+
+    def test_rendered_view_is_current(self) -> None:
+        document = json.loads((ROOT / "research" / "portfolio.json").read_text())
+        self.assertEqual(
+            RENDER.render(document),
+            (ROOT / "research" / "PORTFOLIO.md").read_text(),
+        )
+
+    def test_wip_limit_is_enforced(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "research" / "questions").mkdir(parents=True)
+            source = ROOT / "research" / "portfolio.json"
+            document = json.loads(source.read_text())
+            document["policy"]["activeLineLimit"] = 1
+            path = root / "research" / "portfolio.json"
+            path.write_text(json.dumps(document), encoding="utf-8")
+            issues = CHECK.check_portfolio(root, path)
+            self.assertIn("active research-line WIP limit exceeded", issues)
+
+
+if __name__ == "__main__":
+    unittest.main()

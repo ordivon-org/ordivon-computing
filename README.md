@@ -65,6 +65,8 @@ real workloads, primary sources, failures, and observations
 | **Research** | Questions, competing hypotheses, experiments, and immutable evidence | [`research/`](research/) |
 | **Projects** | Real systems through which ideas are constructed and tested | [`projects/`](projects/) |
 
+Current research status, evidence maturity, blockers, falsifiers, and the bounded Ready Frontier live in [`research/PORTFOLIO.md`](research/PORTFOLIO.md), generated from [`research/portfolio.json`](research/portfolio.json).
+
 Five studies are especially important:
 
 - [`studies/2026-computing-stack-walkthrough/`](studies/2026-computing-stack-walkthrough/) — the complete physical-to-institutional computing route;
@@ -109,23 +111,21 @@ by more than it adds latency, friction, cognitive compression, and control conce
 
 Research interest does not imply implementation. A concept moves toward Core only after primary-source comparison, executable evidence, counterexamples, cost measurement, and deletion tests.
 
-## Current questions
+## Research portfolio
 
-- [`ANC-STACK-001`](research/questions/ANC-STACK-001-classical-to-agent-native-transition.md) — classical substrate versus Agent-native responsibility;
-- [`ANC-IR-001`](research/questions/ANC-IR-001-agent-effect-ir.md) — minimum useful Agent Effect IR;
-- [`ANC-MEMORY-001`](research/questions/ANC-MEMORY-001-task-continuity.md) — minimum durable state for open-work continuity;
-- [`ANC-EFFECT-001`](research/questions/ANC-EFFECT-001-tool-contract-evolution.md) — Tool-contract change and rebinding;
-- [`ANC-ORG-001`](research/questions/ANC-ORG-001-agent-native-organization.md) — plural participants coordinating around persistent work and commitments;
-- [`ANC-ADAPT-001`](research/questions/ANC-ADAPT-001-agent-era-capabilities.md) — evidence-driven adaptation and self-improvement;
-- [`ANC-SECURITY-001`](research/questions/ANC-SECURITY-001-adversarial-agent-systems.md) — umbrella question for Agent-native strategic adversarial systems;
-- [`ANC-SECURITY-003`](research/questions/ANC-SECURITY-003-strategic-adversarial-agency.md) — strategic adversarial agency, Contest, Campaign synthesis, initiative, and resources;
-- [`ANC-SECURITY-004`](research/questions/ANC-SECURITY-004-opponent-modeling-and-deception.md) — opponent modelling, belief state, deception, and information position;
-- [`ANC-SECURITY-005`](research/questions/ANC-SECURITY-005-adversarial-organization.md) — multi-Agent command, compartmentalization, compromise, collusion, and reorganization;
-- [`ANC-SECURITY-006`](research/questions/ANC-SECURITY-006-coevolution-and-evaluation.md) — attack-defense coevolution, adversarial evaluation, held-out opponents, and transfer;
-- [`ANC-HARNESS-001`](research/questions/ANC-HARNESS-001-agent-system-composition.md) — Harness, Host, Runtime, lifecycle, capability, and cross-Harness continuation boundaries;
-- [`ANC-WORLD-002`](research/questions/ANC-WORLD-002-task-to-world-interaction-continuity.md) — Task-to-external-world interaction continuity across target, path, identity, provider, evidence, and replacement.
+The machine-readable portfolio and generated review view are:
 
-See [`research/map.yaml`](research/map.yaml).
+- [`research/portfolio.json`](research/portfolio.json) — status, maturity, priority, blocker, next falsifier, and disposition source of truth;
+- [`research/PORTFOLIO.md`](research/PORTFOLIO.md) — current active lines and complete portfolio view.
+
+Round A enforces two active research lines:
+
+```text
+R-A  Harness composition, CompletionProposal, and calibrated non-action
+R-B  Task-to-World continuity and Effect-contract decision
+```
+
+All other questions are explicitly `ready`, `blocked`, `deferred`, `completed`, `superseded`, `frozen`, or `reference`. Research importance does not grant active WIP status.
 
 ## Project roles
 

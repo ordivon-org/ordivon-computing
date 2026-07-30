@@ -2,7 +2,7 @@
 
 
 > **Historical intermediate charter:** superseded by [`WORLD-CHARTER-001`](WORLD-CHARTER-001.md) after external placement and connectivity were unified as one Task-to-World Interaction responsibility.
-Status: active research charter
+Status: historical intermediate charter — superseded by WORLD-CHARTER-001
 
 Supersedes the long-term responsibility claim in
 [`LINK-CHARTER-002`](LINK-CHARTER-002.md). Charter 002 remains a historical
@@ -24,7 +24,7 @@ binding, path-conditioned evidence, invalidation, and recovery semantics that
 they do not own.
 
 ```text
-Goal / Task / Attempt / Effect
+Goal / Task / Task Attempt / Effect
               │ foreign semantic references
               ▼
       connectivity requirement
@@ -66,14 +66,14 @@ shared and non-bypassable:
 1. **Connectivity Requirement** — a bounded description of logical source,
    logical target, interaction kind, direction, identity assurance, trust and
    data boundaries, locality, latency, availability, evidence, and replacement
-   requirements for one Attempt or Effect.
+   requirements for one Task Attempt or Effect.
 2. **Path and identity Observation** — versioned, expiring, method-bound facts
    about reachability, route class, egress, endpoint identity, protocol,
    application capability, and uncertainty.
 3. **Connectivity Candidate** — one way to realize a relationship through
    mature mechanisms, including direct access, VPN, proxy, service mesh, Edge
    mediation, asynchronous Artifact handoff, or another participant.
-4. **Connectivity Binding** — an immutable relation from Task/Attempt/Effect
+4. **Connectivity Binding** — an immutable relation from Task, Task Attempt, and Effect
    references to logical source and target identities, selected path and
    transport, policy revision, identity generation, and the observations used
    to justify the selection.
@@ -96,7 +96,7 @@ Core or Protocol until two materially different workloads prove them.
 
 Link references but does not redefine:
 
-- Goal, Task, Attempt, Effect, Dispatch, Artifact, Claim, Verification, and Fact;
+- Goal, Task, Task Attempt, Effect, Dispatch, Artifact, Claim, Verification, and Fact;
 - participant responsibility, commitments, organizational membership, and
   campaign objectives;
 - provider body, Sandbox, VM, browser, device, or process lifecycle;

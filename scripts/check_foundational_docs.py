@@ -28,6 +28,9 @@ REQUIRED_PATHS = (
     "knowledge/computing/classical-substrate-and-agent-overlay.md",
     "knowledge/agents/probabilistic-work-control-loop.md",
     "knowledge/agents/task-context-authority-effect-evidence.md",
+    "research/portfolio.json",
+    "research/PORTFOLIO.md",
+    "research/charters/README.md",
     "research/questions/ANC-STACK-001-classical-to-agent-native-transition.md",
     "studies/2026-classical-to-agent-native-computing/README.md",
     "studies/2026-classical-to-agent-native-computing/REFERENCES.md",
@@ -41,7 +44,12 @@ REQUIRED_PATHS = (
 
 
 def markdown_paths(root: Path) -> list[Path]:
-    paths = [root / "README.md", root / "research" / "README.md"]
+    paths = [
+        root / "README.md",
+        root / "research" / "README.md",
+        root / "research" / "PORTFOLIO.md",
+        root / "research" / "charters" / "README.md",
+    ]
     for directory in (
         root / "core",
         root / "knowledge",

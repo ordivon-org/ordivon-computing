@@ -4,7 +4,7 @@ This file distinguishes classical backend objects, executable Semantic Core prim
 
 ```text
 Participation and open-work layer
-Participant / Goal / Task / Attempt / Context / Branch / Join / DecisionRequest
+Participant / Goal / Task / Task Attempt / Context / Branch / Join / DecisionRequest
                                   ↓ proposes or negotiates
 Proposal and semantic commitment layer
 ActionProposal / CapabilityProfile / Authority / Effect / Binding / Dispatch
@@ -173,11 +173,11 @@ A durable desired world condition with identity, originating or accepting partic
 
 ### Task
 
-A persistent semantic work unit that advances a Goal and carries current state, frontier, and outcome. A Task can outlive model sessions, Host processes, Runtime Jobs, and failed Attempts.
+A persistent semantic work unit that advances a Goal and carries current state, frontier, and outcome. A Task can outlive model sessions, Host processes, Runtime Jobs, and failed Task Attempts.
 
-### Attempt
+### Task Attempt
 
-One exploration or execution path for a Task. It may preserve hypotheses, model invocations, Effects, errors, Observations, and reusable Artifacts.
+One semantic exploration or execution path for a Task. It may preserve hypotheses, model invocations, Effects, errors, Observations, and reusable Artifacts.
 
 ### Context
 
@@ -261,7 +261,7 @@ A participant may need to refuse a proposed commitment, revoke delegation, leave
 Participant / institution / resource owner
 └── Goal and Commitments
     └── Task frontier
-        ├── Attempt / Branch
+        ├── Task Attempt / Branch
         │   ├── Context → model invocation → Claim or ActionProposal
         │   └── ActionProposal
         │       └── Effect compilation or DecisionRequest

@@ -34,7 +34,7 @@ A serious research setting contains:
 - a contested World whose state can change;
 - adaptation and counter-adaptation;
 - strategic victory, failure, withdrawal, and exit conditions;
-- consequences that unfold across many Tasks, Attempts, and observations.
+- consequences that unfold across many Tasks, Task Attempts, and observations.
 
 ## Candidate vocabulary
 
@@ -98,7 +98,7 @@ and evaluates those actions against another adaptive actor.
 
 ```text
 Host      cognition, Goal, Task, Context, memory, Agent continuity
-Runtime   Effects, Workspace, Job, Attempt, process and terminal facts
+Runtime   Effects, Workspace, Job, Runtime Attempt, process and terminal facts
 Link      communication relationships and path evidence
 Edge      external execution bodies and provider lifecycle
 Game      general World mechanics, simulation, replay, interaction substrates
