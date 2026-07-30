@@ -28,6 +28,7 @@ The cross-layer construction program is [#1 — Construct the Agent-Native Machi
 - [`ANC-EFFECT-001`](questions/ANC-EFFECT-001-tool-contract-evolution.md) — Tool-contract change detection and adoption;
 - [`ANC-ORG-001`](questions/ANC-ORG-001-agent-native-organization.md) — human and multi-Agent coordination around persistent work;
 - [`ANC-ADAPT-001`](questions/ANC-ADAPT-001-agent-era-capabilities.md) — cross-task learning, capability compilation, cognition control, coordination, and evidence-governed self-evolution;
+- [`ANC-HARNESS-001`](questions/ANC-HARNESS-001-agent-system-composition.md) — Harness, Host, Runtime, lifecycle, capability, and cross-Harness continuation boundaries;
 - [`ANC-SECURITY-001`](questions/ANC-SECURITY-001-adversarial-agent-systems.md) — umbrella question for Agent-native strategic adversarial systems;
 - [`ANC-SECURITY-003`](questions/ANC-SECURITY-003-strategic-adversarial-agency.md) — strategic adversarial agency, Contest, Campaign synthesis, initiative, and resources;
 - [`ANC-SECURITY-004`](questions/ANC-SECURITY-004-opponent-modeling-and-deception.md) — opponent modelling, belief state, deception, and information position;
