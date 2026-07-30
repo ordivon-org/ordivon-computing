@@ -27,3 +27,11 @@ The full narrative interpretation is in [`REPORT.md`](REPORT.md). Numerical
 claims in its aggregate tables must remain derivable from
 `report-statistics.json`; prose may explain significance but must not silently
 replace canonical evidence.
+
+## Report receipt
+
+`evidence/round1-report-receipt.json` binds the complete report to source
+revision `1609a39d870ea06497510d254e069dfce9361700`, its raw SHA-256, derived
+statistics, original experiment receipts, Host receipt, verification gates, and
+explicit negative claim boundaries. Later evidence may supersede interpretation,
+but must not rewrite this report generation in place.
