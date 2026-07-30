@@ -136,6 +136,22 @@ relations:
     type: feeds_back_to
     to: ANC-HOST-001
     meaning: Continuation and invalidation experiments determine what context the Host must compile.
+  - from: ANC-MEMORY-001
+    type: enables
+    to: ANC-HARNESS-001
+    meaning: Durable continuation experiments determine which state a replacement Harness must receive and which provider Session state remains local.
+  - from: ANC-EFFECT-001
+    type: enables
+    to: ANC-HARNESS-001
+    meaning: Stable Tool-contract identity and Effect semantics constrain Tool exposure, result normalization, and cross-Harness continuation.
+  - from: ANC-HARNESS-001
+    type: feeds_back_to
+    to: ANC-HOST-001
+    meaning: Adapter and replacement experiments determine which cognition lifecycle belongs in Host and which remains Harness-specific.
+  - from: ANC-GAME-001
+    type: feeds_back_to
+    to: ANC-HARNESS-001
+    meaning: Deterministic long-horizon worlds expose Session, compaction, lifecycle Hook, local-subagent, and CompletionProposal failures at low evaluation cost.
   - from: ANC-HOST-001
     type: feeds_back_to
     to: ANC-MEMORY-001
@@ -341,6 +357,28 @@ questions:
       - ordivon-host
       - ordivon-runtime
       - ordivon-game
+      - ordivon-world
+
+  - id: ANC-HARNESS-001
+    title: Harness, Host, Runtime, and Agent-System Composition
+    file: questions/ANC-HARNESS-001-agent-system-composition.md
+    branch: ANC-HOST
+    epistemic_status: research_question
+    question: Can a thin, capability-preserving Harness boundary allow durable Host Tasks to execute and continue across materially different Agent Harnesses while physical execution remains in Runtime and provider-specific cognition features remain intact?
+    evidence_paths:
+      - primary_source_comparison
+      - cross_repository_ownership_audit
+      - two_harness_adapter_experiment
+      - mid_task_harness_replacement
+      - completion_proposal_fault_injection
+      - lifecycle_hook_and_event_experiment
+      - abstraction_deletion_test
+    related_projects:
+      - ordivon-computing
+      - ordivon-host
+      - ordivon-runtime
+      - ordivon-game
+      - ordivon-security
       - ordivon-world
 
   - id: ANC-SECURITY-001
