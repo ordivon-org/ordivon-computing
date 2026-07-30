@@ -91,6 +91,7 @@ classical execution, storage, networking, isolation, and model serving
 
 The compact Core is:
 
+- [`core/intent.md`](core/intent.md) — project intent, capability externalization, judgment, creative freedom, and governance burden;
 - [`core/foundations.md`](core/foundations.md) — working foundations;
 - [`core/stack.md`](core/stack.md) — inherited substrate and Agent-native responsibility overlay;
 - [`core/primitives.md`](core/primitives.md) — backend objects, executable semantic primitives, promoted protocol objects, Host-proven work objects, and explicit research candidates.

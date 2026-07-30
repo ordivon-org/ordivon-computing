@@ -79,6 +79,7 @@ def render(document: dict[str, Any]) -> str:
         "## Governance rules",
         "",
         f"- **Promotion:** {policy['promotionRule']}",
+        f"- **Judgment:** {policy['judgmentRule']}",
         f"- **New question admission:** {policy['newQuestionRule']}",
         "- Every completed experiment ends in one of: `retain`, `localize`, `shrink`, `defer`, or `delete`.",
         "- `active` is a WIP state, not a statement of importance. `deferred` preserves a valid question without consuming current execution bandwidth.",
