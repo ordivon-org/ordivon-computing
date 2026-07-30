@@ -39,6 +39,7 @@ def check_portfolio(root: Path = ROOT, path: Path | None = None) -> list[str]:
     maturity = set(policy.get("maturityLevels", {}))
     active_limit = policy.get("activeLineLimit")
     _require(isinstance(active_limit, int) and active_limit > 0, "activeLineLimit must be positive", issues)
+    _require(bool(policy.get("judgmentRule")), "portfolio judgmentRule is missing", issues)
 
     lines = document.get("activeLines", [])
     _require(isinstance(lines, list), "activeLines must be a list", issues)

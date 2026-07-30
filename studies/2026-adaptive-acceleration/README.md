@@ -17,6 +17,12 @@ The study does not pretend to be neutral between acceleration and restraint. It 
 5. [Argument map and falsifiers](ARGUMENT-MAP.md)
 6. [Source ledger](REFERENCES.md)
 
+## Ordivon-level application
+
+The civilizational position does not imply a personal obligation to produce or an instruction to deploy every capability immediately. Ordivon's project-level intent is defined in [`../../core/intent.md`](../../core/intent.md), with the fuller relationship among creation, judgment, governance, scarcity, and recoverability in [`../../knowledge/philosophy-creation-judgment-and-recoverability.md`](../../knowledge/philosophy-creation-judgment-and-recoverability.md).
+
+The practical translation is: preserve wide internal capability, bind concrete external consequence, make durable governance prove current net benefit, and allow projects and implementations to die when they no longer serve participant purpose.
+
 ## Status
 
 - Version: `0.6`

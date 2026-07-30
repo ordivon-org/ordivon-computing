@@ -111,6 +111,7 @@ The portfolio is the single source of truth for research status, maturity, block
 ## Governance rules
 
 - **Promotion:** No shared layer or repository without a reproduced failure, a second materially different consumer, explicit ownership, measured net benefit, and a deletion test.
+- **Judgment:** The portfolio limits WIP and records reasons; it does not mechanically decide what matters. Identifiable participants remain responsible for priority, exception, revision, and deletion, and the portfolio itself must be narrowed or removed if its recurring cost exceeds the drift it prevents.
 - **New question admission:** A new question must replace, block, or materially refine an existing item and name its first falsifier, minimum workload, deletion outcome, and consuming repository.
 - Every completed experiment ends in one of: `retain`, `localize`, `shrink`, `defer`, or `delete`.
 - `active` is a WIP state, not a statement of importance. `deferred` preserves a valid question without consuming current execution bandwidth.

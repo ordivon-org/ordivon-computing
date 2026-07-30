@@ -34,6 +34,17 @@ class ResearchPortfolioTests(unittest.TestCase):
             (ROOT / "research" / "PORTFOLIO.md").read_text(),
         )
 
+    def test_judgment_rule_is_required(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "research" / "questions").mkdir(parents=True)
+            document = json.loads((ROOT / "research" / "portfolio.json").read_text())
+            document["policy"].pop("judgmentRule")
+            path = root / "research" / "portfolio.json"
+            path.write_text(json.dumps(document), encoding="utf-8")
+            issues = CHECK.check_portfolio(root, path)
+            self.assertIn("portfolio judgmentRule is missing", issues)
+
     def test_wip_limit_is_enforced(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

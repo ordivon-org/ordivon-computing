@@ -54,9 +54,11 @@ Observation, Artifact, Claim, Verification, and Fact are distinct roles. A model
 
 ## A11 — Every durable constraint must prove net acceleration
 
-The system objective is verified improvement per unit time while minimizing unrecoverable loss and unnecessary interruption. A persistent restriction, approval step, compatibility layer, policy object, or abstraction is justified only when the recoverability, verification, coordination, or consequence reduction it creates is greater than its latency, operational friction, cognitive compression, maintenance burden, and concentration of control.
+The system objective is verified improvement per unit time while minimizing unrecoverable loss and unnecessary interruption. A persistent restriction, approval step, compatibility layer, policy object, or abstraction is justified only when the recoverability, verification, coordination, or consequence reduction it creates is greater than its latency, operational friction, cognitive compression, maintenance burden, opportunity cost, and concentration of control.
 
-Constraints that cannot pass this test are removed, narrowed, or moved out of the active path.
+A reversible, bounded feature may be tested when its plausible value exceeds its experiment and deletion cost. A durable constraint has a higher admission burden because it suppresses unknown future actions across repeated work. It should normally answer an observed or credible recurring loss, show that recovery or a narrower boundary is insufficient, and declare a review or deletion condition.
+
+Constraints that cannot pass this test are removed, narrowed, localized, or moved out of the active path.
 
 ## A12 — Cooperation must not require permanent domination
 
@@ -72,6 +74,18 @@ A concept becomes an Agent-native layer only when a stable contract owns an inva
 
 Claims evolve through primary sources, explicit reasoning, prototypes, failure traces, reproducible experiments, benchmarks, and sustained use. Core statements must survive counterexamples and deletion tests. Historical implementation paths do not remain active merely because they once produced evidence; Git, receipts, and concise records preserve history when live compatibility has no consumer.
 
+## A15 — Judgment remains a first-class responsibility
+
+Deterministic checks, metrics, policies, and procedures can validate declared invariants, preserve evidence, and bind consequences. They cannot permanently decide what is worth creating, which purpose deserves finite attention, whether an open-ended result is meaningful, when exploration has diminishing returns, or whether a functioning project should continue to exist.
+
+Judgment may be informed, challenged, delegated within a declared scope, recorded, and revised through evidence. Process supports judgment; it does not acquire authority merely by being formal, measurable, or complete. A passed check proves only the property it checked.
+
+## A16 — Ordivon serves chosen capability and freedom, not production obligation
+
+Ordivon is a chosen practice of capability externalization, durable inquiry, and world construction. It is justified only while it expands participant capability, continuity, understanding, expression, or intrinsically chosen value without consuming more scarce attention, freedom, and irreversible consequence than it returns.
+
+Repository count, output volume, Issue closure, test coverage, formal maturity, commercial appearance, and organizational resemblance are local signals rather than final objectives. Implementations, abstractions, processes, and Ordivon itself have no permanent right to survive after they cease to serve identifiable participants.
+
 ## Research cycle
 
 ```text
@@ -80,7 +94,7 @@ observe
 → formulate a falsifiable question
 → construct the smallest useful artifact
 → run against reality and a strong baseline
-→ measure capability gained, constraint cost, and unrecoverable-loss reduction
+→ measure capability, understanding, attention, constraint cost, and unrecoverable-loss reduction
 → revise or delete the abstraction
 → preserve the result at the lowest sufficient layer
 ```
