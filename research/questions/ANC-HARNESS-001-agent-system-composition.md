@@ -1,6 +1,8 @@
 # ANC-HARNESS-001 — Harness, Host, Runtime, and Agent-System Composition
 
-> **Status:** completed at M5 on 2026-07-31. H1–H5 retained a Host-local durable boundary with provider-specific direct drivers and rejected a shared Harness lifecycle or standalone `ordivon-harness` repository.
+> **Status:** completed at M5 on 2026-07-31. H1–H5 retained a Host-local durable boundary with provider-specific direct drivers and rejected extracting those drivers into a shared cross-Provider lifecycle or repository.
+>
+> **Scope clarification:** this decision does not reject a first-party **Ordivon Harness** for bare model APIs. That distinct construction question is [`ANC-HARNESS-002`](ANC-HARNESS-002-ordivon-harness.md).
 >
 > **Evidence index:** [`../evidence/snapshots/harness-boundary-h5-20260731t031134z.json`](../evidence/snapshots/harness-boundary-h5-20260731t031134z.json)
 
@@ -12,7 +14,9 @@ Can a thin, capability-preserving Harness boundary allow Ordivon Host Tasks to r
 
 Yes, at the durable Host-object boundary; no, at a shared Provider lifecycle boundary. Codex and Hermes both continued one Task through Host-owned Task Attempt, Assignment generation, fresh Context, explicit Artifacts, Runtime identities, and Host completion admission. Their Session, event, Tool, terminal, and final-response semantics remained materially different.
 
-The accepted architecture remains inside `ordivon-host`. Direct drivers preserve Provider capability, while a shared `HarnessAdapter`, provider-independent Session model, event runtime, and new repository were deleted from the route because their cost exceeded demonstrated duplicate-code reduction.
+The accepted cross-Provider boundary remains inside `ordivon-host`. Direct drivers preserve Provider capability, while a shared `HarnessAdapter`, provider-independent Session model, common event runtime, and repository extracted from those drivers were deleted from the route because their cost exceeded demonstrated duplicate-code reduction.
+
+A separate first-party Agent Loop is now admitted for the case where a Provider supplies model inference but no mature Harness. It is named **Ordivon Harness**, begins as a Host-local construction, and must not normalize Codex/Hermes/Claude internal lifecycles.
 
 ## Ownership hypothesis
 

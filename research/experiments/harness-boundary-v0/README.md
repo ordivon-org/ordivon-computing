@@ -17,7 +17,7 @@ H1–H5 proved the Host-local durable boundary and rejected the candidate shared
 - stale completion, missing Artifact, and response-loss faults were handled without false completion or duplicate Runtime dispatch;
 - Provider final text became optional observation after Hermes completed valid work without ACP assistant text;
 - direct Provider drivers remained more faithful than a shared `HarnessAdapter`;
-- no Runtime schema migration, Harness database, event runtime, global Hook framework, or `ordivon-harness` repository was justified.
+- no Runtime schema migration, Harness database, event runtime, global Hook framework, or repository extracted from a shared Provider lifecycle was justified.
 
 Final dispositions:
 
@@ -30,9 +30,9 @@ Final dispositions:
 | Runtime foreign-reference convention | retain; F3 demonstrated recovery value |
 | shared HarnessAdapter | delete from the route |
 | provider-independent Session/lifecycle | delete from the route |
-| standalone `ordivon-harness` | promotion gate failed; do not create |
+| shared cross-Provider Harness repository | promotion gate failed; do not create from the Codex/Hermes drivers |
 
-`ANC-HARNESS-001` is completed at M5. `ANC-VERIFY-002` continues independently as calibrated non-action research and consumes the retained Host mechanisms without reopening Harness architecture.
+`ANC-HARNESS-001` is completed at M5. This closeout does not reject a first-party Ordivon Harness for bare model APIs; that separate problem is recorded as `ANC-HARNESS-002`. `ANC-VERIFY-002` continues independently as calibrated non-action research and consumes the retained Host mechanisms without reopening shared Provider-lifecycle architecture.
 
 ## 1. Decision to test
 
