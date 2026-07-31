@@ -1,9 +1,38 @@
 # Harness Boundary v0 — Stage 1 and Stage 2 Design
 
-Status: frozen design for the first `R-A-HARNESS-CONTROL` vertical slice  
-Research owners: `ANC-HARNESS-001`, `ANC-VERIFY-002`  
-Implementation owners: `ordivon-host#14`, `ordivon-runtime#64`  
+Status: completed H1–H5 experiment and architecture decision
+Research owner: `ANC-HARNESS-001`
+Implementation evidence: `ordivon-host#20`, `ordivon-runtime#65`
 Design date: 2026-07-30
+Closeout date: 2026-07-31
+
+## Closeout
+
+This directory preserves the frozen design that initiated the experiment. The executed evidence is indexed by [`../../evidence/snapshots/harness-boundary-h5-20260731t031134z.json`](../../evidence/snapshots/harness-boundary-h5-20260731t031134z.json).
+
+H1–H5 proved the Host-local durable boundary and rejected the candidate shared Provider lifecycle:
+
+- both Codex→Hermes and Hermes→Codex replacement orders completed one Task through one stable Task Attempt and Assignment generations 1→2;
+- explicit diagnosis and completion Artifacts, fresh Context, Runtime identities, and Host verification carried continuity without Provider Session transfer;
+- stale completion, missing Artifact, and response-loss faults were handled without false completion or duplicate Runtime dispatch;
+- Provider final text became optional observation after Hermes completed valid work without ACP assistant text;
+- direct Provider drivers remained more faithful than a shared `HarnessAdapter`;
+- no Runtime schema migration, Harness database, event runtime, global Hook framework, or `ordivon-harness` repository was justified.
+
+Final dispositions:
+
+| Candidate | Result |
+|---|---|
+| Task Attempt descriptor | retain as immutable semantic-attempt identity |
+| Assignment generation | retain as durable stale-worker fence |
+| Harness Run receipt | retain as Provider/Runtime/Artifact evidence link |
+| CompletionProposal and CompletionDecision | retain; F1 and F2 demonstrated prevented failures |
+| Runtime foreign-reference convention | retain; F3 demonstrated recovery value |
+| shared HarnessAdapter | delete from the route |
+| provider-independent Session/lifecycle | delete from the route |
+| standalone `ordivon-harness` | promotion gate failed; do not create |
+
+`ANC-HARNESS-001` is completed at M5. `ANC-VERIFY-002` continues independently as calibrated non-action research and consumes the retained Host mechanisms without reopening Harness architecture.
 
 ## 1. Decision to test
 

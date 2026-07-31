@@ -1,14 +1,18 @@
 # ANC-HARNESS-001 — Harness, Host, Runtime, and Agent-System Composition
 
+> **Status:** completed at M5 on 2026-07-31. H1–H5 retained a Host-local durable boundary with provider-specific direct drivers and rejected a shared Harness lifecycle or standalone `ordivon-harness` repository.
+>
+> **Evidence index:** [`../evidence/snapshots/harness-boundary-h5-20260731t031134z.json`](../evidence/snapshots/harness-boundary-h5-20260731t031134z.json)
+
 ## Question
 
 Can a thin, capability-preserving Harness boundary allow Ordivon Host Tasks to run and continue across materially different Agent Harnesses while keeping durable work in Host, physical execution in Runtime, and provider-specific cognition features intact?
 
-## Why this is unresolved
+## Resolution
 
-Codex, Claude Code, and other Agent products vertically integrate Surface, interaction Host, Harness, Session, Tools, sandbox, and execution adapters. Ordivon has separately proven durable Host and Runtime responsibilities, but has not yet demonstrated that an explicit shared Harness interface produces more value than direct provider adapters.
+Yes, at the durable Host-object boundary; no, at a shared Provider lifecycle boundary. Codex and Hermes both continued one Task through Host-owned Task Attempt, Assignment generation, fresh Context, explicit Artifacts, Runtime identities, and Host completion admission. Their Session, event, Tool, terminal, and final-response semantics remained materially different.
 
-The conceptual boundary is useful. A new repository or protocol is not yet justified.
+The accepted architecture remains inside `ordivon-host`. Direct drivers preserve Provider capability, while a shared `HarnessAdapter`, provider-independent Session model, event runtime, and new repository were deleted from the route because their cost exceeded demonstrated duplicate-code reduction.
 
 ## Ownership hypothesis
 
@@ -214,3 +218,29 @@ Before that point, retain the boundary as Host-local interfaces, adapters, and C
 - `ordivon-web` — publication only after accepted evidence.
 
 The source-grounded concept system and complete experiment program live in [`../../studies/2026-agent-system-concept-system/`](../../studies/2026-agent-system-concept-system/).
+## H5 closeout
+
+The completed experiment ran both live replacement orders:
+
+```text
+Codex diagnosis → Assignment g2 → Hermes repair
+Hermes diagnosis → Assignment g2 → Codex repair
+```
+
+Both trajectories preserved one Task Attempt, compiled fresh Context, transferred diagnosis through an explicit Artifact, started a new Provider Session, passed independent Runtime verification, and allowed Host alone to commit `TaskOutcome`.
+
+The three first-fault families produced decisive results:
+
+- stale generation-1 completion was rejected as `stale_assignment`;
+- process success without the required completion Artifact was rejected as `missing_artifact`;
+- a dropped Runtime response recovered exactly one admitted Job without redispatch.
+
+Provider final text was not portable completion evidence: Codex returned usable structured text, while Hermes completed valid Artifacts and tests with no ACP assistant text. Verified Artifacts, source digest, Runtime evidence, and Host adjudication became authoritative.
+
+Final disposition:
+
+- **retain:** immutable Task Attempt role, Assignment generation, `HarnessRunReceipt`, `CompletionProposal` and `CompletionDecision`, Host Runtime references, provider-specific direct drivers, and one-shot baselines;
+- **localize or shrink:** Provider modes and approvals, optional final text, and the immutable Task-Attempt descriptor;
+- **delete or do not create:** shared `HarnessAdapter`, common Session or Provider lifecycle, synthesized universal Tool events, shared event runtime, Runtime Task state, new Harness SQL tables, global Hook framework, and `ordivon-harness`.
+
+The question reopens only if a second independent consumer demonstrates a stable shared lifecycle with measurable net deletion and no material Provider-capability loss.
