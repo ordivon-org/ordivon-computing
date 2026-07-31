@@ -24,12 +24,7 @@ The cross-layer construction program is [#1 — Construct the Agent-Native Machi
 
 ## Current Ready Frontier
 
-The canonical view is [`PORTFOLIO.md`](PORTFOLIO.md). The active research-line WIP limit is two:
-
-1. `R-A-HARNESS-CONTROL` — the `ANC-VERIFY-002` act/abstain and recoverability slice;
-2. `R-C-HARNESS-EVALUATION` — `ANC-VERIFY-001`, the Track R evidence contract, frozen Task QA, and first fair Harness comparison.
-
-Compiler, multi-Agent, organization, adaptation, World expansion, and strategic-Security expansion remain deferred or closed. Completed and superseded questions remain searchable historical evidence but do not consume the Ready Frontier.
+The canonical current view is [`PORTFOLIO.md`](PORTFOLIO.md), generated from [`portfolio.json`](portfolio.json). This overview intentionally does not repeat active line identifiers, question statuses, or next actions.
 
 ## Historical comparisons
 

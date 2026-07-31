@@ -34,6 +34,8 @@ REQUIRED_PATHS = (
     "research/PORTFOLIO.md",
     "research/charters/README.md",
     "research/questions/ANC-STACK-001-classical-to-agent-native-transition.md",
+    "research/questions/ANC-VERIFY-002-calibrated-non-action.md",
+    "research/COMPUTER-P0-P1-A-SERIES-AUDIT.md",
     "studies/2026-classical-to-agent-native-computing/README.md",
     "studies/2026-classical-to-agent-native-computing/REFERENCES.md",
     "studies/2026-adaptive-acceleration/README.md",
@@ -50,6 +52,7 @@ def markdown_paths(root: Path) -> list[Path]:
         root / "README.md",
         root / "research" / "README.md",
         root / "research" / "PORTFOLIO.md",
+        root / "research" / "experiments" / "README.md",
         root / "research" / "charters" / "README.md",
     ]
     for directory in (
@@ -149,6 +152,17 @@ def architecture_issues(root: Path) -> list[str]:
         text = (root / relative).read_text(encoding="utf-8").lower()
         if "fourteen-layer stack" in text or "fourteen vertical layers" in text:
             issues.append(f"obsolete single-stack wording remains in {relative}")
+
+    mutable_status_copies = {
+        "README.md": ("Round A enforces two active research lines", "R-B  Task-to-World continuity"),
+        "research/README.md": ("The active research-line WIP limit is two:",),
+        "research/experiments/README.md": ("## Active experiments", "second-backend Effect comparison through Edge Fetch/Browser"),
+    }
+    for relative, phrases in mutable_status_copies.items():
+        current = (root / relative).read_text(encoding="utf-8")
+        for phrase in phrases:
+            if phrase in current:
+                issues.append(f"mutable portfolio state is copied into {relative}: {phrase}")
 
     for path in markdown_paths(root):
         if not path.is_file():

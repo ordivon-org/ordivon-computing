@@ -70,3 +70,6 @@ This experiment does not:
 ## Next gate
 
 R3 becomes eligible when the product-owned `HARNESS-REPO-REPAIR-001` Task passes its QA gate and the first real Ordivon bare-model Adapter can produce a multi-turn Run. The next artifact is then a small runner that projects existing receipts into these records.
+## Canonicalization domain
+
+Track R records use `ordivon-evidence-json-v1`: sorted-key compact JSON over the finite JSON number domain admitted by the evaluation schemas. This label is intentionally distinct from the integer-only strict `anc_canonical` protocol domain. The two profiles may share byte ordering without claiming the same accepted value set.

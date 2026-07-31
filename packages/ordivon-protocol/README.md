@@ -29,6 +29,14 @@ It does **not** own a journal, Host loop, Runtime client, provider adapter, simu
 
 The Host workload profile deliberately does not define a DAG, scheduler, mailbox runtime, domain policy, or physical executor. It defines only immutable wire objects and pure admission checks that can be implemented by an embedded adapter, a local sidecar, or a remote Host without changing meaning.
 
+`host-workload-v1` is specifically a **bounded candidate-decision profile**. It proves Context identity, stale-state rejection, cross-language admission, Dispatch observation, verification, and outcome transport. It is not the universal open-cognition contract used by the OH3 Ordivon Harness, and it does not standardize free ActionProposal discovery, Tool-loop history, or responsibility routing. The serialized `request-human` candidate remains a v1 compatibility term; future profiles must not assume that every missing commitment is routed only to a person.
+
+## Releases
+
+[`releases/0.3.0.json`](releases/0.3.0.json) is the immutable release manifest for `ordivon-protocol-v0.3.0`. It binds every packaged Schema and conformance vector by digest, records profile-level stability and limitations, names exact Host and Game consumer observations, and declares the protected failure, recurring cost, supersession trigger, and deletion condition required by Core A11.
+
+A package version is not considered released merely because `pyproject.toml` changed. The release manifest, deterministic release check, consumer pins, bounded cross-repository gate, and matching Git tag form one release boundary. The package remains in this repository until an independent release cadence or another materially different consumer makes extraction cheaper than co-versioning with the experiments that produced it.
+
 The existing `anc_*` Python import names and `anc.*` serialized identities are preserved in v0 because they are already covered by cross-language conformance vectors. Renaming them would be a protocol migration, not a source-layout cleanup.
 
 Normative Schemas and vectors ship inside the distribution under `ordivon_protocol`. Research fixtures, live scripts, benchmarks, and conformance campaigns remain under `research/experiments/` and consume those packaged resources rather than maintaining shadow copies.

@@ -12,18 +12,22 @@ Core, Knowledge, the classical-to-Agent transition Study, research map, and sour
 
 Run the narrow checker or test that protects the touched boundary.
 
-For foundational documents:
+For foundational documents and current research state:
 
 ```bash
 python3.12 scripts/check_foundational_docs.py
+python3.12 scripts/check_research_portfolio.py
+python3.12 scripts/render_research_portfolio.py --check
 python3.12 -m unittest research.evidence.tests.test_foundational_docs
 ```
 
 For protocol and experiments:
 
 ```bash
+python3.12 scripts/check_protocol_release.py
+
 cd packages/ordivon-protocol
-PYTHONPATH=src python3.12 -m unittest tests.test_promoted_boundaries
+PYTHONPATH=src python3.12 -m unittest tests.test_promoted_boundaries tests.test_schema_conformance
 
 cd research/experiments/semantic-core-v0
 PYTHONPATH=../../../packages/ordivon-protocol/src:src \
@@ -36,20 +40,26 @@ PYTHONPATH=../../../packages/ordivon-protocol/src:../semantic-core-v0/src:. \
 
 ## T1 — complete deterministic gate
 
-The repository root owns the canonical gate. It validates foundational documents, project and Protocol manifests, performs static checks, runs every deterministic Protocol, semantic, continuation, evidence, and conformance suite, and verifies the Rust canonical vectors.
+The repository root owns the canonical gate. It validates foundational documents, the single-source research portfolio and generated view, project and Protocol manifests, release Artifact digests, Schema/vector/implementation agreement, static checks, deterministic semantic and continuation experiments, evidence, and Rust canonical vectors.
 
 ```bash
 python3.12 scripts/ordivon_conformance.py gate \
   --receipt /tmp/ordivon-conformance-receipt.json
 ```
 
-The command uses the active Python interpreter and installed `ruff` and `rustc`; CI fixes these to Python 3.12, Ruff 0.15.14, and the stable Rust toolchain. Task-continuation subprocess fixtures receive an explicit `/tmp` boundary so Runtime-specific temporary directories do not change their isolation semantics.
+The command uses the active Python interpreter and installed `ruff`, `jsonschema`, and `rustc`; CI fixes these to Python 3.12, Ruff 0.15.14, JSON Schema 4.25.1, and the stable Rust toolchain. Task-continuation subprocess fixtures receive an explicit `/tmp` boundary so Runtime-specific temporary directories do not change their isolation semantics.
 
 ## T2 — pull-request CI
 
 `.github/workflows/deterministic-contracts.yml` invokes the same root gate when executable contracts or foundational architecture paths change. This includes root/Core/Knowledge/Studies, the research map and questions, evidence, Protocol, conformance, Schemas, fixtures, tests, and executable scripts.
 
 Ordinary historical notes outside those paths may remain documentation-only. A document promoted into the foundational set inherits deterministic link and source-reference checks.
+
+## T2P — protocol-path consumer compatibility
+
+`.github/workflows/protocol-consumers.yml` runs only when the Protocol package, release manifest, conformance declaration, or consumer-gate code changes. It checks out clean Computing, Host, and Game repositories, verifies that both consumer pins resolve to the released Artifact digests, runs the Host contract suite against the candidate package, and runs the Game TypeScript vector suite.
+
+This is deliberately narrower than a general cross-project gate. Under Core A11 it should be removed or replaced if a mature package/schema registry provides the same immutable release and consumer evidence with lower recurring cost.
 
 ## T3 — cross-repository evidence
 

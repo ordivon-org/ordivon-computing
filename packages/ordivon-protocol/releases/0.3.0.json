@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.protocol-release",
+  "package": "ordivon-protocol",
+  "version": "0.3.0",
+  "releaseTag": "ordivon-protocol-v0.3.0",
+  "status": "released",
+  "profiles": [
+    {
+      "id": "canonical-json-v1",
+      "stability": "release-candidate",
+      "scope": "Strict integer-only canonical JSON bytes, digest format, and cross-language vectors.",
+      "limitations": [
+        "Not the general evaluation-evidence JSON number domain."
+      ],
+      "consumers": [
+        "ordivon-host",
+        "ordivon-game"
+      ]
+    },
+    {
+      "id": "effect-envelope-v1",
+      "stability": "release-candidate",
+      "scope": "Backend-neutral Effect identity, target, capability, delivery, result, and verification wire object.",
+      "limitations": [
+        "Does not own Host policy, Runtime dispatch, or domain verification."
+      ],
+      "consumers": [
+        "ordivon-host"
+      ]
+    },
+    {
+      "id": "tool-contract-v1",
+      "stability": "release-candidate",
+      "scope": "Normalized executable Tool interface identity and compatibility classification.",
+      "limitations": [
+        "Provider adaptation and catalog lifecycle remain consumer-local."
+      ],
+      "consumers": [
+        "ordivon-host"
+      ]
+    },
+    {
+      "id": "effect-binding-v1",
+      "stability": "release-candidate",
+      "scope": "Immutable binding from one Effect to one concrete Tool contract and encoder.",
+      "limitations": [
+        "Binding selection policy and Runtime transport remain outside the protocol."
+      ],
+      "consumers": [
+        "ordivon-host"
+      ]
+    },
+    {
+      "id": "host-workload-v1",
+      "stability": "release-candidate",
+      "scope": "Immutable Task, Context, bounded Decision, Dispatch, Observation, Verification, and Outcome wire objects.",
+      "limitations": [
+        "This is a bounded candidate-decision profile, not a universal open-cognition or ActionProposal protocol.",
+        "The v1 request-human candidate is a retained compatibility term; future responsibility routing must not assume a human-only receiver."
+      ],
+      "consumers": [
+        "ordivon-host",
+        "ordivon-game"
+      ]
+    },
+    {
+      "id": "semantic-state-v1",
+      "stability": "reference-candidate",
+      "scope": "Pure reference Effect and Dispatch state algebra plus typed semantic identities.",
+      "limitations": [
+        "Do not expand without a second production consumer; journals, schedulers, and authority roots remain out of scope."
+      ],
+      "consumers": [
+        "ordivon-host"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "packages/ordivon-protocol/src/ordivon_protocol/schemas/effect-binding-v1.schema.json",
+      "kind": "json-schema",
+      "digest": "sha256:91f046af68dad586aa59856cf6e11325325915801d8bf84597bad96c99950322"
+    },
+    {
+      "path": "packages/ordivon-protocol/src/ordivon_protocol/schemas/effect-envelope-v1.schema.json",
+      "kind": "json-schema",
+      "digest": "sha256:e6b4ce4a9b88052cdedf626660bf3f1abb861637ab93a98950b717e756b9f202"
+    },
+    {
+      "path": "packages/ordivon-protocol/src/ordivon_protocol/schemas/host-workload-v1.schema.json",
+      "kind": "json-schema",
+      "digest": "sha256:3f29ff377a89444ad6d76b8a64e5d2596eae7cb947429ae7af761ed5430ad905"
+    },
+    {
+      "path": "packages/ordivon-protocol/src/ordivon_protocol/schemas/tool-contract-v1.schema.json",
+      "kind": "json-schema",
+      "digest": "sha256:3a4febabaf35c48a745fb2f6a3392b559452d782359215e8b4364a15b6b71ad0"
+    },
+    {
+      "path": "packages/ordivon-protocol/src/ordivon_protocol/vectors/canonical-vectors.json",
+      "kind": "conformance-vectors",
+      "digest": "sha256:e51ee91bcd05a31d9cb9109e2ce89c9860099ea75145c578b072c3abcca60734"
+    },
+    {
+      "path": "packages/ordivon-protocol/src/ordivon_protocol/vectors/canonical-vectors.tsv",
+      "kind": "conformance-vectors",
+      "digest": "sha256:d1e762e530f866d24d8e61e2264adff6f9e6f8103ea244471ef759a5dead1e0d"
+    },
+    {
+      "path": "packages/ordivon-protocol/src/ordivon_protocol/vectors/host-workload-vectors-v1.json",
+      "kind": "conformance-vectors",
+      "digest": "sha256:e28c7670064e0f2c1aee676f5bb7a6669fa1c7cdac68fb90fa5e6de1decbeea7"
+    }
+  ],
+  "consumers": [
+    {
+      "repositoryId": "ordivon-host",
+      "observedRevision": "264d96cb2325e4a418c98459e05c74d482001fd8",
+      "protocolRevision": "ca5af401eda77d1081487c2df07ce9d94003719e",
+      "profiles": [
+        "canonical-json-v1",
+        "effect-envelope-v1",
+        "tool-contract-v1",
+        "effect-binding-v1",
+        "host-workload-v1",
+        "semantic-state-v1"
+      ],
+      "evidence": [
+        "research/evidence/snapshots/ordivon-harness-oh4-live-20260731t222300z.json"
+      ]
+    },
+    {
+      "repositoryId": "ordivon-game",
+      "observedRevision": "41c4ef0e999d9144ca3105dbcb242f4ed806d06f",
+      "protocolRevision": "ca5af401eda77d1081487c2df07ce9d94003719e",
+      "profiles": [
+        "canonical-json-v1",
+        "host-workload-v1"
+      ],
+      "evidence": [
+        "ordivon-game:fixtures/host-workload-v1/manifest.json@41c4ef0e999d9144ca3105dbcb242f4ed806d06f"
+      ]
+    }
+  ],
+  "promotionEvidence": [
+    "research/experiments/external-semantic-contract-v0/",
+    "research/evidence/snapshots/host-game-convergence-p0-p2-20260729t035147z.json",
+    "research/evidence/snapshots/host-authority-cutover-p3-p6-20260729t085250z.json"
+  ],
+  "constraintAdmission": {
+    "protectedFailure": "Consumers silently assign different meaning or canonical bytes to the same cross-repository Effect, Binding, Context, Decision, or evidence object.",
+    "operatingCost": "One compact manifest, normative Schemas and vectors, exact consumer pins, and protocol-path compatibility checks per release.",
+    "deletionTrigger": "Delete custom release metadata when a mature package and schema registry binds the same artifacts, consumer compatibility, limitations, and immutable release identity at lower recurring cost.",
+    "rejectedAlternatives": [
+      "independent protocol repository before an independent release cadence",
+      "runtime protocol daemon",
+      "universal internal ontology"
+    ]
+  },
+  "supersessionTrigger": "A reproduced cross-consumer failure or materially simpler mature standard requires a new version; v1 objects remain immutable and migrate through explicit vectors rather than silent mutation."
+}

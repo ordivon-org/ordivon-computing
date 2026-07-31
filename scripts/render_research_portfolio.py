@@ -56,10 +56,20 @@ def render(document: dict[str, Any]) -> str:
             continue
         lines += [f"### {status.title()}", ""]
         rows = [
-            [item["id"], item["maturity"], item["priority"], item["owner"], item.get("activeLine", "—"), item["blockedBy"], item["nextAction"], item["nextFalsifier"]]
+            [
+                item["id"],
+                item["maturity"],
+                item["priority"],
+                item["owner"],
+                item.get("activeLine", "—"),
+                (item.get("externalObservation") or {}).get("revision", "—")[:12],
+                item["blockedBy"],
+                item["nextAction"],
+                item["nextFalsifier"],
+            ]
             for item in selected
         ]
-        lines.extend(_table(["ID", "Maturity", "Priority", "Owner", "Active line", "Blocked by", "Next action", "Next falsifier"], rows))
+        lines.extend(_table(["ID", "Maturity", "Priority", "Owner", "Active line", "Observed revision", "Blocked by", "Next action", "Next falsifier"], rows))
         lines.append("")
 
     lines += ["## Programs", ""]
@@ -81,6 +91,7 @@ def render(document: dict[str, Any]) -> str:
         f"- **Promotion:** {policy['promotionRule']}",
         f"- **Judgment:** {policy['judgmentRule']}",
         f"- **New question admission:** {policy['newQuestionRule']}",
+        f"- **External observations:** {policy['externalObservationRule']}",
         "- Every completed experiment ends in one of: `retain`, `localize`, `shrink`, `defer`, or `delete`.",
         "- `active` is a WIP state, not a statement of importance. `deferred` preserves a valid question without consuming current execution bandwidth.",
         "- Historical evidence is retained through `completed`, `superseded`, or `frozen`; it does not remain in the Ready Frontier.",

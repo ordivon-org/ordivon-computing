@@ -1,0 +1,56 @@
+name: Protocol consumers
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/protocol-consumers.yml"
+      - "packages/ordivon-protocol/**"
+      - "projects/conformance.toml"
+      - "scripts/check_protocol_release.py"
+      - "scripts/check_protocol_consumers.py"
+      - "scripts/ordivon_conformance.py"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/protocol-consumers.yml"
+      - "packages/ordivon-protocol/**"
+      - "projects/conformance.toml"
+      - "scripts/check_protocol_release.py"
+      - "scripts/check_protocol_consumers.py"
+      - "scripts/ordivon_conformance.py"
+
+permissions:
+  contents: read
+
+jobs:
+  consumers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: ordivon-computing
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: zycxfyh/ordivon-host
+          path: ordivon-host
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with:
+          repository: zycxfyh/ordivon-game
+          path: ordivon-game
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "26"
+      - name: Released consumer compatibility
+        run: |
+          python ordivon-computing/scripts/check_protocol_consumers.py \
+            --computing-root ordivon-computing \
+            --host-root ordivon-host \
+            --game-root ordivon-game \
+            --receipt /tmp/ordivon-protocol-consumers.json
