@@ -38,6 +38,7 @@ class ProtocolSpec:
     package: str
     version: str
     source: PurePosixPath
+    release: PurePosixPath
     profiles: tuple[str, ...]
 
 
@@ -50,6 +51,7 @@ class ProjectSpec:
     profiles: tuple[str, ...]
     protocol_requirement: str | None = None
     dependency_file: PurePosixPath | None = None
+    vector_manifest: PurePosixPath | None = None
 
 
 @dataclass(frozen=True)
@@ -119,15 +121,18 @@ def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT
     raw_protocol = document["protocol"]
     require(
         isinstance(raw_protocol, dict)
-        and set(raw_protocol) == {"package", "version", "source", "profiles"},
+        and set(raw_protocol) == {"package", "version", "source", "release", "profiles"},
         "protocol declaration fields are invalid",
     )
     source = PurePosixPath(raw_protocol["source"])
+    release = PurePosixPath(raw_protocol["release"])
     require(not source.is_absolute() and ".." not in source.parts, "protocol source must be relative")
+    require(not release.is_absolute() and ".." not in release.parts, "protocol release must be relative")
     protocol = ProtocolSpec(
         package=raw_protocol["package"],
         version=raw_protocol["version"],
         source=source,
+        release=release,
         profiles=_unique_strings(raw_protocol["profiles"], "protocol profiles"),
     )
     require(protocol.package == "ordivon-protocol", "unexpected protocol package")
@@ -138,7 +143,7 @@ def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT
     for raw in raw_projects:
         require(isinstance(raw, dict), "project declaration must be an object")
         required = {"id", "relationship", "profiles"}
-        optional = {"protocol_requirement", "dependency_file"}
+        optional = {"protocol_requirement", "dependency_file", "vector_manifest"}
         require(set(raw) >= required and set(raw) <= required | optional, "project declaration fields are invalid")
         project_id = raw["id"]
         require(bool(re.fullmatch(r"ordivon-[a-z0-9-]+", project_id)), f"invalid project id: {project_id}")
@@ -146,11 +151,14 @@ def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT
         require(raw["relationship"] in _ALLOWED_RELATIONSHIPS, f"invalid relationship for {project_id}")
         dependency_file = raw.get("dependency_file")
         dependency_path = None if dependency_file is None else PurePosixPath(dependency_file)
-        if dependency_path is not None:
-            require(
-                not dependency_path.is_absolute() and ".." not in dependency_path.parts,
-                f"dependency_file must be relative: {project_id}",
-            )
+        vector_manifest = raw.get("vector_manifest")
+        vector_path = None if vector_manifest is None else PurePosixPath(vector_manifest)
+        for candidate, label in ((dependency_path, "dependency_file"), (vector_path, "vector_manifest")):
+            if candidate is not None:
+                require(
+                    not candidate.is_absolute() and ".." not in candidate.parts,
+                    f"{label} must be relative: {project_id}",
+                )
         project = ProjectSpec(
             id=project_id,
             repository=expected_repository,
@@ -159,10 +167,13 @@ def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT
             profiles=_unique_strings(raw["profiles"], f"{project_id} profiles"),
             protocol_requirement=raw.get("protocol_requirement"),
             dependency_file=dependency_path,
+            vector_manifest=vector_path,
         )
+        pin_count = sum(item is not None for item in (project.dependency_file, project.vector_manifest))
+        require(pin_count <= 1, f"project declares multiple protocol pin mechanisms: {project_id}")
         require(
-            (project.protocol_requirement is None) == (project.dependency_file is None),
-            f"protocol requirement and dependency file must be declared together: {project_id}",
+            (project.protocol_requirement is None) == (pin_count == 0),
+            f"protocol requirement and one pin mechanism must be declared together: {project_id}",
         )
         projects.append(project)
 
@@ -173,12 +184,16 @@ def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT
     host = next((project for project in projects if project.id == "ordivon-host"), None)
     require(host is not None and host.relationship == "direct-consumer", "ordivon-host must be a direct consumer")
     require(host.protocol_requirement == protocol.version, "Host protocol requirement must match the promoted version")
+    game = next((project for project in projects if project.id == "ordivon-game"), None)
+    require(game is not None and game.vector_manifest is not None, "Game must declare a protocol vector manifest")
+    require(game.protocol_requirement == protocol.version, "Game protocol requirement must match the promoted version")
 
     package_manifest = repository_root / protocol.source / "pyproject.toml"
     require(package_manifest.is_file(), "protocol package manifest is missing")
     package_document = tomllib.loads(package_manifest.read_text())
     require(package_document["project"]["name"] == protocol.package, "protocol package name differs")
     require(package_document["project"]["version"] == protocol.version, "protocol package version differs")
+    require((repository_root / protocol.release).is_file(), "protocol release manifest is missing")
 
     registry_ids = tuple(
         match.group(1)
@@ -460,6 +475,10 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "research/experiments/harness-evaluation-v0/tests",
         "research/evidence",
         "scripts/check_foundational_docs.py",
+        "scripts/check_research_portfolio.py",
+        "scripts/render_research_portfolio.py",
+        "scripts/check_protocol_release.py",
+        "scripts/check_protocol_consumers.py",
         "scripts/ordivon_conformance.py",
     ]
     commands: list[tuple[str, list[str], Path, dict[str, str]]] = [
@@ -468,6 +487,24 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         (
             "foundational-docs",
             [python, "scripts/check_foundational_docs.py"],
+            ROOT,
+            {},
+        ),
+        (
+            "research-portfolio",
+            [python, "scripts/check_research_portfolio.py"],
+            ROOT,
+            {},
+        ),
+        (
+            "research-portfolio-view",
+            [python, "scripts/render_research_portfolio.py", "--check"],
+            ROOT,
+            {},
+        ),
+        (
+            "protocol-release",
+            [python, "scripts/check_protocol_release.py"],
             ROOT,
             {},
         ),
@@ -605,6 +642,7 @@ def command_manifest(args: argparse.Namespace) -> int:
                 "schemaVersion": manifest.schema_version,
                 "registry": manifest.registry,
                 "protocolVersion": manifest.protocol.version,
+                "protocolRelease": manifest.protocol.release.as_posix(),
                 "projectIds": [project.id for project in manifest.projects],
             },
             indent=2,

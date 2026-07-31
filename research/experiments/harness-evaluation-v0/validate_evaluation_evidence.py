@@ -130,7 +130,7 @@ def _validate_integrity(document: dict[str, Any]) -> None:
     _exact(integrity, {"algorithm", "canonicalization", "payloadDigest"}, "integrity")
     if integrity["algorithm"] != "sha256":
         raise ValueError("integrity algorithm differs")
-    if integrity["canonicalization"] != "ordivon-canonical-json-v1":
+    if integrity["canonicalization"] != "ordivon-evidence-json-v1":
         raise ValueError("integrity canonicalization differs")
     _digest(integrity["payloadDigest"], "integrity payloadDigest")
     expected = payload_digest(document)
@@ -597,7 +597,7 @@ def write_digests(loaded: list[tuple[Path, dict[str, Any]]]) -> None:
     for path, document in loaded:
         document["integrity"] = {
             "algorithm": "sha256",
-            "canonicalization": "ordivon-canonical-json-v1",
+            "canonicalization": "ordivon-evidence-json-v1",
             "payloadDigest": payload_digest(document),
         }
         path.write_text(

@@ -19,68 +19,68 @@ The portfolio is the single source of truth for research status, maturity, block
 
 ### Reference
 
-| ID | Maturity | Priority | Owner | Active line | Blocked by | Next action | Next falsifier |
-|---|---|---|---|---|---|---|---|
-| ANC-STACK-001 | M5 | reference | ordivon-computing | — | — | Use as the admission test; reopen only on contradictory evidence. | A cross-workload failure reveals a necessary responsibility absent from the current substrate/overlay split. |
+| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-STACK-001 | M5 | reference | ordivon-computing | — | — | — | Use as the admission test; reopen only on contradictory evidence. | A cross-workload failure reveals a necessary responsibility absent from the current substrate/overlay split. |
 
 ### Active
 
-| ID | Maturity | Priority | Owner | Active line | Blocked by | Next action | Next falsifier |
-|---|---|---|---|---|---|---|---|
-| ANC-VERIFY-002 | M2 | P0 | ordivon-computing | R-A-HARNESS-CONTROL | — | Run the paired non-action suite against model-only, static-policy, and existing Host evidence-rich baselines; use H5 retained generation, Artifact, and reconciliation mechanisms without building a Harness or abstention platform. | A simpler paired act/abstain or static policy achieves equal authorized utility, timing, and recovery with fewer states. |
-| ANC-VERIFY-001 | M3 | P0 | ordivon-computing | R-C-HARNESS-EVALUATION | — | Use the R0-R2 contract and HARNESS-REPO-REPAIR-001 QA gate for R3: project one-shot, Ordivon Harness, and mature Harness runs into the same Trial and Result records, then review every failure and anomalous success. | The same frozen workload cannot be compared without copying Provider lifecycles or duplicating Host, Harness, Runtime, and verifier authority, or the common envelope adds no explanatory value over local receipts. |
+| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-VERIFY-002 | M2 | P0 | ordivon-computing | R-A-HARNESS-CONTROL | — | — | Run the paired non-action suite against model-only, static-policy, and existing Host evidence-rich baselines; use H5 retained generation, Artifact, and reconciliation mechanisms without building a Harness or abstention platform. | A simpler paired act/abstain or static policy achieves equal authorized utility, timing, and recovery with fewer states. |
+| ANC-VERIFY-001 | M3 | P0 | ordivon-computing | R-C-HARNESS-EVALUATION | — | — | Use the R0-R2 contract and HARNESS-REPO-REPAIR-001 QA gate for R3: project one-shot, Ordivon Harness, and mature Harness runs into the same Trial and Result records, then review every failure and anomalous success. | The same frozen workload cannot be compared without copying Provider lifecycles or duplicating Host, Harness, Runtime, and verifier authority, or the common envelope adds no explanatory value over local receipts. |
 
 ### Ready
 
-| ID | Maturity | Priority | Owner | Active line | Blocked by | Next action | Next falsifier |
-|---|---|---|---|---|---|---|---|
-| ANC-HARNESS-002 | M2 | P0 | ordivon-host | — | — | Implement one Host-local v0 with a bare-model Adapter, sequential Tool loop, Runtime bridge, bounded Run state, and existing HarnessRunReceipt/CompletionProposal output; compare against one-shot and mature Harness baselines. | One-shot or mature Provider Harness paths match the same bounded workloads with equal correctness, recovery, portability, and lower permanent cost, while no bare-model use case requires a first-party Loop. |
+| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-HARNESS-002 | M4 | P0 | ordivon-host | — | 264d96cb2325 | — | OH4 now provides a native Host Run Contract, Assignment-scoped ToolGrant, persisted evidence, independent verification, and fresh-process Outcome recovery. Use Track R R3 to compare the same frozen repository-repair Task under one-shot, Ordivon Harness, and a mature Provider Harness; retain, shrink, or delete the first-party Loop from measured value rather than implementation existence. | One-shot or mature Provider Harness paths match the same bounded workloads with equal correctness, recovery, portability, and lower permanent cost, while no bare-model use case requires a first-party Loop. |
 
 ### Blocked
 
-| ID | Maturity | Priority | Owner | Active line | Blocked by | Next action | Next falsifier |
-|---|---|---|---|---|---|---|---|
-| ANC-ADAPT-001 | M1 | P3 | ordivon-computing | — | ANC-VERIFY-001, 20-50-homogeneous-task-trajectories | Collect comparable trajectories first; later change only one Skill, Context policy, or stopping policy through replay, shadow, canary, and rollback. | A versioned Skill or Context-policy change fails held-out Tasks or cannot beat a fixed baseline after rollback costs. |
-| ANC-SECURITY-005 | M0 | P3 | ordivon-security | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-MULTI-001 | No implementation until single-actor strategic and opponent-model hypotheses survive. | Ordinary Host delegation and branch/join plus domain-local trust fields explain the first compromise scenario. |
-| ANC-SECURITY-006 | M0 | P3 | ordivon-security | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-SECURITY-005, ANC-VERIFY-001, ordivon-security#20 | No platform or training loop until the unit of strategic evaluation is proven. | Held-out static-opponent evaluation predicts the same architecture decisions as coevolution with lower cost. |
+| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-ADAPT-001 | M1 | P3 | ordivon-computing | — | — | ANC-VERIFY-001, 20-50-homogeneous-task-trajectories | Collect comparable trajectories first; later change only one Skill, Context policy, or stopping policy through replay, shadow, canary, and rollback. | A versioned Skill or Context-policy change fails held-out Tasks or cannot beat a fixed baseline after rollback costs. |
+| ANC-SECURITY-005 | M0 | P3 | ordivon-security | — | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-MULTI-001 | No implementation until single-actor strategic and opponent-model hypotheses survive. | Ordinary Host delegation and branch/join plus domain-local trust fields explain the first compromise scenario. |
+| ANC-SECURITY-006 | M0 | P3 | ordivon-security | — | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-SECURITY-005, ANC-VERIFY-001, ordivon-security#20 | No platform or training loop until the unit of strategic evaluation is proven. | Held-out static-opponent evaluation predicts the same architecture decisions as coevolution with lower cost. |
 
 ### Deferred
 
-| ID | Maturity | Priority | Owner | Active line | Blocked by | Next action | Next falsifier |
-|---|---|---|---|---|---|---|---|
-| ANC-COMPILER-001 | M1 | P2 | ordivon-computing | — | — | Do not implement an Agent VM; revisit only after a minimal branch/join failure. | An ordinary Host Task Graph, queue, reducer, and workflow backend express the first branch/join workload without an Agent VM. |
-| ANC-MULTI-001 | M1 | P2 | ordivon-computing | — | — | After R-A closes, run one Goal, two independent Tasks, two Artifacts, and one deterministic Join. | A single Agent plus independent verifier matches two-branch quality and cost, or ordinary Task Graph semantics are sufficient. |
-| ANC-ORG-001 | M1 | P3 | ordivon-computing | — | ANC-MULTI-001, real-operator-attention-traces | Remain an umbrella; derive objects only from real operator and multi-Agent trajectories. | Host-local DecisionRequests and ordinary Task/participant relations explain observed coordination without a new organization layer. |
-| ANC-SECURITY-001 | M1 | P2 | ordivon-security | — | — | Keep as a deferred umbrella. Round 1 completed the minimum dynamic-opponent method and rejected Campaign promotion; resume only through the narrower Security #10 and #20 experiments after current WIP frees. | Mature simulation, MARL, cyber evaluation, and thin adapters express the strategic distinctions without a new shared layer. |
-| ANC-SECURITY-003 | M4 | P2 | ordivon-security | — | — | Round 1 completed the minimum local and CAGE dynamic-opponent method but did not earn Campaign state. Defer the next test to held-out policies and Host/Context replacement through Security #10. | A scripted or ordinary Goal/Task policy matches explicit Campaign state on policy-switch and held-out-opponent cases. |
-| ANC-SECURITY-004 | M4 | P2 | ordivon-security | — | — | Round 1 found diagnostic and information-state value but no objective-success or transfer benefit. Defer the next transcript-versus-compiled-hypothesis test to Security #10 under held-out policies and deliberate Context loss. | A reactive policy without explicit opponent hypotheses matches held-out policy-switch performance and evidence quality. |
+| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-COMPILER-001 | M1 | P2 | ordivon-computing | — | — | — | Do not implement an Agent VM; revisit only after a minimal branch/join failure. | An ordinary Host Task Graph, queue, reducer, and workflow backend express the first branch/join workload without an Agent VM. |
+| ANC-MULTI-001 | M1 | P2 | ordivon-computing | — | — | — | After R-A closes, run one Goal, two independent Tasks, two Artifacts, and one deterministic Join. | A single Agent plus independent verifier matches two-branch quality and cost, or ordinary Task Graph semantics are sufficient. |
+| ANC-ORG-001 | M1 | P3 | ordivon-computing | — | — | ANC-MULTI-001, real-operator-attention-traces | Remain an umbrella; derive objects only from real operator and multi-Agent trajectories. | Host-local DecisionRequests and ordinary Task/participant relations explain observed coordination without a new organization layer. |
+| ANC-SECURITY-001 | M1 | P2 | ordivon-security | — | — | — | Keep as a deferred umbrella. Round 1 completed the minimum dynamic-opponent method and rejected Campaign promotion; resume only through the narrower Security #10 and #20 experiments after current WIP frees. | Mature simulation, MARL, cyber evaluation, and thin adapters express the strategic distinctions without a new shared layer. |
+| ANC-SECURITY-003 | M4 | P2 | ordivon-security | — | — | — | Round 1 completed the minimum local and CAGE dynamic-opponent method but did not earn Campaign state. Defer the next test to held-out policies and Host/Context replacement through Security #10. | A scripted or ordinary Goal/Task policy matches explicit Campaign state on policy-switch and held-out-opponent cases. |
+| ANC-SECURITY-004 | M4 | P2 | ordivon-security | — | — | — | Round 1 found diagnostic and information-state value but no objective-success or transfer benefit. Defer the next transcript-versus-compiled-hypothesis test to Security #10 under held-out policies and deliberate Context loss. | A reactive policy without explicit opponent hypotheses matches held-out policy-switch performance and evidence quality. |
 
 ### Completed
 
-| ID | Maturity | Priority | Owner | Active line | Blocked by | Next action | Next falsifier |
-|---|---|---|---|---|---|---|---|
-| ANC-IR-001 | M5 | reference | ordivon-computing | — | — | Consume EffectEnvelope v1 as historical evidence; extend only when a new cross-backend failure cannot remain in Host, Runtime, or an adapter. | A second interface family cannot preserve Effect meaning with the current envelope and Binding projection. |
-| ANC-MEMORY-001 | M4 | reference | ordivon-computing | — | — | Consume TaskCapsule evidence; do not create a general memory runtime. | A materially different workload cannot continue from bounded semantic state without transcript or Provider Session state. |
-| ANC-HOST-001 | M4 | reference | ordivon-host | — | — | Product evolution belongs to ordivon-host; shared changes require new cross-workload evidence. | A real workload requires durable cognition state that cannot remain a Provider Harness concern or Host application schema. |
-| ANC-HARNESS-001 | M5 | reference | ordivon-host | — | — | Consume the Host-local cross-Provider boundary and provider-specific direct drivers; use ANC-HARNESS-002 for the separate first-party bare-model Agent Loop. | A second independent consumer requires a stable shared Harness lifecycle and demonstrates measurable duplicate-code reduction without losing Provider capability. |
-| ANC-WORLD-002 | M5 | reference | ordivon-world | — | — | Consume the W1 direct-integration result. Keep W2 conditional and open a new narrow experiment only after a concrete capability mismatch, contract drift, callback, participant-handoff, or Effect-rebinding failure is reproduced. | A later materially different external trajectory fails under Host plus provider/observation adapters and requires one reusable cross-owner responsibility. |
-| ANC-EFFECT-001 | M5 | reference | ordivon-computing | — | — | Retain stable semantic identity, explicit UNKNOWN, opaque backend correlation, reconcile-before-redispatch, and independent verification. Keep provider request schemas, digest algorithms, Receipt semantics, and contract adaptation inside each adapter; reopen only on a reproduced multi-Binding failure. | One live semantic Effect has multiple provider or Tool Binding candidates whose compatibility, selection, or migration cannot remain in Host and adapter-local contracts. |
-| ANC-GAME-001 | M4 | reference | ordivon-game | — | — | Host convergence and authority cutover are closed. Game #58 serves R-A as the deterministic paired laboratory; Game #59 preserves deferred Session/compaction ablations after Harness v0. | A second game family requires a generic responsibility absent from one Host plus Game-owned World and replay semantics. |
+| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-IR-001 | M5 | reference | ordivon-computing | — | — | — | Consume EffectEnvelope v1 as historical evidence; extend only when a new cross-backend failure cannot remain in Host, Runtime, or an adapter. | A second interface family cannot preserve Effect meaning with the current envelope and Binding projection. |
+| ANC-MEMORY-001 | M4 | reference | ordivon-computing | — | — | — | Consume TaskCapsule evidence; do not create a general memory runtime. | A materially different workload cannot continue from bounded semantic state without transcript or Provider Session state. |
+| ANC-HOST-001 | M4 | reference | ordivon-host | — | — | — | Product evolution belongs to ordivon-host; shared changes require new cross-workload evidence. | A real workload requires durable cognition state that cannot remain a Provider Harness concern or Host application schema. |
+| ANC-HARNESS-001 | M5 | reference | ordivon-host | — | — | — | Consume the Host-local cross-Provider boundary and provider-specific direct drivers; use ANC-HARNESS-002 for the separate first-party bare-model Agent Loop. | A second independent consumer requires a stable shared Harness lifecycle and demonstrates measurable duplicate-code reduction without losing Provider capability. |
+| ANC-WORLD-002 | M5 | reference | ordivon-world | — | — | — | Consume the W1 direct-integration result. Keep W2 conditional and open a new narrow experiment only after a concrete capability mismatch, contract drift, callback, participant-handoff, or Effect-rebinding failure is reproduced. | A later materially different external trajectory fails under Host plus provider/observation adapters and requires one reusable cross-owner responsibility. |
+| ANC-EFFECT-001 | M5 | reference | ordivon-computing | — | — | — | Retain stable semantic identity, explicit UNKNOWN, opaque backend correlation, reconcile-before-redispatch, and independent verification. Keep provider request schemas, digest algorithms, Receipt semantics, and contract adaptation inside each adapter; reopen only on a reproduced multi-Binding failure. | One live semantic Effect has multiple provider or Tool Binding candidates whose compatibility, selection, or migration cannot remain in Host and adapter-local contracts. |
+| ANC-GAME-001 | M4 | reference | ordivon-game | — | — | — | Host convergence and authority cutover are closed. Game #58 serves R-A as the deterministic paired laboratory; Game #59 preserves deferred Session/compaction ablations after Harness v0. | A second game family requires a generic responsibility absent from one Host plus Game-owned World and replay semantics. |
 
 ### Superseded
 
-| ID | Maturity | Priority | Owner | Active line | Blocked by | Next action | Next falsifier |
-|---|---|---|---|---|---|---|---|
-| ANC-SECURITY-002 | M2 | reference | ordivon-computing | — | — | Use only as historical substrate evidence. | None; historical comparison is retained. |
-| ANC-EDGE-001 | M2 | reference | ordivon-computing | — | — | Historical only. | None; the split was an intermediate derivation. |
-| ANC-LINK-001 | M2 | reference | ordivon-computing | — | — | Historical only. | None; the split was an intermediate derivation. |
-| ANC-WORLD-001 | M2 | reference | ordivon-computing | — | — | Historical only. | None; composition analysis produced the unified question. |
+| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-SECURITY-002 | M2 | reference | ordivon-computing | — | — | — | Use only as historical substrate evidence. | None; historical comparison is retained. |
+| ANC-EDGE-001 | M2 | reference | ordivon-computing | — | — | — | Historical only. | None; the split was an intermediate derivation. |
+| ANC-LINK-001 | M2 | reference | ordivon-computing | — | — | — | Historical only. | None; the split was an intermediate derivation. |
+| ANC-WORLD-001 | M2 | reference | ordivon-computing | — | — | — | Historical only. | None; composition analysis produced the unified question. |
 
 ### Frozen
 
-| ID | Maturity | Priority | Owner | Active line | Blocked by | Next action | Next falsifier |
-|---|---|---|---|---|---|---|---|
-| ANC-KERNEL-001 | M5 | reference | ordivon-computing | — | — | Accept only bug fixes, regression evidence, or newly demonstrated universal invariants. | A cross-framework failure requires a universal invariant that cannot remain in Host, Runtime, Tool contracts, or a domain World. |
+| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-KERNEL-001 | M5 | reference | ordivon-computing | — | — | — | Accept only bug fixes, regression evidence, or newly demonstrated universal invariants. | A cross-framework failure requires a universal invariant that cannot remain in Host, Runtime, Tool contracts, or a domain World. |
 
 ## Programs
 
@@ -120,6 +120,7 @@ The portfolio is the single source of truth for research status, maturity, block
 - **Promotion:** No shared layer or repository without a reproduced failure, a second materially different consumer, explicit ownership, measured net benefit, and a deletion test.
 - **Judgment:** The portfolio limits WIP and records reasons; it does not mechanically decide what matters. Identifiable participants remain responsible for priority, exception, revision, and deletion, and the portfolio itself must be narrowed or removed if its recurring cost exceeds the drift it prevents.
 - **New question admission:** A new question must replace, block, or materially refine an existing item and name its first falsifier, minimum workload, deletion outcome, and consuming repository.
+- **External observations:** An active or ready question owned outside ordivon-computing binds the exact observed repository revision and local immutable evidence. The binding records observation freshness; it does not override the product repository as implementation authority.
 - Every completed experiment ends in one of: `retain`, `localize`, `shrink`, `defer`, or `delete`.
 - `active` is a WIP state, not a statement of importance. `deferred` preserves a valid question without consuming current execution bandwidth.
 - Historical evidence is retained through `completed`, `superseded`, or `frozen`; it does not remain in the Ready Frontier.

@@ -261,6 +261,23 @@ relations:
     to: ANC-ADAPT-001
     meaning: Only adversarial improvements that transfer beyond one opponent and evaluator may enter evidence-governed adaptation or post-training.
 
+  - from: ANC-HARNESS-002
+    type: produces
+    to: ANC-VERIFY-001
+    meaning: The first-party bare-model Loop supplies one controlled Harness variant for the common evaluation contract without moving Runtime or Host authority.
+  - from: ANC-VERIFY-001
+    type: feeds_back_to
+    to: ANC-HARNESS-002
+    meaning: Repeated frozen-Task comparison decides whether the Ordivon Harness is retained, narrowed, or deleted.
+  - from: ANC-HARNESS-001
+    type: enables
+    to: ANC-VERIFY-002
+    meaning: H5 retained generation, Artifact, uncertain-Dispatch, and reconciliation mechanisms provide the bounded baseline for act-or-hold experiments without a new control platform.
+  - from: ANC-VERIFY-002
+    type: feeds_back_to
+    to: ANC-HOST-001
+    meaning: Paired action and non-action failures revise Host-local interruption, observation, and responsible-decision routing only when the evidence requires it.
+
 questions:
   - id: ANC-STACK-001
     title: Classical substrate and Agent-native responsibility transition
@@ -381,6 +398,44 @@ questions:
       - ordivon-game
       - ordivon-security
       - ordivon-world
+
+  - id: ANC-HARNESS-002
+    title: Ordivon Harness for bare-model Agent runs
+    file: questions/ANC-HARNESS-002-ordivon-harness.md
+    branch: ANC-HOST
+    github_issue: 90
+    epistemic_status: research_question
+    question: Does a Host-local first-party Agent Loop create measurable value for bare-model APIs beyond one-shot calls and mature Provider Harnesses without duplicating Host or Runtime authority?
+    evidence_paths:
+      - live_bare_model_loop
+      - repeated_frozen_task_comparison
+      - provider_and_runtime_fault_injection
+      - cost_and_capability_attribution
+      - abstraction_deletion_test
+    related_projects:
+      - ordivon-computing
+      - ordivon-host
+      - ordivon-runtime
+
+  - id: ANC-VERIFY-002
+    title: Calibrated non-action, interruption, and recoverable continuation
+    file: questions/ANC-VERIFY-002-calibrated-non-action.md
+    branch: ANC-VERIFY
+    github_issue: 82
+    epistemic_status: research_question
+    question: When should an Agent act, hold, observe, request a responsible decision, or stop so that authorized utility and recoverability improve without creating a universal control platform?
+    evidence_paths:
+      - paired_act_and_hold_trajectories
+      - static_policy_baseline
+      - evidence_rich_host_baseline
+      - stale_state_and_response_loss_faults
+      - operator_interruption_measurement
+      - abstraction_deletion_test
+    related_projects:
+      - ordivon-computing
+      - ordivon-host
+      - ordivon-game
+      - ordivon-security
 
   - id: ANC-VERIFY-001
     title: Agent evaluation, replay, and trajectory flywheel

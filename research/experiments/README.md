@@ -1,35 +1,33 @@
 # Research Experiments
 
-Experiments connect open Agent-Native Computing questions to executable artifacts and observable results. They are not production components by default.
+Experiments connect falsifiable Ordivon Computing questions to executable artifacts and observable results. They are not production components by default, and this page does not own mutable portfolio status. Current WIP, blockers, and next actions live only in [`../PORTFOLIO.md`](../PORTFOLIO.md).
 
-## Active experiments
+## Current executable research
 
-- [`harness-evaluation-v0/`](harness-evaluation-v0/) — Track R R0–R1 research contract, four executable evidence schemas, H3–H5 historical projections, failure taxonomy, and standard-library validation; its first product-owned frozen workload lives in `ordivon-host`.
-- [`harness-boundary-v0/`](harness-boundary-v0/) — frozen Stage 1/Stage 2 design for two live Harness adapters, durable Assignment generation, CompletionProposal faults, and the existing Runtime foreign-reference correlation contract.
-- [`core-work-system-v1/`](core-work-system-v1/) — Round 1 strong-baseline comparison across open-work continuity, Context invalidation, Effect ambiguity, operator attention, and live Codex/Hermes Provider replacement. Its [full report](core-work-system-v1/REPORT.md) documents the principles, implementation, complete data, engineering problems, limitations, and the localization or reduction of every shared-layer claim except bounded Provider-neutral state.
-- [`task-continuation-v0/`](task-continuation-v0/) — frozen continuation workload, content-addressed TaskCapsule, field ablations, bounded Context Compiler, and fresh-process Host continuation.
-- [`external-semantic-contract-v0/`](external-semantic-contract-v0/) — backend-neutral canonical encoding, public Effect IR, ToolContract normalization and diff, immutable Effect Binding, the minimal signed Kernel admission edge, dual-backend integration, and exact evidence.
+- [`harness-evaluation-v0/`](harness-evaluation-v0/) — the active Track R evidence contract and comparison surface. Product-owned frozen workloads and real Harness runs remain in their owning repositories.
 
-## Closed reference experiments
+## Frozen, completed, or promoted evidence
 
-- [`semantic-core-v0/`](semantic-core-v0/) — completed Agent Semantic Kernel v0 reference experiment. It established K1–K11, durable replay, role-scoped Authority, incremental command cost, Ordivon recovery, and structurally distinct second-backend portability. It now accepts only bug fixes, regression evidence, and genuinely universal Kernel invariants.
+- [`harness-boundary-v0/`](harness-boundary-v0/) — frozen H1–H5 boundary evidence; no shared cross-Provider Harness layer was promoted.
+- [`core-work-system-v1/`](core-work-system-v1/) — completed Round 1 comparison; conclusions were localized, reduced, or rejected.
+- [`task-continuation-v0/`](task-continuation-v0/) — completed continuation evidence and bounded TaskCapsule ablations.
+- [`external-semantic-contract-v0/`](external-semantic-contract-v0/) — completed experiment whose smallest surviving wire objects were promoted into `ordivon-protocol`.
+- [`semantic-core-v0/`](semantic-core-v0/) — closed reference experiment; accepts only regression fixes or newly demonstrated universal invariants.
 
-## Planned experiment families
+## Deferred experiment families
 
-- dynamic Task dataflow and Agent VM control;
-- multi-Workspace branch and Artifact join;
-- second-backend Effect comparison through Edge Fetch/Browser.
+Dynamic Task dataflow, branch/join coordination, adaptation, and additional World or Security experiments remain deferred until the generated portfolio admits a concrete falsifier and consuming workload. Historical Edge/Link or generic second-backend plans are not active promises.
 
-Each experiment should record:
+Each admitted experiment records:
 
 ```text
 question
 → hypothesis
 → smallest constructed artifact
-→ workload
-→ observations
+→ workload and strong baseline
+→ observations and costs
 → interpretation or falsification
-→ next revision
+→ retain, localize, shrink, defer, or delete
 ```
 
-Failed hypotheses remain useful when they preserve the exact boundary exposed by reality.
+Failed hypotheses remain useful when they preserve the exact boundary exposed by reality without keeping failed machinery in the active path.

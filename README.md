@@ -119,14 +119,7 @@ The machine-readable portfolio and generated review view are:
 - [`research/portfolio.json`](research/portfolio.json) — status, maturity, priority, blocker, next falsifier, and disposition source of truth;
 - [`research/PORTFOLIO.md`](research/PORTFOLIO.md) — current active lines and complete portfolio view.
 
-Round A enforces two active research lines:
-
-```text
-R-A  Harness composition, CompletionProposal, and calibrated non-action
-R-B  Task-to-World continuity and Effect-contract decision
-```
-
-All other questions are explicitly `ready`, `blocked`, `deferred`, `completed`, `superseded`, `frozen`, or `reference`. Research importance does not grant active WIP status.
+The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](research/PORTFOLIO.md). Root and research overview documents do not duplicate mutable line identifiers or statuses; `portfolio.json` remains the single current-state source. Research importance does not grant active WIP status.
 
 ## Project roles
 

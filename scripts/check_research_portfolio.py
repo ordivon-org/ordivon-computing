@@ -40,6 +40,12 @@ def check_portfolio(root: Path = ROOT, path: Path | None = None) -> list[str]:
     active_limit = policy.get("activeLineLimit")
     _require(isinstance(active_limit, int) and active_limit > 0, "activeLineLimit must be positive", issues)
     _require(bool(policy.get("judgmentRule")), "portfolio judgmentRule is missing", issues)
+    _require(bool(policy.get("externalObservationRule")), "portfolio externalObservationRule is missing", issues)
+
+    map_path = root / "research" / "map.yaml"
+    map_text = map_path.read_text(encoding="utf-8") if map_path.is_file() else ""
+    question_section = map_text.split("\nquestions:\n", 1)[1] if "\nquestions:\n" in map_text else ""
+    map_question_ids = set(re.findall(r"^  - id: (ANC-[A-Z]+-\d+)$", question_section, re.MULTILINE))
 
     lines = document.get("activeLines", [])
     _require(isinstance(lines, list), "activeLines must be a list", issues)
@@ -90,8 +96,27 @@ def check_portfolio(root: Path = ROOT, path: Path | None = None) -> list[str]:
         source = question.get("source", "")
         if isinstance(source, str) and not source.startswith("github:"):
             _require((root / source).is_file(), f"question source is missing: {question_id} -> {source}", issues)
+        live_status = question.get("status") in {"active", "ready", "blocked"}
+        if live_status:
+            _require(isinstance(source, str) and not source.startswith("github:"), f"live question lacks a durable page: {question_id}", issues)
+            _require(question_id in map_question_ids, f"live question is absent from research map: {question_id}", issues)
         for evidence in question.get("evidence", []):
             _require((root / evidence).exists(), f"evidence reference is missing: {question_id} -> {evidence}", issues)
+        observation = question.get("externalObservation")
+        if observation is not None:
+            _require(isinstance(observation, dict), f"externalObservation must be an object: {question_id}", issues)
+            if isinstance(observation, dict):
+                _require(set(observation) == {"repositoryId", "revision", "observedAt", "evidence"}, f"externalObservation fields differ: {question_id}", issues)
+                _require(observation.get("repositoryId") == question.get("owner"), f"externalObservation owner differs: {question_id}", issues)
+                _require(bool(re.fullmatch(r"[0-9a-f]{40}", str(observation.get("revision", "")))), f"externalObservation revision is invalid: {question_id}", issues)
+                _require(bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(observation.get("observedAt", "")))), f"externalObservation date is invalid: {question_id}", issues)
+                observation_evidence = observation.get("evidence")
+                _require(isinstance(observation_evidence, list) and observation_evidence, f"externalObservation evidence is missing: {question_id}", issues)
+                if isinstance(observation_evidence, list):
+                    for evidence in observation_evidence:
+                        _require((root / evidence).is_file(), f"externalObservation evidence is missing: {question_id} -> {evidence}", issues)
+        if question.get("status") in {"active", "ready"} and question.get("owner") != "ordivon-computing":
+            _require(isinstance(observation, dict), f"externally owned live question lacks an exact observation: {question_id}", issues)
 
     file_question_ids: set[str] = set()
     for question_path in (root / "research" / "questions").glob("*.md"):
@@ -100,6 +125,8 @@ def check_portfolio(root: Path = ROOT, path: Path | None = None) -> list[str]:
             file_question_ids.add(match.group(1))
     missing = sorted(file_question_ids - set(question_ids))
     _require(not missing, "question files missing from portfolio: " + ", ".join(missing), issues)
+    unknown_map_questions = sorted(map_question_ids - set(question_ids))
+    _require(not unknown_map_questions, "research map questions missing from portfolio: " + ", ".join(unknown_map_questions), issues)
 
     for study in document.get("studies", []):
         study_id = study.get("id", "<missing>")
