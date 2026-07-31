@@ -1,0 +1,99 @@
+{
+  "acceptance": {
+    "decisionRef": "completion-decision:h5-codex-to-hermes-1785465875997-b75e4eb474a4:hermes:repair",
+    "falseCompletion": false,
+    "status": "accepted",
+    "verifier": {
+      "assertions": [
+        {
+          "assertionId": "independent-acceptance-succeeded",
+          "evidenceRefs": [
+            "evidence/harness-replacement-h5-live-76420e4-20260731.json#trajectories[0].checks.independentAcceptanceSucceeded"
+          ],
+          "status": "passed"
+        },
+        {
+          "assertionId": "stale-completion-rejected",
+          "evidenceRefs": [
+            "evidence/harness-replacement-h5-live-76420e4-20260731.json#trajectories[0].faults.staleGeneration"
+          ],
+          "status": "passed"
+        },
+        {
+          "assertionId": "response-loss-no-redispatch",
+          "evidenceRefs": [
+            "evidence/harness-replacement-h5-live-76420e4-20260731.json#trajectories[0].checks.noBlindRedispatch"
+          ],
+          "status": "passed"
+        },
+        {
+          "assertionId": "host-committed-task-outcome",
+          "evidenceRefs": [
+            "evidence/harness-replacement-h5-live-76420e4-20260731.json#trajectories[0].host.outcome"
+          ],
+          "status": "passed"
+        }
+      ],
+      "status": "passed",
+      "verifierId": "h5-repository-repair-acceptance",
+      "verifierRevision": "h5-v1"
+    }
+  },
+  "artifacts": [
+    {
+      "digest": "sha256:d9dd4223e4f294602f7f059f58be0cc0d4e35aac8d353da870de536cf2be01c8",
+      "kind": "completion",
+      "ref": "host-object:sha256:724b15cdae854319f9abe2f43b591c85c406abf34756603ab95af53a000e6b11",
+      "valid": true
+    },
+    {
+      "digest": "sha256:1fb2d560fa109be2673b3d1834df8a441b6c88541b47fdd3c214a3bfd6095ebd",
+      "kind": "final-source",
+      "ref": "host-object:sha256:574792c7ea96da3358b82dac6b3a8e8e6194a996f7bbf00bb96a987472e1d8bd",
+      "valid": true
+    }
+  ],
+  "failureRefs": [
+    "failure:historical:h5:response-loss",
+    "failure:historical:h5:stale-assignment"
+  ],
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-canonical-json-v1",
+    "payloadDigest": "sha256:c7db32508d6bfda8fc757f0dc36542dfe8ecb6f030b0ed1f0da15e2e6e6eec5b"
+  },
+  "kind": "ordivon.evaluation-result",
+  "limitations": [
+    "The two Provider Harnesses report different usage structures; totals are protocol-local observed values, not normalized model-efficiency measurements.",
+    "The composite historical trajectory did not retain one common event trace digest or wall-time field."
+  ],
+  "metrics": {
+    "cachedInputTokens": 244480,
+    "estimatedCostUsd": null,
+    "humanInterventionCount": 0,
+    "inputTokens": 280908,
+    "invalidToolCalls": 0,
+    "modelCalls": 2,
+    "observationBytes": null,
+    "outputTokens": 5623,
+    "reasoningTokens": 1686,
+    "repeatedCommands": null,
+    "repeatedReads": null,
+    "runtimeJobs": 3,
+    "toolCalls": 13,
+    "totalTokens": 286531,
+    "wallTimeMs": null
+  },
+  "schemaVersion": 1,
+  "stopCode": "accepted_after_harness_replacement",
+  "taskRef": {
+    "taskId": "harness-replacement-repository-repair-v1",
+    "taskVersion": 1
+  },
+  "trace": {
+    "digest": null,
+    "eventCount": null,
+    "ref": "evidence/harness-replacement-h5-live-76420e4-20260731.json#trajectories[0]"
+  },
+  "trialId": "historical:h5:codex-to-hermes:20260731"
+}

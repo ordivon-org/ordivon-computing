@@ -4,7 +4,11 @@ Charters define durable cross-project missions. They do not own changing portfol
 
 ## Active charters
 
-- [`WORLD-CHARTER-001`](WORLD-CHARTER-001.md) — Task-to-World Interaction Continuity; active under research line `R-B-WORLD-EFFECT`.
+- [`VERIFY-CHARTER-001`](VERIFY-CHARTER-001.md) — Track R evaluation, replay, trajectory, Task QA, and evidence boundaries under research line `R-C-HARNESS-EVALUATION`.
+
+## Reference and deferred charters
+
+- [`WORLD-CHARTER-001`](WORLD-CHARTER-001.md) — completed Task-to-World Interaction Continuity mission retained as reference after W1 closeout.
 - [`SECURITY-CHARTER-001`](SECURITY-CHARTER-001.md) — strategic adversarial-systems mission; valid but execution-deferred by the portfolio WIP limit.
 
 ## Historical charters

@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/schemas/evaluation/trial-v1.json",
+  "title": "Ordivon Evaluation Trial Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "trialId",
+    "taskRef",
+    "executionPath",
+    "model",
+    "harness",
+    "bindings",
+    "sampling",
+    "budget",
+    "startedAtMs",
+    "completedAtMs",
+    "sourceEvidenceRefs",
+    "limitations",
+    "integrity"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "kind": {"const": "ordivon.evaluation-trial"},
+    "trialId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9:._-]{2,255}$"},
+    "taskRef": {"$ref": "#/$defs/taskRef"},
+    "executionPath": {
+      "type": "string",
+      "enum": ["one_shot", "ordivon_harness", "provider_harness", "replay", "historical_projection"]
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["providerId", "modelId", "modelRevision", "adapterRevision"],
+      "properties": {
+        "providerId": {"type": "string", "minLength": 1},
+        "modelId": {"type": "string", "minLength": 1},
+        "modelRevision": {"type": ["string", "null"]},
+        "adapterRevision": {"type": ["string", "null"]}
+      }
+    },
+    "harness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["harnessId", "harnessRevision", "manifestDigest"],
+      "properties": {
+        "harnessId": {"type": "string", "minLength": 1},
+        "harnessRevision": {"type": ["string", "null"]},
+        "manifestDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceRevision",
+        "environmentDigest",
+        "contextDigest",
+        "toolCatalogDigest",
+        "systemSnapshotRef"
+      ],
+      "properties": {
+        "sourceRevision": {"type": ["string", "null"], "pattern": "^[0-9a-f]{40}$"},
+        "environmentDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "contextDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "toolCatalogDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "systemSnapshotRef": {"type": ["string", "null"]}
+      }
+    },
+    "sampling": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seed", "temperature", "topP", "reasoningEffort"],
+      "properties": {
+        "seed": {"type": ["integer", "null"]},
+        "temperature": {"type": ["number", "null"], "minimum": 0},
+        "topP": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "reasoningEffort": {"type": ["string", "null"]}
+      }
+    },
+    "budget": {"$ref": "#/$defs/budget"},
+    "startedAtMs": {"type": ["integer", "null"], "minimum": 0},
+    "completedAtMs": {"type": ["integer", "null"], "minimum": 0},
+    "sourceEvidenceRefs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/evidenceRef"}
+    },
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "taskRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["taskId", "taskVersion"],
+      "properties": {
+        "taskId": {"type": "string", "minLength": 1},
+        "taskVersion": {"type": "integer", "minimum": 1}
+      }
+    },
+    "nullableNonNegativeInteger": {"type": ["integer", "null"], "minimum": 0},
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxModelCalls",
+        "maxToolCalls",
+        "maxRuntimeJobs",
+        "maxObservationBytes",
+        "maxWallTimeMs",
+        "maxInputTokens",
+        "maxOutputTokens"
+      ],
+      "properties": {
+        "maxModelCalls": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxToolCalls": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxRuntimeJobs": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxObservationBytes": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxWallTimeMs": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxInputTokens": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxOutputTokens": {"$ref": "#/$defs/nullableNonNegativeInteger"}
+      }
+    },
+    "evidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repositoryId", "path", "digest"],
+      "properties": {
+        "repositoryId": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "payloadDigest"],
+      "properties": {
+        "algorithm": {"const": "sha256"},
+        "canonicalization": {"const": "ordivon-canonical-json-v1"},
+        "payloadDigest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

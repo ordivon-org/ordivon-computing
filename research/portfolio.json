@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "portfolio": "ordivon-research",
-  "asOf": "2026-07-31",
+  "asOf": "2026-08-01",
   "policy": {
     "activeLineLimit": 2,
     "allowedStatuses": ["reference", "active", "ready", "blocked", "deferred", "completed", "superseded", "frozen"],
@@ -26,6 +26,14 @@
       "questions": ["ANC-VERIFY-002"],
       "issues": ["ordivon-computing#82", "ordivon-game#58", "ordivon-security#19"],
       "exitCriteria": "Paired should-act and should-hold trajectories measure pre-commit timing, false abstention, authorized utility, recovery, and whether existing Host facts suffice without a new control platform."
+    },
+    {
+      "id": "R-C-HARNESS-EVALUATION",
+      "title": "Harness evaluation, replay, and trajectory evidence",
+      "priority": "P0",
+      "questions": ["ANC-VERIFY-001"],
+      "issues": ["ordivon-computing#9"],
+      "exitCriteria": "One frozen Task runs under one-shot, Ordivon Harness, and a mature Provider Harness with the same verifier, repeated Trials, exact cost/action evidence, and a decision to retain, shrink, or delete the common evaluation envelope."
     }
   ],
   "studies": [
@@ -95,8 +103,8 @@
       "nextFalsifier": "A single Agent plus independent verifier matches two-branch quality and cost, or ordinary Task Graph semantics are sufficient.", "nextAction": "After R-A closes, run one Goal, two independent Tasks, two Artifacts, and one deterministic Join.", "disposition": "defer", "evidence": []
     },
     {
-      "id": "ANC-VERIFY-001", "title": "Agent evaluation, replay, and post-training flywheel", "status": "deferred", "maturity": "M1", "priority": "P2", "owner": "ordivon-computing", "source": "github:ordivon-computing#9", "issue": 9, "blockedBy": [],
-      "nextFalsifier": "Three real experiments do not share enough stable evidence fields to justify common Eval infrastructure.", "nextAction": "Use local receipts; extract a shared Eval Envelope only after R-A and one branch/join experiment demonstrate stable repeated fields. World W1 already closed without a shared external layer.", "disposition": "defer", "evidence": []
+      "id": "ANC-VERIFY-001", "title": "Agent evaluation, replay, and post-training flywheel", "status": "active", "maturity": "M3", "priority": "P0", "owner": "ordivon-computing", "source": "github:ordivon-computing#9", "issue": 9, "activeLine": "R-C-HARNESS-EVALUATION", "blockedBy": [],
+      "nextFalsifier": "The same frozen workload cannot be compared without copying Provider lifecycles or duplicating Host, Harness, Runtime, and verifier authority, or the common envelope adds no explanatory value over local receipts.", "nextAction": "Use the R0-R2 contract and HARNESS-REPO-REPAIR-001 QA gate for R3: project one-shot, Ordivon Harness, and mature Harness runs into the same Trial and Result records, then review every failure and anomalous success.", "disposition": "localize", "evidence": ["research/experiments/harness-evaluation-v0", "research/evidence/snapshots/harness-boundary-h5-20260731t031134z.json"]
     },
     {
       "id": "ANC-ORG-001", "title": "Plural-intelligence organization around persistent Goals", "status": "deferred", "maturity": "M1", "priority": "P3", "owner": "ordivon-computing", "source": "research/questions/ANC-ORG-001-agent-native-organization.md", "issue": 10, "blockedBy": ["ANC-MULTI-001", "real-operator-attention-traces"],
