@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "world-w1-direct-integration-closeout-20260731t113000z",
+  "capturedAt": "2026-07-31T11:30:00Z",
+  "purpose": "Bind the completed Ordivon World W0/W1 decision. A real Cloudflare Fetch response-loss comparison showed that direct Host integration plus provider-native Receipt/Artifact semantics and a source-native observation adapter matched a candidate World correlation journal with fewer records. The independent World semantic layer and general Tool ABI were absorbed or deleted; provider and observation modules remain.",
+  "repositories": [
+    {
+      "id": "ordivon-world",
+      "repository": "https://github.com/zycxfyh/ordivon-world",
+      "revision": "3dd7c0e7a1dfb23674481a48dc992c5f01cd0c4c",
+      "clean": true
+    }
+  ],
+  "services": [],
+  "contracts": [],
+  "artifacts": [
+    {
+      "id": "world-w1-closeout-evidence",
+      "kind": "live-direct-versus-correlation-evidence",
+      "digest": "sha256:02b7f875bcbcff3ce4d09baa9a2466d5a961a2a2c1f9605bf39af5347fd06514",
+      "path": "evidence/w1/w1-live-20260731c.json",
+      "repositoryId": "ordivon-world"
+    },
+    {
+      "id": "world-w1-results",
+      "kind": "architecture-closeout-report",
+      "digest": "sha256:101aba7734ce129fd5081d1501659d28411f9db8f177ede35c86e382ed4fe584",
+      "path": "docs/w1-results.md",
+      "repositoryId": "ordivon-world"
+    },
+    {
+      "id": "world-w1-experiment-implementation",
+      "kind": "reproducible-experiment-implementation",
+      "digest": "sha256:1d2e03738b0d21f66d5935473837e614a2f306e64ae441a630ed1a3b4746cd43",
+      "path": "experiments/w1-host-cloudflare/src/ordivon_world_w1/experiment.py",
+      "repositoryId": "ordivon-world"
+    }
+  ],
+  "environment": {
+    "worldBaseRevision": "eb74356b749fa0ef6dcc368f04c59330ef2e4bd6",
+    "w1ImplementationRevision": "41024df17e70b41c84705bf59c7966d6c90609ef",
+    "hostRevision": "4ac03b52322cb76ade8f2902ab5b08113141c3e7",
+    "provider": "Cloudflare fetch.v2",
+    "faultPoint": "after-provider-receipt-commit-before-host-admission",
+    "b0": "1 POST; 1 execution; 1 Receipt query; 1 Artifact download; 0 duplicate Effects; exactly-once Host completion",
+    "b1": "same Host/provider outcome plus 6 correlation events and 4535 bytes; zero Host object reduction",
+    "artifact": "559 bytes; sha256:ff67a9d764d6a2367a187734e697f6a53217db9a21c101d410a113ca871a299d",
+    "negativeEvidence": "initial body-SHA/provider-idempotency-digest mismatch retained and reconciled without redispatch",
+    "decision": "do not retain World correlation layer; absorb semantics into Host and provider/observation adapters; W2 conditional and inactive",
+    "issueDisposition": "ordivon-world#1, ordivon-computing#78, and ordivon-computing#6 closed; ordivon-runtime#56 deferred"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "json-sort-keys-v1",
+    "payloadDigest": "sha256:395747906b179544fdd3838e618daa76d160c06ac8af5253e1e04e32f26beb10"
+  }
+}

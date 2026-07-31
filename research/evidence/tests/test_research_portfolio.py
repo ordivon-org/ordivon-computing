@@ -52,6 +52,11 @@ class ResearchPortfolioTests(unittest.TestCase):
             source = ROOT / "research" / "portfolio.json"
             document = json.loads(source.read_text())
             document["policy"]["activeLineLimit"] = 1
+            overflow = dict(document["activeLines"][0])
+            overflow["id"] = "TEST-OVERFLOW-LINE"
+            overflow["questions"] = []
+            overflow["issues"] = ["test#overflow"]
+            document["activeLines"].append(overflow)
             path = root / "research" / "portfolio.json"
             path.write_text(json.dumps(document), encoding="utf-8")
             issues = CHECK.check_portfolio(root, path)
