@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.model-to-work-experiment-ledger",
+  "asOf": "2026-07-31",
+  "claimBoundary": "Observed values are local experiment evidence, not normalized model or framework benchmarks.",
+  "experiments": [
+    {
+      "id": "task-continuation-v0",
+      "repository": "ordivon-computing",
+      "evidence": "research/experiments/task-continuation-v0/evidence/provider-comparison-1cdbbdc.json",
+      "measurements": {
+        "fullTranscriptBytes": 3894,
+        "manualHandoffBytes": 945,
+        "noMemoryBytes": 147,
+        "completeTaskCapsuleBytes": 2604,
+        "capsuleWithoutDecisionArtifactBytes": 2420,
+        "capsuleWithoutAcceptedFactBytes": 2454,
+        "manualToTranscriptPermille": 242,
+        "freshProcessDoesNotLoadTranscript": true,
+        "providerReplacementAgreesWhenPresent": true
+      }
+    },
+    {
+      "id": "core-work-system-v1",
+      "repository": "ordivon-computing",
+      "evidence": "research/experiments/core-work-system-v1/evidence/round1-report-receipt.json",
+      "measurements": {
+        "deterministicTrials": 16,
+        "deterministicPassed": 10,
+        "deterministicFailed": 6,
+        "liveReplacementTrials": 6,
+        "liveReplacementAccepted": 6,
+        "duplicateEffects": 0,
+        "replacement": {
+          "codexToHermes": {
+            "trials": 3,
+            "meanElapsedMs": 42143,
+            "rangeMs": [37232, 49458],
+            "hermesReportedTokens": 4733,
+            "hermesReportedCostUsd": 0.01011114
+          },
+          "hermesToCodex": {
+            "trials": 3,
+            "meanElapsedMs": 37828.667,
+            "rangeMs": [36416, 39281],
+            "hermesReportedTokens": 5625,
+            "hermesReportedCostUsd": 0.01234356
+          },
+          "all": {
+            "trials": 6,
+            "meanElapsedMs": 39985.833,
+            "rangeMs": [36416, 49458],
+            "hermesReportedTokens": 10358,
+            "hermesReportedCostUsd": 0.0224547
+          }
+        }
+      }
+    },
+    {
+      "id": "harness-h3-codex-app",
+      "repository": "ordivon-host",
+      "revision": "64ab44be667fa172027150a152b2f4660538ef00",
+      "evidence": "evidence/codex-app-h3-live-64ab44b-20260731.json",
+      "receiptPayloadDigest": "sha256:d7f048b4c24f4aa0c6897a7711640a3d32736c12a7d144888e69bc1262f58558",
+      "measurements": {
+        "model": "gpt-5.6-sol",
+        "providerMessages": 259,
+        "totalReportedTokens": 27325,
+        "toolItems": 1,
+        "runtimeSucceeded": true,
+        "taskCompleted": false
+      }
+    },
+    {
+      "id": "harness-h4-hermes-acp",
+      "repository": "ordivon-host",
+      "revision": "3d9a55904c735b388d8acf617262f0322174ba9a",
+      "evidence": "evidence/hermes-acp-h4-live-3d9a559-20260731.json",
+      "receiptPayloadDigest": "sha256:4ac6a76266c860bf623f3c7f90b87ad8eb9d702c693dc9736af283f5a5b5cad7",
+      "measurements": {
+        "agentVersion": "0.18.0",
+        "model": "deepseek:deepseek-v4-pro",
+        "providerMessages": 689,
+        "thoughtChunks": 449,
+        "messageChunks": 234,
+        "usageUpdates": 2,
+        "totalReportedTokens": 35992,
+        "toolItems": 1,
+        "toolCompletionUpdateObserved": false,
+        "runtimeSucceeded": true,
+        "taskCompleted": false
+      }
+    },
+    {
+      "id": "harness-h5-replacement-and-faults",
+      "repository": "ordivon-host",
+      "revision": "76420e4f1ab2d20799b09aad6497f195bd951aa7",
+      "evidence": "evidence/harness-replacement-h5-live-76420e4-20260731.json",
+      "canonicalReceiptPayloadDigest": "sha256:354ec949f0c59cada97eabc4a721baad54815a0eef9f1f99e34db4e72848f455",
+      "sourceReceiptPayloadDigest": "sha256:8b8f96f8844ded3512e37fac36342c188e2e774015855b1d639bffb9f9fe3387",
+      "measurements": {
+        "replacementOrders": 2,
+        "providerRuns": 4,
+        "acceptedTrajectories": 2,
+        "codexReportedTokens": 114111,
+        "hermesReportedTokens": 379183,
+        "combinedReportedTokens": 493294,
+        "codexFinalResponsesUsable": 2,
+        "hermesFinalResponsesUsable": 0,
+        "faults": {
+          "staleAssignmentRejected": true,
+          "missingArtifactRejected": true,
+          "responseLossRecoveredWithoutRedispatch": true
+        },
+        "finalSourceDigests": [
+          "sha256:1fb2d560fa109be2673b3d1834df8a441b6c88541b47fdd3c214a3bfd6095ebd",
+          "sha256:d751a39f77c35bdb0f23cf91cc4da0410be54a740a53a4c5ecb60e9d689136e7"
+        ]
+      }
+    }
+  ],
+  "decisions": {
+    "retain": [
+      "TaskAttemptDescriptor-role",
+      "Assignment-generation",
+      "HarnessRunReceipt",
+      "CompletionProposal-and-CompletionDecision",
+      "Host-Runtime-foreign-references",
+      "provider-specific-direct-drivers",
+      "one-shot-baselines",
+      "Artifact-first-completion"
+    ],
+    "localize": [
+      "Provider-Session",
+      "Provider-modes-and-approvals",
+      "Run-local-context",
+      "Provider-final-text-as-optional-observation"
+    ],
+    "reject": [
+      "shared-cross-provider-internal-lifecycle",
+      "provider-independent-Session",
+      "synthesized-universal-Tool-completion-events",
+      "Runtime-owned-Task-state",
+      "new-Harness-SQL-tables",
+      "global-Hook-policy-platform"
+    ],
+    "newQuestion": "ANC-HARNESS-002"
+  }
+}

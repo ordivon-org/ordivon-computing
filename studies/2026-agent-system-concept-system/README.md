@@ -68,15 +68,18 @@ Ordivon Runtime or another execution backend
 
 ## Main architectural decision
 
-`ordivon-harness` is admitted as a **research boundary**, not yet as an independent repository.
+The study originally admitted `ordivon-harness` as an unresolved research boundary. H1–H5 later split that ambiguity into two decisions:
 
-The first implementation should remain a thin interface or package inside Host or Computing. Repository extraction requires all of the following:
+1. **closed negative decision:** do not extract Codex, Hermes, Claude, or other mature Harness drivers into a shared internal lifecycle or lowest-common-denominator repository;
+2. **admitted construction decision:** build **Ordivon Harness** as a thin first-party Agent Loop for bare model APIs and local inference systems that supply intelligence but no mature Harness.
 
-- at least two materially different Harness backends;
-- one workload that changes Harness while preserving Task identity;
-- measured reduction in duplicate Host/Runtime logic;
-- no loss of provider-specific capability through lowest-common-denominator abstraction;
-- a stable event and checkpoint boundary that survives provider replacement;
-- net benefit clearly greater than maintenance, compatibility, and cognitive cost.
+The first Ordivon Harness implementation remains Host-local. Repository extraction requires all of the following:
 
-Until then, Codex, Claude Agent SDK, Hermes, or a minimal native loop remain adapters behind one experimental boundary.
+- a working first-party model/Tool loop rather than only Provider adapters;
+- at least two bare-model adapters;
+- at least two independent consuming workloads or repositories;
+- no Host Task authority or Runtime process authority inside the package;
+- no loss of Provider-specific capability through forced lifecycle normalization;
+- measurable net deletion and independent release/test value.
+
+The complete closeout and v0 gate are in [`../2026-model-to-work-and-ordivon-harness/`](../2026-model-to-work-and-ordivon-harness/).

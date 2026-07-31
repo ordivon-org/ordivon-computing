@@ -31,6 +31,12 @@ The portfolio is the single source of truth for research status, maturity, block
 | ANC-WORLD-002 | M2 | P1 | ordivon-world | R-B-WORLD-EFFECT | — | Run W1/W2 against direct integration and force a retain, absorb, shrink, or delete decision. | Direct Host/Provider integration preserves uncertainty, provenance, rebinding, and recovery with less permanent machinery. |
 | ANC-EFFECT-001 | M4 | P1 | ordivon-computing | R-B-WORLD-EFFECT | ordivon-world#1 | Do not generalize Tool ABI until World supplies a structurally different real backend. | Stable request identity, Provider receipts, and durable Activities match the second-backend outcome with fewer semantic objects. |
 
+### Ready
+
+| ID | Maturity | Priority | Owner | Active line | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|
+| ANC-HARNESS-002 | M2 | P0 | ordivon-host | — | — | Implement one Host-local v0 with a bare-model Adapter, sequential Tool loop, Runtime bridge, bounded Run state, and existing HarnessRunReceipt/CompletionProposal output; compare against one-shot and mature Harness baselines. | One-shot or mature Provider Harness paths match the same bounded workloads with equal correctness, recovery, portability, and lower permanent cost, while no bare-model use case requires a first-party Loop. |
+
 ### Blocked
 
 | ID | Maturity | Priority | Owner | Active line | Blocked by | Next action | Next falsifier |
@@ -58,7 +64,7 @@ The portfolio is the single source of truth for research status, maturity, block
 | ANC-IR-001 | M5 | reference | ordivon-computing | — | — | Consume EffectEnvelope v1; extend only through ANC-EFFECT-001 evidence. | A second interface family cannot preserve Effect meaning with the current envelope and Binding projection. |
 | ANC-MEMORY-001 | M4 | reference | ordivon-computing | — | — | Consume TaskCapsule evidence; do not create a general memory runtime. | A materially different workload cannot continue from bounded semantic state without transcript or Provider Session state. |
 | ANC-HOST-001 | M4 | reference | ordivon-host | — | — | Product evolution belongs to ordivon-host; shared changes require new cross-workload evidence. | A real workload requires durable cognition state that cannot remain a Provider Harness concern or Host application schema. |
-| ANC-HARNESS-001 | M5 | reference | ordivon-host | — | — | Consume the Host-local boundary and provider-specific direct drivers; reopen shared-layer work only on new cross-consumer failure evidence. | A second independent consumer requires a stable shared Harness lifecycle and demonstrates measurable duplicate-code reduction without losing Provider capability. |
+| ANC-HARNESS-001 | M5 | reference | ordivon-host | — | — | Consume the Host-local cross-Provider boundary and provider-specific direct drivers; use ANC-HARNESS-002 for the separate first-party bare-model Agent Loop. | A second independent consumer requires a stable shared Harness lifecycle and demonstrates measurable duplicate-code reduction without losing Provider capability. |
 | ANC-GAME-001 | M4 | reference | ordivon-game | — | — | Original boundary is closed; Game #58 now serves R-A as a deterministic laboratory. | A second game family requires a generic responsibility absent from one Host plus Game-owned World and replay semantics. |
 
 ### Superseded
@@ -93,7 +99,8 @@ The portfolio is the single source of truth for research status, maturity, block
 | 2026-computing-stack-walkthrough | reference | physical-to-institutional learning map | Revise only after a material computing-paradigm change. |
 | 2026-classical-to-agent-native-computing | reference | layer-admission and deletion framework | Use as the default admission test. |
 | 2026-adaptive-acceleration | reference | published normative position | Revise only after substantive evidence, critique, or position change. |
-| 2026-agent-system-concept-system | completed | canonical terminology and closed Harness-boundary source | Preserve as reference; consume the Host H5 decision and reopen only after a second independent consumer demonstrates stable shared lifecycle value. |
+| 2026-agent-system-concept-system | completed | canonical terminology and closed cross-Provider Harness-boundary source | Preserve as reference; use ANC-HARNESS-002 for the separate first-party bare-model Agent Loop. |
+| 2026-model-to-work-and-ordivon-harness | completed | canonical model-to-work stack, H1-H5 evidence ledger, and Ordivon Harness admission source | Consume through ANC-HARNESS-002; revise only if the v0 experiment contradicts the ownership or scope decision. |
 | 2026-task-to-world-interaction | active | canonical World and Effect research source | Consume through R-B and force an architecture disposition after the second backend. |
 | 2026-agent-world-interface-overlay | superseded | historical Edge and Link derivation | Preserve as history; active work belongs to Task-to-World Interaction. |
 | 2026-agent-native-adversarial-systems | deferred | strategic Security research source | Start only the minimal Campaign/opponent experiment after active-line capacity is free. |
