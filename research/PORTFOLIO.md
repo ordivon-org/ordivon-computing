@@ -103,6 +103,7 @@ The portfolio is the single source of truth for research status, maturity, block
 | 2026-model-to-work-and-ordivon-harness | completed | canonical model-to-work stack, H1-H5 evidence ledger, and Ordivon Harness admission source | Consume through ANC-HARNESS-002; revise only if the v0 experiment contradicts the ownership or scope decision. |
 | 2026-task-to-world-interaction | completed | canonical closed World and Effect boundary decision source | Preserve the W0/W1 direct-integration result as reference. Activate only a narrow W2 or new trajectory after a concrete external mismatch, callback, handoff, or rebinding failure. |
 | 2026-agent-world-interface-overlay | superseded | historical Edge and Link derivation | Preserve as history; active work belongs to Task-to-World Interaction. |
+| 2026-web-network-adversarial-foundations | completed | R0 terminology, causal-chain, evidence, Agent-amplification, and World/Security insertion baseline | Use as the default Web/network adversarial analysis grammar; continue with the non-operational R1 identity, origin, delegation, and ambient-authority study. |
 | 2026-agent-native-adversarial-systems | deferred | Round 1 evidence and deferred strategic Security research source | Consume the completed Round 1 method and negative abstraction result; resume only with held-out opponent policies, deliberate Context loss, and Host/Harness replacement. |
 
 ## Evidence maturity

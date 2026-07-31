@@ -42,3 +42,5 @@ python3 scripts/render_research_portfolio.py --check
 The primary-source derivation for `ANC-STACK-001` and the cross-paradigm validation program live in [`../studies/2026-classical-to-agent-native-computing/`](../studies/2026-classical-to-agent-native-computing/).
 
 The strategic adversarial-systems reorientation, source comparison, insertion map, and research program live in [`../studies/2026-agent-native-adversarial-systems/`](../studies/2026-agent-native-adversarial-systems/).
+
+The R0 Web and network adversarial foundation—terminology, causal graph, evidence method, real-case validation, Agent amplification, and World/Security insertion rules—lives in [`../studies/2026-web-network-adversarial-foundations/`](../studies/2026-web-network-adversarial-foundations/). It is a completed knowledge baseline, not an authorization for offensive execution or a new active implementation line.
