@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/schemas/evaluation/task-v1.json",
+  "title": "Ordivon Evaluation Task v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "taskId",
+    "taskVersion",
+    "family",
+    "objective",
+    "initialState",
+    "allowedCapabilities",
+    "budgetProfile",
+    "acceptanceContract",
+    "reproducibility",
+    "knownLimitations",
+    "integrity"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "kind": {"const": "ordivon.evaluation-task"},
+    "taskId": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,127}$"},
+    "taskVersion": {"type": "integer", "minimum": 1},
+    "family": {"type": "string", "minLength": 1, "maxLength": 64},
+    "objective": {"type": "string", "minLength": 1, "maxLength": 4096},
+    "initialState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceRepositoryId", "sourceRevision", "fixturePath", "environmentDigest"],
+      "properties": {
+        "sourceRepositoryId": {"type": "string", "minLength": 1},
+        "sourceRevision": {"type": ["string", "null"], "pattern": "^[0-9a-f]{40}$"},
+        "fixturePath": {"type": "string", "minLength": 1},
+        "environmentDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "allowedCapabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "budgetProfile": {"$ref": "#/$defs/budget"},
+    "acceptanceContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verifierId", "verifierRevision", "assertions", "requiredArtifacts"],
+      "properties": {
+        "verifierId": {"type": "string", "minLength": 1},
+        "verifierRevision": {"type": "string", "minLength": 1},
+        "assertions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "requiredArtifacts": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "oracle": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["kind", "path", "digest"],
+      "properties": {
+        "kind": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "minLength": 1},
+        "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "expertTimeEstimateMinutes": {"type": ["number", "null"], "exclusiveMinimum": 0},
+    "reproducibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cleanRebuildTrials", "requiredAgreement"],
+      "properties": {
+        "cleanRebuildTrials": {"type": "integer", "minimum": 1},
+        "requiredAgreement": {"type": "integer", "minimum": 1}
+      }
+    },
+    "knownLimitations": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "labels": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "nullableNonNegativeInteger": {"type": ["integer", "null"], "minimum": 0},
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "maxModelCalls",
+        "maxToolCalls",
+        "maxRuntimeJobs",
+        "maxObservationBytes",
+        "maxWallTimeMs",
+        "maxInputTokens",
+        "maxOutputTokens"
+      ],
+      "properties": {
+        "maxModelCalls": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxToolCalls": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxRuntimeJobs": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxObservationBytes": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxWallTimeMs": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxInputTokens": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "maxOutputTokens": {"$ref": "#/$defs/nullableNonNegativeInteger"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "payloadDigest"],
+      "properties": {
+        "algorithm": {"const": "sha256"},
+        "canonicalization": {"const": "ordivon-canonical-json-v1"},
+        "payloadDigest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/schemas/evaluation/result-v1.json",
+  "title": "Ordivon Evaluation Trial Result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "trialId",
+    "taskRef",
+    "stopCode",
+    "acceptance",
+    "metrics",
+    "artifacts",
+    "trace",
+    "failureRefs",
+    "limitations",
+    "integrity"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "kind": {"const": "ordivon.evaluation-result"},
+    "trialId": {"type": "string", "minLength": 1},
+    "taskRef": {"$ref": "#/$defs/taskRef"},
+    "stopCode": {"type": "string", "minLength": 1},
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "decisionRef", "falseCompletion", "verifier"],
+      "properties": {
+        "status": {"type": "string", "enum": ["accepted", "rejected", "not_adjudicated"]},
+        "decisionRef": {"type": ["string", "null"]},
+        "falseCompletion": {"type": "boolean"},
+        "verifier": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["verifierId", "verifierRevision", "status", "assertions"],
+          "properties": {
+            "verifierId": {"type": ["string", "null"]},
+            "verifierRevision": {"type": ["string", "null"]},
+            "status": {"type": "string", "enum": ["passed", "failed", "not_run"]},
+            "assertions": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["assertionId", "status", "evidenceRefs"],
+                "properties": {
+                  "assertionId": {"type": "string", "minLength": 1},
+                  "status": {"type": "string", "enum": ["passed", "failed", "unknown"]},
+                  "evidenceRefs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "modelCalls",
+        "toolCalls",
+        "runtimeJobs",
+        "observationBytes",
+        "inputTokens",
+        "outputTokens",
+        "cachedInputTokens",
+        "reasoningTokens",
+        "totalTokens",
+        "wallTimeMs",
+        "estimatedCostUsd",
+        "repeatedReads",
+        "repeatedCommands",
+        "invalidToolCalls",
+        "humanInterventionCount"
+      ],
+      "properties": {
+        "modelCalls": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "toolCalls": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "runtimeJobs": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "observationBytes": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "inputTokens": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "outputTokens": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "cachedInputTokens": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "reasoningTokens": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "totalTokens": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "wallTimeMs": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "estimatedCostUsd": {"type": ["number", "null"], "minimum": 0},
+        "repeatedReads": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "repeatedCommands": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "invalidToolCalls": {"$ref": "#/$defs/nullableNonNegativeInteger"},
+        "humanInterventionCount": {"$ref": "#/$defs/nullableNonNegativeInteger"}
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ref", "kind", "digest", "valid"],
+        "properties": {
+          "ref": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+          "valid": {"type": ["boolean", "null"]}
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["digest", "eventCount", "ref"],
+      "properties": {
+        "digest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "eventCount": {"type": ["integer", "null"], "minimum": 0},
+        "ref": {"type": ["string", "null"]}
+      }
+    },
+    "failureRefs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "taskRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["taskId", "taskVersion"],
+      "properties": {
+        "taskId": {"type": "string", "minLength": 1},
+        "taskVersion": {"type": "integer", "minimum": 1}
+      }
+    },
+    "nullableNonNegativeInteger": {"type": ["integer", "null"], "minimum": 0},
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "payloadDigest"],
+      "properties": {
+        "algorithm": {"const": "sha256"},
+        "canonicalization": {"const": "ordivon-canonical-json-v1"},
+        "payloadDigest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

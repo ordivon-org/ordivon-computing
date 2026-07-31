@@ -1,0 +1,69 @@
+{
+  "acceptanceContract": {
+    "assertions": [
+      "frozen allocation tests pass",
+      "completion Artifact binds diagnosis and final source",
+      "stale completion is rejected",
+      "response loss does not cause duplicate dispatch",
+      "Host independently accepts the final TaskOutcome"
+    ],
+    "requiredArtifacts": [
+      "diagnosis",
+      "completion",
+      "final-source"
+    ],
+    "verifierId": "h5-repository-repair-acceptance",
+    "verifierRevision": "h5-v1"
+  },
+  "allowedCapabilities": [
+    "runtime.workspace-read",
+    "runtime.workspace-mutate",
+    "runtime.workspace-exec",
+    "runtime.artifact-read"
+  ],
+  "budgetProfile": {
+    "maxInputTokens": null,
+    "maxModelCalls": null,
+    "maxObservationBytes": null,
+    "maxOutputTokens": null,
+    "maxRuntimeJobs": null,
+    "maxToolCalls": null,
+    "maxWallTimeMs": null
+  },
+  "expertTimeEstimateMinutes": null,
+  "family": "repository_repair",
+  "initialState": {
+    "environmentDigest": null,
+    "fixturePath": "fixtures/harness-replacement-repository-repair-v1",
+    "sourceRepositoryId": "ordivon-host",
+    "sourceRevision": "76420e4f1ab2d20799b09aad6497f195bd951aa7"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-canonical-json-v1",
+    "payloadDigest": "sha256:2ad8dcacb622aa4da97fd3cbd182e812cbd9b3bc86025c276b472de3b2b1609b"
+  },
+  "kind": "ordivon.evaluation-task",
+  "knownLimitations": [
+    "This historical definition predates the R2 hidden-verifier and repeated-rebuild QA gate.",
+    "Provider budgets and a standalone environment digest were not normalized in the H5 receipt."
+  ],
+  "labels": [
+    "historical",
+    "repository-repair",
+    "provider-replacement"
+  ],
+  "objective": "Diagnose and repair the frozen largest-remainder allocation defect, preserve the public API and protected files, emit required Artifacts, and pass independent acceptance after a Harness replacement.",
+  "oracle": {
+    "digest": "sha256:1fb2d560fa109be2673b3d1834df8a441b6c88541b47fdd3c214a3bfd6095ebd",
+    "kind": "historical-verified-final-source",
+    "path": "evidence/harness-replacement-h5-live-76420e4-20260731.json#trajectories[0].completion.finalSourceDigest"
+  },
+  "reproducibility": {
+    "cleanRebuildTrials": 1,
+    "requiredAgreement": 1
+  },
+  "schemaVersion": 1,
+  "taskId": "harness-replacement-repository-repair-v1",
+  "taskVersion": 1
+}

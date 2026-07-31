@@ -1,0 +1,30 @@
+{
+  "correctionCost": "one identity lookup and observation of the original Job",
+  "description": "The repair Runtime response was deliberately dropped after dispatch, leaving delivery or result uncertain to the caller.",
+  "duplicateEffect": false,
+  "evidenceRefs": [
+    "evidence/harness-replacement-h5-live-76420e4-20260731.json#trajectories[0].faults",
+    "evidence/harness-replacement-h5-live-76420e4-20260731.json#trajectories[0].checks.noBlindRedispatch"
+  ],
+  "failureClass": "EFFECT",
+  "failureCode": "unknown_delivery",
+  "failureId": "failure:historical:h5:response-loss",
+  "firstObservableEvent": {
+    "eventKind": "runtime-response-lost",
+    "evidenceRef": "evidence/harness-replacement-h5-live-76420e4-20260731.json#trajectories[0].faults.responseLost",
+    "sequence": null
+  },
+  "humanIntervention": false,
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-canonical-json-v1",
+    "payloadDigest": "sha256:7b57dc2f077ca911698bae61036d4fe1fe62fab1314f05d3571aa70b7a1705ea"
+  },
+  "kind": "ordivon.evaluation-failure",
+  "minimalCorrection": "Reconcile the stable request identity against existing Runtime Jobs before considering any redispatch.",
+  "recoverable": true,
+  "recovered": true,
+  "responsibleBoundary": "effect",
+  "schemaVersion": 1,
+  "trialId": "historical:h5:codex-to-hermes:20260731"
+}

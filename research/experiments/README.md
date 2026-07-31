@@ -4,6 +4,7 @@ Experiments connect open Agent-Native Computing questions to executable artifact
 
 ## Active experiments
 
+- [`harness-evaluation-v0/`](harness-evaluation-v0/) — Track R R0–R1 research contract, four executable evidence schemas, H3–H5 historical projections, failure taxonomy, and standard-library validation; its first product-owned frozen workload lives in `ordivon-host`.
 - [`harness-boundary-v0/`](harness-boundary-v0/) — frozen Stage 1/Stage 2 design for two live Harness adapters, durable Assignment generation, CompletionProposal faults, and the existing Runtime foreign-reference correlation contract.
 - [`core-work-system-v1/`](core-work-system-v1/) — Round 1 strong-baseline comparison across open-work continuity, Context invalidation, Effect ambiguity, operator attention, and live Codex/Hermes Provider replacement. Its [full report](core-work-system-v1/REPORT.md) documents the principles, implementation, complete data, engineering problems, limitations, and the localization or reduction of every shared-layer claim except bounded Provider-neutral state.
 - [`task-continuation-v0/`](task-continuation-v0/) — frozen continuation workload, content-addressed TaskCapsule, field ablations, bounded Context Compiler, and fresh-process Host continuation.

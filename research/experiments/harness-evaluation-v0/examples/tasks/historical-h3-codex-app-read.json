@@ -1,0 +1,61 @@
+{
+  "acceptanceContract": {
+    "assertions": [
+      "runtime Job succeeded",
+      "Tool lifecycle was observed",
+      "Host recorded the Harness Run",
+      "Task was not semantically completed"
+    ],
+    "requiredArtifacts": [
+      "terminal_evidence",
+      "codex-app-h3-worker-result"
+    ],
+    "verifierId": "historical-h3-receipt-checks",
+    "verifierRevision": "codex-app-h3-live-v1"
+  },
+  "allowedCapabilities": [
+    "provider.codex.command-read",
+    "runtime.workspace-exec"
+  ],
+  "budgetProfile": {
+    "maxInputTokens": null,
+    "maxModelCalls": null,
+    "maxObservationBytes": null,
+    "maxOutputTokens": null,
+    "maxRuntimeJobs": null,
+    "maxToolCalls": null,
+    "maxWallTimeMs": 240000
+  },
+  "expertTimeEstimateMinutes": null,
+  "family": "historical_boundary_observation",
+  "initialState": {
+    "environmentDigest": null,
+    "fixturePath": "src/ordivon_host/harness/runtime_refs.py",
+    "sourceRepositoryId": "ordivon-host",
+    "sourceRevision": "64ab44be667fa172027150a152b2f4660538ef00"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-canonical-json-v1",
+    "payloadDigest": "sha256:1637e0d1c6cc184cdb1bead6531eb5b4245c9bfc38680ad30a8c51408f484cbf"
+  },
+  "kind": "ordivon.evaluation-task",
+  "knownLimitations": [
+    "This is a historical boundary observation, not an admitted reusable capability benchmark.",
+    "The source receipt did not retain a standalone environment digest or sampling configuration."
+  ],
+  "labels": [
+    "historical",
+    "codex",
+    "harness-boundary"
+  ],
+  "objective": "Observe one Codex App Server Tool-using Run over a Host source file while retaining Provider lifecycle, Runtime evidence, usage, and Host non-completion boundaries.",
+  "oracle": null,
+  "reproducibility": {
+    "cleanRebuildTrials": 1,
+    "requiredAgreement": 1
+  },
+  "schemaVersion": 1,
+  "taskId": "historical-h3-codex-app-read",
+  "taskVersion": 1
+}
