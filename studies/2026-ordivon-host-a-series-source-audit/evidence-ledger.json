@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.host-a-series-source-audit",
+  "auditDate": "2026-08-01",
+  "hostRevision": "efb2850472e15651412a7dc569beb26e8f4aace8",
+  "computerRevision": "be5fe779267f0225dd37c570932c7d71ee5223a7",
+  "baseline": {
+    "sourceLines": 13510,
+    "tests": 154,
+    "repeatedRuns": 3,
+    "allRunsPassed": true,
+    "elapsedSeconds": [22.541, 21.848, 22.023],
+    "peakChildRssKiB": 39424,
+    "ruffPassed": true,
+    "compileallPassed": true
+  },
+  "verifiedFindings": [
+    {
+      "id": "H-AUD-001",
+      "severity": "P0",
+      "title": "Lease ownership is not part of event admission",
+      "reproduced": true,
+      "foundations": ["A5", "A9", "A15"]
+    },
+    {
+      "id": "H-AUD-002",
+      "severity": "P0",
+      "title": "Dynamic EventKind extensions are namespace-permissive and concurrency-unstable",
+      "reproduced": true,
+      "foundations": ["A1", "A5", "A10"]
+    },
+    {
+      "id": "H-AUD-003",
+      "severity": "P0",
+      "title": "Failed generic Effects can be completed successfully",
+      "reproduced": true,
+      "foundations": ["A2", "A9", "A10"]
+    },
+    {
+      "id": "H-AUD-004",
+      "severity": "P0",
+      "title": "Code-change verification has a Workspace TOCTOU gap",
+      "reproduced": true,
+      "foundations": ["A5", "A10", "A15"]
+    },
+    {
+      "id": "H-AUD-005",
+      "severity": "P0",
+      "title": "Terminal Task state is reversible",
+      "reproduced": true,
+      "foundations": ["A4", "A5", "A9"]
+    },
+    {
+      "id": "H-AUD-006",
+      "severity": "P0",
+      "title": "Rejected joint verification can advance a Task",
+      "reproduced": true,
+      "foundations": ["A2", "A10"]
+    },
+    {
+      "id": "H-AUD-007",
+      "severity": "P1",
+      "title": "Causal provenance accepts dangling event identities",
+      "reproduced": true,
+      "foundations": ["A10", "A14"]
+    },
+    {
+      "id": "H-AUD-008",
+      "severity": "P1",
+      "title": "Host state is world-readable under ordinary umask",
+      "reproduced": true,
+      "observedModes": {
+        "stateRoot": "0755",
+        "objectsDirectory": "0755",
+        "sqliteDatabase": "0644",
+        "casObject": "0644"
+      },
+      "foundations": ["A7", "A8", "A16"]
+    },
+    {
+      "id": "H-AUD-009",
+      "severity": "P1",
+      "title": "Generic Effect lifecycle has no external consumer or unified recovery integration",
+      "reproduced": true,
+      "foundations": ["A11", "A13"]
+    },
+    {
+      "id": "H-AUD-010",
+      "severity": "P2",
+      "title": "Durable surfaces overstate current ownership",
+      "reproduced": true,
+      "zeroProductionUse": [
+        "TaskState.PROPOSED",
+        "EventKind.WAKEUP_SCHEDULED",
+        "StreamKind.GOAL"
+      ],
+      "foundations": ["A3", "A11", "A13", "A14"]
+    }
+  ]
+}
