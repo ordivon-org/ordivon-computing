@@ -1,0 +1,311 @@
+{
+  "edgeCount": 13,
+  "edges": [
+    {
+      "dependency": "account-and-service-access",
+      "edgeId": "d01",
+      "evidenceRefs": [
+        "G017",
+        "G023",
+        "G035",
+        "G040",
+        "G043",
+        "G047"
+      ],
+      "fromId": "actor:user-hosted",
+      "privateStateAtRisk": [
+        "conversation",
+        "account-trust",
+        "billing",
+        "integrations"
+      ],
+      "substitutability": "partial",
+      "switchingCost": "medium-to-high",
+      "toId": "provider:hosted"
+    },
+    {
+      "dependency": "supplies-and-can-revoke",
+      "edgeId": "d02",
+      "evidenceRefs": [
+        "G020",
+        "G022",
+        "G035",
+        "G039"
+      ],
+      "fromId": "provider:hosted",
+      "privateStateAtRisk": [
+        "model-availability",
+        "routing",
+        "access-tier"
+      ],
+      "substitutability": "partial",
+      "switchingCost": "model-and-surface-dependent",
+      "toId": "resource:inference"
+    },
+    {
+      "dependency": "training-and-inference-infrastructure",
+      "edgeId": "d03",
+      "evidenceRefs": [
+        "G012",
+        "G013"
+      ],
+      "fromId": "provider:hosted",
+      "privateStateAtRisk": [
+        "deployment",
+        "capacity",
+        "telemetry"
+      ],
+      "substitutability": "partial",
+      "switchingCost": "high-at-frontier-scale",
+      "toId": "layer:cloud"
+    },
+    {
+      "dependency": "hardware-capacity",
+      "edgeId": "d04",
+      "evidenceRefs": [
+        "G012",
+        "G013"
+      ],
+      "fromId": "layer:cloud",
+      "privateStateAtRisk": [
+        "capacity",
+        "performance",
+        "supply"
+      ],
+      "substitutability": "limited",
+      "switchingCost": "high",
+      "toId": "layer:accelerator"
+    },
+    {
+      "dependency": "eligibility-and-billing",
+      "edgeId": "d05",
+      "evidenceRefs": [
+        "G020",
+        "G033",
+        "G036",
+        "G039",
+        "G044"
+      ],
+      "fromId": "provider:hosted",
+      "privateStateAtRisk": [
+        "account",
+        "organization",
+        "region",
+        "ownership",
+        "sanctions"
+      ],
+      "substitutability": "partial",
+      "switchingCost": "jurisdiction-dependent",
+      "toId": "layer:identity-payment"
+    },
+    {
+      "dependency": "current-cognition-supplier",
+      "edgeId": "d06",
+      "evidenceRefs": [
+        "G046",
+        "G067",
+        "G068"
+      ],
+      "fromId": "actor:ordivon-host",
+      "privateStateAtRisk": [
+        "provider-specific-tool-semantics",
+        "model-quality",
+        "access-tier"
+      ],
+      "substitutability": "partial",
+      "switchingCost": "reduced-by-adapter-and-caller-state",
+      "toId": "provider:hosted"
+    },
+    {
+      "dependency": "owns-durable-state",
+      "edgeId": "d07",
+      "evidenceRefs": [
+        "G067",
+        "G068"
+      ],
+      "fromId": "actor:ordivon-host",
+      "privateStateAtRisk": [],
+      "substitutability": "full-with-evidence-preserved",
+      "switchingCost": "low-to-medium",
+      "toId": "resource:task-state"
+    },
+    {
+      "dependency": "owns-authority-boundary",
+      "edgeId": "d08",
+      "evidenceRefs": [
+        "G068"
+      ],
+      "fromId": "actor:ordivon-host",
+      "privateStateAtRisk": [],
+      "substitutability": "host-local",
+      "switchingCost": "low-when-contract-bound",
+      "toId": "resource:tool-authority"
+    },
+    {
+      "dependency": "weight-and-license-source",
+      "edgeId": "d09",
+      "evidenceRefs": [
+        "G050",
+        "G051",
+        "G052"
+      ],
+      "fromId": "actor:local-deployer",
+      "privateStateAtRisk": [
+        "updates",
+        "provenance",
+        "license-rights"
+      ],
+      "substitutability": "partial",
+      "switchingCost": "model-and-license-dependent",
+      "toId": "provider:open-weight-upstream"
+    },
+    {
+      "dependency": "possesses-local-copy",
+      "edgeId": "d10",
+      "evidenceRefs": [
+        "G050",
+        "G052"
+      ],
+      "fromId": "actor:local-deployer",
+      "privateStateAtRisk": [],
+      "substitutability": "high-after-lawful-download",
+      "switchingCost": "storage-and-conversion-dependent",
+      "toId": "resource:weights"
+    },
+    {
+      "dependency": "local-inference-and-fine-tuning",
+      "edgeId": "d11",
+      "evidenceRefs": [
+        "G012",
+        "G013",
+        "G050"
+      ],
+      "fromId": "actor:local-deployer",
+      "privateStateAtRisk": [
+        "performance",
+        "capacity",
+        "operations"
+      ],
+      "substitutability": "partial",
+      "switchingCost": "capability-dependent",
+      "toId": "resource:compute"
+    },
+    {
+      "dependency": "hardware-supply",
+      "edgeId": "d12",
+      "evidenceRefs": [
+        "G012",
+        "G013"
+      ],
+      "fromId": "resource:compute",
+      "privateStateAtRisk": [
+        "availability",
+        "performance"
+      ],
+      "substitutability": "limited-at-high-capability",
+      "switchingCost": "high",
+      "toId": "layer:accelerator"
+    },
+    {
+      "dependency": "identity-and-access-history",
+      "edgeId": "d13",
+      "evidenceRefs": [
+        "G020",
+        "G028",
+        "G033"
+      ],
+      "fromId": "actor:user-hosted",
+      "privateStateAtRisk": [
+        "verification",
+        "reputation",
+        "organization-approval"
+      ],
+      "substitutability": "not-portable",
+      "switchingCost": "high-for-verified-capability",
+      "toId": "resource:provider-trust"
+    }
+  ],
+  "generatedAt": "2026-08-01T03:44:41.803290+00:00",
+  "kind": "ordivon.ai-capability-governance.dependency-graph",
+  "nodeCount": 14,
+  "nodes": [
+    {
+      "label": "Hosted-service user",
+      "nodeId": "actor:user-hosted",
+      "type": "actor"
+    },
+    {
+      "label": "Ordivon Host",
+      "nodeId": "actor:ordivon-host",
+      "type": "actor"
+    },
+    {
+      "label": "Local deployer",
+      "nodeId": "actor:local-deployer",
+      "type": "actor"
+    },
+    {
+      "label": "Hosted model Provider",
+      "nodeId": "provider:hosted",
+      "type": "provider-class"
+    },
+    {
+      "label": "Open-weight upstream developer",
+      "nodeId": "provider:open-weight-upstream",
+      "type": "provider-class"
+    },
+    {
+      "label": "Cloud or datacentre",
+      "nodeId": "layer:cloud",
+      "type": "infrastructure"
+    },
+    {
+      "label": "Accelerator and memory supply",
+      "nodeId": "layer:accelerator",
+      "type": "infrastructure"
+    },
+    {
+      "label": "Identity, billing, sanctions and trade eligibility",
+      "nodeId": "layer:identity-payment",
+      "type": "infrastructure"
+    },
+    {
+      "label": "Inference capability",
+      "nodeId": "resource:inference",
+      "type": "resource"
+    },
+    {
+      "label": "Model weights",
+      "nodeId": "resource:weights",
+      "type": "resource"
+    },
+    {
+      "label": "Task, Context, Tool and trace state",
+      "nodeId": "resource:task-state",
+      "type": "resource"
+    },
+    {
+      "label": "Tool and World Effect authority",
+      "nodeId": "resource:tool-authority",
+      "type": "resource"
+    },
+    {
+      "label": "Compute capacity",
+      "nodeId": "resource:compute",
+      "type": "resource"
+    },
+    {
+      "label": "Provider-specific account and access tier",
+      "nodeId": "resource:provider-trust",
+      "type": "resource"
+    }
+  ],
+  "prohibitions": [
+    "no-market-share-proxy-for-dependency",
+    "no-power-score",
+    "no-assumed-zero-cost-exit"
+  ],
+  "question": "Who cannot continue without which resource, and at what switching cost?",
+  "resultDigest": "sha256:45cbf6bae068dc79dd0f371ecb443bd8f3a5d5b311a5232c12917c60f55d3001",
+  "schemaVersion": 1
+}

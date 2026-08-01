@@ -160,7 +160,7 @@ def check_local_links(issues: list[str]) -> None:
 
 def check_safety_and_scope(issues: list[str]) -> None:
     required_phrases = {
-        "README.md": ["does **not** yet rank providers", "earns no new runtime service"],
+        "README.md": ["does **not** rank providers", "earns no new runtime service"],
         "00-scope-and-claim-boundaries.md": ["does not authorize evasion", "Admission and deletion rule"],
         "01-core-questions-and-falsifiers.md": ["No provider ranking", "Effect-level governance"],
         "20-power-grammar.md": ["not a universal", "No layer may claim another layer's fact"],
