@@ -55,3 +55,13 @@ state, or global telemetry layer.
 The remaining narrow question is whether the exact serialized Tool definitions
 sent on each model Turn should be digest-bound to the durable Assignment catalog.
 That question requires one other Provider or mature Harness before promotion.
+
+## Security Campaign handoff
+
+R6 does not continue as R7. The adaptive-opponent and high-intensity Campaign
+ideas are preserved in
+[`01-security-campaign-handoff.md`](01-security-campaign-handoff.md) and in
+Ordivon Security issue [#23](https://github.com/zycxfyh/ordivon-security/issues/23).
+The handoff defines provisional C0-C6 suites for adaptive denial probing,
+delayed persistence, authority laundering, Tool supply-chain attacks, covert
+parallel Effects, recovery resistance, evaluator attack, and Red/Blue transfer.
