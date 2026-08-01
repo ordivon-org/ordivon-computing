@@ -1,4 +1,5 @@
 from .harness import (
+    HarnessDispatchFence,
     HarnessProtocolError,
     HarnessRecoveryConsequence,
     HarnessRunPauseReason,
@@ -16,6 +17,9 @@ from .host_workload import (
 from .resources import SCHEMA_FILES, VECTOR_FILES, schema_text, vector_text
 
 __all__ = [
+    "SCHEMA_FILES",
+    "VECTOR_FILES",
+    "HarnessDispatchFence",
     "HarnessProtocolError",
     "HarnessRecoveryConsequence",
     "HarnessRunPauseReason",
@@ -23,8 +27,6 @@ __all__ = [
     "HarnessToolStepIntent",
     "HarnessToolStepReceipt",
     "HarnessToolStepStatus",
-    "SCHEMA_FILES",
-    "VECTOR_FILES",
     "WorkloadAdmissionError",
     "WorkloadValidationError",
     "admit_model_decision",
