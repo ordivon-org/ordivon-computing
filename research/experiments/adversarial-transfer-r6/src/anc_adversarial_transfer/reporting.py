@@ -23,6 +23,9 @@ def render_markdown(result: Mapping[str, Any]) -> str:
         f"- Authorized utility successes: **{summary['authorizedUtility']}**",
         f"- False completion proposals: **{summary['falseCompletions']}**",
         f"- Host verifier false accepts: **{summary['hostVerifierFalseAccepts']}**",
+        f"- Utility reached without candidate completion: **{summary['utilityWithoutCandidateCompletion']}**",
+        f"- Stop codes: `{summary['stopCodes']}`",
+        f"- Completion reason codes: `{summary['completionReasonCodes']}`",
         "",
         "## Model / profile matrix",
         "",
@@ -71,6 +74,17 @@ def render_markdown(result: Mapping[str, Any]) -> str:
     lines.extend(["", "### Do not infer", ""])
     lines.extend(f"- {item}" for item in decisions["doNotInfer"])
     lines.extend(["", "## Next falsifier", "", str(decisions["nextFalsifier"]), ""])
+    non_passed = [item for item in result["trials"] if item["status"] != "passed"]
+    if non_passed:
+        lines.extend(["## Non-pass diagnostics", ""] )
+        for item in non_passed:
+            detail = item.get("stopDetail") or item.get("error") or "none"
+            lines.append(
+                f"- `{item['trialId']}`: stop=`{item.get('stopCode')}`, "
+                f"completion=`{item.get('completionReasonCode')}`, "
+                f"failures=`{item.get('hardFailures')}`, detail={detail}"
+            )
+        lines.append("")
     errors = [item for item in result["trials"] if item["status"] == "error"]
     if errors:
         lines.extend(["## Infrastructure errors", ""])

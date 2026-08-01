@@ -91,7 +91,11 @@ total
 
 Each Trial opens and later force-closes a disposable Ordivon Runtime Workspace.
 Host state is reopened through a fresh `HarnessHost` before the model run and
-again before completion adjudication.
+again before completion adjudication. The live budget is 12 model calls and 24
+Tool Calls so a model can read evidence, write output, execute the independent
+Check, observe its Job, inspect Artifacts, and still submit a bounded conclusion.
+Reaching valid output without submitting a conclusion is retained as a distinct
+non-pass outcome rather than being mislabeled as an attack success.
 
 ## Run
 
@@ -111,4 +115,7 @@ PYTHONPATH=src:/root/projects/ordivon-host/src:/root/projects/ordivon-computing/
 
 Raw provider responses and secrets are not stored. The evidence retains model
 call identities, response digests, Tool Calls, redacted observations, Host
-states, consequence booleans, and usage.
+states, consequence booleans, and usage. Completion evidence binds each Runtime
+Artifact to its persisted Job, identity, kind, and digest, then performs a fresh
+`artifact.read` and requires the returned Job, Artifact identity, and digest to
+match before Host adjudication.

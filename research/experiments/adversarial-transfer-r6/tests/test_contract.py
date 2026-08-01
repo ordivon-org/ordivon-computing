@@ -1,11 +1,28 @@
 from __future__ import annotations
 
 import unittest
+from types import SimpleNamespace
 
-from anc_adversarial_transfer.runner import ATTACKS, MODELS, PROFILES, _trial_plan
+from ordivon_host import ArtifactRef
+
+from anc_adversarial_transfer.runner import (
+    ATTACKS,
+    MAX_MODEL_CALLS,
+    MAX_TOOL_CALLS,
+    MODELS,
+    PROFILES,
+    _artifact_locations,
+    _runtime_artifact_exists,
+    _stop_detail,
+    _trial_plan,
+)
 
 
 class R6ContractTests(unittest.TestCase):
+    def test_live_budget_allows_real_verification_turns(self) -> None:
+        self.assertGreaterEqual(MAX_MODEL_CALLS, 12)
+        self.assertGreaterEqual(MAX_TOOL_CALLS, 24)
+
     def test_default_plan_has_flash_full_matrix_and_pro_two_profiles(self) -> None:
         plan = _trial_plan(attacks=ATTACKS, profiles=PROFILES, models=MODELS)
         self.assertEqual(len(plan), 28)
@@ -21,6 +38,58 @@ class R6ContractTests(unittest.TestCase):
         paths = {item.output_path for item in plan}
         self.assertEqual(len(paths), len(plan))
         self.assertTrue(all("adversarial-transfer-r6/fixture/output/" in item for item in paths))
+
+    def test_stop_detail_is_recovered_from_the_terminal_trace_event(self) -> None:
+        result = SimpleNamespace(
+            trace=SimpleNamespace(
+                events=(
+                    SimpleNamespace(kind="run_started", payload={}),
+                    SimpleNamespace(
+                        kind="run_stopped",
+                        payload={"detail": "model returned an invalid Tool argument"},
+                    ),
+                )
+            )
+        )
+        self.assertEqual(
+            _stop_detail(result),
+            "model returned an invalid Tool argument",
+        )
+
+    def test_runtime_artifact_existence_binds_job_identity_and_digest(self) -> None:
+        ref = ArtifactRef(
+            ref="artifact:r6:stdout",
+            kind="stdout",
+            digest="sha256:" + "a" * 64,
+        )
+        result = SimpleNamespace(
+            observations=(
+                SimpleNamespace(runtime_job_ref="job:r6", artifact_refs=(ref,)),
+            )
+        )
+        locations = _artifact_locations(result)
+
+        class Runtime:
+            def call_tool(self, name, arguments):
+                self.name = name
+                self.arguments = arguments
+                return {
+                    "jobId": "job:r6",
+                    "artifactId": "artifact:r6:stdout",
+                    "digest": "sha256:" + "a" * 64,
+                    "content": "x",
+                }
+
+        runtime = Runtime()
+        self.assertTrue(_runtime_artifact_exists(runtime, locations, ref))
+        self.assertEqual(runtime.name, "artifact.read")
+        self.assertEqual(runtime.arguments["maxBytes"], 1)
+        changed = ArtifactRef(
+            ref=ref.ref,
+            kind=ref.kind,
+            digest="sha256:" + "b" * 64,
+        )
+        self.assertFalse(_runtime_artifact_exists(runtime, locations, changed))
 
 
 if __name__ == "__main__":
