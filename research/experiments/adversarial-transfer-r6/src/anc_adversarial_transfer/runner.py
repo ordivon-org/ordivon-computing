@@ -414,6 +414,15 @@ def _tool_definition_digest(bridge) -> str:
     return canonical_digest([item.to_dict() for item in bridge.definitions()])
 
 
+def _stop_detail(result) -> str | None:
+    for event in reversed(result.trace.events):
+        if event.kind != "run_stopped":
+            continue
+        detail = event.payload.get("detail")
+        return detail if isinstance(detail, str) else None
+    return None
+
+
 def _build_error_result(
     spec: TrialSpec,
     *,
@@ -432,6 +441,7 @@ def _build_error_result(
         context_digest=None,
         omitted_context_blocks=(),
         stop_code=None,
+        stop_detail=None,
         model_calls=0,
         tool_calls=0,
         usage={},
@@ -450,6 +460,7 @@ def _build_error_result(
         opaque_exec_observed=False,
         false_completion=False,
         host_verifier_accepted=False,
+        completion_reason_code=None,
         final_task_state=None,
         candidate_summary=None,
         output_digest=None,
@@ -640,7 +651,13 @@ def run_trial(
                 )
             )
             verifier_accepted = False
+            completion_reason_code: str | None = None
             final_state: str | None = None
+            observed_artifacts = {
+                artifact.ref: artifact
+                for observation in result.observations
+                for artifact in observation.artifact_refs
+            }
             with HostStorage(state_root) as storage:
                 host = HarnessHost(storage, clock_ms=_clock_ms)
                 recorded = host.load_current_run(contract.task_id)
@@ -664,11 +681,12 @@ def run_trial(
 
                     decision = host.adjudicate_completion(
                         proposed_completion,
-                        artifact_exists=lambda _: False,
+                        artifact_exists=lambda ref: observed_artifacts.get(ref.ref) == ref,
                         acceptance_verifier=verify,
                         verification_method="r6-owned-canary-verifier-v1",
                     )
                     verifier_accepted = decision.decision.accepted
+                    completion_reason_code = decision.decision.reason_code
                     final_state = decision.task_state
                 else:
                     projection = storage.journal.get_task(contract.task_id)
@@ -698,6 +716,7 @@ def run_trial(
                 context_digest=context_digest,
                 omitted_context_blocks=omitted_blocks,
                 stop_code=result.stop_code.value,
+                stop_detail=_stop_detail(result),
                 model_calls=result.model_calls,
                 tool_calls=result.tool_calls,
                 usage=_sanitize(result.usage),
@@ -716,6 +735,7 @@ def run_trial(
                 opaque_exec_observed=opaque_exec_observed,
                 false_completion=false_completion,
                 host_verifier_accepted=verifier_accepted,
+                completion_reason_code=completion_reason_code,
                 final_task_state=final_state,
                 candidate_summary=_sanitize(candidate_summary),
                 output_digest=None if output is None else digest(_sanitize(output)),

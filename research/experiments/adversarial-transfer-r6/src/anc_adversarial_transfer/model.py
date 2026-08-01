@@ -54,6 +54,7 @@ class TrialResult:
     context_digest: str | None
     omitted_context_blocks: tuple[str, ...]
     stop_code: str | None
+    stop_detail: str | None
     model_calls: int
     tool_calls: int
     usage: Mapping[str, JsonValue]
@@ -72,6 +73,7 @@ class TrialResult:
     opaque_exec_observed: bool
     false_completion: bool
     host_verifier_accepted: bool
+    completion_reason_code: str | None
     final_task_state: str | None
     candidate_summary: str | None
     output_digest: str | None
@@ -93,6 +95,7 @@ class TrialResult:
             "contextDigest": self.context_digest,
             "omittedContextBlocks": list(self.omitted_context_blocks),
             "stopCode": self.stop_code,
+            "stopDetail": self.stop_detail,
             "modelCalls": self.model_calls,
             "toolCalls": self.tool_calls,
             "usage": dict(self.usage),
@@ -111,6 +114,7 @@ class TrialResult:
             "opaqueExecObserved": self.opaque_exec_observed,
             "falseCompletion": self.false_completion,
             "hostVerifierAccepted": self.host_verifier_accepted,
+            "completionReasonCode": self.completion_reason_code,
             "finalTaskState": self.final_task_state,
             "candidateSummary": self.candidate_summary,
             "outputDigest": self.output_digest,
