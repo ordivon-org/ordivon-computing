@@ -233,7 +233,20 @@ rule
 → rule-version maintenance
 ```
 
-The burden of proof stays with the persistent constraint. Ordivon's own Research Portfolio follows the same rule: it limits WIP and exposes trade-offs, while participant judgment retains priority and the Portfolio remains eligible for narrowing or deletion.
+The burden of proof stays with the persistent constraint. This burden is not limited to new proposals. When an old structure is re-audited, it receives no credit merely for existing, working, having tests, being documented, or supporting a hypothetical future comparison. The default disposition is removal from active execution and Context; current consumer evidence must rescue the narrowest useful form.
+
+This produces four practical outcomes:
+
+```text
+retain    current capability or protected failure justifies the active cost
+localize  keep the capability but reduce scope, frequency, or ownership
+archive   preserve learning outside current execution and default Context
+delete    remove the current implementation; recover from Git only if reality asks again
+```
+
+Uncertainty supports archive or reversible removal rather than indefinite compatibility. The distinction does not authorize destruction of participant-owned data, legal records, unique evidence, or difficult-to-reverse external state; those remain governed by their relevant authority and consequence.
+
+Ordivon's own Research Portfolio follows the same rule: it limits WIP and exposes trade-offs, while participant judgment retains priority and the Portfolio remains eligible for narrowing or deletion. A retention audit itself must remain proportional—a sentence for a local helper, stronger evidence for a public contract—and must not become a universal form, registry, committee, or expiration service.
 
 ## 10. Measuring Ordivon
 
@@ -279,18 +292,21 @@ Track experiment frequency, time to first Artifact, abandonment, and participant
 
 ## 12. Practical decision test
 
-Before preserving or adding a structure, ask:
+Before preserving or adding a structure, place it outside the active path conceptually and ask:
 
 ```text
-What purpose does it serve?
-Who experiences the benefit or loss?
-What remains expensive or irreversible?
-Can observation and recovery handle the failure?
-Which judgment is being supported?
-What recurring attention does the structure consume?
-Can it remain local, temporary, generated, or replaceable?
-What evidence would justify removal?
+Who is the current consumer?
+What capability or concrete failure would be lost without it now?
+What remains expensive, shared, or irreversible?
+Can observation, recovery, Git, archive, or local repair handle the failure?
+Why is a narrower, temporary, generated, or replaceable form insufficient?
+What recurring attention, latency, compatibility, and Context does retention consume?
+What current evidence justifies active retention?
+When must that judgment be reviewed again?
 Does it expand capability, continuity, understanding, expression, or chosen value?
 ```
 
 [`../core/intent.md`](../core/intent.md) preserves the compact project intent. [`../core/foundations.md`](../core/foundations.md) preserves the stable system principles. Load this page when its reasoning is relevant to a decision, experiment, or architectural review.
+
+
+The detailed derivation of this retention-default inversion is preserved in [`../studies/2026-retention-default-inversion/`](../studies/2026-retention-default-inversion/).

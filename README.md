@@ -38,7 +38,7 @@ and permanent concentration of capability
 
 Capability and consequence are separate dimensions. Reversible, isolated, and privately owned exploration should be cheap and broadly available. Shared, durable, or irreversible world changes require explicit commitment, authority, evidence, and responsibility appropriate to their consequences.
 
-A constraint earns a permanent place only when the recoverability, verification, or consequence reduction it creates is greater than its latency, operating friction, cognitive compression, compatibility cost, and concentration of control.
+A constraint earns a current active place only when the recoverability, verification, understanding, or consequence reduction it creates is greater than its latency, operating friction, cognitive compression, compatibility cost, and concentration of control. Existing structures receive no historical presumption: removal from the active path is the default audit disposition, and current consumer evidence must justify retention of the narrowest sufficient form.
 
 ## Knowledge-generation system
 
@@ -67,7 +67,7 @@ real workloads, primary sources, failures, and observations
 
 Current research status, evidence maturity, blockers, falsifiers, and the bounded Ready Frontier live in [`research/PORTFOLIO.md`](research/PORTFOLIO.md), generated from [`research/portfolio.json`](research/portfolio.json).
 
-Six studies are especially important:
+Seven studies are especially important:
 
 - [`studies/2026-computing-stack-walkthrough/`](studies/2026-computing-stack-walkthrough/) — the complete physical-to-institutional computing route;
 - [`studies/2026-classical-to-agent-native-computing/`](studies/2026-classical-to-agent-native-computing/) — the strict derivation of what remains classical, what Agents merely amplify, and what responsibilities are genuinely rewritten or new;
@@ -75,6 +75,7 @@ Six studies are especially important:
 - [`studies/2026-agent-native-game-worlds/`](studies/2026-agent-native-game-worlds/) — the bounded thesis and research program for intrinsic play, creation, persistent Agent participation, plural Game verticals, and the separation of experiential value from research utility;
 - [`studies/2026-adaptive-acceleration/`](studies/2026-adaptive-acceleration/) — the historical and cross-disciplinary argument for accelerating capability together with adoption, verification, defense, recovery, distribution, and cooperative intelligence rather than relying on a global frontier slowdown.
 - [`studies/2026-agent-system-concept-system/`](studies/2026-agent-system-concept-system/) — the source-grounded taxonomy and ownership system for Host, Harness, Runtime, Goals, Tasks, Skills, Tools, Hooks, Events, Graphs, Loops, durability, and evaluation.
+- [`studies/2026-retention-default-inversion/`](studies/2026-retention-default-inversion/) — the Game-triggered inversion from historically presumed retention to default active removal and audited, time-bounded retention.
 
 ## Core thesis
 
@@ -111,7 +112,7 @@ Does the mechanism increase verified improvement or reduce unrecoverable loss
 by more than it adds latency, friction, cognitive compression, and control concentration?
 ```
 
-Research interest does not imply implementation. A concept moves toward Core only after primary-source comparison, executable evidence, counterexamples, cost measurement, and deletion tests.
+Research interest does not imply implementation. A concept moves toward Core only after primary-source comparison, executable evidence, counterexamples, cost measurement, and deletion tests. Existing implementations re-enter under the same burden: active retention must be justified by current consumers and recurring net value rather than historical investment.
 
 ## Research portfolio
 

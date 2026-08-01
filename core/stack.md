@@ -107,7 +107,7 @@ Who is the real current consumer?
 What is the deletion trigger?
 ```
 
-If the measured benefit does not exceed the permanent cost, the mechanism is removed, narrowed, archived, or kept outside the active path.
+The audit begins with the mechanism outside the active path; existence does not count as evidence for retention. Only current consumers, concrete protected failures or capabilities, narrower-alternative analysis, and positive recurring net value rescue it. Otherwise the mechanism is removed, narrowed, archived, or kept outside the active path. Git history supplies recovery for cheap implementation; externally governed data and consequence remain subject to their domain authority.
 
 ## 8. Promotion rule
 

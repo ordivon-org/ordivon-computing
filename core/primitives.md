@@ -314,4 +314,4 @@ propose
 
 ## 8. Constraint admission rule
 
-A persistent field, state, approval, compatibility layer, policy, or shared object is not justified by caution alone. It must identify its current consumer, protected failure, evidence, operating cost, and deletion trigger. Historical proof may remain in Git, receipts, or a closed experiment without remaining executable in every active path.
+A persistent field, state, approval, compatibility layer, policy, test gate, evidence process, or shared object is not justified by caution or prior existence. At admission and re-audit it begins in the active-removal candidate set. Retention must identify its current consumer, protected capability or failure, evidence, operating cost, narrower alternatives, and review trigger. The disposition is `retain`, `localize`, `archive`, or `delete`; uncertainty favors reversible removal or archive. Historical proof may remain in Git, receipts, or a closed experiment without remaining executable in every active path.
