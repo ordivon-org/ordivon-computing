@@ -52,11 +52,15 @@ Observation, Artifact, Claim, Verification, and Fact are distinct roles. Accepte
 
 ## A11 — Every durable constraint must prove net acceleration
 
-The system objective is verified improvement per unit time while minimizing unrecoverable loss and unnecessary interruption. A persistent restriction, approval step, compatibility layer, policy object, or abstraction is justified when the recoverability, verification, coordination, or consequence reduction it creates exceeds its latency, operational friction, cognitive compression, maintenance burden, opportunity cost, and concentration of control.
+The system objective is verified improvement per unit time while minimizing unrecoverable loss and unnecessary interruption. A persistent restriction, approval step, compatibility layer, policy object, abstraction, test gate, evidence process, or active documentation surface is justified when the recoverability, verification, coordination, understanding, or consequence reduction it creates exceeds its latency, operational friction, cognitive compression, maintenance burden, opportunity cost, compatibility cost, and concentration of control.
 
 A reversible feature can enter through a bounded experiment. A durable constraint carries a higher admission burden because it shapes repeated future action. It should answer an observed or credible recurring loss, demonstrate the limits of recovery or a narrower boundary, and declare a review or deletion condition.
 
-Failed constraints are removed, narrowed, localized, or moved out of the active path.
+Historical existence grants no presumption of active legitimacy. When an existing structure is re-audited, the initial disposition is removal from the active path. Continued retention is an affirmative judgment that identifies a current consumer, the concrete capability or failure it protects, why a narrower local mechanism is insufficient, its recurring net benefit, and the condition that returns it to audit. Historical investment, test count, documentation, implementation maturity, or hypothetical future use do not satisfy this burden alone.
+
+Deletion here normally means removal from active execution, default Context, current CI, or public surface—not destruction of history, participant-owned data, legal records, unique evidence, or externally governed state. Git and archive preserve reconstructable learning. Uncertainty therefore favors localization, archive, or reversible removal rather than indefinite compatibility.
+
+Retained structures receive a current disposition, not permanent legitimacy. Failed or expired constraints are removed, narrowed, localized, archived, or moved out of the active path. The audit itself remains proportional to consequence and must not become a universal registry, approval process, or governance platform.
 
 ## A12 — Cooperation preserves agency, refusal, and exit
 
@@ -68,7 +72,7 @@ A concept becomes an Agent-native layer when a stable contract owns an invariant
 
 ## A14 — Knowledge grows through evidence and deletion
 
-Claims evolve through primary sources, explicit reasoning, prototypes, failure traces, reproducible experiments, benchmarks, and sustained use. Core statements survive counterexamples and deletion tests. Git, receipts, and concise records preserve historical implementation paths while live compatibility follows current consumers.
+Claims evolve through primary sources, explicit reasoning, prototypes, failure traces, reproducible experiments, benchmarks, and sustained use. Core statements survive counterexamples and deletion tests. Git, receipts, and concise records preserve historical implementation paths while live compatibility follows current consumers. Preserved history does not require preserved executability: an archived path can remain valid evidence after its code, gate, API, or protocol leaves the active system.
 
 ## A15 — Judgment directs open work
 

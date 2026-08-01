@@ -2,7 +2,7 @@
 
 > Generated from [`portfolio.json`](portfolio.json). Edit the JSON source, then rerun `python3 scripts/render_research_portfolio.py`.
 
-- **As of:** `2026-08-01`
+- **As of:** `2026-08-02`
 - **Active research-line limit:** `2`
 - **Current active lines:** `2`
 
@@ -99,6 +99,7 @@ The portfolio is the single source of truth for research status, maturity, block
 |---|---|---|---|
 | 2026-computing-stack-walkthrough | reference | physical-to-institutional learning map | Revise only after a material computing-paradigm change. |
 | 2026-classical-to-agent-native-computing | reference | layer-admission and deletion framework | Use as the default admission test. |
+| 2026-retention-default-inversion | reference | default active-removal and audited-retention framework derived from the Station Zero anti-formalism audit | Apply during repository audits; do not create a retention registry or mandatory governance workflow. |
 | 2026-adaptive-acceleration | reference | published normative position | Revise only after substantive evidence, critique, or position change. |
 | 2026-agent-system-concept-system | completed | canonical terminology and closed cross-Provider Harness-boundary source | Preserve as reference; use ANC-HARNESS-002 for the separate first-party bare-model Agent Loop. |
 | 2026-model-to-work-and-ordivon-harness | completed | canonical model-to-work stack, H1-H5 evidence ledger, and Ordivon Harness admission source | Consume through ANC-HARNESS-002; revise only if the v0 experiment contradicts the ownership or scope decision. |

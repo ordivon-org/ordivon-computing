@@ -3,7 +3,7 @@
 The Core contains the minimum current theory needed to regenerate the repository’s architecture and research direction.
 
 - [`intent.md`](intent.md) — why Ordivon is chosen, what it protects, and why judgment cannot be reduced to process;
-- [`foundations.md`](foundations.md) — working foundations and the acceleration test for durable constraints;
+- [`foundations.md`](foundations.md) — working foundations, the acceleration test for durable constraints, and audited retention;
 - [`stack.md`](stack.md) — inherited classical substrate and Agent-native responsibility overlay for plural participants;
 - [`primitives.md`](primitives.md) — classical backend objects, executable semantic primitives, Host-proven work objects, and explicit research candidates.
 

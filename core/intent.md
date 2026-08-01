@@ -127,10 +127,12 @@ A durable restriction affects every future iteration. It earns admission through
 1. a repeated or credible real loss;
 2. evidence that recovery, local repair, or a narrower boundary leaves that loss unresolved;
 3. a minimum rule that materially reduces the loss;
-4. measured attention, latency, maintenance, and capability cost;
+4. measured attention, latency, maintenance, compatibility, and capability cost;
 5. a review, narrowing, or deletion condition.
 
-The relevant comparison comes from Ordivon's actual participants, liabilities, coordination scale, and recovery costs. Judgment selects the rule; evidence keeps the judgment revisable.
+The same burden applies when an old structure is reviewed. Existing code, tests, CI gates, APIs, documents, compatibility paths, and governance mechanisms do not inherit legitimacy from survival. The default audit disposition is removal from the active path; current consumer evidence and recurring net value must rescue the narrowest retained form. Git and archive preserve history without forcing every historical implementation to remain executable.
+
+The relevant comparison comes from Ordivon's actual participants, liabilities, coordination scale, and recovery costs. Judgment selects the rule; evidence keeps the judgment revisable. The audit remains proportional and does not require a new retention bureaucracy.
 
 ## What Ordivon is for
 
