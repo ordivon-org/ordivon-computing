@@ -1,142 +1,98 @@
 # AI Capability Governance and Private Power
 
-Status: G0-G7 execution completed; full review pending; G8 intentionally omitted
+Status: **completed** — G0-G7 closed; G8 intentionally omitted
+
+Snapshot date for Provider and institutional material: **2026-08-01**
 
 ## Purpose
 
-This study investigates who can define, observe, allocate, condition, restrict,
-revoke, adjudicate, and reshape access to advanced AI capabilities, and how those
-powers are produced jointly by model providers, cloud and compute infrastructure,
-contracts, classifiers, identity systems, markets, and states.
+This study examined who can define, observe, allocate, restrict, revoke, and
+adjudicate access to advanced AI capability, and how that power is produced by
+Providers, contracts, classifiers, identity, cloud, compute, markets, and states.
 
-The governing question is not whether one company is good or evil. It is:
+Its central result is:
 
-> When AI becomes a necessary cognition and action substrate, which institutional
-> arrangements prevent any provider, state, cloud, or security organization from
-> acquiring final power that is difficult to inspect, contest, or exit?
+> AI power does not exist only in refusals. It exists across rules, observation,
+> identity, capability allocation, accounts, data, infrastructure, appeal, and
+> exit. Ordivon's response should not be another central governor; it should keep
+> cognition replaceable and keep Task authority, physical execution evidence, and
+> completion adjudication locally separable.
 
-## Execution result
+## Retained findings
 
-### G0-G2 — foundation
+1. Provider policy, model proposal, Host admission, Runtime result, World Effect,
+   and completion verification are different facts.
+2. Practical power tracks dependency and switching cost, not only refusal count.
+3. Policy publication improves legibility but does not by itself distribute rule,
+   enforcement, or appeal authority.
+4. Trusted-access programs are private capability-allocation systems whose
+   distributional effects require more data than public policy pages provide.
+5. Downloadable weights improve one form of exit while preserving license,
+   compute, hardware, cloud, update, and legal dependencies.
+6. Regulation can create counter-power and concentration at the same time.
+7. Governance authority and operational dependency require separate analysis.
+8. R6 provides bounded evidence that Effect-level Tool authority can prevent a
+   World consequence while preserving more authorized utility than terminal hard
+   stopping.
 
-- separated descriptive, causal, normative, and architecture claims;
-- established evidence, versioning, counterevidence, and deletion discipline;
-- mapped political power, governmentality, private ordering, digital
-  constitutionalism, infrastructure power, epistemic injustice, exit/voice,
-  polycentric governance, and security engineering;
-- defined a research-local power grammar and four JSON Schemas.
+## Compact structure
 
-### G3 — deep Provider cases
-
-Built revision-bound OpenAI and Anthropic cases covering normative authority,
-classification, capability tiers, enforcement, data lifecycle, appeals, region,
-ownership, and counter-power.
-
-### G4 — Provider ecology
-
-Compared OpenAI, Anthropic, Google Gemini, xAI, DeepSeek, Kimi, and Meta Llama 4
-as materially different hosted, tiered, cloud-project, jurisdiction-bound, and
-licensed downloadable-weight governance modes.
-
-### G5 — state and infrastructure interaction
-
-Mapped European Union, United States, China, Canada, and compute/cloud/export-
-control governance using a two-sided test:
-
-```text
-counter-power effect
-versus
-consolidation effect
-```
-
-### G6 — controlled empirical audit
-
-- reclassified 34 R6 Trials into Provider/model, Host, Runtime, World, verifier,
-  utility, and residual layers;
-- ran 10 benign DeepSeek API-surface portability Trials across two models and two
-  official serialization surfaces;
-- retained one transient transport failure rather than misclassifying it as
-  policy, model, or interface failure;
-- explicitly recorded that unavailable Provider credentials produce an evidence
-  gap, not an inferred behavioral ranking.
-
-### G7 — evidence-backed graphs
-
-Generated a research-local governance graph and dependency graph without a scalar
-Provider score, automated decision, graph service, or Core/Protocol promotion.
-
-### G8 — omitted
-
-G8 architecture feedback is intentionally not executed. Evidence does not imply
-that every finding should enter Ordivon architecture or become a permanent
-research program.
-
-## Analytical separation
-
-```text
-Provider refusal
-!= model incapability
-!= Host denial
-!= Tool denial
-!= Runtime rejection
-!= World-effect prevention
-!= justified governance
-```
-
-The study treats safety interventions as observable mechanisms with possible
-benefits, errors, distributional consequences, and institutional alternatives.
-It neither assumes that every restriction is oppression nor that a restriction
-is justified merely because it is described as safety.
-
-The study does **not** rank providers, estimate unsupported false-positive rates,
-infer intent from policy text, or justify a shared Ordivon governance service.
-
-## Structure
-
-- [`00-scope-and-claim-boundaries.md`](00-scope-and-claim-boundaries.md)
-- [`01-core-questions-and-falsifiers.md`](01-core-questions-and-falsifiers.md)
-- [`02-evidence-and-revision-policy.md`](02-evidence-and-revision-policy.md)
-- [`03-theory-map.md`](03-theory-map.md)
-- [`theories/`](theories/)
-- [`20-power-grammar.md`](20-power-grammar.md)
+- [`00-method-claims-and-falsifiers.md`](00-method-claims-and-falsifiers.md)
+  — scope, claim classes, evidence discipline, hypothesis disposition, admission
+  and deletion rules;
+- [`10-theory-and-power-model.md`](10-theory-and-power-model.md)
+  — theory map, six power dimensions, minimal causal chain, governance and
+  dependency distinction;
 - [`30-g3-provider-deep-cases.md`](30-g3-provider-deep-cases.md)
+  — OpenAI and Anthropic comparison;
 - [`40-g4-comparative-provider-ecology.md`](40-g4-comparative-provider-ecology.md)
+  — hosted, tiered, cloud-project, jurisdiction-bound, and downloadable-weight
+  governance modes;
 - [`50-g5-state-and-regulatory-interaction.md`](50-g5-state-and-regulatory-interaction.md)
-- [`60-g6-controlled-empirical-audit.md`](60-g6-controlled-empirical-audit.md)
-- [`70-g7-governance-and-dependency-graphs.md`](70-g7-governance-and-dependency-graphs.md)
-- [`providers/`](providers/)
-- [`institutions/`](institutions/)
-- [`experiments/`](experiments/)
-- [`schemas/`](schemas/)
+  — EU, US, China, Canada, compute, cloud, and export-control interaction;
+- [`60-empirical-findings-and-dependency-model.md`](60-empirical-findings-and-dependency-model.md)
+  — R6/G6 evidence, dependency paths, limits, and architecture disposition;
+- [`providers/`](providers/) and [`institutions/`](institutions/)
+  — dated snapshots requiring revalidation before current use;
 - [`REFERENCES.md`](REFERENCES.md)
+  — source ledger.
 
-Machine-readable cases, observations, and graphs live under:
+## Closeout deletions
 
-```text
-research/data/ai-capability-governance/
-```
+The study intentionally removed:
 
-## Current research disposition
+- four unused JSON Schemas and the hypothetical example;
+- three experiment/generator scripts;
+- two structural Validators;
+- derived Provider/institution indexes;
+- generated governance and dependency graph JSON;
+- G6 derived observation JSON;
+- seven duplicate theory files after their useful content was folded into the
+  compact theory model.
 
-Keep the study active only until the requested full review. The review should
-decide which parts remain durable reference material, which should be frozen,
-which are duplicative, which require later revalidation, and which should be
-deleted. Do not continue automatically to G8 or turn the graph into infrastructure.
+Git history preserves all deleted material. The original R6 experimental evidence
+remains untouched because it is the direct empirical source.
 
 ## Architecture non-decision
 
-G0-G7 earns no new runtime service, policy engine, Provider reputation score,
-identity registry, global telemetry store, centralized appeal system, graph
-database, or governance protocol.
+G0-G7 earns no governance service, graph database, policy engine, reputation
+score, identity registry, moderation telemetry store, or G8 Protocol change.
 
-The narrow working separation remains:
+The retained technical division is:
 
 ```text
 Provider supplies cognition
-Host owns durable Task and authority
+Host owns durable Task, Context and authority
 Harness owns the bounded model-Tool loop
 Runtime owns physical execution evidence
-World/provider adapters preserve native observations
-Verifier decides consequence
+World adapters expose native consequences
+Verifier adjudicates completion
 User retains Provider exit where technically and legally possible
 ```
+
+## Reopening rule
+
+There is no standing work. Reopen only when a concrete Provider event, migration
+decision, regulatory deployment constraint, or reproduced architecture failure
+requires current evidence. Revalidate the affected snapshot only; do not restart a
+permanent Provider-monitoring program by default.

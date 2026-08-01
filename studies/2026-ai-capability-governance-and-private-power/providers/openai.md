@@ -29,8 +29,8 @@ The current public help article states only that a request may be delayed or its
 content withheld. A recent indexed revision disclosed that checks may also depend
 on recent account activity, may temporarily apply across requests and products,
 and may expose a lower-capability fallback option. Because the live page has
-changed, historical claims must remain revision-bound rather than silently
-attributed to the current page.
+changed, this dated description must be rechecked rather than silently attributed
+to the current page.
 
 ## 3. Capability allocation
 
@@ -124,4 +124,4 @@ Task state and legitimate capability.
 
 ## 9. Key evidence references
 
-[G017], [G018], [G019], [G020], [G026], [G027], [G028].
+[G017], [G018], [G019], [G020].

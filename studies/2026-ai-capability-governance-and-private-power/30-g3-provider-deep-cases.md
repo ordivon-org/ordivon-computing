@@ -1,6 +1,6 @@
-# G3 — Revision-Bound Provider Deep Cases
+# G3 — Dated Provider Deep Cases
 
-Status: completed for the current public-policy surface; implementation behavior remains separately evidenced
+Status: completed 2026-08-01 public-policy snapshot; implementation behavior remains separately evidenced
 
 ## Method
 
@@ -8,7 +8,7 @@ G3 treats a Provider case as:
 
 ```text
 Provider
-+ exact policy / technical revision
++ observed policy or technical version/date
 + product surface
 + account or organization class
 + access tier
@@ -19,15 +19,14 @@ Provider
 ```
 
 It does not infer model capability from refusal, implementation from policy text,
-or false-positive rates from aggregate enforcement counts.
+or false-positive rates from aggregate enforcement counts. The study did not
+retain complete immutable page archives or clause-level revision diffs, so these
+cases must be rechecked before current use.
 
 Detailed cases:
 
 - [`providers/openai.md`](providers/openai.md)
 - [`providers/anthropic.md`](providers/anthropic.md)
-
-Machine-readable normalized cases and policy revisions live under
-`research/data/ai-capability-governance/`.
 
 ## Main comparison
 
@@ -46,7 +45,7 @@ Machine-readable normalized cases and policy revisions live under
 
 ## G3 finding
 
-OpenAI's current governance is comparatively **product-dynamic and partially
+OpenAI's observed governance is comparatively **product-dynamic and partially
 opaque at the request/account threshold**. Anthropic's is comparatively
 **explicit, constitutionalized, identity-bound, and administratively formalized**.
 The latter is more legible, but legibility does not reduce constituent,

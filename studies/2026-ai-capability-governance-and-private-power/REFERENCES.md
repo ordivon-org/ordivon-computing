@@ -168,10 +168,10 @@ endorse a source's normative conclusions.
 
 ### [G020] OpenAI — Trusted Access for Cyber
 
-- URL: https://openai.com/index/trusted-access-for-cyber/
+- URLs: https://openai.com/index/trusted-access-for-cyber/ ; https://help.openai.com/en/collections/20001260-trusted-access-for-cyber ; https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber/
 - Evidence class: E1/E2.
-- Supports: identity- and trust-conditioned access to advanced cyber capability
-  and differentiated safeguards.
+- Supports: identity- and trust-conditioned access, organization binding, account
+  security, approved access paths, and model/surface-specific capability.
 
 ## Anthropic official governance sources
 
@@ -212,41 +212,7 @@ endorse a source's normative conclusions.
 - Supports: account-level warning and appeal procedures and the distinction
   between individual requests and cumulative organization/account behavior.
 
-## OpenAI 2026 revisions
-
-### [G026] OpenAI — Current additional cyber and biological safety checks
-- URL: https://help.openai.com/en/articles/20001326
-- Evidence class: E1/E2.
-- Supports: request/account-sensitive additional checks, temporary effects,
-  withholding, and Trusted Access referral.
-
-### [G027] OpenAI — Transparency and content moderation, 2026 revision
-- URL: https://openai.com/transparency-and-content-moderation/
-- Evidence class: E1/E2/E4.
-- Supports: enforcement mechanisms, product/account actions, support and appeal.
-
-### [G028] OpenAI — Trusted Access overview, scaling, and troubleshooting
-- URLs: https://help.openai.com/en/collections/20001260-trusted-access-for-cyber ; https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber/
-- Evidence class: E1/E2.
-- Supports: identity/trust verification, organization binding, account security,
-  approved paths, and model-specific access.
-
 ## Anthropic extended sources
-
-### [G029] Anthropic — Claude's Constitution, current public revision
-- URL: https://www.anthropic.com/constitution
-- Evidence class: E1/E2.
-- Supports: published private constitutional authority.
-
-### [G030] Anthropic — Responsible Scaling Policy v3.4
-- URL: https://www.anthropic.com/responsible-scaling-policy
-- Evidence class: E1/E2.
-- Supports: versioned capability thresholds, safeguards, and governance.
-
-### [G031] Anthropic — Transparency Hub, system trust reporting
-- URL: https://www.anthropic.com/transparency/system-trust-reporting
-- Evidence class: E4.
-- Supports: Safeguards monitoring and aggregate enforcement/appeal reporting.
 
 ### [G032] Anthropic — Consumer and commercial terms
 - URLs: https://www.anthropic.com/legal/consumer-terms ; https://www.anthropic.com/legal/commercial-terms
@@ -454,18 +420,19 @@ endorse a source's normative conclusions.
 
 ### [G067] DeepSeek — Anthropic API compatibility and G6 pilot
 - Official URL: https://api-docs.deepseek.com/guides/anthropic_api
-- Local evidence: `research/data/ai-capability-governance/controlled-observations/`.
+- Experiment summary: `60-empirical-findings-and-dependency-model.md`; deleted raw G6-derived data remains recoverable from Git history.
 - Evidence class: E1/E2/E5.
-- Supports: two serialization surfaces, caller history, continuity and transport failure.
+- Supports: two serialization surfaces, caller history, continuity and one retained transport failure.
 
 ### [G068] Ordivon R6 — Layered authority evidence
-- Local evidence: `research/experiments/adversarial-transfer-r6/evidence/` and G6 reclassification.
+- Local evidence: `research/experiments/adversarial-transfer-r6/evidence/`; G6 interpretation is summarized in `60-empirical-findings-and-dependency-model.md`.
 - Evidence class: E5/E7.
 - Supports: model proposals, Host denial, Runtime UNKNOWN, World Effect and verification.
 
 ## Use rule
 
-Case files must cite exact reference IDs, add retrieved and effective dates, and
-preserve a content digest or lawful archive where feasible. References do not
-substitute for Provider-observation evidence, implementation evidence, or causal
-counterfactuals. G3-G7 current-state snapshots must be rechecked before future use.
+These sources support a dated **2026-08-01 snapshot**, not a permanently current
+policy database. Recheck the relevant official source before future current-state
+claims. The study did not preserve complete immutable page archives or clause-level
+revision diffs. References do not substitute for Provider-observation evidence,
+implementation evidence, or causal counterfactuals.
