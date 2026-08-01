@@ -1,10 +1,12 @@
 # WORLD-CHARTER-001 — Task-to-World Interaction Continuity
 
-Status: active research charter
+Status: completed reference charter; independent World layer absorbed after W1; conditional reactivation only
 
 Supersedes the future responsibility claims in `EDGE-CHARTER-003` and
 `LINK-CHARTER-003`. Those charters remain historical records of the intermediate
 placement/connectivity decomposition and the evidence that led to unification.
+
+W1 closed the active architecture line with an `absorb` disposition: direct Host composition plus provider-native Receipt/Artifact semantics and source-native observations matched the candidate correlation layer with less permanent state. The unified Task-to-World problem definition remains canonical; the candidate owned semantics below are diagnostic inventories, not admitted production ownership.
 
 ## Mission
 
