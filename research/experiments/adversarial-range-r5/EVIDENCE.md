@@ -97,9 +97,12 @@ The corrected run bound:
 
 ```text
 Python 3.12.13
-Host src
-local Ordivon Protocol src for anc_canonical
+Host revision fa313039cf2f7c9f8df445a8ccbfed8d9e06f3aa
+Ordivon Protocol source revision be5fe779267f0225dd37c570932c7d71ee5223a7
 ```
+
+The machine-readable observation is
+[`evidence/external-contract-observation.json`](evidence/external-contract-observation.json).
 
 No dependencies were downloaded and no product repository was modified.
 

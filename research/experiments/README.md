@@ -8,6 +8,7 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 ## Frozen, completed, or promoted evidence
 
+- [`adversarial-range-r5/`](adversarial-range-r5/) — completed deterministic R5 range with 176 Agent-hijacking, response-loss, and interpretation-differential Trials; exact Host/Game contract observations; no Security platform promoted.
 - [`harness-boundary-v0/`](harness-boundary-v0/) — frozen H1–H5 boundary evidence; no shared cross-Provider Harness layer was promoted.
 - [`core-work-system-v1/`](core-work-system-v1/) — completed Round 1 comparison; conclusions were localized, reduced, or rejected.
 - [`task-continuation-v0/`](task-continuation-v0/) — completed continuation evidence and bounded TaskCapsule ablations.

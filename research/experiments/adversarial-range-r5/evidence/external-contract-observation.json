@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "kind": "anc.adversarial-range-external-contract-observation",
+  "observedAt": "2026-08-01",
+  "r5SourceRevision": "7042c38b24fba72a985101e55a281cc31d7cbb70",
+  "protocolSourceRevision": "be5fe779267f0225dd37c570932c7d71ee5223a7",
+  "host": {
+    "repository": "/root/projects/ordivon-host",
+    "revision": "fa313039cf2f7c9f8df445a8ccbfed8d9e06f3aa",
+    "workingTree": "clean",
+    "python": "3.12.13",
+    "testSuites": [
+      {
+        "file": "tests/test_context_provenance.py",
+        "passed": 4,
+        "failed": 0,
+        "established": [
+          "payload and source provenance are digest-bound",
+          "revision drift invalidates source evidence",
+          "untrusted instruction remains explicit metadata"
+        ]
+      },
+      {
+        "file": "tests/test_cognition_admission.py",
+        "passed": 7,
+        "failed": 0,
+        "established": [
+          "model-invented actions outside compiled candidates are rejected",
+          "stale World requirements are rejected",
+          "completed Effects cannot be repeated",
+          "new Effects are forbidden while a Dispatch is unresolved"
+        ]
+      },
+      {
+        "file": "tests/test_effect_lifecycle.py",
+        "passed": 1,
+        "failed": 0,
+        "established": [
+          "uncertain delivery preserves the original Dispatch",
+          "fresh Host reconciliation observes commit without redelivery",
+          "independent verification precedes completion"
+        ]
+      },
+      {
+        "file": "tests/test_ordivon_harness_oh4.py",
+        "passed": 5,
+        "failed": 0,
+        "established": [
+          "ToolGrant filters Tools, paths, checks, Jobs, and Artifacts",
+          "native assignment and grant survive Host restart",
+          "trace, observation, verification, and outcome survive fresh Hosts"
+        ]
+      }
+    ],
+    "passed": 17,
+    "failed": 0,
+    "executionEvidence": [
+      {
+        "attemptId": "attempt-019fbad9-5f33-7dc2-85eb-840ae4bccd1e",
+        "stdoutDigest": "sha256:d5b85cab509c765c3fc33717128614d27c6286d623439b83eda1001094790848",
+        "stderrDigest": "sha256:1efc744847dc3d6a6b183cf5062092461e177e56e20e7dcb517eaa03a4719aa2"
+      },
+      {
+        "attemptId": "attempt-019fbada-c498-74a3-a4eb-4633ccde216e",
+        "stdoutDigest": "sha256:281da647a85febbf5597f640be0c2b26642ef0fee64b070e05763d172147077e",
+        "stderrDigest": "sha256:b79b3816f683982418fc0467f2fd7ecdede453a746198a23075476e9bc642442"
+      }
+    ]
+  },
+  "game": {
+    "repository": "/root/projects/ordivon-game",
+    "revision": "7bf23579f822d412808d39197255fc4369b861c0",
+    "revisionSource": "local origin/main",
+    "workspaceId": "ordivon-game-r5-observation-20260801",
+    "workspaceMode": "isolated detached",
+    "testSuites": [
+      {
+        "file": "test/world.test.ts",
+        "passed": 3,
+        "failed": 0,
+        "established": [
+          "hidden World and resource ledgers satisfy invariants",
+          "invalid commands do not mutate World",
+          "accepted commands preserve resource accounting"
+        ]
+      },
+      {
+        "file": "test/fault-injection.test.ts",
+        "passed": 2,
+        "failed": 0,
+        "established": [
+          "pre-commit faults leave no partial World Effect",
+          "after-commit fault is recovered by idempotent replay"
+        ]
+      },
+      {
+        "file": "test/game-world-executor.test.ts",
+        "passed": 4,
+        "failed": 0,
+        "established": [
+          "committed command is observed after response loss without redelivery",
+          "absent command observation is a pure lookup",
+          "Team Tick has no hidden retry",
+          "stale command receives typed rejection"
+        ]
+      }
+    ],
+    "passed": 9,
+    "failed": 0,
+    "executionEvidence": {
+      "attemptId": "attempt-019fbadb-4a15-7b22-8a48-f59399e6f754",
+      "stdoutDigest": "sha256:a94ba2077b9b8783c0a5ec06f3a2f606ccf1116e774ea772e19126ed44827fe4",
+      "stderrDigest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "environmentRecovery": {
+    "initialAttemptStatus": "failed-before-tests",
+    "reason": "system Python 3.14 did not include anc_canonical on PYTHONPATH",
+    "failedAttemptId": "attempt-019fbad8-b43e-7251-b1ba-ea219affa71a",
+    "correctedBy": [
+      "binding Python 3.12.13",
+      "adding exact local Ordivon Protocol source path",
+      "rerunning without downloading dependencies or mutating product repositories"
+    ]
+  },
+  "totals": {
+    "passed": 26,
+    "failed": 0
+  },
+  "claimBoundary": "These observations establish that existing Host and Game revisions expose the contracts required by R5. They do not establish real-model resistance or production security."
+}
