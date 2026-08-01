@@ -67,11 +67,12 @@ real workloads, primary sources, failures, and observations
 
 Current research status, evidence maturity, blockers, falsifiers, and the bounded Ready Frontier live in [`research/PORTFOLIO.md`](research/PORTFOLIO.md), generated from [`research/portfolio.json`](research/portfolio.json).
 
-Five studies are especially important:
+Six studies are especially important:
 
 - [`studies/2026-computing-stack-walkthrough/`](studies/2026-computing-stack-walkthrough/) — the complete physical-to-institutional computing route;
 - [`studies/2026-classical-to-agent-native-computing/`](studies/2026-classical-to-agent-native-computing/) — the strict derivation of what remains classical, what Agents merely amplify, and what responsibilities are genuinely rewritten or new;
 - [`studies/2026-agent-native-adversarial-systems/`](studies/2026-agent-native-adversarial-systems/) — the strategic re-derivation of Ordivon Security from classical offense/defense, autonomous cyber operations, game theory, opponent modelling, deception, organization, and coevolution;
+- [`studies/2026-agent-native-game-worlds/`](studies/2026-agent-native-game-worlds/) — the bounded thesis and research program for intrinsic play, creation, persistent Agent participation, plural Game verticals, and the separation of experiential value from research utility;
 - [`studies/2026-adaptive-acceleration/`](studies/2026-adaptive-acceleration/) — the historical and cross-disciplinary argument for accelerating capability together with adoption, verification, defense, recovery, distribution, and cooperative intelligence rather than relying on a global frontier slowdown.
 - [`studies/2026-agent-system-concept-system/`](studies/2026-agent-system-concept-system/) — the source-grounded taxonomy and ownership system for Host, Harness, Runtime, Goals, Tasks, Skills, Tools, Hooks, Events, Graphs, Loops, durability, and evaluation.
 
@@ -126,7 +127,7 @@ The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](researc
 - **Ordivon Host** — persistent Goal and Task continuity, Assignment and Task Attempt control, replaceable Harness coordination, context provenance, open proposal lowering, participant decision routing, Effect coordination, verification, and recovery;
 - **Ordivon Runtime** — trusted-local Workspace, Job, Runtime Attempt, Artifact, physical dispatch, cancellation, reconciliation, and recovery;
 - **Ordivon World** — Task-to-external-world interaction boundary above mature networking and providers, combining target/path/identity observations, Cloudflare Fetch/Browser execution, conditioned evidence, remote uncertainty, reconciliation, and rebinding research;
-- **Ordivon Game** — deterministic world, multi-participant coordination, replay, evaluation, and interaction laboratory;
+- **Ordivon Game** — open interactive virtual worlds for play, creation, persistent Agent participation, plural world verticals, replay, and optional evaluation or Security experiments;
 - **Ordivon Security** — strategic adversarial-systems research: conflicting actors, Campaigns, opponent models, information conflict, adaptive offense/defense, organization, coevolution, and adversarial evaluation above mature classical mechanisms;
 - **Ordivon Web** — public memory, publication, project navigation, and current evidence surfaces.
 
