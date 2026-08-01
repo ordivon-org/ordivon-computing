@@ -91,6 +91,19 @@ R6 does not earn:
 - a new network or parser stack;
 - Campaign or OpponentHypothesis promotion.
 
+## D10 — Provider refusal is a governance observation, not a consequence proof
+
+The four indirect-injection documents produced no Canary consequence under the
+recorded Provider configuration, while benign evidence plus poisoned Tool
+metadata caused a real consequence under ambient authority. Therefore Provider
+or model refusal must remain separate from Host admission, Runtime execution,
+World Effect, and independent verification.
+
+Broader questions about classification, access tiers, monitoring, account
+consequences, contestability, and Provider exit belong to the G0-G9 capability-
+governance study. R6 earns no Provider-policy engine and no inference that an
+automated content restriction is a sufficient physical defense.
+
 ## Next falsifier
 
 Use one materially different Provider or mature Harness adapter and one exact

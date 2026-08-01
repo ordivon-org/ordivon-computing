@@ -57,3 +57,11 @@ investigate exact per-Turn Tool-definition binding
 reject broad Security platform promotion
 freeze R6
 ```
+
+## Governance boundary
+
+Provider refusal, model interpretation, Tool proposal, Host admission, Runtime
+execution, World Effect, and completion verification remain separate facts. R6
+therefore hands Provider-policy and access-control questions to
+[`../2026-ai-capability-governance-and-private-power/`](../2026-ai-capability-governance-and-private-power/)
+without creating a policy engine inside Security or Host.

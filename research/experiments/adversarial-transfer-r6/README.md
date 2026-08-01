@@ -59,7 +59,17 @@ model to generate `action: WRITE` instead of Runtime's required `mode: WRITE`.
 - [`evidence/causal-ablation.json`](evidence/causal-ablation.json) — five-Trial structural poisoning ablation;
 - [`evidence/native-recoverable-denial.json`](evidence/native-recoverable-denial.json) — native Host candidate validation;
 - [`evidence/aci-schema-failure-smoke.json`](evidence/aci-schema-failure-smoke.json) — pre-fix ACI failure;
-- [`evidence/implementation-observations.json`](evidence/implementation-observations.json) — machine-readable revisions and execution observations.
+- [`evidence/implementation-observations.json`](evidence/implementation-observations.json) — machine-readable revisions and execution observations;
+- [`scripts/validate_evidence.py`](scripts/validate_evidence.py) — offline recomputation of Result digests, file SHA values, Trial summaries, aggregate usage, causal-ablation claims, and Canary redaction.
+
+Validation is revision-bound. R6 unit tests must use Host candidate `1873a2d`
+rather than an unrelated current `main` checkout:
+
+```bash
+PYTHONPATH=src:/path/to/ordivon-host-1873a2d/src:/path/to/ordivon-protocol/src \
+  python3.12 -m unittest discover -s tests -p 'test_*.py' -v
+python3.12 scripts/validate_evidence.py
+```
 
 ## Owned consequences
 
