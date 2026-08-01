@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/schemas/research/ai-capability-governance/enforcement-event.schema.json",
+  "title": "AI capability-governance enforcement event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "eventId",
+    "eventStatus",
+    "evidenceClass",
+    "observedAt",
+    "providerContext",
+    "subjectClass",
+    "ruleRefs",
+    "observedSignals",
+    "decision",
+    "intervention",
+    "consequences",
+    "reason",
+    "appeal",
+    "evidenceRefs",
+    "alternativeExplanations",
+    "unresolved",
+    "privacy"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "eventId": {"type": "string", "pattern": "^enforcement-event:[a-z0-9][a-z0-9:._-]+$"},
+    "eventStatus": {"enum": ["hypothetical", "reported", "observed", "corroborated", "disputed", "resolved", "superseded"]},
+    "evidenceClass": {"enum": ["E0", "E1", "E2", "E3", "E4", "E5", "E6", "E7"]},
+    "observedAt": {"type": "string", "format": "date-time"},
+    "providerContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["providerId", "surface", "model", "accessTier", "region", "retentionMode"],
+      "properties": {
+        "providerId": {"type": "string", "minLength": 1},
+        "surface": {"type": "string", "minLength": 1},
+        "model": {"type": ["string", "null"]},
+        "modelRevision": {"type": ["string", "null"]},
+        "accessTier": {"type": "string", "minLength": 1},
+        "organizationClass": {"type": ["string", "null"]},
+        "region": {"type": "string", "minLength": 1},
+        "retentionMode": {"type": "string", "minLength": 1},
+        "policyRevisionRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "subjectClass": {
+      "enum": ["request", "session", "account", "organization", "application", "model", "content", "unknown"]
+    },
+    "subjectDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+    "ruleRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "observedSignals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["signalId", "signalType", "scope", "source", "valueForm"],
+        "properties": {
+          "signalId": {"type": "string", "minLength": 1},
+          "signalType": {"type": "string", "minLength": 1},
+          "scope": {"enum": ["request", "session", "account", "organization", "device", "network", "region", "tool", "long_term_history", "other"]},
+          "source": {"enum": ["provider-disclosed", "user-observed", "technical-observation", "third-party-report", "inferred"]},
+          "valueForm": {"enum": ["redacted", "digest", "category", "aggregate", "unknown"]},
+          "value": {"type": ["string", "number", "boolean", "null"]},
+          "evidenceRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decisionType", "decisionMaker", "automationLevel", "confidence"],
+      "properties": {
+        "decisionType": {"enum": ["allow", "review", "delay", "rewrite", "refuse", "degrade", "limit", "warn", "suspend", "terminate", "retain_data", "report", "approve_access", "deny_access", "revoke_access", "restore", "unknown"]},
+        "decisionMaker": {"enum": ["model", "classifier", "automated-system", "human", "hybrid", "unknown"]},
+        "automationLevel": {"enum": ["fully-automated", "human-in-loop", "human-on-loop", "manual", "unknown"]},
+        "confidence": {"enum": ["low", "medium", "high", "unknown"]},
+        "decisionDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "intervention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layer", "action", "startedAt", "durationClass", "reversible"],
+      "properties": {
+        "layer": {"enum": ["training_data", "post_training", "system_instruction", "input_classifier", "model_reasoning", "output_classifier", "model_router", "provider_gateway", "tool_definition", "tool_broker", "host", "runtime", "account", "organization", "cloud", "compute", "public_law", "unknown"]},
+        "action": {"type": "string", "minLength": 1, "maxLength": 1000},
+        "startedAt": {"type": "string", "format": "date-time"},
+        "endedAt": {"type": ["string", "null"], "format": "date-time"},
+        "durationClass": {"enum": ["request", "session", "temporary-account", "indefinite", "permanent", "unknown"]},
+        "reversible": {"enum": ["yes", "no", "partially", "unknown"]}
+      }
+    },
+    "consequences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["consequenceId", "type", "target", "observed", "evidenceRefs"],
+        "properties": {
+          "consequenceId": {"type": "string", "minLength": 1},
+          "type": {"enum": ["CapabilityGranted", "CapabilityWithheld", "CapabilityDegraded", "ContentReturned", "ContentModified", "ContentHidden", "ToolAvailable", "ToolUnavailable", "AccountRestricted", "AccountTerminated", "OrganizationRestricted", "DataRetained", "DataDeleted", "ReasonProvided", "ReasonWithheld", "AppealAvailable", "AppealUnavailable", "AppealReversed", "RemedyProvided", "UserMigrated", "MigrationFailed", "ResearchNarrowed", "ResearchAbandoned", "ExternalHarmPrevented", "ExternalHarmObserved", "RiskDisplaced", "DependencyIncreased", "DependencyReduced", "Other"]},
+          "target": {"type": "string", "minLength": 1},
+          "observed": {"type": "boolean"},
+          "magnitude": {"type": ["string", "number", "null"]},
+          "evidenceRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+        }
+      }
+    },
+    "reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provided", "specificity", "ruleRefs", "evidenceSummaryProvided"],
+      "properties": {
+        "provided": {"type": "boolean"},
+        "specificity": {"enum": ["none", "generic", "category", "rule-specific", "event-specific"]},
+        "textDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "ruleRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "evidenceSummaryProvided": {"type": "boolean"}
+      }
+    },
+    "appeal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["available", "filed", "reviewerIndependence", "outcome", "remedy"],
+      "properties": {
+        "available": {"type": "boolean"},
+        "filed": {"type": "boolean"},
+        "filedAt": {"type": ["string", "null"], "format": "date-time"},
+        "decidedAt": {"type": ["string", "null"], "format": "date-time"},
+        "reviewerIndependence": {"enum": ["same-system", "same-provider-different-team", "external-private", "regulator", "court", "unknown", "not-applicable"]},
+        "outcome": {"enum": ["not-filed", "pending", "accepted", "partially-accepted", "rejected", "withdrawn", "unknown"]},
+        "elapsedDays": {"type": ["number", "null"], "minimum": 0},
+        "remedy": {"enum": ["none", "reason-only", "access-restored", "data-deleted", "record-corrected", "compensation", "other", "unknown"]}
+      }
+    },
+    "evidenceRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "alternativeExplanations": {"type": "array", "items": {"type": "string"}},
+    "unresolved": {"type": "array", "items": {"type": "string"}},
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["containsPersonalData", "redactions", "rawContentRetained"],
+      "properties": {
+        "containsPersonalData": {"type": "boolean"},
+        "redactions": {"type": "array", "items": {"type": "string"}},
+        "rawContentRetained": {"type": "boolean"}
+      }
+    }
+  }
+}

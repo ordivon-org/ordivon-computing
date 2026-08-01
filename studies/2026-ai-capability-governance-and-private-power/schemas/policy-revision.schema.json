@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/schemas/research/ai-capability-governance/policy-revision.schema.json",
+  "title": "AI provider policy revision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "revisionId",
+    "providerId",
+    "documentType",
+    "title",
+    "sourceUrl",
+    "retrievedAt",
+    "revisionLabel",
+    "scope",
+    "changes",
+    "evidenceClass",
+    "unresolved"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "revisionId": {"type": "string", "pattern": "^policy-revision:[a-z0-9][a-z0-9:._-]+$"},
+    "providerId": {"type": "string", "minLength": 1},
+    "documentType": {
+      "enum": [
+        "constitution",
+        "model_spec",
+        "usage_policy",
+        "terms",
+        "license",
+        "privacy_policy",
+        "access_program",
+        "safety_framework",
+        "transparency_report",
+        "appeal_policy",
+        "regional_policy",
+        "other"
+      ]
+    },
+    "title": {"type": "string", "minLength": 1, "maxLength": 500},
+    "sourceUrl": {"type": "string", "format": "uri"},
+    "publishedAt": {"type": ["string", "null"], "format": "date"},
+    "effectiveAt": {"type": ["string", "null"], "format": "date"},
+    "retrievedAt": {"type": "string", "format": "date-time"},
+    "revisionLabel": {"type": "string", "minLength": 1},
+    "contentDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+    "previousRevisionId": {"type": ["string", "null"]},
+    "archivalStatus": {"enum": ["live-only", "archived-publicly", "digest-only", "not-archived"]},
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surfaces", "models", "regions", "accountClasses"],
+      "properties": {
+        "surfaces": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "models": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "regions": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "accountClasses": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "exceptions": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["changeId", "changeType", "summary", "powerDimensions", "claimClass", "evidenceRefs"],
+        "properties": {
+          "changeId": {"type": "string", "minLength": 1},
+          "path": {"type": ["string", "null"]},
+          "changeType": {"enum": ["added", "removed", "expanded", "narrowed", "clarified", "reworded", "unknown"]},
+          "summary": {"type": "string", "minLength": 1, "maxLength": 4000},
+          "powerDimensions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"enum": ["normative", "observational", "enforcement", "adjudicative", "infrastructural", "epistemic"]},
+            "uniqueItems": true
+          },
+          "claimClass": {"enum": ["D", "C", "N", "A"]},
+          "evidenceRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "counterEvidenceRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+        }
+      }
+    },
+    "evidenceClass": {"enum": ["E0", "E1", "E2", "E3", "E4", "E5", "E6", "E7"]},
+    "unresolved": {"type": "array", "items": {"type": "string"}}
+  }
+}

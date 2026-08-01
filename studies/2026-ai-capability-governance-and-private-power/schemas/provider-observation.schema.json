@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/schemas/research/ai-capability-governance/provider-observation.schema.json",
+  "title": "Layer-separated provider observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "trialId",
+    "observedAt",
+    "configuration",
+    "request",
+    "providerIntervention",
+    "modelResult",
+    "toolDefinitions",
+    "hostAdmission",
+    "runtimeResult",
+    "worldResult",
+    "verification",
+    "authorizedUtility",
+    "recovery",
+    "evidenceRefs",
+    "unresolved",
+    "privacy"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "trialId": {"type": "string", "pattern": "^trial:[a-z0-9][a-z0-9:._-]+$"},
+    "observedAt": {"type": "string", "format": "date-time"},
+    "configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["providerId", "model", "surface", "accessTier", "region", "retentionMode", "providerPolicyRefs", "hostRevision", "harnessRevision", "runtimeRevision"],
+      "properties": {
+        "providerId": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "modelRevision": {"type": ["string", "null"]},
+        "surface": {"type": "string", "minLength": 1},
+        "accessTier": {"type": "string", "minLength": 1},
+        "organizationClass": {"type": ["string", "null"]},
+        "region": {"type": "string", "minLength": 1},
+        "retentionMode": {"type": "string", "minLength": 1},
+        "providerPolicyRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "systemPromptDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "hostRevision": {"type": "string", "minLength": 1},
+        "harnessRevision": {"type": "string", "minLength": 1},
+        "runtimeRevision": {"type": "string", "minLength": 1}
+      }
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requestId", "requestDigest", "taskClass", "ownedResourcesOnly", "reversible"],
+      "properties": {
+        "requestId": {"type": "string", "minLength": 1},
+        "requestDigest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "taskClass": {"type": "string", "minLength": 1},
+        "ownedResourcesOnly": {"type": "boolean"},
+        "reversible": {"type": "boolean"},
+        "submittedAt": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "providerIntervention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "extraCheckObserved", "routeObserved", "contentReturned", "contentRewritten", "refusalObserved", "latencyMs"],
+      "properties": {
+        "status": {"enum": ["not-observed", "allowed", "delayed", "reviewed", "rewritten", "refused", "degraded", "provider-error", "unknown"]},
+        "extraCheckObserved": {"enum": ["yes", "no", "unknown"]},
+        "routeObserved": {"enum": ["same-model", "alternate-model", "unknown"]},
+        "contentReturned": {"type": "boolean"},
+        "contentRewritten": {"type": "boolean"},
+        "refusalObserved": {"type": "boolean"},
+        "reasonCategory": {"type": ["string", "null"]},
+        "latencyMs": {"type": ["number", "null"], "minimum": 0},
+        "providerRequestIdDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "responseDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "modelResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resultAvailable", "proposalAvailable", "refusal", "toolCalls", "conclusionStatus"],
+      "properties": {
+        "resultAvailable": {"type": "boolean"},
+        "proposalAvailable": {"type": "boolean"},
+        "refusal": {"type": "boolean"},
+        "contentDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "toolCalls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["toolCallId", "toolName", "argumentsDigest"],
+            "properties": {
+              "toolCallId": {"type": "string", "minLength": 1},
+              "toolName": {"type": "string", "minLength": 1},
+              "argumentsDigest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+              "authorityClass": {"type": ["string", "null"]}
+            }
+          }
+        },
+        "conclusionStatus": {"enum": ["none", "candidate_completed", "needs_input", "refused", "invalid", "provider_failed", "unknown"]},
+        "usage": {"type": "object"}
+      }
+    },
+    "toolDefinitions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["catalogDigest", "definitionDigest", "boundToAssignment", "integrityVerified"],
+      "properties": {
+        "catalogDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "definitionDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "boundToAssignment": {"type": "boolean"},
+        "integrityVerified": {"enum": ["yes", "no", "partial", "unknown"]},
+        "differenceObserved": {"type": "boolean"}
+      }
+    },
+    "hostAdmission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "toolGrantDigest", "rejectionReason", "durableEvidence"],
+      "properties": {
+        "status": {"enum": ["not-reached", "admitted", "rejected", "unknown"]},
+        "toolGrantDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "rejectionReason": {"type": ["string", "null"]},
+        "durableEvidence": {"type": "boolean"},
+        "hostObjectRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "runtimeResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "commitState", "jobRefs", "artifactRefs", "reconciled"],
+      "properties": {
+        "status": {"enum": ["not-dispatched", "rejected", "unknown", "observed", "runtime-error"]},
+        "commitState": {"enum": ["not_committed", "committed", "unknown", "not-applicable"]},
+        "jobRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "artifactRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "reconciled": {"type": "boolean"},
+        "observationDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"}
+      }
+    },
+    "worldResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["effectStatus", "authorized", "effectRefs", "residualStatus"],
+      "properties": {
+        "effectStatus": {"enum": ["not-attempted", "prevented", "unknown", "observed", "reverted"]},
+        "authorized": {"enum": ["yes", "no", "partially", "not-applicable", "unknown"]},
+        "effectRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "worldEvidenceDigest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+        "residualStatus": {"enum": ["clean", "removed", "revoked", "recovered", "accepted", "unknown"]}
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["performed", "independentOfModel", "accepted", "method", "evidenceRefs"],
+      "properties": {
+        "performed": {"type": "boolean"},
+        "independentOfModel": {"type": "boolean"},
+        "accepted": {"type": "boolean"},
+        "method": {"type": "string", "minLength": 1},
+        "evidenceRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "authorizedUtility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["expected", "achieved", "score"],
+      "properties": {
+        "expected": {"type": "string", "minLength": 1},
+        "achieved": {"type": "boolean"},
+        "score": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "evidenceRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required", "performed", "freshHostVerified", "residualStatus"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "performed": {"type": "boolean"},
+        "freshHostVerified": {"type": "boolean"},
+        "residualStatus": {"enum": ["clean", "removed", "revoked", "recovered", "accepted", "unknown"]},
+        "evidenceRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "evidenceRefs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "unresolved": {"type": "array", "items": {"type": "string"}},
+    "privacy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["containsPersonalData", "containsProviderSecret", "rawPromptRetained", "rawResponseRetained", "redactions"],
+      "properties": {
+        "containsPersonalData": {"type": "boolean"},
+        "containsProviderSecret": {"type": "boolean"},
+        "rawPromptRetained": {"type": "boolean"},
+        "rawResponseRetained": {"type": "boolean"},
+        "redactions": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
