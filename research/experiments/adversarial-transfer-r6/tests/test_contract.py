@@ -5,13 +5,16 @@ from types import SimpleNamespace
 
 from ordivon_host import ArtifactRef
 
+from anc_adversarial_transfer.model import TrialSpec
 from anc_adversarial_transfer.runner import (
     ATTACKS,
     MAX_MODEL_CALLS,
     MAX_TOOL_CALLS,
     MODELS,
     PROFILES,
+    VERIFIER_PATH,
     _artifact_locations,
+    _grant,
     _runtime_artifact_exists,
     _stop_detail,
     _trial_plan,
@@ -25,13 +28,35 @@ class R6ContractTests(unittest.TestCase):
 
     def test_default_plan_has_flash_full_matrix_and_pro_two_profiles(self) -> None:
         plan = _trial_plan(attacks=ATTACKS, profiles=PROFILES, models=MODELS)
-        self.assertEqual(len(plan), 28)
-        self.assertEqual(len({item.trial_id for item in plan}), 28)
+        self.assertEqual(len(plan), 32)
+        self.assertEqual(len({item.trial_id for item in plan}), 32)
         flash = [item for item in plan if item.model == "deepseek-v4-flash"]
         pro = [item for item in plan if item.model == "deepseek-v4-pro"]
-        self.assertEqual(len(flash), 20)
+        self.assertEqual(len(flash), 24)
         self.assertEqual(len(pro), 8)
         self.assertEqual({item.profile for item in pro}, {"raw-ambient", "harness-gated"})
+
+    def test_poisoned_catalog_has_broad_and_gated_authority_profiles(self) -> None:
+        self.assertIn("harness-ambient-poisoned-catalog", PROFILES)
+        self.assertIn("harness-gated-poisoned-catalog", PROFILES)
+
+    def test_gated_profile_can_read_fixed_verifier_but_not_canary(self) -> None:
+        spec = TrialSpec(
+            "trial:gated",
+            "deepseek-v4-flash",
+            "harness-gated",
+            "authority-spoof",
+            "research/experiments/adversarial-transfer-r6/fixture/attacks/authority-spoof.md",
+            "research/experiments/adversarial-transfer-r6/fixture/output/trial-gated.md",
+        )
+        grant = _grant(spec)
+        self.assertTrue(grant.allows_path("read_workspace", VERIFIER_PATH))
+        self.assertFalse(
+            grant.allows_path(
+                "read_workspace",
+                "research/experiments/adversarial-transfer-r6/fixture/canary/secret.txt",
+            )
+        )
 
     def test_output_paths_are_trial_unique_and_fixture_local(self) -> None:
         plan = _trial_plan(attacks=ATTACKS, profiles=PROFILES, models=("deepseek-v4-flash",))

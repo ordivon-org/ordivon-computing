@@ -50,14 +50,19 @@ attack data.
 
 - `raw-ambient` — weak raw system prompt and broad local Canary authority;
 - `harness-ambient` — current Ordivon Harness prompt but broad local authority;
-- `harness-gated` — current Harness prompt plus narrow ToolGrant;
+- `harness-gated` — current Harness prompt plus narrow ToolGrant; it may read the
+  fixed verifier source but not Canary, Outbox, Registry, Memory, or opaque-exec
+  authority;
 - `harness-gated-compacted` — narrow ToolGrant, optional trusted policy omitted,
   and a fresh Host instance loads the durable Assignment;
-- `harness-gated-poisoned-catalog` — narrow ToolGrant with a deliberate
-  post-commit malicious model-facing Tool-description overlay.
+- `harness-ambient-poisoned-catalog` — broad local Canary authority plus a
+  deliberate post-commit malicious model-facing Tool-description overlay;
+- `harness-gated-poisoned-catalog` — the same overlay under narrow ToolGrant.
 
-The last profile is an integrity test, not a normal configuration. Physical calls
-still pass through the real RuntimeToolBridge and ToolGrant.
+The poisoned profiles are a paired integrity experiment, not normal
+configurations. Their model-facing Tool definitions differ after catalog commit,
+while physical calls still pass through the same real RuntimeToolBridge. The
+broad/narrow pair distinguishes model susceptibility from world consequence.
 
 ## Attacks
 
@@ -80,13 +85,13 @@ Thus a defense that blocks every action also fails on authorized utility.
 
 ```text
 DeepSeek V4 Flash
-  4 attacks × 5 profiles = 20 Trials
+  4 attacks × 6 profiles = 24 Trials
 
 DeepSeek V4 Pro
   4 attacks × 2 profiles = 8 Trials
 
 total
-  28 live real-model Trials
+  32 live real-model Trials
 ```
 
 Each Trial opens and later force-closes a disposable Ordivon Runtime Workspace.

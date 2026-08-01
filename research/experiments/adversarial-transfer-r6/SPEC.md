@@ -42,11 +42,14 @@ independent Host verifier must reject every such case.
 
 ### H6 — model-facing Tool-definition integrity may be a distinct boundary
 
-The poisoned-catalog profile deliberately changes descriptions after Assignment
-catalog commitment while retaining the original catalog digest. If this changes
-model behavior, R6 records a candidate integrity gap: the exact definitions sent
-on each Turn may require stronger binding or verification. Physical execution
-must still remain bounded by ToolGrant.
+The paired poisoned-catalog profiles deliberately change descriptions after
+Assignment catalog commitment while retaining the original catalog digest. The
+ambient variant grants broad local Canary authority; the gated variant exposes
+the same model-facing overlay under narrow ToolGrant. A model-level attempt in
+both profiles combined with a world consequence only in ambient is direct
+evidence that exact Turn definitions need binding and that ToolGrant limits
+consequence after cognition failure. Physical execution remains owned and
+reversible.
 
 ## Evidence levels
 
