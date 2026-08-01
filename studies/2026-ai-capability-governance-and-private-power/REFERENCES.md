@@ -212,9 +212,260 @@ endorse a source's normative conclusions.
 - Supports: account-level warning and appeal procedures and the distinction
   between individual requests and cumulative organization/account behavior.
 
+## OpenAI 2026 revisions
+
+### [G026] OpenAI — Current additional cyber and biological safety checks
+- URL: https://help.openai.com/en/articles/20001326
+- Evidence class: E1/E2.
+- Supports: request/account-sensitive additional checks, temporary effects,
+  withholding, and Trusted Access referral.
+
+### [G027] OpenAI — Transparency and content moderation, 2026 revision
+- URL: https://openai.com/transparency-and-content-moderation/
+- Evidence class: E1/E2/E4.
+- Supports: enforcement mechanisms, product/account actions, support and appeal.
+
+### [G028] OpenAI — Trusted Access overview, scaling, and troubleshooting
+- URLs: https://help.openai.com/en/collections/20001260-trusted-access-for-cyber ; https://openai.com/index/gpt-5-5-with-trusted-access-for-cyber/
+- Evidence class: E1/E2.
+- Supports: identity/trust verification, organization binding, account security,
+  approved paths, and model-specific access.
+
+## Anthropic extended sources
+
+### [G029] Anthropic — Claude's Constitution, current public revision
+- URL: https://www.anthropic.com/constitution
+- Evidence class: E1/E2.
+- Supports: published private constitutional authority.
+
+### [G030] Anthropic — Responsible Scaling Policy v3.4
+- URL: https://www.anthropic.com/responsible-scaling-policy
+- Evidence class: E1/E2.
+- Supports: versioned capability thresholds, safeguards, and governance.
+
+### [G031] Anthropic — Transparency Hub, system trust reporting
+- URL: https://www.anthropic.com/transparency/system-trust-reporting
+- Evidence class: E4.
+- Supports: Safeguards monitoring and aggregate enforcement/appeal reporting.
+
+### [G032] Anthropic — Consumer and commercial terms
+- URLs: https://www.anthropic.com/legal/consumer-terms ; https://www.anthropic.com/legal/commercial-terms
+- Evidence class: E1.
+- Supports: suspension, termination, data, notice, cure, and dispute provisions.
+
+### [G033] Anthropic — Cyber safeguards and verification pathways
+- URLs: https://www.anthropic.com/research/attack-navigator ; https://www.anthropic.com/news/expanding-project-glasswing
+- Evidence class: E1/E2.
+- Supports: request safeguards, Cyber Verification, organization access, and
+  limited-partner models.
+
+### [G034] Anthropic — Privacy, retention, region and ownership controls
+- URLs: https://privacy.claude.com/ ; https://www.anthropic.com/supported-countries ; https://www.anthropic.com/news/updating-restrictions-of-sales-to-unsupported-regions
+- Evidence class: E1.
+- Supports: safety-linked retention and eligibility based on region/ownership.
+
+## Google Gemini
+
+### [G035] Google — Gemini API abuse monitoring
+- URL: https://ai.google.dev/gemini-api/docs/usage-policies
+- Evidence class: E1/E2.
+- Supports: automated/manual review, 55-day retention, intervention and appeal.
+
+### [G036] Google — Gemini API Additional Terms
+- URL: https://ai.google.dev/gemini-api/terms
+- Evidence class: E1.
+- Supports: eligibility, region, safety settings, extraction and data terms.
+
+### [G037] Google — Gemini Developer API zero data retention
+- URL: https://ai.google.dev/gemini-api/docs/zdr
+- Evidence class: E1/E2.
+- Supports: feature-dependent retention and abuse-monitoring exceptions.
+
+### [G038] Google — Generative AI prohibited-use policy
+- URL: https://policies.google.com/terms/generative-ai/use-policy
+- Evidence class: E1.
+- Supports: prohibited-use and user-responsibility rules.
+
+## xAI
+
+### [G039] xAI — Acceptable Use Policy
+- URL: https://x.ai/legal/acceptable-use-policy
+- Effective date observed: 2026-06-26.
+- Evidence class: E1.
+- Supports: jailbreak, prompt-injection, extraction, bypass, harmful-use and
+  high-stakes restrictions.
+
+### [G040] xAI — Consumer Terms of Service
+- URL: https://x.ai/legal/terms-of-service
+- Evidence class: E1.
+- Supports: Agentic Actions, user responsibility, modification and termination.
+
+### [G041] xAI — Enterprise Terms of Service
+- URL: https://x.ai/legal/enterprise-terms-of-service
+- Evidence class: E1.
+- Supports: monitoring, corrective action and probing/penetration restrictions.
+
+### [G042] xAI — Privacy and product FAQs
+- URL: https://x.ai/legal
+- Evidence class: E1.
+- Supports: product-specific data controls and integration dependencies.
+
+## DeepSeek
+
+### [G043] DeepSeek — Terms of Use
+- URL: https://cdn.deepseek.com/policies/en-US/deepseek-terms-of-use.html
+- Updated: 2026-03-27.
+- Evidence class: E1.
+- Supports: consumer rules, account, content and enforcement authority.
+
+### [G044] DeepSeek — Open Platform Terms of Use
+- URL: https://cdn.deepseek.com/policies/en-US/deepseek-open-platform-terms-of-use.html
+- Effective: 2026-04-29.
+- Evidence class: E1.
+- Supports: API/developer duties and downstream data responsibility.
+
+### [G045] DeepSeek — Privacy Policy
+- URL: https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html
+- Effective: 2026-02-10.
+- Evidence class: E1.
+- Supports: consumer data categories, purposes, storage and rights.
+
+### [G046] DeepSeek — API changelog and model documentation
+- URL: https://api-docs.deepseek.com/updates/
+- Evidence class: E1/E2.
+- Supports: V4-Pro/V4-Flash revisions and current API behavior.
+
+## Kimi
+
+### [G047] Kimi — Global consumer Terms of Service
+- URL: https://www.kimi.com/user/agreement/en
+- Effective date observed: 2026-01-21.
+- Evidence class: E1.
+- Supports: consumer account, content and product conditions.
+
+### [G048] Kimi Open Platform — Privacy Policy
+- URL: https://platform.moonshot.ai/docs/privacy-policy
+- Evidence class: E1.
+- Supports: Open Platform data-processing and developer responsibilities.
+
+### [G049] Kimi Open Platform — API data security and content review
+- URL: https://platform.moonshot.ai/docs/guide/api-data-security
+- Evidence class: E1/E2.
+- Supports: no-training claim, built-in review, error, request ID and support.
+
+## Meta licensed open weights
+
+### [G050] Meta — Llama 4 Community License Agreement
+- URL: https://github.com/meta-llama/llama-models/blob/main/models/llama4/LICENSE
+- Effective: 2025-04-05.
+- Evidence class: E1.
+- Supports: use, modification, redistribution, attribution, scale and trade terms.
+
+### [G051] Meta — Llama 4 Acceptable Use Policy
+- URL: https://github.com/meta-llama/llama-models/blob/main/models/llama4/USE_POLICY.md
+- Evidence class: E1.
+- Supports: prohibited harmful, unlawful and safety-circumvention uses.
+
+### [G052] Meta — Llama 4 model card
+- URL: https://github.com/meta-llama/llama-models/blob/main/models/llama4/MODEL_CARD.md
+- Evidence class: E1/E2.
+- Supports: downloadable distribution, capabilities and deployer responsibility.
+
+## European Union
+
+### [G053] European Commission — AI Act implementation and GPAI obligations
+- URLs: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai ; https://digital-strategy.ec.europa.eu/en/policies/gpai-code
+- Evidence class: E3.
+- Supports: phased applicability, GPAI and systemic-risk duties.
+
+### [G054] European Commission — DSA reasons and transparency
+- URL: https://digital-strategy.ec.europa.eu/en/faqs/dsa-transparency-database-questions-and-answers
+- Evidence class: E3/E4.
+- Supports: standardized reasons and public transparency records.
+
+## United States
+
+### [G055] White House — Removing Barriers to American Leadership in AI
+- URL: https://www.whitehouse.gov/presidential-actions/2025/01/removing-barriers-to-american-leadership-in-artificial-intelligence/
+- Evidence class: E3.
+- Supports: innovation-leadership federal direction.
+
+### [G056] White House — America's AI Action Plan
+- URL: https://www.whitehouse.gov/articles/2025/07/white-house-unveils-americas-ai-action-plan/
+- Evidence class: E3.
+- Supports: innovation, infrastructure, security and international distribution.
+
+### [G057] White House — National-security AI memorandum, 2026
+- URL: https://www.whitehouse.gov/presidential-actions/2026/06/memorandum-on-advancing-artificial-intelligence-for-national-security/
+- Evidence class: E3.
+- Supports: AI governance inside the national-security enterprise.
+
+## China
+
+### [G058] CAC — Interim Measures for Generative AI Services
+- URL: https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm
+- Evidence class: E3.
+- Supports: public generative-AI content, data and security obligations.
+
+### [G059] CAC — January-February 2026 filing announcement
+- URL: https://www.cac.gov.cn/2026-03/27/c_1776333111125210.htm
+- Evidence class: E3/E4.
+- Supports: filing/registration and public service identifiers.
+
+### [G060] CAC — March-April 2026 filing announcement
+- URL: https://www.cac.gov.cn/2026-05/29/c_1781787472917155.htm
+- Evidence class: E3/E4.
+- Supports: cumulative filing and registration counts through 2026-04-30.
+
+### [G061] CAC and ministries — Anthropomorphic interaction service rules
+- URL: https://www.cac.gov.cn/2026-06/15/c_1783220982865963.htm
+- Effective: 2026-07-15.
+- Evidence class: E3.
+- Supports: assessment, filing, inspection, suspension and penalties.
+
+## Canada
+
+### [G062] Government of Canada — Voluntary Code for advanced generative AI
+- URL: https://ised-isde.canada.ca/site/ised/en/voluntary-code-conduct-responsible-development-and-management-advanced-generative-ai-systems
+- Evidence class: E3.
+- Supports: voluntary accountability, safety, transparency and monitoring.
+
+### [G063] Government of Canada — Federal Public Service AI Strategy 2025-2027
+- URL: https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/ai-strategy.html
+- Evidence class: E3.
+- Supports: Centre of Expertise, governance and responsible adoption.
+
+### [G064] Government of Canada — Federal AI Register
+- URL: https://ai-ia.canada.ca/en
+- Evidence class: E3/E4.
+- Supports: public inventory and federal-use transparency.
+
+### [G065] Government of Canada — Canada's AI Strategy, 2026
+- URL: https://ised-isde.canada.ca/site/ised/en/canadas-ai-strategy
+- Evidence class: E3.
+- Supports: trust, opportunity, sovereignty, infrastructure and adoption.
+
+### [G066] Government of Canada — Bill C-36 announcement
+- URL: https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/government-of-canada-introduces-legislation-to-strengthen-privacy-protections.html
+- Evidence class: E3.
+- Supports: proposed privacy modernization; retained as a bill, not enacted law.
+
+## G6 and R6 evidence
+
+### [G067] DeepSeek — Anthropic API compatibility and G6 pilot
+- Official URL: https://api-docs.deepseek.com/guides/anthropic_api
+- Local evidence: `research/data/ai-capability-governance/controlled-observations/`.
+- Evidence class: E1/E2/E5.
+- Supports: two serialization surfaces, caller history, continuity and transport failure.
+
+### [G068] Ordivon R6 — Layered authority evidence
+- Local evidence: `research/experiments/adversarial-transfer-r6/evidence/` and G6 reclassification.
+- Evidence class: E5/E7.
+- Supports: model proposals, Host denial, Runtime UNKNOWN, World Effect and verification.
+
 ## Use rule
 
-Later case files must cite exact reference IDs, add retrieved and effective dates,
-and preserve a content digest or lawful archive where feasible. References do not
-substitute for provider-observation evidence, implementation evidence, or causal
-counterfactuals.
+Case files must cite exact reference IDs, add retrieved and effective dates, and
+preserve a content digest or lawful archive where feasible. References do not
+substitute for Provider-observation evidence, implementation evidence, or causal
+counterfactuals. G3-G7 current-state snapshots must be rechecked before future use.
