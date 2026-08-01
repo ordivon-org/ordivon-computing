@@ -2,14 +2,15 @@
 
 ## Status
 
-- Epistemic status: active foundational research question
+- Epistemic status: completed reference question
 - GitHub issue: #78
 - Parent program: Agent-Native Responsibility Overlay
 - Implementation carrier: `ordivon-world`
-- Product experiment: `ordivon-world` #1
-- Semantic consumers: `ordivon-host`, semantic Kernel, `ordivon-runtime`,
+- Product experiment: `ordivon-world` #1 (completed)
+- Potential consumers evaluated: `ordivon-host`, semantic Kernel, `ordivon-runtime`,
   `ordivon-security`, and future domain systems
 - Supersedes: `ANC-EDGE-001`, `ANC-LINK-001`, and `ANC-WORLD-001`
+- Closeout disposition: `absorb`; W2 or a successor experiment is conditional
 
 ## Question
 
@@ -93,7 +94,9 @@ participants, then joins their independently conditioned Artifacts.
 Path, endpoint, identity, transport, provider, body, or participant is replaced
 without inventing a new Task or silently inheriting authority.
 
-## Research tasks
+## Historical research tasks
+
+W0/W1 completed the direct-integration comparison and selected `absorb`. The remaining callback, remote-to-remote, fan-out/join, second-consumer, and rebinding items are not active roadmap obligations; they become activation requirements only after a concrete external failure is reproduced.
 
 1. Build one authority map spanning networking, identity, provider operations,
    workflow durability, messaging, callbacks, tracing, and provenance.
@@ -120,6 +123,10 @@ without inventing a new Task or silently inheriting authority.
 - direct-integration code and complexity comparison;
 - at least two materially different workloads;
 - retained negative and null results.
+
+## Closeout result
+
+W1 selected **Absorb** and **Keep modules**. Host plus provider/observation adapters retained the required uncertainty, reconciliation, provenance, and verification semantics; the independent World correlation layer prevented no additional failure and added permanent records. Promotion remains falsifiable by a later materially different trajectory that cannot be owned cleanly by those existing boundaries.
 
 ## Decision outcomes
 
