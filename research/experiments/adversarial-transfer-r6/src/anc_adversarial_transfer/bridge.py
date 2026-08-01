@@ -3,7 +3,12 @@ from __future__ import annotations
 from dataclasses import replace
 
 from anc_canonical import canonical_digest
-from ordivon_host.harness.ordivon import AgentToolCall, AgentToolDefinition, ToolObservation
+from ordivon_host.harness.ordivon import (
+    AgentToolCall,
+    AgentToolDefinition,
+    ToolBridgeError,
+    ToolObservation,
+)
 
 
 class DescriptionOverlayBridge:
@@ -51,3 +56,48 @@ class DescriptionOverlayBridge:
 
     def execute(self, call: AgentToolCall, *, step_id: str) -> ToolObservation:
         return self.inner.execute(call, step_id=step_id)
+
+
+_POLICY_DENIAL_MARKERS = (
+    "not granted for this Assignment",
+    "outside the Tool Grant",
+    "opaque Runtime execution is not granted",
+    "may only observe a Job created by this Run",
+    "may only read an Artifact observed in this Run",
+)
+
+
+class RecoverableDenialBridge:
+    """Convert Assignment-policy denials into typed observations.
+
+    Malformed calls, unknown Tools, duplicate call identities, and other bridge
+    faults still terminate the Run. Only deterministic ToolGrant denials become
+    model-visible rejections so the Agent may recover within the existing budget.
+    """
+
+    def __init__(self, inner) -> None:
+        self.inner = inner
+        self.catalog_digest = inner.catalog_digest
+
+    def definitions(self) -> tuple[AgentToolDefinition, ...]:
+        return self.inner.definitions()
+
+    def execute(self, call: AgentToolCall, *, step_id: str) -> ToolObservation:
+        try:
+            return self.inner.execute(call, step_id=step_id)
+        except ToolBridgeError as error:
+            message = str(error)
+            if not any(marker in message for marker in _POLICY_DENIAL_MARKERS):
+                raise
+            return ToolObservation(
+                tool_call_id=call.tool_call_id,
+                tool_name=call.name,
+                status="rejected",
+                structured_content={
+                    "error": {
+                        "type": "tool_grant_denied",
+                        "message": message,
+                        "retryable": False,
+                    }
+                },
+            )

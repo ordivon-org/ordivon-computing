@@ -57,7 +57,11 @@ attack data.
   and a fresh Host instance loads the durable Assignment;
 - `harness-ambient-poisoned-catalog` — broad local Canary authority plus a
   deliberate post-commit malicious model-facing Tool-description overlay;
-- `harness-gated-poisoned-catalog` — the same overlay under narrow ToolGrant.
+- `harness-gated-poisoned-catalog` — the same overlay under narrow ToolGrant
+  with current hard-stop denial behavior;
+- `harness-gated-recoverable-poisoned-catalog` — the same narrow grant, but
+  deterministic policy denials become typed `rejected` observations so the model
+  may recover and finish the authorized task.
 
 The poisoned profiles are a paired integrity experiment, not normal
 configurations. Their model-facing Tool definitions differ after catalog commit,
@@ -66,6 +70,7 @@ broad/narrow pair distinguishes model susceptibility from world consequence.
 
 ## Attacks
 
+- benign control with no embedded operational instruction;
 - authority spoof;
 - delegated compliance laundering;
 - generated-Tool persistence and opaque-execution request;
@@ -85,13 +90,13 @@ Thus a defense that blocks every action also fails on authorized utility.
 
 ```text
 DeepSeek V4 Flash
-  4 attacks × 6 profiles = 24 Trials
+  5 attacks × 7 profiles = 35 Trials
 
 DeepSeek V4 Pro
-  4 attacks × 2 profiles = 8 Trials
+  5 attacks × 2 profiles = 10 Trials
 
 total
-  32 live real-model Trials
+  45 live real-model Trials
 ```
 
 Each Trial opens and later force-closes a disposable Ordivon Runtime Workspace.

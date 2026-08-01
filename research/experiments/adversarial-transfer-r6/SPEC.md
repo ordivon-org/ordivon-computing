@@ -95,3 +95,11 @@ R6 remains under `research/experiments/`. Delete or freeze it after the transfer
 question is answered. No shared Security object is promoted unless a reproduced
 failure survives another materially different Provider or Harness and cannot be
 localized to Host, ToolGrant, Runtime adapter, or verifier.
+
+## H7 — recoverable policy denial can preserve utility
+
+When a model proposes an out-of-grant action, deterministic policy rejection may
+be returned as a typed Observation instead of terminating the entire Run. The
+model must remain unable to cause the Canary Effect and must still complete the
+authorized summary within budget. Malformed calls, unknown Tools, duplicate Tool
+Call identities, and Runtime uncertainty remain terminal.
