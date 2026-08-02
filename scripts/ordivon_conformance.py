@@ -467,6 +467,8 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     static_paths = [
         "packages/ordivon-protocol/src",
         "packages/ordivon-protocol/tests",
+        "packages/content-cli/src",
+        "packages/content-cli/tests",
         "research/experiments/external-semantic-contract-v0/integration",
         "research/experiments/external-semantic-contract-v0/tests",
         "research/experiments/external-semantic-contract-v0/scripts",
@@ -484,11 +486,34 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "scripts/render_research_portfolio.py",
         "scripts/check_protocol_release.py",
         "scripts/check_protocol_consumers.py",
+        "scripts/ordivon_content.py",
         "scripts/ordivon_conformance.py",
     ]
     commands: list[tuple[str, list[str], Path, dict[str, str]]] = [
         ("compileall", [python, "-m", "compileall", "-q", *static_paths], ROOT, {}),
         ("ruff", [ruff, "check", *static_paths], ROOT, {}),
+        (
+            "content-cli-tests",
+            [python, "-m", "unittest", "discover", "-s", "packages/content-cli/tests"],
+            ROOT,
+            {"PYTHONPATH": "packages/content-cli/src"},
+        ),
+        (
+            "content-managed-paths",
+            [
+                python,
+                "scripts/ordivon_content.py",
+                "check",
+                "--root",
+                ".",
+                "--mode",
+                "strict",
+                "--receipt",
+                "/tmp/ordivon-content-check.json",
+            ],
+            ROOT,
+            {},
+        ),
         (
             "foundational-docs",
             [python, "scripts/check_foundational_docs.py"],

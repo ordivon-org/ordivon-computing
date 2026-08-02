@@ -136,6 +136,17 @@ The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](researc
 
 The exact stable declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each product repository.
 
+## Content engineering
+
+[`docs/content-engineering/README.md`](docs/content-engineering/README.md) defines the shared P0 content contract for Ordivon repositories. It introduces document profiles, lifecycle and source-role metadata, deterministic checks, templates, terminology, and machine-readable receipts without moving project facts into a new authority.
+
+```bash
+python3.12 scripts/ordivon_content.py project --root .
+python3.12 scripts/ordivon_content.py check --root . --mode advisory
+```
+
+Existing documents remain an advisory migration corpus. Strict checks apply only to paths explicitly admitted by `.ordivon/project.yaml`.
+
 ## Protocol and conformance
 
 [`packages/ordivon-protocol/`](packages/ordivon-protocol/) is the production-candidate source for selected cross-boundary contracts. It is not a universal internal ontology. Direct consumption and conformance must be demonstrated mechanically rather than inferred from similar terminology.

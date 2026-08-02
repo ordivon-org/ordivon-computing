@@ -12,9 +12,13 @@ Core, Knowledge, the classical-to-Agent transition Study, research map, and sour
 
 Run the narrow checker or test that protects the touched boundary.
 
-For foundational documents and current research state:
+For content contracts, managed documentation paths, foundational documents, and current research state:
 
 ```bash
+PYTHONPATH=packages/content-cli/src \
+  python3.12 -m unittest discover -s packages/content-cli/tests
+python3.12 scripts/ordivon_content.py check \
+  --root . --mode strict --receipt /tmp/ordivon-content-check.json
 python3.12 scripts/check_foundational_docs.py
 python3.12 scripts/check_research_portfolio.py
 python3.12 scripts/render_research_portfolio.py --check
@@ -40,7 +44,7 @@ PYTHONPATH=../../../packages/ordivon-protocol/src:../semantic-core-v0/src:. \
 
 ## T1 — complete deterministic gate
 
-The repository root owns the canonical gate. It validates foundational documents, the single-source research portfolio and generated view, project and Protocol manifests, release Artifact digests, Schema/vector/implementation agreement, static checks, deterministic semantic and continuation experiments, evidence, and Rust canonical vectors.
+The repository root owns the canonical gate. It validates managed content paths and the content CLI, foundational documents, the single-source research portfolio and generated view, project and Protocol manifests, release Artifact digests, Schema/vector/implementation agreement, static checks, deterministic semantic and continuation experiments, evidence, and Rust canonical vectors.
 
 ```bash
 python3.12 scripts/ordivon_conformance.py gate \

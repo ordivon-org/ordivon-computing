@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/schemas/content/document-v1.schema.json",
+  "title": "Ordivon document metadata v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "title", "type", "profile", "lifecycle", "source_role", "visibility", "owners", "audience", "updated"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"},
+    "title": {"type": "string", "minLength": 1},
+    "type": {"type": "string"},
+    "profile": {"enum": ["engineering", "research", "publication", "provider", "organization"]},
+    "lifecycle": {"enum": ["draft", "review", "accepted", "active", "superseded", "deprecated", "archived"]},
+    "source_role": {"enum": ["canonical", "derived", "evidence", "historical", "generated"]},
+    "visibility": {"enum": ["public", "internal", "private"]},
+    "owners": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "audience": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "updated": {"type": "string", "format": "date"},
+    "summary": {"type": "string"},
+    "evidence_status": {"enum": ["hypothesis", "observed", "verified", "refuted", "inconclusive", "not_applicable"]},
+    "readiness": {"enum": ["BLOCKED", "DEGRADED", "READY", "UNKNOWN", "not_applicable"]},
+    "applies_to": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "supersedes": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "related": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "generated_from": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+  }
+}
