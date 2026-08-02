@@ -19,8 +19,8 @@ Revision `ec8142020f207f0f053e7db974d5cb47b80dbc3f` built a lawful CHFS/CFPS hou
 ## Final owner result
 
 - repository: `https://github.com/zycxfyh/ordivon-human`
-- revision: `045994bc53d17ac7823b94077cec08557c502d6d`
-- status: HUMAN-ECON-001 E0–E9 practical reconstruction completed
+- revision: `aa5a7af51e3681f15625a49ddf5b9b16d54c427e`
+- status: HUMAN-ECON-001 E0–E9 practical reconstruction and six-case structural review completed
 - closeout: `research/economy/E0-E9-CLOSEOUT.md`
 
 ### Research order
@@ -60,39 +60,39 @@ capability
 → economic autonomy
 ```
 
-### Stage model
+### Six-case structural review
+
+The owner repository rejected the remaining linear stage model after comparing six materially different production relations. The active model now uses three engines:
 
 ```text
-economic dependence
-→ labour-dominant independent income
-→ stable surplus
-→ scalable ownership
-→ capital- and system-dominant wealth
-→ high economic autonomy
+work and exchange:
+functioning → capability → proof → trusted exchange → surplus
+
+ownership and operation:
+repeated result → reusable ownership → repeatability
+→ governed operation → residual claims
+
+capital and optionality:
+continuity → options → controlled claims
+→ independent claims → protection → deliberate life use
 ```
 
-A stage is defined by its binding constraint, not by age or one wealth threshold.
-
-### Practical reconstruction
-
-The owner repository reorganized the same mechanism into a life-course path:
+under four always-on rails:
 
 ```text
-foundation
-→ professional direction
-→ proof
-→ first market exchange
-→ early-career value capture and surplus
-→ life-quality and commitment control
-→ productive ownership
-→ owner-independent system
-→ capital by function
-→ continuity and economic autonomy
+life quality and functioning
+continuity and recoverability
+external relations and obligations
+control and maintenance
 ```
 
-Every active chapter now uses bounded composite cases with a plausible starting state, tempting error, practical move, feasibility rationale, and failure signal. The cases illustrate mechanism application without claiming population representativeness.
+People can be strong in one engine and weak in another. Productive ownership and systemization are conditional branches rather than compulsory promotions.
 
-This strengthens one Computing implication: evaluation should test whether an abstraction changes the next feasible transition, not merely whether the abstraction is internally complete.
+When one constraint is insufficient to explain a blocked transition, the owner identifies the smallest binding set and uses one recoverable intervention to distinguish or change it.
+
+The six cases support structural coherence and action differentiation only. Five are composite pressure tests; they do not establish population validity or empirical effectiveness.
+
+This strengthens one Computing implication: evaluation should test whether an abstraction changes the next feasible transition, exposes coupled constraints, and preserves the relevant rails—not merely whether the abstraction is internally complete.
 
 ## E6–E9 results retained by Computing
 
@@ -133,8 +133,11 @@ Capital can serve:
 1. continuity;
 2. options and exploration;
 3. controlled productive opportunities;
-4. diversified productive claims;
-5. protection and liability reduction.
+4. independent diversified claims;
+5. protection and liability reduction;
+6. deliberate conversion into time, health, relationships, mobility, creation, simplification, or contribution.
+
+The sixth function prevents accumulation from becoming a terminal objective after additional capital no longer expands the feasible action set.
 
 A percentage cannot be evaluated without the base, attention cost, dependence, other exposures, and consequence of failure.
 
@@ -156,11 +159,12 @@ Low-frequency review or deliberate inaction may therefore be rational.
 The minimum execution pattern is:
 
 ```text
-separate failure domains
-→ bound exposure
-→ scale through evidence
-→ act when state or evidence changes
-→ preserve exit and recovery
+identify the unsupported transition
+→ name the smallest binding set
+→ choose the matching engine and evidence ladder
+→ separate failure domains and bound exposure
+→ retain value under failure
+→ continue, scale, separate, redesign, stop, hold, or recover
 → delete rituals that change no decision
 ```
 
@@ -183,15 +187,19 @@ Evaluation must therefore distinguish human capability, model capability, joint 
 Computing should retain these admission and evaluation tests:
 
 1. Separate participant terminal outcomes from system metrics and activity.
-2. Ask what residual claim or durable option remains after current execution.
-3. Treat portability, direct identity, exportable evidence, and substitutable providers as ownership quality where dependence matters.
-4. Count coordination, supervision, review, maintenance, and recovery against claimed leverage.
-5. Distinguish productive concentration from accidental cross-layer coupling.
-6. Require expected absolute value to exceed operator-attention cost before adding intervention or governance.
-7. Preserve explicit failure domains, bounded authority, recoverable state, and reconcile-before-repeat behavior.
-8. Treat model non-action as a capability when action has insufficient value or evidence.
-9. Delete datasets, dashboards, schemas, and processes that change no decision or failure boundary.
-10. Do not infer human autonomy from Agent throughput or apparent task completion.
+2. Diagnose an unsupported transition rather than assigning one total maturity stage.
+3. Name the smallest coupled binding set when one constraint cannot explain failure.
+4. Ask what residual claim, durable option, or deliberate life value remains after current execution.
+5. Treat portability, direct identity, exportable evidence, and substitutable providers as ownership quality where dependence matters.
+6. Count coordination, supervision, review, maintenance, recovery, and relationship cost against claimed leverage.
+7. Distinguish productive concentration from accidental cross-layer coupling.
+8. Use different evidence ladders for exchange, owned operation, and governance rather than forcing every path toward scale.
+9. Require expected absolute value to exceed operator-attention cost before adding intervention or governance.
+10. Preserve life quality, recoverability, external obligations, control, and maintenance as cross-cutting rails.
+11. Preserve explicit failure domains, bounded authority, recoverable state, and reconcile-before-repeat behavior.
+12. Treat model non-action and deliberate hold as capabilities when action has insufficient value or evidence.
+13. Delete datasets, dashboards, schemas, and processes that change no decision or failure boundary.
+14. Do not infer human autonomy from Agent throughput, apparent task completion, ownership title, or accumulated resources alone.
 
 ## Boundary
 
@@ -208,8 +216,8 @@ Computing does not own:
 ## Final status
 
 ```text
-owner practical E0–E9 cycle: completed
-external observation revision: 045994bc53d17ac7823b94077cec08557c502d6d
+owner practical E0–E9 cycle and structural review: completed
+external observation revision: aa5a7af51e3681f15625a49ddf5b9b16d54c427e
 Computing implementation dependency: none
 Ready Frontier membership: remove
 reopen condition: new owner evidence or a complete case falsifies a retained cross-project distinction

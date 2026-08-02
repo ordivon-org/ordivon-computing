@@ -1,6 +1,6 @@
 # ANC-HUMAN-001 — Problem-Driven Human Research and Economic Autonomy
 
-> **Status:** completed cross-project observation at owner revision `045994bc53d17ac7823b94077cec08557c502d6d`.
+> **Status:** completed cross-project observation at owner revision `aa5a7af51e3681f15625a49ddf5b9b16d54c427e`.
 
 ## Question
 
@@ -14,22 +14,27 @@ Exact history and cross-project implications are recorded in [`ordivon-human-202
 
 ## Final owner result
 
-The owner now presents the result as a practical transition path:
+The owner now presents the result as a branching transition model:
 
 ```text
-foundation
-→ professional direction
-→ proof
-→ first market exchange
-→ early-career value capture and surplus
-→ life-quality and commitment control
-→ productive ownership
-→ owner-independent system
-→ capital by function
-→ continuity and economic autonomy
+work and exchange:
+functioning → capability → proof → trusted exchange → surplus
+
+ownership and operation:
+repeated result → reusable ownership → repeatability
+→ governed operation → residual claims
+
+capital and optionality:
+continuity → options → controlled claims
+→ independent claims → protection → deliberate life use
+
+rails:
+life quality | recoverability | relations and obligations | control and maintenance
 ```
 
-Each stage is supported by bounded cases and explicit failure signals rather than a parallel implementation or scoring system.
+The six-case structural review rejected a compulsory progression through ownership and systemization. It also introduced the smallest-binding-set rule for coupled constraints and engine-specific evidence ladders.
+
+Composite cases pressure-test structure and action differentiation; they do not establish empirical effectiveness.
 
 The completed and practically reconstructed E0–E9 cycle retains:
 
@@ -42,13 +47,9 @@ present life quality
 
 wealth formation
 =
-capability
-→ value creation
-→ value capture
-→ quality-preserving surplus
-→ productive ownership
-→ leverage
-→ compounding
+capability → value creation → value capture → quality-preserving surplus
+                         ↘ conditional productive ownership and leverage
+capital and optionality → continuity, independent claims, protection, and life use
 
 continuity constraint
 =
@@ -56,16 +57,7 @@ ordinary failure must not destroy essential life,
 future capability, or the ability to continue
 ```
 
-The stage changes when the binding constraint changes:
-
-```text
-economic dependence
-→ labour-dominant independent income
-→ stable surplus
-→ scalable ownership
-→ capital- and system-dominant wealth
-→ high economic autonomy
-```
+The active relation changes when the unsupported transition or smallest binding set changes. A person may advance in one engine, remain stable in another, and regress temporarily in a third.
 
 ## Retained cross-project distinctions
 
@@ -128,9 +120,9 @@ Reopen ANC-HUMAN-001 only when:
 
 1. a simpler model explains relevant Ordivon cases without outcome, ownership, leverage, continuity, attention, or autonomy distinctions;
 2. those distinctions do not change a real cross-project design or evaluation;
-3. a complete case is ranked incorrectly by the stage and binding-constraint model;
+3. a complete case is ranked incorrectly by the three-engine, four-rail, and smallest-binding-set model;
 4. human–AI capability distinctions do not change dependence, verification, ownership, or retained agency;
-5. new owner evidence materially contradicts revision `045994bc53d17ac7823b94077cec08557c502d6d`;
+5. new owner evidence materially contradicts revision `aa5a7af51e3681f15625a49ddf5b9b16d54c427e`;
 6. the observation's maintenance cost exceeds its decision value.
 
 ## Explicit non-ownership
