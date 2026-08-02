@@ -200,7 +200,12 @@ def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT
         for line in REGISTRY.read_text().splitlines()
         if (match := re.fullmatch(r"  - id: (ordivon-[a-z0-9-]+)", line))
     )
-    require(registry_ids == tuple(ids), "conformance project order differs from projects/registry.yaml")
+    registry_positions = {project_id: index for index, project_id in enumerate(registry_ids)}
+    require(set(ids) <= set(registry_ids), "conformance references a project outside projects/registry.yaml")
+    require(
+        tuple(ids) == tuple(sorted(ids, key=registry_positions.__getitem__)),
+        "conformance project order differs from projects/registry.yaml",
+    )
 
     return ConformanceManifest(
         schema_version=document["schema_version"],

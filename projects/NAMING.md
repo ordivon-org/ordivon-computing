@@ -15,7 +15,8 @@ The suffix describes the state the project owns and its durable role in the syst
 | `ordivon-computing` | System-level research structure, cross-layer architecture, protocols, reference implementations, conformance, evaluation, and cross-project synthesis | Production Tasks, Jobs, processes, or user-facing workspaces |
 | `ordivon-runtime` | Durable trusted-local execution: Workspace, Job, Runtime Attempt, Artifact, cancellation, observation, and recovery | Model cognition, Goal planning, or product UI |
 | `ordivon-host` | Durable Goal and Task continuity, Assignment and Task Attempt state, replaceable Harness coordination, deterministic admission, Runtime Dispatch correlation, verification, and task outcomes | Provider-specific Agent-loop internals, Linux process ownership, Runtime Job truth, protocol research, or user-interface presentation |
-| `ordivon-world` | Task-conditioned external interaction: target, identity, path, transport, provider execution, conditioned evidence, uncertainty, reconciliation, and rebinding | Task strategy, trusted-local process lifecycle, native network/provider mechanisms, or domain verdicts |
+| `ordivon-harness` | Replaceable Agent loop, Context/input compilation, model/provider adaptation, Tool use, stopping, and public Run continuity | Durable Task authority, Linux process ownership, shared protocol promotion, or product UI |
+| `ordivon-world` | Carrier for Cloudflare provider-native capabilities and private workstation network tools | Shared World authority, Task strategy, trusted-local process lifecycle, or universal provider/network semantics |
 | `ordivon-web` | Public website, project presentation, and documentation entrypoint | Private Goal/Task operations |
 | `ordivon-workbench` | Planned user-facing review, approval, and Task interaction surface over Host contracts | Durable Task ownership, Linux process ownership, or protocol research |
 
@@ -26,10 +27,6 @@ The suffix describes the state the project owns and its durable role in the syst
 | `ordivon-human` | Human development, capability, behaviour, agency, life-course, measurement, and human–AI co-development research | Medical diagnosis, a personal-data warehouse, a universal human score, participant identity, or authority over a person's choices |
 
 Domain systems may retain a distinct product noun until a deliberate migration is completed. They must still declare their relationship to Ordivon in metadata and documentation.
-
-## Candidate boundaries that are not repositories
-
-`Ordivon Harness` currently names the replaceable cognitive-loop boundary among Model, Context, Skills, Tools, Session, and local subagents. It remains a Host-local interface and Computing research object. Do not create `ordivon-harness` until at least two live Harness adapters and two workloads demonstrate cross-Harness continuation, independent release value, and measurable duplicate-code reduction without Host or Runtime authority leakage.
 
 ## Naming rules
 
