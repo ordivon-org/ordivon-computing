@@ -1,0 +1,112 @@
+{
+  "kind": "ordivon-paradigm-reform-source-audit",
+  "date": "2026-08-02",
+  "method": "Read each repository at origin/main, inspect source ownership, CI, tests, documents, generated mirrors, receipts, evidence, active experiments, and cross-repository consumers. Counts are descriptive signals, not automatic failure thresholds.",
+  "repositories": {
+    "ordivon-computing": {
+      "revision": "37760a58d482c61748ed90ea5f46546cfd2e2344",
+      "tracked_files": 457,
+      "loc": {"code": 21040, "test": 8054, "operations": 1779, "documents": 25070, "data": 9361},
+      "validation_named_files": 114,
+      "observations": [
+        "ordivon-protocol package metadata is 0.5.0 while projects/conformance.toml and the immutable release manifest remain 0.3.0",
+        "the full conformance gate exits 2 with protocol package version differs",
+        "the protocol-release check and foundational-document check each report success on the same revision",
+        "the Harness protocol module is 583 lines and has one implementation consumer: ordivon-harness",
+        "research/map.yaml is 642 lines; research/portfolio.json is 165 lines; only two questions are active"
+      ]
+    },
+    "ordivon-game": {
+      "revision": "21271056174ed451db6fb3e9578eab218c4bd1f0",
+      "tracked_files": 222,
+      "loc": {"code": 17638, "test": 10144, "operations": 2156, "documents": 10095, "data": 4169},
+      "validation_named_files": 49,
+      "observations": [
+        "global coverage thresholds are 95 percent lines, 90 percent branches, and 95 percent functions",
+        "every push runs typecheck, web checks, coverage, browser E2E, receipt generation, two measurement suites, and release-input generation",
+        "milestone receipts and evaluation records exist from M0 through M5",
+        "the alpha release uploads, downloads, and fully reverifies its own release artifacts",
+        "the current product-loop workspace is simplifying the player-facing experience after the validation and replay system expanded"
+      ]
+    },
+    "ordivon-harness": {
+      "revision": "f72fef829aa09ec9b02fba0b344408a7d5f4647f",
+      "tracked_files": 95,
+      "loc": {"code": 13631, "test": 7118, "operations": 6596, "documents": 2582, "data": 3265},
+      "validation_named_files": 14,
+      "observations": [
+        "tests/test_ordivon_harness_p0_p1.py is 1400 lines",
+        "durable execution uses TaskContract, TaskAttemptDescriptor, HarnessAssignment, ToolGrant, NativeHarnessRunContract, Tool Step Intent, DispatchFence, Receipt, Snapshot, delta state, recovery, completion proposal, verification, and decision objects",
+        "Harness continuity objects were promoted into ordivon-protocol despite one implementation consumer",
+        "three historical live-provider tracks retain dedicated receipt checkers and tests"
+      ]
+    },
+    "ordivon-host": {
+      "revision": "2b17b0683128f995831fef54544f87d0166bab2d",
+      "tracked_files": 145,
+      "loc": {"code": 13979, "test": 6200, "operations": 3116, "documents": 1710, "data": 2729},
+      "validation_named_files": 18,
+      "observations": [
+        "the generic HostExtensionPort currently has one external consumer: ordivon-harness",
+        "object retention is partly inferred from payload field names ending in ObjectDigest or ObjectDigests",
+        "HistoryValidation and OperatorHandoffCapsule are separately defined by Host and Harness",
+        "the prior A-series audit found unconsumed durable states and a 645-line generic EffectLifecycleHost without two real consumers"
+      ]
+    },
+    "ordivon-runtime": {
+      "revision": "2a5036183a67288523a408460759eebb646a63b3",
+      "tracked_files": 97,
+      "loc": {"code": 23058, "test": 4528, "operations": 5585, "documents": 1251, "data": 2673},
+      "validation_named_files": 5,
+      "observations": [
+        "most verification is directly coupled to the product responsibility: stable operation identity, at-most-once dispatch, evidence, cancellation, reconciliation, and recovery",
+        "release acceptance and CodeQL are manual rather than repeated on every change",
+        "Runtime has the lowest document-to-code ratio and one of the lowest test-to-code ratios in the current portfolio"
+      ]
+    },
+    "ordivon-security": {
+      "revision": "36ce116c8de9df492946a04b710b6fe71aef901a",
+      "tracked_files": 79,
+      "loc": {"code": 6733, "test": 1706, "operations": 819, "documents": 3941, "data": 3127},
+      "validation_named_files": 12,
+      "observations": [
+        "real adversarial experiments now exist and the experiment/evaluation split is meaningful",
+        "the repository's own A11 audit classifies Campaign Manifest, ledger, and coordinator v0 as about 4.6k active contract LOC with historical reproduction as the only current consumer",
+        "the default CI runs the entire deterministic Round 1 acceptance on every push and pull request",
+        "CHARTER.md still names retired Link and Edge ownership while README.md names World"
+      ]
+    },
+    "ordivon-web": {
+      "revision": "11a546f2948dbdc39dae1dff670249b7f23ea10f",
+      "tracked_files": 138,
+      "loc": {"code": 4394, "test": 400, "operations": 461, "documents": 4987, "data": 22221},
+      "validation_named_files": 8,
+      "observations": [
+        "committed generated article metadata is 1393 lines",
+        "pnpm check runs content synchronization, then regenerates content in typecheck, then regenerates it again in build",
+        "pull-request checks and the main-branch deployment workflow both install Chromium and run the full check",
+        "curated system views manually repeat project and architecture state owned by other repositories"
+      ]
+    },
+    "ordivon-world": {
+      "revision": "5e20e1ce44da418c159fa92e0655f6234db71e32",
+      "tracked_files": 237,
+      "loc": {"code": 22273, "test": 4076, "operations": 707, "documents": 5396, "data": 9523},
+      "validation_named_files": 31,
+      "observations": [
+        "W1 and the complete WCP-0 through WXP-2 program both concluded that no independent World authority, service, database, broker, workflow engine, callback journal, or artifact-transfer layer was earned",
+        "the repository still couples a Cloudflare provider and a network-observation module under one semantic repository",
+        "default CI reruns completed W1, WXP-1, and WXP-2 experiments and checks generated capability and closeout projections on every push",
+        "the retained production capabilities have independent owners, dependencies, toolchains, and failure modes"
+      ]
+    }
+  },
+  "cross_system_findings": [
+    "validation and audit machinery was repeatedly exempted from Core A11 cost and deletion tests",
+    "local checks often prove mutually incomplete properties; green subchecks do not guarantee a coherent repository state",
+    "negative architectural experiments were recorded but their historical machinery remained in default CI and active source layouts",
+    "audits increased reports, receipts, schemas, and tests more reliably than they deleted active structure",
+    "manual projections in Computer and Web duplicate state owned by product repositories and drift with them",
+    "the portfolio's present bottleneck is judgment, product usefulness, and attention allocation rather than lack of additional validation artifacts"
+  ]
+}
