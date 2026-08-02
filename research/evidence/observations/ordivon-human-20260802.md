@@ -38,3 +38,21 @@ Retained cross-project conclusions:
 9. The active frontier is compliant CHFS/CFPS microdata analysis, not a personal profile, scoring service, or autonomous financial adviser.
 
 Computing consumes only these cross-project implications. Reproduction, survey-data access, substantive economic analysis, and later Human studies remain in the owner repository.
+
+## HUMAN-ECON-001 E2 public phase
+
+- revision: `ec8142020f207f0f053e7db974d5cb47b80dbc3f`
+- status: public evidence, official CFPS variable map, aggregate protocol, synthetic acceptance, and disclosure controls completed; approved respondent-level data execution pending;
+- source paths: `research/economy/E2-PUBLIC-PHASE-CLOSEOUT.md`, `E2-RESEARCH-PROTOCOL.md`, `CFPS-VARIABLE-MAP-2020-2022.md`, `EVIDENCE-REVIEW-002-CHINA-LIQUIDITY.md`, `E2-DATA-ACCESS.md`, `e2_cfps_balance_sheet.py`, and `test_e2_cfps_balance_sheet.py`.
+
+Additional retained implications:
+
+1. Net-worth-only fragility measures miss households that hold illiquid wealth but cannot fund near-term adjustment.
+2. Commitment timing, mortgage state, housing tenure, and debt overhang alter shock capacity and should not be collapsed into one housing variable.
+3. Total consumption can conceal damaging substitution away from food, health, education, training, or other capability-supporting expenditure.
+4. Historical Chinese hand-to-mouth estimates demonstrate the mechanism but are not current prevalence estimates.
+5. CFPS and CHFS constructs are complementary rather than automatically interchangeable; liquid-debt definitions require sensitivity analysis.
+6. Household splits, legitimate negative net assets, missing codes, weights, and disclosure thresholds are substantive research issues.
+7. Computing should not create a Human finance profile, score, or protected-data mirror. It may reuse whole-balance-sheet, correlated-risk, commitment, recovery, and option-set reasoning in project evaluation.
+
+The next owner-side dependency is lawful CHFS/CFPS access and private execution. Computing remains an observer of aggregate cross-project implications.

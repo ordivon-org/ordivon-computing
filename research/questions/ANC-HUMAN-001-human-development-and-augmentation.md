@@ -30,9 +30,9 @@ real human problem
 
 Exact owner revisions and source paths are recorded in [`ordivon-human-20260802.md`](../evidence/observations/ordivon-human-20260802.md).
 
-## HUMAN-ECON-001 E0–E1 result
+## HUMAN-ECON-001 E0–E2 public result
 
-Ordivon Human revision `9f4119903334d78832bc72c863372609e6ef2f61` completed the first evidence round.
+Ordivon Human revision `9f4119903334d78832bc72c863372609e6ef2f61` completed E0–E1. Revision `ec8142020f207f0f053e7db974d5cb47b80dbc3f` completed E2's public evidence, official variable-map, executable-protocol, synthetic-acceptance, and disclosure-control phase. Authorized CHFS/CFPS respondent-level execution remains pending.
 
 ### Retained outcomes
 
@@ -68,6 +68,18 @@ No universal scalar, saving rate, emergency-fund duration, asset allocation, or 
 - wealth growth cannot be attributed to discipline or strategy without separating active saving, transfers, leverage, valuation, and persistent return differences;
 - Chinese aggregate income and consumption averages cannot identify household accumulation, liquidity, or fragility.
 
+### E2 public findings
+
+- historical CHFS evidence shows that net-worth-only fragility measures missed most benchmark hand-to-mouth households because many held positive illiquid wealth;
+- commitment timing can materially change liquidity classification;
+- housing must be separated into shelter, collateral, net asset, mortgage stock, payment flow, transaction cost, and location lock-in;
+- total consumption can conceal cuts to food, health, education, training, or other capability-supporting expenditure;
+- CFPS 2020 and 2022 provide stable household balance-sheet and person-outcome surfaces, but some convenient variables are only proxies for CHFS definitions;
+- household splits, legitimate negative net assets, special missing codes, weights, and disclosure thresholds require explicit handling;
+- historical percentages are mechanism evidence, not current prevalence.
+
+The aggregate-only E2 pipeline now supports CSV, Stata, and Parquet inputs, one-to-one panel transitions, split-household detection, small-cell suppression, input provenance, and synthetic acceptance without writing respondent rows.
+
 ## Why Computing retains this branch
 
 The substantive research belongs to `ordivon-human`. Computing retains only implications for:
@@ -90,15 +102,17 @@ Computing does not own:
 
 ## Active frontier
 
-The owner repository's next admitted work is compliant CHFS and CFPS analysis of:
+The owner repository's public E2 phase is complete. The next admitted work requires lawful approved CHFS and/or CFPS respondent-level access and private execution of:
 
-1. joint income, consumption, assets, liabilities, and liquidity;
-2. wealthy-but-illiquid states;
-3. commitment burden and shock response;
-4. early wealth-growth decomposition;
-5. expenditure, life quality, and later capability;
-6. correlated concentration across income, assets, housing, debt, and support;
+1. current joint income, consumption, assets, liabilities, and liquidity distributions;
+2. poor and wealthy constrained states under several definitions;
+3. 2020–2022 entry, persistence, and exit with attrition and household-split accounting;
+4. mortgage, rental, outright-ownership, and commitment heterogeneity;
+5. category-level adjustment after income and health shocks;
+6. employment, health, happiness, migration, training, and recovery outcomes;
 7. candidate proxies for refusal, exit, relocation, retraining, and recovery capacity.
+
+Computing should consume reviewed aggregate implications only; it should not acquire protected survey data or implement personal financial authority.
 
 ## Falsification and narrowing
 
