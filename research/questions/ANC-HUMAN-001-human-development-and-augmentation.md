@@ -1,132 +1,142 @@
-# ANC-HUMAN-001 — Human Development, Agency, and Human–AI Co-Development
+# ANC-HUMAN-001 — Human System Map, Development, and Distributed Capability
 
 ## Question
 
-What minimum dynamic model and evidence practices explain changes in human capability, agency, well-being, and life trajectory across time and context while distinguishing population association from individual intervention and AI augmentation from dependence or displacement?
+What major systems constitute a human life, how do they interact and develop across time and context, and which distinctions are necessary to explain capability, agency, health, relationships, material conditions, well-being, and future possibilities?
 
-## H0 result — completed 2026-08-02
+## Correction — 2026-08-02
 
-Ordivon Human H0 completed at revision `1e0ae9bf744c80bf24f5fd03d05c2baa5001511b`.
+The first Ordivon Human phase was valid methodological work but was incorrectly treated as completion of Human H0.
 
-The initial ten-level hierarchy did not survive deletion testing because it mixed state domains, actions, context, time, measurement, and causal roles. H0 retained a smaller question-specific structure:
+That work is now **Methods M0**. It covers:
 
-```text
-StudySpec
-PersonState: body, mind, capability, situated state
-Context
-action
-event or intervention
-time and history
-observation and measurement
-explicit outcomes and value assumptions
-```
+- observation and construct boundaries;
+- description, prediction, causality, and normative decision separation;
+- population-to-individual inference;
+- N-of-1 logic;
+- model deletion;
+- human–AI output, retained capability, and agency measurement.
 
-A deterministic synthetic experiment separated an observational group difference (`−0.3480`), the true population average effect (`+0.3996`), and two individual effects (`+1.0500` and `−0.3100`). Repeated randomized within-person evidence recovered the target effects under the declared model.
+Methods M0 remains bound by the historical closeout snapshot:
 
-Human–AI research now distinguishes model-performed output, joint human–AI system capability, retained human capability, and agency including verification, refusal, replacement, and exit.
+- [`ordivon-human-h0-closeout-20260802t021412z.json`](../evidence/snapshots/ordivon-human-h0-closeout-20260802t021412z.json).
 
-The repository remains research-only. H0 admitted no human data collection, universal schema, user profile, score, database, dashboard, model pipeline, or new CI.
+It no longer claims to be the Human System Map.
 
-Bound evidence: [`../evidence/snapshots/ordivon-human-h0-closeout-20260802t021412z.json`](../evidence/snapshots/ordivon-human-h0-closeout-20260802t021412z.json).
+## Human H0 — active
 
-## Why this is an Ordivon Computing question
-
-Ordivon currently represents people mainly as participants, owners of resources and consequences, sources of Goals, and recipients of decisions. That is necessary for system authority but insufficient for reasoning about the person who is developing, learning, tiring, adapting, ageing, collaborating with Agents, or changing goals.
-
-The domain-specific research belongs in `ordivon-human`. Computing retains only the cross-project question: which findings materially revise participant, organization, adaptation, evaluation, Game, Host, or human–Agent system assumptions?
-
-## Existing mature baselines
-
-The project begins from mature frameworks rather than a new universal taxonomy:
-
-- WHO ICF for bodily functioning, activity, participation, and environment;
-- NIMH RDoC for dimensional cognition, affect, social processes, regulation, development, and multiple units of analysis;
-- OECD well-being frameworks for plural outcomes, distribution, deprivation, and future resources;
-- longitudinal multimodal cohort practices represented by NIH All of Us and UK Biobank;
-- life-course models for timing, path dependence, reciprocal person–environment interaction, and development across the lifespan;
-- established statistical, causal-inference, psychometric, longitudinal, qualitative, and N-of-1 methods.
-
-Ordivon Human must reuse these native concepts where they are sufficient. Renaming them does not create an Agent-native or Ordivon-specific contribution.
-
-## Initial hypothesis tested by H0
-
-The initial hypothesis used three orthogonal views:
+The active subject-matter H0 begins from:
 
 ```text
-level of organization
-× variable role
-× time and trajectory
+what constitutes a human
+→ how the systems interact and develop
+→ why trajectories differ
+→ which outcomes emerge
+→ what can change
+→ how specific claims should be measured
 ```
 
-Candidate levels included biological substrate, bodily functioning, cognition and affect, identity and preferences, behaviour, capability, resources, relationships and institutions, and physical or digital environment.
+P0 completed at Ordivon Human revision `812083f3188aad9b2183209e7d702c4460438792`.
 
-Candidate variable roles included relatively stable attribute, state, behaviour, resource, environment, event, trajectory, outcome, measurement, and latent construct. Confounder, mediator, moderator, and collider were study-specific causal roles rather than permanent variable types.
+Bound evidence:
 
-H0 retained the need for state, context, action, event, time, observation, and outcome distinctions but rejected the ten-level hierarchy and several proposed variable roles. Stability became a temporal property; trajectory became derived; latent status became epistemic; causal roles remain study-specific.
+- [`ordivon-human-system-map-p0-20260802t104800+0800.json`](../evidence/snapshots/ordivon-human-system-map-p0-20260802t104800+0800.json).
 
-## Primary failure classes
+## Current Human System Atlas
 
-1. **Static snapshot error** — a cross-sectional value is mistaken for a stable person property or developmental trajectory.
-2. **Proxy substitution** — income becomes freedom, body mass becomes health, test score becomes intelligence, engagement becomes well-being, or output becomes capability.
-3. **Within/between-person conflation** — differences across people are treated as the effect of changing one person.
-4. **Population determinism** — group distributions override current individual evidence.
-5. **Causal overclaim** — prediction or association is presented as an intervention mechanism.
-6. **Outcome collapse** — health, agency, wealth, relationships, learning, meaning, and contribution are combined without explicit values and trade-offs.
-7. **Measurement blindness** — the instrument, sampling process, missingness, observer, platform, or tracking intervention is omitted from the claim.
-8. **AI augmentation illusion** — immediate output gain is treated as durable human capability despite dependence, deskilling, goal displacement, or loss of exit.
-9. **Ontology accumulation** — more fields and categories create maintenance and apparent precision without changing a real inference.
-10. **Privacy inversion** — cheap collection is treated as sufficient reason to retain intimate human data.
+Candidate system families:
 
-## H0 evidence program — completed
+1. Body;
+2. Cognition;
+3. Emotion and Motivation;
+4. Identity and Values;
+5. Behaviour;
+6. Capability;
+7. Economy and Resources;
+8. Relationships;
+9. Institutions and Environment;
+10. Technology and External Capability;
+11. Time and History as a cross-cutting axis.
 
-### H0-A — Framework composition
+These are analytical views, not independent compartments or a mandatory schema.
 
-Compared WHO ICF, NIMH RDoC, OECD well-being, NIH All of Us, UK Biobank, life-course, within-person, N-of-1, and human–AI evidence against five materially different cases.
+## P0 findings
 
-### H0-B — Model deletion tests
+### Body
 
-Tested sleep/cognition, skill/resources, shock/recovery, AI assistance, and relationships/well-being. The permanent hierarchy and non-causal roles were deleted where they added no analytical value.
+Retained because energy, sleep, sensation, movement, illness, physiological regulation, recovery, development, and ageing cannot be explained as residual context around cognition or behaviour.
 
-### H0-C — Population-to-individual inference
+### Cognition
 
-Executed a deterministic synthetic experiment with confounded observational selection, heterogeneous effects, two opposite-sign target responses, repeated randomized individual trials, trend, carryover, event windows, and measurement noise.
+Retained because perception, attention, memory, language, learning, reasoning, control, and metacognition require mechanisms beyond one intelligence score or observed action.
 
-### H0-D — Human–AI capability transfer
+### Emotion and Motivation
 
-Defined evidence that separates:
+Retained because salience, value, threat, reward, arousal, effort, persistence, stress, approach, avoidance, and regulation determine which cognitive and bodily capacities become action.
 
-```text
-model-performed output
-human-plus-model system capability
-human retained capability without the model
-human ability to direct, verify, refuse, replace, and recover from the model
-```
+### Capability
 
-A short-term task score remains insufficient.
+Retained because potential, current available capacity, independent skill, situated ability, joint human–tool capability, one observed performance, transfer, adaptation, and recovery are not interchangeable.
 
-## Repository and authority boundary
+P0 also records 20 directed relation seeds and four feedback-loop seeds. Relations must name direction, mechanism, conditions, and explanatory value rather than asserting that everything affects everything.
 
-`ordivon-human` may own research documents, reproducible analyses, synthetic fixtures, legally reusable aggregate evidence, and narrowly justified private-study methods.
+## Mature baselines
 
-It does not own:
+Ordivon Human currently reuses or compares:
 
-- a universal user profile or identity service;
-- participant authority, consent enforcement, or Host decision routing;
-- medical diagnosis or treatment;
-- a public personal-data warehouse;
-- a mandatory human ontology for other Ordivon projects;
-- a personal ranking or optimization score.
+- WHO ICF for body function, activity, participation, and environmental boundaries;
+- NIH Toolbox for cognitive, emotional, motor, and sensory function measurement across the lifespan;
+- NIMH RDoC for cognitive, valence, arousal/regulatory, social, and sensorimotor functional constructs across several units of analysis;
+- OECD social and emotional skills frameworks;
+- OECD PIAAC and Skills Outlook for literacy, numeracy, adaptive problem solving, social/emotional skills, background, opportunity, and assessment limitations;
+- life-course, longitudinal, causal, psychometric, and single-case methods when subject questions require them.
 
-Private identifiable observations remain outside public Git and outside Computing's shared research corpus.
+No complete external framework is imported as an Ordivon ontology.
 
-## Falsification and reopening
+## Why Computing retains this question
 
-Reopen or materially revise this question only if:
+The subject research belongs to `ordivon-human`. Ordivon Computing retains only cross-project implications:
 
-- a bounded H1 study shows that the reduced model omits a necessary distinction;
-- the retained distinctions do not change inference, experiment, or system design in real use;
-- population and individual evidence cannot be combined without a different structure;
-- human–AI capability and agency are fully captured by mature learning or HCI methods without this cross-domain synthesis;
-- privacy and maintenance cost exceed the information gained.
+- attention, energy, motivation, and interruption assumptions in Host and Workbench;
+- capability versus one-task performance in evaluation;
+- human–AI joint capability, retained skill, verification, replacement, and exit;
+- participant agency and value conflicts;
+- bounded behavioural experiments in Game;
+- organization, delegation, trust, and resource assumptions;
+- adaptation claims that might improve Agent output while degrading human capability or autonomy.
 
-H0 reached the intended smaller-model outcome. H1 is ready but inactive; it requires a bounded real measurement study rather than general collection infrastructure.
+Computing does not own a person model, personal profile, approval layer, or Human research implementation.
+
+## P0 non-implementation
+
+P0 added no:
+
+- personal or population data collection;
+- universal schema or ontology service;
+- profile, score, ranking, or digital twin;
+- medical, psychological, educational, or employment decision system;
+- dashboard, model pipeline, or new governance service.
+
+## Ready frontier
+
+Human H0 remains active in `ordivon-human`. The next subject foundations are:
+
+- Identity and Values;
+- Behaviour;
+- Economy and Resources;
+- Relationships;
+- Institutions and Environment;
+- Technology and External Capability;
+- Time and History synthesis.
+
+H0 closes only after mature-framework comparison across all system families, at least five complete human cases, relation-map reduction, and another category-deletion test.
+
+## Falsification and narrowing
+
+Narrow or close the branch if:
+
+- a smaller mature framework explains the complete cases without losing cross-domain structure;
+- the system families do not change explanation, development modeling, or later intervention design;
+- cross-project Ordivon decisions do not consume any Human findings;
+- the repository accumulates encyclopaedic categories without causal or case value;
+- privacy, maintenance, or interpretation costs exceed information gained.
