@@ -17,6 +17,7 @@ REFERENCE_HEADING = re.compile(r"^### ([A-Z]\d{2}) — ", re.MULTILINE)
 SOURCE_LEDGER_STUDIES = (
     "2026-classical-to-agent-native-computing",
     "2026-adaptive-acceleration",
+    "2026-scarcity-operability-and-paradigm-change",
 )
 
 REQUIRED_PATHS = (
@@ -30,6 +31,7 @@ REQUIRED_PATHS = (
     "knowledge/agents/probabilistic-work-control-loop.md",
     "knowledge/agents/task-context-authority-effect-evidence.md",
     "knowledge/philosophy-creation-judgment-and-recoverability.md",
+    "knowledge/philosophy-scarcity-operability-and-paradigm-change.md",
     "research/portfolio.json",
     "research/PORTFOLIO.md",
     "research/charters/README.md",
@@ -44,6 +46,8 @@ REQUIRED_PATHS = (
     "studies/2026-adaptive-acceleration/PUBLICATION-EDIT.md",
     "studies/2026-adaptive-acceleration/ARGUMENT-MAP.md",
     "studies/2026-adaptive-acceleration/REFERENCES.md",
+    "studies/2026-scarcity-operability-and-paradigm-change/README.md",
+    "studies/2026-scarcity-operability-and-paradigm-change/REFERENCES.md",
 )
 
 
