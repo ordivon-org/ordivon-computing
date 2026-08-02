@@ -1,6 +1,6 @@
 # ANC-HUMAN-001 — Problem-Driven Human Research and Economic Autonomy
 
-> **Status:** completed cross-project observation at owner revision `1f1be82050f611d4b6a00a66f24566d14441b4ed`.
+> **Status:** completed cross-project observation at owner revision `045994bc53d17ac7823b94077cec08557c502d6d`.
 
 ## Question
 
@@ -14,7 +14,24 @@ Exact history and cross-project implications are recorded in [`ordivon-human-202
 
 ## Final owner result
 
-The completed E0–E9 cycle retains:
+The owner now presents the result as a practical transition path:
+
+```text
+foundation
+→ professional direction
+→ proof
+→ first market exchange
+→ early-career value capture and surplus
+→ life-quality and commitment control
+→ productive ownership
+→ owner-independent system
+→ capital by function
+→ continuity and economic autonomy
+```
+
+Each stage is supported by bounded cases and explicit failure signals rather than a parallel implementation or scoring system.
+
+The completed and practically reconstructed E0–E9 cycle retains:
 
 ```text
 terminal outcomes
@@ -113,7 +130,7 @@ Reopen ANC-HUMAN-001 only when:
 2. those distinctions do not change a real cross-project design or evaluation;
 3. a complete case is ranked incorrectly by the stage and binding-constraint model;
 4. human–AI capability distinctions do not change dependence, verification, ownership, or retained agency;
-5. new owner evidence materially contradicts revision `1f1be82050f611d4b6a00a66f24566d14441b4ed`;
+5. new owner evidence materially contradicts revision `045994bc53d17ac7823b94077cec08557c502d6d`;
 6. the observation's maintenance cost exceeds its decision value.
 
 ## Explicit non-ownership

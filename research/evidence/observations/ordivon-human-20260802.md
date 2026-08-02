@@ -19,8 +19,8 @@ Revision `ec8142020f207f0f053e7db974d5cb47b80dbc3f` built a lawful CHFS/CFPS hou
 ## Final owner result
 
 - repository: `https://github.com/zycxfyh/ordivon-human`
-- revision: `1f1be82050f611d4b6a00a66f24566d14441b4ed`
-- status: HUMAN-ECON-001 E0–E9 first-principles cycle completed
+- revision: `045994bc53d17ac7823b94077cec08557c502d6d`
+- status: HUMAN-ECON-001 E0–E9 practical reconstruction completed
 - closeout: `research/economy/E0-E9-CLOSEOUT.md`
 
 ### Research order
@@ -32,6 +32,7 @@ real human problem
 → public-average magnitude check
 → competing paths and counterexamples
 → bounded evidence only when still necessary
+→ practical composite cases and action tests
 → conditional conclusion
 → close, revise, or delete
 ```
@@ -71,6 +72,27 @@ economic dependence
 ```
 
 A stage is defined by its binding constraint, not by age or one wealth threshold.
+
+### Practical reconstruction
+
+The owner repository reorganized the same mechanism into a life-course path:
+
+```text
+foundation
+→ professional direction
+→ proof
+→ first market exchange
+→ early-career value capture and surplus
+→ life-quality and commitment control
+→ productive ownership
+→ owner-independent system
+→ capital by function
+→ continuity and economic autonomy
+```
+
+Every active chapter now uses bounded composite cases with a plausible starting state, tempting error, practical move, feasibility rationale, and failure signal. The cases illustrate mechanism application without claiming population representativeness.
+
+This strengthens one Computing implication: evaluation should test whether an abstraction changes the next feasible transition, not merely whether the abstraction is internally complete.
 
 ## E6–E9 results retained by Computing
 
@@ -186,8 +208,8 @@ Computing does not own:
 ## Final status
 
 ```text
-owner E0–E9 cycle: completed
-external observation revision: 1f1be82050f611d4b6a00a66f24566d14441b4ed
+owner practical E0–E9 cycle: completed
+external observation revision: 045994bc53d17ac7823b94077cec08557c502d6d
 Computing implementation dependency: none
 Ready Frontier membership: remove
 reopen condition: new owner evidence or a complete case falsifies a retained cross-project distinction
