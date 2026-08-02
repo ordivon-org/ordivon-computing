@@ -1,6 +1,6 @@
 # Ordivon content CLI
 
-`ordivon-content` validates project manifests, checks Markdown and MDX documents, emits machine-readable receipts, and builds advisory cross-repository baselines.
+`ordivon-content` validates Ordivon project manifests and document metadata, lifecycle, source roles, required sections, and canonical identities. It emits machine-readable receipts and advisory cross-repository baselines. General Markdown, prose, spelling, and link checks are delegated to markdownlint-cli2, Vale, CSpell, and Lychee.
 
 From the Computing source tree:
 

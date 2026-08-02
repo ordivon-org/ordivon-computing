@@ -462,8 +462,24 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     python = sys.executable
     ruff = shutil.which("ruff")
     rustc = shutil.which("rustc")
+    vale = shutil.which("vale")
+    markdownlint = shutil.which("markdownlint-cli2")
+    cspell = shutil.which("cspell")
+    lychee = shutil.which("lychee")
     require(ruff is not None, "ruff is required for the conformance gate")
     require(rustc is not None, "rustc is required for the conformance gate")
+    require(vale is not None, "vale is required for the content gate; run mise install")
+    require(markdownlint is not None, "markdownlint-cli2 is required for the content gate; run mise install")
+    require(cspell is not None, "cspell is required for the content gate; run mise install")
+    require(lychee is not None, "lychee is required for the content gate; run mise install")
+    content_tool_paths = [
+        "docs/content-engineering/README.md",
+        "packages/content-contract/README.md",
+        "packages/content-cli/README.md",
+        *[path.relative_to(ROOT).as_posix() for path in sorted((ROOT / "packages" / "content-templates").rglob("*.md"))],
+        *[path.relative_to(ROOT).as_posix() for path in sorted((ROOT / "packages" / "content-fixtures" / "valid").rglob("*.md"))],
+        "research/evidence/content-engineering-p0-baseline.md",
+    ]
     static_paths = [
         "packages/ordivon-protocol/src",
         "packages/ordivon-protocol/tests",
@@ -511,6 +527,20 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
                 "--receipt",
                 "/tmp/ordivon-content-check.json",
             ],
+            ROOT,
+            {},
+        ),
+        ("content-vale", [vale, *content_tool_paths], ROOT, {}),
+        ("content-markdownlint", [markdownlint, *content_tool_paths], ROOT, {}),
+        (
+            "content-spelling",
+            [cspell, "lint", "--no-progress", "--no-summary", *content_tool_paths],
+            ROOT,
+            {},
+        ),
+        (
+            "content-links",
+            [lychee, "--config", "lychee.toml", *content_tool_paths],
             ROOT,
             {},
         ),

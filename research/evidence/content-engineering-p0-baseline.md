@@ -40,17 +40,17 @@ The dependency-free content checker scanned Git-tracked and unignored Markdown o
 ### System summary
 
 - Repositories: 9
-- Markdown/MDX documents: 340
-- Documents with Ordivon metadata: 1
-- Approximate words: 301781
-- Documents without Markdown links: 229
+- Markdown/MDX documents: 341
+- Documents with Ordivon metadata: 2
+- Approximate words: 302146
+- Documents without Markdown links: 230
 - Documents at or above 2,000 words: 24
 
 ### Repository inventory
 
 | Project | Documents | Metadata | Words | No links | Long | Manifest | State |
 |---|---:|---:|---:|---:|---:|---|---|
-| ordivon-computing | 199 | 1 | 159080 | 120 | 10 | yes | DEGRADED |
+| ordivon-computing | 200 | 2 | 159445 | 121 | 10 | yes | DEGRADED |
 | ordivon-game | 6 | 0 | 4990 | 5 | 0 | yes | DEGRADED |
 | ordivon-harness | 11 | 0 | 16637 | 6 | 3 | yes | DEGRADED |
 | ordivon-host | 13 | 0 | 10271 | 11 | 1 | yes | DEGRADED |
@@ -62,11 +62,11 @@ The dependency-free content checker scanned Git-tracked and unignored Markdown o
 
 ## Limitations
 
-Word count, link count, paragraph length, and phase-code detection are diagnostic proxies. A long or link-free document may be correct and useful. The baseline does not establish factual accuracy, citation support, reader comprehension, or whether any specific document should survive.
+Word count, link count, and phase-code detection are diagnostic proxies. A long or link-free document may be correct and useful. The baseline does not establish factual accuracy, citation support, reader comprehension, or whether any specific document should survive.
 
 ## Evidence
 
-The machine-readable sibling receipt records the same inventory at `2026-08-02T23:14:24Z`. Repository manifests were validated before inclusion.
+The machine-readable sibling receipt records the same inventory at `2026-08-02T23:46:25Z`. Repository manifests were validated before inclusion.
 
 ## Next action
 

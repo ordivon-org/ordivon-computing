@@ -37,4 +37,4 @@ Missing metadata or sections cause a strict failure.
 
 ## Verification
 
-The unit test checks a READY receipt.
+The unit test checks a receipt whose readiness field is `READY`.

@@ -106,13 +106,7 @@ class RepositoryCheckTests(unittest.TestCase):
         receipt = check_repository(root, mode="strict")
         self.assertEqual(receipt["contentState"], "READY")
 
-    def test_broken_link_blocks_strict_managed_document(self) -> None:
-        root = self.make_root()
-        text = VALID.replace("The check returns READY.", "The check returns READY. [Missing](missing.md)")
-        (root / "docs" / "managed" / "valid.md").write_text(text, encoding="utf-8")
-        receipt = check_repository(root, mode="strict")
-        self.assertEqual(receipt["contentState"], "BLOCKED")
-        self.assertIn("LINK001", {issue["code"] for issue in receipt["issues"]})
+
 
 
 if __name__ == "__main__":

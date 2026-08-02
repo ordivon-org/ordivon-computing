@@ -52,8 +52,9 @@ It may not decide whether a research claim is true, whether a project is authori
 
 ## Components
 
-- `packages/content-contract/` owns schemas, profiles, terminology, and optional style-tool configuration.
-- `packages/content-cli/` owns deterministic parsing, repository checks, receipts, and cross-repository baseline generation.
+- `packages/content-contract/` owns schemas, profiles, terminology, and shared tool configuration.
+- `packages/content-cli/` owns only Ordivon-specific metadata, lifecycle, source-role, relationship, receipt, and baseline checks.
+- Vale, markdownlint-cli2, CSpell, and Lychee own prose rules, Markdown structure, spelling, and link integrity. Their versions are pinned in `mise.toml`.
 - `packages/content-templates/` provides starting structures; templates are not canonical facts.
 - `packages/content-fixtures/` provides valid and invalid cases for regression tests.
 - `.ordivon/project.yaml` declares one repository's content boundary and adoption mode.
@@ -85,12 +86,17 @@ The response is bounded adoption: advisory inventory first, strict enforcement o
 
 ## Verification
 
-Run the local package tests and an advisory repository check:
+Install the pinned external tools, then run the local package tests and repository checks:
 
 ```bash
+mise install
 PYTHONPATH=packages/content-cli/src python -m unittest discover -s packages/content-cli/tests
 python scripts/ordivon_content.py project --root .
 python scripts/ordivon_content.py check --root . --mode advisory --receipt /tmp/ordivon-content.json
+vale docs/content-engineering/README.md
+markdownlint-cli2 docs/content-engineering/README.md
+cspell lint --no-progress --no-summary docs/content-engineering/README.md
+lychee --config lychee.toml docs/content-engineering/README.md
 ```
 
 Generate a cross-repository baseline only when all local repositories are available:

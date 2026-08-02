@@ -11,7 +11,6 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Iterable
-from urllib.parse import unquote, urlsplit
 
 from .contracts import find_contract_root, load_profiles, validate_document, validate_project
 from .yaml_subset import loads as load_yaml_subset
@@ -38,7 +37,6 @@ class DocumentRecord:
     path: str
     words: int
     links: int
-    max_paragraph_words: int
     has_frontmatter: bool
     metadata_id: str | None
     source_role: str | None
@@ -111,44 +109,6 @@ def parse_frontmatter(text: str) -> tuple[dict[str, Any] | None, str]:
     return load_yaml_subset(raw), text[end + 5 :]
 
 
-def _paragraph_lengths(text: str) -> list[int]:
-    lengths: list[int] = []
-    for paragraph in re.split(r"\n\s*\n", text):
-        stripped = paragraph.strip()
-        if not stripped or stripped.startswith(("#", "- ", "* ", ">", "```", "|")):
-            continue
-        lengths.append(len(WORD.findall(re.sub(r"\s+", " ", stripped))))
-    return lengths
-
-
-def _line_for(text: str, fragment: str) -> int | None:
-    index = text.find(fragment)
-    return None if index < 0 else text.count("\n", 0, index) + 1
-
-
-def _local_link_issues(root: Path, path: Path, text: str, severity: str) -> list[Issue]:
-    issues: list[Issue] = []
-    for match in MARKDOWN_LINK.finditer(text):
-        raw = match.group(1).strip().strip("<>")
-        if " \"" in raw:
-            raw = raw.split(" \"", 1)[0]
-        parsed = urlsplit(raw)
-        if parsed.scheme or parsed.netloc or raw.startswith(("#", "mailto:")):
-            continue
-        target_text = unquote(parsed.path)
-        if not target_text:
-            continue
-        target = (path.parent / target_text).resolve()
-        try:
-            target.relative_to(root.resolve())
-        except ValueError:
-            issues.append(Issue(severity, "LINK002", path.relative_to(root).as_posix(), f"relative link escapes repository: {raw}", _line_for(text, match.group(0))))
-            continue
-        if not target.exists():
-            issues.append(Issue(severity, "LINK001", path.relative_to(root).as_posix(), f"broken relative link: {raw}", _line_for(text, match.group(0))))
-    return issues
-
-
 def _required_section_issues(
     root: Path,
     path: Path,
@@ -195,7 +155,6 @@ def check_repository(root: Path, mode: str | None = None) -> dict[str, Any]:
         managed = _under(relative, manifest.get("managed_paths", []))
         strict = effective_mode == "strict" and managed
         text = path.read_text(encoding="utf-8", errors="replace")
-        headings = HEADING.findall(text)
         try:
             metadata, body = parse_frontmatter(text)
         except ValueError as error:
@@ -222,26 +181,17 @@ def check_repository(root: Path, mode: str | None = None) -> dict[str, Any]:
                 h1 = [title for level, title in HEADING.findall(body) if len(level) == 1]
                 if h1 and h1[0].strip() != metadata["title"].strip():
                     issues.append(Issue("error" if strict else "warning", "DOC007", relative.as_posix(), "front matter title differs from the first H1"))
-        h1_count = sum(1 for level, _ in headings if len(level) == 1)
-        if h1_count != 1:
-            issues.append(Issue("error" if strict else "warning", "MD001", relative.as_posix(), f"expected exactly one H1, found {h1_count}"))
-        paragraph_lengths = _paragraph_lengths(body)
-        maximum = max(paragraph_lengths or [0])
-        if maximum > 180:
-            issues.append(Issue("warning", "STYLE001", relative.as_posix(), f"paragraph contains {maximum} words; review progressive disclosure"))
         links = len(MARKDOWN_LINK.findall(body))
         words = len(WORD.findall(body))
         if words >= 500 and links == 0:
             issues.append(Issue("warning", "NAV001", relative.as_posix(), "long document has no Markdown links"))
         if PHASE_NAME.search(relative.as_posix()):
             issues.append(Issue("warning", "LIFE001", relative.as_posix(), "phase or round code appears in the primary path; declare lifecycle metadata before promotion"))
-        issues.extend(_local_link_issues(root, path, body, "error" if strict else "warning"))
         records.append(
             DocumentRecord(
                 path=relative.as_posix(),
                 words=words,
                 links=links,
-                max_paragraph_words=maximum,
                 has_frontmatter=metadata is not None,
                 metadata_id=None if metadata is None else metadata.get("id"),
                 source_role=None if metadata is None else metadata.get("source_role"),
