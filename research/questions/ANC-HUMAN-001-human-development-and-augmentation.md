@@ -4,6 +4,31 @@
 
 What minimum dynamic model and evidence practices explain changes in human capability, agency, well-being, and life trajectory across time and context while distinguishing population association from individual intervention and AI augmentation from dependence or displacement?
 
+## H0 result — completed 2026-08-02
+
+Ordivon Human H0 completed at revision `1e0ae9bf744c80bf24f5fd03d05c2baa5001511b`.
+
+The initial ten-level hierarchy did not survive deletion testing because it mixed state domains, actions, context, time, measurement, and causal roles. H0 retained a smaller question-specific structure:
+
+```text
+StudySpec
+PersonState: body, mind, capability, situated state
+Context
+action
+event or intervention
+time and history
+observation and measurement
+explicit outcomes and value assumptions
+```
+
+A deterministic synthetic experiment separated an observational group difference (`−0.3480`), the true population average effect (`+0.3996`), and two individual effects (`+1.0500` and `−0.3100`). Repeated randomized within-person evidence recovered the target effects under the declared model.
+
+Human–AI research now distinguishes model-performed output, joint human–AI system capability, retained human capability, and agency including verification, refusal, replacement, and exit.
+
+The repository remains research-only. H0 admitted no human data collection, universal schema, user profile, score, database, dashboard, model pipeline, or new CI.
+
+Bound evidence: [`../evidence/snapshots/ordivon-human-h0-closeout-20260802t021412z.json`](../evidence/snapshots/ordivon-human-h0-closeout-20260802t021412z.json).
+
 ## Why this is an Ordivon Computing question
 
 Ordivon currently represents people mainly as participants, owners of resources and consequences, sources of Goals, and recipients of decisions. That is necessary for system authority but insufficient for reasoning about the person who is developing, learning, tiring, adapting, ageing, collaborating with Agents, or changing goals.
@@ -23,9 +48,9 @@ The project begins from mature frameworks rather than a new universal taxonomy:
 
 Ordivon Human must reuse these native concepts where they are sufficient. Renaming them does not create an Agent-native or Ordivon-specific contribution.
 
-## Initial hypothesis
+## Initial hypothesis tested by H0
 
-A useful minimum model needs three orthogonal views:
+The initial hypothesis used three orthogonal views:
 
 ```text
 level of organization
@@ -33,11 +58,11 @@ level of organization
 × time and trajectory
 ```
 
-Candidate levels include biological substrate, bodily functioning, cognition and affect, identity and preferences, behaviour, capability, resources, relationships and institutions, and physical or digital environment.
+Candidate levels included biological substrate, bodily functioning, cognition and affect, identity and preferences, behaviour, capability, resources, relationships and institutions, and physical or digital environment.
 
-Candidate variable roles include relatively stable attribute, state, behaviour, resource, environment, event, trajectory, outcome, measurement, and latent construct. Confounder, mediator, moderator, and collider are study-specific causal roles rather than permanent variable types.
+Candidate variable roles included relatively stable attribute, state, behaviour, resource, environment, event, trajectory, outcome, measurement, and latent construct. Confounder, mediator, moderator, and collider were study-specific causal roles rather than permanent variable types.
 
-The model should preserve feedback, heterogeneity, developmental timing, measurement error, selection, and history without assuming a universal scalar human objective.
+H0 retained the need for state, context, action, event, time, observation, and outcome distinctions but rejected the ten-level hierarchy and several proposed variable roles. Stability became a temporal property; trajectory became derived; latent status became epistemic; causal roles remain study-specific.
 
 ## Primary failure classes
 
@@ -52,31 +77,23 @@ The model should preserve feedback, heterogeneity, developmental timing, measure
 9. **Ontology accumulation** — more fields and categories create maintenance and apparent precision without changing a real inference.
 10. **Privacy inversion** — cheap collection is treated as sufficient reason to retain intimate human data.
 
-## H0 evidence program
+## H0 evidence program — completed
 
 ### H0-A — Framework composition
 
-Map several materially different questions across ICF, RDoC, OECD well-being, cohort, life-course, and Ordivon-specific human–AI concerns. Record which concepts are directly reused, which combinations are required, and which proposed additions have no consumer.
+Compared WHO ICF, NIMH RDoC, OECD well-being, NIH All of Us, UK Biobank, life-course, within-person, N-of-1, and human–AI evidence against five materially different cases.
 
 ### H0-B — Model deletion tests
 
-Represent contrasting cases such as:
-
-- sleep, stress, and cognitive performance;
-- skill formation, income, time autonomy, and tool access;
-- a health or financial shock and recovery trajectory;
-- AI-assisted work with immediate performance gain but uncertain transfer;
-- social support, participation, and subjective well-being.
-
-Delete each proposed layer or variable distinction in turn. Retain it only if the deletion causes a named analytical, causal, measurement, privacy, or intervention failure.
+Tested sleep/cognition, skill/resources, shock/recovery, AI assistance, and relationships/well-being. The permanent hierarchy and non-causal roles were deleted where they added no analytical value.
 
 ### H0-C — Population-to-individual inference
 
-Compare a population association, a longitudinal within-person estimate, and a bounded N-of-1 intervention under simulated heterogeneity, trends, regression to the mean, carryover, and measurement error.
+Executed a deterministic synthetic experiment with confounded observational selection, heterogeneous effects, two opposite-sign target responses, repeated randomized individual trials, trend, carryover, event windows, and measurement noise.
 
 ### H0-D — Human–AI capability transfer
 
-Define evidence that separates:
+Defined evidence that separates:
 
 ```text
 model-performed output
@@ -85,7 +102,7 @@ human retained capability without the model
 human ability to direct, verify, refuse, replace, and recover from the model
 ```
 
-A short-term task score alone is insufficient.
+A short-term task score remains insufficient.
 
 ## Repository and authority boundary
 
@@ -102,15 +119,14 @@ It does not own:
 
 Private identifiable observations remain outside public Git and outside Computing's shared research corpus.
 
-## Falsification and narrowing
+## Falsification and reopening
 
-Narrow or close the branch if:
+Reopen or materially revise this question only if:
 
-- existing mature frameworks answer the selected questions without an additional Ordivon synthesis;
-- the proposed model does not change measurement, inference, experiment, or system design;
-- population and within-person distinctions create no decision improvement in real studies;
-- human–AI augmentation can be adequately evaluated by existing learning and human-computer-interaction methods without a separate Ordivon research program;
-- the repository accumulates taxonomy, data, or dashboards faster than falsifiable findings;
+- a bounded H1 study shows that the reduced model omits a necessary distinction;
+- the retained distinctions do not change inference, experiment, or system design in real use;
+- population and individual evidence cannot be combined without a different structure;
+- human–AI capability and agency are fully captured by mature learning or HCI methods without this cross-domain synthesis;
 - privacy and maintenance cost exceed the information gained.
 
-The default outcome of H0 is a smaller model, not a comprehensive platform.
+H0 reached the intended smaller-model outcome. H1 is ready but inactive; it requires a bounded real measurement study rather than general collection infrastructure.
