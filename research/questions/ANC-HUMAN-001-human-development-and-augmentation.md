@@ -17,9 +17,7 @@ That work is now **Methods M0**. It covers:
 - model deletion;
 - human–AI output, retained capability, and agency measurement.
 
-Methods M0 remains bound by the historical closeout snapshot:
-
-- [`ordivon-human-h0-closeout-20260802t021412z.json`](../evidence/snapshots/ordivon-human-h0-closeout-20260802t021412z.json).
+Methods M0 remains bound to `ordivon-human` revision `1e0ae9bf744c80bf24f5fd03d05c2baa5001511b`; Computing retains only the exact cross-project observation in [`ordivon-human-20260802.md`](../evidence/observations/ordivon-human-20260802.md).
 
 It no longer claims to be the Human System Map.
 
@@ -38,9 +36,7 @@ what constitutes a human
 
 P0 completed at Ordivon Human revision `812083f3188aad9b2183209e7d702c4460438792`.
 
-Bound evidence:
-
-- [`ordivon-human-system-map-p0-20260802t104800+0800.json`](../evidence/snapshots/ordivon-human-system-map-p0-20260802t104800+0800.json).
+The exact owner revision and source paths are recorded in [`ordivon-human-20260802.md`](../evidence/observations/ordivon-human-20260802.md); source evidence remains in `ordivon-human`.
 
 ## Current Human System Atlas
 
