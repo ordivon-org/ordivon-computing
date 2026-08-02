@@ -1,45 +1,30 @@
 # ANC-HUMAN-001 — Problem-Driven Human Research and Economic Autonomy
 
+> **Status:** completed cross-project observation at owner revision `1f1be82050f611d4b6a00a66f24566d14441b4ed`.
+
 ## Question
 
-How should Ordivon study concrete human problems without allowing system maps, methods, datasets, infrastructure, or metrics to replace the problem itself?
+How should Ordivon study concrete human problems without allowing methods, datasets, infrastructure, system metrics, or formal completeness to replace the human problem itself?
 
-The current owner study asks:
+The owner cycle studied:
 
 > How can a person expand durable command over resources and future production without materially degrading present life quality, while increasing the range of actions they can freely choose?
 
-Exact owner revisions and source paths are recorded in [`ordivon-human-20260802.md`](../evidence/observations/ordivon-human-20260802.md).
+Exact history and cross-project implications are recorded in [`ordivon-human-20260802.md`](../evidence/observations/ordivon-human-20260802.md).
 
-## Final research ordering
+## Final owner result
 
-```text
-real human problem
-→ terminal outcomes and constraints
-→ first-principles mechanism
-→ public-average magnitude check
-→ competing paths and counterexamples
-→ bounded empirical work only when still necessary
-→ conditional conclusion
-→ revise or delete
-```
-
-Data may calibrate scale. Data availability may not select the research question.
-
-## Current owner result
-
-Ordivon Human revision `298c4567b5cbf0f78a624e0b425ff64f681441d8` reconstructed E0–E2 and continued through E5.
-
-### Terminal outcomes
-
-- present life quality;
-- durable economic power;
-- economic autonomy.
-
-Income, saving, liquidity, capability, ownership, leverage, commitments, and risk are instruments or constraints.
-
-### Core wealth mechanism
+The completed E0–E9 cycle retains:
 
 ```text
+terminal outcomes
+=
+present life quality
++ durable economic power
++ economic autonomy
+
+wealth formation
+=
 capability
 → value creation
 → value capture
@@ -47,92 +32,97 @@ capability
 → productive ownership
 → leverage
 → compounding
-→ autonomy
+
+continuity constraint
+=
+ordinary failure must not destroy essential life,
+future capability, or the ability to continue
 ```
 
-### Stage dependence
+The stage changes when the binding constraint changes:
 
 ```text
-dependence
+economic dependence
 → labour-dominant independent income
 → stable surplus
 → scalable ownership
 → capital- and system-dominant wealth
-→ high autonomy
+→ high economic autonomy
 ```
 
-The binding constraint, rather than age or one wealth number, defines the stage.
+## Retained cross-project distinctions
 
-### Magnitude discipline
+### Outcome versus instrument
 
-The base matters more than the displayed percentage.
+Output, speed, income, saving, liquidity, utilization, test count, and Agent activity are not terminal outcomes. They matter only through their effect on life quality, durable capability, control, continuity, and autonomy.
 
-A recurring annual income improvement can dominate ordinary return optimization when capital is small. Capital allocation becomes dominant only after the productive base is large relative to new labour surplus and consumption needs.
+### Labour versus ownership
 
-### Life-quality discipline
+Current execution, reusable process, replicable product, governed system, transferable residual claim, and diversified productive ownership are different production relations.
 
-Consumption and saving are not pure opposites.
+### Gross scale versus productive leverage
 
-Some uses of money and time:
+Claimed leverage must be reduced by permanent operator labour, review, maintenance, coordination, fragility, and provider dependence.
 
-- preserve the productive organism;
-- improve present life;
-- build capability;
-- create ownership or productive leverage;
-- buy back usable time.
+### Nominal possession versus control
 
-Others create low-value leakage or future lock-in.
+Ownership quality depends on residual control, transfer, exit, information, identity, and revocation—not merely repository, account, or asset title.
 
-### Capability conversion
+### Concentration versus coupling
 
-Private competence earns nothing automatically. It must reach valuable demand through proof, access, reliable delivery, and bargaining or ownership.
+Concentration is justified only where control or specific knowledge creates enough value. Accidental coupling across model provider, Host, Runtime, data, identity, and distribution is a correlated failure surface.
 
-AI may:
+### Action versus judgment
 
-- complement capability;
-- commoditize routine execution;
-- enable earlier product ownership;
-- increase competition and provider dependence.
+Action is not inherently better than waiting. An intervention must exceed direct cost, error risk, operator-attention cost, and displaced opportunity.
 
-Durable bottlenecks increasingly include problem selection, verification, integration, trust, distribution, accountability, and ownership.
+### Output versus retained human capability
 
-## Why Computing retains this branch
+AI-assisted performance may rise while independent verification, transferability, ownership, or human agency declines.
 
-The substantive research belongs to `ordivon-human`. Computing retains implications for:
+## Why Computing retains the completed branch
 
-- separating participant outcomes from system metrics;
-- distinguishing human capability, tool-supported capability, and joint-system output;
-- evaluating whether tools expand retained capability or dependence;
-- evaluating whether Host, Harness, Runtime, or World design consumes human attention and autonomy;
-- distinguishing repeated labour from reusable systems and residual ownership;
-- evaluating maintenance burden and control, not implementation existence;
-- rejecting data and governance structures that do not change a decision;
-- Game experiments involving capability, ownership, cooperation, and path dependence.
+These findings change how Ordivon evaluates:
 
-Computing does not own:
+- whether Host interruptions consume human attention without changing a consequential decision;
+- whether Harness activity creates durable reusable capability or only more model work;
+- whether Runtime and World integrations preserve portability, identity, evidence, and exit;
+- whether new Agent or organizational layers create net productive leverage;
+- whether evaluation rewards action while missing calibrated non-action;
+- whether recovery and bounded failure survive provider or repository drift;
+- whether Game systems produce meaningful choice rather than activity metrics;
+- whether Security systems preserve authorized goals and ownership under adversarial pressure.
 
-- a person profile or financial model;
-- individualized financial recommendations;
-- personal-data collection;
-- capability ranking;
-- protected survey data;
-- consent, diagnosis, approval, or financial authority.
+The substantive Human research remains in `ordivon-human`. Computing owns no person model or financial authority.
 
-## Active frontier
+## Final disposition
 
-Owner-side E6 asks:
+```text
+status: completed
+maturity: M2 cross-project mechanism and falsifier boundary
+implementation: none
+next action: consume as reference in concrete Ordivon decisions
+new Human work: requires a new concrete problem, not automatic E10
+```
 
-> How can a person move from selling time and results toward owning replicable products, systems, organizations, distribution, and diversified productive claims without creating proportional permanent maintenance or unacceptable concentration?
+## Reopening conditions
 
-Computing should observe only the resulting cross-project implications.
+Reopen ANC-HUMAN-001 only when:
 
-## Falsification and narrowing
+1. a simpler model explains relevant Ordivon cases without outcome, ownership, leverage, continuity, attention, or autonomy distinctions;
+2. those distinctions do not change a real cross-project design or evaluation;
+3. a complete case is ranked incorrectly by the stage and binding-constraint model;
+4. human–AI capability distinctions do not change dependence, verification, ownership, or retained agency;
+5. new owner evidence materially contradicts revision `1f1be82050f611d4b6a00a66f24566d14441b4ed`;
+6. the observation's maintenance cost exceeds its decision value.
 
-Narrow or close the Computing branch if:
+## Explicit non-ownership
 
-- the Human model does not change any cross-project design or evaluation;
-- a simpler income-and-saving model explains the relevant cases without value creation, capture, ownership, leverage, or autonomy distinctions;
-- stage classification does not change action ranking in complete cases;
-- human–AI capability distinctions do not change dependence, evaluation, or ownership analysis;
-- maintenance and interpretation cost exceed cross-project value;
-- the owner project again lets datasets or infrastructure choose the agenda.
+Computing does not create:
+
+- a mandatory user model;
+- financial recommendations or portfolio optimization;
+- human capability rankings;
+- personal or protected data collection;
+- a Human ontology service;
+- a dashboard or governance process whose existence is its evidence of value.

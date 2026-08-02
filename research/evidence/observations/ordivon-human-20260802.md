@@ -1,64 +1,52 @@
 # Ordivon Human observation — 2026-08-02
 
-This is a cross-project observation, not an Ordivon Computing system snapshot. Source evidence remains owned by `ordivon-human` at exact Git revisions.
+This is a completed cross-project observation. Source evidence remains owned by `ordivon-human`; Computing consumes only implications that change Ordivon design or evaluation.
 
-## Historical sequence
+## Historical corrections
 
-### Methods M0
+### Methods before subject
 
-- revision: `1e0ae9bf744c80bf24f5fd03d05c2baa5001511b`
-- retained conclusion: observation, prediction, causality, individual response, human–AI joint output, retained capability, and agency must remain distinct.
+Revision `1e0ae9bf744c80bf24f5fd03d05c2baa5001511b` established valid measurement and inference distinctions but was later reclassified as support under `methods/m0/`.
 
-### Human System Atlas P0
+### Human System Atlas before problem
 
-- revision: `812083f3188aad9b2183209e7d702c4460438792`
-- retained conclusion: Body, Cognition, Emotion/Motivation, Capability, and bounded relation maps are useful support distinctions when a concrete question consumes them.
+Revision `812083f3188aad9b2183209e7d702c4460438792` retained Body, Cognition, Emotion/Motivation, Capability, and bounded relation maps only as selectable support views.
 
-### Initial economic-autonomy E0–E1
+### Data availability before mechanism
 
-- revision: `9f4119903334d78832bc72c863372609e6ef2f61`
-- retained conclusion: income, consumption, wealth, liquidity, capability, control, commitments, quality of life, and autonomy must not be collapsed.
+Revision `ec8142020f207f0f053e7db974d5cb47b80dbc3f` built a lawful CHFS/CFPS household-liquidity prototype. Its useful liquidity and control distinctions survived, but the active data program was deleted after available data began selecting the research direction.
 
-### Historical E2 household-liquidity prototype
-
-- revision: `ec8142020f207f0f053e7db974d5cb47b80dbc3f`
-- historical value: demonstrated that net worth, usable liquidity, commitments, and control differ; also established a lawful protected-data boundary.
-- final disposition: the CHFS/CFPS variable-map and execution program was deleted from the active repository because data availability had begun selecting the research direction.
-
-Git history preserves this work. It is not an active dependency.
-
-## Current owner result — E0–E5 first-principles reconstruction
+## Final owner result
 
 - repository: `https://github.com/zycxfyh/ordivon-human`
-- revision: `298c4567b5cbf0f78a624e0b425ff64f681441d8`
-- source paths:
-  - `research/economy/E0-OUTCOME-FRAMEWORK.md`;
-  - `research/economy/E1-WEALTH-FORMATION-MODEL.md`;
-  - `research/economy/E2-STAGE-AND-PATH-MODEL.md`;
-  - `research/economy/E3-GROWTH-ENGINE-COMPARISON.md`;
-  - `research/economy/E4-LIFE-QUALITY-CAPABILITY-FRONTIER.md`;
-  - `research/economy/E5-ECONOMIC-CAPABILITY-CONVERSION.md`;
-  - `research/economy/RISK-AND-CONTINUITY-BOUNDARY.md`;
-  - `research/economy/CHINA-BASELINE-2025.md`.
+- revision: `1f1be82050f611d4b6a00a66f24566d14441b4ed`
+- status: HUMAN-ECON-001 E0–E9 first-principles cycle completed
+- closeout: `research/economy/E0-E9-CLOSEOUT.md`
 
-### Method correction
-
-The active order is now:
+### Research order
 
 ```text
-problem
-→ terminal outcomes
+real human problem
+→ terminal outcomes and constraints
 → first-principles mechanism
 → public-average magnitude check
-→ rival paths and counterexamples
-→ bounded data only if still necessary
+→ competing paths and counterexamples
+→ bounded evidence only when still necessary
 → conditional conclusion
-→ revise or delete
+→ close, revise, or delete
 ```
 
 Data may calibrate scale. Data availability may not choose the question.
 
-### Core wealth-formation chain
+### Terminal outcomes
+
+1. present life quality;
+2. durable economic power;
+3. economic autonomy.
+
+Income, saving, liquidity, capability, ownership, leverage, commitments, metrics, and risk are instruments or constraints rather than terminal outcomes.
+
+### Wealth-formation mechanism
 
 ```text
 capability
@@ -68,21 +56,13 @@ capability
 → productive ownership
 → leverage
 → compounding
-→ autonomy
+→ economic autonomy
 ```
-
-### Terminal outcomes
-
-1. present life quality;
-2. durable economic power;
-3. economic autonomy.
-
-Income, saving, liquidity, capability, ownership, leverage, commitments, and risk are instruments or constraints rather than terminal outcomes.
 
 ### Stage model
 
 ```text
-dependence
+economic dependence
 → labour-dominant independent income
 → stable surplus
 → scalable ownership
@@ -90,77 +70,125 @@ dependence
 → high economic autonomy
 ```
 
-A stage is defined by the binding constraint, not age or one wealth threshold.
+A stage is defined by its binding constraint, not by age or one wealth threshold.
 
-### Magnitude result
+## E6–E9 results retained by Computing
 
-Capital return is proportional to the capital base. A recurring 12,000-yuan annual income increase has the same one-year magnitude as return on:
+### Ownership is a rights-and-burdens bundle
 
-- 240,000 yuan at 5%;
-- 150,000 yuan at 8%;
-- 120,000 yuan at 10%.
+Meaningful ownership may contain:
 
-These are equivalence calculations, not forecasts.
+- residual income rights;
+- residual control rights;
+- transfer and exit rights;
+- information and exclusion rights;
+- maintenance responsibility;
+- loss exposure.
 
-Cross-project implication:
+Nominal possession is weak when another provider controls use, identity, customer access, data, pricing, transfer, or revocation.
 
-> At low capital, capability, market access, recurring captured value, and ownership formation usually deserve more attention than optimizing small return differences. At a large productive base, allocation and compounding become dominant.
-
-### Life-quality result
-
-Money and time should be classified by function:
-
-- essential maintenance;
-- restoration and present quality;
-- capability investment;
-- productive leverage;
-- enjoyment;
-- convenience and time substitution;
-- status and coordination;
-- lock-in;
-- leakage and destruction.
-
-The correct objective is not maximum saving. Some resource uses improve both present life and future productive capacity.
-
-### Capability-conversion result
-
-Private competence does not automatically create income or ownership. Durable captured value requires:
+### Productive leverage is net of maintenance
 
 ```text
-competence
-→ valued demand
-→ credible proof
-→ market access
-→ reliable delivery
-→ bargaining or ownership
+net productive leverage
+=
+additional durable output or claims
+− permanent maintenance
+− fragility
+− dependence
 ```
 
-In an AI-rich environment, routine execution becomes cheaper. Problem selection, verification, integration, trust, distribution, accountability, transferability, and ownership become more important bottlenecks.
+More models, tools, Agents, people, processes, or scale are not automatically leverage.
 
-## Cross-project implications for Computing
+### Concentration is conditional
 
-Computing should retain:
+Concentrated ownership may be justified while control, private knowledge, and marginal creation value compensate for correlated risk. Diversification becomes dominant as those advantages decline and concentration reduces continuity or autonomy.
 
-1. terminal outcomes must be separated from instruments and metrics;
-2. capability, observed performance, and joint human–AI capability are different;
-3. resource allocation should be evaluated by present-life effect, future capability, ownership, dependence, and maintenance burden;
-4. a percentage improvement is meaningless without the base it multiplies;
-5. repeated labour, reusable systems, organizational leverage, and residual ownership are different production relations;
-6. tools and AI may expand output while increasing substitution or provider dependence;
-7. the highest-output path may reduce autonomy if control and ownership remain elsewhere;
-8. ordinary failure should not terminate the ability to continue;
-9. data or implementation must be deleted when they add detail without changing mechanism or decision.
+### Capital is allocated by function
 
-Computing should not create:
+Capital can serve:
 
-- a person model or mandatory profile;
-- a financial score or portfolio recommendation system;
-- a protected survey-data mirror;
-- a capability ranking engine;
-- an empirical pipeline whose existence is its evidence of value.
+1. continuity;
+2. options and exploration;
+3. controlled productive opportunities;
+4. diversified productive claims;
+5. protection and liability reduction.
 
-## Active owner frontier
+A percentage cannot be evaluated without the base, attention cost, dependence, other exposures, and consequence of failure.
 
-E6 in `ordivon-human` asks how a person moves from selling time and results toward owning replicable products, systems, organizations, distribution, and diversified productive claims without creating proportional permanent maintenance or unacceptable concentration.
+### Attention has an opportunity cost
 
-Computing should consume only cross-project implications. Substantive economic research remains owner-side.
+Active allocation or intervention is admitted only when:
+
+```text
+expected advantage × relevant base
+>
+direct cost + error risk + attention cost
++ value of displaced higher-leverage work
+```
+
+Low-frequency review or deliberate inaction may therefore be rational.
+
+### Continuity precedes compounding
+
+The minimum execution pattern is:
+
+```text
+separate failure domains
+→ bound exposure
+→ scale through evidence
+→ act when state or evidence changes
+→ preserve exit and recovery
+→ delete rituals that change no decision
+```
+
+Repeated reset, action substitution, success escalation, founder dependence, platform tenancy, attention fragmentation, and measurement theatre can defeat a valid mechanism.
+
+### AI changes capability and ownership separately
+
+AI may increase joint-system output while:
+
+- reducing independent verification capability;
+- increasing provider dependence;
+- commoditizing routine execution;
+- enabling earlier product and system ownership;
+- shifting bottlenecks toward judgment, integration, distribution, trust, accountability, and control.
+
+Evaluation must therefore distinguish human capability, model capability, joint output, retained capability, and ownership of the resulting system.
+
+## Cross-project implications
+
+Computing should retain these admission and evaluation tests:
+
+1. Separate participant terminal outcomes from system metrics and activity.
+2. Ask what residual claim or durable option remains after current execution.
+3. Treat portability, direct identity, exportable evidence, and substitutable providers as ownership quality where dependence matters.
+4. Count coordination, supervision, review, maintenance, and recovery against claimed leverage.
+5. Distinguish productive concentration from accidental cross-layer coupling.
+6. Require expected absolute value to exceed operator-attention cost before adding intervention or governance.
+7. Preserve explicit failure domains, bounded authority, recoverable state, and reconcile-before-repeat behavior.
+8. Treat model non-action as a capability when action has insufficient value or evidence.
+9. Delete datasets, dashboards, schemas, and processes that change no decision or failure boundary.
+10. Do not infer human autonomy from Agent throughput or apparent task completion.
+
+## Boundary
+
+Computing does not own:
+
+- a person profile;
+- individualized financial recommendations;
+- a wealth, capability, or autonomy score;
+- protected household or behavioural data;
+- a portfolio optimizer;
+- a financial or behavioural surveillance platform;
+- an automatic successor to the completed Human E-series.
+
+## Final status
+
+```text
+owner E0–E9 cycle: completed
+external observation revision: 1f1be82050f611d4b6a00a66f24566d14441b4ed
+Computing implementation dependency: none
+Ready Frontier membership: remove
+reopen condition: new owner evidence or a complete case falsifies a retained cross-project distinction
+```
