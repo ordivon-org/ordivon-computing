@@ -125,12 +125,13 @@ The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](researc
 
 ## Project roles
 
-- **Ordivon Host** — persistent Goal and Task continuity, Assignment and Task Attempt control, replaceable Harness coordination, context provenance, open proposal lowering, participant decision routing, Effect coordination, verification, and recovery;
+- **Ordivon Host** — persistent Goal and Task continuity, commitment, uncertainty, evidence admission, participant decision routing, verification, and recovery;
+- **Ordivon Harness** — replaceable Agent loop, Context/input compilation, model/provider adaptation, Tool use, stopping, and public Run continuity;
 - **Ordivon Runtime** — trusted-local Workspace, Job, Runtime Attempt, Artifact, physical dispatch, cancellation, reconciliation, and recovery;
-- **Ordivon World** — Task-to-external-world interaction boundary above mature networking and providers, combining target/path/identity observations, Cloudflare Fetch/Browser execution, conditioned evidence, remote uncertainty, reconciliation, and rebinding research;
+- **Ordivon World** — a carrier for Cloudflare provider-native capabilities and private workstation network tools, without shared World authority;
 - **Ordivon Game** — open interactive virtual worlds for play, creation, persistent Agent participation, plural world verticals, replay, and optional evaluation or Security experiments;
-- **Ordivon Security** — strategic adversarial-systems research: conflicting actors, Campaigns, opponent models, information conflict, adaptive offense/defense, organization, coevolution, and adversarial evaluation above mature classical mechanisms;
-- **Ordivon Web** — public memory, publication, project navigation, and current evidence surfaces.
+- **Ordivon Security** — strategic adversarial experiments and evaluation: partial observation, adaptive opponents, deception, organization, transfer, and evaluator integrity above mature classical mechanisms;
+- **Ordivon Web** — authored public memory, publication, project navigation, and dated editorial projections rather than copied live system state.
 
 The exact stable declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each product repository.
 

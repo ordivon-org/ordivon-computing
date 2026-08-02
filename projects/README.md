@@ -18,7 +18,7 @@ Evidence must remain bound to the revision and observation time that produced it
 
 Neither file records mutable maturity, phase, deployment health, or a floating “latest revision.” In particular, the registry is not a maturity ledger. Those facts belong to the implementation repository, live runtime, or an immutable observation captured at a specific time.
 
-The root conformance tool validates that both project lists remain aligned, captures exact local Git revisions, verifies the independent Host's full Computing Protocol package pin, verifies the Game's frozen vector-manifest pin, and emits digest-bound revision vectors or System Snapshots:
+The root conformance tool validates that every protocol participant exists in the broader project registry, captures exact local Git revisions, verifies the independent Host's full Computing Protocol package pin, verifies the Game's frozen vector-manifest pin, and emits digest-bound revision vectors or System Snapshots:
 
 ```bash
 python3.12 scripts/ordivon_conformance.py manifest

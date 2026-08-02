@@ -59,12 +59,18 @@ class ManifestTests(unittest.TestCase):
                 "ordivon-computing",
                 "ordivon-runtime",
                 "ordivon-host",
-                "ordivon-world",
                 "ordivon-game",
-                "ordivon-security",
-                "ordivon-web",
             ],
         )
+        registry_text = (ROOT / "projects" / "registry.yaml").read_text()
+        registry_ids = [
+            match.group(1)
+            for line in registry_text.splitlines()
+            if (match := re.fullmatch(r"  - id: (ordivon-[a-z0-9-]+)", line))
+        ]
+        self.assertTrue(set(project.id for project in manifest.projects) <= set(registry_ids))
+        self.assertIn("ordivon-harness", registry_ids)
+        self.assertIn("ordivon-human", registry_ids)
 
     def test_research_map_uses_registry_project_ids(self) -> None:
         registry_text = (ROOT / "projects" / "registry.yaml").read_text()
