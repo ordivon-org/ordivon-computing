@@ -100,6 +100,7 @@ The portfolio is the single source of truth for research status, maturity, block
 |---|---|---|---|
 | 2026-computing-stack-walkthrough | reference | physical-to-institutional learning map | Revise only after a material computing-paradigm change. |
 | 2026-classical-to-agent-native-computing | reference | layer-admission and deletion framework | Use as the default admission test. |
+| 2026-scarcity-operability-and-paradigm-change | reference | first-principles lens for scarcity migration, operational resolution, conceptual decoupling, and Ordivon pre-reform audit | Use as a reference when a capability or cost shift invalidates an inherited coupling; do not change the Ready Frontier or architecture from the study alone. |
 | 2026-retention-default-inversion | reference | default active-removal and audited-retention framework derived from the Station Zero anti-formalism audit | Apply during repository audits; do not create a retention registry or mandatory governance workflow. |
 | 2026-adaptive-acceleration | reference | published normative position | Revise only after substantive evidence, critique, or position change. |
 | 2026-agent-system-concept-system | completed | canonical terminology and closed cross-Provider Harness-boundary source | Preserve as reference; use ANC-HARNESS-002 for the separate first-party bare-model Agent Loop. |
