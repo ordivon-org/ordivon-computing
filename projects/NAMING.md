@@ -19,6 +19,12 @@ The suffix describes the state the project owns and its durable role in the syst
 | `ordivon-web` | Public website, project presentation, and documentation entrypoint | Private Goal/Task operations |
 | `ordivon-workbench` | Planned user-facing review, approval, and Task interaction surface over Host contracts | Durable Task ownership, Linux process ownership, or protocol research |
 
+## Domain research systems
+
+| Repository | Stable responsibility | Does not own |
+|---|---|---|
+| `ordivon-human` | Human development, capability, behaviour, agency, life-course, measurement, and human–AI co-development research | Medical diagnosis, a personal-data warehouse, a universal human score, participant identity, or authority over a person's choices |
+
 Domain systems may retain a distinct product noun until a deliberate migration is completed. They must still declare their relationship to Ordivon in metadata and documentation.
 
 ## Candidate boundaries that are not repositories

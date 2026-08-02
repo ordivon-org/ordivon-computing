@@ -35,6 +35,7 @@ The portfolio is the single source of truth for research status, maturity, block
 | ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-HARNESS-002 | M4 | P0 | ordivon-host | — | 264d96cb2325 | — | OH4 now provides a native Host Run Contract, Assignment-scoped ToolGrant, persisted evidence, independent verification, and fresh-process Outcome recovery. Use Track R R3 to compare the same frozen repository-repair Task under one-shot, Ordivon Harness, and a mature Provider Harness; retain, shrink, or delete the first-party Loop from measured value rather than implementation existence. | One-shot or mature Provider Harness paths match the same bounded workloads with equal correctness, recovery, portability, and lower permanent cost, while no bare-model use case requires a first-party Loop. |
+| ANC-HUMAN-001 | M1 | P1 | ordivon-computing | — | — | — | Run H0 framework composition and deletion tests before admitting data collection, schemas, dashboards, or personal modeling infrastructure. | Existing mature human-science frameworks answer the first selected studies without an additional Ordivon synthesis or repository-specific abstraction. |
 
 ### Blocked
 

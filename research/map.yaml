@@ -45,6 +45,8 @@ branches:
     name: agent-adaptation-and-self-evolution
   - id: ANC-ORG
     name: operator-governance-organization-and-economics
+  - id: ANC-HUMAN
+    name: human-development-agency-and-human-ai-codevelopment
   - id: ANC-SECURITY
     name: strategic-adversarial-agency-and-intelligent-opposition
   - id: ANC-GAME
@@ -297,6 +299,18 @@ relations:
     type: feeds_back_to
     to: ANC-HOST-001
     meaning: Paired action and non-action failures revise Host-local interruption, observation, and responsible-decision routing only when the evidence requires it.
+  - from: ANC-HUMAN-001
+    type: feeds_back_to
+    to: ANC-ORG-001
+    meaning: Evidence about human attention, agency, relationships, development, and decision-making revises organization assumptions without turning Human into an approval or identity layer.
+  - from: ANC-HUMAN-001
+    type: feeds_back_to
+    to: ANC-ADAPT-001
+    meaning: Human learning and human–AI co-development evidence distinguishes durable augmentation from capability displacement, dependence, or goal drift.
+  - from: ANC-GAME-002
+    type: enables
+    to: ANC-HUMAN-001
+    meaning: Bounded interactive worlds may provide low-consequence behavioural and human–Agent interaction experiments when a Human research question requires them.
 
 questions:
   - id: ANC-STACK-001
@@ -374,6 +388,26 @@ questions:
       - artifact_join_experiment
       - operator_attention_measurement
     related_projects:
+      - ordivon-host
+      - ordivon-game
+      - ordivon-human
+
+  - id: ANC-HUMAN-001
+    title: Human development, agency, and human–AI co-development
+    file: questions/ANC-HUMAN-001-human-development-and-augmentation.md
+    branch: ANC-HUMAN
+    epistemic_status: research_question
+    question: What minimum dynamic model and evidence practices explain changes in human capability, agency, well-being, and life trajectory across time and context while distinguishing population association from individual intervention and AI augmentation from dependence or displacement?
+    evidence_paths:
+      - primary_framework_comparison
+      - longitudinal_and_life_course_analysis
+      - measurement_validity_and_provenance
+      - causal_and_n_of_1_experiment
+      - human_ai_capability_transfer_study
+      - model_and_abstraction_deletion_test
+    related_projects:
+      - ordivon-human
+      - ordivon-computing
       - ordivon-host
       - ordivon-game
 
