@@ -40,25 +40,25 @@ The dependency-free content checker scanned Git-tracked and unignored Markdown o
 ### System summary
 
 - Repositories: 9
-- Markdown/MDX documents: 354
+- Markdown/MDX documents: 366
 - Documents with Ordivon metadata: 59
-- Approximate words: 318435
-- Documents without Markdown links: 205
-- Documents at or above 2,000 words: 25
+- Approximate words: 338691
+- Documents without Markdown links: 215
+- Documents at or above 2,000 words: 26
 
 ### Repository inventory
 
 | Project | Documents | Metadata | Words | No links | Long | Manifest | State |
 |---|---:|---:|---:|---:|---:|---|---|
-| ordivon-computing | 201 | 9 | 160366 | 118 | 10 | yes | DEGRADED |
-| ordivon-game | 10 | 8 | 12416 | 2 | 1 | yes | DEGRADED |
+| ordivon-game | 11 | 8 | 13044 | 3 | 1 | yes | DEGRADED |
 | ordivon-harness | 12 | 3 | 17238 | 4 | 3 | yes | DEGRADED |
-| ordivon-host | 14 | 4 | 10924 | 9 | 1 | yes | DEGRADED |
-| ordivon-human | 41 | 8 | 31843 | 25 | 0 | yes | DEGRADED |
+| ordivon-host | 14 | 4 | 10935 | 9 | 1 | yes | DEGRADED |
 | ordivon-runtime | 13 | 5 | 11828 | 5 | 2 | yes | DEGRADED |
 | ordivon-security | 16 | 8 | 17622 | 6 | 1 | yes | DEGRADED |
 | ordivon-web | 33 | 4 | 49401 | 30 | 7 | yes | DEGRADED |
 | ordivon-world | 14 | 10 | 6797 | 6 | 0 | yes | DEGRADED |
+| ordivon-computing | 201 | 9 | 160754 | 118 | 10 | yes | DEGRADED |
+| ordivon-human | 52 | 8 | 51072 | 34 | 1 | yes | DEGRADED |
 
 ## Limitations
 
@@ -66,7 +66,7 @@ Word count, link count, and phase-code detection are diagnostic proxies. A long 
 
 ## Evidence
 
-The machine-readable sibling receipt records the same inventory at `2026-08-03T02:35:52Z`. Repository manifests were validated before inclusion.
+The machine-readable sibling receipt records the same inventory at `2026-08-03T09:17:41Z`. Repository manifests were validated before inclusion.
 
 ## Next action
 
