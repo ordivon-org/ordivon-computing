@@ -1,0 +1,66 @@
+{
+  "acceptanceContract": {
+    "assertions": [
+      "a cancelled terminal receipt remains queryable after Run recording",
+      "multiple Tool Steps are resolved by exact Tool Call identity",
+      "Harness validates Intent, Assignment, Observation, and Runtime Job links",
+      "the live cancellation driver uses only the public API"
+    ],
+    "requiredArtifacts": [],
+    "verifierId": "host-harness-historical-tool-step-issue-4-001-v1",
+    "verifierRevision": "20260802"
+  },
+  "allowedCapabilities": [
+    "runtime.workspace-read",
+    "runtime.workspace-search",
+    "runtime.workspace-patch",
+    "runtime.workspace-diff",
+    "runtime.workspace-exec-prebound"
+  ],
+  "budgetProfile": {
+    "maxInputTokens": 524288,
+    "maxModelCalls": 18,
+    "maxObservationBytes": 524288,
+    "maxOutputTokens": null,
+    "maxRuntimeJobs": 1,
+    "maxToolCalls": 36,
+    "maxWallTimeMs": 300000
+  },
+  "expertTimeEstimateMinutes": 10,
+  "family": "repository_repair",
+  "initialState": {
+    "environmentDigest": null,
+    "fixturePath": "repository:ordivon-harness",
+    "sourceRepositoryId": "ordivon-harness",
+    "sourceRevision": "501188bec8298451f115f8c21e01af3be0027a3d"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:3465dcfbf24164389058f5292a6c7895ae49276f43231f8095e9b8b4ccd1355e"
+  },
+  "kind": "ordivon.evaluation-task",
+  "knownLimitations": [
+    "Trials form a context-shaping comparison rather than independent samples.",
+    "No trial reached a mutation or independent acceptance.",
+    "The final trial validates bounded interruption, not Task completion."
+  ],
+  "labels": [
+    "dogfood",
+    "host",
+    "harness",
+    "stress",
+    "repository-repair",
+    "cross-repository",
+    "historical-receipt"
+  ],
+  "objective": "Expose an exact post-Run historical Tool Step receipt query across the Host/Harness boundary without storage-internal scans or a mutable index.",
+  "oracle": null,
+  "reproducibility": {
+    "cleanRebuildTrials": 1,
+    "requiredAgreement": 1
+  },
+  "schemaVersion": 1,
+  "taskId": "host-harness-historical-tool-step-issue-4-001",
+  "taskVersion": 1
+}

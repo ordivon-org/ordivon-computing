@@ -1,0 +1,68 @@
+{
+  "acceptanceContract": {
+    "assertions": [
+      "exactly one physical Provider invocation occurs",
+      "exactly one Harness Run event is recorded",
+      "exactly one contender returns a result",
+      "the losing contender reaches the durable Provider dispatch fence",
+      "no Host Task lease remains while the Provider is blocked",
+      "Provider lifecycle objects and transition links validate semantically"
+    ],
+    "requiredArtifacts": [],
+    "verifierId": "host-harness-concurrent-resume-stress-001-v1",
+    "verifierRevision": "20260802"
+  },
+  "allowedCapabilities": [
+    "runtime.workspace-read",
+    "runtime.workspace-exec-prebound",
+    "runtime.job-observe",
+    "runtime.job-cancel"
+  ],
+  "budgetProfile": {
+    "maxInputTokens": null,
+    "maxModelCalls": 8,
+    "maxObservationBytes": 524288,
+    "maxOutputTokens": null,
+    "maxRuntimeJobs": 1,
+    "maxToolCalls": 6,
+    "maxWallTimeMs": 300000
+  },
+  "expertTimeEstimateMinutes": 10,
+  "family": "host_harness_stress",
+  "initialState": {
+    "environmentDigest": null,
+    "fixturePath": "repository:ordivon-harness",
+    "sourceRepositoryId": "ordivon-harness",
+    "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:cd9947fde94c99283c48aedf24a60cb63a6555b01ea7fb23e7bb44e628c1b611"
+  },
+  "kind": "ordivon.evaluation-task",
+  "knownLimitations": [
+    "The resume trial uses deterministic scripted turns to force both pauses before the final real Provider turn.",
+    "Provider sampling controls and reasoning text were not exposed."
+  ],
+  "labels": [
+    "dogfood",
+    "host",
+    "harness",
+    "stress",
+    "concurrency",
+    "resume",
+    "needs-input",
+    "provider-claim",
+    "revision-fence"
+  ],
+  "objective": "Resume one needs-input Snapshot from two fresh processes, dispatch the Provider exactly once, retain exactly one Run result, classify the loser at the Harness boundary, and preserve a valid Host history.",
+  "oracle": null,
+  "reproducibility": {
+    "cleanRebuildTrials": 1,
+    "requiredAgreement": 1
+  },
+  "schemaVersion": 1,
+  "taskId": "host-harness-concurrent-resume-stress-001",
+  "taskVersion": 1
+}

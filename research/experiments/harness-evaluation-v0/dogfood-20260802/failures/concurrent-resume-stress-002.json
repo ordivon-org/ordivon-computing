@@ -1,0 +1,30 @@
+{
+  "correctionCost": "one commit-boundary guard, one unit test, and one live rerun",
+  "description": "A staggered losing resume leaked EventConflict after the stable Run event identity prevented a second durable result.",
+  "duplicateEffect": false,
+  "evidenceRefs": [
+    "research/evidence/host-harness-concurrent-resume-stress-002.json#contenders",
+    "research/evidence/host-harness-concurrent-resume-stress-002.json#runRecordedEvents"
+  ],
+  "failureClass": "HARNESS",
+  "failureCode": "result_misrouting",
+  "failureId": "failure:dogfood:20260802:concurrent-resume-stress-002",
+  "firstObservableEvent": {
+    "eventKind": "run_stopped",
+    "evidenceRef": "research/evidence/host-harness-concurrent-resume-stress-002.json#contenders",
+    "sequence": null
+  },
+  "humanIntervention": false,
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:9cdee64a881a847a70a30af8097666147a43e244bb0c723d3232f1b12ecaaa72"
+  },
+  "kind": "ordivon.evaluation-failure",
+  "minimalCorrection": "Return idempotently for an identical recorded result and normalize losing Host commit races as HarnessSuperseded.",
+  "recoverable": true,
+  "recovered": true,
+  "responsibleBoundary": "harness",
+  "schemaVersion": 1,
+  "trialId": "dogfood:20260802:concurrent-resume-stress-002"
+}

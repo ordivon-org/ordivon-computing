@@ -1,0 +1,596 @@
+{
+  "artifacts": [
+    {
+      "capturedAt": "2026-08-02T07:19:09.549000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.host-harness-dogfood-evidence",
+      "path": "research/evidence/host-handoff-issue2-pro-002.json",
+      "relations": [],
+      "scenario": "host-operator-handoff-issue-2-001",
+      "sha256": "sha256:4812c85d984ceb82a12dbcfba83a7941925133248d64f100fd4afb279aff82a3",
+      "sourceRevision": "341234625ebe080f26a9dee4806e8c42ae8ebbd0",
+      "summary": "The handoff run exposed Tool-schema drift: run_check advertised an unbounded waitMs while Runtime enforced a 30000 ms maximum."
+    },
+    {
+      "capturedAt": "2026-08-02T08:13:56.431000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.host-harness-cancel-stress-evidence",
+      "path": "research/evidence/host-harness-cancel-stress-003.json",
+      "relations": [],
+      "scenario": "host-harness-cancel-stress-001",
+      "sha256": "sha256:40e1dbc8319fc140b10b92e043ba4273369b7a5d6a66f358574f7e7ed14ed33e",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Cancellation after Runtime dispatch preserved the Job binding and terminated both the Harness Run and Runtime Job as cancelled."
+    },
+    {
+      "capturedAt": "2026-08-02T11:53:53.058000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.host-harness-concurrent-resume-stress-evidence",
+      "path": "research/evidence/host-harness-concurrent-resume-stress-002.json",
+      "relations": [],
+      "scenario": "host-harness-concurrent-resume-stress-001",
+      "sha256": "sha256:c2b70e244037a44370cb7455922d9464a2acad6ad947416fa08667d345b33ed3",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "A staggered losing resume leaked EventConflict after stable event identity prevented a second durable result."
+    },
+    {
+      "capturedAt": "2026-08-02T22:32:21.267000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.host-harness-concurrent-resume-stress-evidence",
+      "path": "research/evidence/host-harness-concurrent-resume-stress-004.json",
+      "relations": [],
+      "scenario": "host-harness-concurrent-resume-stress-001",
+      "sha256": "sha256:5078c04e5751448051cef2154b9271aa028d629c431c54d3550ca6a172b48ee1",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "The corrected concurrent-resume run fenced the loser before duplicate Provider work, recorded one durable result, and passed history validation."
+    },
+    {
+      "capturedAt": "2026-08-02T12:12:40.918000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.host-harness-dogfood-evidence",
+      "path": "research/evidence/host-harness-historical-tool-step-issue4-pro-002.json",
+      "relations": [],
+      "scenario": "host-harness-historical-tool-step-issue-4-001",
+      "sha256": "sha256:863361bf7c046a5b96844e2b5854ae2852a385e442cd5ba5465a64245ceb3535",
+      "sourceRevision": "501188bec8298451f115f8c21e01af3be0027a3d",
+      "summary": "The model supplied source line numbers where UTF-8 byte offsets were required, causing repeated overlapping-read corrections and invalid-tool-call termination."
+    },
+    {
+      "capturedAt": "2026-08-02T06:46:52.452000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.host-harness-dogfood-evidence",
+      "path": "research/evidence/host-harness-provenance-accepted-pro-009.json",
+      "relations": [],
+      "scenario": "host-harness-provenance-repair-001",
+      "sha256": "sha256:3e0df8deb284fcbe00eb8732da6e27a34e2b837587de82c18d15372e72ad9015",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "The repair reached candidate completion, then verification rejected it because the check depended on hidden Host venv packages and lacked retained Artifact existence verification."
+    },
+    {
+      "capturedAt": "2026-08-02T06:50:20.021000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.host-harness-dogfood-evidence",
+      "path": "research/evidence/host-harness-provenance-accepted-pro-010.json",
+      "relations": [],
+      "scenario": "host-harness-provenance-repair-001",
+      "sha256": "sha256:78db95745242af1ea18f44e7788190e5f104cc7df2db213b2170516fa91c4eba",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "The provenance repair reached candidate completion and was accepted after an isolation-safe check and retained Artifact verification."
+    },
+    {
+      "capturedAt": "2026-08-02T05:59:57.661000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.host-harness-dogfood-evidence",
+      "path": "research/evidence/host-harness-rejection-classification-implementation-001-diagnostic-pro-20260802.json",
+      "relations": [],
+      "scenario": "host-harness-rejection-classification-implementation-001",
+      "sha256": "sha256:2cf59bb3b15ae2d018aaf06191cded57edbc33dc9565c9d3723943d0504b01ef",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "The model and Runtime produced the intended patch, but Harness validation rejected the real opaque Runtime Job identity because it required a job: prefix."
+    },
+    {
+      "capturedAt": "2026-08-02T08:14:42.639152Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.host-harness-resume-stress-evidence",
+      "path": "research/evidence/host-harness-resume-stress-002.json",
+      "relations": [],
+      "scenario": "host-harness-resume-stress-001",
+      "sha256": "sha256:7a28d3e8292b6bba1e5362b3f0fe4f38650f0233a7f4d2b8a2881f3780609efb",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "The first resume stress attempt exposed state-loss behavior and failed the duplicate-resume acceptance conditions."
+    },
+    {
+      "capturedAt": "2026-08-02T08:15:58.415000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.host-harness-resume-stress-evidence",
+      "path": "research/evidence/host-harness-resume-stress-004.json",
+      "relations": [],
+      "scenario": "host-harness-resume-stress-001",
+      "sha256": "sha256:8ecf3d6347acb84c072d0d8370b1a9bc78e00840a638be903f147eaf6f0c32f2",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "The corrected resume stress run was accepted and its duplicate probe preserved one durable result without repeating effects."
+    },
+    {
+      "capturedAt": "2026-08-02T07:39:57.415000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.operator-handoff-live-evidence",
+      "path": "research/evidence/host-operator-handoff-live-20260802.json",
+      "relations": [
+        "research/evidence/host-harness-provenance-accepted-pro-010.json"
+      ],
+      "scenario": "host-harness-provenance-repair-001",
+      "sha256": "sha256:dedef983bbced5a6b9ed74c11e4d4e565400d08c49a5dd6bc0b2b5b9cafffa74",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Three fresh processes reconstructed the same read-only Operator Handoff capsule; the current revision was accepted and a stale revision was rejected."
+    },
+    {
+      "capturedAt": "2026-08-02T05:59:57.661000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-failure",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/action-ready-pro-diagnostic.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/action-ready-pro-diagnostic.json"
+      ],
+      "scenario": "host-harness-rejection-classification-repair-001",
+      "sha256": "sha256:44baf728396f1a1d0d7bf62fbda6cf783c27b00b6daf5fe74022cf5bfba947e6",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "The model and Runtime produced the expected patch, then real Runtime Job identity job-... was rejected by Harness protocol validation requiring job:...."
+    },
+    {
+      "capturedAt": "2026-08-02T11:53:53.058000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-failure",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/concurrent-resume-stress-002.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/concurrent-resume-stress-002.json"
+      ],
+      "scenario": "host-harness-concurrent-resume-stress-001",
+      "sha256": "sha256:df389825add6a7e93fe6f6fd460add7a74c78ab49eb26cae9e6b638d97bb579f",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "A staggered losing resume leaked EventConflict after the stable Run event identity prevented a second durable result."
+    },
+    {
+      "capturedAt": "2026-08-02T07:19:09.549000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-failure",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/handoff-issue2-pro-002.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/handoff-issue2-pro-002.json"
+      ],
+      "scenario": "host-operator-handoff-issue-2-001",
+      "sha256": "sha256:9562f311e2824880ce3366213a16b6c38f8b92212f396b9651b57c934eeb6094",
+      "sourceRevision": "341234625ebe080f26a9dee4806e8c42ae8ebbd0",
+      "summary": "run_check advertised an unbounded waitMs while Runtime allowed at most 30000, and the resulting argument error was classified as internal."
+    },
+    {
+      "capturedAt": "2026-08-02T12:12:40.918000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-failure",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/historical-tool-step-issue4-pro-002.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/historical-tool-step-issue4-pro-002.json"
+      ],
+      "scenario": "host-harness-historical-tool-step-issue-4-001",
+      "sha256": "sha256:3ebc6afbef790457f398bbdbb31d0659796d05da746ddb0b7615208dc6cec1ce",
+      "sourceRevision": "501188bec8298451f115f8c21e01af3be0027a3d",
+      "summary": "The model supplied source line numbers to read_workspace.offset where UTF-8 byte offsets were required, causing eight overlapping-read corrections and invalid-tool-call termination."
+    },
+    {
+      "capturedAt": "2026-08-02T06:46:52.452000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-failure",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/provenance-verifier-rejected-pro.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/provenance-verifier-rejected-pro.json"
+      ],
+      "scenario": "host-harness-provenance-repair-001",
+      "sha256": "sha256:217aabff93c5eaa9af81ac37002f2650224bcc5ae82ff93926b39a1f8fc27ab4",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "The Run reached candidate completion, but a check depended on host venv packages hidden by Runtime isolation and Runtime Artifacts had no existence verifier."
+    },
+    {
+      "capturedAt": "2026-08-03T00:45:40.014955Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-failure",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/resume-stress-pro-002.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/resume-stress-pro-002.json"
+      ],
+      "scenario": "host-harness-resume-stress-001",
+      "sha256": "sha256:36da217a482e7819dc7d854cfcdf263b52e9eb142e63e2788134c75e9c3a99d2",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "A retained needs-input conclusion could not be translated back into valid DeepSeek history, so resume failed before HTTP."
+    },
+    {
+      "capturedAt": "2026-08-02T05:59:57.661000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-result",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/results/action-ready-pro-diagnostic.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/action-ready-pro-diagnostic.json"
+      ],
+      "scenario": "host-harness-rejection-classification-repair-001",
+      "sha256": "sha256:6b874a0b7bde4bbc716e2dfcc745f4c69778c00b63c325b77f6a1047d390168e",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:action-ready-pro-diagnostic stopped with harness_failed; acceptance was not_adjudicated and verifier status was not_run."
+    },
+    {
+      "capturedAt": "2026-08-02T08:13:56.431000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.evaluation-result",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/results/cancel-stress-003.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/cancel-stress-003.json"
+      ],
+      "scenario": "host-harness-cancel-stress-001",
+      "sha256": "sha256:8bd35217c6560113a73a87dd4182503b497477875df2608f3b8084ba03470672",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:cancel-stress-003 stopped with cancelled; acceptance was accepted and verifier status was passed."
+    },
+    {
+      "capturedAt": "2026-08-02T11:53:53.058000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-result",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/results/concurrent-resume-stress-002.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/concurrent-resume-stress-002.json"
+      ],
+      "scenario": "host-harness-concurrent-resume-stress-001",
+      "sha256": "sha256:f8453e078ab9099d0550a46a005ba2130918fc1b0004f11fa7556494b813ef92",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:concurrent-resume-stress-002 stopped with candidate_completed; acceptance was not_adjudicated and verifier status was not_run."
+    },
+    {
+      "capturedAt": "2026-08-02T22:32:21.267000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.evaluation-result",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/results/concurrent-resume-stress-004.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/concurrent-resume-stress-004.json"
+      ],
+      "scenario": "host-harness-concurrent-resume-stress-001",
+      "sha256": "sha256:1da7b352dcd1e9cd721ffb0fb255c954901d6c942f89ed0921f7bdc368e69180",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:concurrent-resume-stress-004 stopped with candidate_completed; acceptance was accepted and verifier status was passed."
+    },
+    {
+      "capturedAt": "2026-08-02T07:19:09.549000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-result",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/results/handoff-issue2-pro-002.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/handoff-issue2-pro-002.json"
+      ],
+      "scenario": "host-operator-handoff-issue-2-001",
+      "sha256": "sha256:1e19ff25649cda74b5063c71b78c011480484f5d6759684bba907b8b990a8962",
+      "sourceRevision": "341234625ebe080f26a9dee4806e8c42ae8ebbd0",
+      "summary": "Trial dogfood:20260802:handoff-issue2-pro-002 stopped with invalid_tool_call; acceptance was not_adjudicated and verifier status was not_run."
+    },
+    {
+      "capturedAt": "2026-08-02T12:12:40.918000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-result",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/results/historical-tool-step-issue4-pro-002.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/historical-tool-step-issue4-pro-002.json"
+      ],
+      "scenario": "host-harness-historical-tool-step-issue-4-001",
+      "sha256": "sha256:518bc2fdec3dafa7c8fd838aa95f7cbe1e752c68ead4bca4b752e251346d52b2",
+      "sourceRevision": "501188bec8298451f115f8c21e01af3be0027a3d",
+      "summary": "Trial dogfood:20260802:historical-tool-step-issue4-pro-002 stopped with invalid_tool_call; acceptance was not_adjudicated and verifier status was not_run."
+    },
+    {
+      "capturedAt": "2026-08-02T06:50:20.021000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.evaluation-result",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/results/provenance-accepted-pro.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/provenance-accepted-pro.json"
+      ],
+      "scenario": "host-harness-provenance-repair-001",
+      "sha256": "sha256:e6b23b4a241eccdd44c2ba846978ab27468f6b4b231ba4cf97427a510f7ee7c9",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:provenance-accepted-pro stopped with candidate_completed; acceptance was accepted and verifier status was passed."
+    },
+    {
+      "capturedAt": "2026-08-02T06:46:52.452000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-result",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/results/provenance-verifier-rejected-pro.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/provenance-verifier-rejected-pro.json"
+      ],
+      "scenario": "host-harness-provenance-repair-001",
+      "sha256": "sha256:b54d994351aebe16d125711cf9a772d22f6926e222a8dee1519cb0c7951def7e",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:provenance-verifier-rejected-pro stopped with candidate_completed; acceptance was rejected and verifier status was not_run."
+    },
+    {
+      "capturedAt": "2026-08-03T00:45:40.014955Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-result",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/results/resume-stress-pro-002.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/resume-stress-pro-002.json"
+      ],
+      "scenario": "host-harness-resume-stress-001",
+      "sha256": "sha256:818c64e5cd57d3c40298ebabfe82f5a3bcf338863f3ffd6215069f86e2eca2af",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:resume-stress-pro-002 stopped with invalid_model_output; acceptance was not_adjudicated and verifier status was not_run."
+    },
+    {
+      "capturedAt": "2026-08-02T08:15:58.415000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.evaluation-result",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/results/resume-stress-pro-004.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/resume-stress-pro-004.json"
+      ],
+      "scenario": "host-harness-resume-stress-001",
+      "sha256": "sha256:1419faf04a0bca2e922b4d5309425f0eb3f7e5c56ace268a302c80301d4551a6",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:resume-stress-pro-004 stopped with candidate_completed; acceptance was accepted and verifier status was passed."
+    },
+    {
+      "capturedAt": "2026-08-02T08:13:55.158000Z",
+      "classification": "formal_supporting_record",
+      "kind": "ordivon.evaluation-task",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-harness-cancel-stress-001.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/cancel-stress-003.json"
+      ],
+      "scenario": "host-harness-cancel-stress-001",
+      "sha256": "sha256:19ade7d1305d2ee8730012d27a51c11a476508def29c18f9e2084d99c165108e",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Cancel a real in-flight Runtime Job after dispatch and retain matching Runtime, Tool Step, Run, and Host evidence."
+    },
+    {
+      "capturedAt": "2026-08-02T11:53:13.359000Z",
+      "classification": "formal_supporting_record",
+      "kind": "ordivon.evaluation-task",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-harness-concurrent-resume-stress-001.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/concurrent-resume-stress-002.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/concurrent-resume-stress-004.json"
+      ],
+      "scenario": "host-harness-concurrent-resume-stress-001",
+      "sha256": "sha256:d7170bf83b03a216fa465d6fba9e5bedc4a01bb062d1ec4b1759cbe83f637a2f",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Resume one needs-input Snapshot from two fresh processes, dispatch the Provider exactly once, retain exactly one Run result, classify the loser at the Harness boundary, and preserve a valid Host history."
+    },
+    {
+      "capturedAt": "2026-08-02T12:05:43.461000Z",
+      "classification": "formal_supporting_record",
+      "kind": "ordivon.evaluation-task",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-harness-historical-tool-step-issue-4-001.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/historical-tool-step-issue4-pro-002.json"
+      ],
+      "scenario": "host-harness-historical-tool-step-issue-4-001",
+      "sha256": "sha256:ed1f06505274b6b36fc04c90043ea8bd974bd4e107487c808c25a9d998ec222b",
+      "sourceRevision": "501188bec8298451f115f8c21e01af3be0027a3d",
+      "summary": "Expose an exact post-Run historical Tool Step receipt query across the Host/Harness boundary without storage-internal scans or a mutable index."
+    },
+    {
+      "capturedAt": "2026-08-02T06:28:17.101000Z",
+      "classification": "formal_supporting_record",
+      "kind": "ordivon.evaluation-task",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-harness-provenance-repair-001.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/provenance-accepted-pro.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/provenance-verifier-rejected-pro.json"
+      ],
+      "scenario": "host-harness-provenance-repair-001",
+      "sha256": "sha256:477245b9e4db1675e64aad8b246cb79a444ddd4d68f0dd9889ca683ebfa93aee",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Derive repository provenance from the selected source repository and bind the same source ref into the Task Contract and Host Assignment."
+    },
+    {
+      "capturedAt": "2026-08-02T05:49:10.509000Z",
+      "classification": "formal_supporting_record",
+      "kind": "ordivon.evaluation-task",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-harness-rejection-classification-repair-001.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/action-ready-pro-diagnostic.json"
+      ],
+      "scenario": "host-harness-rejection-classification-repair-001",
+      "sha256": "sha256:99962bdca16a7d7179113db1aabdddf5efcbdc2755f07c8e88da2cb6c461019e",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Repair deterministic Runtime rejection classification without weakening unknown-effect handling, and validate the Host/Harness execution path."
+    },
+    {
+      "capturedAt": "2026-08-02T08:15:51.254000Z",
+      "classification": "formal_supporting_record",
+      "kind": "ordivon.evaluation-task",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-harness-resume-stress-001.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/resume-stress-pro-002.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/resume-stress-pro-004.json"
+      ],
+      "scenario": "host-harness-resume-stress-001",
+      "sha256": "sha256:36f69011c2631490008079f49cf6f0093d7c8ff92c085c432a78084f7072d729",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Survive two needs-input process boundaries, reject a repeated full read before Runtime dispatch, and complete from retained evidence."
+    },
+    {
+      "capturedAt": "2026-08-02T07:15:01.028000Z",
+      "classification": "formal_supporting_record",
+      "kind": "ordivon.evaluation-task",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-operator-handoff-issue-2-001.json",
+      "relations": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/handoff-issue2-pro-002.json"
+      ],
+      "scenario": "host-operator-handoff-issue-2-001",
+      "sha256": "sha256:0fa334046a0ed5affd8397b6a7f9f76f12248dc1d858803b4ab4eebc10524273",
+      "sourceRevision": "341234625ebe080f26a9dee4806e8c42ae8ebbd0",
+      "summary": "Expose the existing Host Operator Handoff capsule through a deterministic, revision-pinned, read-only CLI and prove stale revisions do not mutate state."
+    },
+    {
+      "capturedAt": "2026-08-02T05:59:57.661000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-trial",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/action-ready-pro-diagnostic.json",
+      "relations": [
+        "research/evidence/host-harness-rejection-classification-implementation-001-diagnostic-pro-20260802.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/action-ready-pro-diagnostic.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/results/action-ready-pro-diagnostic.json"
+      ],
+      "scenario": "host-harness-rejection-classification-repair-001",
+      "sha256": "sha256:44875e95bc0c7d375e0c1caa8d51840e8557fcd92eb9c7f27b992afd7a9b69c0",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:action-ready-pro-diagnostic ran deepseek/deepseek-v4-pro through ordivon-harness-v0 for task host-harness-rejection-classification-repair-001."
+    },
+    {
+      "capturedAt": "2026-08-02T08:13:56.431000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.evaluation-trial",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/cancel-stress-003.json",
+      "relations": [
+        "research/evidence/host-harness-cancel-stress-003.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/results/cancel-stress-003.json"
+      ],
+      "scenario": "host-harness-cancel-stress-001",
+      "sha256": "sha256:1451148de3ab4d7aedd8273ec09bcf8d1ab18d894e5917b1d4c5177cb5358a6a",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:cancel-stress-003 ran fixture/ordivon.scripted-model.v1 through ordivon-harness-v0 for task host-harness-cancel-stress-001."
+    },
+    {
+      "capturedAt": "2026-08-02T11:53:53.058000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-trial",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/concurrent-resume-stress-002.json",
+      "relations": [
+        "research/evidence/host-harness-concurrent-resume-stress-002.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/concurrent-resume-stress-002.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/results/concurrent-resume-stress-002.json"
+      ],
+      "scenario": "host-harness-concurrent-resume-stress-001",
+      "sha256": "sha256:7335814ca8aa7c04f4681244f25acc64f16f6e8dbc2541f88dc78d0574831434",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:concurrent-resume-stress-002 ran fixture/ordivon.scripted-model.v1 through ordivon-harness-v0 for task host-harness-concurrent-resume-stress-001."
+    },
+    {
+      "capturedAt": "2026-08-02T22:32:21.267000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.evaluation-trial",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/concurrent-resume-stress-004.json",
+      "relations": [
+        "research/evidence/host-harness-concurrent-resume-stress-004.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/results/concurrent-resume-stress-004.json"
+      ],
+      "scenario": "host-harness-concurrent-resume-stress-001",
+      "sha256": "sha256:71d957c732cb1dc160484907b2153d01af0037f9e5783e43851a747667c1211b",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:concurrent-resume-stress-004 ran fixture/ordivon.scripted-model.v1 through ordivon-harness-v0 for task host-harness-concurrent-resume-stress-001."
+    },
+    {
+      "capturedAt": "2026-08-02T07:19:09.549000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-trial",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/handoff-issue2-pro-002.json",
+      "relations": [
+        "research/evidence/host-handoff-issue2-pro-002.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/handoff-issue2-pro-002.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/results/handoff-issue2-pro-002.json"
+      ],
+      "scenario": "host-operator-handoff-issue-2-001",
+      "sha256": "sha256:a4abe6da8cc6b6af471d8c95a8c04cf365f6f596145083e75189be810a352307",
+      "sourceRevision": "341234625ebe080f26a9dee4806e8c42ae8ebbd0",
+      "summary": "Trial dogfood:20260802:handoff-issue2-pro-002 ran deepseek/deepseek-v4-pro through ordivon-harness-v0 for task host-operator-handoff-issue-2-001."
+    },
+    {
+      "capturedAt": "2026-08-02T12:12:40.918000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-trial",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/historical-tool-step-issue4-pro-002.json",
+      "relations": [
+        "research/evidence/host-harness-historical-tool-step-issue4-pro-002.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/historical-tool-step-issue4-pro-002.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/results/historical-tool-step-issue4-pro-002.json"
+      ],
+      "scenario": "host-harness-historical-tool-step-issue-4-001",
+      "sha256": "sha256:a8f6f2631ad46ab629095f2d96dd2dfafe8a6cff5880f45612b1f8d07756c661",
+      "sourceRevision": "501188bec8298451f115f8c21e01af3be0027a3d",
+      "summary": "Trial dogfood:20260802:historical-tool-step-issue4-pro-002 ran deepseek/deepseek-v4-pro through ordivon-harness-v0 for task host-harness-historical-tool-step-issue-4-001."
+    },
+    {
+      "capturedAt": "2026-08-02T06:50:20.021000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.evaluation-trial",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/provenance-accepted-pro.json",
+      "relations": [
+        "research/evidence/host-harness-provenance-accepted-pro-010.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/results/provenance-accepted-pro.json"
+      ],
+      "scenario": "host-harness-provenance-repair-001",
+      "sha256": "sha256:a767e12b55ca5cf56ac5662a1aa2d1a7d5a4e88587d54f2d05a602900b398597",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:provenance-accepted-pro ran deepseek/deepseek-v4-pro through ordivon-harness-v0 for task host-harness-provenance-repair-001."
+    },
+    {
+      "capturedAt": "2026-08-02T06:46:52.452000Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-trial",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/provenance-verifier-rejected-pro.json",
+      "relations": [
+        "research/evidence/host-harness-provenance-accepted-pro-009.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/provenance-verifier-rejected-pro.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/results/provenance-verifier-rejected-pro.json"
+      ],
+      "scenario": "host-harness-provenance-repair-001",
+      "sha256": "sha256:72e2a510a26612319e61be3cfc0741603cda60da3b9046fd61b2702b96af5678",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:provenance-verifier-rejected-pro ran deepseek/deepseek-v4-pro through ordivon-harness-v0 for task host-harness-provenance-repair-001."
+    },
+    {
+      "capturedAt": "2026-08-03T00:45:40.014955Z",
+      "classification": "diagnostic_failure",
+      "kind": "ordivon.evaluation-trial",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/resume-stress-pro-002.json",
+      "relations": [
+        "research/evidence/host-harness-resume-stress-002.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/resume-stress-pro-002.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/results/resume-stress-pro-002.json"
+      ],
+      "scenario": "host-harness-resume-stress-001",
+      "sha256": "sha256:ca1bb4b9cf6283dc44ad345e4efba46bee4d26d38f5fadc32a0aacaf5bd33199",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:resume-stress-pro-002 ran deepseek/deepseek-v4-pro through ordivon-harness-v0 for task host-harness-resume-stress-001."
+    },
+    {
+      "capturedAt": "2026-08-02T08:15:58.415000Z",
+      "classification": "formal_evidence",
+      "kind": "ordivon.evaluation-trial",
+      "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/trials/resume-stress-pro-004.json",
+      "relations": [
+        "research/evidence/host-harness-resume-stress-004.json",
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/results/resume-stress-pro-004.json"
+      ],
+      "scenario": "host-harness-resume-stress-001",
+      "sha256": "sha256:3fbed75988b8064576614526c0e7b6fe7e7d6a6871db04052f9c1d7427a9d04f",
+      "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+      "summary": "Trial dogfood:20260802:resume-stress-pro-004 ran deepseek/deepseek-v4-pro through ordivon-harness-v0 for task host-harness-resume-stress-001."
+    }
+  ],
+  "curatedAt": "2026-08-03T19:47:00+08:00",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "sorted-key-compact-json-without-integrity",
+    "payloadDigest": "sha256:81a25f4e6456d8ee005262a3e0f7df0a7677d22ef8206f3f30c3391e5fe2c0f6"
+  },
+  "kind": "ordivon.evidence-curation-manifest",
+  "manifestId": "computing-harness-dogfood-20260802-curated-v1",
+  "policy": {
+    "diagnosticFailure": "Failures remain explicitly classified and are never represented as product passes.",
+    "discard": "Files marked delete_after_backup remain recoverable from the external snapshot.",
+    "formalEvidence": "Representative passed evidence only; successful iterations are not retained exhaustively."
+  },
+  "schemaVersion": 1,
+  "source": {
+    "externalRecoveryArchiveName": "untracked-evidence.tar.gz",
+    "externalRecoveryArchiveSha256": "sha256:0de0815551ae7a2f8e7630e8218e31b1b5ca4ea5c6455790bfab50c74e4d56cc",
+    "originalUntrackedFileCount": 120,
+    "repositoryId": "ordivon-computing",
+    "repositoryRevision": "67076892dfde6f032ff5fe8636ed07bfd73b782c"
+  }
+}

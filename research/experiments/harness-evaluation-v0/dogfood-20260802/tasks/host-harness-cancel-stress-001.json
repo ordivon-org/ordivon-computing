@@ -1,0 +1,63 @@
+{
+  "acceptanceContract": {
+    "assertions": [
+      "cancellation is triggered after Runtime dispatch",
+      "Runtime reports the exact Job as cancelled",
+      "the terminal Tool Step receipt binds the exact Job",
+      "the Run receipt terminates as cancelled"
+    ],
+    "requiredArtifacts": [],
+    "verifierId": "host-harness-cancel-stress-001-v1",
+    "verifierRevision": "20260802"
+  },
+  "allowedCapabilities": [
+    "runtime.workspace-read",
+    "runtime.workspace-exec-prebound",
+    "runtime.job-observe",
+    "runtime.job-cancel"
+  ],
+  "budgetProfile": {
+    "maxInputTokens": null,
+    "maxModelCalls": 8,
+    "maxObservationBytes": 524288,
+    "maxOutputTokens": null,
+    "maxRuntimeJobs": 1,
+    "maxToolCalls": 6,
+    "maxWallTimeMs": 300000
+  },
+  "expertTimeEstimateMinutes": 10,
+  "family": "host_harness_stress",
+  "initialState": {
+    "environmentDigest": null,
+    "fixturePath": "repository:ordivon-harness",
+    "sourceRepositoryId": "ordivon-harness",
+    "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:06cc064213c642acc36b7ed5e63103a82c18b06ddc43a2d7a79e13d425d3a745"
+  },
+  "kind": "ordivon.evaluation-task",
+  "knownLimitations": [
+    "The resume trial uses deterministic scripted turns to force both pauses before the final real Provider turn.",
+    "Provider sampling controls and reasoning text were not exposed."
+  ],
+  "labels": [
+    "dogfood",
+    "host",
+    "harness",
+    "stress",
+    "cancellation",
+    "runtime-job"
+  ],
+  "objective": "Cancel a real in-flight Runtime Job after dispatch and retain matching Runtime, Tool Step, Run, and Host evidence.",
+  "oracle": null,
+  "reproducibility": {
+    "cleanRebuildTrials": 1,
+    "requiredAgreement": 1
+  },
+  "schemaVersion": 1,
+  "taskId": "host-harness-cancel-stress-001",
+  "taskVersion": 1
+}

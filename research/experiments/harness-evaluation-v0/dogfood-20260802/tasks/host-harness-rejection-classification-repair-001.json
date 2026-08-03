@@ -1,0 +1,62 @@
+{
+  "acceptanceContract": {
+    "assertions": [
+      "not_started is classified as rejected",
+      "not_committed remains classified as rejected",
+      "ambiguous effects remain unknown",
+      "focused OH2 and OH4 checks pass",
+      "only granted files change"
+    ],
+    "requiredArtifacts": [],
+    "verifierId": "host-harness-rejection-classification-v1",
+    "verifierRevision": "20260802"
+  },
+  "allowedCapabilities": [
+    "runtime.workspace-read",
+    "runtime.workspace-patch",
+    "runtime.workspace-diff",
+    "runtime.workspace-exec-prebound"
+  ],
+  "budgetProfile": {
+    "maxInputTokens": null,
+    "maxModelCalls": 10,
+    "maxObservationBytes": 1048576,
+    "maxOutputTokens": null,
+    "maxRuntimeJobs": 2,
+    "maxToolCalls": 20,
+    "maxWallTimeMs": 600000
+  },
+  "expertTimeEstimateMinutes": 10,
+  "family": "repository_repair",
+  "initialState": {
+    "environmentDigest": null,
+    "fixturePath": "repository:ordivon-harness",
+    "sourceRepositoryId": "ordivon-harness",
+    "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:5582abceabf98c6a179df95025cd71ea39c528f373f09a5e6d6641ec09d8f90a"
+  },
+  "kind": "ordivon.evaluation-task",
+  "knownLimitations": [
+    "Trials vary Context and model to isolate failure boundaries; they are not repeated samples.",
+    "Native Host state is retained outside this repository and referenced through projected evidence."
+  ],
+  "labels": [
+    "dogfood",
+    "host",
+    "harness",
+    "repository-repair"
+  ],
+  "objective": "Repair deterministic Runtime rejection classification without weakening unknown-effect handling, and validate the Host/Harness execution path.",
+  "oracle": null,
+  "reproducibility": {
+    "cleanRebuildTrials": 1,
+    "requiredAgreement": 1
+  },
+  "schemaVersion": 1,
+  "taskId": "host-harness-rejection-classification-repair-001",
+  "taskVersion": 1
+}

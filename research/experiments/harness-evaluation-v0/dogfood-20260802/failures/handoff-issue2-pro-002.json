@@ -1,0 +1,30 @@
+{
+  "correctionCost": "one replacement trial after boundary correction",
+  "description": "run_check advertised an unbounded waitMs while Runtime allowed at most 30000, and the resulting argument error was classified as internal.",
+  "duplicateEffect": false,
+  "evidenceRefs": [
+    "research/evidence/host-handoff-issue2-pro-002.json#stopCode",
+    "research/evidence/host-handoff-issue2-pro-002.json#traceDigest"
+  ],
+  "failureClass": "TOOL",
+  "failureCode": "schema_drift",
+  "failureId": "failure:dogfood:20260802:handoff-issue2-pro-002",
+  "firstObservableEvent": {
+    "eventKind": "run_stopped",
+    "evidenceRef": "research/evidence/host-handoff-issue2-pro-002.json#stopCode",
+    "sequence": 51
+  },
+  "humanIntervention": false,
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:a4f4e3df8a27776930f8b39f7cf4f2a2d3a132d1a9abbf68810dab95b1248bdb"
+  },
+  "kind": "ordivon.evaluation-failure",
+  "minimalCorrection": "Publish Runtime wait and tail limits in the Tool schema and return out-of-range values as model-correctable zero-effect rejections.",
+  "recoverable": true,
+  "recovered": true,
+  "responsibleBoundary": "harness",
+  "schemaVersion": 1,
+  "trialId": "dogfood:20260802:handoff-issue2-pro-002"
+}

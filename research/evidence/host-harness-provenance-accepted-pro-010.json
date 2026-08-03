@@ -1,0 +1,247 @@
+{
+  "assignmentDigest": "sha256:fc52b406218516436ad9d17ad7d6a70308dece96e340bda8af852604e745c075",
+  "assignmentId": "assignment:host-harness-provenance-repair-001:attempt-1:g1",
+  "completedAtMs": 1785653420021,
+  "completionAccepted": true,
+  "completionDecisionDigest": "sha256:322d4d9d028aaaefcbe95dde21dbb6d26d5e7f29cc86e960fcd45bc73e63e90c",
+  "finalTaskRevision": 11,
+  "finalTaskState": "completed",
+  "harnessManifestDigest": "sha256:c8b2ebf14193d831bcd6cebd0de2d14daf99eca68afeb1670fec97197dbfc62e",
+  "harnessRunId": "harness-run:host-harness-provenance-repair-001:attempt-1:g1",
+  "independentVerification": {
+    "checks": {
+      "assignmentUsesDerivedRef": true,
+      "contractUsesDerivedRef": true,
+      "hardCodedHostRefAbsent": true,
+      "noOtherTrackedFilesChanged": true,
+      "noUntrackedFiles": true,
+      "pythonCompiles": true,
+      "sourceRepoIdentityDerived": true,
+      "targetDiffPresent": true
+    },
+    "diff": "diff --git a/scripts/live_ordivon_harness_oh4_deepseek.py b/scripts/live_ordivon_harness_oh4_deepseek.py\nindex 5fdd7ea..0000507 100755\n--- a/scripts/live_ordivon_harness_oh4_deepseek.py\n+++ b/scripts/live_ordivon_harness_oh4_deepseek.py\n@@ -141,7 +141,11 @@ def _create_task(storage: HostStorage) -> None:\n     )\n \n \n-def _task_contract(source_revision: str, source_digest: str) -> TaskContract:\n+def _task_contract(\n+    source_ref: str,\n+    source_revision: str,\n+    source_digest: str,\n+) -> TaskContract:\n     return TaskContract(\n         contract_id=\"task-contract:oh4-live-readme:v1\",\n         task_id=TASK_ID,\n@@ -176,7 +180,7 @@ def _task_contract(source_revision: str, source_digest: str) -> TaskContract:\n         ),\n         resource_refs=(\n             StateRef(\n-                ref=f\"repository:ordivon-host@{source_revision}\",\n+                ref=source_ref,\n                 digest=source_digest,\n             ),\n         ),\n@@ -272,6 +276,9 @@ def _run_with_state_root(\n ) -> LiveRunEvidence:\n     source_repo = args.source_repo.expanduser().resolve()\n     source_revision = _git_revision(source_repo, args.source_revision)\n+    source_ref = (\n+        f\"repository:{source_repo.name}@{source_revision}\"\n+    )\n     source_digest = canonical_digest(\n         {\"sourceRepo\": str(source_repo), \"sourceRevision\": source_revision}\n     )\n@@ -299,7 +306,9 @@ def _run_with_state_root(\n \n     try:\n         catalog = discover_harness_runtime_catalog(runtime)\n-        contract = _task_contract(source_revision, source_digest)\n+        contract = _task_contract(\n+            source_ref, source_revision, source_digest\n+        )\n         grant = ToolGrant(\n             tool_grant_id=\"tool-grant:oh4-live-readme:read-only\",\n             allowed_tools=(\"read_workspace\",),\n@@ -349,7 +358,7 @@ def _run_with_state_root(\n                 tool_catalog_digest=catalog.digest,\n             tool_catalog=catalog,\n                 workspace_ref=workspace_id,\n-                source_ref=f\"repository:ordivon-host@{source_revision}\",\n+                source_ref=source_ref,\n                 source_digest=source_digest,\n                 required_capabilities=(\"tool_events\", \"usage\"),\n                 budget={\n",
+    "diffDigest": "sha256:b8d2920a10faae4ad64ce71e097ea26b40a33c8e5fdd52169297e7dc33b8fdbd",
+    "method": "external-runtime-read-and-diff-v1",
+    "targetDigest": "sha256:ae4b3811a8eb87fea18b8f266e86874346bb81fde072072ac4f3cd598690426b",
+    "untrackedPaths": []
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-canonical-json-v1",
+    "payloadDigest": "sha256:cc0cd2c59e49183f7f90117497db60fa9d8655a725d494d77e09358fc3e86e7f"
+  },
+  "kind": "ordivon.host-harness-dogfood-evidence",
+  "modelCalls": 11,
+  "observationBytes": 35351,
+  "observationObjectDigests": [
+    "sha256:bb75ff863bc4233b4543479add0fdbf4407d0cdb0fbdc0a3c52f30c62a9f3b1b",
+    "sha256:cd9f14d4ab0ad1e1aa590814ced6755e986d88f9c4172208beec58ed2afdb9c7",
+    "sha256:f4d566fbfdf9e0e159ca1f77938f9856c9acaf149504d021acccc5df417718ac",
+    "sha256:818ad667e7bb77d594767b2db83dddf289c5741e14781b3639af534295f567da",
+    "sha256:386cb2a6d3399061ab110cbc82bc86255b46899435e1bb096253ece621cebdf9",
+    "sha256:7d676498eeb9678c7e9155491c9d392fc2b3d1a89c86d7192cb959bee9c5aade",
+    "sha256:c454ee0c36291d318cada714f8176a353db45ffc37d044e780d8bb58c7d594d4",
+    "sha256:6f0565d06dbc6754cfd5e0281c6d95674c1a4101d4be2c068f1e3380468acf8b",
+    "sha256:654285038341d6c5b9b5f60c8bc6d581e4469b49a9601c7b389fdb9da2aa7f74",
+    "sha256:97a984f0c587f2e4293e1e524d6a962b4e945dc866e91bb5fc919368a7480e80"
+  ],
+  "providerDiagnostics": [],
+  "runReceiptDigest": "sha256:6ee2d11e1f95a2b9d26861504ed5a8e104c404e2b4299b12d08277f8fd41abab",
+  "runReceiptObjectDigest": "sha256:a72558ea70216bfe286ebdf4b150bc95af036f8254499335fbfc859db011efe2",
+  "schemaVersion": 1,
+  "sourceRef": "repository:ordivon-harness@bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+  "sourceRepositoryId": "ordivon-harness",
+  "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213",
+  "startedAtMs": 1785653351525,
+  "stopCode": "candidate_completed",
+  "taskId": "task:host-harness-provenance-repair-001",
+  "toolCalls": 10,
+  "traceDigest": "sha256:2260ad32a7af53f8f24a6f15078bf7cee9e95a3a6025c8d304423aa1e83bf161",
+  "traceEventCount": 60,
+  "traceObjectDigest": "sha256:6d3c777645db106fa0596d1ab36b9e6f514fc9c807e17b7c988058b515c0c565",
+  "usage": {
+    "deadlineOverrunMs": 0,
+    "effectiveModelIds": [
+      "deepseek-v4-pro"
+    ],
+    "modelCalls": 11,
+    "modelRetries": 0,
+    "observationBytes": 35351,
+    "providerAttempts": 11,
+    "providerUsage": [
+      {
+        "completion_tokens": 73,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 3234,
+        "prompt_tokens": 3234,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 3307
+      },
+      {
+        "completion_tokens": 106,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 3200,
+        "prompt_cache_miss_tokens": 5650,
+        "prompt_tokens": 8850,
+        "prompt_tokens_details": {
+          "cached_tokens": 3200
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 8956
+      },
+      {
+        "completion_tokens": 73,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 8832,
+        "prompt_cache_miss_tokens": 237,
+        "prompt_tokens": 9069,
+        "prompt_tokens_details": {
+          "cached_tokens": 8832
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 9142
+      },
+      {
+        "completion_tokens": 565,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 9088,
+        "prompt_cache_miss_tokens": 167,
+        "prompt_tokens": 9255,
+        "prompt_tokens_details": {
+          "cached_tokens": 9088
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 9820
+      },
+      {
+        "completion_tokens": 565,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 9216,
+        "prompt_cache_miss_tokens": 192,
+        "prompt_tokens": 9408,
+        "prompt_tokens_details": {
+          "cached_tokens": 9216
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 9973
+      },
+      {
+        "completion_tokens": 22,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 9344,
+        "prompt_cache_miss_tokens": 217,
+        "prompt_tokens": 9561,
+        "prompt_tokens_details": {
+          "cached_tokens": 9344
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 9583
+      },
+      {
+        "completion_tokens": 576,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 9472,
+        "prompt_cache_miss_tokens": 199,
+        "prompt_tokens": 9671,
+        "prompt_tokens_details": {
+          "cached_tokens": 9472
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 10247
+      },
+      {
+        "completion_tokens": 103,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 9600,
+        "prompt_cache_miss_tokens": 1552,
+        "prompt_tokens": 11152,
+        "prompt_tokens_details": {
+          "cached_tokens": 9600
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 11255
+      },
+      {
+        "completion_tokens": 102,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 11136,
+        "prompt_cache_miss_tokens": 1029,
+        "prompt_tokens": 12165,
+        "prompt_tokens_details": {
+          "cached_tokens": 11136
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 12267
+      },
+      {
+        "completion_tokens": 40,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 12160,
+        "prompt_cache_miss_tokens": 1021,
+        "prompt_tokens": 13181,
+        "prompt_tokens_details": {
+          "cached_tokens": 12160
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 13221
+      },
+      {
+        "completion_tokens": 394,
+        "effectiveModelId": "deepseek-v4-pro",
+        "prompt_cache_hit_tokens": 13184,
+        "prompt_cache_miss_tokens": 847,
+        "prompt_tokens": 14031,
+        "prompt_tokens_details": {
+          "cached_tokens": 13184
+        },
+        "providerModel": "deepseek-v4-pro",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-pro",
+        "systemFingerprint": "fp_9954b31ca7_prod0820_fp8_kvcache_20260402",
+        "total_tokens": 14425
+      }
+    ],
+    "requestedModelId": "deepseek-v4-pro",
+    "tokenLimit": 262144,
+    "toolCalls": 10,
+    "toolCorrections": 5,
+    "totalTokens": 112196,
+    "wallTimeMs": 67529
+  },
+  "workloadId": "host-harness-provenance-repair-001",
+  "workspaceId": "ws-019fc13b-d439-7aa2-9f91-d63a113898f1"
+}

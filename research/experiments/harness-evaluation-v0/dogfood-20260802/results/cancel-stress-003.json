@@ -1,0 +1,96 @@
+{
+  "acceptance": {
+    "decisionRef": "research/evidence/host-harness-cancel-stress-003.json#accepted",
+    "falseCompletion": false,
+    "status": "accepted",
+    "verifier": {
+      "assertions": [
+        {
+          "assertionId": "cancel_after_dispatch",
+          "evidenceRefs": [
+            "research/evidence/host-harness-cancel-stress-003.json#cancelTriggeredAfterDispatch"
+          ],
+          "status": "passed"
+        },
+        {
+          "assertionId": "receipt_job_bound",
+          "evidenceRefs": [
+            "research/evidence/host-harness-cancel-stress-003.json#toolStepReceipt.runtimeJobRef"
+          ],
+          "status": "passed"
+        },
+        {
+          "assertionId": "run_cancelled",
+          "evidenceRefs": [
+            "research/evidence/host-harness-cancel-stress-003.json#runTerminationCode"
+          ],
+          "status": "passed"
+        },
+        {
+          "assertionId": "runtime_cancelled",
+          "evidenceRefs": [
+            "research/evidence/host-harness-cancel-stress-003.json#runtimeObservation.status"
+          ],
+          "status": "passed"
+        }
+      ],
+      "status": "passed",
+      "verifierId": "host-harness-cancel-stress-001-v1",
+      "verifierRevision": "20260802"
+    }
+  },
+  "artifacts": [
+    {
+      "digest": "sha256:a18bb194ec85df5f5ed0de04e6d9da7b9a3e7329dfcde15ce202bcb9846cf7d2",
+      "kind": "host-harness-run-receipt",
+      "ref": "research/evidence/host-harness-cancel-stress-003.json#runReceiptDigest",
+      "valid": true
+    },
+    {
+      "digest": "sha256:9141679a154478f829574150f0a513432db3d5b4dea7b833d09c88f7ead98bb9",
+      "kind": "harness-tool-step-receipt",
+      "ref": "research/evidence/host-harness-cancel-stress-003.json#toolStepReceiptObjectDigest",
+      "valid": true
+    }
+  ],
+  "failureRefs": [],
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:7a8187d546458f56e8db82a9c4ee7509e7580cfab4efe74b092850b711538c42"
+  },
+  "kind": "ordivon.evaluation-result",
+  "limitations": [
+    "A scripted model turn isolates cancellation mechanics from Provider behavior.",
+    "Historical Tool Step receipt lookup currently requires Journal/CAS traversal."
+  ],
+  "metrics": {
+    "cachedInputTokens": 0,
+    "estimatedCostUsd": null,
+    "humanInterventionCount": 0,
+    "inputTokens": 0,
+    "invalidToolCalls": 0,
+    "modelCalls": 1,
+    "observationBytes": null,
+    "outputTokens": 0,
+    "reasoningTokens": null,
+    "repeatedCommands": 0,
+    "repeatedReads": 0,
+    "runtimeJobs": 1,
+    "toolCalls": 1,
+    "totalTokens": 0,
+    "wallTimeMs": 1273
+  },
+  "schemaVersion": 1,
+  "stopCode": "cancelled",
+  "taskRef": {
+    "taskId": "host-harness-cancel-stress-001",
+    "taskVersion": 1
+  },
+  "trace": {
+    "digest": null,
+    "eventCount": null,
+    "ref": null
+  },
+  "trialId": "dogfood:20260802:cancel-stress-003"
+}

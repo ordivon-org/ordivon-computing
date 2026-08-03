@@ -1,0 +1,64 @@
+{
+  "acceptanceContract": {
+    "assertions": [
+      "hard-coded ordivon-host provenance is absent",
+      "source_repo.name derives one shared source ref",
+      "Task Contract and Assignment use the shared source ref",
+      "the target compiles and isolation-safe checks pass",
+      "only the target file changes"
+    ],
+    "requiredArtifacts": [],
+    "verifierId": "host-harness-provenance-repair-v1",
+    "verifierRevision": "20260802"
+  },
+  "allowedCapabilities": [
+    "runtime.workspace-read",
+    "runtime.workspace-search",
+    "runtime.workspace-patch",
+    "runtime.workspace-diff",
+    "runtime.workspace-exec-prebound"
+  ],
+  "budgetProfile": {
+    "maxInputTokens": null,
+    "maxModelCalls": 16,
+    "maxObservationBytes": 1048576,
+    "maxOutputTokens": null,
+    "maxRuntimeJobs": 2,
+    "maxToolCalls": 24,
+    "maxWallTimeMs": 600000
+  },
+  "expertTimeEstimateMinutes": 10,
+  "family": "repository_repair",
+  "initialState": {
+    "environmentDigest": null,
+    "fixturePath": "repository:ordivon-harness",
+    "sourceRepositoryId": "ordivon-harness",
+    "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:121d4aef72c264b20e86083a96c3d17763ff7371f3ff18971d9d4d27c615bda9"
+  },
+  "kind": "ordivon.evaluation-task",
+  "knownLimitations": [
+    "Trials form a remediation sequence rather than independent repeated samples.",
+    "Native Host state is retained outside this repository and referenced through projected evidence."
+  ],
+  "labels": [
+    "dogfood",
+    "host",
+    "harness",
+    "repository-repair",
+    "provenance"
+  ],
+  "objective": "Derive repository provenance from the selected source repository and bind the same source ref into the Task Contract and Host Assignment.",
+  "oracle": null,
+  "reproducibility": {
+    "cleanRebuildTrials": 1,
+    "requiredAgreement": 1
+  },
+  "schemaVersion": 1,
+  "taskId": "host-harness-provenance-repair-001",
+  "taskVersion": 1
+}

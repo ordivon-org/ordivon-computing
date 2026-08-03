@@ -1,0 +1,65 @@
+{
+  "acceptanceContract": {
+    "assertions": [
+      "one CLI command exports the capsule and canonical digest",
+      "the current expected revision succeeds deterministically",
+      "a stale expected revision reports expected and current values",
+      "handoff reads leave the Task revision unchanged",
+      "focused and full Host tests pass",
+      "only bounded Host files change"
+    ],
+    "requiredArtifacts": [],
+    "verifierId": "host-operator-handoff-issue-2-v1",
+    "verifierRevision": "20260802"
+  },
+  "allowedCapabilities": [
+    "runtime.workspace-read",
+    "runtime.workspace-search",
+    "runtime.workspace-patch",
+    "runtime.workspace-diff",
+    "runtime.workspace-exec-prebound"
+  ],
+  "budgetProfile": {
+    "maxInputTokens": null,
+    "maxModelCalls": 22,
+    "maxObservationBytes": 1048576,
+    "maxOutputTokens": null,
+    "maxRuntimeJobs": 3,
+    "maxToolCalls": 40,
+    "maxWallTimeMs": 600000
+  },
+  "expertTimeEstimateMinutes": 20,
+  "family": "repository_repair",
+  "initialState": {
+    "environmentDigest": null,
+    "fixturePath": "repository:ordivon-host",
+    "sourceRepositoryId": "ordivon-host",
+    "sourceRevision": "341234625ebe080f26a9dee4806e8c42ae8ebbd0"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:ea70a585f55f984662e4a0ddf162c94ac4f0d27e9e13cb9729c0e0f09268f898"
+  },
+  "kind": "ordivon.evaluation-task",
+  "knownLimitations": [
+    "Trials form a fault-remediation sequence rather than independent samples.",
+    "Provider sampling controls and reasoning text were not exposed."
+  ],
+  "labels": [
+    "dogfood",
+    "host",
+    "harness",
+    "repository-repair",
+    "operator-handoff"
+  ],
+  "objective": "Expose the existing Host Operator Handoff capsule through a deterministic, revision-pinned, read-only CLI and prove stale revisions do not mutate state.",
+  "oracle": null,
+  "reproducibility": {
+    "cleanRebuildTrials": 1,
+    "requiredAgreement": 1
+  },
+  "schemaVersion": 1,
+  "taskId": "host-operator-handoff-issue-2-001",
+  "taskVersion": 1
+}

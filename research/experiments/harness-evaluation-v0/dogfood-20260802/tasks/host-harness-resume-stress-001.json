@@ -1,0 +1,64 @@
+{
+  "acceptanceContract": {
+    "assertions": [
+      "one successful README read is retained",
+      "the cross-process duplicate read is locally rejected",
+      "a fresh DeepSeek process completes from retained evidence",
+      "the independent heading verifier accepts the result"
+    ],
+    "requiredArtifacts": [],
+    "verifierId": "host-harness-resume-stress-001-v1",
+    "verifierRevision": "20260802"
+  },
+  "allowedCapabilities": [
+    "runtime.workspace-read",
+    "runtime.workspace-exec-prebound",
+    "runtime.job-observe",
+    "runtime.job-cancel"
+  ],
+  "budgetProfile": {
+    "maxInputTokens": null,
+    "maxModelCalls": 8,
+    "maxObservationBytes": 524288,
+    "maxOutputTokens": null,
+    "maxRuntimeJobs": 1,
+    "maxToolCalls": 6,
+    "maxWallTimeMs": 300000
+  },
+  "expertTimeEstimateMinutes": 10,
+  "family": "host_harness_stress",
+  "initialState": {
+    "environmentDigest": null,
+    "fixturePath": "repository:ordivon-harness",
+    "sourceRepositoryId": "ordivon-harness",
+    "sourceRevision": "bc72d1966823f9e841b7e65b0e0cb6ca80344213"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:1b67838d8f23dd72eec6b7dbdf5064de08332d01c2cca0265d8bb5515e57f1f6"
+  },
+  "kind": "ordivon.evaluation-task",
+  "knownLimitations": [
+    "The resume trial uses deterministic scripted turns to force both pauses before the final real Provider turn.",
+    "Provider sampling controls and reasoning text were not exposed."
+  ],
+  "labels": [
+    "dogfood",
+    "host",
+    "harness",
+    "stress",
+    "resume",
+    "needs-input",
+    "deepseek"
+  ],
+  "objective": "Survive two needs-input process boundaries, reject a repeated full read before Runtime dispatch, and complete from retained evidence.",
+  "oracle": null,
+  "reproducibility": {
+    "cleanRebuildTrials": 1,
+    "requiredAgreement": 1
+  },
+  "schemaVersion": 1,
+  "taskId": "host-harness-resume-stress-001",
+  "taskVersion": 1
+}
