@@ -1,6 +1,6 @@
 # Research Charters
 
-Charters define durable cross-project missions. They do not own changing portfolio status; [`../portfolio.json`](../portfolio.json) and [`../PORTFOLIO.md`](../PORTFOLIO.md) do.
+Charters define durable cross-project missions. They do not own changing portfolio status; [`../portfolio.json`](../portfolio.json) does, while [`../PORTFOLIO.md`](../PORTFOLIO.md) is its generated review projection.
 
 ## Active charters
 

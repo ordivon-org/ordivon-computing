@@ -8,6 +8,10 @@
 - **Computing implementation:** `0485fcf337ba002aa81a57cb166489f3ddce7709`
 - **Host implementation:** `394e205d165c0d891448179fbc0fdc7270a98970`
 
+## Reader guidance
+
+This 7,000-word report is completed experiment evidence, not current implementation authority. Read [`RESULTS.md`](RESULTS.md) for the compact measured outcomes and [`DECISIONS.md`](DECISIONS.md) for retained dispositions. Current product behavior remains owned by Host, Harness, and Runtime repositories; current research status remains in `research/portfolio.json`.
+
 ## Abstract
 
 Round 1 tested whether Ordivon's proposed core work-system abstractions add

@@ -1,5 +1,7 @@
 # ANC-GAME-002 — Open Interactive Worlds for People and Agents
 
+> **Status:** deferred at M1. The thesis remains valid, but it does not authorize a generic social, habitat, or world platform; reactivation depends on the bounded post-alpha play experiment recorded in `portfolio.json`.
+
 ## Question
 
 Which minimum world and experience structures allow persistent Agents to create intrinsic play, relationships, creation, emergence, habitation, and return motivation beyond task completion—without turning Ordivon Game into a general engine, social-simulation platform, Security-only range, or research-only laboratory?

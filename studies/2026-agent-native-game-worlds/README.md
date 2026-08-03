@@ -1,5 +1,7 @@
 # Agent-native game worlds: play, creation, habitation, and research
 
+> **Status:** completed reference study. `ANC-GAME-002` is deferred; Station Zero product evidence must precede any generic world-platform construction.
+
 ## Purpose
 
 This study corrects an overly instrumental interpretation of Ordivon Game.

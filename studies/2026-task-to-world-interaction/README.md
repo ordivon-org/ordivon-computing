@@ -1,5 +1,7 @@
 # Task-to-World Interaction: Unifying External Connection and Action
 
+> **Status:** completed reference study. W1 selected `absorb`; the candidate independent World layer is not an active roadmap. A successor experiment requires a concrete mismatch or rebinding failure recorded by the portfolio.
+
 This study explains why the former Ordivon Edge and Ordivon Link prototypes were
 merged into Ordivon World and defines the research program that follows.
 

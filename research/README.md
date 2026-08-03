@@ -13,7 +13,7 @@ audience:
   - researcher
   - builder
   - agent
-updated: 2026-08-03
+updated: 2026-08-04
 summary: Canonical entry to active questions, portfolio state, experiments, evidence, and research construction rules.
 evidence_status: not_applicable
 readiness: READY
@@ -46,7 +46,7 @@ Research may contain alternatives, failed experiments, changing terminology, and
 
 - [`portfolio.json`](portfolio.json) is the mutable source of truth for line status, maturity, blockers, falsifiers, and disposition.
 - [`PORTFOLIO.md`](PORTFOLIO.md) is its generated review projection.
-- [`questions/`](questions/) owns active research questions.
+- [`questions/`](questions/) owns durable question pages, including completed and superseded questions; only `portfolio.json` determines which are active.
 - [`experiments/`](experiments/) owns executable investigations.
 - [`evidence/`](evidence/) owns retained observations and immutable snapshots.
 
@@ -84,3 +84,5 @@ The expanded Game thesis, comparative source set, experience/infrastructure admi
 The scarcity, operability, and paradigm-change lens that guided the August 2026 Ordivon reform audit lives in [`../studies/2026-scarcity-operability-and-paradigm-change/`](../studies/2026-scarcity-operability-and-paradigm-change/). It is retained as a reference study; it does not alter the active Ready Frontier, admit a Core primitive, or authorize implementation changes by itself.
 
 The dated Ordivon formalism and A11 reform audit is preserved in [`../studies/2026-ordivon-paradigm-reform/`](../studies/2026-ordivon-paradigm-reform/). It records the source-level deletion judgments that informed the August 2026 P0/P1 closeout; it is closed evidence, not a new active research line or mandatory governance process.
+
+The one-time [`HISTORICAL-DOCUMENT-AUDIT.md`](HISTORICAL-DOCUMENT-AUDIT.md) records the retain, merge, historical, archive, delete, and rewrite-summary decisions applied to high-impact historical documents. It is audit evidence and does not own portfolio status or architecture.

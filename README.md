@@ -13,7 +13,7 @@ audience:
   - builder
   - researcher
   - agent
-updated: 2026-08-03
+updated: 2026-08-04
 summary: Canonical entry to Ordivon Computing, its responsibility boundary, core model, research system, and project family.
 evidence_status: not_applicable
 readiness: READY
@@ -150,7 +150,7 @@ The machine-readable portfolio and generated review view are:
 - [`research/portfolio.json`](research/portfolio.json) — status, maturity, priority, blocker, next falsifier, and disposition source of truth;
 - [`research/PORTFOLIO.md`](research/PORTFOLIO.md) — current active lines and complete portfolio view.
 
-The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](research/PORTFOLIO.md). Root and research overview documents do not duplicate mutable line identifiers or statuses; `portfolio.json` remains the single current-state source. Research importance does not grant active WIP status.
+The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](research/PORTFOLIO.md). Root and research overview documents do not duplicate mutable line identifiers or statuses; `portfolio.json` remains the single current-state source. Research importance does not grant active WIP status. The one-time [`historical document governance audit`](research/HISTORICAL-DOCUMENT-AUDIT.md) records resolved conflicts and dispositions without becoming another status source.
 
 ## Project roles
 

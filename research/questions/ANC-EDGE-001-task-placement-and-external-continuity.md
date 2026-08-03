@@ -1,16 +1,15 @@
 # ANC-EDGE-001 — Task Placement and External Execution Continuity
 
-
 > **Historical intermediate question:** superseded by [`ANC-WORLD-002`](ANC-WORLD-002-task-to-world-interaction-continuity.md) and Computing #78.
+
 ## Status
 
-- Epistemic status: active foundational research question
-- GitHub issue: #66
-- Parent program: Agent-Native Responsibility Overlay
-- Implementation owner: `ordivon-edge`
-- Semantic consumers: `ordivon-host`, semantic Kernel, `ordivon-runtime`
-- Related questions: `ANC-MEMORY-001`, `ANC-IR-001`, `ANC-EFFECT-001`,
-  `ANC-WORLD-001`, `ANC-SECURITY-002`
+- Epistemic status: superseded historical question
+- Status authority: [`../portfolio.json`](../portfolio.json)
+- Former GitHub issue: #66
+- Superseded by: `ANC-WORLD-002`
+- Current implementation owner: none; former Edge product responsibilities were absorbed or localized
+- Use: derivation and failure-boundary evidence only
 
 ## Question
 

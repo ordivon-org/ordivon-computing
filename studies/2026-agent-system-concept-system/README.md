@@ -1,5 +1,7 @@
 # Agent System Concept System
 
+> **Status:** completed reference study. It preserves the concept and ownership derivation that preceded H1–H5; current first-party Harness construction is tracked by `ANC-HARNESS-002`, not by the historical program sections below.
+
 This study organizes the rapidly expanding vocabulary of Agent systems into a coherent set of research objects, responsibility boundaries, mature classical baselines, and falsifiable Ordivon hypotheses.
 
 The central result is not a new universal ontology. It is a small ownership rule:

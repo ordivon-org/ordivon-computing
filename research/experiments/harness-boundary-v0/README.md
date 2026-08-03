@@ -1,10 +1,12 @@
-# Harness Boundary v0 — Stage 1 and Stage 2 Design
+# Harness Boundary v0 — Historical H1–H5 Design and Closeout
 
 Status: completed H1–H5 experiment and architecture decision
 Research owner: `ANC-HARNESS-001`
 Implementation evidence: `ordivon-host#20`, `ordivon-runtime#65`
 Design date: 2026-07-30
 Closeout date: 2026-07-31
+
+> **Historical scope:** the rejected extraction was a shared lifecycle over mature Provider Harnesses. The later standalone `ordivon-harness` implements the distinct bare-model Agent Loop from `ANC-HARNESS-002`; it does not reverse this H1–H5 result. Current code truth lives in the Host and Harness repositories.
 
 ## Closeout
 

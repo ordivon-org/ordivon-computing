@@ -13,7 +13,7 @@ audience:
   - maintainer
   - builder
   - agent
-updated: 2026-08-03
+updated: 2026-08-04
 summary: Decision identifying the narrow set of documents and machine records allowed to define current shared Ordivon meaning.
 evidence_status: not_applicable
 readiness: READY
@@ -37,6 +37,8 @@ The current canonical human-readable entry is [`../README.md`](../README.md). Sh
 Research navigation is defined by [`../research/README.md`](../research/README.md). Mutable research status is owned only by `research/portfolio.json`; `research/PORTFOLIO.md` is its generated projection. Stable project identity is owned by `projects/registry.yaml`. Promoted machine contracts and canonical vectors own cross-project protocol compatibility.
 
 Studies, experiments, audits, closeouts, and phase-named files are evidence, derivation, or history unless a canonical document explicitly incorporates their result. Ordivon Web publications are derived interpretations and cannot redefine these records.
+
+Authority precedence is explicit: named canonical documents and machine registries override generated projections; generated projections override no source; historical documents remain scoped to their recorded revision. Words such as `current`, `active`, `next`, or `roadmap` inside a historical file do not reactivate it. Only `research/portfolio.json` may do that for research status.
 
 ## Consequences
 

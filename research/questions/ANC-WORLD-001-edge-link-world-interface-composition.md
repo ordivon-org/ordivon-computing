@@ -1,16 +1,15 @@
 # ANC-WORLD-001 — Edge/Link World-Interface Composition
 
+> **Completed composition question:** the former Edge and Link research objects were unified and then closed through [`ANC-WORLD-002`](ANC-WORLD-002-task-to-world-interaction-continuity.md).
 
-> **Completed composition question:** the repository and research objects were unified as `ordivon-world`; active research continues in [`ANC-WORLD-002`](ANC-WORLD-002-task-to-world-interaction-continuity.md) and Computing #78.
 ## Status
 
-- Epistemic status: active cross-boundary research question
-- GitHub issue: #68
-- Parent program: Agent-Native Responsibility Overlay
-- Research owners: `ordivon-computing`
-- Implementation owners: `ordivon-edge`, `ordivon-link`, `ordivon-host`
-- Related questions: `ANC-EDGE-001`, `ANC-LINK-001`, `ANC-IR-001`,
-  `ANC-EFFECT-001`, `ANC-SECURITY-002`
+- Epistemic status: superseded historical question
+- Status authority: [`../portfolio.json`](../portfolio.json)
+- Former GitHub issue: #68
+- Superseded by: `ANC-WORLD-002`
+- Current implementation owner: none at this abstraction level
+- Use: historical composition rationale only
 
 ## Question
 

@@ -1,6 +1,6 @@
 # Research Experiments
 
-Experiments connect falsifiable Ordivon Computing questions to executable artifacts and observable results. They are not production components by default, and this page does not own mutable portfolio status. Current WIP, blockers, and next actions live only in [`../PORTFOLIO.md`](../PORTFOLIO.md).
+Experiments connect falsifiable Ordivon Computing questions to executable artifacts and observable results. They are not production components by default, and this page does not own mutable portfolio status. Current WIP, blockers, and next actions live only in [`../portfolio.json`](../portfolio.json); [`../PORTFOLIO.md`](../PORTFOLIO.md) is its generated review projection.
 
 ## Current executable research
 

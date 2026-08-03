@@ -1,5 +1,7 @@
 # ANC-MEMORY-001 — Minimum Durable State for Task Continuity
 
+> **Status:** completed at M4 and localized to Host/application continuity. The experiment sections below are historical construction records; no general memory runtime is active.
+
 ## Question
 
 What is the minimum durable state that allows a different model instance, process, session, or machine to understand and continue a long-running task?

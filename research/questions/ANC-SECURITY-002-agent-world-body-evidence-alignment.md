@@ -6,10 +6,10 @@
 - Parent program: `ordivon-computing` #46
 - Related construction track: `ANC-VERIFY-001`
 - Related research question: `ANC-SECURITY-001`
-- Implementation owners: Ordivon Link, Edge, Security, Host, and Runtime
+- Historical implementation owners: former Link, Edge, Security, Host, and Runtime revisions
 - Baseline reviewed: merged Phase 0 main revisions recorded on 2026-07-29
 - GitHub issue: #57 — closed as completed and superseded
-- Active successors: `ANC-EDGE-001` / #66, `ANC-LINK-001` / #67, and `ANC-WORLD-001` / #68
+- Successor status: `ANC-WORLD-002` is completed; `ANC-SECURITY-003` and `004` are deferred; `005` and `006` are blocked. Consult `portfolio.json` rather than this page for reactivation.
 - Route disposition: former persistent Agent-presence, NetworkAttachment, and P0-D implementation routes are retired and do not constrain product repositories
 
 ## Question

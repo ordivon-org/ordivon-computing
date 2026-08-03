@@ -1,5 +1,7 @@
 # Computer P0–P1 Core A-Series Audit
 
+> **Historical closeout audit:** this file records the 2026-08-01 baseline and decisions. Current architecture and portfolio authority live in `README.md`, `core/`, `docs/authority.md`, and `research/portfolio.json`.
+
 Date: 2026-08-01
 Baseline: `be5fe779267f0225dd37c570932c7d71ee5223a7`
 

@@ -1,6 +1,6 @@
 # Agent-Native Strategic Adversarial Systems
 
-Status: active comparative study
+Status: deferred reference after Round 1; `research/portfolio.json` owns any reactivation
 
 ## Purpose
 

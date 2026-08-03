@@ -1,17 +1,15 @@
 # ANC-LINK-001 — Task Connectivity and Evidence Continuity
 
-
 > **Historical intermediate question:** superseded by [`ANC-WORLD-002`](ANC-WORLD-002-task-to-world-interaction-continuity.md) and Computing #78.
+
 ## Status
 
-- Epistemic status: active foundational research question
-- GitHub issue: #67
-- Parent program: Agent-Native Responsibility Overlay
-- Implementation owner: `ordivon-link`
-- Semantic consumers: `ordivon-host`, semantic Kernel, `ordivon-edge`,
-  `ordivon-security`
-- Related questions: `ANC-MEMORY-001`, `ANC-EFFECT-001`, `ANC-WORLD-001`,
-  `ANC-SECURITY-001`, `ANC-SECURITY-002`
+- Epistemic status: superseded historical question
+- Status authority: [`../portfolio.json`](../portfolio.json)
+- Former GitHub issue: #67
+- Superseded by: `ANC-WORLD-002`
+- Current implementation owner: none; former Link product responsibilities were absorbed or localized
+- Use: derivation and failure-boundary evidence only
 
 ## Question
 

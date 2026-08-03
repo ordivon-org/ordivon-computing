@@ -2,11 +2,12 @@
 
 ## Status
 
-- Epistemic status: active research question
+- Epistemic status: blocked question at M0
+- Status authority: [`../portfolio.json`](../portfolio.json)
 - Parent: `ANC-SECURITY-001`
-- Related: `ANC-MULTI-001`, `ANC-ORG-001`, `ANC-SECURITY-003`, `ANC-SECURITY-004`
+- Related blockers: `ANC-MULTI-001`, `ANC-SECURITY-003`, `ANC-SECURITY-004`
 - GitHub Issue: #74
-- Primary consumers: Security, Host, and Game
+- Admission rule: no implementation until single-actor strategic and opponent-model hypotheses survive
 
 ## Question
 

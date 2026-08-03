@@ -1,5 +1,7 @@
 # Ordivon Reform Sequence
 
+> **Historical sequence:** this plan translated the audit into the P0/P1 reduction round. It is not the current roadmap; current status and implementation truth live in `research/portfolio.json` and the owning repositories.
+
 This sequence converts the audit into deletion and localization. It deliberately avoids a new orchestration layer, global validation service, universal research-object schema, or mandatory governance ledger.
 
 ## 1. Decisions already earned

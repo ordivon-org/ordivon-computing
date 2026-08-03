@@ -1,5 +1,7 @@
 # ANC-IR-001 — Minimum Useful Agent Effect IR
 
+> **Status:** completed at M5. This page preserves the question and pre-closeout evidence; `portfolio.json` owns current status. Reopen only after a new cross-backend failure cannot remain in Host, Runtime, or an adapter.
+
 ## Question
 
 What is the smallest representation that can lower an open Goal into external Effects across models, runtimes, and Tool providers while preserving enough semantics for execution and continuation?
@@ -82,7 +84,7 @@ Failure continuity now includes deliberately lost live responses, adapter-instan
 - two concurrent Semantic Core implementations were integrated, preserving the stronger Dispatch admission/rejection algebra and the stronger cross-Effect evidence semantics;
 - the concrete MCP transport remains below the provider-neutral semantic adapter.
 
-This evidence supports the direction but does not yet close ANC-IR-001. Failure injection, contract drift, durable continuation, and canonical serialization remain open.
+This paragraph described the pre-closeout state. Subsequent failure injection, contract-drift, continuation, and canonical-serialization work closed `ANC-IR-001` at M5; the retained EffectEnvelope and external semantic-contract evidence are references, not an active implementation roadmap.
 
 ## Evidence required for closure
 

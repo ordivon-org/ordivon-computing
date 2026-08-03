@@ -1,6 +1,6 @@
 # Harness Evaluation v0
 
-Status: R0–R1 evidence contract implemented; R2 workload is product-owned in `ordivon-host`.
+Status: R0–R2 evidence contract and curated dogfood set implemented; Track R remains active at M3 for the bounded R3 comparison owned by `research/portfolio.json`.
 
 ## Question
 
@@ -28,7 +28,8 @@ They reference component-native receipts and Artifacts rather than normalizing P
 - [`failure-taxonomy.yaml`](failure-taxonomy.yaml) — bounded v0 classes derived from observed Ordivon failures;
 - [`validate_evaluation_evidence.py`](validate_evaluation_evidence.py) — standard-library semantic and integrity validator;
 - [`examples/`](examples/) — historical projections from H3, H4, and the Codex→Hermes H5 trajectory;
-- [`tests/`](tests/) — contract, tamper, relation, and semantic tests.
+- [`tests/`](tests/) — contract, tamper, relation, and semantic tests;
+- [`dogfood-20260802/INDEX.md`](dogfood-20260802/INDEX.md) — curated real-run evidence index; diagnostic failures remain separate from accepted evidence.
 
 ## Historical admission
 
@@ -67,9 +68,10 @@ This experiment does not:
 - define a universal trace format;
 - authorize a standalone Eval service or repository.
 
-## Next gate
+## Current activation gate
 
-R3 becomes eligible when the product-owned `HARNESS-REPO-REPAIR-001` Task passes its QA gate and the first real Ordivon bare-model Adapter can produce a multi-turn Run. The next artifact is then a small runner that projects existing receipts into these records.
+R3 compares the same frozen repository-repair Task under one-shot execution, Ordivon Harness, and a mature Provider Harness after the product-owned QA gate passes. Computing retains only the evaluation envelope and curated projections; workload execution and temporary projection scripts remain product-owned or disposable.
+
 ## Canonicalization domain
 
 Track R records use `ordivon-evidence-json-v1`: sorted-key compact JSON over the finite JSON number domain admitted by the evaluation schemas. This label is intentionally distinct from the integer-only strict `anc_canonical` protocol domain. The two profiles may share byte ordering without claiming the same accepted value set.

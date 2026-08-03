@@ -1,5 +1,7 @@
 # From Classical Computing to Agent-Native Responsibility
 
+> **Status:** reference derivation. Current shared architecture is owned by `core/`; this study explains the evidence and deletion tests behind it and is not an implementation roadmap.
+
 This study separates the mature deterministic substrate from the responsibilities that are introduced or structurally rewritten when probabilistic model cognition participates directly in a persistent action loop.
 
 It records the derivation behind the current Ordivon Computer thesis. It is deliberately more critical and detailed than `core/`: historical mechanisms, counterexamples, source boundaries, project evidence, and falsifiers remain here so that the Core can stay small.

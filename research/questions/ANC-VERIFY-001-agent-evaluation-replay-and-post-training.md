@@ -2,7 +2,7 @@
 
 ## Status
 
-Reopened at M2 for Track R. The earlier deferral condition has been discharged by three live Host/Harness experiments: Codex App Server H3, Hermes ACP H4, and bidirectional Harness replacement H5 now expose stable repeated identities for Task, Assignment, Harness Run, model, Tool catalog, Runtime Job, Artifact, usage, stop, verification, and recovery evidence.
+Active at M3 for Track R. Status and next action remain owned by `research/portfolio.json`. The earlier deferral condition has been discharged by three live Host/Harness experiments: Codex App Server H3, Hermes ACP H4, and bidirectional Harness replacement H5 now expose stable repeated identities for Task, Assignment, Harness Run, model, Tool catalog, Runtime Job, Artifact, usage, stop, verification, and recovery evidence.
 
 ## Question
 

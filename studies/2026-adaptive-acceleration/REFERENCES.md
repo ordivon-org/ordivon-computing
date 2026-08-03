@@ -1,5 +1,7 @@
 # Source Ledger
 
+> **Role:** source ledger for a reference publication. It supports claims in this study but does not define current Computing architecture, implementation, or portfolio state.
+
 The ledger records what each source can and cannot support. Historical analogy is never treated as proof that AI outcomes must repeat the past.
 
 ## Industrial history and general-purpose technology
@@ -186,7 +188,6 @@ The ledger records what each source can and cannot support. Historical analogy i
   - <https://www.energy.gov/nnsa/nuclear-nexus-international-nuclear-safeguards>
 - Supports: international verification can combine declarations, material accounting, facility access, containment, surveillance, and monitoring around physically defined nuclear materials and facilities.
 - Limitation: safeguards are incomplete, jurisdiction-dependent, and materially easier to anchor than distributed algorithmic and organizational knowledge production.
-
 
 ## Compute governance, auditing, and verification
 

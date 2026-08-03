@@ -1,5 +1,7 @@
 # Ordivon Host A-Series Source Audit
 
+> **Historical audit:** findings are scoped to the revisions below. They do not describe current Host state unless confirmed in the owning repository; the remediation plan is not a current Computing roadmap.
+
 This study applies Ordivon Computer foundations A0–A16 to the post-Harness-extraction `ordivon-host` source tree.
 
 ## Audited revisions

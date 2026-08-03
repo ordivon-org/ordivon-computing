@@ -1,5 +1,7 @@
 # The Future Will Not Wait
 
+> **Archive status:** historical long-form manifesto draft. It preserves the full derivation but is not the current publication copy, Computing architecture, or research-status authority. Read [`PUBLICATION.md`](PUBLICATION.md) for the maintained portable publication.
+
 ## Why the AI Revolution Demands Civilizational Acceleration
 
 > **Draft 0.3 — Ordivon Computing research manifesto**

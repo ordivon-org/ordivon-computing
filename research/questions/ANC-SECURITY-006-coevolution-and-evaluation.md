@@ -2,11 +2,12 @@
 
 ## Status
 
-- Epistemic status: active research question
+- Epistemic status: blocked question at M0
+- Status authority: [`../portfolio.json`](../portfolio.json)
 - Parent: `ANC-SECURITY-001`
-- Related: `ANC-VERIFY-001`, `ANC-ADAPT-001`, `ANC-SECURITY-003`–`005`
+- Related blockers: `ANC-VERIFY-001`, `ANC-ADAPT-001`, `ANC-SECURITY-003`–`005`, and `ordivon-security#20`
 - GitHub Issue: #75
-- Primary consumers: Security and Game
+- Admission rule: no platform or training loop until the unit of strategic evaluation is proven
 
 ## Question
 

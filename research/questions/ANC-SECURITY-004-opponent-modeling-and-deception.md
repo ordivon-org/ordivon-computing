@@ -2,11 +2,12 @@
 
 ## Status
 
-- Epistemic status: active research question
+- Epistemic status: deferred reference question at M4
+- Status authority: [`../portfolio.json`](../portfolio.json)
 - Parent: `ANC-SECURITY-001`
 - Depends conceptually on: `ANC-SECURITY-003`
 - GitHub Issue: #73
-- Primary product consumer: `ordivon-security`
+- Reactivation condition: held-out policies and deliberate Context loss; Round 1 found diagnostic value but no objective-success or transfer benefit
 
 ## Question
 

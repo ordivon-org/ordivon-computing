@@ -2,9 +2,9 @@
 
 ## Why the AI Revolution Calls for Civilizational Acceleration
 
-> **Publication candidate 0.2**
+> **Published portable copy — version 0.2**
 >
-> The final HTML adaptation, grouped citations, and responsive visual treatment are published at [ordivon.com/notes/the-future-will-not-wait/](https://ordivon.com/notes/the-future-will-not-wait/) through merged [Ordivon Web PR #28](https://github.com/zycxfyh/ordivon-web/pull/28). This Markdown file remains the portable publication copy; minor wording and structural refinements in the Web rendering are recorded in `PUBLICATION-EDIT.md`.
+> The HTML adaptation, grouped citations, and responsive visual treatment were published through Ordivon Web PR #28. This Markdown file is the maintained portable publication copy. Web-only presentation changes remain in Web history and do not define Computing architecture or portfolio state.
 >
 > The answer to fast intelligence is not to make the frontier slow. It is to make science, verification, resilience, access, and cooperation move faster with it.
 

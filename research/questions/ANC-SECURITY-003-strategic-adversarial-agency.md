@@ -2,11 +2,12 @@
 
 ## Status
 
-- Epistemic status: active research question
+- Epistemic status: deferred reference question at M4
+- Status authority: [`../portfolio.json`](../portfolio.json)
 - Parent: `ANC-SECURITY-001`
 - GitHub Issue: #72
-- Primary product consumer: `ordivon-security`
-- Cross-project consumers: Host, Game, Runtime, Link, and Edge
+- Primary product owner: `ordivon-security`
+- Reactivation condition: held-out opponent policies plus Host/Context replacement evidence; Round 1 did not earn shared Campaign state
 
 ## Question
 
