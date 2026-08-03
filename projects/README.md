@@ -2,6 +2,22 @@
 
 This directory maps real projects into the Agent-Native Computing research stack. Each implementation repository remains the source of truth for its code, tests, Issues, releases, runtime state, deployment revision, and current capabilities.
 
+## Project family
+
+| Project | Stable role | Current authority | Public orientation |
+| --- | --- | --- | --- |
+| [Computing](https://github.com/zycxfyh/ordivon-computing) | shared theory, research state, promoted contracts, and conformance | [`docs/authority.md`](../docs/authority.md) | [Project directory](https://ordivon.com/projects) |
+| [Host](https://github.com/zycxfyh/ordivon-host) | durable Task continuity, commitments, verification, and outcomes | [Host authority](https://github.com/zycxfyh/ordivon-host/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
+| [Harness](https://github.com/zycxfyh/ordivon-harness) | Assignment-scoped Agent Runs, Provider adapters, Tool steps, and recovery | [Harness authority](https://github.com/zycxfyh/ordivon-harness/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
+| [Runtime](https://github.com/zycxfyh/ordivon-runtime) | physical local execution, Jobs, process state, Artifacts, and recovery | [Runtime authority](https://github.com/zycxfyh/ordivon-runtime/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
+| [Game](https://github.com/zycxfyh/ordivon-game) | Station Zero, authoritative game Worlds, player intervention, and replay | [Game authority](https://github.com/zycxfyh/ordivon-game/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
+| [World](https://github.com/zycxfyh/ordivon-world) | retained Cloudflare adapter and private network operator tools | [World authority](https://github.com/zycxfyh/ordivon-world/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
+| [Human](https://github.com/zycxfyh/ordivon-human) | problem-driven human research, practical paths, methods, and limits | [Human authority](https://github.com/zycxfyh/ordivon-human/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
+| [Security](https://github.com/zycxfyh/ordivon-security) | bounded strategic adversarial experiments and evaluation | [Security authority](https://github.com/zycxfyh/ordivon-security/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
+| [Web](https://github.com/zycxfyh/ordivon-web) | public orientation, publication, and dated interpretation | [Web authority](https://github.com/zycxfyh/ordivon-web/blob/main/content/editorial/authority.md) | [Public site](https://ordivon.com/) |
+
+Use this table for navigation and stable role discovery. Use the owning repository for current implementation or research facts, and the public page for reader-facing orientation and maturity language.
+
 ## Truth hierarchy
 
 When sources disagree about an implementation claim, use this order:

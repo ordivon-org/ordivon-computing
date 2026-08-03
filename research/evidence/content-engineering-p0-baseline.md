@@ -1,10 +1,10 @@
 ---
 schema_version: 1
 id: computing.content-engineering.baseline
-title: Ordivon content engineering baseline
+title: Ordivon content engineering P0 baseline
 type: report
 profile: research
-lifecycle: active
+lifecycle: accepted
 source_role: evidence
 visibility: public
 owners:
@@ -13,7 +13,7 @@ audience:
   - maintainer
   - agent
 updated: 2026-08-03
-summary: Advisory structural inventory of the current Ordivon documentation corpus.
+summary: Initial advisory structural inventory captured before the cross-repository documentation governance round.
 evidence_status: observed
 readiness: DEGRADED
 applies_to:
@@ -21,11 +21,11 @@ applies_to:
 related:
   - computing.content-engineering.p0
 ---
-# Ordivon content engineering baseline
+# Ordivon content engineering P0 baseline
 
 ## Executive judgment
 
-Ordivon has crossed the threshold where documentation must be treated as shared engineering infrastructure. This inventory remains advisory: counts expose migration pressure but do not authorize rewriting, deletion, or promotion.
+This initial inventory established that Ordivon had crossed the threshold where documentation must be treated as shared engineering infrastructure. This inventory remains advisory: counts expose migration pressure but do not authorize rewriting, deletion, or promotion.
 
 ## Question
 

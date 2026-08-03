@@ -154,15 +154,16 @@ The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](researc
 
 ## Project roles
 
-- **Ordivon Host** — persistent Goal and Task continuity, commitment, uncertainty, evidence admission, participant decision routing, verification, and recovery;
-- **Ordivon Harness** — replaceable Agent loop, Context/input compilation, model/provider adaptation, Tool use, stopping, and public Run continuity;
-- **Ordivon Runtime** — trusted-local Workspace, Job, Runtime Attempt, Artifact, physical dispatch, cancellation, reconciliation, and recovery;
-- **Ordivon World** — a carrier for Cloudflare provider-native capabilities and private workstation network tools, without shared World authority;
-- **Ordivon Game** — open interactive virtual worlds for play, creation, persistent Agent participation, plural world verticals, replay, and optional evaluation or Security experiments;
-- **Ordivon Security** — strategic adversarial experiments and evaluation: partial observation, adaptive opponents, deception, organization, transfer, and evaluator integrity above mature classical mechanisms;
-- **Ordivon Web** — authored public memory, publication, project navigation, and dated editorial projections rather than copied live system state.
+- [**Ordivon Host**](https://github.com/zycxfyh/ordivon-host) — durable Task continuity, commitments, verification records, participant decisions, and outcomes;
+- [**Ordivon Harness**](https://github.com/zycxfyh/ordivon-harness) — Assignment-scoped Agent Runs, Provider adapters, Tool steps, recovery, and completion proposals;
+- [**Ordivon Runtime**](https://github.com/zycxfyh/ordivon-runtime) — trusted-local Workspaces, Jobs, Runtime Attempts, Artifacts, physical dispatch, cancellation, reconciliation, and recovery;
+- [**Ordivon Game**](https://github.com/zycxfyh/ordivon-game) — playable interactive Worlds, Station Zero, player intervention, replay, and Agent participation;
+- [**Ordivon World**](https://github.com/zycxfyh/ordivon-world) — Cloudflare provider-native capabilities and private workstation network tools, without shared World authority;
+- [**Ordivon Human**](https://github.com/zycxfyh/ordivon-human) — problem-driven human research, practical paths, methods, evidence limits, ethics, and privacy boundaries;
+- [**Ordivon Security**](https://github.com/zycxfyh/ordivon-security) — bounded strategic adversarial experiments, independent scoring, transfer, and evaluator-integrity research;
+- [**Ordivon Web**](https://github.com/zycxfyh/ordivon-web) — public orientation, publication, project navigation, and dated editorial projections rather than copied live system state.
 
-The exact stable declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each product repository.
+The linked authority and public-orientation map is [`projects/README.md`](projects/README.md); stable machine declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each owning repository.
 
 ## Content engineering
 

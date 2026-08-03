@@ -22,6 +22,16 @@ Changing deployment, project, and Issue state remains in the implementation repo
 - [`../../projects/conformance.toml`](../../projects/conformance.toml) — stable project and Protocol conformance declarations;
 - [`../../scripts/ordivon_conformance.py`](../../scripts/ordivon_conformance.py) — deterministic gate, revision-vector, Host-pin, and snapshot capture entry point.
 
+## Content governance evidence
+
+Cross-repository content baselines are diagnostic inventory evidence rather than mutable quality or maturity authorities:
+
+- [`content-engineering-p0-baseline.md`](content-engineering-p0-baseline.md) and its [JSON receipt](content-engineering-p0-baseline.json) preserve the initial pre-governance inventory;
+- [`content-engineering-closeout-baseline.md`](content-engineering-closeout-baseline.md) and its [JSON receipt](content-engineering-closeout-baseline.json) preserve the post-governance inventory and comparison;
+- [`../../docs/content-engineering/FINAL-CLOSEOUT.md`](../../docs/content-engineering/FINAL-CLOSEOUT.md) records the resolved authority, navigation, lifecycle, and maintenance decisions.
+
+Counts may expose review pressure, but they do not authorize deletion, rewriting, metadata promotion, or a claim that one repository is better documented than another.
+
 ## Immutability rule
 
 A committed snapshot file is never edited. A correction or later observation creates a new snapshot with an optional `supersedes` reference.

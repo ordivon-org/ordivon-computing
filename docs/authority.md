@@ -34,9 +34,9 @@ The repository contains current theory, generated views, experiments, studies, a
 
 The current canonical human-readable entry is [`../README.md`](../README.md). Shared purpose and model are defined by [`../core/intent.md`](../core/intent.md), [`../core/foundations.md`](../core/foundations.md), [`../core/stack.md`](../core/stack.md), and [`../core/primitives.md`](../core/primitives.md).
 
-Research navigation is defined by [`../research/README.md`](../research/README.md). Mutable research status is owned only by `research/portfolio.json`; `research/PORTFOLIO.md` is its generated projection. Stable project identity is owned by `projects/registry.yaml`. Promoted machine contracts and canonical vectors own cross-project protocol compatibility.
+Research navigation is defined by [`../research/README.md`](../research/README.md). Mutable research status is owned only by `research/portfolio.json`; `research/PORTFOLIO.md` is its generated projection. Stable project identity is owned by `projects/registry.yaml`. Promoted machine contracts and canonical vectors own cross-project protocol compatibility. [`content-engineering/README.md`](content-engineering/README.md) owns the shared document contract, maintenance rules, and concentrated-governance restart conditions.
 
-Studies, experiments, audits, closeouts, and phase-named files are evidence, derivation, or history unless a canonical document explicitly incorporates their result. Ordivon Web publications are derived interpretations and cannot redefine these records.
+Studies, experiments, audits, closeouts, baselines, and phase-named files are evidence, derivation, or history unless a canonical document explicitly incorporates their result. Ordivon Web publications are derived interpretations and cannot redefine these records.
 
 Authority precedence is explicit: named canonical documents and machine registries override generated projections; generated projections override no source; historical documents remain scoped to their recorded revision. Words such as `current`, `active`, `next`, or `roadmap` inside a historical file do not reactivate it. Only `research/portfolio.json` may do that for research status.
 

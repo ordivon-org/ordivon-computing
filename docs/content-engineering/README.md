@@ -13,7 +13,7 @@ audience:
   - maintainer
   - contributor
   - agent
-updated: 2026-08-03
+updated: 2026-08-04
 summary: Shared content contracts, profiles, checks, templates, and migration boundaries for Ordivon repositories.
 evidence_status: verified
 readiness: DEGRADED
@@ -21,6 +21,8 @@ applies_to:
   - ordivon-project-family
 related:
   - computing.content-engineering.baseline
+  - computing.content-engineering.closeout-baseline
+  - computing.content-engineering.closeout
 ---
 # Ordivon Content Engineering P0
 
@@ -107,3 +109,32 @@ python scripts/ordivon_content.py baseline \
   --json-output /tmp/ordivon-content-baseline.json \
   --markdown-output /tmp/ordivon-content-baseline.md
 ```
+
+## Maintenance rules
+
+The documentation system stays lightweight when ordinary changes follow six rules:
+
+1. **Declare the role of a new core document.** A new entry, architecture, operations, current-answer, or authority document declares metadata, names the fact it owns, links from the existing entry path, and identifies any source it replaces.
+2. **Update the owning summary when a boundary changes.** A change to architecture or operations updates the canonical owner, the repository README summary, and Ordivon Web only when the public role, maturity, or next destination changes.
+3. **Reassess old documents when editing them materially.** A substantive change to a phase report, closeout, proposal, or historical design requires an explicit lifecycle and source-role decision; editing does not silently make it current.
+4. **Keep history out of the default path.** Historical material may remain valuable evidence, but confident language, a recent edit date, or a broken old link cannot restore it as a default entry or alternate architecture.
+5. **Connect before creating.** A new document should extend the existing README, authority map, research registry, operations route, or evidence index. If no existing route should link it, the document is probably not yet admitted.
+6. **Use baselines diagnostically.** Document, word, link, length, metadata, and warning counts reveal review pressure. They are not quality scores and are never targets to drive to zero without a named reader or maintenance failure.
+
+## When to reopen concentrated governance
+
+Start another cross-repository documentation round only when at least one system-level condition appears:
+
+- two canonical sources claim the same current fact or responsibility;
+- a repository extraction, merge, retirement, or product registration changes project ownership;
+- the public Web map materially disagrees with repository authority;
+- repeated changes create unlinked current documents or ambiguous default entry paths;
+- required checks cannot determine which documents are authoritative inputs;
+- a promoted shared contract changes the responsibility boundary of multiple repositories; or
+- accumulated local fixes require the same policy decision in several repositories.
+
+Ordinary stale links, isolated wording defects, one new research report, or advisory warning growth should be handled locally rather than triggering a governance program.
+
+## Governance record
+
+The initial inventory is preserved in [`../../research/evidence/content-engineering-p0-baseline.md`](../../research/evidence/content-engineering-p0-baseline.md). The post-governance comparison is [`../../research/evidence/content-engineering-closeout-baseline.md`](../../research/evidence/content-engineering-closeout-baseline.md), and [`FINAL-CLOSEOUT.md`](FINAL-CLOSEOUT.md) records the completed cross-repository review, remaining debt, and restart conditions.
