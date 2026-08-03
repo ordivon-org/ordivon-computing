@@ -1,10 +1,34 @@
+---
+schema_version: 1
+id: computing.start
+title: Ordivon Computing
+type: start
+profile: organization
+lifecycle: active
+source_role: canonical
+visibility: public
+owners:
+  - ordivon-computing
+audience:
+  - builder
+  - researcher
+  - agent
+updated: 2026-08-03
+summary: Canonical entry to Ordivon Computing, its responsibility boundary, core model, research system, and project family.
+evidence_status: not_applicable
+readiness: READY
+applies_to:
+  - ordivon-project-family
+related:
+  - computing.authority
+---
 # Ordivon Computing
 
 **Researching and constructing the persistent coordination and world-participation substrate for plural intelligence.**
 
 中文：Ordivon 的智能体原生计算研究、协议、参考实验与跨项目验证母项目。
 
-## What this repository is
+## Purpose
 
 Ordivon Computing studies the complete computing world, but it does not treat that world as an implementation roadmap. Mature operating systems, databases, networks, version-control systems, compilers, isolation mechanisms, model runtimes, and durable workflow engines remain the classical substrate.
 
@@ -25,6 +49,10 @@ A participant is a system role with an identity, commitments, resource relations
 
 Its role is research synthesis, specification, reference experiments, protocol promotion, conformance, and evidence—not ownership of every product implementation or lower computing layer.
 
+## Current boundary
+
+This repository owns shared theory, research state, promoted cross-project contracts, and conformance evidence. Product repositories own their implementations, deployments, operational receipts, and product maturity. Ordivon Web may publish derived interpretations but does not replace these sources.
+
 ## Operating objective
 
 Ordivon optimizes for:
@@ -40,7 +68,7 @@ Capability and consequence are separate dimensions. Reversible, isolated, and pr
 
 A constraint earns a current active place only when the recoverability, verification, understanding, or consequence reduction it creates is greater than its latency, operating friction, cognitive compression, compatibility cost, and concentration of control. Existing structures receive no historical presumption: removal from the active path is the default audit disposition, and current consumer evidence must justify retention of the narrowest sufficient form.
 
-## Knowledge-generation system
+## Start here
 
 ```text
 real workloads, primary sources, failures, and observations
@@ -135,6 +163,17 @@ The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](researc
 - **Ordivon Web** — authored public memory, publication, project navigation, and dated editorial projections rather than copied live system state.
 
 The exact stable declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each product repository.
+
+## Content engineering
+
+[`docs/content-engineering/README.md`](docs/content-engineering/README.md) defines the shared P0 content contract for Ordivon repositories. It introduces document profiles, lifecycle and source-role metadata, deterministic checks, templates, terminology, and machine-readable receipts without moving project facts into a new authority.
+
+```bash
+python3.12 scripts/ordivon_content.py project --root .
+python3.12 scripts/ordivon_content.py check --root . --mode advisory
+```
+
+Existing documents remain an advisory migration corpus. Strict checks apply only to paths explicitly admitted by `.ordivon/project.yaml`.
 
 ## Protocol and conformance
 

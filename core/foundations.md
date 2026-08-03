@@ -1,4 +1,45 @@
+---
+schema_version: 1
+id: computing.foundations
+title: Working Foundations
+type: concept
+profile: engineering
+lifecycle: active
+source_role: canonical
+visibility: public
+owners:
+  - ordivon-computing
+audience:
+  - builder
+  - researcher
+  - agent
+updated: 2026-08-03
+summary: Canonical working foundations used to admit, reject, and revise durable Ordivon constraints.
+evidence_status: not_applicable
+readiness: READY
+applies_to:
+  - ordivon-project-family
+related:
+  - computing.intent
+  - computing.stack
+---
 # Working Foundations
+
+## Problem
+
+A growing Agent system can accumulate attractive abstractions, controls, and records faster than it proves that they improve real work.
+
+## Model
+
+The foundations below define the current tests for responsibility, evidence, commitment, recoverability, cooperation, deletion, and net acceleration. They are revisable working constraints rather than timeless axioms.
+
+## Boundary
+
+These foundations guide research and architecture. They do not override stronger owners of physical facts, accepted product contracts, or explicit participant authority.
+
+## Related work
+
+[`intent.md`](intent.md) states the project purpose, [`stack.md`](stack.md) locates responsibilities above the classical substrate, and [`primitives.md`](primitives.md) names the admitted and candidate objects.
 
 This file contains the smallest current foundations from which the project’s architecture and research direction can be regenerated. Explanations, counterexamples, and sources live in [`../knowledge/`](../knowledge/) and [`../studies/`](../studies/).
 

@@ -1,4 +1,45 @@
+---
+schema_version: 1
+id: computing.intent
+title: Project Intent
+type: concept
+profile: engineering
+lifecycle: active
+source_role: canonical
+visibility: public
+owners:
+  - ordivon-computing
+audience:
+  - builder
+  - researcher
+  - agent
+updated: 2026-08-03
+summary: Canonical statement of what Ordivon is for and which human and system values constrain its construction.
+evidence_status: not_applicable
+readiness: READY
+applies_to:
+  - ordivon-project-family
+related:
+  - computing.foundations
+  - computing.stack
+---
 # Project Intent
+
+## Problem
+
+Increasing machine capability does not by itself preserve participant purpose, judgment, recoverability, or freedom from unnecessary concentration of control.
+
+## Model
+
+Ordivon treats tools and Agent systems as externalized capability around finite participants. Persistent work, evidence, recovery, and narrow consequence boundaries allow cognition to remain replaceable without making commitments or reality ambiguous.
+
+## Boundary
+
+This document defines project intent and value constraints. It does not define product maturity, legal personhood, live deployment state, or the exact protocol surface of any implementation repository.
+
+## Related work
+
+The operational foundations are in [`foundations.md`](foundations.md), the responsibility overlay is in [`stack.md`](stack.md), and the current object vocabulary is in [`primitives.md`](primitives.md).
 
 A complete life can be shaped through experience, relationships, rest, play, study, travel, work, or creation. Ordivon belongs to creation: its participants return because they want thought, intention, judgment, research, and action to acquire durable form.
 

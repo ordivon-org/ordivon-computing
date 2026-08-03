@@ -458,15 +458,56 @@ def write_json(path: Path, document: dict[str, Any]) -> None:
     temporary.replace(path)
 
 
+def _managed_markdown_paths() -> list[str]:
+    content_source = ROOT / "packages" / "content-cli" / "src"
+    sys.path.insert(0, str(content_source))
+    from ordivon_content.check import _documentation_paths, _under, load_project_manifest
+
+    manifest = load_project_manifest(ROOT)
+    managed = manifest.get("managed_paths", [])
+    paths = [
+        path.relative_to(ROOT).as_posix()
+        for path in _documentation_paths(ROOT, manifest)
+        if _under(PurePosixPath(path.relative_to(ROOT).as_posix()), managed)
+    ]
+    return sorted(paths)
+
+
 def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     python = sys.executable
     ruff = shutil.which("ruff")
     rustc = shutil.which("rustc")
+    vale = shutil.which("vale")
+    markdownlint = shutil.which("markdownlint-cli2")
+    cspell = shutil.which("cspell")
+    lychee = shutil.which("lychee")
     require(ruff is not None, "ruff is required for the conformance gate")
     require(rustc is not None, "rustc is required for the conformance gate")
+    require(vale is not None, "vale is required for the content gate; run mise install")
+    require(markdownlint is not None, "markdownlint-cli2 is required for the content gate; run mise install")
+    require(cspell is not None, "cspell is required for the content gate; run mise install")
+    require(lychee is not None, "lychee is required for the content gate; run mise install")
+    content_tool_paths = sorted(
+        {
+            *_managed_markdown_paths(),
+            "packages/content-contract/README.md",
+            "packages/content-cli/README.md",
+            *[
+                path.relative_to(ROOT).as_posix()
+                for path in sorted((ROOT / "packages" / "content-templates").rglob("*.md"))
+            ],
+            *[
+                path.relative_to(ROOT).as_posix()
+                for path in sorted((ROOT / "packages" / "content-fixtures" / "valid").rglob("*.md"))
+            ],
+            "research/evidence/content-engineering-p0-baseline.md",
+        }
+    )
     static_paths = [
         "packages/ordivon-protocol/src",
         "packages/ordivon-protocol/tests",
+        "packages/content-cli/src",
+        "packages/content-cli/tests",
         "research/experiments/external-semantic-contract-v0/integration",
         "research/experiments/external-semantic-contract-v0/tests",
         "research/experiments/external-semantic-contract-v0/scripts",
@@ -484,11 +525,48 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "scripts/render_research_portfolio.py",
         "scripts/check_protocol_release.py",
         "scripts/check_protocol_consumers.py",
+        "scripts/ordivon_content.py",
         "scripts/ordivon_conformance.py",
     ]
     commands: list[tuple[str, list[str], Path, dict[str, str]]] = [
         ("compileall", [python, "-m", "compileall", "-q", *static_paths], ROOT, {}),
         ("ruff", [ruff, "check", *static_paths], ROOT, {}),
+        (
+            "content-cli-tests",
+            [python, "-m", "unittest", "discover", "-s", "packages/content-cli/tests"],
+            ROOT,
+            {"PYTHONPATH": "packages/content-cli/src"},
+        ),
+        (
+            "content-managed-paths",
+            [
+                python,
+                "scripts/ordivon_content.py",
+                "check",
+                "--root",
+                ".",
+                "--mode",
+                "strict",
+                "--receipt",
+                "/tmp/ordivon-content-check.json",
+            ],
+            ROOT,
+            {},
+        ),
+        ("content-vale", [vale, *content_tool_paths], ROOT, {}),
+        ("content-markdownlint", [markdownlint, *content_tool_paths], ROOT, {}),
+        (
+            "content-spelling",
+            [cspell, "lint", "--no-progress", "--no-summary", *content_tool_paths],
+            ROOT,
+            {},
+        ),
+        (
+            "content-links",
+            [lychee, "--config", "lychee.toml", *content_tool_paths],
+            ROOT,
+            {},
+        ),
         (
             "foundational-docs",
             [python, "scripts/check_foundational_docs.py"],
