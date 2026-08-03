@@ -40,18 +40,18 @@ The dependency-free content checker scanned Git-tracked and unignored Markdown o
 ### System summary
 
 - Repositories: 9
-- Markdown/MDX documents: 353
+- Markdown/MDX documents: 354
 - Documents with Ordivon metadata: 59
-- Approximate words: 315971
-- Documents without Markdown links: 204
-- Documents at or above 2,000 words: 24
+- Approximate words: 318435
+- Documents without Markdown links: 205
+- Documents at or above 2,000 words: 25
 
 ### Repository inventory
 
 | Project | Documents | Metadata | Words | No links | Long | Manifest | State |
 |---|---:|---:|---:|---:|---:|---|---|
 | ordivon-computing | 201 | 9 | 160366 | 118 | 10 | yes | DEGRADED |
-| ordivon-game | 9 | 8 | 9952 | 1 | 0 | yes | DEGRADED |
+| ordivon-game | 10 | 8 | 12416 | 2 | 1 | yes | DEGRADED |
 | ordivon-harness | 12 | 3 | 17238 | 4 | 3 | yes | DEGRADED |
 | ordivon-host | 14 | 4 | 10924 | 9 | 1 | yes | DEGRADED |
 | ordivon-human | 41 | 8 | 31843 | 25 | 0 | yes | DEGRADED |
@@ -66,7 +66,7 @@ Word count, link count, and phase-code detection are diagnostic proxies. A long 
 
 ## Evidence
 
-The machine-readable sibling receipt records the same inventory at `2026-08-03T02:18:04Z`. Repository manifests were validated before inclusion.
+The machine-readable sibling receipt records the same inventory at `2026-08-03T02:35:52Z`. Repository manifests were validated before inclusion.
 
 ## Next action
 
