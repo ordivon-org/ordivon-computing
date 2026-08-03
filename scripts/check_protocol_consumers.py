@@ -11,10 +11,11 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import tomllib
 from datetime import datetime, timezone
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 PIN = re.compile(r"ordivon-computing\.git@([0-9a-f]{40})#subdirectory=packages/ordivon-protocol")
@@ -102,16 +103,31 @@ def main() -> int:
             require(sha256(git_bytes(computing, host_pin, path)) == expected, f"Host pin differs from released artifact: {path}")
         steps.append({"id": "host-pin", "status": "passed", "protocolRevision": host_pin})
 
-        game_manifest = json.loads((game / "fixtures" / "host-workload-v1" / "manifest.json").read_text())
+        release_consumers = {item["repositoryId"]: item for item in release["consumers"]}
+        game_release = release_consumers["ordivon-game"]
+        game_revision = game_release["observedRevision"]
+        require(bool(REVISION.fullmatch(game_revision)), "Game observedRevision is invalid")
+        git(game, "cat-file", "-e", f"{game_revision}^{{commit}}")
+        game_project = next(item for item in conformance["projects"] if item["id"] == "ordivon-game")
+        manifest_path = PurePosixPath(game_project["vector_manifest"])
+        game_manifest = json.loads(git_bytes(game, game_revision, manifest_path.as_posix()))
         require(game_manifest["protocolVersion"] == release["version"], "Game protocol version differs")
         game_pin = game_manifest["sourceRevision"]
         require(bool(REVISION.fullmatch(game_pin)), "Game sourceRevision is invalid")
         vector_path = game_manifest["sourcePath"]
         vector_bytes = git_bytes(computing, game_pin, vector_path)
         require(sha256(vector_bytes) == game_manifest["vectorFileDigest"], "Game source vector digest differs")
-        require(sha256((game / "fixtures" / "host-workload-v1" / "vectors.json").read_bytes()) == game_manifest["vectorFileDigest"], "Game frozen vectors differ from manifest")
+        frozen_vectors = git_bytes(game, game_revision, manifest_path.with_name("vectors.json").as_posix())
+        require(sha256(frozen_vectors) == game_manifest["vectorFileDigest"], "Game frozen vectors differ from manifest")
         require(release_artifacts[vector_path] == game_manifest["vectorFileDigest"], "Game vectors differ from released vectors")
-        steps.append({"id": "game-vector-pin", "status": "passed", "protocolRevision": game_pin})
+        steps.append(
+            {
+                "id": "game-vector-pin",
+                "status": "passed",
+                "consumerRevision": game_revision,
+                "protocolRevision": game_pin,
+            }
+        )
 
         host_started = time.monotonic()
         environment = os.environ.copy()
@@ -124,8 +140,31 @@ def main() -> int:
         node = shutil.which("node")
         require(node is not None, "node is required for Game consumer tests")
         game_started = time.monotonic()
-        game_result = run([node, "--test", "test/host-contract-vectors.test.ts"], cwd=game)
-        steps.append({"id": "game-vector-tests", "status": "passed", "elapsedMs": round((time.monotonic() - game_started) * 1000), "summary": game_result.stdout.strip().splitlines()[-3:]})
+        with tempfile.TemporaryDirectory(prefix="ordivon-game-consumer-") as directory:
+            historical_game = Path(directory) / "game"
+            run(
+                ["git", "-C", str(game), "worktree", "add", "--detach", str(historical_game), game_revision],
+                cwd=game,
+            )
+            try:
+                game_result = run([node, "--test", "test/host-contract-vectors.test.ts"], cwd=historical_game)
+            finally:
+                subprocess.run(
+                    ["git", "-C", str(game), "worktree", "remove", "--force", str(historical_game)],
+                    cwd=game,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    check=False,
+                )
+        steps.append(
+            {
+                "id": "game-vector-tests",
+                "status": "passed",
+                "consumerRevision": game_revision,
+                "elapsedMs": round((time.monotonic() - game_started) * 1000),
+                "summary": game_result.stdout.strip().splitlines()[-3:],
+            }
+        )
         status = "passed"
         error = None
     except (OSError, ValueError, KeyError, json.JSONDecodeError, tomllib.TOMLDecodeError) as caught:
