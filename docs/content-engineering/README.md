@@ -54,7 +54,7 @@ It may not decide whether a research claim is true, whether a project is authori
 
 - `packages/content-contract/` owns schemas, profiles, terminology, and shared tool configuration.
 - `packages/content-cli/` owns only Ordivon-specific metadata, lifecycle, source-role, relationship, receipt, and baseline checks.
-- Vale, markdownlint-cli2, CSpell, and Lychee own prose rules, Markdown structure, spelling, and link integrity. Their versions are pinned in `mise.toml`.
+- Vale, markdownlint-cli2, CSpell, and Lychee own prose rules, Markdown structure, spelling, and link integrity. Their versions are pinned in `mise.toml`, and the Computing gate derives their document inputs from `.ordivon/project.yaml` `managed_paths` rather than a duplicated path list.
 - `packages/content-templates/` provides starting structures; templates are not canonical facts.
 - `packages/content-fixtures/` provides valid and invalid cases for regression tests.
 - `.ordivon/project.yaml` declares one repository's content boundary and adoption mode.
@@ -82,7 +82,7 @@ The principal P0 failure modes are:
 - creating duplicated canonical facts in Web or generated indexes;
 - adding metadata that merely restates filenames without improving lifecycle or navigation.
 
-The response is bounded adoption: advisory inventory first, strict enforcement only for admitted paths, and deletion of checks that do not expose a named failure.
+The response is bounded adoption: advisory inventory first, strict enforcement only for admitted paths, and deletion of checks that do not expose a named failure. The current Computing authority set is recorded in [`../authority.md`](../authority.md); shared schemas and profiles are documented in [`../../packages/content-contract/README.md`](../../packages/content-contract/README.md).
 
 ## Verification
 

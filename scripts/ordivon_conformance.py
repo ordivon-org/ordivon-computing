@@ -458,6 +458,21 @@ def write_json(path: Path, document: dict[str, Any]) -> None:
     temporary.replace(path)
 
 
+def _managed_markdown_paths() -> list[str]:
+    content_source = ROOT / "packages" / "content-cli" / "src"
+    sys.path.insert(0, str(content_source))
+    from ordivon_content.check import _documentation_paths, _under, load_project_manifest
+
+    manifest = load_project_manifest(ROOT)
+    managed = manifest.get("managed_paths", [])
+    paths = [
+        path.relative_to(ROOT).as_posix()
+        for path in _documentation_paths(ROOT, manifest)
+        if _under(PurePosixPath(path.relative_to(ROOT).as_posix()), managed)
+    ]
+    return sorted(paths)
+
+
 def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     python = sys.executable
     ruff = shutil.which("ruff")
@@ -472,14 +487,22 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     require(markdownlint is not None, "markdownlint-cli2 is required for the content gate; run mise install")
     require(cspell is not None, "cspell is required for the content gate; run mise install")
     require(lychee is not None, "lychee is required for the content gate; run mise install")
-    content_tool_paths = [
-        "docs/content-engineering/README.md",
-        "packages/content-contract/README.md",
-        "packages/content-cli/README.md",
-        *[path.relative_to(ROOT).as_posix() for path in sorted((ROOT / "packages" / "content-templates").rglob("*.md"))],
-        *[path.relative_to(ROOT).as_posix() for path in sorted((ROOT / "packages" / "content-fixtures" / "valid").rglob("*.md"))],
-        "research/evidence/content-engineering-p0-baseline.md",
-    ]
+    content_tool_paths = sorted(
+        {
+            *_managed_markdown_paths(),
+            "packages/content-contract/README.md",
+            "packages/content-cli/README.md",
+            *[
+                path.relative_to(ROOT).as_posix()
+                for path in sorted((ROOT / "packages" / "content-templates").rglob("*.md"))
+            ],
+            *[
+                path.relative_to(ROOT).as_posix()
+                for path in sorted((ROOT / "packages" / "content-fixtures" / "valid").rglob("*.md"))
+            ],
+            "research/evidence/content-engineering-p0-baseline.md",
+        }
+    )
     static_paths = [
         "packages/ordivon-protocol/src",
         "packages/ordivon-protocol/tests",

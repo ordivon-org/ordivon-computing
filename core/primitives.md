@@ -1,4 +1,45 @@
+---
+schema_version: 1
+id: computing.primitives
+title: Agent-Native Primitives and Responsibility Boundaries
+type: reference
+profile: engineering
+lifecycle: active
+source_role: canonical
+visibility: public
+owners:
+  - ordivon-computing
+audience:
+  - builder
+  - researcher
+  - agent
+updated: 2026-08-03
+summary: Canonical classification of inherited objects, executable semantic primitives, promoted protocol objects, Host-proven work objects, and research candidates.
+evidence_status: not_applicable
+readiness: READY
+applies_to:
+  - ordivon-project-family
+related:
+  - computing.stack
+  - computing.foundations
+---
 # Agent-Native Primitives and Responsibility Boundaries
+
+## Scope
+
+This reference classifies the current shared vocabulary by responsibility and maturity. It distinguishes inherited backend objects, executable semantic primitives, promoted protocol objects, Host-proven work objects, and explicit research candidates.
+
+## Contract
+
+A named object enters the shared model only when it owns a non-bypassable responsibility, has a clear fact owner, and cannot be replaced by an existing lower mechanism or local adapter without losing a realistic trajectory.
+
+## Errors
+
+Invalid interpretations include treating research candidates as production contracts, treating observations as verified facts, treating readiness as authority, or using shared terminology to imply implementation parity across repositories.
+
+## Compatibility
+
+Production compatibility is defined by promoted schemas, generated vectors, implementation tests, and each product repository. See the [`ordivon-protocol` package](../packages/ordivon-protocol/README.md), the responsibility [`stack`](stack.md), and the working [`foundations`](foundations.md). This document defines semantic classification; it is not a substitute for versioned protocol artifacts.
 
 This file distinguishes classical backend objects, executable Semantic Core primitives, Host-proven work objects, and research candidates. Similar names do not imply shared authority or permanent hierarchy.
 

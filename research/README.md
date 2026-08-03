@@ -1,8 +1,32 @@
+---
+schema_version: 1
+id: computing.research.start
+title: Research
+type: start
+profile: organization
+lifecycle: active
+source_role: canonical
+visibility: public
+owners:
+  - ordivon-computing
+audience:
+  - researcher
+  - builder
+  - agent
+updated: 2026-08-03
+summary: Canonical entry to active questions, portfolio state, experiments, evidence, and research construction rules.
+evidence_status: not_applicable
+readiness: READY
+applies_to:
+  - ordivon-computing
+related:
+  - computing.authority
+---
 # Research
 
 Research stores open questions, competing hypotheses, prototypes, experiments, immutable evidence manifests, and unresolved evidence.
 
-## Structure
+## Purpose
 
 - [`portfolio.json`](portfolio.json) — authoritative research status, maturity, blockers, next falsifiers, and WIP lines;
 - [`PORTFOLIO.md`](PORTFOLIO.md) — generated human-readable portfolio and Ready Frontier;
@@ -17,6 +41,18 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 Durable question pages preserve hypotheses, baselines, falsifiers, and evidence criteria. `portfolio.json` owns current portfolio status and WIP. GitHub Issues carry discussion, implementation history, and repository-local execution. Product repositories and `experiments/` carry executable artifacts. `evidence/` binds exact historical revisions, services, contracts, and Artifact digests; it is not a mutable deployment registry.
 
 Research may contain alternatives, failed experiments, changing terminology, and incomplete models. Results move into [`../knowledge/`](../knowledge/) when they become reusable. Only compact, stable, cross-workload responsibilities that survive strong classical counterexamples may enter [`../core/`](../core/).
+
+## Start here
+
+- [`portfolio.json`](portfolio.json) is the mutable source of truth for line status, maturity, blockers, falsifiers, and disposition.
+- [`PORTFOLIO.md`](PORTFOLIO.md) is its generated review projection.
+- [`questions/`](questions/) owns active research questions.
+- [`experiments/`](experiments/) owns executable investigations.
+- [`evidence/`](evidence/) owns retained observations and immutable snapshots.
+
+## Current boundary
+
+Research importance does not imply active work, implementation commitment, or publication authority. A result can inform Core only after its evidence and limitations survive the relevant admission and deletion tests.
 
 ## Construction program
 

@@ -1,4 +1,53 @@
+---
+schema_version: 1
+id: computing.stack
+title: Classical Substrate and Agent-Native Responsibility Overlay
+type: architecture
+profile: engineering
+lifecycle: active
+source_role: canonical
+visibility: public
+owners:
+  - ordivon-computing
+audience:
+  - builder
+  - researcher
+  - agent
+updated: 2026-08-03
+summary: Canonical architecture boundary between inherited computing mechanisms and responsibilities introduced by persistent Agent participation.
+evidence_status: not_applicable
+readiness: READY
+applies_to:
+  - ordivon-project-family
+related:
+  - computing.foundations
+  - computing.primitives
+---
 # Classical Substrate and Agent-Native Responsibility Overlay
+
+## Purpose
+
+Locate Ordivon's irreducible responsibilities without rebuilding operating systems, databases, version control, workflow engines, model runtimes, or other mature substrate.
+
+## Boundaries
+
+Classical systems continue to own physical execution, storage, transport, isolation, and durable mechanics. Ordivon admits a new layer only where participant purpose, open work, commitment, evidence, or consequence would otherwise remain unowned and bypassable.
+
+## Components
+
+The architecture combines the inherited substrate, an Agent-native responsibility overlay, and a hybrid participation boundary that separates reversible exploration from durable consequence.
+
+## Data flow
+
+Participant purpose lowers into persistent work and version-bound context; cognition proposes; capability and consequence are bound; classical systems execute; observations and artifacts return for verification, revision, negotiation, or responsible decision.
+
+## Failure modes
+
+The architecture fails when it duplicates a mature lower owner, treats a proposal as commitment, hides uncertainty, promotes research vocabulary without a consumer, or retains a shared constraint whose friction exceeds its recurring value.
+
+## Verification
+
+Claims move toward Core only through primary-source comparison, executable evidence, cross-project consumers, counterexamples, cost measurement, and deletion tests. Current research state remains owned by the research portfolio rather than this architecture summary.
 
 Ordivon studies the complete computing world but does not treat that world as an implementation roadmap. The current architecture separates the inherited execution substrate from responsibilities that are introduced or materially rewritten when probabilistic cognition participates in persistent work, commitments, and shared worlds.
 

@@ -125,7 +125,7 @@ def render_markdown(document: dict[str, Any]) -> str:
             "",
             "## Limitations",
             "",
-            "Word count, link count, paragraph length, and phase-code detection are diagnostic proxies. A long or link-free document may be correct and useful. The baseline does not establish factual accuracy, citation support, reader comprehension, or whether any specific document should survive.",
+            "Word count, link count, and phase-code detection are diagnostic proxies. A long or link-free document may be correct and useful. The baseline does not establish factual accuracy, citation support, reader comprehension, or whether any specific document should survive.",
             "",
             "## Evidence",
             "",
