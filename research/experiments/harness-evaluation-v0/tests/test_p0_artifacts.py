@@ -33,7 +33,7 @@ class EvaluationP0ArtifactTests(unittest.TestCase):
     def test_committed_p0_artifacts_validate_as_one_collection(self) -> None:
         loaded = p0.load_documents([SUITE, BASELINE])
         p0.validate_collection(loaded, root=REPOSITORY)
-        self.assertEqual(len(loaded), 4)
+        self.assertEqual(len(loaded), 5)
 
     def test_system_snapshot_binds_four_frozen_repositories(self) -> None:
         path = (
@@ -50,6 +50,26 @@ class EvaluationP0ArtifactTests(unittest.TestCase):
             {"ordivon-computing", "ordivon-host", "ordivon-harness", "ordivon-runtime"},
         )
         self.assertTrue(all(repository["clean"] for repository in document["repositories"]))
+
+    def test_closeout_binds_exact_gate_and_unmerged_integration_blocker(self) -> None:
+        document = json.loads((BASELINE / "closeout.json").read_text())
+        p0.validate_closeout(document)
+        self.assertEqual(
+            document["testedRevision"],
+            document["conformance"]["repositoryRevision"],
+        )
+        self.assertEqual(document["conformance"]["status"], "passed")
+        self.assertEqual(document["integration"]["status"], "ready_unmerged")
+        self.assertEqual(document["integration"]["foreignIndexStats"]["files"], 8)
+        self.assertEqual(document["results"]["dogfood"]["eligibleComparisons"], 0)
+        self.assertFalse(document["results"]["componentHealth"]["productQualityClaim"])
+
+    def test_closeout_rejects_tested_revision_drift_even_with_new_digest(self) -> None:
+        document = json.loads((BASELINE / "closeout.json").read_text())
+        document["conformance"]["repositoryRevision"] = "1" * 40
+        document["integrity"]["payloadDigest"] = p0.payload_digest(document)
+        with self.assertRaisesRegex(ValueError, "repositoryRevision differs"):
+            p0.validate_closeout(document)
 
     def test_component_baseline_is_health_not_product_quality(self) -> None:
         document = json.loads((BASELINE / "component-baseline.json").read_text())

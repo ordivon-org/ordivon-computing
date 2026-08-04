@@ -17,6 +17,7 @@ KINDS = {
     "ordivon.evaluation-suite",
     "ordivon.component-test-baseline",
     "ordivon.evaluation-summary",
+    "ordivon.evaluation-p0-closeout",
 }
 NULLABLE_CONFIGURATION_FIELDS = {
     "configuration.provider.providerId",
@@ -419,6 +420,120 @@ def validate_summary(document: dict[str, Any]) -> None:
     validate_integrity(document)
 
 
+def validate_closeout(document: dict[str, Any]) -> None:
+    expected = {
+        "schemaVersion",
+        "kind",
+        "closeoutId",
+        "capturedAt",
+        "baseRevision",
+        "implementationBranch",
+        "implementationRevisions",
+        "testedRevision",
+        "conformance",
+        "artifacts",
+        "results",
+        "integration",
+        "nextGate",
+        "limitations",
+        "integrity",
+    }
+    exact(document, expected, "Evaluation P0 Closeout")
+    require(document["schemaVersion"] == 1, "unsupported closeout schemaVersion")
+    require(document["kind"] == "ordivon.evaluation-p0-closeout", "unsupported closeout kind")
+    nonempty(document["closeoutId"], "closeoutId")
+    nonempty(document["capturedAt"], "capturedAt")
+    revision(document["baseRevision"], "baseRevision")
+    nonempty(document["implementationBranch"], "implementationBranch")
+    revisions = string_list(document["implementationRevisions"], "implementationRevisions", minimum=1, unique=True)
+    for index, value in enumerate(revisions):
+        revision(value, f"implementationRevisions[{index}]")
+    revision(document["testedRevision"], "testedRevision")
+    require(document["testedRevision"] in revisions, "testedRevision must be one of implementationRevisions")
+
+    conformance = document["conformance"]
+    require(isinstance(conformance, dict), "conformance must be an object")
+    exact(
+        conformance,
+        {
+            "status",
+            "capturedAt",
+            "receiptKind",
+            "repositoryRevision",
+            "receiptPayloadDigest",
+            "runtimeJobId",
+            "stdoutArtifactId",
+            "stdoutDigest",
+            "terminalEvidenceArtifactId",
+            "terminalEvidenceDigest",
+        },
+        "conformance",
+    )
+    require(conformance["status"] == "passed", "closeout conformance must be passed")
+    nonempty(conformance["capturedAt"], "conformance.capturedAt")
+    require(conformance["receiptKind"] == "ordivon-conformance-gate", "unsupported conformance receipt kind")
+    revision(conformance["repositoryRevision"], "conformance.repositoryRevision")
+    require(conformance["repositoryRevision"] == document["testedRevision"], "conformance repositoryRevision differs from testedRevision")
+    digest(conformance["receiptPayloadDigest"], "conformance.receiptPayloadDigest")
+    for field in ("runtimeJobId", "stdoutArtifactId", "terminalEvidenceArtifactId"):
+        nonempty(conformance[field], f"conformance.{field}")
+    digest(conformance["stdoutDigest"], "conformance.stdoutDigest")
+    digest(conformance["terminalEvidenceDigest"], "conformance.terminalEvidenceDigest")
+
+    artifacts = document["artifacts"]
+    require(isinstance(artifacts, dict), "artifacts must be an object")
+    exact(artifacts, {"systemManifest", "componentBaseline", "dogfoodSummary", "suite"}, "artifacts")
+    for name, reference in artifacts.items():
+        validate_file_ref(reference, f"artifacts.{name}")
+
+    results = document["results"]
+    require(isinstance(results, dict), "results must be an object")
+    exact(results, {"componentHealth", "dogfood", "trackRTests"}, "results")
+    component = results["componentHealth"]
+    require(isinstance(component, dict), "results.componentHealth must be an object")
+    exact(component, {"testSuites", "contractChecks", "passed", "failed", "ignored", "productQualityClaim"}, "results.componentHealth")
+    for field in ("testSuites", "contractChecks", "passed", "failed", "ignored"):
+        require(isinstance(component[field], int) and not isinstance(component[field], bool) and component[field] >= 0, f"results.componentHealth.{field} must be non-negative")
+    require(component["productQualityClaim"] is False, "component health cannot claim product quality")
+    dogfood = results["dogfood"]
+    require(isinstance(dogfood, dict), "results.dogfood must be an object")
+    exact(dogfood, {"tasks", "trials", "results", "failures", "configurationGroups", "eligibleComparisons", "globalScoreGenerated"}, "results.dogfood")
+    for field in ("tasks", "trials", "results", "failures", "configurationGroups", "eligibleComparisons"):
+        require(isinstance(dogfood[field], int) and not isinstance(dogfood[field], bool) and dogfood[field] >= 0, f"results.dogfood.{field} must be non-negative")
+    require(dogfood["globalScoreGenerated"] is False, "P0 dogfood cannot generate a global score")
+    require(isinstance(results["trackRTests"], int) and results["trackRTests"] >= 1, "trackRTests must be positive")
+
+    integration = document["integration"]
+    require(isinstance(integration, dict), "integration must be an object")
+    exact(integration, {"status", "targetBranch", "targetHeadAtCloseout", "blocker", "foreignIndexStats", "foreignIndexPaths"}, "integration")
+    require(integration["status"] in {"ready_unmerged", "integrated"}, "unsupported integration status")
+    nonempty(integration["targetBranch"], "integration.targetBranch")
+    revision(integration["targetHeadAtCloseout"], "integration.targetHeadAtCloseout")
+    stats = integration["foreignIndexStats"]
+    require(isinstance(stats, dict), "integration.foreignIndexStats must be an object")
+    exact(stats, {"files", "insertions", "deletions"}, "integration.foreignIndexStats")
+    for field, value in stats.items():
+        require(isinstance(value, int) and not isinstance(value, bool) and value >= 0, f"integration.foreignIndexStats.{field} must be non-negative")
+    paths = string_list(integration["foreignIndexPaths"], "integration.foreignIndexPaths", unique=True)
+    require(stats["files"] == len(paths), "foreignIndexStats.files differs from foreignIndexPaths")
+    if integration["status"] == "ready_unmerged":
+        nonempty(integration["blocker"], "integration.blocker")
+        require(bool(paths), "ready_unmerged closeout must identify blocking paths")
+    else:
+        require(integration["blocker"] is None, "integrated closeout blocker must be null")
+        require(not paths, "integrated closeout cannot retain foreign blocking paths")
+
+    next_gate = document["nextGate"]
+    require(isinstance(next_gate, dict), "nextGate must be an object")
+    exact(next_gate, {"stage", "taskId", "minimumTrialsPerConfiguration", "requirements"}, "nextGate")
+    nonempty(next_gate["stage"], "nextGate.stage")
+    nonempty(next_gate["taskId"], "nextGate.taskId")
+    require(isinstance(next_gate["minimumTrialsPerConfiguration"], int) and next_gate["minimumTrialsPerConfiguration"] >= 1, "minimumTrialsPerConfiguration must be positive")
+    string_list(next_gate["requirements"], "nextGate.requirements", minimum=1, unique=True)
+    string_list(document["limitations"], "limitations", minimum=1)
+    validate_integrity(document)
+
+
 def validate_document(document: dict[str, Any]) -> None:
     kind = document.get("kind")
     if kind == "ordivon.evaluation-system-manifest":
@@ -429,6 +544,8 @@ def validate_document(document: dict[str, Any]) -> None:
         validate_component_baseline(document)
     elif kind == "ordivon.evaluation-summary":
         validate_summary(document)
+    elif kind == "ordivon.evaluation-p0-closeout":
+        validate_closeout(document)
     else:
         raise ValueError(f"unsupported P0 artifact kind: {kind!r}")
 
@@ -472,6 +589,7 @@ def validate_collection(loaded: list[tuple[Path, dict[str, Any]]], *, root: Path
             "ordivon.evaluation-suite": "suiteId",
             "ordivon.component-test-baseline": "baselineId",
             "ordivon.evaluation-summary": "summaryId",
+            "ordivon.evaluation-p0-closeout": "closeoutId",
         }[document["kind"]]
         identity = (document["kind"], document[identity_field])
         require(identity not in identities, f"duplicate P0 artifact identity: {identity}")
@@ -493,6 +611,8 @@ def validate_collection(loaded: list[tuple[Path, dict[str, Any]]], *, root: Path
             refs.append(document["systemManifest"])
         elif document["kind"] == "ordivon.evaluation-summary":
             refs.append(document["suite"])
+        elif document["kind"] == "ordivon.evaluation-p0-closeout":
+            refs.extend(document["artifacts"].values())
         for reference in refs:
             path = (root / reference["path"]).resolve()
             require(path.is_relative_to(root), f"reference escapes root: {reference['path']}")

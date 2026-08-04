@@ -37,9 +37,10 @@ A comparison additionally requires a frozen System Manifest, a versioned Suite, 
 - [`schemas/suite.schema.json`](schemas/suite.schema.json) — versioned suite declaration;
 - [`schemas/component-baseline.schema.json`](schemas/component-baseline.schema.json) — deterministic component-health receipt;
 - [`schemas/summary.schema.json`](schemas/summary.schema.json) — descriptive Trial aggregation without a heterogeneous global score;
-- [`validate_p0_artifacts.py`](validate_p0_artifacts.py) — semantic, integrity, reference, and aggregate validator;
+- [`schemas/closeout.schema.json`](schemas/closeout.schema.json) — exact tested revision, gate evidence, integration status, and next-gate contract;
+- [`validate_p0_artifacts.py`](validate_p0_artifacts.py) — semantic, integrity, reference, aggregate, and closeout validator;
 - [`summarize_evaluation.py`](summarize_evaluation.py) — deterministic grouping and comparison-eligibility analysis;
-- [`baselines/p0-20260804/`](baselines/p0-20260804/) — frozen Host, Harness, Runtime baseline and dogfood projection.
+- [`baselines/p0-20260804/`](baselines/p0-20260804/) — frozen Host, Harness, Runtime baseline, dogfood projection, and machine-verifiable closeout.
 
 ### Preserved evidence
 
