@@ -43,13 +43,21 @@ METRIC_FIELDS = {
     "humanInterventionCount",
 }
 FAILURE_CODES = {
+    "TASK": {"ambiguous_objective", "hidden_requirement", "invalid_initial_state", "unrepresentative_workload"},
+    "DATASET": {"contaminated_fixture", "invalid_oracle", "invalid_known_negative", "task_leakage"},
     "CONTEXT": {"stale_source", "stale_assignment", "missing_fact", "provenance_lost", "goal_drift"},
-    "MODEL": {"invalid_output", "false_completion", "premature_stop", "repeated_plan"},
+    "PROMPT": {"instruction_ambiguity", "tool_semantics_missing", "stop_policy_missing"},
+    "MODEL": {"invalid_output", "false_completion", "premature_stop", "repeated_plan", "action_when_should_abstain", "unjustified_abstention"},
+    "PROVIDER": {"transport_error", "rate_limited", "ambiguous_response_loss", "model_identity_drift"},
     "TOOL": {"invalid_arguments", "unsupported_capability", "partial_observation", "schema_drift"},
+    "HARNESS": {"result_misrouting", "budget_error", "loop_nontermination", "state_loss", "incorrect_retry", "incorrect_stop", "trace_loss"},
+    "HOST": {"admission_error", "decision_misrouting", "stale_completion_accepted", "semantic_state_loss"},
+    "RUNTIME": {"dispatch_rejected", "process_failure", "artifact_loss", "capacity_leak", "source_drift", "terminal_evidence_missing"},
     "EFFECT": {"unknown_delivery", "duplicate_effect", "reconciliation_failed"},
-    "HARNESS": {"result_misrouting", "budget_error", "loop_nontermination", "state_loss"},
     "VERIFIER": {"false_accept", "false_reject", "flaky_assertion", "hidden_requirement"},
-    "ENVIRONMENT": {"nondeterminism", "resource_exhaustion", "leaked_state"},
+    "GRADER": {"calibration_drift", "inconsistent_judgment", "unsupported_inference", "reward_hacking_missed"},
+    "ENVIRONMENT": {"nondeterminism", "resource_exhaustion", "leaked_state", "dependency_drift"},
+    "OPERATOR": {"wrong_intervention", "missing_intervention", "labeling_error"},
 }
 
 
@@ -476,16 +484,20 @@ def validate_failure(document: dict[str, Any]) -> None:
     _nonempty(event["evidenceRef"], "firstObservableEvent.evidenceRef")
 
     if document["responsibleBoundary"] not in {
+        "task",
+        "dataset",
         "context",
+        "prompt",
         "model",
+        "provider",
         "tool",
-        "effect",
         "harness",
-        "verifier",
-        "environment",
         "host",
         "runtime",
-        "provider",
+        "effect",
+        "verifier",
+        "grader",
+        "environment",
         "operator",
     }:
         raise ValueError("unsupported responsibleBoundary")

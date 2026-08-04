@@ -518,6 +518,8 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "research/experiments/task-continuation-v0/tests",
         "research/experiments/task-continuation-v0/scripts",
         "research/experiments/harness-evaluation-v0/validate_evaluation_evidence.py",
+        "research/experiments/harness-evaluation-v0/validate_p0_artifacts.py",
+        "research/experiments/harness-evaluation-v0/summarize_evaluation.py",
         "research/experiments/harness-evaluation-v0/tests",
         "research/evidence",
         "scripts/check_foundational_docs.py",

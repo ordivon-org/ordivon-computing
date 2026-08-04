@@ -1,0 +1,334 @@
+{
+  "comparisonPolicy": {
+    "architectureDecisionMaxTrials": 10,
+    "architectureDecisionMinTrials": 5,
+    "developmentTrials": 3,
+    "requireSameTaskVersion": true,
+    "requireSameVerifierRevision": true,
+    "requireSystemManifest": true,
+    "reviewTriggers": [
+      "all_failures",
+      "false_completion",
+      "anomalous_cost_success",
+      "duplicate_effect",
+      "grader_disagreement"
+    ],
+    "smokeTrials": 1
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:7dfd0cc47c1364c1d147b2eeb756240ba69582f4af449085d998daab5a4057e1"
+  },
+  "kind": "ordivon.evaluation-suite",
+  "metrics": {
+    "diagnostic": [
+      "wall_time_ms",
+      "estimated_cost_usd",
+      "total_tokens",
+      "model_calls",
+      "tool_calls",
+      "invalid_tool_calls",
+      "human_intervention_count",
+      "recovery_rate"
+    ],
+    "forbidGlobalScore": true,
+    "guardrails": [
+      "false_completion_rate",
+      "duplicate_effect_rate",
+      "unauthorized_effect_rate",
+      "grader_false_accept_rate",
+      "runtime_unknown_rate"
+    ],
+    "primary": [
+      "acceptance_rate",
+      "pass_at_1",
+      "pass_at_k",
+      "pass_caret_k"
+    ]
+  },
+  "purpose": "Evaluate the frozen Host-Harness-Runtime system across useful work, abstention, drift, recovery, verification, and effect-safety boundaries without collapsing heterogeneous Tasks into one score.",
+  "schemaVersion": 1,
+  "suiteId": "ordivon-host-harness-runtime-p0",
+  "suiteVersion": 1,
+  "workloadFamilies": [
+    {
+      "admissionEvidenceRefs": [
+        "ordivon-harness:evals/harness-repository-repair-001/evidence/r2-task-qa.json"
+      ],
+      "familyId": "repository_repair",
+      "limitations": [
+        "The admitted Task is small and deterministic; it does not represent long-horizon repository engineering."
+      ],
+      "priority": "P0",
+      "status": "admitted",
+      "targetFailureCodes": [
+        "MODEL.false_completion",
+        "TOOL.invalid_arguments",
+        "VERIFIER.false_accept",
+        "VERIFIER.false_reject"
+      ],
+      "targetTaskCount": 3,
+      "taskRefs": [
+        {
+          "digest": "sha256:35968c8d52b351ba2919f5618f2b12ed2bca22342ac8d79f5276041408501f57",
+          "path": "evals/harness-repository-repair-001/task.json",
+          "repositoryId": "ordivon-harness",
+          "taskId": "HARNESS-REPO-REPAIR-001",
+          "taskVersion": 1
+        }
+      ],
+      "validatedTaskCount": 1
+    },
+    {
+      "admissionEvidenceRefs": [],
+      "familyId": "long_horizon_repository_engineering",
+      "limitations": [
+        "Requires isolated multi-file Tasks with bounded expert baselines and non-method-specific verifiers."
+      ],
+      "priority": "P0",
+      "status": "candidate",
+      "targetFailureCodes": [
+        "CONTEXT.goal_drift",
+        "MODEL.repeated_plan",
+        "HARNESS.loop_nontermination",
+        "HARNESS.trace_loss"
+      ],
+      "targetTaskCount": 5,
+      "taskRefs": [],
+      "validatedTaskCount": 0
+    },
+    {
+      "admissionEvidenceRefs": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/INDEX.md"
+      ],
+      "familyId": "context_selection_and_provenance",
+      "limitations": [
+        "Current dogfood is diagnostic evidence, not a capability-comparison suite."
+      ],
+      "priority": "P0",
+      "status": "historical_only",
+      "targetFailureCodes": [
+        "CONTEXT.stale_source",
+        "CONTEXT.provenance_lost",
+        "CONTEXT.missing_fact",
+        "PROMPT.instruction_ambiguity"
+      ],
+      "targetTaskCount": 4,
+      "taskRefs": [
+        {
+          "digest": null,
+          "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-harness-provenance-repair-001.json",
+          "repositoryId": "ordivon-computing",
+          "taskId": "host-harness-provenance-repair-001",
+          "taskVersion": 1
+        }
+      ],
+      "validatedTaskCount": 0
+    },
+    {
+      "admissionEvidenceRefs": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/historical-tool-step-issue4-pro-002.json"
+      ],
+      "familyId": "tool_contract_fidelity",
+      "limitations": [
+        "Historical failures identify useful cases but have not passed the formal Task-admission gate."
+      ],
+      "priority": "P0",
+      "status": "historical_only",
+      "targetFailureCodes": [
+        "TOOL.invalid_arguments",
+        "TOOL.schema_drift",
+        "PROMPT.tool_semantics_missing",
+        "HARNESS.result_misrouting"
+      ],
+      "targetTaskCount": 4,
+      "taskRefs": [
+        {
+          "digest": null,
+          "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-harness-historical-tool-step-issue-4-001.json",
+          "repositoryId": "ordivon-computing",
+          "taskId": "host-harness-historical-tool-step-issue-4-001",
+          "taskVersion": 1
+        }
+      ],
+      "validatedTaskCount": 0
+    },
+    {
+      "admissionEvidenceRefs": [],
+      "familyId": "stop_abstain_and_no_action",
+      "limitations": [
+        "Positive and negative cases must be balanced so the suite does not reward always acting or always refusing."
+      ],
+      "priority": "P0",
+      "status": "candidate",
+      "targetFailureCodes": [
+        "MODEL.action_when_should_abstain",
+        "MODEL.unjustified_abstention",
+        "HARNESS.incorrect_stop",
+        "HOST.admission_error"
+      ],
+      "targetTaskCount": 5,
+      "taskRefs": [],
+      "validatedTaskCount": 0
+    },
+    {
+      "admissionEvidenceRefs": [
+        "research/evidence/host-operator-handoff-live-20260802.json"
+      ],
+      "familyId": "needs_input_and_operator_handoff",
+      "limitations": [
+        "Current evidence proves bounded reconstruction, not optimal intervention timing or user experience."
+      ],
+      "priority": "P0",
+      "status": "historical_only",
+      "targetFailureCodes": [
+        "CONTEXT.missing_fact",
+        "MODEL.premature_stop",
+        "OPERATOR.missing_intervention",
+        "HARNESS.state_loss"
+      ],
+      "targetTaskCount": 4,
+      "taskRefs": [
+        {
+          "digest": null,
+          "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-operator-handoff-issue-2-001.json",
+          "repositoryId": "ordivon-computing",
+          "taskId": "host-operator-handoff-issue-2-001",
+          "taskVersion": 1
+        }
+      ],
+      "validatedTaskCount": 0
+    },
+    {
+      "admissionEvidenceRefs": [
+        "research/evidence/host-harness-resume-stress-004.json",
+        "research/evidence/host-harness-concurrent-resume-stress-004.json"
+      ],
+      "familyId": "runtime_unknown_and_recovery",
+      "limitations": [
+        "Historical stress receipts are valuable fault evidence but are not balanced stochastic comparisons."
+      ],
+      "priority": "P0",
+      "status": "historical_only",
+      "targetFailureCodes": [
+        "EFFECT.unknown_delivery",
+        "EFFECT.duplicate_effect",
+        "RUNTIME.terminal_evidence_missing",
+        "HARNESS.incorrect_retry"
+      ],
+      "targetTaskCount": 5,
+      "taskRefs": [
+        {
+          "digest": null,
+          "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-harness-resume-stress-001.json",
+          "repositoryId": "ordivon-computing",
+          "taskId": "host-harness-resume-stress-001",
+          "taskVersion": 1
+        },
+        {
+          "digest": null,
+          "path": "research/experiments/harness-evaluation-v0/dogfood-20260802/tasks/host-harness-concurrent-resume-stress-001.json",
+          "repositoryId": "ordivon-computing",
+          "taskId": "host-harness-concurrent-resume-stress-001",
+          "taskVersion": 1
+        }
+      ],
+      "validatedTaskCount": 0
+    },
+    {
+      "admissionEvidenceRefs": [
+        "research/experiments/core-work-system-v1/evidence/live-provider-gauntlet.json"
+      ],
+      "familyId": "provider_fault_and_replacement",
+      "limitations": [
+        "Existing provider-replacement evidence proves bounded continuity, not equal model quality."
+      ],
+      "priority": "P0",
+      "status": "candidate",
+      "targetFailureCodes": [
+        "PROVIDER.transport_error",
+        "PROVIDER.ambiguous_response_loss",
+        "PROVIDER.model_identity_drift",
+        "HARNESS.incorrect_retry"
+      ],
+      "targetTaskCount": 4,
+      "taskRefs": [],
+      "validatedTaskCount": 0
+    },
+    {
+      "admissionEvidenceRefs": [],
+      "familyId": "source_catalog_and_environment_drift",
+      "limitations": [
+        "Each drift case must bind the pre-change and post-change identities and distinguish safe rejection from lost work."
+      ],
+      "priority": "P0",
+      "status": "candidate",
+      "targetFailureCodes": [
+        "CONTEXT.stale_source",
+        "TOOL.schema_drift",
+        "RUNTIME.source_drift",
+        "ENVIRONMENT.dependency_drift"
+      ],
+      "targetTaskCount": 4,
+      "taskRefs": [],
+      "validatedTaskCount": 0
+    },
+    {
+      "admissionEvidenceRefs": [],
+      "familyId": "budget_pressure_and_no_progress",
+      "limitations": [
+        "Budget comparisons require identical Task, model, sampling, tools, and verifier identities."
+      ],
+      "priority": "P1",
+      "status": "candidate",
+      "targetFailureCodes": [
+        "HARNESS.budget_error",
+        "HARNESS.loop_nontermination",
+        "MODEL.repeated_plan",
+        "MODEL.premature_stop"
+      ],
+      "targetTaskCount": 4,
+      "taskRefs": [],
+      "validatedTaskCount": 0
+    },
+    {
+      "admissionEvidenceRefs": [
+        "research/experiments/harness-evaluation-v0/dogfood-20260802/failures/provenance-verifier-rejected-pro.json"
+      ],
+      "familyId": "false_completion_and_artifact_integrity",
+      "limitations": [
+        "Acceptance must inspect authoritative world state and required Artifacts rather than final prose."
+      ],
+      "priority": "P0",
+      "status": "candidate",
+      "targetFailureCodes": [
+        "MODEL.false_completion",
+        "RUNTIME.artifact_loss",
+        "VERIFIER.false_accept",
+        "GRADER.reward_hacking_missed"
+      ],
+      "targetTaskCount": 5,
+      "taskRefs": [],
+      "validatedTaskCount": 0
+    },
+    {
+      "admissionEvidenceRefs": [],
+      "familyId": "adversarial_instruction_and_authorization",
+      "limitations": [
+        "Adversarial content must remain isolated and must not grant the evaluated Agent authority over its observer or verifier."
+      ],
+      "priority": "P1",
+      "status": "candidate",
+      "targetFailureCodes": [
+        "PROMPT.instruction_ambiguity",
+        "CONTEXT.goal_drift",
+        "HOST.admission_error",
+        "OPERATOR.wrong_intervention"
+      ],
+      "targetTaskCount": 5,
+      "taskRefs": [],
+      "validatedTaskCount": 0
+    }
+  ]
+}
