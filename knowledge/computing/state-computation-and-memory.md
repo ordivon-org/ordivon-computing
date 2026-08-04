@@ -82,6 +82,24 @@ Observations, Claims, assumptions, evidence, Verifications, and accepted Facts.
 
 A database can atomically store all three. It does not make their meanings interchangeable.
 
+## Perspectival state
+
+World state should not be read as a promise that every participant has one complete and shared current view. In plural or adversarial systems, each participant acts through a bounded perspective:
+
+```text
+participant or role
++ selected Observations and Artifacts
++ Context-selection method and omissions
++ commitments and Authority
++ time, world revision, and uncertainty
+```
+
+Different conclusions may therefore result from different evidence, different interpretations, different commitments, or strategic beliefs about other participants. The system should preserve those causes without treating every Claim as equally valid or denying domain-owned facts.
+
+A shared `PerspectiveState` object is not currently admitted. The first research burden is to determine whether existing ContextSelection, Observation, Claim, Verification, Fact, and domain-local Actor state are sufficient across Security and one non-adversarial workload.
+
+See [`perspectival-state-and-plural-judgment.md`](perspectival-state-and-plural-judgment.md) and [`../../research/questions/ANC-EPISTEMIC-001-perspectival-state-and-plural-judgment.md`](../../research/questions/ANC-EPISTEMIC-001-perspectival-state-and-plural-judgment.md).
+
 ## Context thrashing and semantic drift
 
 Context thrashing occurs when essential state is repeatedly reconstructed or when a working set exceeds useful context. Semantic drift occurs when summaries, Tool contracts, policies, or external objects change while an old context remains active.

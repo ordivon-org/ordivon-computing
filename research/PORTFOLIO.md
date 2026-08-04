@@ -2,7 +2,7 @@
 
 > Generated from [`portfolio.json`](portfolio.json). Edit the JSON source, then rerun `python3 scripts/render_research_portfolio.py`.
 
-- **As of:** `2026-08-02`
+- **As of:** `2026-08-04`
 - **Active research-line limit:** `2`
 - **Current active lines:** `2`
 
@@ -51,6 +51,7 @@
 | ANC-COMPILER-001 | M1 | P2 | ordivon-computing | — | — | — | Do not implement an Agent VM; revisit only after a minimal branch/join failure. | An ordinary Host Task Graph, queue, reducer, and workflow backend express the first branch/join workload without an Agent VM. |
 | ANC-MULTI-001 | M1 | P2 | ordivon-computing | — | — | — | After R-A closes, run one Goal, two independent Tasks, two Artifacts, and one deterministic Join. | A single Agent plus independent verifier matches two-branch quality and cost, or ordinary Task Graph semantics are sufficient. |
 | ANC-ORG-001 | M1 | P3 | ordivon-computing | — | — | ANC-MULTI-001, real-operator-attention-traces | Remain an umbrella; derive objects only from real operator and multi-Agent trajectories. | Host-local DecisionRequests and ordinary Task/participant relations explain observed coordination without a new organization layer. |
+| ANC-EPISTEMIC-001 | M1 | P2 | ordivon-computing | — | — | — | Retain the Security Contest observation as the first workload. After a bounded Game or Host case exists, run observation-equalization, perspective-swap, Context-loss, and disagreement-preserving Join comparisons; do not build a perspective service or protocol before that second workload. | Existing Observation, Claim, Verification, Fact, ContextSelection, and domain-local Actor state preserve action attribution, replacement fidelity, and disagreement across Security plus one non-adversarial workload without a shared perspective object. |
 | ANC-GAME-002 | M1 | P1 | ordivon-game | — | — | — | Finish the Station Zero first playable, then run G-PLAY-001 with scripted, decorative-Agent, and consequential-Agent cells; do not build a general society or world platform. | One small non-mission Agent activity fails to produce greater return, surprise, attachment, expression, consequential history, or meaningful choice than a scripted baseline at comparable total cost. |
 | ANC-SECURITY-001 | M1 | P2 | ordivon-security | — | — | — | Keep as a deferred umbrella. Round 1 completed the minimum dynamic-opponent method and rejected Campaign promotion; resume only through the narrower Security #10 and #20 experiments after current WIP frees. | Mature simulation, MARL, cyber evaluation, and thin adapters express the strategic distinctions without a new shared layer. |
 | ANC-SECURITY-003 | M4 | P2 | ordivon-security | — | — | — | Round 1 completed the minimum local and CAGE dynamic-opponent method but did not earn Campaign state. Defer the next test to held-out policies and Host/Context replacement through Security #10. | A scripted or ordinary Goal/Task policy matches explicit Campaign state on policy-switch and held-out-opponent cases. |
