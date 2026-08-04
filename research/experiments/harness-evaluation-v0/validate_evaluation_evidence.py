@@ -300,17 +300,36 @@ def validate_trial(document: dict[str, Any]) -> None:
     bindings = document["bindings"]
     if not isinstance(bindings, dict):
         raise ValueError("bindings must be an object")
-    _exact(
-        bindings,
-        {"sourceRevision", "environmentDigest", "contextDigest", "toolCatalogDigest", "systemSnapshotRef"},
-        "bindings",
-    )
+    legacy_binding_fields = {
+        "sourceRevision",
+        "environmentDigest",
+        "contextDigest",
+        "toolCatalogDigest",
+        "systemSnapshotRef",
+    }
+    current_binding_fields = legacy_binding_fields | {"systemManifestRef"}
+    if set(bindings) not in {frozenset(legacy_binding_fields), frozenset(current_binding_fields)}:
+        raise ValueError(
+            "bindings fields differ; expected the legacy fields or the fields plus systemManifestRef"
+        )
     _revision(bindings["sourceRevision"], "bindings.sourceRevision", nullable=True)
     _digest(bindings["environmentDigest"], "bindings.environmentDigest", nullable=True)
     _digest(bindings["contextDigest"], "bindings.contextDigest", nullable=True)
     _digest(bindings["toolCatalogDigest"], "bindings.toolCatalogDigest", nullable=True)
     if bindings["systemSnapshotRef"] is not None:
         _nonempty(bindings["systemSnapshotRef"], "bindings.systemSnapshotRef")
+    if "systemManifestRef" in bindings and bindings["systemManifestRef"] is not None:
+        reference = bindings["systemManifestRef"]
+        if not isinstance(reference, dict):
+            raise ValueError("bindings.systemManifestRef must be null or an evidence reference")
+        _exact(
+            reference,
+            {"repositoryId", "path", "digest"},
+            "bindings.systemManifestRef",
+        )
+        _nonempty(reference["repositoryId"], "bindings.systemManifestRef.repositoryId")
+        _nonempty(reference["path"], "bindings.systemManifestRef.path")
+        _digest(reference["digest"], "bindings.systemManifestRef.digest")
 
     sampling = document["sampling"]
     if not isinstance(sampling, dict):

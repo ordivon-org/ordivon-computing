@@ -142,6 +142,31 @@ class EvaluationP0ArtifactTests(unittest.TestCase):
         document["integrity"]["payloadDigest"] = records.payload_digest(document)
         records.validate_document(document)
 
+    def test_trial_system_manifest_binding_is_backward_compatible(self) -> None:
+        source = next(
+            document
+            for _, document in records.load_documents([DOGFOOD / "trials"])
+            if document["kind"] == "ordivon.evaluation-trial"
+        )
+        records.validate_document(source)
+        current = copy.deepcopy(source)
+        current["bindings"]["systemManifestRef"] = {
+            "repositoryId": "ordivon-computing",
+            "path": "research/experiments/harness-evaluation-v0/baselines/p0-20260804/system-manifest.json",
+            "digest": "sha256:" + "1" * 64,
+        }
+        current["integrity"]["payloadDigest"] = records.payload_digest(current)
+        records.validate_document(current)
+        configuration = summarizer.group_configuration(
+            current,
+            next(
+                document
+                for _, document in records.load_documents([DOGFOOD / "results"])
+                if document["trialId"] == current["trialId"]
+            ),
+        )
+        self.assertEqual(configuration["systemManifestRef"], current["bindings"]["systemManifestRef"])
+
     def test_suite_forbids_one_heterogeneous_global_score(self) -> None:
         document = json.loads(SUITE.read_text())
         self.assertTrue(document["metrics"]["forbidGlobalScore"])

@@ -79,7 +79,7 @@ A capability comparison requires:
 
 - the same Task ID and version;
 - the same verifier identity and revision;
-- a complete System Manifest for every Trial;
+- a complete `bindings.systemManifestRef` for every new Trial; legacy Trial records may omit it but cannot become comparison-eligible;
 - at least three Trials per configuration for development evidence;
 - five to ten Trials per configuration for an architecture decision when cost permits;
 - trajectory review for all failures, false completions, anomalous-cost successes, duplicate Effects, and grader disagreements.

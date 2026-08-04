@@ -101,6 +101,7 @@ def group_configuration(trial: dict[str, Any], result: dict[str, Any]) -> dict[s
         "sampling": trial["sampling"],
         "budget": trial["budget"],
         "systemSnapshotRef": trial["bindings"]["systemSnapshotRef"],
+        "systemManifestRef": trial["bindings"].get("systemManifestRef"),
         "verifier": {
             "verifierId": verifier["verifierId"],
             "verifierRevision": verifier["verifierRevision"],
@@ -209,10 +210,10 @@ def summarize(
         if any(group["trialCount"] < minimum_trials for group in task_group_values):
             blockers.append("insufficient_trials_per_configuration")
         if any(
-            group["configuration"]["systemSnapshotRef"] is None
+            group["configuration"]["systemManifestRef"] is None
             for group in task_group_values
         ):
-            blockers.append("missing_system_snapshot")
+            blockers.append("missing_system_manifest")
         verifier_identities = {
             (
                 group["configuration"]["verifier"]["verifierId"],
