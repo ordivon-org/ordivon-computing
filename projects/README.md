@@ -18,6 +18,12 @@ This directory maps real projects into the Agent-Native Computing research stack
 
 Use this table for navigation and stable role discovery. Use the owning repository for current implementation or research facts, and the public page for reader-facing orientation and maturity language.
 
+## Project-family decisions
+
+Cross-project ownership, admission, extraction, merge, and retirement rationale is indexed in [`decisions/README.md`](decisions/README.md). Decision records preserve why a boundary was considered or accepted, the alternatives and evidence, and the conditions that would reopen it.
+
+A record under review does not create a project, replace mutable GitHub Issue state, or modify stable identity. [`registry.yaml`](registry.yaml) remains the only stable project-identity registry, and implementation work begins only after the decision reaches the required status and an owning repository or Issue exists.
+
 ## Truth hierarchy
 
 When sources disagree about an implementation claim, use this order:
