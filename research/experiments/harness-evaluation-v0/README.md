@@ -48,11 +48,13 @@ A comparison additionally requires a frozen System Manifest, a versioned Suite, 
 - [`dogfood-20260802/INDEX.md`](dogfood-20260802/INDEX.md) — curated real-run evidence index; diagnostic failures remain separate from accepted evidence;
 - [`tests/`](tests/) — contract, tamper, relation, aggregation, and boundary tests.
 
-### Local evaluation data plane
+### Agent-first operations
 
-- [`data-plane-v0/`](data-plane-v0/) — rebuildable Parquet and DuckDB projection, idempotent MLflow mirror, verified restic backup, and loopback-only single-host operations.
+- [`query_evaluation.py`](query_evaluation.py) — dependency-free, stateless JSON queries over validated Task, Trial, Result, and Failure records.
 
-The data plane is downstream of P0 evidence. Editing DuckDB, Parquet, MLflow, or a backup never changes Task completion, Runtime physical truth, Trial acceptance, or comparison eligibility.
+Track R has no persistent analytical database, experiment server, dashboard, projection timer, or dedicated backup system. Agents and tools read the committed records directly, validate them before use, and derive summaries on demand. Git preserves reconstructable history; Host, Harness, and Runtime retain their own operational evidence and recovery authority.
+
+A local Parquet, DuckDB, MLflow, systemd, and restic data plane was implemented and exercised, then removed from the active system. It duplicated reconstructable records, consumed about 823 MB of installed dependencies, and primarily served a human experiment-browsing workflow that is not part of current Ordivon use. The experiment remains recoverable from Git history.
 
 ## P0 result
 
@@ -79,6 +81,20 @@ python3.12 -m unittest discover \
 ```
 
 Use `--write-digests` only while authoring a new record before its first commit. A committed record is immutable; corrections create a new version or superseding record.
+
+Query the current curated records without installing or starting a service:
+
+```bash
+python3.12 research/experiments/harness-evaluation-v0/query_evaluation.py status
+python3.12 research/experiments/harness-evaluation-v0/query_evaluation.py list --kind trial
+python3.12 research/experiments/harness-evaluation-v0/query_evaluation.py \
+  show dogfood:20260802:provenance-verifier-rejected-pro
+python3.12 research/experiments/harness-evaluation-v0/query_evaluation.py \
+  failures --class HARNESS --recovered true
+python3.12 research/experiments/harness-evaluation-v0/query_evaluation.py comparison-readiness
+```
+
+All commands emit structured JSON. They create no database, cache, background process, or derived authority.
 
 ## Comparison gate
 

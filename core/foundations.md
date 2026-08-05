@@ -13,7 +13,7 @@ audience:
   - builder
   - researcher
   - agent
-updated: 2026-08-03
+updated: 2026-08-05
 summary: Canonical working foundations used to admit, reject, and revise durable Ordivon constraints.
 evidence_status: not_applicable
 readiness: READY
@@ -126,6 +126,14 @@ Judgment grows through evidence, challenge, delegation within declared scope, re
 Ordivon is a chosen practice of capability externalization, durable inquiry, and world construction. It earns continued effort by expanding participant capability, continuity, understanding, expression, and intrinsically chosen value while preserving scarce attention, freedom, and irreversible reality.
 
 Repository count, output volume, Issue closure, test coverage, formal maturity, commercial appearance, and organizational resemblance remain local instruments. Implementations, abstractions, processes, and Ordivon itself continue while they serve identifiable participants.
+
+## A17 — Interfaces follow actual consumers
+
+An internal surface defaults to the smallest structured interface its recurring consumers can use directly. When Agents and tools perform collection, validation, search, comparison, and continuation, machine-readable records and bounded commands take precedence over dashboards, duplicated projections, manual browsing workflows, and presentation infrastructure.
+
+Human-facing surfaces remain first-class where human perception, judgment, authorship, consent, learning, or experience is part of the work. Media, video, visual design, games, narrative, public communication, and consequential participant decisions may require deliberate human presentation even when Agents produce or prepare the underlying material.
+
+Neither “Agent-first” nor “human-facing” is a universal product style. Each interface identifies who must act on it, what decision or experience it enables, and why a narrower machine or human projection is insufficient. Presentation cost follows the actual participant boundary rather than inherited software convention.
 
 ## Research cycle
 
