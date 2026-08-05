@@ -78,9 +78,10 @@ A formal Trial is one exact Task execution under one complete configuration. It 
 7. a Provider and model identity captured without secrets;
 8. an independent verifier outside the model-visible Workspace;
 9. a Host CompletionDecision and, only on acceptance, one TaskOutcome;
-10. a Track R Trial Manifest, Trial Result, and Failure Records where required;
-11. verified Workspace closure or an explicit retained-state reason;
-12. no raw private reasoning and no credential material in committed evidence.
+10. one immutable Observation Selection Manifest freezing the P1 event IDs, digests, mapping versions, and completeness claims used by the Trial;
+11. a Track R Trial Manifest, Trial Disposition, Trial Result, and Failure Records where required;
+12. verified Workspace closure or an explicit retained-state reason;
+13. no raw private reasoning and no credential material in committed evidence.
 
 A process exit, model final message, Harness stop, Runtime success, visible test pass, or completion Artifact alone is not formal acceptance.
 
@@ -120,6 +121,30 @@ A repository-repair Trial is accepted only when all are true:
 
 Recovery passes only when the same durable work is reconstructed without a second physical dispatch, stale Assignment admission, duplicate TaskOutcome, hidden state guess, or loss of required evidence.
 
+### Trial disposition
+
+R3 separates three axes rather than flattening every non-success into one failure:
+
+```text
+validity: valid | invalid | unknown
+semantic outcome: accepted | rejected | not_reached | not_applicable | unknown
+comparative outcome: improved | equivalent | regressed | inconclusive | not_applicable | unknown
+failure attribution: none | candidate | infrastructure | evaluator | environment | policy | multiple | unknown
+```
+
+The semantic outcome comes only from the authoritative Host or domain acceptance boundary. `not_reached` covers infrastructure, evaluator, or policy failures that prevent adjudication. The comparative outcome is derived only after a valid comparable Trial group exists; a standalone baseline Trial uses `not_applicable` rather than inventing improvement.
+
+A Trial is comparison-eligible only when:
+
+- validity is `valid`;
+- every required P1 source stream is complete at the frozen Observation Selection;
+- the exact Configuration Cell and Grader Bundle identities are present;
+- deterministic and domain verification completed;
+- no forbidden source, verifier, metric, or environment mutation occurred;
+- no unresolved duplicate dispatch, false completion, privacy violation, or contamination remains.
+
+A valid negative Trial is retained and may falsify a Candidate. Invalid, incomplete, infrastructure-failed, and evaluator-failed Trials remain evidence but cannot be pooled into Candidate performance statistics.
+
 ## Campaign phases
 
 ## Phase 0 — complete campaign preflight
@@ -153,7 +178,8 @@ Each competitive configuration receives a complete manifest containing:
 - Tool-grant digest;
 - budget-profile digest;
 - environment digest;
-- Task, verifier, Suite, and schema digests;
+- Task, verifier, Grader Bundle, Suite, and schema digests;
+- P1 Observation contract and Host/Harness/Runtime mapping versions;
 - privacy declaration excluding secrets and raw reasoning.
 
 A changed manifest creates another configuration group. Results from different manifests are not silently pooled.
@@ -279,6 +305,7 @@ Campaign
 └── System Manifest
     └── Task Definition + QA
         └── Trial Manifest
+            ├── Observation Selection Manifest
             ├── Host Task
             ├── Host Task Attempt
             ├── Harness Assignment
@@ -289,7 +316,8 @@ Campaign
             ├── completion Artifact
             ├── independent verifier assertions
             ├── Host CompletionDecision
-            └── Host TaskOutcome, when accepted
+            ├── Host TaskOutcome, when accepted
+            └── Trial Disposition + Grader Bundle results
 ```
 
 Track R stores references and digests. It does not copy Host Journal, Harness history, Runtime Registry, Provider raw messages, secrets, or private reasoning into a second control plane.
@@ -367,8 +395,11 @@ campaign-preflight.json
 system-manifests/<configuration>.json
 trials/<trial-id>/intent.json
 trials/<trial-id>/native-refs.json
+trials/<trial-id>/observation-selection.json
+trials/<trial-id>/grader-bundle.json
 trials/<trial-id>/runner-state.json
 trials/<trial-id>/trial.json
+trials/<trial-id>/disposition.json
 trials/<trial-id>/result.json
 trials/<trial-id>/failures/*.json
 trials/<trial-id>/review.json
@@ -385,12 +416,14 @@ The runner performs these steps:
 4. create Host Task, Attempt, and Assignment through existing product APIs;
 5. invoke the selected execution-path adapter;
 6. collect native receipts and immutable references;
-7. run the hidden verifier outside the evaluated Workspace;
-8. request Host adjudication;
-9. project Trial, Result, and Failure records;
-10. run integrity and relation validation;
-11. close the Workspace and verify cleanup;
-12. emit a bounded review packet.
+7. query P1 and freeze the exact Observation Selection Manifest;
+8. run the frozen Grader Bundle and hidden verifier outside the evaluated Workspace;
+9. request Host adjudication;
+10. derive Trial validity, outcome, and failure attribution without inventing missing facts;
+11. project Trial, Disposition, Result, and Failure records;
+12. run integrity and relation validation;
+13. close the Workspace and verify cleanup;
+14. emit a bounded review packet.
 
 Product-specific behavior remains product-owned:
 
@@ -398,6 +431,18 @@ Product-specific behavior remains product-owned:
 - Host owns Task and completion state;
 - Runtime owns physical work;
 - Computing owns only campaign orchestration and research projection.
+
+## Experiment Loop boundary
+
+R3 deliberately stops after producing valid repeated Trial groups and Campaign closeout. It does not:
+
+- generate new hypotheses or Candidate patches;
+- allocate another experiment round;
+- choose a Pareto leader;
+- convert a Learning Update into policy;
+- merge, deploy, canary, or roll back product changes.
+
+The downstream bounded loop is [`../experiment-loop-v0/EXECUTION-PLAN.md`](../experiment-loop-v0/EXECUTION-PLAN.md), plan `CEL-R4-001`. CEL-R4 consumes R3 records only after the deterministic smoke and repeated native baseline pass. R3 remains independently useful and must not require CEL-R4 to validate or compare a fixed Campaign.
 
 ## Agent-first review
 
@@ -428,9 +473,9 @@ Human review is required only when the decision itself needs human judgment or r
 
 ### Proceed from baseline to comparison only when
 
-- three native Harness Trials are valid records;
+- three native Harness Trials are valid, complete, selection-eligible records;
 - no runner defect remains unresolved;
-- every failure and anomalous success has a review;
+- every failure, invalid Trial, evaluator disagreement, and anomalous success has a review;
 - repeated Trials share one exact configuration manifest;
 - one-shot and Provider Harness adapters can preserve the same Task and verifier contract.
 
@@ -447,7 +492,7 @@ Human review is required only when the decision itself needs human judgment or r
 
 ### Architecture decision threshold
 
-Three Trials per configuration support development diagnosis. A retain, shrink, or delete decision for the native Harness requires five to ten valid Trials per competitive configuration, all triggered reviews, exact common verifier identity, and a statement of remaining confounders. No heterogeneous global score is generated.
+Three valid, complete Trials per configuration support development diagnosis. A retain, shrink, or delete decision for the native Harness requires five to ten selection-eligible Trials per competitive configuration, all triggered reviews, exact common verifier and Grader Bundle identity, retained valid negative results, and a statement of remaining confounders. Invalid and unknown Trials are reported separately rather than lowering a Candidate score. No heterogeneous global score is generated.
 
 ## Implementation sequence
 
@@ -457,6 +502,8 @@ Three Trials per configuration support development diagnosis. A retain, shrink, 
 - add the thin campaign runner skeleton;
 - build complete configuration System Manifests;
 - add atomic per-Trial intent/state handling;
+- add Observation Selection and Trial Disposition records;
+- freeze Grader Bundle identity and disagreement handling;
 - project existing native receipts into current Track R records;
 - do not invoke a live Provider yet.
 

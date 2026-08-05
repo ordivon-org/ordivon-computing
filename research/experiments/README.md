@@ -4,7 +4,12 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 ## Current executable research
 
-- [`harness-evaluation-v0/`](harness-evaluation-v0/) — the active Track R evidence contract and comparison surface. Product-owned frozen workloads and real Harness runs remain in their owning repositories.
+- [`harness-evaluation-v0/`](harness-evaluation-v0/) — the active Track R evidence contract and R3 fixed-Campaign Trial surface. Product-owned frozen workloads and real Harness runs remain in their owning repositories.
+
+## Designed execution dependencies and successors
+
+- [`observation-plane-v0/`](observation-plane-v0/) — HHO-P1 automatic owner-native observation; contract and Gateway work may begin, but production exporters wait for P0 closeout.
+- [`experiment-loop-v0/`](experiment-loop-v0/) — CEL-R4 bounded multi-round experiment selection, blocked until P1 Core and the R3 repeated native baseline pass.
 
 ## Frozen, completed, or promoted evidence
 

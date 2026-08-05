@@ -130,4 +130,5 @@ This question does not justify:
 - [`../../knowledge/agents/goal-task-effect.md`](../../knowledge/agents/goal-task-effect.md)
 - [`../../knowledge/institutions/plural-intelligence-organization.md`](../../knowledge/institutions/plural-intelligence-organization.md)
 - [`../../studies/2026-adaptive-acceleration/README.md`](../../studies/2026-adaptive-acceleration/README.md)
+- [`../experiments/experiment-loop-v0/`](../experiments/experiment-loop-v0/) — bounded pre-adaptation Campaign plan; does not unblock this question by design alone.
 - `ordivon-host`, `ordivon-runtime`, `ordivon-game`, `ordivon-security`, and `ordivon-world`

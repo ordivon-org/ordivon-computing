@@ -1,0 +1,368 @@
+{
+  "acceptanceGates": [
+    "records_bind_immutable_owner_refs",
+    "deleting_cel_cannot_change_owner_or_r3_evidence",
+    "roles_are_distinguishable",
+    "valid_negative_invalid_infrastructure_evaluator_and_incomplete_cases_distinct",
+    "only_valid_complete_trials_enter_pareto_comparison",
+    "baseline_retained_every_round",
+    "same_diff_candidates_deduplicated",
+    "winner_replication_uses_fresh_process_state_root_and_workspace",
+    "round_decision_reproducible_from_frozen_inputs",
+    "candidate_cannot_modify_grader_workload_metric_or_observation_mapping",
+    "no_automatic_merge_or_deployment",
+    "e1_has_baseline_plus_two_materially_distinct_candidates",
+    "three_valid_trials_per_compared_candidate",
+    "campaign_retains_useful_negative_or_null_result",
+    "independent_post_campaign_regression_gate_passes"
+  ],
+  "antiGaming": [
+    "candidate_path_allowlist_and_denylist",
+    "hidden_grader_and_holdout_not_model_visible",
+    "benchmark_inputs_timeouts_samples_and_metrics_frozen",
+    "observation_mapping_changes_forbidden",
+    "candidate_patch_digest_frozen_before_trials",
+    "fresh_workspace_per_replicate",
+    "same_model_self_score_not_sufficient",
+    "evaluator_disagreement_blocks_promotion"
+  ],
+  "authority": [
+    {
+      "facts": [
+        "task",
+        "verification",
+        "task_outcome"
+      ],
+      "owner": "ordivon-host"
+    },
+    {
+      "facts": [
+        "harness_run",
+        "provider_call",
+        "tool_step",
+        "completion_proposal"
+      ],
+      "owner": "ordivon-harness"
+    },
+    {
+      "facts": [
+        "workspace",
+        "runtime_job",
+        "runtime_attempt",
+        "artifact",
+        "terminal_evidence"
+      ],
+      "owner": "ordivon-runtime"
+    },
+    {
+      "facts": [
+        "world_state",
+        "domain_outcome"
+      ],
+      "owner": "domain_project"
+    },
+    {
+      "authoritative": false,
+      "facts": [
+        "query_projection",
+        "source_completeness",
+        "correlation_index"
+      ],
+      "owner": "hho_p1_observation"
+    },
+    {
+      "facts": [
+        "trial_manifest",
+        "trial_validity",
+        "trial_result",
+        "failure_record"
+      ],
+      "owner": "hhr_r3_formal_trial"
+    },
+    {
+      "facts": [
+        "campaign_manifest",
+        "hypothesis",
+        "candidate",
+        "round_decision",
+        "learning_update",
+        "campaign_receipt"
+      ],
+      "owner": "cel_r4_experiment_loop"
+    }
+  ],
+  "decisions": {
+    "automaticDatasetAdmission": false,
+    "automaticDeploymentAuthorized": false,
+    "automaticMergeAuthorized": false,
+    "campaignRecordsAreResearchOnly": true,
+    "daemonAuthorized": false,
+    "databaseAuthorized": false,
+    "formalTrialOwnsValidity": true,
+    "humanOwnsPromotion": true,
+    "negativeResultsRetained": true,
+    "newRepositoryAuthorized": false,
+    "observationIsSensingOnly": true,
+    "rawPrivateReasoningRequired": false,
+    "schedulerAuthorized": false
+  },
+  "downstreamQuestionRef": "ANC-ADAPT-001",
+  "executionPlanRef": "research/experiments/experiment-loop-v0/EXECUTION-PLAN.md",
+  "firstEvidenceProgram": [
+    {
+      "claimLimit": "schema_and_boundary_validation_only",
+      "phaseId": "E0",
+      "status": "blocked_by_contract_implementation",
+      "title": "Retrospective Harness persistence performance shadow encoding"
+    },
+    {
+      "allowedSurface": [
+        "gateway_batch_admission",
+        "sqlite_indexes",
+        "bounded_transaction_grouping",
+        "query_plans",
+        "non_semantic_cache"
+      ],
+      "forbiddenSurface": [
+        "envelope_identity",
+        "privacy_rules",
+        "source_sequence_rules",
+        "corruption_behavior",
+        "owner_mappings",
+        "acceptance_thresholds",
+        "benchmark_or_grader_code"
+      ],
+      "phaseId": "E1",
+      "promotionBoundary": "candidate_commit_and_review_packet_only",
+      "status": "blocked_by_p1_core_and_r3_baseline",
+      "title": "Observation Gateway ingest and query optimization"
+    },
+    {
+      "downstreamEvidenceFor": "ANC-ADAPT-001",
+      "phaseId": "E2",
+      "status": "blocked_by_stable_r3_repeated_baseline",
+      "title": "Single-variable Harness policy experiment"
+    },
+    {
+      "phaseId": "E3",
+      "retentionGate": "coevolution_beats_static_held_out_evaluation_for_architecture_decision",
+      "status": "blocked_by_security_held_out_opponents_and_evaluator",
+      "title": "Security held-out adversarial consumer"
+    }
+  ],
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:d9dc397678a39fa2339a516b47a3ba8f17eee3ca091d8eddc1a0e88036833ad7"
+  },
+  "kind": "ordivon.continuous-experiment-loop-plan",
+  "outputs": [
+    "cel-contract-v1.json",
+    "cel-plan-receipt.json",
+    "e0-shadow-closeout.json",
+    "e1-campaign-manifest.json",
+    "e1-candidates/*.json",
+    "e1-rounds/*.json",
+    "e1-trial-groups/*.json",
+    "e1-observation-selections/*.json",
+    "e1-evaluations/*.json",
+    "e1-learning/*.json",
+    "e1-replication.json",
+    "e1-campaign-closeout.json",
+    "cel-r4-closeout.json"
+  ],
+  "planId": "CEL-R4-001",
+  "prerequisites": [
+    {
+      "path": "research/experiments/observation-plane-v0/plan-v1.json",
+      "planId": "HHO-P0-P1-001",
+      "reason": "Owner-native evidence must be independently durable, automatically queryable, complete by source stream, and rebuildable before Campaign selection.",
+      "requiredStatus": "p0_passed_and_p1_core_passed"
+    },
+    {
+      "path": "research/experiments/harness-evaluation-v0/formal-trial-plan-v1.json",
+      "planId": "HHR-R3-001",
+      "reason": "The experiment loop consumes valid repeated Trials and cannot define Trial validity while also selecting Candidates.",
+      "requiredStatus": "deterministic_smoke_and_repeated_native_baseline_passed"
+    }
+  ],
+  "questionRef": "ANC-VERIFY-001",
+  "readyFrontier": [
+    "finish_hho_p0_closeout",
+    "implement_and_accept_hho_p1_core",
+    "execute_hhr_r3_deterministic_smoke_and_repeated_native_baseline",
+    "freeze_trial_disposition_and_observation_selection_from_real_evidence",
+    "implement_e0_shadow_records",
+    "run_e1_observation_gateway_self_optimization"
+  ],
+  "records": [
+    "ResearchQuestionSpec",
+    "CampaignManifest",
+    "HypothesisRecord",
+    "CandidateManifest",
+    "ConfigurationCell",
+    "TrialDisposition",
+    "GraderBundle",
+    "RoundDecision",
+    "LearningUpdate",
+    "CampaignReceipt"
+  ],
+  "roles": [
+    {
+      "forbidden": [
+        "modify_hidden_grader",
+        "mark_trial_valid",
+        "promote_to_production"
+      ],
+      "may": [
+        "propose_hypothesis",
+        "propose_candidate",
+        "predict_observable_change"
+      ],
+      "roleId": "proposer"
+    },
+    {
+      "forbidden": [
+        "change_candidate_after_trial_start",
+        "edit_forbidden_paths",
+        "reuse_contaminated_workspace"
+      ],
+      "may": [
+        "implement_frozen_candidate_in_isolated_workspace"
+      ],
+      "roleId": "implementer"
+    },
+    {
+      "forbidden": [
+        "repair_candidate_before_scoring",
+        "infer_semantic_success_from_runtime_success",
+        "invent_missing_measurements"
+      ],
+      "may": [
+        "run_frozen_grader_bundle",
+        "issue_trial_disposition"
+      ],
+      "roleId": "evaluator"
+    },
+    {
+      "forbidden": [
+        "dispatch_product_effect_directly",
+        "override_invalidity",
+        "promote_to_production"
+      ],
+      "may": [
+        "compare_selection_eligible_groups",
+        "request_replication",
+        "allocate_bounded_next_round",
+        "stop_campaign"
+      ],
+      "roleId": "search_controller"
+    },
+    {
+      "forbidden": [],
+      "may": [
+        "merge",
+        "release",
+        "canary",
+        "rollback",
+        "change_objective_or_hidden_grader"
+      ],
+      "roleId": "human_release_authority"
+    }
+  ],
+  "schemaVersion": 1,
+  "searchPolicy": {
+    "baselineRetainedEveryRound": true,
+    "controller": "deterministic_pareto_and_replication_v1",
+    "freshReplicationForProvisionalWinner": 1,
+    "hardGatesDominatePerformance": true,
+    "maxCandidatesPerRoundIncludingBaseline": 4,
+    "maxRounds": 3,
+    "nextRoundComposition": [
+      "verified_pareto_leader",
+      "mechanism_diversity_candidate",
+      "failure_derived_candidate",
+      "unchanged_baseline"
+    ],
+    "noGlobalScoreRequired": true,
+    "parallelismRequiresDistinctStateRootsAndContaminationTest": true,
+    "sequentialByDefault": true,
+    "validTrialsPerCandidateForDevelopment": 3
+  },
+  "stateMachine": {
+    "normal": [
+      "DRAFT",
+      "PREFLIGHTED",
+      "ROUND_OPEN",
+      "CANDIDATES_FROZEN",
+      "TRIALS_RUNNING",
+      "EVALUATING",
+      "ROUND_DECIDED",
+      "NEXT_ROUND",
+      "REPLICATION",
+      "CLOSEOUT_PENDING",
+      "CLOSED"
+    ],
+    "terminalExceptional": [
+      "STOPPED_INVALID_QUESTION",
+      "STOPPED_EVALUATOR_UNSTABLE",
+      "STOPPED_INFRASTRUCTURE_UNSTABLE",
+      "STOPPED_PRIVACY",
+      "STOPPED_BUDGET",
+      "STOPPED_HUMAN",
+      "ABANDONED"
+    ]
+  },
+  "status": "designed_not_executed",
+  "stopConditions": [
+    "candidate_generation_not_separable_from_evaluator_authority",
+    "trial_instability_prevents_selection",
+    "infrastructure_failures_dominate_rounds",
+    "owner_databases_or_full_transcripts_must_be_copied",
+    "controller_requires_product_dispatch_or_deployment_authority",
+    "universal_scalar_score_required",
+    "fixed_human_candidate_set_matches_decisions_at_materially_lower_cost",
+    "benchmark_gain_does_not_survive_replication",
+    "operational_overhead_exceeds_information_value"
+  ],
+  "trialDisposition": {
+    "comparativeOutcome": [
+      "improved",
+      "equivalent",
+      "regressed",
+      "inconclusive",
+      "not_applicable",
+      "unknown"
+    ],
+    "failureAttribution": [
+      "none",
+      "candidate",
+      "infrastructure",
+      "evaluator",
+      "environment",
+      "policy",
+      "multiple",
+      "unknown"
+    ],
+    "selectionEligibleWhen": [
+      "validity_is_valid",
+      "required_observation_streams_complete",
+      "configuration_identity_exact",
+      "required_graders_completed",
+      "no_forbidden_candidate_mutation",
+      "no_unresolved_duplicate_dispatch_false_completion_privacy_or_contamination"
+    ],
+    "semanticOutcome": [
+      "accepted",
+      "rejected",
+      "not_reached",
+      "not_applicable",
+      "unknown"
+    ],
+    "validity": [
+      "valid",
+      "invalid",
+      "unknown"
+    ]
+  }
+}

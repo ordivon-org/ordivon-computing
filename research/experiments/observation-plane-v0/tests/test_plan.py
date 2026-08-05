@@ -168,8 +168,15 @@ class ObservationPlanTests(unittest.TestCase):
         value = self.plan["formalTrialEffect"]
         self.assertEqual(value["planId"], "HHR-R3-001")
         self.assertTrue(value["designRetained"])
-        self.assertEqual(value["executionStatus"], "blocked_by_hho_p0_p1")
-        self.assertEqual(len(value["resumeRequirements"]), 5)
+        self.assertEqual(
+            value["executionStatus"],
+            "blocked_by_hho_p0_and_p1_core",
+        )
+        self.assertEqual(len(value["resumeRequirements"]), 6)
+        self.assertIn(
+            "observation_selection_manifest_stable",
+            value["resumeRequirements"],
+        )
 
     def test_execution_plan_and_read_only_exporter_state_are_explicit(self) -> None:
         execution_path = Path(self.plan["executionPlanRef"])
@@ -187,6 +194,30 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(
             self.plan["p1"]["nativeStreams"]["ordivon-runtime"],
             "one_stream_per_runtime_job",
+        )
+
+    def test_experiment_loop_boundary_keeps_p1_as_sensing_only(self) -> None:
+        decisions = self.plan["decisions"]
+        self.assertFalse(decisions["observationOwnsTrialValidity"])
+        self.assertFalse(decisions["observationOwnsCandidateSelection"])
+        boundary = self.plan["p1"]["experimentLoopBoundary"]
+        self.assertEqual(boundary["downstreamPlanId"], "CEL-R4-001")
+        self.assertIn("source_stream_completeness", boundary["p1Owns"])
+        self.assertIn("trial_validity", boundary["p1DoesNotOwn"])
+        self.assertEqual(
+            boundary["selectionFreezeRecord"],
+            "ObservationSelectionManifest",
+        )
+        relations = self.plan["p1"]["relationVocabulary"]
+        self.assertIn("derived_from", relations)
+        self.assertIn("evaluates", relations)
+        fixtures = self.plan["p1"]["evaluationReadinessFixtures"]
+        self.assertEqual(len(fixtures), 4)
+        self.assertIn("externally_invalid_complete_trajectory", fixtures)
+        self.assertIn("incomplete_trajectory", fixtures)
+        self.assertIn(
+            "observation_selection_manifest_fixture_stable",
+            self.plan["p1"]["coreCloseoutGate"],
         )
 
     def test_no_heavy_platform_or_secret_paths(self) -> None:

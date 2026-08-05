@@ -2,7 +2,7 @@
 
 > Generated from [`portfolio.json`](portfolio.json). Edit the JSON source, then rerun `python3 scripts/render_research_portfolio.py`.
 
-- **As of:** `2026-08-05`
+- **As of:** `2026-08-06`
 - **Active research-line limit:** `2`
 - **Current active lines:** `2`
 
@@ -28,7 +28,7 @@
 | ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-VERIFY-002 | M2 | P0 | ordivon-computing | R-A-HARNESS-CONTROL | — | — | Run the paired non-action suite against model-only, static-policy, and existing Host evidence-rich baselines; use H5 retained generation, Artifact, and reconciliation mechanisms without building a Harness or abstention platform. | A simpler paired act/abstain or static policy achieves equal authorized utility, timing, and recovery with fewer states. |
-| ANC-VERIFY-001 | M3 | P0 | ordivon-computing | R-C-HARNESS-EVALUATION | — | — | Execute HHO-P0-P1-001 before R3: first make Host and Harness independently durable with a caller-neutral Run Contract, Host external-executor integration, legacy compatibility, and no dual-write cutover; then automatically export Host, Harness, and Runtime owner-native events into a queryable non-authoritative observation path. Resume the formal Trial runner only after one deterministic cross-owner trajectory is reconstructable from native references. | The same frozen workload cannot be compared without copying Provider lifecycles or duplicating Host, Harness, Runtime, and verifier authority, or the common envelope adds no explanatory value over local receipts. |
+| ANC-VERIFY-001 | M3 | P0 | ordivon-computing | R-C-HARNESS-EVALUATION | — | — | Finish HHO-P0 closeout while implementing the P1 Contract and Gateway fixture path; enable read-only Host, Harness, and Runtime exporters only after P0 passes. Then execute HHR-R3 deterministic smoke and three valid complete native baseline Trials. CEL-R4 remains blocked until R3 freezes Trial Disposition and one repeated baseline. | The same frozen workload cannot be compared without copying Provider lifecycles or duplicating Host, Harness, Runtime, and verifier authority, or the common envelope adds no explanatory value over local receipts. |
 
 ### Ready
 
@@ -40,7 +40,7 @@
 
 | ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
-| ANC-ADAPT-001 | M1 | P3 | ordivon-computing | — | — | ANC-VERIFY-001, 20-50-homogeneous-task-trajectories | Collect comparable trajectories first; later change only one Skill, Context policy, or stopping policy through replay, shadow, canary, and rollback. | A versioned Skill or Context-policy change fails held-out Tasks or cannot beat a fixed baseline after rollback costs. |
+| ANC-ADAPT-001 | M1 | P3 | ordivon-computing | — | — | ANC-VERIFY-001, 20-50-homogeneous-task-trajectories | Remain blocked. First complete P1 Core and the R3 repeated native baseline; then use CEL-R4 E1 to prove a bounded self-customer experiment and collect 20–50 homogeneous trajectories before changing one Skill, Context policy, stopping policy, or system configuration through shadow, canary, and rollback. | A versioned Skill or Context-policy change fails held-out Tasks or cannot beat a fixed baseline after rollback costs. |
 | ANC-SECURITY-005 | M0 | P3 | ordivon-security | — | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-MULTI-001 | No implementation until single-actor strategic and opponent-model hypotheses survive. | Ordinary Host delegation and branch/join plus domain-local trust fields explain the first compromise scenario. |
 | ANC-SECURITY-006 | M0 | P3 | ordivon-security | — | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-SECURITY-005, ANC-VERIFY-001, ordivon-security#20 | No platform or training loop until the unit of strategic evaluation is proven. | Held-out static-opponent evaluation predicts the same architecture decisions as coevolution with lower cost. |
 

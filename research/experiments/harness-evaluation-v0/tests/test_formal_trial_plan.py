@@ -95,7 +95,7 @@ class FormalTrialPlanTests(unittest.TestCase):
 
     def test_first_campaign_does_not_prematurely_run_all_comparisons(self) -> None:
         first = self.plan["firstCampaign"]
-        self.assertEqual(first["status"], "blocked_by_hho_p0_p1")
+        self.assertEqual(first["status"], "blocked_by_hho_p0_and_p1_core")
         self.assertTrue(first["sequentialOnly"])
         self.assertIn(
             "three_ordivon_harness_deepseek_trials",
@@ -153,6 +153,37 @@ class FormalTrialPlanTests(unittest.TestCase):
             {"ordivon-host", "ordivon-harness", "ordivon-runtime", "cross_layer"},
         )
         self.assertTrue(all(cell["deterministic"] for cell in cells))
+
+    def test_trial_disposition_and_observation_selection_are_explicit(self) -> None:
+        disposition = self.plan["trialDisposition"]
+        self.assertEqual(disposition["validity"], ["valid", "invalid", "unknown"])
+        self.assertIn("infrastructure", disposition["failureAttribution"])
+        self.assertIn("evaluator", disposition["failureAttribution"])
+        self.assertIn("accepted", disposition["semanticOutcome"])
+        self.assertIn("not_reached", disposition["semanticOutcome"])
+        self.assertIn("regressed", disposition["comparativeOutcome"])
+        self.assertIn("not_applicable", disposition["comparativeOutcome"])
+        self.assertTrue(disposition["validNegativeResultsRetained"])
+        self.assertTrue(
+            disposition["invalidAndUnknownExcludedFromPerformanceAggregation"]
+        )
+        selection = self.plan["observationSelection"]
+        self.assertEqual(selection["record"], "ObservationSelectionManifest")
+        self.assertFalse(selection["trialValidityInferredByObservation"])
+        self.assertIn("selection_digest", selection["contains"])
+
+    def test_experiment_loop_handoff_does_not_expand_r3_authority(self) -> None:
+        handoff = self.plan["experimentLoopHandoff"]
+        self.assertEqual(handoff["planId"], "CEL-R4-001")
+        self.assertTrue(Path(handoff["path"]).exists())
+        self.assertIn("candidate_generation", handoff["r3DoesNotOwn"])
+        self.assertIn("automatic_promotion", handoff["r3DoesNotOwn"])
+        first = self.plan["firstCampaign"]
+        self.assertIn(
+            "automatic_candidate_generation",
+            first["excludedUntilBaselineCloseout"],
+        )
+        self.assertIn("multi_round_search", first["excludedUntilBaselineCloseout"])
 
     def test_plan_requires_no_dashboard_or_reasoning_text(self) -> None:
         policy = self.plan["reviewPolicy"]

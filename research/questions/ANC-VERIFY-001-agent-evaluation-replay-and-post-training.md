@@ -52,14 +52,16 @@ A model-only ranking is not admitted when Harness, tools, Context, or verifier d
 
 ## Research objects
 
-Track R initially defines four research-only records:
+Track R first defines fixed-Campaign Trial records:
 
 - **Task Definition** — immutable objective, initial state, capabilities, budget profile, acceptance contract, oracle, reproducibility requirements, and limitations;
 - **Trial Manifest** — exact configuration and evidence bindings for one stochastic or deterministic run;
+- **Observation Selection Manifest** — exact P1 event IDs, digests, source heads, mapping versions, and completeness claims used by the Trial;
+- **Trial Disposition** — separate validity, outcome, and failure-attribution axes;
 - **Trial Result** — observed outcome, verifier assertions, cost, action counts, Artifacts, trace reference, and limitations;
 - **Failure Record** — first observable failure, responsible boundary, recovery, duplicate-Effect status, intervention, and evidence.
 
-These records aggregate existing evidence. They do not replace Host Task, Harness Run, Runtime Job, Artifact, CompletionDecision, or System Snapshot.
+After repeated Trials are stable, CEL-R4 may add Campaign-level research records for Hypothesis, Candidate, Round Decision, Learning Update, and Campaign Receipt. These records aggregate existing evidence. They do not replace Host Task, Harness Run, Runtime Job, Artifact, CompletionDecision, System Snapshot, or domain outcome.
 
 ## First research program
 
@@ -121,4 +123,6 @@ Shrink or delete the common envelope if any of these hold:
 
 Retain the question and localize implementation to versioned files, standard-library validation, product-owned fixtures, and immutable evidence references. The accepted R3 design is [`../experiments/harness-evaluation-v0/FORMAL-TRIAL-DESIGN.md`](../experiments/harness-evaluation-v0/FORMAL-TRIAL-DESIGN.md), with machine plan [`../experiments/harness-evaluation-v0/formal-trial-plan-v1.json`](../experiments/harness-evaluation-v0/formal-trial-plan-v1.json).
 
-Formal Trial execution is now blocked by the accepted Host/Harness persistence and observation plan [`../experiments/observation-plane-v0/P0-P1-DESIGN.md`](../experiments/observation-plane-v0/P0-P1-DESIGN.md). The immediate Ready Frontier is HHO-P0: freeze current Harness persistence semantics, implement an independent Harness Journal/CAS and caller-neutral Run Contract, add Host external-executor integration, and cut over new Runs without dual writes. HHO-P1 must then automatically export Host, Harness, and Runtime owner-native evidence into a queryable non-authoritative path. Only after those gates pass does R3-A implement the thin formal runner and continue toward deterministic smoke and repeated Provider Trials. Promotion beyond Track R requires repeated consumers and measurable net deletion elsewhere.
+Formal Trial execution is blocked by HHO-P0 closeout and the accepted P1 execution plan [`../experiments/observation-plane-v0/P1-EXECUTION-PLAN.md`](../experiments/observation-plane-v0/P1-EXECUTION-PLAN.md). The immediate Ready Frontier is to close the remaining Harness recovery, scale, state-root, and cutover gates while implementing P1 Contract and Gateway fixtures. P1 Core must then automatically export Host, Harness, and Runtime owner-native evidence, report completeness without deciding Trial validity, and freeze one deterministic cross-owner Observation Selection. R3-A then implements the thin formal runner, explicit Trial Disposition, deterministic smoke, and repeated native Provider baseline.
+
+Only after R3 produces stable valid repeated Trial groups does [`../experiments/experiment-loop-v0/`](../experiments/experiment-loop-v0/) begin. CEL-R4 tests a bounded Propose–Implement–Evaluate–Select–Learn loop with separate Proposer, Evaluator, Search Controller, and human promotion authority. Its first live self-customer is Observation Gateway optimization; it does not activate unrestricted self-evolution or create a production experiment platform. Promotion beyond Track R still requires repeated consumers and measurable net deletion elsewhere.

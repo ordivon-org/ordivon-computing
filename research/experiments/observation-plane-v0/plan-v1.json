@@ -63,13 +63,17 @@
   "decisionRef": "computing.projects.host-harness-observation",
   "decisions": {
     "automaticEvalAdmission": false,
+    "experimentIdentitiesAreExternalRelations": true,
     "exporterCheckpointsOutsideOwnerStores": true,
     "formalTrialsBlockedUntilP0P1": true,
+    "formalTrialsRequireP1Core": true,
     "harnessJournalAsOutbox": true,
     "hostAndHarnessIndependentAuthorities": true,
     "hostJournalAsOutbox": true,
     "newRepositoryAuthorized": false,
     "newRunDualWriteForbidden": true,
+    "observationOwnsCandidateSelection": false,
+    "observationOwnsTrialValidity": false,
     "observationPlaneAuthoritative": false,
     "openTelemetryProjectionAuthoritative": false,
     "ownerDatabasesReadOnlyToObservation": true,
@@ -79,20 +83,21 @@
   "executionPlanRef": "research/experiments/observation-plane-v0/P1-EXECUTION-PLAN.md",
   "formalTrialEffect": {
     "designRetained": true,
-    "executionStatus": "blocked_by_hho_p0_p1",
+    "executionStatus": "blocked_by_hho_p0_and_p1_core",
     "planId": "HHR-R3-001",
     "resumeRequirements": [
       "p0_passed",
       "p1_host_harness_runtime_passed",
       "deterministic_cross_owner_trajectory_queryable",
       "system_manifest_contains_observation_contract_and_mapping_versions",
-      "formal_runner_uses_owner_native_refs_not_host_cas_assumption"
+      "formal_runner_uses_owner_native_refs_not_host_cas_assumption",
+      "observation_selection_manifest_stable"
     ]
   },
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:187e4135da754912e2bffb4d3044e83df76f2ced28127a2f16af6f22042729f2"
+    "payloadDigest": "sha256:842eb991d5b0af3a478de53593b07005b48b782ceeec9a1fef0084a44cc34497"
   },
   "kind": "ordivon.host-harness-observation-plan",
   "nonGoals": [
@@ -297,7 +302,10 @@
       "process_exit_success_does_not_imply_task_acceptance",
       "owner_databases_unchanged_by_exporters",
       "runtime_per_job_stream_checkpoint_replay",
-      "observation_rebuild_from_intact_owner_stores"
+      "observation_rebuild_from_intact_owner_stores",
+      "observation_reports_completeness_without_trial_validity",
+      "repeated_trials_group_without_cross_configuration_pooling",
+      "observation_selection_manifest_digest_stable_after_rebuild"
     ],
     "closeoutOutputs": [
       "observation_envelope_and_mapping_version",
@@ -310,7 +318,8 @@
       "privacy_acceptance_receipt",
       "one_million_event_query_benchmark",
       "track_r_projection_receipt",
-      "p1_disposition"
+      "p1_disposition",
+      "observation_selection_manifest_fixture"
     ],
     "coreCloseoutGate": [
       "three_read_only_owner_exporters",
@@ -318,7 +327,8 @@
       "outage_recovery_zero_missing_native_sequence",
       "privacy_acceptance",
       "owner_database_unchanged_proof",
-      "track_r_projection_from_owner_native_refs"
+      "track_r_projection_from_owner_native_refs",
+      "observation_selection_manifest_fixture_stable"
     ],
     "delivery": {
       "catalogDeduplication": "event_id",
@@ -331,6 +341,12 @@
       "sequenceGapVisible": true,
       "sourceToGateway": "at_least_once"
     },
+    "evaluationReadinessFixtures": [
+      "externally_valid_accepted_complete_trajectory",
+      "externally_valid_rejected_complete_trajectory",
+      "externally_invalid_complete_trajectory",
+      "incomplete_trajectory"
+    ],
     "executionOrder": [
       "P1.0_p0_closeout_alignment",
       "P1.1_contract_and_fixtures",
@@ -349,6 +365,24 @@
       "formalTrialsRequireP1CoreCloseout": true,
       "openTelemetryInteropBlocksFormalTrials": false,
       "productionExporterEnablementRequiresP0Closeout": true
+    },
+    "experimentLoopBoundary": {
+      "downstreamPlanId": "CEL-R4-001",
+      "p1DoesNotOwn": [
+        "trial_validity",
+        "candidate_quality",
+        "round_selection",
+        "learning_update",
+        "promotion"
+      ],
+      "p1Owns": [
+        "committed_event_projection",
+        "typed_relations",
+        "source_stream_completeness",
+        "evidence_query"
+      ],
+      "path": "research/experiments/experiment-loop-v0/plan-v1.json",
+      "selectionFreezeRecord": "ObservationSelectionManifest"
     },
     "exporterSidecarTables": [
       "exporter_identity",
@@ -402,6 +436,22 @@
       "secrets": "reject"
     },
     "prototypeOwner": "ordivon-computing",
+    "relationVocabulary": [
+      "belongs_to",
+      "requested_by",
+      "executes",
+      "observes",
+      "produced",
+      "references",
+      "proposes_for",
+      "verifies",
+      "accepted_by",
+      "reconciles",
+      "caused_by",
+      "derived_from",
+      "evaluates",
+      "linked_to"
+    ],
     "repositoryAdmissionGate": {
       "authorizedNow": false,
       "candidate": "ordivon-observation",

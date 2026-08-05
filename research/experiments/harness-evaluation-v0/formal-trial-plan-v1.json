@@ -96,7 +96,7 @@
       "executionPath": "ordivon_harness",
       "modelId": "deepseek-v4-flash",
       "providerId": "deepseek",
-      "purpose": "Measure the current native Ordivon model–Tool loop with Host-backed durable state and Runtime Tools",
+      "purpose": "Measure the current native Ordivon model–Tool loop with independent Harness Journal/CAS state, Host external-executor binding, and Runtime Tools",
       "repetitions": {
         "architectureDecision": 5,
         "development": 3,
@@ -120,13 +120,30 @@
     }
   ],
   "designBase": {
-    "computingRevision": "d1b351168e43013adccb1828345a251bb9095023",
-    "harnessRevision": "796e9f07899a250ea4d87ae3e96f38c7172ff674",
-    "hostRevision": "1a4027bb26d77a2e051ca933bf664578f071a5a9",
+    "computingRevision": "687018da4c523ed5e6f356033ca958906f1be055",
+    "harnessRevision": "f39943e4bc4e5e9e0478994a68a05f69d480406f",
+    "hostRevision": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
     "protocolRevision": "420dc356cb664d75db0f34f356156baebe5843db",
     "runtimeRevision": "ce061a5995d7a59246a103dcc51f0539245209a6"
   },
   "executionRevisionPolicy": "Capture exact clean component, binary, protocol, Provider, model, Adapter, prompt, Context, Tool, budget, environment, Task, and verifier identities in a complete System Manifest at campaign start. Any material change creates a new configuration group.",
+  "experimentLoopHandoff": {
+    "path": "research/experiments/experiment-loop-v0/plan-v1.json",
+    "planId": "CEL-R4-001",
+    "r3DoesNotOwn": [
+      "hypothesis_generation",
+      "candidate_generation",
+      "next_round_allocation",
+      "learning_update",
+      "automatic_promotion"
+    ],
+    "requires": [
+      "deterministic_integrated_smoke_passed",
+      "three_valid_complete_native_baseline_trials",
+      "trial_disposition_frozen_from_real_evidence",
+      "grader_bundle_identity_and_disagreement_handling"
+    ]
+  },
   "faultCells": [
     {
       "cellId": "HOST-STALE-ASSIGNMENT",
@@ -177,7 +194,10 @@
       "architecture_decision_claim",
       "observation_replay",
       "world_replay",
-      "post_training"
+      "post_training",
+      "automatic_candidate_generation",
+      "multi_round_search",
+      "automatic_merge_or_deploy"
     ],
     "phases": [
       "complete_campaign_preflight",
@@ -187,21 +207,36 @@
       "trajectory_review_and_closeout"
     ],
     "sequentialOnly": true,
-    "status": "blocked_by_hho_p0_p1"
+    "status": "blocked_by_hho_p0_and_p1_core"
   },
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:0f37640daa275f1d2138f010776d5dea968f57b59553e5fd1656b552674e26b0"
+    "payloadDigest": "sha256:8f670ab9f4d4738ef493dbde39e2aa888879cea4dbd4e71ede872b75172bd9b4"
   },
   "kind": "ordivon.evaluation-formal-trial-plan",
+  "observationSelection": {
+    "contains": [
+      "query_identity",
+      "selected_event_ids_and_digests",
+      "source_stream_heads",
+      "producer_mapping_versions",
+      "completeness_claims",
+      "selection_digest"
+    ],
+    "record": "ObservationSelectionManifest",
+    "trialValidityInferredByObservation": false
+  },
   "outputs": [
     "campaign-preflight.json",
     "system-manifests/<configuration>.json",
     "trials/<trial-id>/intent.json",
     "trials/<trial-id>/native-refs.json",
+    "trials/<trial-id>/observation-selection.json",
+    "trials/<trial-id>/grader-bundle.json",
     "trials/<trial-id>/runner-state.json",
     "trials/<trial-id>/trial.json",
+    "trials/<trial-id>/disposition.json",
     "trials/<trial-id>/result.json",
     "trials/<trial-id>/failures/*.json",
     "trials/<trial-id>/review.json",
@@ -225,7 +260,10 @@
       "anomalous_cost_success",
       "verifier_or_grader_disagreement",
       "manual_intervention",
-      "sample_of_accepted_trials_before_architecture_decision"
+      "sample_of_accepted_trials_before_architecture_decision",
+      "invalid_trial",
+      "incomplete_observation_selection",
+      "infrastructure_or_evaluator_failure"
     ],
     "dashboardRequired": false,
     "humanReviewRequiredFor": [
@@ -273,5 +311,46 @@
       "verifierId": "HARNESS-REPO-REPAIR-001-verifier",
       "verifierRevision": "1"
     }
+  },
+  "trialDisposition": {
+    "comparativeOutcome": [
+      "improved",
+      "equivalent",
+      "regressed",
+      "inconclusive",
+      "not_applicable",
+      "unknown"
+    ],
+    "comparisonEligibility": [
+      "validity_is_valid",
+      "observation_selection_complete",
+      "configuration_and_grader_identity_exact",
+      "required_verification_complete",
+      "no_forbidden_mutation_or_unresolved_safety_failure"
+    ],
+    "failureAttribution": [
+      "none",
+      "candidate",
+      "infrastructure",
+      "evaluator",
+      "environment",
+      "policy",
+      "multiple",
+      "unknown"
+    ],
+    "invalidAndUnknownExcludedFromPerformanceAggregation": true,
+    "semanticOutcome": [
+      "accepted",
+      "rejected",
+      "not_reached",
+      "not_applicable",
+      "unknown"
+    ],
+    "validNegativeResultsRetained": true,
+    "validity": [
+      "valid",
+      "invalid",
+      "unknown"
+    ]
   }
 }

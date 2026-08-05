@@ -65,6 +65,18 @@ Exporters construct a bounded envelope from explicitly mapped fields. They never
 
 OTel consumes accepted observation envelopes. It does not read owner stores directly and is never required for P1 Core correctness.
 
+### 3.7 Observation is sensing, not experiment control
+
+P1 must be useful to a later continuous experiment loop without acquiring its authority.
+
+- P1 reports committed events, typed relations, evidence references, lag, and completeness per native stream.
+- P1 does not decide whether a Trial is valid, improved, regressed, selection-eligible, or worth another round.
+- Track R freezes the exact event selection used by a Trial through an `ObservationSelectionManifest`; the Gateway does not create Trial or Campaign state.
+- External experiment identities may appear as namespaced relation targets, but remain owned by the experiment system that created them.
+- Negative, invalid, unknown, and incomplete experiment outcomes must remain distinguishable above P1 rather than being flattened into an Observation outcome.
+
+The post-P1 design is [`../experiment-loop-v0/EXECUTION-PLAN.md`](../experiment-loop-v0/EXECUTION-PLAN.md). Its existence does not expand the P1 closeout gate beyond evidence needed by the first formal Trial campaign.
+
 ## 4. Target topology
 
 ```text
@@ -178,10 +190,12 @@ verifies
 accepted_by
 reconciles
 caused_by
+derived_from
+evaluates
 linked_to
 ```
 
-A relation is navigational evidence, not authority transfer. Unknown relation kinds are rejected until the contract version changes.
+A relation is navigational evidence, not authority transfer. Unknown relation kinds are rejected until the contract version changes. `targetKind` is a bounded namespaced owner-native type rather than a fixed union of nullable Envelope fields; examples include `ordivon.eval.campaign`, `ordivon.eval.configuration`, `ordivon.eval.trial`, and `ordivon.eval.grader-result`. Accepting such a target does not make P1 its semantic owner.
 
 ### 5.4 Native stream mapping
 
@@ -535,6 +549,8 @@ Host Task
 ```
 
 - trajectory query that returns owner-grouped events, relation edges, missing-link findings, completeness per stream, and evidence references;
+- generic namespaced relation targets for externally owned Campaign, Configuration, Trial, and Grader Result identities;
+- synthetic repeated-Trial grouping containing one valid positive, one valid negative, one invalid, and one incomplete trajectory while P1 reports only evidence completeness;
 - privacy policy receipt for each mapping version;
 - deterministic fake-provider cross-owner fixture;
 - real bounded local composition smoke after P0 production cutover.
@@ -544,12 +560,15 @@ Tests:
 - process exit success without Host verification is not an accepted outcome;
 - asynchronous response-loss recovery uses native links and optional span links, never a false parent;
 - missing Harness, Host, or Runtime events produce an explicit incomplete trajectory;
+- P1 does not convert complete evidence into Trial validity or improvement;
+- repeated Trial identities group correctly without pooling materially different Configuration Cells;
 - secret-like keys and forbidden content are rejected before gateway acceptance;
 - owner references remain sufficient to retrieve evidence through owner tools without copying it into the gateway.
 
 P1 Core gate:
 
 - the complete deterministic three-owner trajectory is queryable after service restarts;
+- one Observation Selection Manifest remains digest-stable after Gateway rebuild from intact owner stores;
 - gateway outage during 10,000 committed source events recovers with zero missing native sequence;
 - owner operations never wait for gateway acknowledgement;
 - P1 Core reliability, privacy, and performance receipts pass.
@@ -561,7 +580,8 @@ Repository: Computing.
 Deliverables:
 
 - query adapter that selects one complete trajectory by native owner references;
-- Trial projection containing System Manifest, configuration cell, owner refs, observation contract version, producer mapping versions, completeness statement, and privacy statement;
+- immutable `ObservationSelectionManifest` containing query identity, selected event IDs and canonical digests, source-stream heads, mapping versions, completeness claims, and selection digest;
+- Trial projection containing System Manifest, Configuration Cell, owner refs, Observation Selection reference, observation contract version, producer mapping versions, completeness statement, and privacy statement;
 - explicit candidate extraction; no automatic Dataset admission;
 - update `HHR-R3-001` runner assumptions so Harness evidence is not read from Host CAS;
 - deterministic R3 smoke using the automatic observation path.
@@ -569,8 +589,10 @@ Deliverables:
 Tests:
 
 - deleting the observation database does not delete or reinterpret owner evidence;
-- rebuilding observation from intact owners reproduces the same native event identities and trajectory links;
+- rebuilding observation from intact owners reproduces the same native event identities and relation graph; ingest timestamps and receipts may differ;
+- the same frozen Observation Selection produces the same selection digest after rebuild;
 - an incomplete stream cannot be promoted as a complete Trial;
+- a complete stream is not automatically a valid Trial;
 - a Runtime terminal success cannot bypass Host/domain grading;
 - Trial projection contains no copied private payload bytes.
 
@@ -669,6 +691,7 @@ cross-owner-trajectory.json
 privacy-acceptance.json
 million-event-query-benchmark.json
 track-r-projection.json
+observation-selection-manifest-fixture.json
 otel-interop-receipt.json          # P1 Interop, not P1 Core
 p1-closeout.json
 ```
