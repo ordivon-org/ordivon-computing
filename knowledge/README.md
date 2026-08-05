@@ -18,7 +18,7 @@ A topic belongs here when it is already coherent enough to reuse, but still bene
 
 - [`philosophy-creation-judgment-and-recoverability.md`](philosophy-creation-judgment-and-recoverability.md) — why Ordivon is chosen, why judgment remains irreducible, and how governance should follow current scarcity, consequence, and recovery cost;
 - [`philosophy-scarcity-operability-and-paradigm-change.md`](philosophy-scarcity-operability-and-paradigm-change.md) — how productive capability changes operational resolution, separates scarcity-forced couplings, migrates bottlenecks, and exposes structures that earlier systems could not sustain;
-- [`computing/`](computing/) — state, memory, parallelism, data movement, machine execution, and perspectival state in plural systems;
+- [`computing/`](computing/) — state, memory, parallelism, data movement, and machine execution;
 - [`models/`](models/) — framework, compiler, Transformer, training, and inference-runtime concepts;
 - [`agents/`](agents/) — goals, tasks, effects, execution kernels, tools, and continuity;
 - [`institutions/`](institutions/) — human–Agent products, collaboration, and organization;
