@@ -33,6 +33,7 @@ source_generation="$source_root/generations/$revision"
 evaluation_root="$state_root/evaluation"
 mlflow_root="$state_root/mlflow"
 backup_staging="$state_root/backup-staging"
+restic_cache="$state_root/restic-cache"
 restic_repository=/root/backups/ordivon-evaluation-data-plane-restic
 restic_password=/root/.config/ordivon/secrets/restic-evaluation-data-plane
 environment_file=/etc/ordivon/evaluation-data-plane.env
@@ -44,6 +45,7 @@ install -d -m 0700 \
   "$evaluation_root" \
   "$mlflow_root/artifacts" \
   "$backup_staging" \
+  "$restic_cache" \
   "$restic_repository" \
   "$(dirname "$restic_password")"
 install -d -m 0755 /etc/ordivon
@@ -130,6 +132,7 @@ ORDIVON_MLFLOW_ARTIFACTS=$mlflow_root/artifacts
 ORDIVON_BACKUP_STAGING=$backup_staging
 RESTIC_REPOSITORY=$restic_repository
 RESTIC_PASSWORD_FILE=$restic_password
+RESTIC_CACHE_DIR=$restic_cache
 EOF
 chmod 0600 "$environment_file"
 

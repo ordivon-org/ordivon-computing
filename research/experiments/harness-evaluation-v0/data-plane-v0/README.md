@@ -103,6 +103,7 @@ The initial trusted-local deployment uses:
     mlflow.db
     artifacts/
   backup-staging/          verified temporary backup inputs
+  restic-cache/            dedicated local restic cache
 
 /root/.config/ordivon/secrets/
   restic-evaluation-data-plane

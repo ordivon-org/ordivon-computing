@@ -36,6 +36,7 @@ class PackagingTests(unittest.TestCase):
         self.assertIn("RestrictAddressFamilies=AF_UNIX", projection)
         self.assertIn("ordivon-eval-data backup", backup)
         self.assertIn("ordivon-eval-data restore-check", backup)
+        self.assertIn("/var/lib/ordivon/analytics/restic-cache", backup)
         self.assertNotIn("workspace.exec", projection + backup)
 
     def test_operator_commands_are_executable(self) -> None:
@@ -50,6 +51,7 @@ class PackagingTests(unittest.TestCase):
         self.assertNotIn("enable --now ordivon-mlflow.service", installer)
         self.assertIn("ordivon-evaluation-project.service", installer)
         self.assertIn("ordivon-evaluation-backup.service", installer)
+        self.assertIn("RESTIC_CACHE_DIR=$restic_cache", installer)
 
     def test_installer_builds_the_virtual_environment_at_its_final_path(self) -> None:
         installer = (PACKAGE_ROOT / "scripts" / "install-local").read_text(encoding="utf-8")

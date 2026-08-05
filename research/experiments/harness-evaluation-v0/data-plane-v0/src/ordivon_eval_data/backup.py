@@ -89,14 +89,20 @@ def _run_restic(
     password_file: Path,
     cwd: Path | None = None,
 ) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        [str(restic), *args],
-        cwd=cwd,
-        env=_restic_environment(repository, password_file),
-        check=True,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        return subprocess.run(
+            [str(restic), *args],
+            cwd=cwd,
+            env=_restic_environment(repository, password_file),
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.CalledProcessError as error:
+        detail = (error.stderr or error.stdout or "").strip()[-4000:]
+        raise RuntimeError(
+            f"restic command failed with exit code {error.returncode}: {detail}"
+        ) from error
 
 
 def _parse_backup_snapshot(output: str) -> str:
