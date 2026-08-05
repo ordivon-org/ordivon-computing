@@ -1,0 +1,22 @@
+[Unit]
+Description=On-demand Ordivon MLflow experiment browser
+After=local-fs.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/ordivon/evaluation-data-plane.env
+Environment=MLFLOW_SERVER_ENABLE_JOB_EXECUTION=false
+Environment=MLFLOW_DISABLE_TELEMETRY=true
+WorkingDirectory=/var/lib/ordivon/analytics/mlflow
+ExecStart=/opt/ordivon/evaluation-data-plane/current/source/.venv/bin/mlflow server --host 127.0.0.1 --port 5050 --workers 1 --backend-store-uri sqlite:////var/lib/ordivon/analytics/mlflow/mlflow.db --artifacts-destination /var/lib/ordivon/analytics/mlflow/artifacts --allowed-hosts 127.0.0.1:5050,localhost:5050
+Restart=on-failure
+RestartSec=3s
+UMask=0077
+MemoryMax=768M
+TasksMax=64
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/lib/ordivon/analytics/mlflow
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6

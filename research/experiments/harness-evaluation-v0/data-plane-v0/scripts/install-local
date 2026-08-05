@@ -1,0 +1,164 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ ${EUID} -ne 0 ]]; then
+  echo "install-local must run as root" >&2
+  exit 2
+fi
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+package_root=$(cd -- "$script_dir/.." && pwd)
+repository_root=$(git -C "$package_root" rev-parse --show-toplevel)
+relative_package=${package_root#"$repository_root"/}
+revision=$(git -C "$repository_root" rev-parse HEAD)
+
+if [[ -n $(git -C "$repository_root" status --porcelain=v1) ]]; then
+  echo "refusing to install from a dirty repository" >&2
+  exit 2
+fi
+
+for executable in git tar uv systemctl curl openssl restic; do
+  command -v "$executable" >/dev/null || {
+    echo "required executable is missing: $executable" >&2
+    exit 2
+  }
+done
+
+install_root=/opt/ordivon/evaluation-data-plane
+release_root="$install_root/releases"
+release="$release_root/$revision"
+state_root=/var/lib/ordivon/analytics
+source_root="$state_root/source"
+source_generation="$source_root/generations/$revision"
+evaluation_root="$state_root/evaluation"
+mlflow_root="$state_root/mlflow"
+backup_staging="$state_root/backup-staging"
+restic_cache="$state_root/restic-cache"
+restic_repository=/root/backups/ordivon-evaluation-data-plane-restic
+restic_password=/root/.config/ordivon/secrets/restic-evaluation-data-plane
+environment_file=/etc/ordivon/evaluation-data-plane.env
+
+install -d -m 0755 "$install_root" "$release_root"
+install -d -m 0700 \
+  "$state_root" \
+  "$source_root/generations" \
+  "$evaluation_root" \
+  "$mlflow_root/artifacts" \
+  "$backup_staging" \
+  "$restic_cache" \
+  "$restic_repository" \
+  "$(dirname "$restic_password")"
+install -d -m 0755 /etc/ordivon
+
+source_temporary=
+release_temporary=
+release_created=
+cleanup() {
+  if [[ -n $source_temporary ]]; then
+    rm -rf "$source_temporary"
+  fi
+  if [[ -n $release_temporary ]]; then
+    rm -rf "$release_temporary"
+  fi
+  if [[ -n $release_created ]]; then
+    rm -rf "$release_created"
+  fi
+}
+trap cleanup EXIT
+
+if [[ ! -d "$source_generation" ]]; then
+  source_temporary=$(mktemp -d "$source_root/generations/.${revision}.XXXXXX")
+  git -C "$repository_root" archive "$revision" | tar -x -C "$source_temporary"
+  printf '%s\n' "$revision" > "$source_temporary/ORDIVON_SOURCE_REVISION"
+  chmod -R u=rwX,go= "$source_temporary"
+  mv "$source_temporary" "$source_generation"
+  source_temporary=
+fi
+chmod -R u=rwX,go= "$source_generation"
+
+release_valid() {
+  [[ -f "$release/REVISION" ]] &&
+    [[ $(cat "$release/REVISION") == "$revision" ]] &&
+    "$release/source/.venv/bin/ordivon-eval-data" --help >/dev/null 2>&1
+}
+
+if ! release_valid; then
+  rm -rf "$release"
+  release_temporary=$(mktemp -d "$release_root/.${revision}.XXXXXX")
+  cp -a "$source_generation/$relative_package" "$release_temporary/source"
+  mv "$release_temporary" "$release"
+  release_temporary=
+  release_created=$release
+  uv sync \
+    --project "$release/source" \
+    --frozen \
+    --no-dev \
+    --no-editable \
+    --python 3.12
+  printf '%s\n' "$revision" > "$release/REVISION"
+  chmod -R u=rwX,go= "$release"
+  chmod 0444 "$release/REVISION"
+  "$release/source/.venv/bin/ordivon-eval-data" --help >/dev/null
+  release_created=
+fi
+
+atomic_link() {
+  local target=$1
+  local link=$2
+  local temporary="${link}.new.$$"
+  rm -f "$temporary"
+  ln -s "$target" "$temporary"
+  mv -Tf "$temporary" "$link"
+}
+
+atomic_link "generations/$revision" "$source_root/current"
+atomic_link "releases/$revision" "$install_root/current"
+
+if [[ ! -f "$restic_password" ]]; then
+  umask 077
+  openssl rand -base64 48 > "$restic_password"
+fi
+chmod 0600 "$restic_password"
+
+cat > "$environment_file" <<EOF
+ORDIVON_EVAL_SOURCE_ROOT=$source_root/current
+ORDIVON_EVAL_OUTPUT_ROOT=$evaluation_root
+ORDIVON_MLFLOW_TRACKING_URI=sqlite:////var/lib/ordivon/analytics/mlflow/mlflow.db
+ORDIVON_MLFLOW_UI_URI=http://127.0.0.1:5050
+ORDIVON_MLFLOW_DATABASE=$mlflow_root/mlflow.db
+MLFLOW_SERVER_ENABLE_JOB_EXECUTION=false
+MLFLOW_DISABLE_TELEMETRY=true
+ORDIVON_MLFLOW_ARTIFACTS=$mlflow_root/artifacts
+ORDIVON_BACKUP_STAGING=$backup_staging
+RESTIC_REPOSITORY=$restic_repository
+RESTIC_PASSWORD_FILE=$restic_password
+RESTIC_CACHE_DIR=$restic_cache
+EOF
+chmod 0600 "$environment_file"
+
+if [[ ! -f "$restic_repository/config" ]]; then
+  RESTIC_REPOSITORY="$restic_repository" \
+  RESTIC_PASSWORD_FILE="$restic_password" \
+    restic init
+fi
+
+for unit in "$package_root"/packaging/systemd/*; do
+  install -m 0644 "$unit" "/etc/systemd/system/$(basename "$unit")"
+done
+
+systemctl daemon-reload
+systemctl disable --now ordivon-mlflow.service >/dev/null 2>&1 || true
+systemctl start ordivon-evaluation-project.service
+systemctl start ordivon-evaluation-backup.service
+systemctl enable --now \
+  ordivon-evaluation-project.timer \
+  ordivon-evaluation-backup.timer
+
+"$install_root/current/source/.venv/bin/ordivon-eval-data" status \
+  --evaluation-root "$evaluation_root" \
+  --tracking-uri sqlite:////var/lib/ordivon/analytics/mlflow/mlflow.db \
+  --mlflow-database "$mlflow_root/mlflow.db" \
+  --repository "$restic_repository" \
+  --password-file "$restic_password"
+
+printf 'installed Ordivon evaluation data plane at revision %s\n' "$revision"

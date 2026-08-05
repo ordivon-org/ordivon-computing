@@ -2,44 +2,92 @@ schemaVersion: 1
 kind: ordivon.evaluation-failure-taxonomy
 
 classes:
+  TASK:
+    - ambiguous_objective
+    - hidden_requirement
+    - invalid_initial_state
+    - unrepresentative_workload
+  DATASET:
+    - contaminated_fixture
+    - invalid_oracle
+    - invalid_known_negative
+    - task_leakage
   CONTEXT:
     - stale_source
     - stale_assignment
     - missing_fact
     - provenance_lost
     - goal_drift
+  PROMPT:
+    - instruction_ambiguity
+    - tool_semantics_missing
+    - stop_policy_missing
   MODEL:
     - invalid_output
     - false_completion
     - premature_stop
     - repeated_plan
+    - action_when_should_abstain
+    - unjustified_abstention
+  PROVIDER:
+    - transport_error
+    - rate_limited
+    - ambiguous_response_loss
+    - model_identity_drift
   TOOL:
     - invalid_arguments
     - unsupported_capability
     - partial_observation
     - schema_drift
-  EFFECT:
-    - unknown_delivery
-    - duplicate_effect
-    - reconciliation_failed
   HARNESS:
     - result_misrouting
     - budget_error
     - loop_nontermination
     - state_loss
+    - incorrect_retry
+    - incorrect_stop
+    - trace_loss
+  HOST:
+    - admission_error
+    - decision_misrouting
+    - stale_completion_accepted
+    - semantic_state_loss
+  RUNTIME:
+    - dispatch_rejected
+    - process_failure
+    - artifact_loss
+    - capacity_leak
+    - source_drift
+    - terminal_evidence_missing
+  EFFECT:
+    - unknown_delivery
+    - duplicate_effect
+    - reconciliation_failed
   VERIFIER:
     - false_accept
     - false_reject
     - flaky_assertion
     - hidden_requirement
+  GRADER:
+    - calibration_drift
+    - inconsistent_judgment
+    - unsupported_inference
+    - reward_hacking_missed
   ENVIRONMENT:
     - nondeterminism
     - resource_exhaustion
     - leaked_state
+    - dependency_drift
+  OPERATOR:
+    - wrong_intervention
+    - missing_intervention
+    - labeling_error
 
 rules:
   - Record the earliest observable failure, not only the final symptom.
   - Attribute responsibility to the boundary that can detect or repair the failure with the least duplicated authority.
+  - Separate Task, Dataset, Verifier, and Grader defects from model or Harness defects before comparing configurations.
   - A recovered fault remains a Failure Record when it changed cost, timing, or control flow.
   - Unknown delivery is not equivalent to execution failure and must not trigger blind redispatch.
-  - A verifier defect invalidates the affected capability comparison until the Task is repaired and rerun.
+  - A verifier or grader defect invalidates the affected capability comparison until repaired, calibrated, and rerun.
+  - A failure code describes diagnosis; component-native receipts remain the source of execution truth.

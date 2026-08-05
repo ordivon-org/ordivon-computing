@@ -43,13 +43,21 @@ METRIC_FIELDS = {
     "humanInterventionCount",
 }
 FAILURE_CODES = {
+    "TASK": {"ambiguous_objective", "hidden_requirement", "invalid_initial_state", "unrepresentative_workload"},
+    "DATASET": {"contaminated_fixture", "invalid_oracle", "invalid_known_negative", "task_leakage"},
     "CONTEXT": {"stale_source", "stale_assignment", "missing_fact", "provenance_lost", "goal_drift"},
-    "MODEL": {"invalid_output", "false_completion", "premature_stop", "repeated_plan"},
+    "PROMPT": {"instruction_ambiguity", "tool_semantics_missing", "stop_policy_missing"},
+    "MODEL": {"invalid_output", "false_completion", "premature_stop", "repeated_plan", "action_when_should_abstain", "unjustified_abstention"},
+    "PROVIDER": {"transport_error", "rate_limited", "ambiguous_response_loss", "model_identity_drift"},
     "TOOL": {"invalid_arguments", "unsupported_capability", "partial_observation", "schema_drift"},
+    "HARNESS": {"result_misrouting", "budget_error", "loop_nontermination", "state_loss", "incorrect_retry", "incorrect_stop", "trace_loss"},
+    "HOST": {"admission_error", "decision_misrouting", "stale_completion_accepted", "semantic_state_loss"},
+    "RUNTIME": {"dispatch_rejected", "process_failure", "artifact_loss", "capacity_leak", "source_drift", "terminal_evidence_missing"},
     "EFFECT": {"unknown_delivery", "duplicate_effect", "reconciliation_failed"},
-    "HARNESS": {"result_misrouting", "budget_error", "loop_nontermination", "state_loss"},
     "VERIFIER": {"false_accept", "false_reject", "flaky_assertion", "hidden_requirement"},
-    "ENVIRONMENT": {"nondeterminism", "resource_exhaustion", "leaked_state"},
+    "GRADER": {"calibration_drift", "inconsistent_judgment", "unsupported_inference", "reward_hacking_missed"},
+    "ENVIRONMENT": {"nondeterminism", "resource_exhaustion", "leaked_state", "dependency_drift"},
+    "OPERATOR": {"wrong_intervention", "missing_intervention", "labeling_error"},
 }
 
 
@@ -292,17 +300,36 @@ def validate_trial(document: dict[str, Any]) -> None:
     bindings = document["bindings"]
     if not isinstance(bindings, dict):
         raise ValueError("bindings must be an object")
-    _exact(
-        bindings,
-        {"sourceRevision", "environmentDigest", "contextDigest", "toolCatalogDigest", "systemSnapshotRef"},
-        "bindings",
-    )
+    legacy_binding_fields = {
+        "sourceRevision",
+        "environmentDigest",
+        "contextDigest",
+        "toolCatalogDigest",
+        "systemSnapshotRef",
+    }
+    current_binding_fields = legacy_binding_fields | {"systemManifestRef"}
+    if set(bindings) not in {frozenset(legacy_binding_fields), frozenset(current_binding_fields)}:
+        raise ValueError(
+            "bindings fields differ; expected the legacy fields or the fields plus systemManifestRef"
+        )
     _revision(bindings["sourceRevision"], "bindings.sourceRevision", nullable=True)
     _digest(bindings["environmentDigest"], "bindings.environmentDigest", nullable=True)
     _digest(bindings["contextDigest"], "bindings.contextDigest", nullable=True)
     _digest(bindings["toolCatalogDigest"], "bindings.toolCatalogDigest", nullable=True)
     if bindings["systemSnapshotRef"] is not None:
         _nonempty(bindings["systemSnapshotRef"], "bindings.systemSnapshotRef")
+    if "systemManifestRef" in bindings and bindings["systemManifestRef"] is not None:
+        reference = bindings["systemManifestRef"]
+        if not isinstance(reference, dict):
+            raise ValueError("bindings.systemManifestRef must be null or an evidence reference")
+        _exact(
+            reference,
+            {"repositoryId", "path", "digest"},
+            "bindings.systemManifestRef",
+        )
+        _nonempty(reference["repositoryId"], "bindings.systemManifestRef.repositoryId")
+        _nonempty(reference["path"], "bindings.systemManifestRef.path")
+        _digest(reference["digest"], "bindings.systemManifestRef.digest")
 
     sampling = document["sampling"]
     if not isinstance(sampling, dict):
@@ -476,16 +503,20 @@ def validate_failure(document: dict[str, Any]) -> None:
     _nonempty(event["evidenceRef"], "firstObservableEvent.evidenceRef")
 
     if document["responsibleBoundary"] not in {
+        "task",
+        "dataset",
         "context",
+        "prompt",
         "model",
+        "provider",
         "tool",
-        "effect",
         "harness",
-        "verifier",
-        "environment",
         "host",
         "runtime",
-        "provider",
+        "effect",
+        "verifier",
+        "grader",
+        "environment",
         "operator",
     }:
         raise ValueError("unsupported responsibleBoundary")

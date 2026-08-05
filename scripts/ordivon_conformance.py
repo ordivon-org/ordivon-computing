@@ -476,12 +476,16 @@ def _managed_markdown_paths() -> list[str]:
 def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     python = sys.executable
     ruff = shutil.which("ruff")
+    uv = shutil.which("uv")
+    bash = shutil.which("bash")
     rustc = shutil.which("rustc")
     vale = shutil.which("vale")
     markdownlint = shutil.which("markdownlint-cli2")
     cspell = shutil.which("cspell")
     lychee = shutil.which("lychee")
     require(ruff is not None, "ruff is required for the conformance gate")
+    require(uv is not None, "uv is required for the evaluation data-plane gate")
+    require(bash is not None, "bash is required for the evaluation data-plane gate")
     require(rustc is not None, "rustc is required for the conformance gate")
     require(vale is not None, "vale is required for the content gate; run mise install")
     require(markdownlint is not None, "markdownlint-cli2 is required for the content gate; run mise install")
@@ -518,6 +522,8 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "research/experiments/task-continuation-v0/tests",
         "research/experiments/task-continuation-v0/scripts",
         "research/experiments/harness-evaluation-v0/validate_evaluation_evidence.py",
+        "research/experiments/harness-evaluation-v0/validate_p0_artifacts.py",
+        "research/experiments/harness-evaluation-v0/summarize_evaluation.py",
         "research/experiments/harness-evaluation-v0/tests",
         "research/evidence",
         "scripts/check_foundational_docs.py",
@@ -632,6 +638,36 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
             ],
             ROOT,
             {"PYTHONPATH": "."},
+        ),
+        (
+            "evaluation-data-plane-static",
+            [uv, "run", "--frozen", "ruff", "check", "src", "tests"],
+            ROOT / "research" / "experiments" / "harness-evaluation-v0" / "data-plane-v0",
+            {},
+        ),
+        (
+            "evaluation-data-plane-shell",
+            [bash, "-n", "scripts/install-local", "scripts/status", "scripts/ui", "scripts/stop-ui"],
+            ROOT / "research" / "experiments" / "harness-evaluation-v0" / "data-plane-v0",
+            {},
+        ),
+        (
+            "evaluation-data-plane-tests",
+            [
+                uv,
+                "run",
+                "--frozen",
+                "python",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-p",
+                "test_*.py",
+            ],
+            ROOT / "research" / "experiments" / "harness-evaluation-v0" / "data-plane-v0",
+            {},
         ),
         (
             "evidence-and-conformance",

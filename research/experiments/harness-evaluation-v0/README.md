@@ -1,6 +1,6 @@
 # Harness Evaluation v0
 
-Status: R0–R2 evidence contract and curated dogfood set implemented; Track R remains active at M3 for the bounded R3 comparison owned by `research/portfolio.json`.
+Status: the R0–R2 evidence contract, curated dogfood set, and P0 frozen evaluation control plane are implemented. Track R remains active for repeated same-Task capability comparisons.
 
 ## Question
 
@@ -8,7 +8,7 @@ Can a thin research envelope describe materially different Agent Harness experim
 
 ## Hypothesis
 
-Four append-only research records are sufficient for the first comparison:
+Four append-only research records remain sufficient for one Trial:
 
 ```text
 Task Definition
@@ -17,23 +17,85 @@ Trial Result
 Failure Record
 ```
 
-They reference component-native receipts and Artifacts rather than normalizing Provider lifecycles or creating a second execution plane.
+A comparison additionally requires a frozen System Manifest, a versioned Suite, and a deterministic Summary. These derived records reference component-native receipts and Artifacts rather than creating a second execution plane.
 
 ## Contents
+
+### Trial evidence contract
 
 - [`schemas/task.schema.json`](schemas/task.schema.json) — formal Task and Task-QA metadata;
 - [`schemas/trial.schema.json`](schemas/trial.schema.json) — one exact evaluation configuration;
 - [`schemas/result.schema.json`](schemas/result.schema.json) — outcome, verifier, actions, cost, and evidence;
 - [`schemas/failure-record.schema.json`](schemas/failure-record.schema.json) — first observable failure and recovery attribution;
-- [`failure-taxonomy.yaml`](failure-taxonomy.yaml) — bounded v0 classes derived from observed Ordivon failures;
-- [`validate_evaluation_evidence.py`](validate_evaluation_evidence.py) — standard-library semantic and integrity validator;
+- [`failure-taxonomy.yaml`](failure-taxonomy.yaml) — Task-to-Operator failure classes derived from observed Ordivon failures;
+- [`validate_evaluation_evidence.py`](validate_evaluation_evidence.py) — standard-library semantic and integrity validator.
+
+### P0 control plane
+
+- [`suite-v1.json`](suite-v1.json) — admitted, candidate, and historical workload families plus comparison and metric policy;
+- [`schemas/system-manifest.schema.json`](schemas/system-manifest.schema.json) — frozen system and configuration identity;
+- [`schemas/suite.schema.json`](schemas/suite.schema.json) — versioned suite declaration;
+- [`schemas/component-baseline.schema.json`](schemas/component-baseline.schema.json) — deterministic component-health receipt;
+- [`schemas/summary.schema.json`](schemas/summary.schema.json) — descriptive Trial aggregation without a heterogeneous global score;
+- [`schemas/closeout.schema.json`](schemas/closeout.schema.json) — exact tested revision, gate evidence, integration status, and next-gate contract;
+- [`validate_p0_artifacts.py`](validate_p0_artifacts.py) — semantic, integrity, reference, aggregate, and closeout validator;
+- [`summarize_evaluation.py`](summarize_evaluation.py) — deterministic grouping and comparison-eligibility analysis;
+- [`baselines/p0-20260804/`](baselines/p0-20260804/) — frozen Host, Harness, Runtime baseline, dogfood projection, and machine-verifiable closeout.
+
+### Preserved evidence
+
 - [`examples/`](examples/) — historical projections from H3, H4, and the Codex→Hermes H5 trajectory;
-- [`tests/`](tests/) — contract, tamper, relation, and semantic tests;
-- [`dogfood-20260802/INDEX.md`](dogfood-20260802/INDEX.md) — curated real-run evidence index; diagnostic failures remain separate from accepted evidence.
+- [`dogfood-20260802/INDEX.md`](dogfood-20260802/INDEX.md) — curated real-run evidence index; diagnostic failures remain separate from accepted evidence;
+- [`tests/`](tests/) — contract, tamper, relation, aggregation, and boundary tests.
+
+### Local evaluation data plane
+
+- [`data-plane-v0/`](data-plane-v0/) — rebuildable Parquet and DuckDB projection, idempotent MLflow mirror, verified restic backup, and loopback-only single-host operations.
+
+The data plane is downstream of P0 evidence. Editing DuckDB, Parquet, MLflow, or a backup never changes Task completion, Runtime physical truth, Trial acceptance, or comparison eligibility.
+
+## P0 result
+
+The frozen component baseline binds exact clean revisions of Ordivon Computing, Host, Harness, and Runtime. Four deterministic test suites report 601 passed, 0 failed, and 22 explicitly ignored Runtime system tests. One additional Runtime check proves only that the local-acceptance facility exists.
+
+This is a component-health result, not an Agent product score. The baseline therefore fixes `productQualityClaim` to `false`.
+
+The curated dogfood projection contains 7 Tasks, 10 Trials, 10 Results, and 6 Failure Records. It produces 10 exact configuration groups and admits no architecture comparison: every candidate is blocked by insufficient repetition, missing System Snapshot binding, fewer than two comparable configurations, or differing verifier identity.
+
+## Validate
+
+```bash
+python3.12 research/experiments/harness-evaluation-v0/validate_evaluation_evidence.py \
+  research/experiments/harness-evaluation-v0/examples/**/*.json
+
+python3.12 research/experiments/harness-evaluation-v0/validate_p0_artifacts.py \
+  --root . \
+  research/experiments/harness-evaluation-v0/suite-v1.json \
+  research/experiments/harness-evaluation-v0/baselines/p0-20260804
+
+python3.12 -m unittest discover \
+  -s research/experiments/harness-evaluation-v0/tests \
+  -p 'test_*.py'
+```
+
+Use `--write-digests` only while authoring a new record before its first commit. A committed record is immutable; corrections create a new version or superseding record.
+
+## Comparison gate
+
+A capability comparison requires:
+
+- the same Task ID and version;
+- the same verifier identity and revision;
+- a complete `bindings.systemManifestRef` for every new Trial; legacy Trial records may omit it but cannot become comparison-eligible;
+- at least three Trials per configuration for development evidence;
+- five to ten Trials per configuration for an architecture decision when cost permits;
+- trajectory review for all failures, false completions, anomalous-cost successes, duplicate Effects, and grader disagreements.
+
+Capability suites may graduate into regression suites after the expected behavior becomes stable. Heterogeneous Tasks remain separate; no global score is generated.
 
 ## Historical admission
 
-The H3–H5 examples are projections, not rewritten source receipts. Each retains the source repository path, exact SHA-256 file digest, and the limitations of the historical observation. Fields absent from the original evidence are `null`; they are not inferred.
+The H3–H5 examples are projections, not rewritten source receipts. Each retains the source repository path, exact SHA-256 file digest, and limitations of the historical observation. Fields absent from the original evidence are `null`; they are not inferred.
 
 The examples establish that the common envelope can represent:
 
@@ -41,36 +103,21 @@ The examples establish that the common envelope can represent:
 - one Hermes ACP Run with a different Session/Prompt lifecycle and no retained thought text;
 - one two-Harness replacement trajectory with stale-completion rejection, response-loss recovery, verified Artifacts, and accepted TaskOutcome.
 
-They do not establish comparative model quality because task, model, budget, and Harness conditions differ.
-
-## Validate
-
-```bash
-python3 research/experiments/harness-evaluation-v0/validate_evaluation_evidence.py \
-  research/experiments/harness-evaluation-v0/examples/**/*.json
-
-python3 -m unittest discover \
-  -s research/experiments/harness-evaluation-v0/tests \
-  -p 'test_*.py'
-```
-
-Use `--write-digests` only while authoring a new record before its first commit. A committed record is immutable; corrections create a new version or superseding record.
+They do not establish comparative model quality because Task, model, budget, Harness, and environment conditions differ.
 
 ## Boundaries
 
 This experiment does not:
 
-- execute an Agent;
-- dispatch Runtime work;
+- execute an Agent or dispatch Runtime work;
 - alter Host completion state;
 - require Provider reasoning text;
-- provide a model leaderboard;
+- provide a model leaderboard or one cross-task score;
 - define a universal trace format;
-- authorize a standalone Eval service or repository.
+- own product-native lifecycle or operational truth;
+- authorize a standalone Eval service, repository, dataset service, model router, or post-training pipeline.
 
-## Current activation gate
-
-R3 compares the same frozen repository-repair Task under one-shot execution, Ordivon Harness, and a mature Provider Harness after the product-owned QA gate passes. Computing retains only the evaluation envelope and curated projections; workload execution and temporary projection scripts remain product-owned or disposable.
+Host remains the Task and semantic-decision authority. Harness remains the Run and Tool-trajectory authority. Runtime remains the physical execution authority. Track R owns only research Task admission, derived Trial and Failure envelopes, comparison policy, and interpretation.
 
 ## Canonicalization domain
 

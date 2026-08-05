@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/schemas/evaluation/component-baseline-v1.json",
+  "title": "Ordivon Component Test Baseline v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "baselineId", "capturedAt", "systemManifest", "scope", "components", "aggregate", "limitations", "integrity"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "kind": {"const": "ordivon.component-test-baseline"},
+    "baselineId": {"type": "string", "minLength": 1},
+    "capturedAt": {"type": "string", "format": "date-time"},
+    "systemManifest": {"$ref": "#/$defs/fileRef"},
+    "scope": {"type": "string", "minLength": 1},
+    "components": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "aggregate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["testSuites", "contractChecks", "passed", "failed", "ignored", "productQualityClaim"],
+      "properties": {
+        "testSuites": {"type": "integer", "minimum": 0},
+        "contractChecks": {"type": "integer", "minimum": 0},
+        "passed": {"type": "integer", "minimum": 0},
+        "failed": {"type": "integer", "minimum": 0},
+        "ignored": {"type": "integer", "minimum": 0},
+        "productQualityClaim": {"const": false}
+      }
+    },
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "integrity": {"$ref": "#/$defs/integrity"}
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "fileRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "digest"],
+      "properties": {"path": {"type": "string", "minLength": 1}, "digest": {"$ref": "#/$defs/digest"}}
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "canonicalization", "payloadDigest"],
+      "properties": {
+        "algorithm": {"const": "sha256"},
+        "canonicalization": {"const": "ordivon-evidence-json-v1"},
+        "payloadDigest": {"$ref": "#/$defs/digest"}
+      }
+    }
+  }
+}
