@@ -73,6 +73,7 @@ distinctions.
 - multi-Agent organization, command, delegation, compartmentalization, trust,
   collusion, and reorganization;
 - long-horizon continuity across model, Host, process, body, and world changes;
+- execution-subject identity, parent-child derivation, scoped authority, replication, propagation, population dynamics, and residual control when these affect adversarial claims;
 - attack-defense coevolution and transfer across opponents and environments;
 - adversarial evaluation where monitors, judges, traces, and scoring rules may
   themselves be studied or manipulated by evaluated actors.
@@ -132,7 +133,8 @@ minimal records, or the natural owner component.
 - `ANC-SECURITY-003` — strategic adversarial agency and Campaign synthesis;
 - `ANC-SECURITY-004` — opponent modelling, deception, and information state;
 - `ANC-SECURITY-005` — multi-Agent adversarial organization and collusion;
-- `ANC-SECURITY-006` — coevolution, adversarial evaluation, and transfer.
+- `ANC-SECURITY-006` — coevolution, adversarial evaluation, and transfer;
+- `ANC-SECURITY-007` — execution-entity identity, lineage, propagation, control, and adversarial ecology.
 
 ## Governing principles
 

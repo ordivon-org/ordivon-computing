@@ -2,7 +2,7 @@
 
 > Generated from [`portfolio.json`](portfolio.json). Edit the JSON source, then rerun `python3 scripts/render_research_portfolio.py`.
 
-- **As of:** `2026-08-02`
+- **As of:** `2026-08-05`
 - **Active research-line limit:** `2`
 - **Current active lines:** `2`
 
@@ -55,6 +55,7 @@
 | ANC-SECURITY-001 | M1 | P2 | ordivon-security | — | — | — | Keep as a deferred umbrella. Round 1 completed the minimum dynamic-opponent method and rejected Campaign promotion; resume only through the narrower Security #10 and #20 experiments after current WIP frees. | Mature simulation, MARL, cyber evaluation, and thin adapters express the strategic distinctions without a new shared layer. |
 | ANC-SECURITY-003 | M4 | P2 | ordivon-security | — | — | — | Round 1 completed the minimum local and CAGE dynamic-opponent method but did not earn Campaign state. Defer the next test to held-out policies and Host/Context replacement through Security #10. | A scripted or ordinary Goal/Task policy matches explicit Campaign state on policy-switch and held-out-opponent cases. |
 | ANC-SECURITY-004 | M4 | P2 | ordivon-security | — | — | — | Round 1 found diagnostic and information-state value but no objective-success or transfer benefit. Defer the next transcript-versus-compiled-hypothesis test to Security #10 under held-out policies and deliberate Context loss. | A reactive policy without explicit opponent hypotheses matches held-out policy-switch performance and evidence quality. |
+| ANC-SECURITY-007 | M1 | P2 | ordivon-computing | — | — | — | Retain the completed comparative study and Security e37cc70 observation as reference. Admit no implementation until a disposable dynamic-software backend or Agent-child lineage experiment exposes an authority, identity, revocation, residual, or propagation failure that existing owners cannot represent. | Artifact provenance, process trees, Host delegation, Harness/Runtime identity, Evaluation Trial evidence, Contest evidence, and classical epidemic or game models express software, Agent, descendant, population, organization, and Campaign claims without a shared Execution Entity relation. |
 
 ### Completed
 
@@ -108,6 +109,7 @@
 | 2026-task-to-world-interaction | completed | canonical closed World and Effect boundary decision source | Preserve the W0/W1 direct-integration result as reference. Activate only a narrow W2 or new trajectory after a concrete external mismatch, callback, handoff, or rebinding failure. |
 | 2026-agent-world-interface-overlay | superseded | historical Edge and Link derivation | Preserve as history; active work belongs to Task-to-World Interaction. |
 | 2026-agent-native-adversarial-systems | deferred | Round 1 evidence and deferred strategic Security research source | Consume the completed Round 1 method and negative abstraction result; resume only with held-out opponent policies, deliberate Context loss, and Host/Harness replacement. |
+| 2026-execution-entity-adversarial-ecology | reference | cross-disciplinary foundation for software, Agent, lineage, population, organization, Campaign, control, resilience, and adversarial-ecology evaluation | Consume through ANC-SECURITY-007; do not create a shared Execution Entity protocol until a disposable-software or Agent-child workload exposes a reproduced cross-project failure. |
 | 2026-agent-native-game-worlds | completed | bounded thesis and research program for intrinsic play, creation, persistent Agent participation, and plural Game verticals | Consume through ANC-GAME-002; finish the Station Zero alpha, then run G-PLAY-001 before constructing any generic social, habitat, or world platform. |
 
 ## Evidence maturity

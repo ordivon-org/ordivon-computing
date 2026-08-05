@@ -78,7 +78,12 @@ upgrade, not a prerequisite for understanding strategic opposition.
 - [`ANC-SECURITY-005`](../../research/questions/ANC-SECURITY-005-adversarial-organization.md)
   — command, trust, collusion, and reorganization;
 - [`ANC-SECURITY-006`](../../research/questions/ANC-SECURITY-006-coevolution-and-evaluation.md)
-  — coevolution, evaluator attack, held-out opponents, and transfer.
+  — coevolution, evaluator attack, held-out opponents, and transfer;
+- [`ANC-SECURITY-007`](../../research/questions/ANC-SECURITY-007-execution-entity-adversarial-ecology.md)
+  — software and Agent execution subjects, lineage, propagation, control, and adversarial ecology.
+
+The complementary cross-disciplinary execution-entity study lives in
+[`../2026-execution-entity-adversarial-ecology/`](../2026-execution-entity-adversarial-ecology/).
 
 ## Claim boundary
 

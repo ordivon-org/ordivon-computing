@@ -6,7 +6,7 @@
 - Parent program: `ordivon-computing` #46
 - Product consumer: `ordivon-security`
 - Completed supporting infrastructure comparison: `ANC-SECURITY-002`
-- Research decomposition: `ANC-SECURITY-003` through `ANC-SECURITY-006`
+- Research decomposition: `ANC-SECURITY-003` through `ANC-SECURITY-007`
 
 ## Question
 
@@ -114,6 +114,12 @@ Determine how to evaluate repeated adaptive encounters, held-out opponents,
 judge manipulation, transfer, cycling, escalation, and attack-defense
 coevolution.
 
+### `ANC-SECURITY-007` — execution entities, lineage, and adversarial ecology
+
+Determine whether software Samples, Agents, descendants, populations,
+organizations, and Campaigns require one compact identity-and-evidence relation,
+several Security-local Profiles, or no new shared abstraction.
+
 ## Evidence program
 
 The program should advance through knowledge and experiments rather than custom
@@ -174,4 +180,6 @@ The Agent-native strategic layer should be reduced or deleted if:
 - [`ANC-SECURITY-004-opponent-modeling-and-deception.md`](ANC-SECURITY-004-opponent-modeling-and-deception.md)
 - [`ANC-SECURITY-005-adversarial-organization.md`](ANC-SECURITY-005-adversarial-organization.md)
 - [`ANC-SECURITY-006-coevolution-and-evaluation.md`](ANC-SECURITY-006-coevolution-and-evaluation.md)
+- [`ANC-SECURITY-007-execution-entity-adversarial-ecology.md`](ANC-SECURITY-007-execution-entity-adversarial-ecology.md)
 - [`../../studies/2026-agent-native-adversarial-systems/`](../../studies/2026-agent-native-adversarial-systems/)
+- [`../../studies/2026-execution-entity-adversarial-ecology/`](../../studies/2026-execution-entity-adversarial-ecology/)

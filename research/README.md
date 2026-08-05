@@ -79,6 +79,8 @@ The primary-source derivation for `ANC-STACK-001` and the cross-paradigm validat
 
 The strategic adversarial-systems reorientation, source comparison, insertion map, and research program live in [`../studies/2026-agent-native-adversarial-systems/`](../studies/2026-agent-native-adversarial-systems/).
 
+The execution-entity, lineage, propagation, organization, control, resilience, and adversarial-ecology synthesis lives in [`../studies/2026-execution-entity-adversarial-ecology/`](../studies/2026-execution-entity-adversarial-ecology/). It is a completed reference study consumed through `ANC-SECURITY-007`; it does not activate implementation or promote a shared entity protocol.
+
 The expanded Game thesis, comparative source set, experience/infrastructure admission split, and bounded post-alpha falsification program live in [`../studies/2026-agent-native-game-worlds/`](../studies/2026-agent-native-game-worlds/). `ANC-GAME-001` remains the completed Host/Game ownership question; `ANC-GAME-002` is the deferred product-and-world question and must not displace the current Ready Frontier.
 
 The scarcity, operability, and paradigm-change lens that guided the August 2026 Ordivon reform audit lives in [`../studies/2026-scarcity-operability-and-paradigm-change/`](../studies/2026-scarcity-operability-and-paradigm-change/). It is retained as a reference study; it does not alter the active Ready Frontier, admit a Core primitive, or authorize implementation changes by itself.
