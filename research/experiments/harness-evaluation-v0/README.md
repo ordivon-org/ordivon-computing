@@ -48,6 +48,12 @@ A comparison additionally requires a frozen System Manifest, a versioned Suite, 
 - [`dogfood-20260802/INDEX.md`](dogfood-20260802/INDEX.md) — curated real-run evidence index; diagnostic failures remain separate from accepted evidence;
 - [`tests/`](tests/) — contract, tamper, relation, aggregation, and boundary tests.
 
+### Local evaluation data plane
+
+- [`data-plane-v0/`](data-plane-v0/) — rebuildable Parquet and DuckDB projection, idempotent MLflow mirror, verified restic backup, and loopback-only single-host operations.
+
+The data plane is downstream of P0 evidence. Editing DuckDB, Parquet, MLflow, or a backup never changes Task completion, Runtime physical truth, Trial acceptance, or comparison eligibility.
+
 ## P0 result
 
 The frozen component baseline binds exact clean revisions of Ordivon Computing, Host, Harness, and Runtime. Four deterministic test suites report 601 passed, 0 failed, and 22 explicitly ignored Runtime system tests. One additional Runtime check proves only that the local-acceptance facility exists.

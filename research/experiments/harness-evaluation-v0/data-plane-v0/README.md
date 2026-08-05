@@ -1,6 +1,6 @@
 # Local Evaluation Data Plane v0
 
-Status: accepted Phase 1 design. Implementation must preserve the authority and comparison boundaries established by Harness Evaluation v0.
+Status: Phase 1 implemented for a trusted-local, single-operator deployment. The implementation preserves the authority and comparison boundaries established by Harness Evaluation v0.
 
 ## Decision
 
@@ -9,7 +9,7 @@ Build one single-host, operator-owned evaluation data plane from mature local to
 The data plane consists of:
 
 1. a deterministic Ordivon evaluation projection into Parquet and DuckDB;
-2. an idempotent downstream mirror into a loopback-only MLflow Tracking Server;
+2. an idempotent downstream mirror into a local MLflow SQLite store with an on-demand loopback UI;
 3. verified restic snapshots of the analytical state and MLflow state;
 4. repository-owned installation, validation, projection, backup, and restore-check commands.
 
@@ -89,8 +89,8 @@ The initial trusted-local deployment uses:
 
 ```text
 /opt/ordivon/evaluation-data-plane/
-  venv/
-  current/                 installed package and operational scripts
+  releases/                exact-revision package environments
+  current/                 active release symlink
 
 /var/lib/ordivon/analytics/
   evaluation/
@@ -111,7 +111,7 @@ The initial trusted-local deployment uses:
   restic repository
 ```
 
-Directories containing state or credentials use owner-only permissions. MLflow binds only to `127.0.0.1` and is not remotely exposed by this phase.
+Directories containing state or credentials use owner-only permissions. The periodic mirror writes directly to local SQLite and requires no resident server. The optional MLflow UI binds only to `127.0.0.1` and is not remotely exposed by this phase.
 
 ## Analytical contract
 
@@ -175,13 +175,13 @@ The installation command creates a dedicated virtual environment under `/opt`, i
 
 Phase 1 services are:
 
-- `ordivon-mlflow.service`: loopback-only Tracking Server;
+- `ordivon-mlflow.service`: on-demand, loopback-only experiment browser with background Job Execution disabled;
 - `ordivon-evaluation-project.service`: one-shot deterministic projection and MLflow mirror;
 - `ordivon-evaluation-project.timer`: periodic projection;
 - `ordivon-evaluation-backup.service`: one-shot verified restic snapshot;
 - `ordivon-evaluation-backup.timer`: periodic backup.
 
-Projection and backup services must be safe to rerun. They may fail without changing Host, Harness, or Runtime state.
+Projection and backup services must be safe to rerun. They may fail without changing Host, Harness, or Runtime state. The MLflow browser is not enabled at boot and is not required by either timer.
 
 ## Migration path
 
@@ -202,7 +202,7 @@ Phase 1 assumes the existing trusted-local, single-operator authority profile.
 
 It therefore requires:
 
-- loopback-only MLflow binding;
+- no always-on MLflow process; the optional UI remains loopback-only, memory-bounded, and has background Job Execution disabled;
 - owner-only state and secret permissions;
 - no automatic remote upload;
 - no raw Runtime database, Host CAS, Provider secret, bearer token, private prompt, reasoning text, or arbitrary Artifact ingestion;
@@ -211,6 +211,40 @@ It therefore requires:
 - backups treated as sensitive operator-owned data.
 
 A future remote or multi-user deployment requires an explicit authentication, redaction, tenancy, deletion, and hosted-service privacy contract.
+
+## Operate
+
+Validate the package from the repository:
+
+```bash
+cd research/experiments/harness-evaluation-v0/data-plane-v0
+uv sync --frozen --python 3.12
+uv run ruff check src tests
+uv run python -m unittest discover -s tests -p 'test_*.py' -v
+```
+
+Install the exact clean repository revision, create the immutable source bundle and local restic repository, project the current evidence, mirror ten historical Trials directly into SQLite, create a verified backup, and enable the timers:
+
+```bash
+research/experiments/harness-evaluation-v0/data-plane-v0/scripts/install-local
+```
+
+Inspect the installed state:
+
+```bash
+research/experiments/harness-evaluation-v0/data-plane-v0/scripts/status
+```
+
+Start and stop the optional MLflow UI explicitly:
+
+```bash
+research/experiments/harness-evaluation-v0/data-plane-v0/scripts/ui
+research/experiments/harness-evaluation-v0/data-plane-v0/scripts/stop-ui
+```
+
+While running, the UI is available only on `http://127.0.0.1:5050`. Job Execution and MLflow telemetry are disabled. The analytical database is `/var/lib/ordivon/analytics/evaluation/current/evaluation.duckdb`. Use DuckDB directly for local SQL analysis; treat its tables as rebuildable projections.
+
+The projection timer runs approximately every 30 minutes. The backup timer runs daily at 04:15 local system time with a bounded randomized delay. Both services are safe to run manually through `systemctl start`.
 
 ## Acceptance criteria
 
@@ -222,7 +256,7 @@ Phase 1 is accepted only when all of the following hold:
 4. the projected P0 dogfood count remains 7 Tasks, 10 Trials, 10 Results, and 6 Failures;
 5. a repeated projection over unchanged source records is logically and digest stable;
 6. DuckDB integrity and required relational references pass;
-7. MLflow starts on loopback, reports healthy, and receives exactly one idempotent Run per projected Trial;
+7. the direct MLflow SQLite mirror receives exactly one idempotent Run per projected Trial, and the optional loopback UI can read that same store;
 8. rerunning the mirror does not create duplicate Trial Runs;
 9. no raw Runtime Artifact bytes or secrets enter MLflow by default;
 10. restic creates a verified snapshot from an online SQLite backup and a completed analytical projection;
