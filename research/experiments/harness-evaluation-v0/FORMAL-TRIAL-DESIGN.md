@@ -27,6 +27,10 @@ The first campaign therefore runs:
 
 One-shot and mature Provider Harness comparisons follow only after this runner and evidence path are proven. Building all three paths before the first native baseline would mix runner defects, Provider differences, tool-contract differences, and component failures.
 
+### Execution prerequisite
+
+The campaign design is retained, but execution is blocked by [`../observation-plane-v0/P0-P1-DESIGN.md`](../observation-plane-v0/P0-P1-DESIGN.md). P0 must first make Host and Harness independently durable without dual-writing new Runs. The Host/Harness/Runtime portion of P1 must then automatically export owner-native evidence into a queryable non-authoritative observation path. R3 resumes only after one deterministic cross-owner trajectory can be reconstructed from native references without assuming Harness state lives in Host CAS.
+
 ## Audited starting point
 
 The design was derived from these clean local revisions:

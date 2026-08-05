@@ -53,7 +53,7 @@ A comparison additionally requires a frozen System Manifest, a versioned Suite, 
 - [`FORMAL-TRIAL-DESIGN.md`](FORMAL-TRIAL-DESIGN.md) — claim boundaries, campaign phases, evidence chain, fault cells, review policy, promotion gates, and stop conditions;
 - [`formal-trial-plan-v1.json`](formal-trial-plan-v1.json) — machine-readable plan `HHR-R3-001`, currently `designed_not_executed`.
 
-R3 first proves the runner with a deterministic cross-layer smoke, then runs three sequential native Ordivon Harness DeepSeek Trials and five bounded fault cells. One-shot and Hermes ACP comparisons remain blocked until that baseline closes without runner or evidence defects. Three Trials support development diagnosis; five to ten valid Trials per competitive configuration remain required for an architecture decision.
+R3 remains designed but is blocked by [`../observation-plane-v0/P0-P1-DESIGN.md`](../observation-plane-v0/P0-P1-DESIGN.md). Host and Harness must first become independently durable, and Host/Harness/Runtime owner-native evidence must become automatically queryable. After that prerequisite, R3 proves the runner with a deterministic cross-layer smoke, runs three sequential native Ordivon Harness DeepSeek Trials, and executes five bounded fault cells. One-shot and Hermes ACP comparisons remain conditional on baseline closeout. Three Trials support development diagnosis; five to ten valid Trials per competitive configuration remain required for an architecture decision.
 
 ### Agent-first operations
 

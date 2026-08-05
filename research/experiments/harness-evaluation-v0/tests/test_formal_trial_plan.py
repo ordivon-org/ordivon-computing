@@ -95,6 +95,7 @@ class FormalTrialPlanTests(unittest.TestCase):
 
     def test_first_campaign_does_not_prematurely_run_all_comparisons(self) -> None:
         first = self.plan["firstCampaign"]
+        self.assertEqual(first["status"], "blocked_by_hho_p0_p1")
         self.assertTrue(first["sequentialOnly"])
         self.assertIn(
             "three_ordivon_harness_deepseek_trials",
@@ -104,6 +105,19 @@ class FormalTrialPlanTests(unittest.TestCase):
         self.assertIn(
             "provider_harness_live_trials",
             first["excludedUntilBaselineCloseout"],
+        )
+
+    def test_observation_prerequisite_is_explicit(self) -> None:
+        self.assertEqual(
+            self.plan["prerequisites"],
+            [
+                {
+                    "planId": "HHO-P0-P1-001",
+                    "path": "research/experiments/observation-plane-v0/plan-v1.json",
+                    "requiredStatus": "p0_passed_and_p1_core_passed",
+                    "reason": "Host and Harness must be independently durable and Host/Harness/Runtime evidence must be automatically queryable before repeated formal Trials.",
+                }
+            ],
         )
 
     def test_configurations_share_model_for_future_competitive_cells(self) -> None:

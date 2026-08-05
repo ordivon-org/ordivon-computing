@@ -187,12 +187,12 @@
       "trajectory_review_and_closeout"
     ],
     "sequentialOnly": true,
-    "status": "not_started"
+    "status": "blocked_by_hho_p0_p1"
   },
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:bd24e70cab5f64eeb53490bda982f5e848723ef79b392e875f55d69c2c07269b"
+    "payloadDigest": "sha256:0f37640daa275f1d2138f010776d5dea968f57b59553e5fd1656b552674e26b0"
   },
   "kind": "ordivon.evaluation-formal-trial-plan",
   "outputs": [
@@ -208,6 +208,14 @@
     "closeout.json"
   ],
   "planId": "HHR-R3-001",
+  "prerequisites": [
+    {
+      "path": "research/experiments/observation-plane-v0/plan-v1.json",
+      "planId": "HHO-P0-P1-001",
+      "reason": "Host and Harness must be independently durable and Host/Harness/Runtime evidence must be automatically queryable before repeated formal Trials.",
+      "requiredStatus": "p0_passed_and_p1_core_passed"
+    }
+  ],
   "questionRef": "ANC-VERIFY-001",
   "reviewPolicy": {
     "agentReviewRequiredFor": [

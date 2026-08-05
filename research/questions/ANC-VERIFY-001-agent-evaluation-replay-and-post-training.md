@@ -111,7 +111,7 @@ Shrink or delete the common envelope if any of these hold:
 - a public model leaderboard;
 - a general LLM observability service;
 - a new `ordivon-evals` repository;
-- a Harness database or durable scheduler;
+- a Track R-owned Harness database or durable scheduler;
 - automatic model routing;
 - post-training before sufficient validated trajectories exist;
 - one composite intelligence score;
@@ -121,4 +121,4 @@ Shrink or delete the common envelope if any of these hold:
 
 Retain the question and localize implementation to versioned files, standard-library validation, product-owned fixtures, and immutable evidence references. The accepted R3 design is [`../experiments/harness-evaluation-v0/FORMAL-TRIAL-DESIGN.md`](../experiments/harness-evaluation-v0/FORMAL-TRIAL-DESIGN.md), with machine plan [`../experiments/harness-evaluation-v0/formal-trial-plan-v1.json`](../experiments/harness-evaluation-v0/formal-trial-plan-v1.json).
 
-The immediate Ready Frontier is R3-A: implement the thin formal runner, complete System Manifest capture, atomic per-Trial intent/state, and projection from component-native receipts without invoking a live Provider. R3-B must prove one deterministic cross-layer smoke and five bounded fault cells before R3-C spends Provider budget on three sequential native Ordivon Harness DeepSeek Trials. One-shot and mature Provider Harness comparisons remain conditional on that baseline. Promotion beyond Track R requires repeated consumers and measurable net deletion elsewhere.
+Formal Trial execution is now blocked by the accepted Host/Harness persistence and observation plan [`../experiments/observation-plane-v0/P0-P1-DESIGN.md`](../experiments/observation-plane-v0/P0-P1-DESIGN.md). The immediate Ready Frontier is HHO-P0: freeze current Harness persistence semantics, implement an independent Harness Journal/CAS and caller-neutral Run Contract, add Host external-executor integration, and cut over new Runs without dual writes. HHO-P1 must then automatically export Host, Harness, and Runtime owner-native evidence into a queryable non-authoritative path. Only after those gates pass does R3-A implement the thin formal runner and continue toward deterministic smoke and repeated Provider Trials. Promotion beyond Track R requires repeated consumers and measurable net deletion elsewhere.

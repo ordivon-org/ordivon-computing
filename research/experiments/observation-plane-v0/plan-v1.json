@@ -1,0 +1,476 @@
+{
+  "authority": [
+    {
+      "facts": [
+        "task",
+        "task_attempt",
+        "commitment",
+        "verification",
+        "participant_decision",
+        "task_outcome"
+      ],
+      "owner": "ordivon-host"
+    },
+    {
+      "facts": [
+        "harness_run",
+        "provider_call",
+        "tool_step",
+        "run_snapshot",
+        "harness_trace",
+        "run_stop",
+        "run_recovery",
+        "completion_proposal"
+      ],
+      "owner": "ordivon-harness"
+    },
+    {
+      "facts": [
+        "workspace",
+        "runtime_job",
+        "runtime_attempt",
+        "process_tree",
+        "terminal_evidence",
+        "runtime_artifact",
+        "physical_reconciliation"
+      ],
+      "owner": "ordivon-runtime"
+    },
+    {
+      "facts": [
+        "domain_actor",
+        "domain_session",
+        "domain_contest",
+        "domain_study",
+        "domain_production",
+        "domain_outcome"
+      ],
+      "owner": "domain_project"
+    },
+    {
+      "authoritative": false,
+      "facts": [
+        "derived_trace",
+        "derived_span",
+        "correlation_index",
+        "ingest_receipt",
+        "export_lag",
+        "query_projection"
+      ],
+      "owner": "observation_plane"
+    }
+  ],
+  "decisionRef": "computing.projects.host-harness-observation",
+  "decisions": {
+    "automaticEvalAdmission": false,
+    "formalTrialsBlockedUntilP0P1": true,
+    "harnessJournalAsOutbox": true,
+    "hostAndHarnessIndependentAuthorities": true,
+    "hostJournalAsOutbox": true,
+    "newRepositoryAuthorized": false,
+    "newRunDualWriteForbidden": true,
+    "observationPlaneAuthoritative": false,
+    "openTelemetryProjectionAuthoritative": false,
+    "runtimeRegistryExporter": true,
+    "transactionalOutboxForMutableDomainStores": true
+  },
+  "formalTrialEffect": {
+    "designRetained": true,
+    "executionStatus": "blocked_by_hho_p0_p1",
+    "planId": "HHR-R3-001",
+    "resumeRequirements": [
+      "p0_passed",
+      "p1_host_harness_runtime_passed",
+      "deterministic_cross_owner_trajectory_queryable",
+      "system_manifest_contains_observation_contract_and_mapping_versions",
+      "formal_runner_uses_owner_native_refs_not_host_cas_assumption"
+    ]
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:c243495f50e4d88bd3ca3879c9183fe7cf28b168cfa3a7aac9d3f346683bac56"
+  },
+  "kind": "ordivon.host-harness-observation-plan",
+  "nonGoals": [
+    "global_task_database",
+    "global_harness_lifecycle",
+    "runtime_replacement",
+    "domain_outcome_authority",
+    "automatic_dataset_admission",
+    "model_router",
+    "scheduler",
+    "dashboard",
+    "kafka",
+    "clickhouse",
+    "cloud_vendor_lock_in",
+    "raw_chain_of_thought_collection"
+  ],
+  "observedRevisions": {
+    "computing": "b5bc1348f2a48c6319c9d4dfbe77add34b5dbfe3",
+    "harness": "796e9f07899a250ea4d87ae3e96f38c7172ff674",
+    "host": "1a4027bb26d77a2e051ca933bf664578f071a5a9",
+    "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
+    "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6"
+  },
+  "p0": {
+    "acceptanceGates": [
+      "host_complete_suite_without_harness_installed",
+      "harness_core_suite_without_host_installed",
+      "standalone_harness_run_restart_and_resume",
+      "host_restart_with_executor_unavailable",
+      "host_fake_external_harness_end_to_end",
+      "host_ordivon_harness_separate_histories",
+      "domain_harness_without_synthetic_host_task",
+      "duplicate_start_creates_one_run",
+      "provider_and_runtime_response_loss_without_redispatch",
+      "stale_caller_and_stale_run_lease_rejected",
+      "corrupt_or_missing_harness_cas_fails_closed",
+      "legacy_fixtures_remain_inspectable",
+      "no_new_run_written_to_both_stores",
+      "private_modes_and_symlink_rejection",
+      "backup_restore_and_migration_rollback",
+      "one_thousand_runs_one_hundred_thousand_events_load_test",
+      "current_run_inspect_under_one_second_on_recorded_target"
+    ],
+    "closeoutOutputs": [
+      "host_gate_receipt",
+      "harness_gate_receipt",
+      "cross_composition_receipt",
+      "legacy_compatibility_receipt",
+      "cutover_inventory",
+      "state_root_and_backup_receipts",
+      "fault_matrix",
+      "performance_receipt",
+      "p0_disposition"
+    ],
+    "forbiddenCapabilities": [
+      "observation_gateway",
+      "open_telemetry_collector",
+      "global_observation_database",
+      "dashboard",
+      "automatic_eval_admission",
+      "new_repository",
+      "new_run_dual_write"
+    ],
+    "harnessStoreTables": [
+      "schema_info",
+      "schema_migrations",
+      "runs",
+      "run_events",
+      "object_refs",
+      "run_object_refs",
+      "run_leases",
+      "provider_calls",
+      "tool_steps",
+      "caller_bindings",
+      "object_validation"
+    ],
+    "migration": {
+      "activeLegacyRunAllowedAtDefaultCutover": false,
+      "bulkRewriteHistoricalBytes": false,
+      "crossStoreAtomicTransactionClaim": false,
+      "legacyDefaultModeAfterCutover": "read_only",
+      "legacyStore": "HostHarnessRunStore",
+      "newRunStoreCount": 1
+    },
+    "phaseId": "HHO-P0",
+    "stateRoots": {
+      "harness": "/var/lib/ordivon/harness",
+      "host": "/var/lib/ordivon/host"
+    },
+    "status": "not_started",
+    "stopConditions": [
+      "run_recovery_requires_mutable_host_projection_fields",
+      "host_must_decode_harness_internal_events",
+      "new_run_requires_dual_database_write",
+      "caller_neutral_contract_flattens_provider_or_domain_lifecycle",
+      "legacy_compatibility_keeps_host_as_new_run_byte_owner",
+      "stable_identities_cannot_prevent_duplicate_physical_dispatch",
+      "store_protocol_becomes_universal_workflow_or_domain_model"
+    ],
+    "title": "Independent Host and Harness authority",
+    "workstreams": [
+      {
+        "deliverables": [
+          "generated persisted object and event inventory",
+          "wire kind and schema version inventory",
+          "causal predecessor and retention role inventory",
+          "privacy classification",
+          "legacy fixture compatibility tests"
+        ],
+        "id": "P0-A",
+        "owner": "ordivon-harness",
+        "title": "Freeze current persisted semantics"
+      },
+      {
+        "deliverables": [
+          "HarnessRunContract",
+          "HarnessCallerPort",
+          "HarnessStore protocol",
+          "foreign caller and correlation references",
+          "no Host storage or projection types in core contracts"
+        ],
+        "id": "P0-B",
+        "owner": "ordivon-harness",
+        "title": "Caller-neutral contracts"
+      },
+      {
+        "deliverables": [
+          "harness.sqlite3 schema v1",
+          "append-only run event stream",
+          "checked run/provider/tool projections",
+          "immutable CAS",
+          "run leases",
+          "migrations and rollback backup",
+          "Doctor and full-history validation",
+          "backup verify and restore"
+        ],
+        "id": "P0-C",
+        "owner": "ordivon-harness",
+        "title": "Independent SQLite Journal and CAS"
+      },
+      {
+        "deliverables": [
+          "core installation without ordivon-host",
+          "standalone Runner with HarnessStore",
+          "persistent DomainToolLoopRunner option",
+          "isolated Host integration module",
+          "legacy Host-backed history reader"
+        ],
+        "id": "P0-D",
+        "owner": "ordivon-harness",
+        "title": "Standalone core and optional Host integration"
+      },
+      {
+        "deliverables": [
+          "ExternalExecutorAdapter structural protocol",
+          "ExternalRunBinding",
+          "idempotent start observe cancel recover and completion collection",
+          "fake external Harness acceptance",
+          "Ordivon Harness integration adapter"
+        ],
+        "id": "P0-E",
+        "owner": "ordivon-host",
+        "title": "External executor adapter"
+      },
+      {
+        "deliverables": [
+          "active legacy Run inventory",
+          "cutover refusal when legacy nonterminal Run exists",
+          "new Run single-store invariant",
+          "cross-store crash and response-loss matrix",
+          "production state-root deployment receipts",
+          "P0 closeout"
+        ],
+        "id": "P0-F",
+        "owner": "cross_project",
+        "title": "No-dual-write cutover"
+      }
+    ]
+  },
+  "p1": {
+    "acceptanceGates": [
+      "gateway_down_during_ten_thousand_source_events_then_zero_missing",
+      "exporter_crash_after_ingest_before_ack_deduplicates",
+      "collector_restart_resumes_persistent_queue",
+      "unsupported_mapping_quarantines_without_cursor_advance",
+      "sequence_gap_visible_in_status_lag_and_doctor",
+      "standalone_harness_run_query_without_host_ids",
+      "host_external_harness_query_without_ordivon_harness_types",
+      "host_harness_runtime_complete_correlation",
+      "async_recovery_uses_links_and_native_request_ids",
+      "secret_like_values_rejected",
+      "model_and_tool_content_default_to_digest_or_ref",
+      "one_hundred_events_per_second_for_ten_minutes",
+      "p95_gateway_ack_under_two_seconds",
+      "one_million_event_common_queries_under_five_seconds",
+      "track_r_projection_without_copying_owner_databases",
+      "process_exit_success_does_not_imply_task_acceptance"
+    ],
+    "closeoutOutputs": [
+      "observation_envelope_and_mapping_version",
+      "host_exporter_receipt",
+      "harness_exporter_receipt",
+      "runtime_exporter_receipt",
+      "gateway_deployment_and_doctor_receipt",
+      "ten_thousand_event_outage_recovery_receipt",
+      "cross_owner_correlation_receipt",
+      "privacy_acceptance_receipt",
+      "one_million_event_query_benchmark",
+      "track_r_projection_receipt",
+      "p1_disposition"
+    ],
+    "delivery": {
+      "catalogDeduplication": "event_id",
+      "collectorRequiredForOwnerCommit": false,
+      "gatewayRequiredForOwnerCommit": false,
+      "perSourceOrdering": true,
+      "sameIdDifferentBytes": "quarantine_corruption",
+      "sequenceGapVisible": true,
+      "sourceToGateway": "at_least_once"
+    },
+    "gatewayTables": [
+      "events",
+      "source_streams",
+      "event_links",
+      "artifact_refs",
+      "ingest_receipts",
+      "producer_checkpoints",
+      "schema_versions",
+      "quarantine"
+    ],
+    "nextProducers": [
+      "ordivon-game",
+      "ordivon-security",
+      "ordivon-studio",
+      "ordivon-world",
+      "ordivon-human",
+      "ordivon-web"
+    ],
+    "phaseId": "HHO-P1",
+    "privacy": {
+      "classes": [
+        "public_metadata",
+        "private_metadata",
+        "private_content_ref",
+        "restricted_content_ref",
+        "secret_forbidden"
+      ],
+      "defaultModelContent": "digest_and_private_owner_ref",
+      "defaultStdoutStderr": "runtime_artifact_ref",
+      "defaultToolContent": "policy_classified_digest_or_ref",
+      "rawPrivateReasoning": "forbidden",
+      "secrets": "reject"
+    },
+    "prototypeOwner": "ordivon-computing",
+    "repositoryAdmissionGate": {
+      "authorizedNow": false,
+      "candidate": "ordivon-observation",
+      "requirements": [
+        "host_harness_runtime_are_active_producers",
+        "operations_and_track_r_are_recurring_consumers",
+        "deployment_migration_backup_privacy_and_retention_lifecycle_is_distinct",
+        "computing_ownership_causes_release_or_authority_distortion",
+        "removal_recreates_duplicate_exporters_or_correlation_loss",
+        "extracted_role_remains_observation_only"
+      ]
+    },
+    "requiredProducers": [
+      "ordivon-host",
+      "ordivon-harness",
+      "ordivon-runtime"
+    ],
+    "stateRoot": "/var/lib/ordivon/observation",
+    "status": "blocked_by_p0",
+    "stopConditions": [
+      "observation_loss_despite_intact_owner_journal",
+      "exporter_requires_out_of_band_owner_state_mutation",
+      "gateway_availability_required_for_owner_correctness",
+      "correlation_requires_copying_owner_databases",
+      "otel_mapping_replaces_native_identity_or_recovery_state",
+      "sensitive_content_accepted_without_policy",
+      "query_value_does_not_justify_operational_cost",
+      "prototype_absorbs_scheduling_routing_or_task_authority"
+    ],
+    "title": "Automatic cross-project observation",
+    "workstreams": [
+      {
+        "deliverables": [
+          "ordivon.observation-envelope.v1 schema",
+          "canonical event identity",
+          "source stream and sequence contract",
+          "W3C Trace Context mapping",
+          "span link relation types",
+          "OpenTelemetry mapping version",
+          "privacy classes and content policy"
+        ],
+        "id": "P1-A",
+        "owner": "ordivon-computing",
+        "title": "Observation envelope and semantic conventions"
+      },
+      {
+        "deliverables": [
+          "single-writer SQLite ingest store",
+          "Unix socket local ingest",
+          "exact duplicate and corruption handling",
+          "source gap and lag tracking",
+          "quarantine",
+          "structured query CLI",
+          "Doctor backup and restore"
+        ],
+        "id": "P1-B",
+        "owner": "ordivon-computing",
+        "title": "Local observation gateway"
+      },
+      {
+        "deliverables": [
+          "versioned native event mapping",
+          "consumer cursor",
+          "retry and replay",
+          "privacy mapping",
+          "lag and quarantine visibility"
+        ],
+        "id": "P1-C",
+        "owner": "ordivon-host",
+        "pattern": "journal_as_outbox",
+        "title": "Host Journal exporter"
+      },
+      {
+        "deliverables": [
+          "Run Provider Call Tool Step Snapshot Trace mapping",
+          "consumer cursor",
+          "retry and replay",
+          "metadata and digest default capture",
+          "lag and quarantine visibility"
+        ],
+        "id": "P1-D",
+        "owner": "ordivon-harness",
+        "pattern": "journal_as_outbox",
+        "title": "Harness Journal exporter"
+      },
+      {
+        "deliverables": [
+          "Workspace Job Attempt Artifact mapping",
+          "terminal evidence references",
+          "physical status only invariant",
+          "foreign reference correlation",
+          "replayable export cursor"
+        ],
+        "id": "P1-E",
+        "owner": "ordivon-runtime",
+        "pattern": "owner_local_exporter",
+        "title": "Runtime Registry and Attempt exporter"
+      },
+      {
+        "deliverables": [
+          "loopback OTLP receiver",
+          "span log and metric projection",
+          "batch and memory processors",
+          "privacy filters",
+          "file-backed persistent sending queue",
+          "external Harness trace adapter"
+        ],
+        "id": "P1-F",
+        "owner": "ordivon-computing",
+        "title": "OpenTelemetry bridge"
+      },
+      {
+        "deliverables": [
+          "complete cross-owner trajectory query",
+          "native evidence reference projection",
+          "formal Trial prerequisite update",
+          "storage and query benchmarks",
+          "repository admission decision"
+        ],
+        "id": "P1-G",
+        "owner": "ordivon-computing",
+        "title": "Track R projection and closeout"
+      }
+    ]
+  },
+  "planId": "HHO-P0-P1-001",
+  "questionRef": "ANC-VERIFY-001",
+  "schemaVersion": 1,
+  "status": "designed_not_executed"
+}

@@ -42,7 +42,7 @@ what pressure was observed
 
 ## Start here
 
-Read [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) for the current review of production support and the possible `ordivon-studio` boundary. Use the rules below before adding another cross-project decision.
+Read [`host-harness-independent-persistence-and-observation.md`](host-harness-independent-persistence-and-observation.md) for the accepted Host/Harness authority and automatic-observation boundary. Read [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) for the current review of production support and the possible `ordivon-studio` boundary. Use the rules below before adding another cross-project decision.
 
 ## Current boundary
 
@@ -66,6 +66,7 @@ These records own cross-project decision rationale. They do not own implementati
 
 | Record | Lifecycle | Current result |
 | --- | --- | --- |
+| [`host-harness-independent-persistence-and-observation.md`](host-harness-independent-persistence-and-observation.md) | accepted | Host and Harness become independently durable; committed owner events feed a non-authoritative automatic observation plane before formal repeated Trials. |
 | [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) | review | Production support is identified as a distinct responsibility; admission of `ordivon-studio` remains conditional. |
 
 ## Reopen conditions
