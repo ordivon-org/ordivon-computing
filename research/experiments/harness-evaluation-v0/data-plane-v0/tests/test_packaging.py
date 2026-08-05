@@ -51,6 +51,17 @@ class PackagingTests(unittest.TestCase):
         self.assertIn("ordivon-evaluation-project.service", installer)
         self.assertIn("ordivon-evaluation-backup.service", installer)
 
+    def test_installer_builds_the_virtual_environment_at_its_final_path(self) -> None:
+        installer = (PACKAGE_ROOT / "scripts" / "install-local").read_text(encoding="utf-8")
+        move_index = installer.index('mv "$release_temporary" "$release"')
+        sync_index = installer.index('--project "$release/source"')
+        self.assertLess(move_index, sync_index)
+        self.assertNotIn('--project "$release_temporary/source"', installer)
+        self.assertIn(
+            '"$release/source/.venv/bin/ordivon-eval-data" --help',
+            installer,
+        )
+
     def test_timers_are_persistent_and_bounded(self) -> None:
         projection = (SYSTEMD_ROOT / "ordivon-evaluation-project.timer").read_text(encoding="utf-8")
         backup = (SYSTEMD_ROOT / "ordivon-evaluation-backup.timer").read_text(encoding="utf-8")

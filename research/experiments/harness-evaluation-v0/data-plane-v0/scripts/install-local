@@ -50,12 +50,16 @@ install -d -m 0755 /etc/ordivon
 
 source_temporary=
 release_temporary=
+release_created=
 cleanup() {
   if [[ -n $source_temporary ]]; then
     rm -rf "$source_temporary"
   fi
   if [[ -n $release_temporary ]]; then
     rm -rf "$release_temporary"
+  fi
+  if [[ -n $release_created ]]; then
+    rm -rf "$release_created"
   fi
 }
 trap cleanup EXIT
@@ -64,24 +68,36 @@ if [[ ! -d "$source_generation" ]]; then
   source_temporary=$(mktemp -d "$source_root/generations/.${revision}.XXXXXX")
   git -C "$repository_root" archive "$revision" | tar -x -C "$source_temporary"
   printf '%s\n' "$revision" > "$source_temporary/ORDIVON_SOURCE_REVISION"
-  chmod 0600 "$source_temporary/ORDIVON_SOURCE_REVISION"
+  chmod -R u=rwX,go= "$source_temporary"
   mv "$source_temporary" "$source_generation"
   source_temporary=
 fi
+chmod -R u=rwX,go= "$source_generation"
 
-if [[ ! -d "$release" ]]; then
+release_valid() {
+  [[ -f "$release/REVISION" ]] &&
+    [[ $(cat "$release/REVISION") == "$revision" ]] &&
+    "$release/source/.venv/bin/ordivon-eval-data" --help >/dev/null 2>&1
+}
+
+if ! release_valid; then
+  rm -rf "$release"
   release_temporary=$(mktemp -d "$release_root/.${revision}.XXXXXX")
   cp -a "$source_generation/$relative_package" "$release_temporary/source"
+  mv "$release_temporary" "$release"
+  release_temporary=
+  release_created=$release
   uv sync \
-    --project "$release_temporary/source" \
+    --project "$release/source" \
     --frozen \
     --no-dev \
     --no-editable \
     --python 3.12
-  printf '%s\n' "$revision" > "$release_temporary/REVISION"
-  chmod 0444 "$release_temporary/REVISION"
-  mv "$release_temporary" "$release"
-  release_temporary=
+  printf '%s\n' "$revision" > "$release/REVISION"
+  chmod -R u=rwX,go= "$release"
+  chmod 0444 "$release/REVISION"
+  "$release/source/.venv/bin/ordivon-eval-data" --help >/dev/null
+  release_created=
 fi
 
 atomic_link() {
