@@ -1,8 +1,10 @@
 # Host, Harness, and Observation Plane P0/P1 Design
 
-Status: designed, not executed.
+Status: accepted architecture; P0 implementation present with closeout pending; P1 execution designed but not implemented.
 
 Plan: `HHO-P0-P1-001`.
+
+Execution detail: [`P1-EXECUTION-PLAN.md`](P1-EXECUTION-PLAN.md).
 
 ## Purpose
 

@@ -63,6 +63,7 @@
   "decisionRef": "computing.projects.host-harness-observation",
   "decisions": {
     "automaticEvalAdmission": false,
+    "exporterCheckpointsOutsideOwnerStores": true,
     "formalTrialsBlockedUntilP0P1": true,
     "harnessJournalAsOutbox": true,
     "hostAndHarnessIndependentAuthorities": true,
@@ -71,9 +72,11 @@
     "newRunDualWriteForbidden": true,
     "observationPlaneAuthoritative": false,
     "openTelemetryProjectionAuthoritative": false,
+    "ownerDatabasesReadOnlyToObservation": true,
     "runtimeRegistryExporter": true,
     "transactionalOutboxForMutableDomainStores": true
   },
+  "executionPlanRef": "research/experiments/observation-plane-v0/P1-EXECUTION-PLAN.md",
   "formalTrialEffect": {
     "designRetained": true,
     "executionStatus": "blocked_by_hho_p0_p1",
@@ -89,7 +92,7 @@
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:c243495f50e4d88bd3ca3879c9183fe7cf28b168cfa3a7aac9d3f346683bac56"
+    "payloadDigest": "sha256:187e4135da754912e2bffb4d3044e83df76f2ced28127a2f16af6f22042729f2"
   },
   "kind": "ordivon.host-harness-observation-plan",
   "nonGoals": [
@@ -107,9 +110,9 @@
     "raw_chain_of_thought_collection"
   ],
   "observedRevisions": {
-    "computing": "b5bc1348f2a48c6319c9d4dfbe77add34b5dbfe3",
-    "harness": "796e9f07899a250ea4d87ae3e96f38c7172ff674",
-    "host": "1a4027bb26d77a2e051ca933bf664578f071a5a9",
+    "computing": "3109e884be8e4fcfe0bc91493db2d7a9aba0bfd8",
+    "harness": "f39943e4bc4e5e9e0478994a68a05f69d480406f",
+    "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
     "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
     "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6"
   },
@@ -132,6 +135,11 @@
       "backup_restore_and_migration_rollback",
       "one_thousand_runs_one_hundred_thousand_events_load_test",
       "current_run_inspect_under_one_second_on_recorded_target"
+    ],
+    "closeoutBlockers": [
+      "request_only_external_recovery_gap_full_test_and_merge",
+      "atomic_bounded_harness_event_batch_and_scale_receipt",
+      "production_state_roots_backup_restore_cutover_and_no_dual_write_receipts"
     ],
     "closeoutOutputs": [
       "host_gate_receipt",
@@ -179,7 +187,7 @@
       "harness": "/var/lib/ordivon/harness",
       "host": "/var/lib/ordivon/host"
     },
-    "status": "not_started",
+    "status": "closeout_pending",
     "stopConditions": [
       "run_recovery_requires_mutable_host_projection_fields",
       "host_must_decode_harness_internal_events",
@@ -286,7 +294,10 @@
       "p95_gateway_ack_under_two_seconds",
       "one_million_event_common_queries_under_five_seconds",
       "track_r_projection_without_copying_owner_databases",
-      "process_exit_success_does_not_imply_task_acceptance"
+      "process_exit_success_does_not_imply_task_acceptance",
+      "owner_databases_unchanged_by_exporters",
+      "runtime_per_job_stream_checkpoint_replay",
+      "observation_rebuild_from_intact_owner_stores"
     ],
     "closeoutOutputs": [
       "observation_envelope_and_mapping_version",
@@ -301,25 +312,72 @@
       "track_r_projection_receipt",
       "p1_disposition"
     ],
+    "coreCloseoutGate": [
+      "three_read_only_owner_exporters",
+      "complete_deterministic_cross_owner_trajectory",
+      "outage_recovery_zero_missing_native_sequence",
+      "privacy_acceptance",
+      "owner_database_unchanged_proof",
+      "track_r_projection_from_owner_native_refs"
+    ],
     "delivery": {
       "catalogDeduplication": "event_id",
       "collectorRequiredForOwnerCommit": false,
+      "exporterCheckpointLocation": "observation_owned_sidecar",
       "gatewayRequiredForOwnerCommit": false,
+      "ownerDatabaseWrites": false,
       "perSourceOrdering": true,
       "sameIdDifferentBytes": "quarantine_corruption",
       "sequenceGapVisible": true,
       "sourceToGateway": "at_least_once"
     },
+    "executionOrder": [
+      "P1.0_p0_closeout_alignment",
+      "P1.1_contract_and_fixtures",
+      "P1.2_gateway_core",
+      "P1.3_harness_exporter",
+      "P1.4_host_exporter",
+      "P1.5_runtime_exporter",
+      "P1.6_cross_owner_correlation_and_privacy",
+      "P1.7_track_r_projection",
+      "P1.8_open_telemetry_interop",
+      "P1.9_closeout"
+    ],
+    "executionReadiness": {
+      "contractAndGatewayFixtureWorkMayStart": true,
+      "exporterDevelopmentAgainstTemporaryStoresMayStart": true,
+      "formalTrialsRequireP1CoreCloseout": true,
+      "openTelemetryInteropBlocksFormalTrials": false,
+      "productionExporterEnablementRequiresP0Closeout": true
+    },
+    "exporterSidecarTables": [
+      "exporter_identity",
+      "stream_checkpoints",
+      "batch_receipts",
+      "mapping_quarantine",
+      "runtime_job_heads"
+    ],
     "gatewayTables": [
+      "schema_info",
+      "schema_migrations",
+      "producer_instances",
       "events",
       "source_streams",
-      "event_links",
-      "artifact_refs",
+      "relations",
       "ingest_receipts",
-      "producer_checkpoints",
-      "schema_versions",
-      "quarantine"
+      "quarantine",
+      "mapping_versions"
     ],
+    "interopCloseoutGate": [
+      "derived_otel_trace_preserves_native_identity",
+      "collector_restart_resumes_persistent_queue",
+      "collector_unavailable_does_not_affect_p1_core"
+    ],
+    "nativeStreams": {
+      "ordivon-harness": "one_global_journal_stream",
+      "ordivon-host": "one_global_journal_stream",
+      "ordivon-runtime": "one_stream_per_runtime_job"
+    },
     "nextProducers": [
       "ordivon-game",
       "ordivon-security",
@@ -362,7 +420,7 @@
       "ordivon-runtime"
     ],
     "stateRoot": "/var/lib/ordivon/observation",
-    "status": "blocked_by_p0",
+    "status": "execution_designed_waiting_for_p0_closeout",
     "stopConditions": [
       "observation_loss_despite_intact_owner_journal",
       "exporter_requires_out_of_band_owner_state_mutation",
@@ -472,5 +530,5 @@
   "planId": "HHO-P0-P1-001",
   "questionRef": "ANC-VERIFY-001",
   "schemaVersion": 1,
-  "status": "designed_not_executed"
+  "status": "p0_closeout_pending_p1_execution_designed"
 }

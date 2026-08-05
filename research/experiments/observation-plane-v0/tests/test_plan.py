@@ -35,7 +35,10 @@ class ObservationPlanTests(unittest.TestCase):
             "ordivon.host-harness-observation-plan",
         )
         self.assertEqual(self.plan["planId"], "HHO-P0-P1-001")
-        self.assertEqual(self.plan["status"], "designed_not_executed")
+        self.assertEqual(
+            self.plan["status"],
+            "p0_closeout_pending_p1_execution_designed",
+        )
         self.assertEqual(
             self.plan["integrity"],
             {
@@ -61,6 +64,8 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertFalse(decisions["observationPlaneAuthoritative"])
         self.assertFalse(decisions["openTelemetryProjectionAuthoritative"])
         self.assertFalse(decisions["automaticEvalAdmission"])
+        self.assertTrue(decisions["ownerDatabasesReadOnlyToObservation"])
+        self.assertTrue(decisions["exporterCheckpointsOutsideOwnerStores"])
         owners = {item["owner"] for item in self.plan["authority"]}
         self.assertEqual(
             owners,
@@ -75,7 +80,8 @@ class ObservationPlanTests(unittest.TestCase):
 
     def test_p0_contains_no_observation_platform(self) -> None:
         p0 = self.plan["p0"]
-        self.assertEqual(p0["status"], "not_started")
+        self.assertEqual(p0["status"], "closeout_pending")
+        self.assertEqual(len(p0["closeoutBlockers"]), 3)
         forbidden = set(p0["forbiddenCapabilities"])
         self.assertTrue(
             {
@@ -116,6 +122,19 @@ class ObservationPlanTests(unittest.TestCase):
     def test_p1_core_producers_and_privacy(self) -> None:
         p1 = self.plan["p1"]
         self.assertEqual(
+            p1["status"],
+            "execution_designed_waiting_for_p0_closeout",
+        )
+        self.assertTrue(
+            p1["executionReadiness"]["contractAndGatewayFixtureWorkMayStart"]
+        )
+        self.assertTrue(
+            p1["executionReadiness"]["productionExporterEnablementRequiresP0Closeout"]
+        )
+        self.assertFalse(
+            p1["executionReadiness"]["openTelemetryInteropBlocksFormalTrials"]
+        )
+        self.assertEqual(
             p1["requiredProducers"],
             ["ordivon-host", "ordivon-harness", "ordivon-runtime"],
         )
@@ -151,6 +170,24 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertTrue(value["designRetained"])
         self.assertEqual(value["executionStatus"], "blocked_by_hho_p0_p1")
         self.assertEqual(len(value["resumeRequirements"]), 5)
+
+    def test_execution_plan_and_read_only_exporter_state_are_explicit(self) -> None:
+        execution_path = Path(self.plan["executionPlanRef"])
+        self.assertTrue(execution_path.exists())
+        rendered = execution_path.read_text(encoding="utf-8")
+        self.assertIn("P1 Core", rendered)
+        self.assertIn("Owner databases are read-only to P1", rendered)
+        self.assertIn("Immediate Ready Frontier", rendered)
+        delivery = self.plan["p1"]["delivery"]
+        self.assertFalse(delivery["ownerDatabaseWrites"])
+        self.assertEqual(
+            delivery["exporterCheckpointLocation"],
+            "observation_owned_sidecar",
+        )
+        self.assertEqual(
+            self.plan["p1"]["nativeStreams"]["ordivon-runtime"],
+            "one_stream_per_runtime_job",
+        )
 
     def test_no_heavy_platform_or_secret_paths(self) -> None:
         rendered = json.dumps(self.plan, sort_keys=True).lower()
