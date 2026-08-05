@@ -48,6 +48,13 @@ A comparison additionally requires a frozen System Manifest, a versioned Suite, 
 - [`dogfood-20260802/INDEX.md`](dogfood-20260802/INDEX.md) — curated real-run evidence index; diagnostic failures remain separate from accepted evidence;
 - [`tests/`](tests/) — contract, tamper, relation, aggregation, and boundary tests.
 
+### R3 formal Trial campaign
+
+- [`FORMAL-TRIAL-DESIGN.md`](FORMAL-TRIAL-DESIGN.md) — claim boundaries, campaign phases, evidence chain, fault cells, review policy, promotion gates, and stop conditions;
+- [`formal-trial-plan-v1.json`](formal-trial-plan-v1.json) — machine-readable plan `HHR-R3-001`, currently `designed_not_executed`.
+
+R3 first proves the runner with a deterministic cross-layer smoke, then runs three sequential native Ordivon Harness DeepSeek Trials and five bounded fault cells. One-shot and Hermes ACP comparisons remain blocked until that baseline closes without runner or evidence defects. Three Trials support development diagnosis; five to ten valid Trials per competitive configuration remain required for an architecture decision.
+
 ### Agent-first operations
 
 - [`query_evaluation.py`](query_evaluation.py) — dependency-free, stateless JSON queries over validated Task, Trial, Result, and Failure records.

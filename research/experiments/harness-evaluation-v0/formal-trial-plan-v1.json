@@ -1,0 +1,269 @@
+{
+  "campaignGates": [
+    {
+      "command": "uv run python scripts/ordivon_conformance.py gate --receipt <path>",
+      "frequency": "once_per_campaign_manifest",
+      "gateId": "computing_conformance"
+    },
+    {
+      "command": "scripts/local-acceptance run",
+      "frequency": "once_per_campaign_manifest",
+      "gateId": "host_local_acceptance",
+      "repositoryId": "ordivon-host"
+    },
+    {
+      "command": "scripts/local-acceptance run",
+      "frequency": "once_per_campaign_manifest",
+      "gateId": "harness_local_acceptance",
+      "repositoryId": "ordivon-harness"
+    },
+    {
+      "command": "scripts/local-acceptance run",
+      "frequency": "once_per_campaign_manifest",
+      "gateId": "runtime_local_acceptance",
+      "repositoryId": "ordivon-runtime"
+    },
+    {
+      "command": "python3.12 evals/harness-repository-repair-001/qa.py",
+      "frequency": "once_per_task_revision",
+      "gateId": "task_qa",
+      "repositoryId": "ordivon-harness"
+    }
+  ],
+  "claims": [
+    {
+      "claimId": "harness_capability",
+      "owner": "ordivon-harness",
+      "verdict": "Task acceptance, stop behavior, evidence retention, and bounded recovery under one exact model–Tool configuration"
+    },
+    {
+      "claimId": "host_semantic_integrity",
+      "owner": "ordivon-host",
+      "verdict": "Exact Task, Attempt, Assignment, verifier decision, and TaskOutcome behavior under rejection, replay, and restart"
+    },
+    {
+      "claimId": "runtime_physical_reliability",
+      "owner": "ordivon-runtime",
+      "verdict": "Exact Workspace, Job, Attempt, request identity, process-tree, terminal-evidence, reconciliation, and closure behavior"
+    },
+    {
+      "claimId": "cross_layer_continuity",
+      "owner": "ordivon-computing",
+      "verdict": "One Task is reconstructable through native identities without duplicate dispatch, false completion, or copied production state"
+    }
+  ],
+  "configurations": [
+    {
+      "competitive": false,
+      "configurationId": "scripted-integrated-control",
+      "executionPath": "ordivon_harness",
+      "modelId": "deterministic-oracle-actions",
+      "providerId": "scripted",
+      "purpose": "Prove the formal runner, cross-layer evidence join, verifier, projection, and cleanup before live Provider use",
+      "repetitions": {
+        "architectureDecision": 0,
+        "development": 1,
+        "smoke": 1
+      },
+      "status": "planned"
+    },
+    {
+      "competitive": true,
+      "configurationId": "deepseek-one-shot",
+      "executionPath": "one_shot",
+      "modelId": "deepseek-v4-flash",
+      "providerId": "deepseek",
+      "purpose": "Lower-interaction same-model baseline receiving the complete visible fixture and returning candidate source plus completion Artifact",
+      "repetitions": {
+        "architectureDecision": 5,
+        "development": 3,
+        "smoke": 1
+      },
+      "status": "blocked_by_evaluation_adapter"
+    },
+    {
+      "budget": {
+        "maxInputTokens": 1000000,
+        "maxModelCalls": 8,
+        "maxObservationBytes": 1048576,
+        "maxOutputTokens": 100000,
+        "maxRuntimeJobs": 8,
+        "maxToolCalls": 20,
+        "maxWallTimeMs": 600000
+      },
+      "competitive": true,
+      "configurationId": "ordivon-harness-deepseek",
+      "executionPath": "ordivon_harness",
+      "modelId": "deepseek-v4-flash",
+      "providerId": "deepseek",
+      "purpose": "Measure the current native Ordivon model–Tool loop with Host-backed durable state and Runtime Tools",
+      "repetitions": {
+        "architectureDecision": 5,
+        "development": 3,
+        "smoke": 1
+      },
+      "status": "first_live_baseline_after_runner_smoke"
+    },
+    {
+      "competitive": true,
+      "configurationId": "hermes-acp-deepseek",
+      "executionPath": "provider_harness",
+      "modelId": "deepseek-v4-flash",
+      "providerId": "deepseek",
+      "purpose": "Mature Provider Harness reference using the same model family when visible information, capability, and acceptance equivalence are proven",
+      "repetitions": {
+        "architectureDecision": 5,
+        "development": 3,
+        "smoke": 1
+      },
+      "status": "conditional_on_equivalent_task_and_tool_contract"
+    }
+  ],
+  "designBase": {
+    "computingRevision": "d1b351168e43013adccb1828345a251bb9095023",
+    "harnessRevision": "796e9f07899a250ea4d87ae3e96f38c7172ff674",
+    "hostRevision": "1a4027bb26d77a2e051ca933bf664578f071a5a9",
+    "protocolRevision": "420dc356cb664d75db0f34f356156baebe5843db",
+    "runtimeRevision": "ce061a5995d7a59246a103dcc51f0539245209a6"
+  },
+  "executionRevisionPolicy": "Capture exact clean component, binary, protocol, Provider, model, Adapter, prompt, Context, Tool, budget, environment, Task, and verifier identities in a complete System Manifest at campaign start. Any material change creates a new configuration group.",
+  "faultCells": [
+    {
+      "cellId": "HOST-STALE-ASSIGNMENT",
+      "deterministic": true,
+      "expected": "Host rejects it before acceptance and dispatches no new Runtime work",
+      "forbidden": "Task advances or TaskOutcome is created",
+      "injection": "Submit a completion proposal from an obsolete Assignment generation",
+      "owner": "ordivon-host"
+    },
+    {
+      "cellId": "HOST-MISSING-ARTIFACT",
+      "deterministic": true,
+      "expected": "Host rejects completion and preserves Runtime success as physical evidence only",
+      "forbidden": "Process success becomes semantic completion",
+      "injection": "Return a physically successful Runtime Job without the required completion Artifact",
+      "owner": "ordivon-host"
+    },
+    {
+      "cellId": "HARNESS-INVALID-TOOL-CORRECTION",
+      "deterministic": true,
+      "expected": "Invalid call is retained and not dispatched; corrected call may proceed",
+      "forbidden": "Malformed arguments reach Runtime or vanish from the Trace",
+      "injection": "Emit malformed Runtime Tool arguments followed by one corrected Tool call",
+      "owner": "ordivon-harness"
+    },
+    {
+      "cellId": "RUNTIME-RESPONSE-LOSS-REPLAY",
+      "deterministic": true,
+      "expected": "Fresh caller locates one Job and exact replay returns the same Job and Attempt",
+      "forbidden": "A second physical dispatch occurs",
+      "injection": "Lose the client response after Runtime admission",
+      "owner": "ordivon-runtime"
+    },
+    {
+      "cellId": "CROSS-RESTART-AFTER-RUN",
+      "deterministic": true,
+      "expected": "Fresh process reconstructs native evidence and commits at most one decision and TaskOutcome",
+      "forbidden": "Provider Session memory, copied transcript, duplicate decision, or duplicate effect is required",
+      "injection": "Stop the Host/Harness process after durable Run receipt and before final Host decision",
+      "owner": "cross_layer"
+    }
+  ],
+  "firstCampaign": {
+    "campaignId": "HHR-R3-BASELINE-001",
+    "excludedUntilBaselineCloseout": [
+      "one_shot_live_trials",
+      "provider_harness_live_trials",
+      "architecture_decision_claim",
+      "observation_replay",
+      "world_replay",
+      "post_training"
+    ],
+    "phases": [
+      "complete_campaign_preflight",
+      "scripted_integrated_smoke",
+      "three_ordivon_harness_deepseek_trials",
+      "five_boundary_fault_cells",
+      "trajectory_review_and_closeout"
+    ],
+    "sequentialOnly": true,
+    "status": "not_started"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:bd24e70cab5f64eeb53490bda982f5e848723ef79b392e875f55d69c2c07269b"
+  },
+  "kind": "ordivon.evaluation-formal-trial-plan",
+  "outputs": [
+    "campaign-preflight.json",
+    "system-manifests/<configuration>.json",
+    "trials/<trial-id>/intent.json",
+    "trials/<trial-id>/native-refs.json",
+    "trials/<trial-id>/runner-state.json",
+    "trials/<trial-id>/trial.json",
+    "trials/<trial-id>/result.json",
+    "trials/<trial-id>/failures/*.json",
+    "trials/<trial-id>/review.json",
+    "closeout.json"
+  ],
+  "planId": "HHR-R3-001",
+  "questionRef": "ANC-VERIFY-001",
+  "reviewPolicy": {
+    "agentReviewRequiredFor": [
+      "all_failures",
+      "false_completion",
+      "duplicate_effect_or_dispatch",
+      "anomalous_cost_success",
+      "verifier_or_grader_disagreement",
+      "manual_intervention",
+      "sample_of_accepted_trials_before_architecture_decision"
+    ],
+    "dashboardRequired": false,
+    "humanReviewRequiredFor": [
+      "ambiguous_semantic_verdict",
+      "consequential_external_effect",
+      "privacy_or_publication_decision",
+      "major_architecture_deletion",
+      "human_facing_media_output"
+    ],
+    "rawReasoningRequired": false
+  },
+  "schemaVersion": 1,
+  "status": "designed_not_executed",
+  "stopConditions": [
+    "task_or_verifier_qa_instability",
+    "material_configuration_change_within_group",
+    "unreconciled_host_harness_or_runtime_state",
+    "secret_or_private_reasoning_in_evidence",
+    "duplicate_physical_dispatch",
+    "duplicate_task_outcome",
+    "workspace_or_process_tree_disposition_unknown_at_closeout",
+    "provider_behavior_change_during_comparison_window"
+  ],
+  "task": {
+    "fileDigest": "sha256:35968c8d52b351ba2919f5618f2b12ed2bca22342ac8d79f5276041408501f57",
+    "initialSource": {
+      "environmentDigest": "sha256:f138518c20e3fea3e1a6f88478e78ab73da92fda22b882516c1cc48ad6943453",
+      "fixturePath": "fixtures/harness-replacement-repository-repair-v1",
+      "repositoryId": "ordivon-host",
+      "sourceRevision": "b4bc43a4ea7eb1e7771644d507bc4a3a39b4e741"
+    },
+    "path": "evals/harness-repository-repair-001/task.json",
+    "payloadDigest": "sha256:a841ff3e6f6d0796d4e5e0fbc1595abad1a43833eace4bcd71f406889693eb4b",
+    "qa": {
+      "cleanRebuildTrials": 3,
+      "path": "evals/harness-repository-repair-001/evidence/r2-task-qa.json",
+      "payloadDigest": "sha256:d8cf70a7eb86e9fe1c975988bc00923e14d4377ab5b8341ac50d35d70f676bc4",
+      "requiredAgreement": 3
+    },
+    "repositoryId": "ordivon-harness",
+    "taskId": "HARNESS-REPO-REPAIR-001",
+    "taskVersion": 1,
+    "verifier": {
+      "hiddenVerifierDigest": "sha256:65599a7f620009d016844e23b8a7b3fadb1b6a66f7c4cc6250409b21373b8007",
+      "verifierId": "HARNESS-REPO-REPAIR-001-verifier",
+      "verifierRevision": "1"
+    }
+  }
+}

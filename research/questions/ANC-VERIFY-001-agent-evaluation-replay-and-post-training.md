@@ -119,4 +119,6 @@ Shrink or delete the common envelope if any of these hold:
 
 ## Current disposition
 
-Retain the question and localize implementation to versioned files, standard-library validation, product-owned fixtures, and immutable evidence references. Promotion beyond Track R requires repeated consumers and measurable net deletion elsewhere.
+Retain the question and localize implementation to versioned files, standard-library validation, product-owned fixtures, and immutable evidence references. The accepted R3 design is [`../experiments/harness-evaluation-v0/FORMAL-TRIAL-DESIGN.md`](../experiments/harness-evaluation-v0/FORMAL-TRIAL-DESIGN.md), with machine plan [`../experiments/harness-evaluation-v0/formal-trial-plan-v1.json`](../experiments/harness-evaluation-v0/formal-trial-plan-v1.json).
+
+The immediate Ready Frontier is R3-A: implement the thin formal runner, complete System Manifest capture, atomic per-Trial intent/state, and projection from component-native receipts without invoking a live Provider. R3-B must prove one deterministic cross-layer smoke and five bounded fault cells before R3-C spends Provider budget on three sequential native Ordivon Harness DeepSeek Trials. One-shot and mature Provider Harness comparisons remain conditional on that baseline. Promotion beyond Track R requires repeated consumers and measurable net deletion elsewhere.
