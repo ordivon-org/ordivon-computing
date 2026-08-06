@@ -1,0 +1,109 @@
+{
+  "acceptance": {
+    "computing": {
+      "canonicalVectorsVerified": 5,
+      "jobId": "job-019fd5cf-7073-7200-9f27-c3cb33ef6734",
+      "kind": "python_3_12_full_conformance",
+      "status": "passed"
+    },
+    "harness": {
+      "jobId": "job-019fd5cb-8dd4-72b1-bf2e-1431ca7ca2db",
+      "kind": "exact_remote_host_pin_live_h2_and_scale",
+      "receipts": [
+        "evidence/hho-p0-release-h2-f7e03aa.json",
+        "evidence/hho-p0-scale-1000x100-f7e03aa.json"
+      ],
+      "scale": {
+        "events": 100000,
+        "inspectP95Ms": 6.016,
+        "reopenDoctorElapsedMs": 12959.051,
+        "runs": 1000,
+        "writeElapsedMs": 44805.18
+      },
+      "status": "passed"
+    },
+    "host": {
+      "jobId": "job-019fd5c6-138b-7001-942c-1168df13a5dd",
+      "kind": "portable_and_live_runtime_read",
+      "runtimeWorkspaceClosed": true,
+      "status": "passed",
+      "tests": 177
+    },
+    "runtime": {
+      "kind": "portable_and_real_systemd_cgroup_mcp",
+      "portableJobId": "job-019fd5d2-6b51-7a12-845f-9fd9c035c380",
+      "runningServerDigest": "sha256:510f37c1720ea96f47187a8a0e074a470c501ab22bbae554d83bdbc241cf55f5",
+      "status": "passed",
+      "systemCheckCount": 74,
+      "systemJobId": "job-019fd5d6-3c86-7a73-a9ef-45e70960de57"
+    }
+  },
+  "gates": {
+    "allSelectedRevisionsRemoteReachable": true,
+    "crossRepositoryLiveJourneyPassed": true,
+    "harnessCleanInstallUsesRemoteHostPin": true,
+    "noRemoteDivergenceAtSelection": true,
+    "productionActivated": false,
+    "runtimeRealSystemAcceptancePassed": true,
+    "stagingRehearsalRequired": true
+  },
+  "generatedFromComputingRevision": "f9732ea5614d41d1d82885f3c522685ced62fec6",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:aa2132a57b0a448971932f19ccad772c3cf1546687bee6abf6e443efa8bcae72"
+  },
+  "kind": "ordivon.system-version-vector",
+  "limitations": [
+    "This vector proves remote reachability and bounded acceptance, not production Host or Harness authority activation.",
+    "The containing Computing Git commit is the identity of this vector file; the file records its pre-vector Computing baseline to avoid self-reference.",
+    "A4 staging backup, restore, cutover, rollback and cleanup rehearsal has not run."
+  ],
+  "nextGate": "A4_staging_deployment_and_cutover_rehearsal",
+  "repositories": {
+    "computing": {
+      "branch": "main",
+      "remoteReachable": true,
+      "revision": "f9732ea5614d41d1d82885f3c522685ced62fec6",
+      "url": "https://github.com/zycxfyh/ordivon-computing.git"
+    },
+    "harness": {
+      "branch": "main",
+      "hostPin": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
+      "protocolPin": "420dc356cb664d75db0f34f356156baebe5843db",
+      "remoteReachable": true,
+      "revision": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
+      "url": "https://github.com/zycxfyh/ordivon-harness.git",
+      "verifiedImplementationRevision": "f7e03aa78fec63237df6690c0c8f85e4a2ef76c1"
+    },
+    "host": {
+      "branch": "main",
+      "remoteReachable": true,
+      "revision": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
+      "url": "https://github.com/zycxfyh/ordivon-host.git"
+    },
+    "protocol": {
+      "ancestorOfComputing": true,
+      "revision": "420dc356cb664d75db0f34f356156baebe5843db",
+      "subdirectory": "packages/ordivon-protocol",
+      "url": "https://github.com/zycxfyh/ordivon-computing.git",
+      "version": "0.3.0"
+    },
+    "runtime": {
+      "branch": "main",
+      "remoteReachable": true,
+      "revision": "ce061a5995d7a59246a103dcc51f0539245209a6",
+      "url": "https://github.com/zycxfyh/ordivon-runtime.git"
+    }
+  },
+  "schemaVersion": 1,
+  "status": "release_reproducible_staging_not_run",
+  "toolchain": {
+    "computingPython": "3.12",
+    "notes": [
+      "Computing conformance must run with supported Python 3.12; the ambient system Python 3.14 does not provide the protocol test dependency jsonschema."
+    ],
+    "runtimeRust": "1.95.0"
+  },
+  "vectorId": "OCR-A3-20260806-01"
+}

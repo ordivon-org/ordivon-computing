@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "kind": "ordivon.cognitive-reform-execution-program",
   "programId": "OCR-V0-001",
-  "status": "level_a_core_complete_release_active_b1_authorized",
+  "status": "level_a_release_complete_deploy_ready_b1_authorized",
   "questionRef": "ANC-COMPILER-002",
   "evaluationQuestionRef": "ANC-VERIFY-001",
   "observedRevisions": {
-    "computing": "9cf4055967650a99d2c343830c795cfa04b2ed92",
+    "computing": "f9732ea5614d41d1d82885f3c522685ced62fec6",
     "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
-    "harness": "3aab3272577027ce418df47ed061eb2146e9901f",
+    "harness": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
     "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6",
     "protocol": "420dc356cb664d75db0f34f356156baebe5843db"
   },
@@ -29,7 +29,7 @@
     {
       "levelId": "A",
       "title": "Current-system closeout",
-      "status": "core_complete_release_active_deploy_blocked",
+      "status": "release_complete_deploy_ready",
       "required": true,
       "gate": [
         "a_core_current_main_evidence_and_program_are_closed",
@@ -176,7 +176,7 @@
       "id": "A3",
       "owner": "ordivon-computing",
       "title": "Exact cross-repository release version vector",
-      "status": "in_progress",
+      "status": "completed",
       "inScope": [
         "fetch_and_divergence_audit",
         "remote_reachability",
@@ -196,13 +196,19 @@
         "no_unreviewed_divergence",
         "clean_install_uses_remote_exact_pins_without_local_source_overlay",
         "cross_repository_acceptance_passes"
-      ]
+      ],
+      "completion": {
+        "versionVector": "research/experiments/cognitive-reform-v0/system-version-vector-v1.json",
+        "remoteReachability": "passed",
+        "cleanInstall": "passed",
+        "liveAcceptance": "passed"
+      }
     },
     {
       "id": "A4",
       "owner": "ordivon-harness",
       "title": "Staging deployment and cutover rehearsal",
-      "status": "blocked_by_A3",
+      "status": "ready",
       "inScope": [
         "private_staging_host_and_harness_roots",
         "doctor",
@@ -276,17 +282,20 @@
       "evidenceGate": "passed"
     },
     "aRelease": {
-      "status": "in_progress",
-      "knownBlockers": [
-        "selected_local_revisions_are_ahead_of_origin_main",
-        "harness_host_extra_still_pins_1a4027bb26d77a2e051ca933bf664578f071a5a9",
-        "remote_divergence_has_not_yet_been_refreshed_and_reviewed"
-      ],
-      "nextGate": "fetch_all_remotes_and_prove_fast_forward_or_resolve_divergence_before_any_push_or_pin_change"
+      "status": "completed",
+      "versionVector": "research/experiments/cognitive-reform-v0/system-version-vector-v1.json",
+      "selectedRevisions": {
+        "computing": "f9732ea5614d41d1d82885f3c522685ced62fec6",
+        "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
+        "harness": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
+        "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6"
+      },
+      "protocolRevision": "420dc356cb664d75db0f34f356156baebe5843db"
     },
     "aDeploy": {
-      "status": "blocked_by_A3",
-      "productionActivationRequiredForLevelB": false
+      "status": "ready",
+      "productionActivationRequiredForLevelB": false,
+      "nextGate": "staging_only_backup_restore_cutover_rollback_cleanup"
     },
     "b1ObservationMinimumCoreAuthorized": true
   }
