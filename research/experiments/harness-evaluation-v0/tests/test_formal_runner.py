@@ -164,6 +164,83 @@ class FormalRunnerTests(unittest.TestCase):
                 with self.assertRaises(runner.FormalRunnerPolicyError):
                     another.admit_selection(invalid)
 
+    def test_incomplete_selection_is_retained_only_for_nonvalid_disposition(self) -> None:
+        selection = json.loads(B3_SELECTION.read_text(encoding="utf-8"))
+        selection["completeness"]["complete"] = False
+        selection.pop("integrity")
+        selection = runner.with_integrity(selection)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            store = self.initialize(root / "invalid-trial")
+            for expected, next_stage, timestamp in (
+                ("planned", "prepared", 101),
+                ("prepared", "executing", 102),
+                ("executing", "evidence_collected", 103),
+            ):
+                store.advance(
+                    expected_stage=expected,
+                    next_stage=next_stage,
+                    updated_at_ms=timestamp,
+                )
+            digest = store.record_selection(selection)
+            self.assertEqual(digest, selection["integrity"]["payloadDigest"])
+            store.advance(
+                expected_stage="evidence_collected",
+                next_stage="verified",
+                updated_at_ms=104,
+                records=("observation-selection.json",),
+            )
+            disposed = store.dispose(
+                runner.TrialDisposition(
+                    trial_id=store.trial_id,
+                    validity="invalid",
+                    semantic_outcome="not_reached",
+                    comparative_outcome="unknown",
+                    failure_attribution="infrastructure",
+                    comparison_eligible=False,
+                    reasons=("cross-owner evidence remained incomplete",),
+                    selection_digest=selection["selectionDigest"],
+                ),
+                updated_at_ms=105,
+            )
+            self.assertEqual(disposed["stage"], "disposed")
+
+            valid = self.initialize(root / "valid-trial")
+            for expected, next_stage, timestamp in (
+                ("planned", "prepared", 101),
+                ("prepared", "executing", 102),
+                ("executing", "evidence_collected", 103),
+            ):
+                valid.advance(
+                    expected_stage=expected,
+                    next_stage=next_stage,
+                    updated_at_ms=timestamp,
+                )
+            valid.record_selection(selection)
+            valid.advance(
+                expected_stage="evidence_collected",
+                next_stage="verified",
+                updated_at_ms=104,
+                records=("observation-selection.json",),
+            )
+            with self.assertRaisesRegex(
+                runner.FormalRunnerPolicyError,
+                "valid Trial requires a complete",
+            ):
+                valid.dispose(
+                    runner.TrialDisposition(
+                        trial_id=valid.trial_id,
+                        validity="valid",
+                        semantic_outcome="rejected",
+                        comparative_outcome="not_applicable",
+                        failure_attribution="candidate",
+                        comparison_eligible=False,
+                        reasons=("candidate failed verification",),
+                        selection_digest=selection["selectionDigest"],
+                    ),
+                    updated_at_ms=105,
+                )
+
     def test_disposition_is_three_axis_and_bound_to_selection(self) -> None:
         selection = json.loads(B3_SELECTION.read_text(encoding="utf-8"))
         with tempfile.TemporaryDirectory() as directory:

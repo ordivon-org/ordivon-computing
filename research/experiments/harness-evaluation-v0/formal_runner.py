@@ -482,17 +482,24 @@ class TrialRecordStore:
         _atomic_write(self.state_path, next_value)
         return next_value
 
-    def admit_selection(self, selection: dict[str, JsonValue]) -> str:
+    def record_selection(
+        self,
+        selection: dict[str, JsonValue],
+        *,
+        require_complete: bool = False,
+    ) -> str:
         if selection.get("kind") != "ordivon.observation-selection-manifest":
             raise FormalRunnerPolicyError("Observation Selection kind differs")
         completeness = selection.get("completeness")
         privacy = selection.get("privacy")
-        if not isinstance(completeness, dict) or completeness.get("complete") is not True:
-            raise FormalRunnerPolicyError("Observation Selection is incomplete")
+        if not isinstance(completeness, dict):
+            raise FormalRunnerPolicyError("Observation Selection completeness differs")
         if completeness.get("trialValidityInferred") is not False:
             raise FormalRunnerPolicyError(
                 "Observation Selection must not infer Trial validity"
             )
+        if require_complete and completeness.get("complete") is not True:
+            raise FormalRunnerPolicyError("Observation Selection is incomplete")
         if not isinstance(privacy, dict) or privacy.get("metadataOnly") is not True:
             raise FormalRunnerPolicyError("Observation Selection is not metadata-only")
         if privacy.get("payloadBytesCopied") is not False or privacy.get(
@@ -500,7 +507,15 @@ class TrialRecordStore:
         ) is not False:
             raise FormalRunnerPolicyError("Observation Selection privacy gate failed")
         selection_digest = selection.get("selectionDigest")
-        if not isinstance(selection_digest, str) or len(selection_digest) != 71:
+        if (
+            not isinstance(selection_digest, str)
+            or len(selection_digest) != 71
+            or not selection_digest.startswith("sha256:")
+            or any(
+                character not in "0123456789abcdef"
+                for character in selection_digest[7:]
+            )
+        ):
             raise FormalRunnerPolicyError("Observation Selection digest is invalid")
         return self.write_record(
             "observation-selection.json",
@@ -508,12 +523,28 @@ class TrialRecordStore:
             minimum_stage="evidence_collected",
         )
 
+    def admit_selection(self, selection: dict[str, JsonValue]) -> str:
+        return self.record_selection(selection, require_complete=True)
+
     def dispose(self, disposition: TrialDisposition, *, updated_at_ms: int) -> dict[str, Any]:
         if disposition.trial_id != self.trial_id:
             raise FormalRunnerConflict("Disposition belongs to another Trial")
         selection = self.record("observation-selection.json")
         if disposition.selection_digest != selection.get("selectionDigest"):
             raise FormalRunnerConflict("Disposition Selection digest differs")
+        completeness = selection.get("completeness")
+        selection_complete = (
+            isinstance(completeness, dict)
+            and completeness.get("complete") is True
+        )
+        if disposition.validity == "valid" and not selection_complete:
+            raise FormalRunnerPolicyError(
+                "valid Trial requires a complete Observation Selection"
+            )
+        if disposition.comparison_eligible and not selection_complete:
+            raise FormalRunnerPolicyError(
+                "comparison-eligible Trial requires a complete Observation Selection"
+            )
         self.write_record(
             "disposition.json",
             disposition.to_dict(),
