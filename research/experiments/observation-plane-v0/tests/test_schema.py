@@ -25,6 +25,7 @@ class ObservationSchemaTests(unittest.TestCase):
                 "observation-ingest-acknowledgement-v1.schema.json",
                 "observation-export-checkpoint-v1.schema.json",
                 "observation-export-bundle-v1.schema.json",
+                "observation-selection-manifest-v1.schema.json",
             },
         )
         for name, schema in generated.items():

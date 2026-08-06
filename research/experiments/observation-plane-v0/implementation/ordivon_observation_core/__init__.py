@@ -71,6 +71,14 @@ __all__ = [
     "load_checkpoint",
     "write_checkpoint",
     "write_export_bundle",
+    "ARTIFACT_COVERAGE_MODES",
+    "QUERY_VERSION",
+    "SELECTION_KIND",
+    "SELECTION_SCHEMA_VERSION",
+    "ObservationSelectionError",
+    "ObservationSelectionManifest",
+    "TrajectoryQuerySpec",
+    "select_cross_owner_trajectory",
 ]
 
 from .gateway import (
@@ -97,4 +105,15 @@ from .exporter import (
     load_checkpoint,
     write_checkpoint,
     write_export_bundle,
+)
+
+from .selection import (
+    ARTIFACT_COVERAGE_MODES,
+    QUERY_VERSION,
+    SELECTION_KIND,
+    SELECTION_SCHEMA_VERSION,
+    ObservationSelectionError,
+    ObservationSelectionManifest,
+    TrajectoryQuerySpec,
+    select_cross_owner_trajectory,
 )

@@ -1,0 +1,328 @@
+{
+  "$id": "https://ordivon.com/schemas/observation-selection-manifest-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "catalogDigest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "completeness": {
+      "additionalProperties": false,
+      "properties": {
+        "claims": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "claimId": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "satisfied",
+                  "missing"
+                ]
+              }
+            },
+            "required": [
+              "claimId",
+              "status"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "trialValidityInferred": {
+          "const": false
+        }
+      },
+      "required": [
+        "complete",
+        "claims",
+        "trialValidityInferred"
+      ],
+      "type": "object"
+    },
+    "integrity": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "canonicalization": {
+          "const": "ordivon-evidence-json-v1"
+        },
+        "payloadDigest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "payloadDigest"
+      ],
+      "type": "object"
+    },
+    "kind": {
+      "const": "ordivon.observation-selection-manifest"
+    },
+    "limitations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "privacy": {
+      "additionalProperties": false,
+      "properties": {
+        "metadataOnly": {
+          "const": true
+        },
+        "payloadBytesCopied": {
+          "const": false
+        },
+        "privacyClasses": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "secretForbiddenPresent": {
+          "const": false
+        }
+      },
+      "required": [
+        "metadataOnly",
+        "payloadBytesCopied",
+        "privacyClasses",
+        "secretForbiddenPresent"
+      ],
+      "type": "object"
+    },
+    "producerMappingVersions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "componentId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "mappingVersion": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "projectId": {
+            "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "projectId",
+          "componentId",
+          "mappingVersion"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "query": {
+      "additionalProperties": false,
+      "properties": {
+        "anchor": {
+          "additionalProperties": false,
+          "properties": {
+            "targetId": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "targetKind": {
+              "const": "ordivon.host.task"
+            }
+          },
+          "required": [
+            "targetKind",
+            "targetId"
+          ],
+          "type": "object"
+        },
+        "artifactCoverage": {
+          "enum": [
+            "observation_append_only",
+            "owner_native_only"
+          ]
+        },
+        "queryId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "queryVersion": {
+          "const": "cross-owner-task-trajectory-v1"
+        }
+      },
+      "required": [
+        "queryId",
+        "queryVersion",
+        "anchor",
+        "artifactCoverage"
+      ],
+      "type": "object"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "selectedEvents": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "envelopeDigest": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "eventId": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "source": {
+            "additionalProperties": false,
+            "properties": {
+              "componentId": {
+                "maxLength": 256,
+                "minLength": 1,
+                "type": "string"
+              },
+              "instanceId": {
+                "maxLength": 512,
+                "minLength": 1,
+                "type": "string"
+              },
+              "mappingVersion": {
+                "maxLength": 128,
+                "minLength": 1,
+                "type": "string"
+              },
+              "nativeId": {
+                "maxLength": 1024,
+                "minLength": 1,
+                "type": "string"
+              },
+              "nativeKind": {
+                "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+                "type": "string"
+              },
+              "projectId": {
+                "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+                "type": "string"
+              },
+              "sequence": {
+                "minimum": 1,
+                "type": "integer"
+              },
+              "streamId": {
+                "maxLength": 1024,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "projectId",
+              "componentId",
+              "instanceId",
+              "streamId",
+              "sequence",
+              "nativeKind",
+              "nativeId",
+              "mappingVersion"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "eventId",
+          "envelopeDigest",
+          "source"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "selectionDigest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "sourceStreamHeads": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "completenessState": {
+            "enum": [
+              "complete",
+              "gap",
+              "quarantined"
+            ]
+          },
+          "componentId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "highestSeenSequence": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "instanceId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "lastContiguousSequence": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "projectId": {
+            "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+            "type": "string"
+          },
+          "streamId": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "projectId",
+          "componentId",
+          "instanceId",
+          "streamId",
+          "lastContiguousSequence",
+          "highestSeenSequence",
+          "completenessState"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "query",
+    "catalogDigest",
+    "selectedEvents",
+    "sourceStreamHeads",
+    "producerMappingVersions",
+    "completeness",
+    "privacy",
+    "limitations",
+    "selectionDigest",
+    "integrity"
+  ],
+  "title": "Ordivon Observation Selection Manifest v1",
+  "type": "object"
+}

@@ -15,6 +15,7 @@ from .contract import (
     RELATION_TYPES,
 )
 from .exporter import BUNDLE_KIND, CHECKPOINT_KIND
+from .selection import ARTIFACT_COVERAGE_MODES, SELECTION_KIND
 
 _DIGEST_PATTERN = r"^sha256:[0-9a-f]{64}$"
 _KIND_PATTERN = r"^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$"
@@ -361,6 +362,168 @@ def observation_export_bundle_schema() -> dict[str, Any]:
     }
 
 
+
+def observation_selection_manifest_schema() -> dict[str, Any]:
+    digest = {"type": "string", "pattern": _DIGEST_PATTERN}
+    namespaced_kind = {"type": "string", "pattern": _KIND_PATTERN}
+    source = _strict_object(
+        {
+            "projectId": namespaced_kind,
+            "componentId": {"type": "string", "minLength": 1, "maxLength": 256},
+            "instanceId": {"type": "string", "minLength": 1, "maxLength": 512},
+            "streamId": {"type": "string", "minLength": 1, "maxLength": 1024},
+            "sequence": {"type": "integer", "minimum": 1},
+            "nativeKind": namespaced_kind,
+            "nativeId": {"type": "string", "minLength": 1, "maxLength": 1024},
+            "mappingVersion": {"type": "string", "minLength": 1, "maxLength": 128},
+        },
+        required=[
+            "projectId",
+            "componentId",
+            "instanceId",
+            "streamId",
+            "sequence",
+            "nativeKind",
+            "nativeId",
+            "mappingVersion",
+        ],
+    )
+    selected_event = _strict_object(
+        {"eventId": digest, "envelopeDigest": digest, "source": source},
+        required=["eventId", "envelopeDigest", "source"],
+    )
+    stream_head = _strict_object(
+        {
+            "projectId": namespaced_kind,
+            "componentId": {"type": "string", "minLength": 1},
+            "instanceId": {"type": "string", "minLength": 1},
+            "streamId": {"type": "string", "minLength": 1},
+            "lastContiguousSequence": {"type": "integer", "minimum": 0},
+            "highestSeenSequence": {"type": "integer", "minimum": 0},
+            "completenessState": {"enum": ["complete", "gap", "quarantined"]},
+        },
+        required=[
+            "projectId",
+            "componentId",
+            "instanceId",
+            "streamId",
+            "lastContiguousSequence",
+            "highestSeenSequence",
+            "completenessState",
+        ],
+    )
+    mapping = _strict_object(
+        {
+            "projectId": namespaced_kind,
+            "componentId": {"type": "string", "minLength": 1},
+            "mappingVersion": {"type": "string", "minLength": 1},
+        },
+        required=["projectId", "componentId", "mappingVersion"],
+    )
+    claim = _strict_object(
+        {
+            "claimId": {"type": "string", "minLength": 1},
+            "status": {"enum": ["satisfied", "missing"]},
+        },
+        required=["claimId", "status"],
+    )
+    query = _strict_object(
+        {
+            "queryId": {"type": "string", "minLength": 1},
+            "queryVersion": {"const": "cross-owner-task-trajectory-v1"},
+            "anchor": _strict_object(
+                {
+                    "targetKind": {"const": "ordivon.host.task"},
+                    "targetId": {"type": "string", "minLength": 1},
+                },
+                required=["targetKind", "targetId"],
+            ),
+            "artifactCoverage": {"enum": sorted(ARTIFACT_COVERAGE_MODES)},
+        },
+        required=["queryId", "queryVersion", "anchor", "artifactCoverage"],
+    )
+    integrity = _strict_object(
+        {
+            "algorithm": {"const": "sha256"},
+            "canonicalization": {"const": "ordivon-evidence-json-v1"},
+            "payloadDigest": digest,
+        },
+        required=["algorithm", "canonicalization", "payloadDigest"],
+    )
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://ordivon.com/schemas/observation-selection-manifest-v1.json",
+        "title": "Ordivon Observation Selection Manifest v1",
+        **_strict_object(
+            {
+                "schemaVersion": {"const": 1},
+                "kind": {"const": SELECTION_KIND},
+                "query": query,
+                "catalogDigest": digest,
+                "selectedEvents": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": selected_event,
+                },
+                "sourceStreamHeads": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": stream_head,
+                },
+                "producerMappingVersions": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": mapping,
+                },
+                "completeness": _strict_object(
+                    {
+                        "complete": {"type": "boolean"},
+                        "claims": {"type": "array", "items": claim},
+                        "trialValidityInferred": {"const": False},
+                    },
+                    required=["complete", "claims", "trialValidityInferred"],
+                ),
+                "privacy": _strict_object(
+                    {
+                        "metadataOnly": {"const": True},
+                        "payloadBytesCopied": {"const": False},
+                        "privacyClasses": {
+                            "type": "array",
+                            "items": {"type": "string", "minLength": 1},
+                        },
+                        "secretForbiddenPresent": {"const": False},
+                    },
+                    required=[
+                        "metadataOnly",
+                        "payloadBytesCopied",
+                        "privacyClasses",
+                        "secretForbiddenPresent",
+                    ],
+                ),
+                "limitations": {
+                    "type": "array",
+                    "items": {"type": "string", "minLength": 1},
+                },
+                "selectionDigest": digest,
+                "integrity": integrity,
+            },
+            required=[
+                "schemaVersion",
+                "kind",
+                "query",
+                "catalogDigest",
+                "selectedEvents",
+                "sourceStreamHeads",
+                "producerMappingVersions",
+                "completeness",
+                "privacy",
+                "limitations",
+                "selectionDigest",
+                "integrity",
+            ],
+        ),
+    }
+
 def schemas() -> dict[str, dict[str, Any]]:
     return {
         "observation-envelope-v1.schema.json": observation_envelope_schema(),
@@ -368,6 +531,7 @@ def schemas() -> dict[str, dict[str, Any]]:
         "observation-ingest-acknowledgement-v1.schema.json": observation_acknowledgement_schema(),
         "observation-export-checkpoint-v1.schema.json": observation_export_checkpoint_schema(),
         "observation-export-bundle-v1.schema.json": observation_export_bundle_schema(),
+        "observation-selection-manifest-v1.schema.json": observation_selection_manifest_schema(),
     }
 
 
@@ -387,6 +551,7 @@ __all__ = [
     "observation_envelope_schema",
     "observation_export_bundle_schema",
     "observation_export_checkpoint_schema",
+    "observation_selection_manifest_schema",
     "schemas",
     "write_schemas",
 ]
