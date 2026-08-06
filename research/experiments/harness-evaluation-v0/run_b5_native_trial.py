@@ -73,6 +73,7 @@ from ordivon_harness.host_external_adapter import (  # noqa: E402
 )
 from ordivon_harness.observation_export import export_harness_observations  # noqa: E402
 from ordivon_harness.ordivon.deepseek import (  # noqa: E402
+    SUPPORTED_DEEPSEEK_MODELS,
     DeepSeekSettings,
     DeepSeekTurnAdapter,
 )
@@ -102,7 +103,9 @@ from ordivon_observation_core import (  # noqa: E402
 
 TASK_ID = "HARNESS-REPO-REPAIR-001"
 TASK_VERSION = 1
-CONFIGURATION_ID = "ordivon-harness-deepseek"
+FLASH_CONFIGURATION_ID = "ordivon-harness-deepseek"
+PRO_CONFIGURATION_ID = "ordivon-harness-deepseek-pro"
+CONFIGURATION_ID = FLASH_CONFIGURATION_ID
 CAMPAIGN_ID = "HHR-R3-BASELINE-001"
 DEFAULT_CAMPAIGN_STATE_ROOT = Path(
     "/root/.local/state/ordivon/b5-native-campaign-v1"
@@ -241,6 +244,8 @@ class RuntimeRecorder:
                     "code": translated.code,
                     "commitState": translated.commit_state,
                     "retryable": translated.retryable,
+                    "field": translated.field,
+                    "messageDigest": text_digest(translated.message),
                 }
             )
             raise HarnessRuntimeToolRejected(error.operation, translated) from error
@@ -253,6 +258,8 @@ class RuntimeRecorder:
                     "code": "runtime_client_error",
                     "commitState": "unknown",
                     "retryable": False,
+                    "field": None,
+                    "messageDigest": text_digest(str(error)),
                 }
             )
             raise HarnessRuntimeClientError(
@@ -310,6 +317,10 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--runtime-endpoint", default="http://127.0.0.1:8897/mcp")
     parser.add_argument("--runtime-registry-root", type=Path)
+    parser.add_argument(
+        "--model-override",
+        choices=SUPPORTED_DEEPSEEK_MODELS,
+    )
     parser.add_argument("--output-root", type=Path, required=True)
     parser.add_argument(
         "--campaign-state-root",
@@ -537,6 +548,48 @@ def build_execution_binding(
         deadline_ms=contract.deadline_ms,
         runtime_references=references,
     )
+
+
+def select_deepseek_settings(
+    base: DeepSeekSettings,
+    model_override: str | None,
+) -> tuple[DeepSeekSettings, str]:
+    model = base.model if model_override is None else model_override
+    if model not in SUPPORTED_DEEPSEEK_MODELS:
+        raise NativeTrialError(f"unsupported B5 DeepSeek model: {model}")
+    selected = DeepSeekSettings(
+        api_key=base.api_key,
+        base_url=base.base_url,
+        model=model,
+        credential_scope_id=base.credential_scope_id,
+        timeout_seconds=base.timeout_seconds,
+        max_response_bytes=base.max_response_bytes,
+        max_output_tokens=base.max_output_tokens,
+    )
+    configuration_id = (
+        PRO_CONFIGURATION_ID
+        if model == "deepseek-v4-pro"
+        else FLASH_CONFIGURATION_ID
+    )
+    return selected, configuration_id
+
+
+def validate_planned_configuration(
+    configuration_id: str,
+    model_id: str,
+) -> None:
+    preflight, _ = load_b5_preflight()
+    selected_configuration = preflight.get("selectedConfigurationId")
+    selected_model = preflight.get("selectedModelId")
+    if selected_configuration is None and selected_model is None:
+        return
+    if (
+        selected_configuration != configuration_id
+        or selected_model != model_id
+    ):
+        raise NativeTrialError(
+            "selected B5 configuration differs from the formal plan"
+        )
 
 
 def provider_configuration(settings: DeepSeekSettings) -> dict[str, Any]:
@@ -1056,6 +1109,37 @@ _TRACE_METADATA_FIELDS = (
 )
 
 
+_OBSERVATION_SCALAR_FIELDS = (
+    "relativePath",
+    "checkId",
+    "digest",
+    "contentDigest",
+    "code",
+    "field",
+    "commitState",
+    "retryable",
+    "safeToCorrect",
+    "correction",
+    "type",
+    "kind",
+)
+
+
+def _safe_observation_error(value: Any) -> dict[str, Any] | None:
+    if not isinstance(value, dict):
+        return None
+    result: dict[str, Any] = {}
+    for field in _OBSERVATION_SCALAR_FIELDS:
+        item = value.get(field)
+        if isinstance(item, (str, int, bool)) or item is None:
+            if item is not None:
+                result[field] = item
+    message = value.get("message")
+    if isinstance(message, str):
+        result["messageDigest"] = text_digest(message)
+    return result or None
+
+
 def build_trace_summary(
     ids: TrialIds,
     loop: Any,
@@ -1086,6 +1170,32 @@ def build_trace_summary(
                 "metadata": metadata,
             }
         )
+    observations: list[dict[str, Any]] = []
+    for observation in loop.observations:
+        content = observation.structured_content
+        metadata: dict[str, Any] = {}
+        for field in _OBSERVATION_SCALAR_FIELDS:
+            item = content.get(field)
+            if isinstance(item, (str, int, bool)) or item is None:
+                if item is not None:
+                    metadata[field] = item
+        error = _safe_observation_error(content.get("error"))
+        if error is None and any(
+            field in content
+            for field in ("message", "code", "commitState", "safeToCorrect")
+        ):
+            error = _safe_observation_error(content)
+        observations.append(
+            {
+                "toolCallId": observation.tool_call_id,
+                "toolName": observation.tool_name,
+                "status": observation.status,
+                "runtimeJobRef": observation.runtime_job_ref,
+                "reconciled": observation.reconciled,
+                "metadata": metadata,
+                "error": error,
+            }
+        )
     value = with_integrity(
         {
             "schemaVersion": 1,
@@ -1095,11 +1205,15 @@ def build_trace_summary(
             "traceDigest": loop.trace.digest,
             "eventCount": len(events),
             "events": events,
+            "toolObservationCount": len(observations),
+            "toolObservations": observations,
             "runtimeErrorTranslations": list(runtime.error_translations),
             "privacy": {
                 "modelContentRetained": False,
                 "toolArgumentsRetained": False,
+                "observationContentRetained": False,
                 "detailTextRetained": False,
+                "errorMessageTextRetained": False,
             },
         }
     )
@@ -1372,7 +1486,7 @@ def build_failure_record(
         first_event = {
             "sequence": None if event is None else event.sequence,
             "eventKind": "run_stopped" if event is None else event.kind,
-            "evidenceRef": f"harness-run:{ids.harness_run_id}",
+            "evidenceRef": ids.harness_run_id,
         }
     value = with_integrity(
         {
@@ -1392,7 +1506,7 @@ def build_failure_record(
             "minimalCorrection": correction,
             "correctionCost": None,
             "evidenceRefs": [
-                f"harness-run:{ids.harness_run_id}",
+                ids.harness_run_id,
                 "observation-selection.json",
             ],
         }
@@ -1531,7 +1645,7 @@ def build_result_record(
             "trace": {
                 "digest": loop.trace.digest,
                 "eventCount": len(loop.trace.events),
-                "ref": f"harness-run:{ids.harness_run_id}",
+                "ref": ids.harness_run_id,
             },
             "failureRefs": (
                 [] if failure is None else [failure["failureId"]]
@@ -1598,12 +1712,17 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             raise NativeTrialError(f"owner revision differs: {repo.name}")
         if git(repo, "status", "--porcelain"):
             raise NativeTrialError(f"owner repository is dirty: {repo.name}")
-    settings = DeepSeekSettings.from_secret_file(
+    base_settings = DeepSeekSettings.from_secret_file(
         args.deepseek_secret,
         timeout_seconds=90.0,
         max_response_bytes=4_194_304,
         max_output_tokens=8_192,
     )
+    settings, configuration_id = select_deepseek_settings(
+        base_settings,
+        args.model_override,
+    )
+    validate_planned_configuration(configuration_id, settings.model)
     registry_root = args.runtime_registry_root
     if registry_root is None:
         configured = os.environ.get("ORDIVON_REGISTRY_ROOT")
@@ -1634,7 +1753,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
     trial: TrialRecordStore | None = TrialRecordStore.initialize(
         output,
         trial_id=ids.trial_id,
-        configuration_id=CONFIGURATION_ID,
+        configuration_id=configuration_id,
         task_ref={"taskId": TASK_ID, "taskVersion": TASK_VERSION},
         created_at_ms=int(time.time_ns() // 1_000_000),
     )
@@ -2213,7 +2332,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "schemaVersion": 1,
                 "kind": "ordivon.evaluation-b5-native-trial-closeout",
                 "trialId": ids.trial_id,
-                "configurationId": CONFIGURATION_ID,
+                "configurationId": configuration_id,
                 "computingRevision": computing_revision,
                 "computingClean": not computing_dirty,
                 "providerConfigurationDigest": provider_config_digest,

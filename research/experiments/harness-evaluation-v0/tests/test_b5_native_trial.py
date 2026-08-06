@@ -216,6 +216,8 @@ class B5NativeTrialTests(unittest.TestCase):
                     "code": "invalid_argument",
                     "commitState": "not_started",
                     "retryable": False,
+                    "field": "files",
+                    "messageDigest": b5.text_digest("patch range differs"),
                 }
             ],
         )
@@ -233,6 +235,39 @@ class B5NativeTrialTests(unittest.TestCase):
             "HarnessRuntimeClientError",
         )
         self.assertEqual(runtime.error_translations[0]["commitState"], "unknown")
+        self.assertIsNone(runtime.error_translations[0]["field"])
+        self.assertEqual(
+            runtime.error_translations[0]["messageDigest"],
+            b5.text_digest("transport unavailable"),
+        )
+
+    def test_model_override_preserves_secret_and_selects_exact_configuration(self) -> None:
+        base = b5.DeepSeekSettings(
+            api_key="sk-" + "m" * 32,
+            model="deepseek-v4-flash",
+            credential_scope_id="credential-scope:deepseek:pivot:test",
+            timeout_seconds=45.0,
+            max_response_bytes=123_456,
+            max_output_tokens=4_096,
+        )
+        selected, configuration_id = b5.select_deepseek_settings(
+            base,
+            "deepseek-v4-pro",
+        )
+        self.assertEqual(selected.model, "deepseek-v4-pro")
+        self.assertEqual(configuration_id, b5.PRO_CONFIGURATION_ID)
+        self.assertEqual(selected.api_key, base.api_key)
+        self.assertEqual(selected.base_url, base.base_url)
+        self.assertEqual(selected.credential_scope_id, base.credential_scope_id)
+        self.assertEqual(selected.timeout_seconds, base.timeout_seconds)
+        self.assertEqual(selected.max_response_bytes, base.max_response_bytes)
+        self.assertEqual(selected.max_output_tokens, base.max_output_tokens)
+        self.assertEqual(base.model, "deepseek-v4-flash")
+        default, default_configuration = b5.select_deepseek_settings(base, None)
+        self.assertEqual(default.model, "deepseek-v4-flash")
+        self.assertEqual(default_configuration, b5.FLASH_CONFIGURATION_ID)
+        with self.assertRaisesRegex(b5.NativeTrialError, "unsupported"):
+            b5.select_deepseek_settings(base, "unknown-model")
 
     def test_trace_summary_is_metadata_only_and_retains_failure_boundary(self) -> None:
         events = (
@@ -259,7 +294,31 @@ class B5NativeTrialTests(unittest.TestCase):
                 },
             ),
         )
-        loop = loop_result(b5.RunStopCode.HARNESS_FAILED, events=events)
+        observation = SimpleNamespace(
+            tool_call_id="tool:patch",
+            tool_name="patch_workspace",
+            status="rejected",
+            runtime_job_ref=None,
+            reconciled=False,
+            structured_content={
+                "relativePath": "allocation.py",
+                "clientRequestId": "private-request-id-not-retained",
+                "error": {
+                    "type": "RuntimeToolRejected",
+                    "code": "INVALID_REQUEST",
+                    "field": "files[0].edits[0].range",
+                    "commitState": "not_committed",
+                    "retryable": False,
+                    "message": "line range differs and must not survive",
+                    "nestedPayload": {"unretainedField": "must-not-survive"},
+                },
+            },
+        )
+        loop = loop_result(
+            b5.RunStopCode.HARNESS_FAILED,
+            events=events,
+            observations=(observation,),
+        )
         runtime = b5.RuntimeRecorder(SimpleNamespace())
         runtime.error_translations.append(
             {
@@ -269,18 +328,39 @@ class B5NativeTrialTests(unittest.TestCase):
                 "code": "runtime_client_error",
                 "commitState": "unknown",
                 "retryable": False,
+                "field": None,
+                "messageDigest": DIGEST_B,
             }
         )
         value = b5.build_trace_summary(b5.TrialIds.build(3), loop, runtime)
         encoded = json.dumps(value, sort_keys=True)
         self.assertNotIn("must-not-survive", encoded)
         self.assertNotIn("sensitive path omitted", encoded)
+        self.assertNotIn("private-request-id-not-retained", encoded)
+        self.assertNotIn("line range differs", encoded)
         self.assertEqual(value["events"][0]["metadata"]["toolName"], "patch_workspace")
         stopped = value["events"][1]["metadata"]
         self.assertEqual(stopped["stopCode"], "harness_failed")
         self.assertEqual(stopped["detailType"], "RuntimeProtocolError")
         self.assertTrue(stopped["detailDigest"].startswith("sha256:"))
+        self.assertEqual(value["toolObservationCount"], 1)
+        retained = value["toolObservations"][0]
+        self.assertEqual(retained["toolName"], "patch_workspace")
+        self.assertEqual(retained["status"], "rejected")
+        self.assertEqual(retained["metadata"]["relativePath"], "allocation.py")
+        self.assertEqual(retained["error"]["code"], "INVALID_REQUEST")
+        self.assertEqual(
+            retained["error"]["field"],
+            "files[0].edits[0].range",
+        )
+        self.assertEqual(retained["error"]["commitState"], "not_committed")
+        self.assertEqual(
+            retained["error"]["messageDigest"],
+            b5.text_digest("line range differs and must not survive"),
+        )
         self.assertFalse(value["privacy"]["toolArgumentsRetained"])
+        self.assertFalse(value["privacy"]["observationContentRetained"])
+        self.assertFalse(value["privacy"]["errorMessageTextRetained"])
         self.assertEqual(
             value["runtimeErrorTranslations"][0]["sourceType"],
             "RuntimeProtocolError",
@@ -450,6 +530,10 @@ class B5NativeTrialTests(unittest.TestCase):
         )
         self.assertEqual(failure["failureClass"], "MODEL")
         self.assertEqual(failure["failureCode"], "false_completion")
+        self.assertEqual(
+            failure["evidenceRefs"][0],
+            "harness-run:b5-native-001",
+        )
         result = b5.build_result_record(
             b5.TrialIds.build(1),
             loop=loop,
@@ -464,6 +548,7 @@ class B5NativeTrialTests(unittest.TestCase):
         )
         self.assertEqual(result["acceptance"]["status"], "rejected")
         self.assertTrue(result["acceptance"]["falseCompletion"])
+        self.assertEqual(result["trace"]["ref"], "harness-run:b5-native-001")
         b5.b4.validate_track_r_record(result)
 
     def test_provider_failure_without_runtime_job_is_formal_invalid_trial(self) -> None:
