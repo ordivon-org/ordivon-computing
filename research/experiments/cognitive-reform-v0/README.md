@@ -27,3 +27,16 @@ Run Actor scheduling, Child Runs, Prime/RLM Engine integration, Runtime Workers,
 ```bash
 python3 -m unittest research/experiments/cognitive-reform-v0/tests/test_program.py
 ```
+
+## A4 staging rehearsal
+
+A4 proves deployment mechanics without activating production authority. The executable uses only ephemeral children of `/var/lib/ordivon/staging`, installs the exact remote Harness/Host release graph, rehearses backup/verify/restore, proves both safe rollback and post-activation rollback fencing, checks Doctors, and removes the complete staging tree.
+
+```bash
+uv run --python 3.12 \
+  --with 'ordivon-harness[host] @ git+https://github.com/zycxfyh/ordivon-harness.git@f098f9492ab788068fd09da771bffc21e0fdc1b3' \
+  python research/experiments/cognitive-reform-v0/staging_rehearsal.py \
+  --output target/acceptance/a4-staging-rehearsal.json
+```
+
+The command must never target `/var/lib/ordivon/host` or `/var/lib/ordivon/harness`. Production activation remains a separate operator decision triggered by a real consumer.
