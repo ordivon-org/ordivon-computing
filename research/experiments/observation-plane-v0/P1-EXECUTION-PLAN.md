@@ -739,10 +739,11 @@ M1 is implemented and tested:
 - generated/frozen JSON Schemas;
 - deterministic metadata-only Host/Harness/Runtime fixture with 13 Events, three complete streams, and catalog digest `sha256:c71a5af70734d6a1f41167141affc9f6482194895cb3ab843bd6d5c6bd093f15`.
 
+The shared exporter contract is frozen at Computing `ad1d0240966441e783c1ce9ef0f79f710580ba70`. It provides an installable wheel, exact owner/exporter revision binding, dynamic export receipt time, and digest-CAS multi-stream checkpoints. Host and Harness use global Journal streams; Runtime uses one stream per Job and no fabricated global order.
+
 The immediate frontier is now:
 
-1. freeze this M1 implementation revision as the common exporter contract;
-2. add bounded run-once Harness, Host, and Runtime exporters with observation-owned sidecars and read-only owner access;
+1. add bounded run-once Harness, Host, and Runtime exporters with observation-owned sidecars and read-only owner access;
 3. reconstruct one real deterministic cross-owner trajectory and freeze an `ObservationSelectionManifest`;
 4. hand that selection to the R3 deterministic smoke before authorizing daemon, follow-service, OTel, Collector, backup operations, or million-event hardening.
 

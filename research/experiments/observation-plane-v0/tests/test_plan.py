@@ -37,7 +37,7 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(self.plan["planId"], "HHO-P0-P1-001")
         self.assertEqual(
             self.plan["status"],
-            "level_a_complete_p1_m1_implemented",
+            "level_a_complete_p1_m1_and_shared_export_contract_implemented",
         )
         self.assertEqual(
             self.plan["integrity"],
@@ -251,7 +251,18 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(progress["M1"]["tests"], 21)
         self.assertEqual(progress["M1"]["fixture"]["events"], 13)
         self.assertEqual(progress["M1"]["fixture"]["streams"], 3)
-        self.assertEqual(progress["M2"]["status"], "ready")
+        self.assertEqual(
+            progress["M2"]["status"],
+            "shared_contract_complete_owner_exporters_ready",
+        )
+        self.assertEqual(
+            progress["M2"]["contractRevision"],
+            "ad1d0240966441e783c1ce9ef0f79f710580ba70",
+        )
+        self.assertEqual(
+            progress["M2"]["streamSemantics"]["runtime"],
+            "per_job_event_sequence",
+        )
         self.assertEqual(progress["M3"]["status"], "blocked_by_M2")
         self.assertIn("owner_exporters", progress["M1"]["notIncluded"])
 

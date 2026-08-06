@@ -8,7 +8,8 @@ This directory is the executable M1 prototype for the non-authoritative Observat
 - deterministic native Event identity and canonical JSON digests;
 - generated and frozen Draft 2020-12 JSON Schemas;
 - an in-process SQLite Gateway with one-writer transactions, exact duplicate replay, corruption/gap/mapping/privacy quarantine, private modes, reopen, and full-history Doctor;
-- a frozen synthetic Host/Harness/Runtime trajectory and deterministic catalog rebuild.
+- a frozen synthetic Host/Harness/Runtime trajectory and deterministic catalog rebuild;
+- installable `ObservationExportCheckpoint` and `ObservationExportBundle` contracts with digest-CAS sidecar writes and multi-stream support.
 
 ## Excluded
 
@@ -29,3 +30,13 @@ ruff check \
   research/experiments/observation-plane-v0/tests/test_schema.py \
   research/experiments/observation-plane-v0/tests/test_fixture.py
 ```
+
+## Exact owner dependency
+
+Owner exporters must pin the shared package by exact Computing revision:
+
+```text
+ordivon-observation-core @ git+https://github.com/zycxfyh/ordivon-computing.git@ad1d0240966441e783c1ce9ef0f79f710580ba70#subdirectory=research/experiments/observation-plane-v0/implementation
+```
+
+Host and Harness use one global Journal stream. Runtime uses one stream per Job because Runtime has no durable global Event sequence. The checkpoint contract therefore stores a map of stream heads and never fabricates a Runtime-global order.

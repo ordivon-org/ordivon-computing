@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "ordivon.cognitive-reform-execution-program",
   "programId": "OCR-V0-001",
-  "status": "level_a_complete_b1_m1_complete",
+  "status": "level_a_complete_b2_shared_contract_complete",
   "questionRef": "ANC-COMPILER-002",
   "evaluationQuestionRef": "ANC-VERIFY-001",
   "observedRevisions": {
@@ -46,7 +46,7 @@
     {
       "levelId": "B",
       "title": "Evidence and strong sequential baseline",
-      "status": "b1_complete_exporters_ready",
+      "status": "b2_shared_contract_complete_owner_exporters_ready",
       "required": true,
       "gate": [
         "minimum_observation_core_rebuilds_one_cross_owner_selection",
@@ -284,6 +284,40 @@
           "B2-R"
         ]
       }
+    },
+    {
+      "id": "B2-C",
+      "owner": "ordivon-computing",
+      "title": "Shared owner-export bundle and multi-stream checkpoint contract",
+      "status": "completed",
+      "inputRevision": "aab988fa67c394d1c2f48d01a76951ad2969d68f",
+      "inScope": [
+        "installable_observation_core_wheel",
+        "multi_stream_export_checkpoint",
+        "digest_cas_atomic_sidecar",
+        "dynamic_export_time_bundle_receipt",
+        "exact_owner_and_exporter_revisions",
+        "checkpoint_and_bundle_json_schemas"
+      ],
+      "outOfScope": [
+        "owner_database_mapping",
+        "owner_exporter_cli",
+        "gateway_transport",
+        "daemon_or_follow_mode",
+        "production_sidecar_state"
+      ],
+      "completion": {
+        "contractRevision": "ad1d0240966441e783c1ce9ef0f79f710580ba70",
+        "package": "ordivon-observation-core==0.1.0",
+        "subdirectory": "research/experiments/observation-plane-v0/implementation",
+        "testsAdded": 8,
+        "wheelIsolatedImport": "passed",
+        "streamSemantics": {
+          "host": "one_global_journal_stream",
+          "harness": "one_global_journal_stream_with_per_run_revision_metadata",
+          "runtime": "one_stream_per_runtime_job"
+        }
+      }
     }
   ],
   "observationExecution": {
@@ -365,13 +399,19 @@
       "sourceBaseline": "a10c10f23215f02e1bddd2c567377193c0a144f8"
     },
     "exporters": {
-      "status": "ready",
+      "status": "owner_implementations_ready",
+      "sharedContractRevision": "ad1d0240966441e783c1ce9ef0f79f710580ba70",
+      "packageSubdirectory": "research/experiments/observation-plane-v0/implementation",
       "packages": [
         "B2-H",
         "B2-A",
         "B2-R"
       ],
-      "contractPath": "research/experiments/observation-plane-v0/implementation/ordivon_observation_core"
+      "streamSemantics": {
+        "B2-H": "global_host_journal_sequence",
+        "B2-A": "global_harness_journal_sequence",
+        "B2-R": "per_job_event_sequence"
+      }
     },
     "B3": {
       "status": "blocked_by_exporters"

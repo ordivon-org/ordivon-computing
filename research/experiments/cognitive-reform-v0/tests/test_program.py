@@ -18,7 +18,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(self.program["programId"], "OCR-V0-001")
         self.assertEqual(
             self.program["status"],
-            "level_a_complete_b1_m1_complete",
+            "level_a_complete_b2_shared_contract_complete",
         )
         levels = {item["levelId"]: item for item in self.program["levels"]}
         self.assertEqual(
@@ -27,7 +27,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         )
         self.assertEqual(
             levels["B"]["status"],
-            "b1_complete_exporters_ready",
+            "b2_shared_contract_complete_owner_exporters_ready",
         )
         self.assertEqual(levels["D"]["status"], "not_authorized")
 
@@ -43,7 +43,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
 
     def test_level_a_is_bounded(self) -> None:
         packages = {item["id"]: item for item in self.program["workPackages"]}
-        self.assertEqual(set(packages), {"A1", "A2", "A3", "A4", "B1"})
+        self.assertEqual(set(packages), {"A1", "A2", "A3", "A4", "B1", "B2-C"})
         self.assertEqual(packages["A1"]["owner"], "ordivon-harness")
         self.assertEqual(packages["A2"]["owner"], "ordivon-computing")
         self.assertEqual(packages["A1"]["status"], "completed")
@@ -65,6 +65,15 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(packages["B1"]["status"], "completed")
         self.assertEqual(packages["B1"]["completion"]["tests"], 21)
         self.assertIn("owner_exporters", packages["B1"]["outOfScope"])
+        self.assertEqual(packages["B2-C"]["status"], "completed")
+        self.assertEqual(
+            packages["B2-C"]["completion"]["contractRevision"],
+            "ad1d0240966441e783c1ce9ef0f79f710580ba70",
+        )
+        self.assertEqual(
+            packages["B2-C"]["completion"]["streamSemantics"]["runtime"],
+            "one_stream_per_runtime_job",
+        )
 
     def test_level_a_core_does_not_block_b1_or_require_production(self) -> None:
         progress = self.program["levelAProgress"]
@@ -80,10 +89,16 @@ class CognitiveReformProgramTests(unittest.TestCase):
     def test_b1_is_closed_and_exporters_are_the_next_frontier(self) -> None:
         progress = self.program["levelBProgress"]
         self.assertEqual(progress["B1"]["status"], "completed")
-        self.assertEqual(progress["exporters"]["status"], "ready")
+        self.assertEqual(
+            progress["exporters"]["status"], "owner_implementations_ready"
+        )
         self.assertEqual(
             set(progress["exporters"]["packages"]),
             {"B2-H", "B2-A", "B2-R"},
+        )
+        self.assertEqual(
+            progress["exporters"]["sharedContractRevision"],
+            "ad1d0240966441e783c1ce9ef0f79f710580ba70",
         )
         self.assertEqual(progress["B3"]["status"], "blocked_by_exporters")
 
