@@ -77,6 +77,8 @@ python3 scripts/render_research_portfolio.py --check
 
 The primary-source derivation for `ANC-STACK-001` and the cross-paradigm validation program live in [`../studies/2026-classical-to-agent-native-computing/`](../studies/2026-classical-to-agent-native-computing/).
 
+The first-principles derivation from transcript-centered Agent loops to a typed Temporal Cognitive Graph, including the pinned Host/Harness/Runtime audit, frontier evidence, candidate model, falsifiers, and reversible migration, lives in [`../studies/2026-linear-loop-to-temporal-cognitive-graph/`](../studies/2026-linear-loop-to-temporal-cognitive-graph/). It is consumed through deferred `ANC-COMPILER-002`; it does not activate a graph platform, Runtime Worker, multi-Agent layer, or third WIP line by itself.
+
 The strategic adversarial-systems reorientation, source comparison, insertion map, and research program live in [`../studies/2026-agent-native-adversarial-systems/`](../studies/2026-agent-native-adversarial-systems/).
 
 The execution-entity, lineage, propagation, organization, control, resilience, and adversarial-ecology synthesis lives in [`../studies/2026-execution-entity-adversarial-ecology/`](../studies/2026-execution-entity-adversarial-ecology/). It is a completed reference study consumed through `ANC-SECURITY-007`; it does not activate implementation or promote a shared entity protocol.

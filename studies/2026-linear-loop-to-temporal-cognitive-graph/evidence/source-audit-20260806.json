@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.temporal-cognitive-graph-source-audit",
+  "observedAt": "2026-08-06",
+  "scope": "Host, Harness, Runtime, and Computer source observations supporting the architecture study",
+  "repositories": [
+    {
+      "repositoryId": "ordivon-host",
+      "revision": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
+      "observations": [
+        {
+          "id": "HOST-KERNEL-REVISION-LEASE",
+          "files": ["src/ordivon_host/kernel.py", "src/ordivon_host/domain/tasks.py"],
+          "claim": "Host owns exact Task revision, lease fencing, one-transition admission, projection checks, and terminal Task invariants."
+        },
+        {
+          "id": "HOST-EXTERNAL-EXECUTOR-SEAM",
+          "files": ["src/ordivon_host/external_executor.py"],
+          "claim": "Host has start, observe, cancel, recover, and completion-collection semantics for an opaque foreign Run and does not let foreign completion directly complete a Task."
+        },
+        {
+          "id": "HOST-COGNITION-DUPLICATION",
+          "files": ["src/ordivon_host/cognition/proposal_turn.py", "src/ordivon_host/providers/"],
+          "claim": "Host still contains Provider and cognition execution paths despite the extracted Harness owning Provider adapters and Agent Runs."
+        },
+        {
+          "id": "HOST-GOAL-SNAPSHOT-NOT-SCHEDULER",
+          "files": ["src/ordivon_host/coordination.py"],
+          "claim": "Goal coordination snapshots Task revisions and verification application but explicitly does not claim a general scheduler or DAG."
+        }
+      ]
+    },
+    {
+      "repositoryId": "ordivon-harness",
+      "revision": "f39943e4bc4e5e9e0478994a68a05f69d480406f",
+      "observations": [
+        {
+          "id": "HARNESS-INDEPENDENT-CONTRACT",
+          "files": ["src/ordivon_harness/core_contracts.py", "src/ordivon_harness/standalone.py"],
+          "claim": "Harness has a caller-neutral immutable Run Contract and independent standalone execution path."
+        },
+        {
+          "id": "HARNESS-TRANSCRIPT-STATE",
+          "files": ["src/ordivon_harness/run_state.py"],
+          "claim": "The principal durable cognitive state is messages, observations, budgets, call identities, model identities, and usage."
+        },
+        {
+          "id": "HARNESS-SEQUENTIAL-LOOP",
+          "files": ["src/ordivon_harness/ordivon/loop.py"],
+          "claim": "The first-party Engine is a thin sequential Agent Loop."
+        },
+        {
+          "id": "HARNESS-CAPABILITY-GAP",
+          "files": ["src/ordivon_harness/ordivon/manifest.py"],
+          "claim": "The current manifest excludes persistent Session, Session resume/fork, compaction, and local subagents."
+        },
+        {
+          "id": "HARNESS-DURABLE-EFFECT-SEMANTICS",
+          "files": ["src/ordivon_harness/ordivon/tools.py", "src/ordivon_harness/ordivon/sqlite_run_store.py", "src/ordivon_harness/runner.py"],
+          "claim": "Harness already preserves Provider-call and Tool-step identity, uncertainty, receipts, snapshots, traces, recovery, cancellation, and completion proposals."
+        },
+        {
+          "id": "HARNESS-PSEUDO-ASYNC-ADAPTER",
+          "files": ["src/ordivon_harness/host_external_adapter.py"],
+          "claim": "The Host adapter exposes a foreign-Run lifecycle but start currently drives the complete Run synchronously."
+        }
+      ]
+    },
+    {
+      "repositoryId": "ordivon-runtime",
+      "revision": "ce061a5995d7a59246a103dcc51f0539245209a6",
+      "observations": [
+        {
+          "id": "RUNTIME-JOB-ATTEMPT-TRUTH",
+          "files": ["crates/ordivon-runtime-core/src/runtime/types.rs", "crates/ordivon-runtime-core/src/runtime/registry.rs", "crates/ordivon-runtime-core/src/runtime/engine.rs"],
+          "claim": "Runtime owns idempotent request admission, Job, Attempt, reservation, process identity, bounded result, Artifact, cancellation, and reconciliation."
+        },
+        {
+          "id": "RUNTIME-TERMINAL-PLAN",
+          "files": ["crates/ordivon-runtime-core/src/runtime/types.rs"],
+          "claim": "The main execution abstraction is one terminal ExecutionPlan, optionally containing a bounded ordered list of steps."
+        },
+        {
+          "id": "RUNTIME-WORKSPACE-SOURCE-FENCE",
+          "files": ["crates/ordivon-runtime-core/src/universal/workspace.rs"],
+          "claim": "Workspace source state, active-Job exclusion, close fencing, and diff/Artifact evidence provide a strong physical branch substrate."
+        },
+        {
+          "id": "RUNTIME-NO-SEMANTIC-SCHEDULER",
+          "files": ["docs/runtime.md", "README.md"],
+          "claim": "Runtime deliberately excludes Task meaning, cognition, semantic completion, and hidden queue/scheduler ownership."
+        }
+      ]
+    },
+    {
+      "repositoryId": "ordivon-computing",
+      "revision": "ac132a5dd88d7e7b9bd42d9924bed55e2f3303e9",
+      "observations": [
+        {
+          "id": "COMPUTER-GRAPH-TAXONOMY",
+          "files": ["studies/2026-agent-system-concept-system/04-goals-tasks-graphs-loops-and-state.md"],
+          "claim": "Computer already distinguishes graph and loop families and warns against erasing their invariants."
+        },
+        {
+          "id": "COMPUTER-V0-FREEZE",
+          "files": ["studies/2026-model-to-work-and-ordivon-harness/04-architecture-decisions.md", "research/questions/ANC-HARNESS-002-ordivon-harness.md"],
+          "claim": "Persistent Sessions, compaction, parallelism, and subagents were deferred pending observed v0 failures and ablations rather than rejected permanently."
+        },
+        {
+          "id": "COMPUTER-ANTI-FORMALISM",
+          "files": ["studies/2026-ordivon-paradigm-reform/REFORM.md", "core/primitives.md"],
+          "claim": "Every shared object must own a non-bypassable responsibility and pass net-acceleration, narrower-alternative, and deletion tests; no mandatory graph store is admitted."
+        }
+      ]
+    }
+  ],
+  "conclusion": "The source supports reopening a narrow Temporal Cognitive Graph experiment while retaining Host, Harness, Runtime, verifier, and anti-formalism boundaries. It does not prove implementation benefit."
+}
