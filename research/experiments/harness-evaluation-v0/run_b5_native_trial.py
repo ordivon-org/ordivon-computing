@@ -54,7 +54,11 @@ from ordivon_host.external_executor import (  # noqa: E402
 )
 from ordivon_host.extensions import HostExtensionPort  # noqa: E402
 from ordivon_host.observation_export import export_host_observations  # noqa: E402
-from ordivon_host.runtime import McpRuntimeClient  # noqa: E402
+from ordivon_host.runtime import (  # noqa: E402
+    McpRuntimeClient,
+    RuntimeClientError as HostRuntimeClientError,
+    RuntimeToolRejected as HostRuntimeToolRejected,
+)
 from ordivon_host.testing import workspace_absent  # noqa: E402
 from ordivon_harness.core_contracts import (  # noqa: E402
     HarnessBoundReference,
@@ -80,6 +84,11 @@ from ordivon_harness.ordivon.sqlite_repository_repair_bridge import (  # noqa: E
 )
 from ordivon_harness.ordivon.sqlite_run_store import (  # noqa: E402
     SQLiteHarnessRunContinuityStore,
+)
+from ordivon_harness.runtime_port import (  # noqa: E402
+    HarnessRuntimeClientError,
+    HarnessRuntimeErrorDetail,
+    HarnessRuntimeToolRejected,
 )
 from ordivon_harness.sqlite_store import SQLiteHarnessStore  # noqa: E402
 from ordivon_harness.standalone import StandaloneHarnessRunner  # noqa: E402
@@ -190,14 +199,65 @@ class Driver:
 
 
 class RuntimeRecorder:
+    """Translate Host MCP failures into the Harness Runtime port contract."""
+
     def __init__(self, delegate: McpRuntimeClient) -> None:
         self.delegate = delegate
         self.calls: list[str] = []
         self.job_ids: set[str] = set()
+        self.error_translations: list[dict[str, Any]] = []
 
     def call_tool(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         self.calls.append(name)
-        result = self.delegate.call_tool(name, arguments)
+        try:
+            result = self.delegate.call_tool(name, arguments)
+        except HostRuntimeToolRejected as error:
+            detail = error.detail
+            commit_state = (
+                detail.commit_state
+                if detail.commit_state
+                in {"not_started", "not_committed", "committed", "unknown"}
+                else "unknown"
+            )
+            field = (
+                detail.field
+                if isinstance(detail.field, str)
+                and detail.field
+                and detail.field == detail.field.strip()
+                else None
+            )
+            translated = HarnessRuntimeErrorDetail(
+                code=detail.code,
+                message=detail.message,
+                commit_state=commit_state,
+                retryable=detail.retryable is True,
+                field=field,
+            )
+            self.error_translations.append(
+                {
+                    "sourceType": type(error).__name__,
+                    "targetType": "HarnessRuntimeToolRejected",
+                    "operation": error.operation,
+                    "code": translated.code,
+                    "commitState": translated.commit_state,
+                    "retryable": translated.retryable,
+                }
+            )
+            raise HarnessRuntimeToolRejected(error.operation, translated) from error
+        except HostRuntimeClientError as error:
+            self.error_translations.append(
+                {
+                    "sourceType": type(error).__name__,
+                    "targetType": "HarnessRuntimeClientError",
+                    "operation": name,
+                    "code": "runtime_client_error",
+                    "commitState": "unknown",
+                    "retryable": False,
+                }
+            )
+            raise HarnessRuntimeClientError(
+                f"{type(error).__name__}: {error}"
+            ) from error
         self._capture(result)
         return result
 
@@ -975,6 +1035,77 @@ def build_selection(
             ),
         )
     return selection.to_dict()
+
+_TRACE_METADATA_FIELDS = (
+    "toolCallId",
+    "toolName",
+    "toolCallDigest",
+    "stepId",
+    "runtimeJobRef",
+    "status",
+    "stopCode",
+    "failureCode",
+    "dispatchSafety",
+    "requestedModelId",
+    "effectiveModelId",
+    "resultDigest",
+    "rawResponseDigest",
+    "finishReason",
+    "correction",
+    "safeToCorrect",
+)
+
+
+def build_trace_summary(
+    ids: TrialIds,
+    loop: Any,
+    runtime: RuntimeRecorder,
+) -> dict[str, Any]:
+    events: list[dict[str, Any]] = []
+    for event in loop.trace.events:
+        payload = event.payload
+        metadata: dict[str, Any] = {}
+        for field in _TRACE_METADATA_FIELDS:
+            value = payload.get(field)
+            if value is None or isinstance(value, (str, int, bool)):
+                if value is not None:
+                    metadata[field] = value
+        detail = payload.get("detail")
+        if isinstance(detail, str):
+            token = detail.split(":", 1)[0].strip()
+            if token and all(
+                character.isalnum() or character in {"_", "."}
+                for character in token
+            ):
+                metadata["detailType"] = token[:200]
+            metadata["detailDigest"] = text_digest(detail)
+        events.append(
+            {
+                "sequence": event.sequence,
+                "kind": event.kind,
+                "metadata": metadata,
+            }
+        )
+    value = with_integrity(
+        {
+            "schemaVersion": 1,
+            "kind": "ordivon.evaluation-harness-trace-summary",
+            "trialId": ids.trial_id,
+            "harnessRunId": ids.harness_run_id,
+            "traceDigest": loop.trace.digest,
+            "eventCount": len(events),
+            "events": events,
+            "runtimeErrorTranslations": list(runtime.error_translations),
+            "privacy": {
+                "modelContentRetained": False,
+                "toolArgumentsRetained": False,
+                "detailTextRetained": False,
+            },
+        }
+    )
+    reject_sensitive_content(value)
+    return value
+
 
 def provider_usage_totals(usage: dict[str, Any]) -> dict[str, int]:
     totals = {
@@ -1818,6 +1949,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "outcomeRef": None if decision is None else decision["outcomeRef"],
             }
         )
+        trace_summary = build_trace_summary(ids, loop, runtime)
         grader_bundle = with_integrity(
             {
                 "schemaVersion": 1,
@@ -1883,6 +2015,11 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             grader_bundle,
             minimum_stage="executing",
         )
+        trial.write_record(
+            "trace-summary.json",
+            trace_summary,
+            minimum_stage="executing",
+        )
         trial.advance(
             expected_stage="executing",
             next_stage="evidence_collected",
@@ -1891,6 +2028,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "provider-identity.json",
                 "native-refs.json",
                 "grader-bundle.json",
+                "trace-summary.json",
             ),
         )
         trial.record_selection(selection)

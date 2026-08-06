@@ -187,6 +187,105 @@ class B5NativeTrialTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             b5.TrialIds.build(0)
 
+    def test_host_runtime_rejection_is_translated_to_harness_contract(self) -> None:
+        detail = SimpleNamespace(
+            code="invalid_argument",
+            message="patch range differs",
+            commit_state="not_started",
+            retryable=False,
+            field="files",
+        )
+
+        class Delegate:
+            def call_tool(self, name, arguments):
+                raise b5.HostRuntimeToolRejected(name, detail)
+
+        runtime = b5.RuntimeRecorder(Delegate())
+        with self.assertRaises(b5.HarnessRuntimeToolRejected) as caught:
+            runtime.call_tool("workspace.patch", {"schemaVersion": 1})
+        self.assertEqual(caught.exception.operation, "workspace.patch")
+        self.assertEqual(caught.exception.detail.code, "invalid_argument")
+        self.assertEqual(caught.exception.detail.commit_state, "not_started")
+        self.assertEqual(
+            runtime.error_translations,
+            [
+                {
+                    "sourceType": "RuntimeToolRejected",
+                    "targetType": "HarnessRuntimeToolRejected",
+                    "operation": "workspace.patch",
+                    "code": "invalid_argument",
+                    "commitState": "not_started",
+                    "retryable": False,
+                }
+            ],
+        )
+
+    def test_host_runtime_client_failure_is_translated_to_harness_contract(self) -> None:
+        class Delegate:
+            def call_tool(self, name, arguments):
+                raise b5.HostRuntimeClientError("transport unavailable")
+
+        runtime = b5.RuntimeRecorder(Delegate())
+        with self.assertRaises(b5.HarnessRuntimeClientError):
+            runtime.call_tool("workspace.read", {"schemaVersion": 1})
+        self.assertEqual(
+            runtime.error_translations[0]["targetType"],
+            "HarnessRuntimeClientError",
+        )
+        self.assertEqual(runtime.error_translations[0]["commitState"], "unknown")
+
+    def test_trace_summary_is_metadata_only_and_retains_failure_boundary(self) -> None:
+        events = (
+            SimpleNamespace(
+                sequence=1,
+                kind="tool_call_proposed",
+                payload={
+                    "toolCallId": "tool:patch",
+                    "toolName": "patch_workspace",
+                    "toolCallDigest": DIGEST_A,
+                    "toolCall": {
+                        "arguments": {"unretainedField": "must-not-survive"}
+                    },
+                },
+            ),
+            SimpleNamespace(
+                sequence=2,
+                kind="run_stopped",
+                payload={
+                    "stopCode": "harness_failed",
+                    "detail": (
+                        "RuntimeProtocolError: sensitive path omitted from summary"
+                    ),
+                },
+            ),
+        )
+        loop = loop_result(b5.RunStopCode.HARNESS_FAILED, events=events)
+        runtime = b5.RuntimeRecorder(SimpleNamespace())
+        runtime.error_translations.append(
+            {
+                "sourceType": "RuntimeProtocolError",
+                "targetType": "HarnessRuntimeClientError",
+                "operation": "workspace.patch",
+                "code": "runtime_client_error",
+                "commitState": "unknown",
+                "retryable": False,
+            }
+        )
+        value = b5.build_trace_summary(b5.TrialIds.build(3), loop, runtime)
+        encoded = json.dumps(value, sort_keys=True)
+        self.assertNotIn("must-not-survive", encoded)
+        self.assertNotIn("sensitive path omitted", encoded)
+        self.assertEqual(value["events"][0]["metadata"]["toolName"], "patch_workspace")
+        stopped = value["events"][1]["metadata"]
+        self.assertEqual(stopped["stopCode"], "harness_failed")
+        self.assertEqual(stopped["detailType"], "RuntimeProtocolError")
+        self.assertTrue(stopped["detailDigest"].startswith("sha256:"))
+        self.assertFalse(value["privacy"]["toolArgumentsRetained"])
+        self.assertEqual(
+            value["runtimeErrorTranslations"][0]["sourceType"],
+            "RuntimeProtocolError",
+        )
+
     def test_provider_configuration_excludes_secret_material(self) -> None:
         settings = b5.DeepSeekSettings(
             api_key="sk-" + "x" * 32,

@@ -136,6 +136,27 @@ class FormalTrialPlanTests(unittest.TestCase):
                 "recordMode": "0600",
             },
         )
+        self.assertEqual(
+            preflight["traceEvidence"],
+            {
+                "record": "trace-summary.json",
+                "metadataOnly": True,
+                "retains": [
+                    "event_sequence",
+                    "event_kind",
+                    "tool_identity",
+                    "stop_code",
+                    "error_type",
+                    "error_digest",
+                    "runtime_error_translation",
+                ],
+                "forbids": [
+                    "model_content",
+                    "tool_arguments",
+                    "raw_error_detail",
+                ],
+            },
+        )
 
     def test_task_matches_admitted_suite_reference(self) -> None:
         task = self.plan["task"]
