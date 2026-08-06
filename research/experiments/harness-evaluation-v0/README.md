@@ -1,6 +1,6 @@
 # Harness Evaluation v0
 
-Status: the R0–R2 evidence contract, curated dogfood set, and P0 frozen evaluation control plane are implemented. Track R remains active for repeated same-Task capability comparisons.
+Status: the R0–R2 evidence contract and P0 control plane are implemented. B3 cross-owner Selection is complete. The B4 thin Formal Runner, deterministic integrated smoke, and bounded fault-cell executor are implemented and have passed development validation; exact clean-revision evidence remains the next gate before live Native Trials.
 
 ## Question
 
@@ -53,7 +53,7 @@ A comparison additionally requires a frozen System Manifest, a versioned Suite, 
 - [`FORMAL-TRIAL-DESIGN.md`](FORMAL-TRIAL-DESIGN.md) — claim boundaries, campaign phases, evidence chain, fault cells, review policy, promotion gates, and stop conditions;
 - [`formal-trial-plan-v1.json`](formal-trial-plan-v1.json) — machine-readable plan `HHR-R3-001`, currently `designed_not_executed`.
 
-R3 remains designed but is blocked by HHO-P0 closeout and [`../observation-plane-v0/P1-EXECUTION-PLAN.md`](../observation-plane-v0/P1-EXECUTION-PLAN.md) P1 Core. Host and Harness must first be independently durable, and Host/Harness/Runtime owner-native evidence must become automatically queryable with a frozen Observation Selection per Trial. R3 then proves the runner with a deterministic cross-layer smoke, runs three sequential native Ordivon Harness DeepSeek Trials, and executes five bounded fault cells. It separates Trial validity, comparative outcome, and failure attribution; valid negative results are retained while invalid and unknown Trials are excluded from performance aggregation. One-shot and Hermes ACP comparisons remain conditional on baseline closeout. Three valid complete Trials support development diagnosis; five to ten selection-eligible Trials per competitive configuration remain required for an architecture decision.
+R3 is now in execution. HHO-P0, the three owner exporters, and B3 cross-owner Selection are complete. B4 uses a private file-backed `TrialRecordStore`, the independent Harness repository-repair Runtime surface, real Runtime Workspaces and Jobs, Host semantic verification, three owner exporters, and one frozen Observation Selection. The scripted integrated smoke reconciles Host and Runtime response loss without duplicate physical work, survives process reopen, and rejects Runtime success when the required Completion Artifact is absent. Version-bound deterministic cells re-run stale Assignment, invalid Tool correction, and Observation gap/mapping/privacy rejection proofs. Exact clean-revision B4 evidence is required before three sequential native Ordivon Harness DeepSeek Trials begin. It separates Trial validity, comparative outcome, and failure attribution; valid negative results are retained while invalid and unknown Trials are excluded from performance aggregation. One-shot and Hermes ACP comparisons remain conditional on baseline closeout. Three valid complete Trials support development diagnosis; five to ten selection-eligible Trials per competitive configuration remain required for an architecture decision.
 
 R3 does not generate Candidates or allocate another round. The downstream [`../experiment-loop-v0/`](../experiment-loop-v0/) plan consumes stable R3 Trial groups only after the deterministic smoke and repeated native baseline pass.
 
@@ -87,6 +87,11 @@ python3.12 research/experiments/harness-evaluation-v0/validate_p0_artifacts.py \
 python3.12 -m unittest discover \
   -s research/experiments/harness-evaluation-v0/tests \
   -p 'test_*.py'
+
+set -a
+. /etc/ordivon/ordivon-runtime.env
+set +a
+python3.12 research/experiments/harness-evaluation-v0/run_b4_deterministic_smoke.py
 ```
 
 Use `--write-digests` only while authoring a new record before its first commit. A committed record is immutable; corrections create a new version or superseding record.
