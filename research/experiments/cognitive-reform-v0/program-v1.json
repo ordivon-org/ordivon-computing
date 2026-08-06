@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "ordivon.cognitive-reform-execution-program",
   "programId": "OCR-V0-001",
-  "status": "level_a_release_complete_deploy_ready_b1_authorized",
+  "status": "level_a_complete_b1_authorized",
   "questionRef": "ANC-COMPILER-002",
   "evaluationQuestionRef": "ANC-VERIFY-001",
   "observedRevisions": {
@@ -29,7 +29,7 @@
     {
       "levelId": "A",
       "title": "Current-system closeout",
-      "status": "release_complete_deploy_ready",
+      "status": "completed",
       "required": true,
       "gate": [
         "a_core_current_main_evidence_and_program_are_closed",
@@ -208,7 +208,7 @@
       "id": "A4",
       "owner": "ordivon-harness",
       "title": "Staging deployment and cutover rehearsal",
-      "status": "ready",
+      "status": "completed",
       "inScope": [
         "private_staging_host_and_harness_roots",
         "doctor",
@@ -228,7 +228,18 @@
         "staging_only",
         "all_receipts_retained",
         "staging_state_removed_after_acceptance"
-      ]
+      ],
+      "completion": {
+        "rehearsalImplementationRevision": "f6173b2c327c232a70b272cc947dc98bb857ae2a",
+        "receipt": "research/experiments/cognitive-reform-v0/evidence/a4-staging-rehearsal-f6173b2.json",
+        "exactRemoteHarness": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
+        "exactRemoteHost": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
+        "backupRestore": "passed",
+        "safeRollback": "passed",
+        "postActivationRollbackFence": "passed",
+        "cleanup": "passed",
+        "productionActivated": false
+      }
     }
   ],
   "observationExecution": {
@@ -293,10 +304,14 @@
       "protocolRevision": "420dc356cb664d75db0f34f356156baebe5843db"
     },
     "aDeploy": {
-      "status": "ready",
+      "status": "completed",
+      "receipt": "research/experiments/cognitive-reform-v0/evidence/a4-staging-rehearsal-f6173b2.json",
       "productionActivationRequiredForLevelB": false,
-      "nextGate": "staging_only_backup_restore_cutover_rollback_cleanup"
+      "productionActivated": false,
+      "stagingCleanupCompleted": true
     },
-    "b1ObservationMinimumCoreAuthorized": true
+    "b1ObservationMinimumCoreAuthorized": true,
+    "levelAStatus": "completed",
+    "nextGate": "B1_observation_minimum_core"
   }
 }

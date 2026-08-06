@@ -18,12 +18,12 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(self.program["programId"], "OCR-V0-001")
         self.assertEqual(
             self.program["status"],
-            "level_a_release_complete_deploy_ready_b1_authorized",
+            "level_a_complete_b1_authorized",
         )
         levels = {item["levelId"]: item for item in self.program["levels"]}
         self.assertEqual(
             levels["A"]["status"],
-            "release_complete_deploy_ready",
+            "completed",
         )
         self.assertEqual(
             levels["B"]["status"],
@@ -50,7 +50,12 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(packages["A1"]["progress"]["evidenceGate"], "passed")
         self.assertFalse(packages["A1"]["progress"]["cutoverActivated"])
         self.assertEqual(packages["A3"]["status"], "completed")
-        self.assertEqual(packages["A4"]["status"], "ready")
+        self.assertEqual(packages["A4"]["status"], "completed")
+        self.assertFalse(packages["A4"]["completion"]["productionActivated"])
+        self.assertEqual(
+            packages["A4"]["completion"]["receipt"],
+            "research/experiments/cognitive-reform-v0/evidence/a4-staging-rehearsal-f6173b2.json",
+        )
         self.assertEqual(
             packages["A3"]["completion"]["versionVector"],
             "research/experiments/cognitive-reform-v0/system-version-vector-v1.json",
@@ -58,12 +63,14 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertIn("production_cutover_activation", packages["A1"]["outOfScope"])
         self.assertIn("product_behavior_change", packages["A2"]["outOfScope"])
 
-
     def test_level_a_core_does_not_block_b1_or_require_production(self) -> None:
         progress = self.program["levelAProgress"]
         self.assertEqual(progress["aCore"]["status"], "completed")
         self.assertEqual(progress["aRelease"]["status"], "completed")
-        self.assertEqual(progress["aDeploy"]["status"], "ready")
+        self.assertEqual(progress["aDeploy"]["status"], "completed")
+        self.assertFalse(progress["aDeploy"]["productionActivated"])
+        self.assertTrue(progress["aDeploy"]["stagingCleanupCompleted"])
+        self.assertEqual(progress["levelAStatus"], "completed")
         self.assertFalse(progress["aDeploy"]["productionActivationRequiredForLevelB"])
         self.assertTrue(progress["b1ObservationMinimumCoreAuthorized"])
 

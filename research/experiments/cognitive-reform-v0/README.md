@@ -40,3 +40,7 @@ uv run --python 3.12 \
 ```
 
 The command must never target `/var/lib/ordivon/host` or `/var/lib/ordivon/harness`. Production activation remains a separate operator decision triggered by a real consumer.
+
+### A4 result
+
+The formal staging rehearsal passed on implementation `f6173b2c327c232a70b272cc947dc98bb857ae2a`. It installed remote Harness `f098f9492ab788068fd09da771bffc21e0fdc1b3`, used its exact Host pin `7b17807784cc52f0be4f1786719f6dc20deb92c8`, verified backup and restore, proved both rollback modes, removed the staging tree, and observed no production-root change. The retained receipt is [`evidence/a4-staging-rehearsal-f6173b2.json`](evidence/a4-staging-rehearsal-f6173b2.json).
