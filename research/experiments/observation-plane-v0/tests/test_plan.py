@@ -37,7 +37,7 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(self.plan["planId"], "HHO-P0-P1-001")
         self.assertEqual(
             self.plan["status"],
-            "level_a_complete_p1_b4_complete_b5_ready",
+            "level_a_complete_p1_b4_complete_b5_provider_blocked",
         )
         self.assertEqual(
             self.plan["integrity"],
@@ -150,7 +150,7 @@ class ObservationPlanTests(unittest.TestCase):
         p1 = self.plan["p1"]
         self.assertEqual(
             p1["status"],
-            "minimum_core_b4_complete_b5_ready",
+            "minimum_core_b4_complete_b5_provider_blocked",
         )
         self.assertFalse(
             p1["executionReadiness"]["contractAndGatewayFixtureWorkMayStart"]
@@ -222,15 +222,15 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertIn("host_harness_runtime_complete_correlation", gates)
         self.assertIn("process_exit_success_does_not_imply_task_acceptance", gates)
 
-    def test_formal_runner_is_complete_and_live_baseline_is_ready(self) -> None:
+    def test_formal_runner_is_complete_but_provider_capability_blocks_campaign(self) -> None:
         value = self.plan["formalTrialEffect"]
         self.assertEqual(value["planId"], "HHR-R3-001")
         self.assertTrue(value["designRetained"])
         self.assertEqual(
             value["executionStatus"],
-            "live_native_baseline_ready",
+            "live_native_baseline_provider_blocked",
         )
-        self.assertEqual(len(value["resumeRequirements"]), 5)
+        self.assertEqual(len(value["resumeRequirements"]), 6)
         self.assertEqual(
             value["satisfiedPrerequisites"],
             [
@@ -246,7 +246,32 @@ class ObservationPlanTests(unittest.TestCase):
         )
         self.assertIn("p1_minimum_core_passed", value["resumeRequirements"])
         self.assertTrue(value["formalRunnerUnblocked"])
-        self.assertTrue(value["liveTrialUnlocked"])
+        self.assertFalse(value["liveTrialUnlocked"])
+        self.assertTrue(value["providerCapabilityBlocked"])
+        capability = value["providerCapabilityGate"]
+        self.assertEqual(capability["status"], "blocked")
+        self.assertEqual(capability["blocker"], "provider_tool_call_fidelity")
+        self.assertEqual(
+            capability["testedModels"],
+            ["deepseek-v4-flash", "deepseek-v4-pro"],
+        )
+        self.assertEqual(
+            capability["infrastructureStatus"],
+            "observation_and_formal_runner_passed",
+        )
+        self.assertEqual(
+            capability["evidence"],
+            [
+                "research/experiments/harness-evaluation-v0/"
+                "diagnostics/b5-native-004-ead663e",
+                "research/experiments/harness-evaluation-v0/"
+                "diagnostics/b5-native-005-32ec1ea",
+            ],
+        )
+        self.assertIn(
+            "stronger_provider_verified_under_frozen_task_and_patch_tool_contract",
+            value["resumeRequirements"],
+        )
         gate = value["harnessConclusionGate"]
         self.assertEqual(
             gate["implementationRevision"],

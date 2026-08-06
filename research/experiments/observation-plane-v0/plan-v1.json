@@ -100,7 +100,7 @@
   "executionPlanRef": "research/experiments/observation-plane-v0/P1-EXECUTION-PLAN.md",
   "formalTrialEffect": {
     "designRetained": true,
-    "executionStatus": "live_native_baseline_ready",
+    "executionStatus": "live_native_baseline_provider_blocked",
     "formalRunnerUnblocked": true,
     "harnessConclusionGate": {
       "implementationRevision": "b23d5fa6c820c10f937f48cc16c2d8e03d3e18ae",
@@ -108,14 +108,15 @@
       "receiptRevision": "437de1666a4124bc8a2791ee1a52456f913e9677",
       "status": "verified"
     },
-    "liveTrialUnlocked": true,
+    "liveTrialUnlocked": false,
     "planId": "HHR-R3-001",
     "resumeRequirements": [
       "p1_minimum_core_passed",
       "deterministic_cross_owner_trajectory_queryable",
       "system_manifest_contains_observation_contract_and_mapping_versions",
       "formal_runner_uses_owner_native_refs_not_host_cas_assumption",
-      "observation_selection_manifest_stable"
+      "observation_selection_manifest_stable",
+      "stronger_provider_verified_under_frozen_task_and_patch_tool_contract"
     ],
     "satisfiedPrerequisites": [
       "p0_passed",
@@ -123,12 +124,33 @@
       "p1_cross_owner_selection_passed",
       "b4_formal_runner_and_fault_cells_passed"
     ],
-    "selectedHarnessRevision": "437de1666a4124bc8a2791ee1a52456f913e9677"
+    "selectedHarnessRevision": "437de1666a4124bc8a2791ee1a52456f913e9677",
+    "providerCapabilityBlocked": true,
+    "providerCapabilityGate": {
+      "status": "blocked",
+      "blocker": "provider_tool_call_fidelity",
+      "testedModels": [
+        "deepseek-v4-flash",
+        "deepseek-v4-pro"
+      ],
+      "evidence": [
+        "research/experiments/harness-evaluation-v0/diagnostics/b5-native-004-ead663e",
+        "research/experiments/harness-evaluation-v0/diagnostics/b5-native-005-32ec1ea"
+      ],
+      "infrastructureStatus": "observation_and_formal_runner_passed",
+      "requiredBeforeResume": [
+        "stronger_provider_or_adapter_selected",
+        "exact_provider_configuration_and_credential_scope_bound",
+        "same_frozen_task_and_patch_tool_contract_preserved",
+        "provider_preflight_and_full_conformance_passed",
+        "explicit_campaign_review_authorizes_next_trial"
+      ]
+    }
   },
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:680d8de7a02eede57426df44003d6948c392646ca9a53dab1dfdd16b00ac180c"
+    "payloadDigest": "sha256:1f1edf866eb99c2ee6c92b733be4d74f92f04f8915c2948f50f927df09db6c4e"
   },
   "kind": "ordivon.host-harness-observation-plan",
   "nonGoals": [
@@ -658,7 +680,7 @@
       "status": "first_trajectory_owner_native_only"
     },
     "stateRoot": "/var/lib/ordivon/observation",
-    "status": "minimum_core_b4_complete_b5_ready",
+    "status": "minimum_core_b4_complete_b5_provider_blocked",
     "stopConditions": [
       "observation_loss_despite_intact_owner_journal",
       "exporter_requires_out_of_band_owner_state_mutation",
@@ -799,5 +821,5 @@
     "sharedContractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36"
   },
   "schemaVersion": 1,
-  "status": "level_a_complete_p1_b4_complete_b5_ready"
+  "status": "level_a_complete_p1_b4_complete_b5_provider_blocked"
 }

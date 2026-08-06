@@ -117,16 +117,18 @@ class B5NativeTrialTests(unittest.TestCase):
             "sha256:a35fb2a4859657069b112cc3172dcb5e0f2aeb748d0fe693ff09c0dd95a1218a",
         )
 
-    def test_formal_plan_enforces_the_next_trial_number(self) -> None:
+    def test_formal_plan_blocks_the_next_trial_until_provider_review(self) -> None:
         plan = json.loads(b5.FORMAL_TRIAL_PLAN.read_text(encoding="utf-8"))
-        self.assertEqual(
-            b5.validate_planned_trial_number(5),
-            plan["integrity"]["payloadDigest"],
-        )
-        with self.assertRaises(b5.NativeTrialError):
-            b5.validate_planned_trial_number(4)
-        with self.assertRaises(b5.NativeTrialError):
+        preflight = plan["b5Preflight"]
+        self.assertEqual(preflight["status"], "blocked_provider_capability")
+        self.assertEqual(preflight["nextTrialNumber"], 6)
+        self.assertTrue(preflight["providerCapabilityGate"]["noFurtherDeepSeekCanaries"])
+        with self.assertRaisesRegex(b5.NativeTrialError, "not ready"):
             b5.validate_planned_trial_number(6)
+        with self.assertRaises(b5.NativeTrialError):
+            b5.validate_planned_trial_number(5)
+        with self.assertRaises(b5.NativeTrialError):
+            b5.validate_planned_trial_number(7)
 
     def test_trial_reservation_is_private_durable_and_single_use(self) -> None:
         ids = b5.TrialIds.build(3)

@@ -39,7 +39,7 @@ class FormalTrialPlanTests(unittest.TestCase):
         self.assertEqual(self.plan["planId"], "HHR-R3-001")
         self.assertEqual(
             self.plan["status"],
-            "b4_smoke_passed_b5_live_baseline_ready",
+            "b4_smoke_passed_b5_provider_capability_blocked",
         )
         self.assertEqual(
             self.plan["integrity"],
@@ -92,9 +92,9 @@ class FormalTrialPlanTests(unittest.TestCase):
 
     def test_b5_preflight_selects_verified_conclusion_gate(self) -> None:
         preflight = self.plan["b5Preflight"]
-        self.assertEqual(preflight["status"], "ready")
+        self.assertEqual(preflight["status"], "blocked_provider_capability")
         self.assertTrue(preflight["sequentialOnly"])
-        self.assertEqual(preflight["nextTrialNumber"], 5)
+        self.assertEqual(preflight["nextTrialNumber"], 6)
         self.assertEqual(preflight["requiredValidCompleteTrials"], 3)
         self.assertFalse(preflight["b6Authorized"])
         self.assertEqual(
@@ -104,6 +104,7 @@ class FormalTrialPlanTests(unittest.TestCase):
                 "research/experiments/harness-evaluation-v0/diagnostics/b5-native-002-b7d2c47",
                 "research/experiments/harness-evaluation-v0/diagnostics/b5-native-003-1e8eda0",
                 "research/experiments/harness-evaluation-v0/diagnostics/b5-native-004-ead663e",
+                "research/experiments/harness-evaluation-v0/diagnostics/b5-native-005-32ec1ea",
             ],
         )
         self.assertEqual(preflight["runnerPolicyTextFix"], "implemented")
@@ -181,35 +182,53 @@ class FormalTrialPlanTests(unittest.TestCase):
             "ordivon-harness-deepseek-pro",
         )
         self.assertEqual(preflight["selectedModelId"], "deepseek-v4-pro")
+        pivot = preflight["providerPivot"]
+        self.assertEqual(pivot["status"], "completed_negative")
         self.assertEqual(
-            preflight["providerPivot"],
-            {
-                "status": "ready_for_live_canary",
-                "reason": (
-                    "Flash Trial 004 produced two rejected Patch calls and no Check or "
-                    "completion Artifact under a Patch surface already passed by the "
-                    "deterministic control."
-                ),
-                "sourceTrialDiagnostic": (
-                    "research/experiments/harness-evaluation-v0/"
-                    "diagnostics/b5-native-004-ead663e"
-                ),
-                "fromConfigurationId": "ordivon-harness-deepseek",
-                "toConfigurationId": "ordivon-harness-deepseek-pro",
-                "runnerRevision": "ac7116082198f705cb03ef7d1aae5fa71e1e08a6",
-                "invariants": [
-                    "task",
-                    "prompt",
-                    "tool_surface",
-                    "tool_grant",
-                    "budget",
-                    "host_revision",
-                    "harness_revision",
-                    "runtime_revision",
-                    "provider_credential_scope",
-                ],
-                "architectureComparisonEligible": False,
-            },
+            pivot["sourceTrialDiagnostic"],
+            "research/experiments/harness-evaluation-v0/"
+            "diagnostics/b5-native-004-ead663e",
+        )
+        self.assertEqual(
+            pivot["proTrialDiagnostic"],
+            "research/experiments/harness-evaluation-v0/"
+            "diagnostics/b5-native-005-32ec1ea",
+        )
+        self.assertEqual(
+            pivot["fromConfigurationId"],
+            "ordivon-harness-deepseek",
+        )
+        self.assertEqual(
+            pivot["toConfigurationId"],
+            "ordivon-harness-deepseek-pro",
+        )
+        self.assertEqual(
+            pivot["runnerRevision"],
+            "ac7116082198f705cb03ef7d1aae5fa71e1e08a6",
+        )
+        self.assertTrue(pivot["noFurtherDeepSeekCanaries"])
+        self.assertFalse(pivot["architectureComparisonEligible"])
+        capability = preflight["providerCapabilityGate"]
+        self.assertEqual(capability["status"], "blocked")
+        self.assertEqual(capability["blocker"], "provider_tool_call_fidelity")
+        self.assertEqual(
+            capability["testedModels"],
+            ["deepseek-v4-flash", "deepseek-v4-pro"],
+        )
+        self.assertEqual(
+            capability["evidence"],
+            [
+                "research/experiments/harness-evaluation-v0/"
+                "diagnostics/b5-native-004-ead663e",
+                "research/experiments/harness-evaluation-v0/"
+                "diagnostics/b5-native-005-32ec1ea",
+            ],
+        )
+        self.assertTrue(capability["noFurtherDeepSeekCanaries"])
+        self.assertFalse(capability["b6Authorized"])
+        self.assertIn(
+            "stronger_provider_or_adapter_selected",
+            capability["requiredBeforeResume"],
         )
 
     def test_task_matches_admitted_suite_reference(self) -> None:
@@ -245,7 +264,7 @@ class FormalTrialPlanTests(unittest.TestCase):
 
     def test_first_campaign_does_not_prematurely_run_all_comparisons(self) -> None:
         first = self.plan["firstCampaign"]
-        self.assertEqual(first["status"], "b5_provider_pivot_ready")
+        self.assertEqual(first["status"], "b5_provider_capability_blocked")
         self.assertTrue(first["sequentialOnly"])
         self.assertIn(
             "three_ordivon_harness_deepseek_trials",
@@ -253,6 +272,7 @@ class FormalTrialPlanTests(unittest.TestCase):
         )
         self.assertIn("deepseek_flash_negative_canary", first["phases"])
         self.assertIn("deepseek_pro_capability_canary", first["phases"])
+        self.assertIn("stronger_provider_preflight", first["phases"])
         self.assertIn("one_shot_live_trials", first["excludedUntilBaselineCloseout"])
         self.assertIn(
             "provider_harness_live_trials",
@@ -265,11 +285,12 @@ class FormalTrialPlanTests(unittest.TestCase):
                 "scripted_integrated_smoke",
                 "five_boundary_fault_cells",
                 "deepseek_flash_negative_canary",
+                "deepseek_pro_negative_canary",
             ],
         )
         self.assertEqual(
             first["nextPhase"],
-            "deepseek_pro_capability_canary",
+            "stronger_provider_preflight",
         )
 
     def test_observation_prerequisite_is_explicit(self) -> None:
@@ -319,7 +340,7 @@ class FormalTrialPlanTests(unittest.TestCase):
         self.assertEqual(pro["modelId"], "deepseek-v4-pro")
         self.assertEqual(pro["executionPath"], "ordivon_harness")
         self.assertEqual(pro["budget"], native["budget"])
-        self.assertEqual(pro["status"], "ready_for_live_canary")
+        self.assertEqual(pro["status"], "negative_canary_observed")
         self.assertEqual(pro["repetitions"]["architectureDecision"], 0)
         scripted = next(
             configuration

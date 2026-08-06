@@ -18,7 +18,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(self.program["programId"], "OCR-V0-001")
         self.assertEqual(
             self.program["status"],
-            "level_a_complete_b4_complete_b5_ready",
+            "level_a_complete_b4_complete_b5_provider_blocked",
         )
         levels = {item["levelId"]: item for item in self.program["levels"]}
         self.assertEqual(
@@ -27,7 +27,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         )
         self.assertEqual(
             levels["B"]["status"],
-            "b4_complete_b5_ready",
+            "b4_complete_b5_provider_blocked",
         )
         self.assertEqual(levels["D"]["status"], "not_authorized")
 
@@ -86,7 +86,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertFalse(progress["aDeploy"]["productionActivationRequiredForLevelB"])
         self.assertTrue(progress["b1ObservationMinimumCoreAuthorized"])
 
-    def test_b1_through_b4_are_closed_and_b5_is_ready(self) -> None:
+    def test_b1_through_b4_are_closed_and_b5_is_provider_blocked(self) -> None:
         progress = self.program["levelBProgress"]
         self.assertEqual(progress["B1"]["status"], "completed")
         self.assertEqual(progress["exporters"]["status"], "completed")
@@ -112,10 +112,26 @@ class CognitiveReformProgramTests(unittest.TestCase):
         )
         self.assertTrue(progress["B4"]["liveTrialUnlocked"])
         self.assertFalse(progress["B4"]["productionActivated"])
-        self.assertEqual(progress["B5"]["status"], "ready")
-        self.assertEqual(progress["B5"]["blockers"], [])
+        self.assertEqual(progress["B5"]["status"], "blocked_provider_capability")
+        self.assertEqual(progress["B5"]["blockers"], ["provider_tool_call_fidelity"])
         self.assertEqual(progress["B5"]["requiredValidTrials"], 3)
+        self.assertEqual(progress["B5"]["validCompleteTrials"], 0)
         self.assertFalse(progress["B5"]["b6MayStart"])
+        capability = progress["B5"]["providerCapabilityGate"]
+        self.assertEqual(capability["status"], "blocked")
+        self.assertEqual(
+            capability["testedModels"],
+            ["deepseek-v4-flash", "deepseek-v4-pro"],
+        )
+        self.assertEqual(
+            capability["evidence"],
+            [
+                "research/experiments/harness-evaluation-v0/"
+                "diagnostics/b5-native-004-ead663e",
+                "research/experiments/harness-evaluation-v0/"
+                "diagnostics/b5-native-005-32ec1ea",
+            ],
+        )
         gate = progress["B5"]["harnessConclusionGate"]
         self.assertEqual(
             gate["implementationRevision"],
@@ -132,7 +148,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(gate["status"], "verified")
         self.assertEqual(
             progress["B6"]["status"],
-            "blocked_by_B5_and_explicit_review",
+            "blocked_by_B5_provider_capability_and_explicit_review",
         )
 
     def test_observation_is_split_by_real_consumer_need(self) -> None:
@@ -204,8 +220,9 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertTrue(packages["B4"]["completion"]["liveTrialUnlocked"])
         self.assertFalse(packages["B4"]["completion"]["productionActivated"])
         self.assertFalse(packages["B4"]["completion"]["b6Implemented"])
-        self.assertEqual(packages["B5"]["status"], "ready")
-        self.assertEqual(packages["B6"]["status"], "blocked_by_B5")
+        self.assertEqual(packages["B5"]["status"], "blocked_provider_capability")
+        self.assertEqual(packages["B5"]["blockers"], ["provider_tool_call_fidelity"])
+        self.assertEqual(packages["B6"]["status"], "blocked_by_B5_provider_capability")
         closeout = self.program["p0P4Closeout"]
         self.assertEqual(closeout["status"], "completed")
         self.assertFalse(closeout["formalTrialUnlocked"])

@@ -18,14 +18,15 @@
       "research/experiments/harness-evaluation-v0/diagnostics/b5-native-001-ad3ca58",
       "research/experiments/harness-evaluation-v0/diagnostics/b5-native-002-b7d2c47",
       "research/experiments/harness-evaluation-v0/diagnostics/b5-native-003-1e8eda0",
-      "research/experiments/harness-evaluation-v0/diagnostics/b5-native-004-ead663e"
+      "research/experiments/harness-evaluation-v0/diagnostics/b5-native-004-ead663e",
+      "research/experiments/harness-evaluation-v0/diagnostics/b5-native-005-32ec1ea"
     ],
-    "nextTrialNumber": 5,
+    "nextTrialNumber": 6,
     "requiredValidCompleteTrials": 3,
     "runnerPolicyTextFix": "implemented",
     "selectedHarnessRevision": "437de1666a4124bc8a2791ee1a52456f913e9677",
     "sequentialOnly": true,
-    "status": "ready",
+    "status": "blocked_provider_capability",
     "trialReservation": {
       "acquisition": "exclusive_create",
       "acquireBefore": [
@@ -70,7 +71,7 @@
     "selectedConfigurationId": "ordivon-harness-deepseek-pro",
     "selectedModelId": "deepseek-v4-pro",
     "providerPivot": {
-      "status": "ready_for_live_canary",
+      "status": "completed_negative",
       "reason": "Flash Trial 004 produced two rejected Patch calls and no Check or completion Artifact under a Patch surface already passed by the deterministic control.",
       "sourceTrialDiagnostic": "research/experiments/harness-evaluation-v0/diagnostics/b5-native-004-ead663e",
       "fromConfigurationId": "ordivon-harness-deepseek",
@@ -87,7 +88,41 @@
         "runtime_revision",
         "provider_credential_scope"
       ],
-      "architectureComparisonEligible": false
+      "architectureComparisonEligible": false,
+      "proTrialDiagnostic": "research/experiments/harness-evaluation-v0/diagnostics/b5-native-005-32ec1ea",
+      "conclusion": "Pro explored further than Flash but still produced three consecutive model-correctable Patch rejections and no usable edit.",
+      "noFurtherDeepSeekCanaries": true
+    },
+    "providerCapabilityGate": {
+      "status": "blocked",
+      "blocker": "provider_tool_call_fidelity",
+      "testedModels": [
+        "deepseek-v4-flash",
+        "deepseek-v4-pro"
+      ],
+      "evidence": [
+        "research/experiments/harness-evaluation-v0/diagnostics/b5-native-004-ead663e",
+        "research/experiments/harness-evaluation-v0/diagnostics/b5-native-005-32ec1ea"
+      ],
+      "frozenContract": [
+        "task",
+        "prompt",
+        "tool_surface",
+        "tool_grant",
+        "budget",
+        "host_revision",
+        "harness_revision",
+        "runtime_revision"
+      ],
+      "requiredBeforeResume": [
+        "stronger_provider_or_adapter_selected",
+        "exact_provider_configuration_and_credential_scope_bound",
+        "same_frozen_task_and_patch_tool_contract_preserved",
+        "provider_preflight_and_full_conformance_passed",
+        "explicit_campaign_review_authorizes_next_trial"
+      ],
+      "noFurtherDeepSeekCanaries": true,
+      "b6Authorized": false
     }
   },
   "campaignGates": [
@@ -216,7 +251,7 @@
         "development": 1,
         "smoke": 1
       },
-      "status": "ready_for_live_canary"
+      "status": "negative_canary_observed"
     },
     {
       "competitive": true,
@@ -317,7 +352,8 @@
       "complete_campaign_preflight",
       "scripted_integrated_smoke",
       "five_boundary_fault_cells",
-      "deepseek_flash_negative_canary"
+      "deepseek_flash_negative_canary",
+      "deepseek_pro_negative_canary"
     ],
     "excludedUntilBaselineCloseout": [
       "one_shot_live_trials",
@@ -330,7 +366,7 @@
       "multi_round_search",
       "automatic_merge_or_deploy"
     ],
-    "nextPhase": "deepseek_pro_capability_canary",
+    "nextPhase": "stronger_provider_preflight",
     "phases": [
       "complete_campaign_preflight",
       "scripted_integrated_smoke",
@@ -338,15 +374,16 @@
       "three_ordivon_harness_deepseek_trials",
       "deepseek_pro_capability_canary",
       "five_boundary_fault_cells",
-      "trajectory_review_and_closeout"
+      "trajectory_review_and_closeout",
+      "stronger_provider_preflight"
     ],
     "sequentialOnly": true,
-    "status": "b5_provider_pivot_ready"
+    "status": "b5_provider_capability_blocked"
   },
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:9bc97bcd25b942931dc027b840b7eece5c84936feabcf1591a5d02a7cde33f14"
+    "payloadDigest": "sha256:f6a5f61b683c36ce529ec3be4cbb19222526318228bc1256e5d9095e4b1aed59"
   },
   "kind": "ordivon.evaluation-formal-trial-plan",
   "observationSelection": {
@@ -410,7 +447,7 @@
     "rawReasoningRequired": false
   },
   "schemaVersion": 1,
-  "status": "b4_smoke_passed_b5_live_baseline_ready",
+  "status": "b4_smoke_passed_b5_provider_capability_blocked",
   "stopConditions": [
     "task_or_verifier_qa_instability",
     "material_configuration_change_within_group",

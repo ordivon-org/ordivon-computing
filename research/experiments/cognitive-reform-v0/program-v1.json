@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "ordivon.cognitive-reform-execution-program",
   "programId": "OCR-V0-001",
-  "status": "level_a_complete_b4_complete_b5_ready",
+  "status": "level_a_complete_b4_complete_b5_provider_blocked",
   "questionRef": "ANC-COMPILER-002",
   "evaluationQuestionRef": "ANC-VERIFY-001",
   "decision": {
@@ -39,7 +39,7 @@
     {
       "levelId": "B",
       "title": "Evidence and strong sequential baseline",
-      "status": "b4_complete_b5_ready",
+      "status": "b4_complete_b5_provider_blocked",
       "required": true,
       "gate": [
         "minimum_observation_core_rebuilds_one_cross_owner_selection",
@@ -613,7 +613,7 @@
       "id": "B5",
       "owner": "ordivon-harness",
       "title": "Three native sequential Trials",
-      "status": "ready",
+      "status": "blocked_provider_capability",
       "inScope": [
         "short_task",
         "restart_recovery_task",
@@ -632,13 +632,29 @@
       ],
       "stopConditions": [
         "trial_validity_inferred_from_process_exit"
-      ]
+      ],
+      "blockers": [
+        "provider_tool_call_fidelity"
+      ],
+      "providerCapabilityGate": {
+        "status": "blocked",
+        "testedModels": [
+          "deepseek-v4-flash",
+          "deepseek-v4-pro"
+        ],
+        "evidence": [
+          "research/experiments/harness-evaluation-v0/diagnostics/b5-native-004-ead663e",
+          "research/experiments/harness-evaluation-v0/diagnostics/b5-native-005-32ec1ea"
+        ],
+        "requiredValidTrials": 3,
+        "validCompleteTrials": 0
+      }
     },
     {
       "id": "B6",
       "owner": "ordivon-harness",
       "title": "Strong transcript compaction and retrieval baseline",
-      "status": "blocked_by_B5",
+      "status": "blocked_by_B5_provider_capability",
       "inScope": [
         "sequential_transcript",
         "bounded_compaction",
@@ -792,8 +808,10 @@
       "inventory": "research/experiments/observation-plane-v0/join-key-inventory-v1.json"
     },
     "B5": {
-      "status": "ready",
-      "blockers": [],
+      "status": "blocked_provider_capability",
+      "blockers": [
+        "provider_tool_call_fidelity"
+      ],
       "requiredValidTrials": 3,
       "sequentialOnly": true,
       "b6MayStart": false,
@@ -802,10 +820,30 @@
         "receiptRevision": "437de1666a4124bc8a2791ee1a52456f913e9677",
         "receiptDigest": "sha256:a35fb2a4859657069b112cc3172dcb5e0f2aeb748d0fe693ff09c0dd95a1218a",
         "status": "verified"
+      },
+      "validCompleteTrials": 0,
+      "providerCapabilityGate": {
+        "status": "blocked",
+        "testedModels": [
+          "deepseek-v4-flash",
+          "deepseek-v4-pro"
+        ],
+        "evidence": [
+          "research/experiments/harness-evaluation-v0/diagnostics/b5-native-004-ead663e",
+          "research/experiments/harness-evaluation-v0/diagnostics/b5-native-005-32ec1ea"
+        ],
+        "conclusion": "Neither tested DeepSeek configuration produced a usable Patch under the frozen contract.",
+        "requiredBeforeResume": [
+          "stronger_provider_or_adapter_selected",
+          "exact_provider_configuration_and_credential_scope_bound",
+          "same_frozen_task_and_patch_tool_contract_preserved",
+          "provider_preflight_and_full_conformance_passed",
+          "explicit_campaign_review_authorizes_next_trial"
+        ]
       }
     },
     "B6": {
-      "status": "blocked_by_B5_and_explicit_review"
+      "status": "blocked_by_B5_provider_capability_and_explicit_review"
     }
   },
   "revisionAuthority": {
@@ -850,5 +888,10 @@
     "liveTrialUnlocked": true,
     "nextWorkPackage": "B5",
     "b6Implemented": false
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:c34e08b2d223c77cb904c6e9ff95ba000e9c7e55fc715da3e2ac058b760b7672"
   }
 }
