@@ -94,9 +94,17 @@ class FormalTrialPlanTests(unittest.TestCase):
         preflight = self.plan["b5Preflight"]
         self.assertEqual(preflight["status"], "ready")
         self.assertTrue(preflight["sequentialOnly"])
-        self.assertEqual(preflight["nextTrialNumber"], 2)
+        self.assertEqual(preflight["nextTrialNumber"], 3)
         self.assertEqual(preflight["requiredValidCompleteTrials"], 3)
         self.assertFalse(preflight["b6Authorized"])
+        self.assertEqual(
+            preflight["invalidAttemptsRetained"],
+            [
+                "research/experiments/harness-evaluation-v0/diagnostics/b5-native-001-ad3ca58",
+                "research/experiments/harness-evaluation-v0/diagnostics/b5-native-002-b7d2c47",
+            ],
+        )
+        self.assertEqual(preflight["runnerPolicyTextFix"], "implemented")
         self.assertEqual(
             preflight["selectedHarnessRevision"],
             "437de1666a4124bc8a2791ee1a52456f913e9677",

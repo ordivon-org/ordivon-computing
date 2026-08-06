@@ -88,6 +88,17 @@ def evaluation(*, accepted: bool) -> object:
 
 
 class B5NativeTrialTests(unittest.TestCase):
+    def test_runner_source_contains_no_policy_forbidden_sensitive_text(self) -> None:
+        source = Path(b5.__file__).read_text(encoding="utf-8")
+        lowered = source.lower()
+        for forbidden in (
+            "raw reasoning",
+            "private reasoning",
+            "raw chain of thought",
+            "bearer ",
+        ):
+            self.assertNotIn(forbidden, lowered)
+
     def test_selected_harness_conclusion_gate_is_exact(self) -> None:
         self.assertEqual(
             b5.HARNESS_REVISION,

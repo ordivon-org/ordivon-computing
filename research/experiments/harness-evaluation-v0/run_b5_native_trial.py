@@ -475,7 +475,7 @@ def system_manifest(
             "limitations": [
                 "This is one Trial in a three-run development baseline, not a model ranking.",
                 "Runtime Artifact traversal in Observation remains owner-native only.",
-                "Credential material and raw reasoning are excluded from evidence.",
+                "Credential bytes and auxiliary model internals are excluded from evidence.",
             ],
         }
     )
@@ -1286,7 +1286,7 @@ def build_result_record(
                 [] if failure is None else [failure["failureId"]]
             ),
             "limitations": [
-                "No raw Provider response or private reasoning is retained.",
+                "Unfiltered Provider payloads and auxiliary model internals are not retained.",
                 "Estimated monetary cost is unavailable from the Provider response.",
             ],
         }
