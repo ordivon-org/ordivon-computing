@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "kind": "ordivon.cognitive-reform-execution-program",
   "programId": "OCR-V0-001",
-  "status": "level_a_active",
+  "status": "level_a_core_complete_release_active_b1_authorized",
   "questionRef": "ANC-COMPILER-002",
   "evaluationQuestionRef": "ANC-VERIFY-001",
   "observedRevisions": {
-    "computing": "5c9d6dbb673990269b1c115acfa92c037670779d",
+    "computing": "9cf4055967650a99d2c343830c795cfa04b2ed92",
     "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
-    "harness": "f39943e4bc4e5e9e0478994a68a05f69d480406f",
+    "harness": "3aab3272577027ce418df47ed061eb2146e9901f",
     "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6",
     "protocol": "420dc356cb664d75db0f34f356156baebe5843db"
   },
@@ -29,24 +29,24 @@
     {
       "levelId": "A",
       "title": "Current-system closeout",
-      "status": "active_with_production_blocker",
+      "status": "core_complete_release_active_deploy_blocked",
       "required": true,
       "gate": [
-        "independent_harness_path_has_exact_remaining_gap_inventory",
-        "request_only_recovery_is_recorded_as_completed_not_blocking",
-        "bounded_batch_and_scale_acceptance_are_available",
-        "production_cutover_requirements_are_explicit_and_receipted_or_marked_external",
-        "computing_program_and_portfolio_are_synchronized"
+        "a_core_current_main_evidence_and_program_are_closed",
+        "a_release_exact_cross_repository_version_vector_is_remote_reachable_and_clean_install_rebuildable",
+        "a_deploy_staging_backup_restore_cutover_and_cleanup_rehearsal_passes"
       ],
       "workPackages": [
         "A1",
-        "A2"
+        "A2",
+        "A3",
+        "A4"
       ]
     },
     {
       "levelId": "B",
       "title": "Evidence and strong sequential baseline",
-      "status": "blocked_by_level_a",
+      "status": "b1_authorized_remaining_packages_blocked",
       "required": true,
       "gate": [
         "minimum_observation_core_rebuilds_one_cross_owner_selection",
@@ -104,18 +104,20 @@
     {
       "id": "A1",
       "owner": "ordivon-harness",
-      "title": "Harness P0 final closeout",
-      "status": "implementation_and_scale_complete_production_blocked",
+      "title": "Harness P0 engineering and evidence closeout",
+      "status": "completed",
       "inScope": [
         "remaining_gap_audit",
         "atomic_bounded_event_batch",
         "one_thousand_run_one_hundred_thousand_event_acceptance",
         "fault_matrix",
-        "production_state_root_and_cutover_preflight",
-        "exact_release_pin_inventory",
-        "closeout_receipt"
+        "read_only_production_preflight",
+        "current_main_evidence_binding"
       ],
       "outOfScope": [
+        "remote_release_publication",
+        "production_state_root_initialization",
+        "production_cutover_activation",
         "observation_exporter",
         "run_actor_daemon",
         "cognitive_graph",
@@ -124,22 +126,21 @@
       ],
       "progress": {
         "localMainCommits": [
-          "8257262f",
-          "5e96d77f",
-          "73f71507"
+          "8257262",
+          "5e96d77",
+          "73f7150",
+          "3aab327"
         ],
-        "passedEvidence": [
+        "verifiedEvidence": "evidence/hho-p0-scale-1000x100-73f7150.json",
+        "historicalEvidence": [
           "evidence/hho-p0-scale-1000x100-50cb9b5.json",
-          "evidence/hho-p0-fault-matrix-50cb9b5.json"
+          "evidence/hho-p0-fault-matrix-50cb9b5.json",
+          "evidence/hho-p0-production-preflight-43d7820.json",
+          "evidence/hho-p0-local-host-compat-73f7150.json"
         ],
-        "preflightEvidence": "evidence/hho-p0-production-preflight-43d7820.json",
-        "remainingBlockers": [
-          "exact_current_Host_Harness_and_Computing_revisions_not_remote_reachable",
-          "Harness_host_extra_pin_selects_older_reachable_Host",
-          "production_Host_and_Harness_roots_not_initialized",
-          "production_backup_restore_cutover_and_no_dual_write_receipts_missing"
-        ],
-        "cutoverActivated": false
+        "evidenceGate": "passed",
+        "cutoverActivated": false,
+        "downstream": "A3_release_version_vector_and_B1_observation_minimum_core"
       }
     },
     {
@@ -170,6 +171,58 @@
         "remainingLevelABlocker": "A1",
         "localMainCommit": "0c9197353c3a5bba31dda680e41d333e224f40ee"
       }
+    },
+    {
+      "id": "A3",
+      "owner": "ordivon-computing",
+      "title": "Exact cross-repository release version vector",
+      "status": "in_progress",
+      "inScope": [
+        "fetch_and_divergence_audit",
+        "remote_reachability",
+        "publish_current_host_before_harness_pin_update",
+        "update_harness_host_extra_and_lock_to_exact_reachable_host",
+        "clean_install_cross_repository_acceptance",
+        "freeze_system_version_vector"
+      ],
+      "outOfScope": [
+        "production_state_root_write",
+        "production_cutover",
+        "observation_exporters",
+        "tcg"
+      ],
+      "gate": [
+        "all_selected_revisions_remote_reachable",
+        "no_unreviewed_divergence",
+        "clean_install_uses_remote_exact_pins_without_local_source_overlay",
+        "cross_repository_acceptance_passes"
+      ]
+    },
+    {
+      "id": "A4",
+      "owner": "ordivon-harness",
+      "title": "Staging deployment and cutover rehearsal",
+      "status": "blocked_by_A3",
+      "inScope": [
+        "private_staging_host_and_harness_roots",
+        "doctor",
+        "backup_verify_restore",
+        "cutover_inventory",
+        "activation",
+        "legacy_writer_fail_closed",
+        "post_activation_rollback_refusal",
+        "cleanup"
+      ],
+      "outOfScope": [
+        "production_authority_activation",
+        "real_user_workload_migration"
+      ],
+      "gate": [
+        "A3_passed",
+        "staging_only",
+        "all_receipts_retained",
+        "staging_state_removed_after_acceptance"
+      ]
     }
   ],
   "observationExecution": {
@@ -216,21 +269,25 @@
     "program_records_duplicate_product_authority"
   ],
   "levelAProgress": {
-    "implemented": [
-      "program_correction",
-      "atomic_bounded_event_batch",
-      "full_regression",
-      "one_thousand_run_one_hundred_thousand_event_acceptance",
-      "fault_matrix",
-      "read_only_production_preflight"
-    ],
-    "notImplemented": [
-      "remote_release_publication",
-      "host_extra_pin_update",
-      "production_state_root_initialization",
-      "backup_restore_receipts",
-      "cutover_activation"
-    ],
-    "nextGate": "make_exact_revisions_reachable_then_update_and_test_the_Host_pin_before_any_production_root_write"
+    "aCore": {
+      "status": "completed",
+      "harnessMain": "3aab3272577027ce418df47ed061eb2146e9901f",
+      "verifiedScaleReceipt": "evidence/hho-p0-scale-1000x100-73f7150.json",
+      "evidenceGate": "passed"
+    },
+    "aRelease": {
+      "status": "in_progress",
+      "knownBlockers": [
+        "selected_local_revisions_are_ahead_of_origin_main",
+        "harness_host_extra_still_pins_1a4027bb26d77a2e051ca933bf664578f071a5a9",
+        "remote_divergence_has_not_yet_been_refreshed_and_reviewed"
+      ],
+      "nextGate": "fetch_all_remotes_and_prove_fast_forward_or_resolve_divergence_before_any_push_or_pin_change"
+    },
+    "aDeploy": {
+      "status": "blocked_by_A3",
+      "productionActivationRequiredForLevelB": false
+    },
+    "b1ObservationMinimumCoreAuthorized": true
   }
 }
