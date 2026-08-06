@@ -18,7 +18,9 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(self.program["programId"], "OCR-V0-001")
         self.assertEqual(self.program["status"], "level_a_active")
         levels = {item["levelId"]: item for item in self.program["levels"]}
-        self.assertEqual(levels["A"]["status"], "active")
+        self.assertEqual(
+            levels["A"]["status"], "active_with_production_blocker"
+        )
         self.assertEqual(levels["B"]["status"], "blocked_by_level_a")
         self.assertEqual(levels["D"]["status"], "not_authorized")
 
@@ -37,6 +39,11 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(set(packages), {"A1", "A2"})
         self.assertEqual(packages["A1"]["owner"], "ordivon-harness")
         self.assertEqual(packages["A2"]["owner"], "ordivon-computing")
+        self.assertEqual(
+            packages["A1"]["status"],
+            "implementation_and_scale_complete_production_blocked",
+        )
+        self.assertFalse(packages["A1"]["progress"]["cutoverActivated"])
         self.assertIn("cognitive_graph", packages["A1"]["outOfScope"])
         self.assertIn("product_behavior_change", packages["A2"]["outOfScope"])
 

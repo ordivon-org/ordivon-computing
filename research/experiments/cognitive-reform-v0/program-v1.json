@@ -29,7 +29,7 @@
     {
       "levelId": "A",
       "title": "Current-system closeout",
-      "status": "active",
+      "status": "active_with_production_blocker",
       "required": true,
       "gate": [
         "independent_harness_path_has_exact_remaining_gap_inventory",
@@ -105,7 +105,7 @@
       "id": "A1",
       "owner": "ordivon-harness",
       "title": "Harness P0 final closeout",
-      "status": "in_progress",
+      "status": "implementation_and_scale_complete_production_blocked",
       "inScope": [
         "remaining_gap_audit",
         "atomic_bounded_event_batch",
@@ -121,7 +121,26 @@
         "cognitive_graph",
         "child_runs",
         "prime_engine"
-      ]
+      ],
+      "progress": {
+        "localMainCommits": [
+          "8257262f",
+          "5e96d77f",
+          "73f71507"
+        ],
+        "passedEvidence": [
+          "evidence/hho-p0-scale-1000x100-50cb9b5.json",
+          "evidence/hho-p0-fault-matrix-50cb9b5.json"
+        ],
+        "preflightEvidence": "evidence/hho-p0-production-preflight-43d7820.json",
+        "remainingBlockers": [
+          "exact_current_Host_Harness_and_Computing_revisions_not_remote_reachable",
+          "Harness_host_extra_pin_selects_older_reachable_Host",
+          "production_Host_and_Harness_roots_not_initialized",
+          "production_backup_restore_cutover_and_no_dual_write_receipts_missing"
+        ],
+        "cutoverActivated": false
+      }
     },
     {
       "id": "A2",
@@ -148,7 +167,8 @@
           "research/experiments/observation-plane-v0/tests/test_plan.py",
           "research/portfolio.json"
         ],
-        "remainingLevelABlocker": "A1"
+        "remainingLevelABlocker": "A1",
+        "localMainCommit": "0c9197353c3a5bba31dda680e41d333e224f40ee"
       }
     }
   ],
@@ -194,5 +214,23 @@
     "tcg_is_implemented_before_strong_transcript_baseline",
     "run_actor_or_child_run_is_added_without_a_reproduced_workload_failure",
     "program_records_duplicate_product_authority"
-  ]
+  ],
+  "levelAProgress": {
+    "implemented": [
+      "program_correction",
+      "atomic_bounded_event_batch",
+      "full_regression",
+      "one_thousand_run_one_hundred_thousand_event_acceptance",
+      "fault_matrix",
+      "read_only_production_preflight"
+    ],
+    "notImplemented": [
+      "remote_release_publication",
+      "host_extra_pin_update",
+      "production_state_root_initialization",
+      "backup_restore_receipts",
+      "cutover_activation"
+    ],
+    "nextGate": "make_exact_revisions_reachable_then_update_and_test_the_Host_pin_before_any_production_root_write"
+  }
 }
