@@ -2,16 +2,9 @@
   "schemaVersion": 1,
   "kind": "ordivon.cognitive-reform-execution-program",
   "programId": "OCR-V0-001",
-  "status": "level_a_complete_b2_shared_contract_complete",
+  "status": "level_a_complete_b2_join_inventory_complete_exporters_ready",
   "questionRef": "ANC-COMPILER-002",
   "evaluationQuestionRef": "ANC-VERIFY-001",
-  "observedRevisions": {
-    "computing": "f9732ea5614d41d1d82885f3c522685ced62fec6",
-    "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
-    "harness": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
-    "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6",
-    "protocol": "420dc356cb664d75db0f34f356156baebe5843db"
-  },
   "decision": {
     "architecturePreApproved": false,
     "sequentialBaselineRetained": true,
@@ -46,7 +39,7 @@
     {
       "levelId": "B",
       "title": "Evidence and strong sequential baseline",
-      "status": "b2_shared_contract_complete_owner_exporters_ready",
+      "status": "b2_join_inventory_complete_owner_exporters_ready",
       "required": true,
       "gate": [
         "minimum_observation_core_rebuilds_one_cross_owner_selection",
@@ -56,6 +49,8 @@
       ],
       "workPackages": [
         "B1",
+        "B2-C",
+        "B2-J",
         "B2-H",
         "B2-A",
         "B2-R",
@@ -318,6 +313,283 @@
           "runtime": "one_stream_per_runtime_job"
         }
       }
+    },
+    {
+      "id": "B2-J",
+      "owner": "ordivon-computing",
+      "title": "Cross-owner stable join-key inventory",
+      "status": "completed",
+      "inputRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
+      "inScope": [
+        "host_external_request_and_binding_keys",
+        "harness_caller_and_tool_step_keys",
+        "runtime_client_request_job_and_artifact_keys",
+        "closed_typed_payload_key_extraction_policy"
+      ],
+      "outOfScope": [
+        "cross_owner_query",
+        "payload_content_export",
+        "owner_schema_mutation"
+      ],
+      "gate": [
+        "task_to_harness_run_join_frozen",
+        "tool_step_to_runtime_job_join_frozen",
+        "raw_payload_copy_forbidden"
+      ],
+      "completionEvidence": [
+        "research/experiments/observation-plane-v0/join-key-inventory-v1.json"
+      ],
+      "stopConditions": [
+        "owner_database_write_detected",
+        "raw_private_content_exported",
+        "observation_becomes_owner_authority",
+        "mapping_requires_fabricated_global_order"
+      ],
+      "completion": {
+        "inventory": "research/experiments/observation-plane-v0/join-key-inventory-v1.json",
+        "disposition": "sufficient_for_run_once_exporters_and_future_b3"
+      }
+    },
+    {
+      "id": "B2-H",
+      "owner": "ordivon-host",
+      "title": "Host run-once Observation exporter",
+      "status": "ready",
+      "inputRevision": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
+      "inScope": [
+        "read_only_owner_snapshot",
+        "metadata_and_digest_envelopes",
+        "closed_typed_foreign_key_extraction",
+        "durable_bundle_outbox",
+        "digest_cas_checkpoint",
+        "bounded_run_once_cli",
+        "gateway_ingest_acceptance"
+      ],
+      "outOfScope": [
+        "daemon",
+        "follow_mode",
+        "production_activation",
+        "owner_runtime_dependency",
+        "raw_content_export"
+      ],
+      "gate": [
+        "owner_bytes_unchanged",
+        "private_sidecar_outside_owner_root",
+        "replay_idempotent",
+        "fault_after_bundle_before_checkpoint_recovers",
+        "exact_revision_receipt",
+        "full_owner_regression_passes"
+      ],
+      "completionEvidence": [
+        "exact_implementation_revision",
+        "owner_exporter_acceptance_receipt"
+      ],
+      "stopConditions": [
+        "owner_database_write_detected",
+        "raw_private_content_exported",
+        "observation_becomes_owner_authority",
+        "mapping_requires_fabricated_global_order",
+        "sidecar_inside_owner_state_root",
+        "checkpoint_advances_without_durable_bundle"
+      ],
+      "streamSemantics": "global_host_journal_sequence"
+    },
+    {
+      "id": "B2-A",
+      "owner": "ordivon-harness",
+      "title": "Harness run-once Observation exporter",
+      "status": "ready",
+      "inputRevision": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
+      "inScope": [
+        "read_only_owner_snapshot",
+        "metadata_and_digest_envelopes",
+        "closed_typed_foreign_key_extraction",
+        "durable_bundle_outbox",
+        "digest_cas_checkpoint",
+        "bounded_run_once_cli",
+        "gateway_ingest_acceptance"
+      ],
+      "outOfScope": [
+        "daemon",
+        "follow_mode",
+        "production_activation",
+        "owner_runtime_dependency",
+        "raw_content_export"
+      ],
+      "gate": [
+        "owner_bytes_unchanged",
+        "private_sidecar_outside_owner_root",
+        "replay_idempotent",
+        "fault_after_bundle_before_checkpoint_recovers",
+        "exact_revision_receipt",
+        "full_owner_regression_passes"
+      ],
+      "completionEvidence": [
+        "exact_implementation_revision",
+        "owner_exporter_acceptance_receipt"
+      ],
+      "stopConditions": [
+        "owner_database_write_detected",
+        "raw_private_content_exported",
+        "observation_becomes_owner_authority",
+        "mapping_requires_fabricated_global_order",
+        "sidecar_inside_owner_state_root",
+        "checkpoint_advances_without_durable_bundle"
+      ],
+      "streamSemantics": "global_harness_journal_sequence"
+    },
+    {
+      "id": "B2-R",
+      "owner": "ordivon-runtime",
+      "title": "Runtime run-once Observation exporter",
+      "status": "ready",
+      "inputRevision": "ce061a5995d7a59246a103dcc51f0539245209a6",
+      "inScope": [
+        "read_only_owner_snapshot",
+        "metadata_and_digest_envelopes",
+        "closed_typed_foreign_key_extraction",
+        "durable_bundle_outbox",
+        "digest_cas_checkpoint",
+        "bounded_run_once_cli",
+        "gateway_ingest_acceptance"
+      ],
+      "outOfScope": [
+        "daemon",
+        "follow_mode",
+        "production_activation",
+        "owner_runtime_dependency",
+        "raw_content_export"
+      ],
+      "gate": [
+        "owner_bytes_unchanged",
+        "private_sidecar_outside_owner_root",
+        "replay_idempotent",
+        "fault_after_bundle_before_checkpoint_recovers",
+        "exact_revision_receipt",
+        "full_owner_regression_passes"
+      ],
+      "completionEvidence": [
+        "exact_implementation_revision",
+        "owner_exporter_acceptance_receipt"
+      ],
+      "stopConditions": [
+        "owner_database_write_detected",
+        "raw_private_content_exported",
+        "observation_becomes_owner_authority",
+        "mapping_requires_fabricated_global_order",
+        "sidecar_inside_owner_state_root",
+        "checkpoint_advances_without_durable_bundle"
+      ],
+      "streamSemantics": "per_job_event_sequence"
+    },
+    {
+      "id": "B3",
+      "owner": "ordivon-computing",
+      "title": "Real cross-owner trajectory rebuild and ObservationSelectionManifest",
+      "status": "blocked_by_B2_exporters",
+      "inputRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
+      "inScope": [
+        "ingest_three_real_owner_bundles",
+        "cross_owner_trajectory_query",
+        "selection_manifest",
+        "privacy_and_completeness_report",
+        "rebuild_determinism"
+      ],
+      "outOfScope": [
+        "trial_validity",
+        "candidate_quality",
+        "daemon",
+        "otel"
+      ],
+      "gate": [
+        "all_three_exporters_completed",
+        "stable_catalog_digest",
+        "stable_selection_digest"
+      ],
+      "completionEvidence": [
+        "cross_owner_correlation_receipt",
+        "observation_selection_manifest"
+      ],
+      "stopConditions": [
+        "join_requires_unbounded_payload_copy",
+        "selection_claims_trial_validity"
+      ]
+    },
+    {
+      "id": "B4",
+      "owner": "ordivon-computing",
+      "title": "Formal runner deterministic smoke and fault cells",
+      "status": "blocked_by_B3",
+      "inScope": [
+        "deterministic_smoke",
+        "response_loss",
+        "duplicate_delivery",
+        "gap_mapping_corruption_privacy_faults"
+      ],
+      "outOfScope": [
+        "native_trial_series",
+        "tcg"
+      ],
+      "gate": [
+        "B3_passed",
+        "fault_cells_have_owner_native_evidence"
+      ],
+      "completionEvidence": [
+        "formal_runner_receipt"
+      ],
+      "stopConditions": [
+        "runner_uses_host_cas_as_universal_authority"
+      ]
+    },
+    {
+      "id": "B5",
+      "owner": "ordivon-harness",
+      "title": "Three native sequential Trials",
+      "status": "blocked_by_B4",
+      "inScope": [
+        "short_task",
+        "restart_recovery_task",
+        "cross_owner_tool_task"
+      ],
+      "outOfScope": [
+        "tcg",
+        "child_runs"
+      ],
+      "gate": [
+        "three_valid_complete_trials",
+        "observation_selection_frozen"
+      ],
+      "completionEvidence": [
+        "three_native_trial_receipts"
+      ],
+      "stopConditions": [
+        "trial_validity_inferred_from_process_exit"
+      ]
+    },
+    {
+      "id": "B6",
+      "owner": "ordivon-harness",
+      "title": "Strong transcript compaction and retrieval baseline",
+      "status": "blocked_by_B5",
+      "inScope": [
+        "sequential_transcript",
+        "bounded_compaction",
+        "retrieval",
+        "durable_objective_state"
+      ],
+      "outOfScope": [
+        "tcg",
+        "graph_database"
+      ],
+      "gate": [
+        "baseline_repeated_and_frozen"
+      ],
+      "completionEvidence": [
+        "strong_transcript_baseline_receipt"
+      ],
+      "stopConditions": [
+        "tcg_implemented_before_baseline"
+      ]
     }
   ],
   "observationExecution": {
@@ -390,7 +662,7 @@
     },
     "b1ObservationMinimumCoreAuthorized": true,
     "levelAStatus": "completed",
-    "nextGate": "B2_run_once_owner_exporters"
+    "nextGate": "B2-H_B2-A_B2-R_run_once_owner_exporters"
   },
   "levelBProgress": {
     "B1": {
@@ -399,8 +671,8 @@
       "sourceBaseline": "a10c10f23215f02e1bddd2c567377193c0a144f8"
     },
     "exporters": {
-      "status": "owner_implementations_ready",
-      "sharedContractRevision": "ad1d0240966441e783c1ce9ef0f79f710580ba70",
+      "status": "ready_after_join_inventory",
+      "sharedContractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
       "packageSubdirectory": "research/experiments/observation-plane-v0/implementation",
       "packages": [
         "B2-H",
@@ -418,6 +690,25 @@
     },
     "B4": {
       "status": "blocked_by_B3"
+    },
+    "B2-J": {
+      "status": "completed",
+      "inventory": "research/experiments/observation-plane-v0/join-key-inventory-v1.json"
+    }
+  },
+  "revisionAuthority": {
+    "authoritySourceRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
+    "selectedOwnerRevisions": {
+      "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
+      "harness": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
+      "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6",
+      "protocol": "420dc356cb664d75db0f34f356156baebe5843db"
+    },
+    "sharedContractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
+    "implementationRevisions": {
+      "B2-H": null,
+      "B2-A": null,
+      "B2-R": null
     }
   }
 }

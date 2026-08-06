@@ -18,7 +18,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(self.program["programId"], "OCR-V0-001")
         self.assertEqual(
             self.program["status"],
-            "level_a_complete_b2_shared_contract_complete",
+            "level_a_complete_b2_join_inventory_complete_exporters_ready",
         )
         levels = {item["levelId"]: item for item in self.program["levels"]}
         self.assertEqual(
@@ -27,7 +27,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         )
         self.assertEqual(
             levels["B"]["status"],
-            "b2_shared_contract_complete_owner_exporters_ready",
+            "b2_join_inventory_complete_owner_exporters_ready",
         )
         self.assertEqual(levels["D"]["status"], "not_authorized")
 
@@ -43,7 +43,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
 
     def test_level_a_is_bounded(self) -> None:
         packages = {item["id"]: item for item in self.program["workPackages"]}
-        self.assertEqual(set(packages), {"A1", "A2", "A3", "A4", "B1", "B2-C"})
+        self.assertEqual(set(packages), {"A1", "A2", "A3", "A4", "B1", "B2-C", "B2-J", "B2-H", "B2-A", "B2-R", "B3", "B4", "B5", "B6"})
         self.assertEqual(packages["A1"]["owner"], "ordivon-harness")
         self.assertEqual(packages["A2"]["owner"], "ordivon-computing")
         self.assertEqual(packages["A1"]["status"], "completed")
@@ -90,7 +90,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         progress = self.program["levelBProgress"]
         self.assertEqual(progress["B1"]["status"], "completed")
         self.assertEqual(
-            progress["exporters"]["status"], "owner_implementations_ready"
+            progress["exporters"]["status"], "ready_after_join_inventory"
         )
         self.assertEqual(
             set(progress["exporters"]["packages"]),
@@ -98,7 +98,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         )
         self.assertEqual(
             progress["exporters"]["sharedContractRevision"],
-            "ad1d0240966441e783c1ce9ef0f79f710580ba70",
+            "b0973311d84b0debe30ca002e15e02401e16ee36",
         )
         self.assertEqual(progress["B3"]["status"], "blocked_by_exporters")
 
@@ -109,14 +109,34 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertIn("open_telemetry_bridge", observation["productionHardeningDeferred"])
         self.assertIn("million_event_benchmark", observation["productionHardeningDeferred"])
 
-    def test_revisions_are_exact(self) -> None:
-        revisions = self.program["observedRevisions"]
+    def test_revision_authority_is_explicit(self) -> None:
+        authority = self.program["revisionAuthority"]
+        revisions = {
+            "authority": authority["authoritySourceRevision"],
+            "contract": authority["sharedContractRevision"],
+            **authority["selectedOwnerRevisions"],
+        }
         self.assertEqual(
-            set(revisions), {"computing", "host", "harness", "runtime", "protocol"}
+            set(authority["implementationRevisions"]),
+            {"B2-H", "B2-A", "B2-R"},
+        )
+        self.assertTrue(
+            all(value is None for value in authority["implementationRevisions"].values())
         )
         for revision in revisions.values():
             self.assertEqual(len(revision), 40)
             int(revision, 16)
+
+    def test_level_b_packages_have_executable_contracts(self) -> None:
+        packages = {item["id"]: item for item in self.program["workPackages"]}
+        self.assertEqual(packages["B2-J"]["status"], "completed")
+        for package_id in ("B2-H", "B2-A", "B2-R"):
+            package = packages[package_id]
+            self.assertEqual(package["status"], "ready")
+            self.assertIn("gate", package)
+            self.assertIn("completionEvidence", package)
+            self.assertIn("stopConditions", package)
+        self.assertEqual(packages["B3"]["status"], "blocked_by_B2_exporters")
 
 
 if __name__ == "__main__":

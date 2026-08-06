@@ -1,0 +1,171 @@
+{
+  "authoritySourceRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
+  "disposition": "sufficient_for_run_once_exporters_and_future_b3",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:5a7b9423988d1acc4231dbb0412e403e99f1be6295f1376418664faed4f2d965"
+  },
+  "inventoryId": "OBS-JOIN-001",
+  "joinPaths": [
+    {
+      "join": [
+        "Host ExternalExecutionRequest.requestId == Harness runs.caller_run_ref",
+        "Host ExternalRunBinding.foreignRunRef == Harness runs.harness_run_id"
+      ],
+      "pathId": "host-task-to-harness-run",
+      "status": "available"
+    },
+    {
+      "constraint": "decode exact harness-tool-step-receipt only and export runtimeJobRef, never receipt content",
+      "join": [
+        "Harness ToolStepReceipt.runtimeJobRef == Runtime jobs.job_id"
+      ],
+      "pathId": "harness-tool-step-to-runtime-job",
+      "status": "available_via_typed_key_extraction"
+    },
+    {
+      "join": [
+        "Harness DispatchFence.clientRequestId == Runtime jobs.client_request_id"
+      ],
+      "pathId": "runtime-request-backlink",
+      "status": "available"
+    }
+  ],
+  "kind": "ordivon.observation-join-key-inventory",
+  "ownerRevisions": {
+    "harness": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
+    "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
+    "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
+    "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6"
+  },
+  "owners": {
+    "ordivon-harness": {
+      "nativeKeys": [
+        "runs.harness_run_id",
+        "runs.caller_id",
+        "runs.caller_run_ref",
+        "run_events.sequence",
+        "run_events.run_revision",
+        "tool_steps.tool_step_id"
+      ],
+      "relations": [
+        "host_external_request_to_harness_run",
+        "harness_run_to_tool_step",
+        "tool_step_to_runtime_job"
+      ],
+      "stream": "global_run_events_sequence",
+      "tables": [
+        "runs",
+        "caller_bindings",
+        "run_events",
+        "run_object_refs",
+        "object_refs",
+        "tool_steps"
+      ],
+      "typedObjects": {
+        "ordivon.harness-dispatch-fence": [
+          "harnessRunId",
+          "clientRequestId"
+        ],
+        "ordivon.harness-tool-step-receipt": [
+          "harnessRunId",
+          "toolStepId",
+          "runtimeJobRef"
+        ]
+      }
+    },
+    "ordivon-host": {
+      "nativeKeys": [
+        "events.event_id",
+        "events.stream_id",
+        "events.sequence",
+        "events.stream_revision"
+      ],
+      "relations": [
+        "task_to_external_request",
+        "external_request_to_harness_run",
+        "completion_proposal_to_harness_run"
+      ],
+      "stream": "global_events_sequence",
+      "tables": [
+        "host_metadata",
+        "events",
+        "event_object_refs",
+        "object_refs"
+      ],
+      "typedObjects": {
+        "ordivon.external-completion-proposal": [
+          "proposalId",
+          "foreignRunRef",
+          "contractDigest"
+        ],
+        "ordivon.external-execution-request": [
+          "requestId",
+          "taskId",
+          "taskAttemptRef",
+          "contractDigest"
+        ],
+        "ordivon.external-run-binding": [
+          "bindingId",
+          "requestId",
+          "foreignRunRef",
+          "taskId",
+          "taskAttemptRef",
+          "contractDigest"
+        ]
+      }
+    },
+    "ordivon-runtime": {
+      "nativeKeys": [
+        "jobs.job_id",
+        "jobs.client_request_id",
+        "jobs.request_digest",
+        "job_events.event_sequence",
+        "artifacts.artifact_id"
+      ],
+      "relations": [
+        "client_request_to_runtime_job",
+        "runtime_job_to_attempt",
+        "runtime_job_to_artifact"
+      ],
+      "stream": "one_stream_per_job",
+      "tables": [
+        "jobs",
+        "attempts",
+        "job_events",
+        "artifacts"
+      ],
+      "typedObjects": {}
+    }
+  },
+  "policy": {
+    "ownerStoresReadOnly": true,
+    "typedPayloadKeyExtraction": {
+      "authorized": true,
+      "forbidden": [
+        "summary",
+        "metadata",
+        "correlationContext",
+        "detailJson",
+        "prompt",
+        "output",
+        "stdout",
+        "stderr",
+        "environment",
+        "command"
+      ],
+      "purpose": "stable_foreign_identity_only",
+      "requirements": [
+        "exact_owner_kind_and_schema_version",
+        "closed_field_allowlist",
+        "string_or_digest_identity_only",
+        "payload_digest_retained",
+        "raw_payload_not_copied",
+        "secret_and_content_fields_rejected"
+      ]
+    }
+  },
+  "schemaVersion": 1,
+  "sharedContractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36"
+}

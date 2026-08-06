@@ -37,7 +37,7 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(self.plan["planId"], "HHO-P0-P1-001")
         self.assertEqual(
             self.plan["status"],
-            "level_a_complete_p1_m1_and_shared_export_contract_implemented",
+            "level_a_complete_join_inventory_frozen_exporters_ready",
         )
         self.assertEqual(
             self.plan["integrity"],
@@ -48,14 +48,19 @@ class ObservationPlanTests(unittest.TestCase):
             },
         )
 
-    def test_observed_revisions_are_exact(self) -> None:
-        revisions = self.plan["observedRevisions"]
-        self.assertEqual(
-            set(revisions),
-            {"computing", "host", "harness", "runtime", "protocol"},
-        )
-        for revision in revisions.values():
+    def test_revision_authority_is_exact(self) -> None:
+        authority = self.plan["revisionAuthority"]
+        revisions = [
+            authority["authoritySourceRevision"],
+            authority["sharedContractRevision"],
+            *authority["selectedOwnerRevisions"].values(),
+        ]
+        for revision in revisions:
             self.assertRegex(revision, re.compile(r"^[0-9a-f]{40}$"))
+        self.assertEqual(
+            authority["implementationRevisions"],
+            {"B2-A": None, "B2-H": None, "B2-R": None},
+        )
 
     def test_authorities_remain_separate(self) -> None:
         decisions = self.plan["decisions"]
@@ -131,7 +136,7 @@ class ObservationPlanTests(unittest.TestCase):
         p1 = self.plan["p1"]
         self.assertEqual(
             p1["status"],
-            "minimum_core_m1_implemented_exporters_pending",
+            "minimum_core_m1_and_join_inventory_complete_exporters_pending",
         )
         self.assertFalse(
             p1["executionReadiness"]["contractAndGatewayFixtureWorkMayStart"]
@@ -240,6 +245,15 @@ class ObservationPlanTests(unittest.TestCase):
             self.plan["p1"]["coreCloseoutGate"],
         )
 
+    def test_join_inventory_and_typed_key_policy_are_frozen(self) -> None:
+        p1 = self.plan["p1"]
+        policy = p1["typedPayloadKeyExtraction"]
+        self.assertTrue(policy["authorized"])
+        self.assertEqual(policy["purpose"], "stable_foreign_identity_only")
+        inventory = Path(policy["inventory"])
+        self.assertTrue(inventory.exists())
+        self.assertIn("raw_payload_not_copied", policy["requirements"])
+
     def test_m1_implementation_and_canonical_time_correction_are_frozen(self) -> None:
         p1 = self.plan["p1"]
         correction = p1["contractCorrections"]
@@ -253,11 +267,11 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(progress["M1"]["fixture"]["streams"], 3)
         self.assertEqual(
             progress["M2"]["status"],
-            "shared_contract_complete_owner_exporters_ready",
+            "shared_contract_and_join_inventory_complete_owner_exporters_ready",
         )
         self.assertEqual(
             progress["M2"]["contractRevision"],
-            "ad1d0240966441e783c1ce9ef0f79f710580ba70",
+            "b0973311d84b0debe30ca002e15e02401e16ee36",
         )
         self.assertEqual(
             progress["M2"]["streamSemantics"]["runtime"],
