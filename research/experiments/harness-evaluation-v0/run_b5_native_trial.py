@@ -69,7 +69,7 @@ from ordivon_harness.ordivon.deepseek import (  # noqa: E402
     DeepSeekSettings,
     DeepSeekTurnAdapter,
 )
-from ordivon_harness.ordivon.loop import RunBudget  # noqa: E402
+from ordivon_harness.ordivon.loop import RunBudget, RunStopCode  # noqa: E402
 from ordivon_harness.ordivon.sqlite_repository_repair_bridge import (  # noqa: E402
     INDEPENDENT_REPOSITORY_REPAIR_TOOL_GRANT_DIGEST,
     INDEPENDENT_REPOSITORY_REPAIR_TOOL_SURFACE_DIGEST,
@@ -356,68 +356,86 @@ def build_execution_binding(
     )
 
 
+def provider_configuration(settings: DeepSeekSettings) -> dict[str, Any]:
+    payload: dict[str, Any] = {
+        "schemaVersion": 1,
+        "kind": "ordivon.evaluation-provider-configuration",
+        "providerId": "deepseek",
+        "requestedModelId": settings.model,
+        "adapterId": DeepSeekTurnAdapter.adapter_id,
+        "adapterRevision": HARNESS_REVISION,
+        "credentialScopeId": settings.credential_scope_id,
+        "thinkingMode": "disabled",
+        "maxOutputTokens": settings.max_output_tokens,
+    }
+    payload["configurationDigest"] = canonical_digest(payload)
+    return with_integrity(payload)
+
+
+def validate_system_manifest_record(value: dict[str, Any]) -> None:
+    path = EXPERIMENT / "validate_p0_artifacts.py"
+    spec = importlib.util.spec_from_file_location("b5_p0_validator", path)
+    if spec is None or spec.loader is None:
+        raise NativeTrialError("System Manifest validator cannot be loaded")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    module.validate_system_manifest(value)
+
+
 def system_manifest(
+    ids: TrialIds,
     *,
     settings: DeepSeekSettings,
-    computing_revision: str,
     environment_digest: str,
     prompt_digest: str,
     context_digest: str,
     budget_digest: str,
     snapshot_digest: str,
 ) -> dict[str, Any]:
-    return with_integrity(
+    def ref(relative: str) -> dict[str, str]:
+        return {
+            "path": relative,
+            "digest": file_digest(COMPUTING_ROOT / relative),
+        }
+
+    value = with_integrity(
         {
             "schemaVersion": 1,
             "kind": "ordivon.evaluation-system-manifest",
-            "configurationId": CONFIGURATION_ID,
-            "competitive": False,
-            "createdAt": now_iso(),
+            "manifestId": f"b5-native-deepseek-{ids.number:03d}",
+            "capturedAt": now_iso(),
             "systemSnapshot": {
                 "path": "system-snapshot.json",
                 "digest": snapshot_digest,
             },
-            "configuration": {
-                "provider": {
-                    "providerId": "deepseek",
-                    "modelId": settings.model,
-                    "modelRevision": None,
-                    "adapterRevision": HARNESS_REVISION,
-                    "adapterId": DeepSeekTurnAdapter.adapter_id,
-                    "credentialScopeId": settings.credential_scope_id,
-                    "thinkingMode": "disabled",
-                    "maxOutputTokens": settings.max_output_tokens,
-                },
-                "digests": {
-                    "promptSet": prompt_digest,
-                    "contextPolicy": context_digest,
-                    "toolCatalog": INDEPENDENT_REPOSITORY_REPAIR_TOOL_SURFACE_DIGEST,
-                    "toolGrant": INDEPENDENT_REPOSITORY_REPAIR_TOOL_GRANT_DIGEST,
-                    "budgetProfile": budget_digest,
-                    "environment": environment_digest,
-                },
-            },
             "evaluationContract": {
-                "suite": {
-                    "path": "research/experiments/harness-evaluation-v0/suite-v1.json",
-                    "digest": file_digest(EXPERIMENT / "suite-v1.json"),
-                },
-                "task": {
-                    "path": (
-                        "/root/projects/ordivon-harness/evals/"
-                        "harness-repository-repair-001/task.json"
-                    ),
-                    "digest": file_digest(
-                        HARNESS_ROOT
-                        / "evals"
-                        / "harness-repository-repair-001"
-                        / "task.json"
-                    ),
-                },
+                "taskSchema": ref(
+                    "research/experiments/harness-evaluation-v0/"
+                    "schemas/task.schema.json"
+                ),
+                "trialSchema": ref(
+                    "research/experiments/harness-evaluation-v0/"
+                    "schemas/trial.schema.json"
+                ),
+                "resultSchema": ref(
+                    "research/experiments/harness-evaluation-v0/"
+                    "schemas/result.schema.json"
+                ),
+                "failureSchema": ref(
+                    "research/experiments/harness-evaluation-v0/"
+                    "schemas/failure-record.schema.json"
+                ),
+                "failureTaxonomy": ref(
+                    "research/experiments/harness-evaluation-v0/"
+                    "failure-taxonomy.yaml"
+                ),
+                "suite": ref(
+                    "research/experiments/harness-evaluation-v0/suite-v1.json"
+                ),
                 "graderSet": {
                     "path": (
-                        "/root/projects/ordivon-harness/evals/"
-                        "harness-repository-repair-001/verifier/test_outcome.py"
+                        "evals/harness-repository-repair-001/"
+                        "verifier/test_outcome.py"
                     ),
                     "digest": file_digest(
                         HARNESS_ROOT
@@ -428,28 +446,38 @@ def system_manifest(
                     ),
                 },
             },
+            "configuration": {
+                "provider": {
+                    "providerId": "deepseek",
+                    "modelId": settings.model,
+                    "modelRevision": None,
+                    "adapterRevision": HARNESS_REVISION,
+                },
+                "digests": {
+                    "promptSet": prompt_digest,
+                    "contextPolicy": context_digest,
+                    "toolCatalog": INDEPENDENT_REPOSITORY_REPAIR_TOOL_SURFACE_DIGEST,
+                    "toolGrant": INDEPENDENT_REPOSITORY_REPAIR_TOOL_GRANT_DIGEST,
+                    "budgetProfile": budget_digest,
+                    "environment": environment_digest,
+                },
+            },
             "privacy": {
                 "secretsIncluded": False,
-                "secretPathIncluded": False,
                 "rawReasoningRequired": False,
             },
-            "revisionAuthority": {
-                "computing": computing_revision,
-                "host": HOST_REVISION,
-                "harness": HARNESS_REVISION,
-                "runtime": RUNTIME_REVISION,
-                "protocol": PROTOCOL_REVISION,
-                "b4Implementation": B4_IMPLEMENTATION_REVISION,
-                "b4Receipt": B4_RECEIPT_REVISION,
-            },
+            "unavailableFields": [
+                "configuration.provider.modelRevision",
+            ],
             "limitations": [
-                "This is a development baseline with three sequential valid Trials, not a model ranking.",
+                "This is one Trial in a three-run development baseline, not a model ranking.",
                 "Runtime Artifact traversal in Observation remains owner-native only.",
                 "Credential material and raw reasoning are excluded from evidence.",
             ],
         }
     )
-
+    validate_system_manifest_record(value)
+    return value
 
 def initial_messages(ids: TrialIds, workspace_id: str) -> tuple[dict[str, Any], ...]:
     artifact_ref = f"workspace-artifact:{workspace_id}:artifacts/completion.json"
@@ -733,10 +761,24 @@ def build_selection(
     root: Path,
     host_root: Path,
     harness_root: Path,
-    runtime_snapshot: Path,
+    runtime_snapshot: Path | None,
 ) -> dict[str, Any]:
     sidecars = root / "observation-sidecars"
     outboxes = root / "observation-outboxes"
+    export_results: list[dict[str, Any]] = []
+    bundles: list[ObservationExportBundle] = []
+    producers = [
+        ObservationProducerIdentity(
+            "ordivon-host", "host-journal", ids.host_instance
+        ),
+        ObservationProducerIdentity(
+            "ordivon-harness", "harness-journal", ids.harness_instance
+        ),
+    ]
+    mappings = [
+        ("ordivon-host", "host-journal", "host-observation-v1"),
+        ("ordivon-harness", "harness-journal", "harness-observation-v1"),
+    ]
     host_result = export_host_observations(
         state_root=host_root,
         instance_id=ids.host_instance,
@@ -757,45 +799,47 @@ def build_selection(
         exported_at_ms=8_001 + ids.number * 10,
         limit=2_000,
     )
-    runtime_result = runtime_export_module().export_runtime_observations(
-        registry_root=runtime_snapshot,
-        instance_id=ids.runtime_instance,
-        checkpoint_path=sidecars / "runtime.json",
-        outbox_root=outboxes / "runtime",
-        owner_revision=RUNTIME_REVISION,
-        exporter_revision=RUNTIME_EXPORTER_REVISION,
-        exported_at_ms=8_002 + ids.number * 10,
-        job_limit=20,
-        event_limit_per_job=2_000,
-    )
-    results = (host_result, harness_result, runtime_result)
-    if any(result["status"] != "exported" for result in results):
+    export_results.extend((host_result, harness_result))
+    if runtime_snapshot is not None:
+        runtime_result = runtime_export_module().export_runtime_observations(
+            registry_root=runtime_snapshot,
+            instance_id=ids.runtime_instance,
+            checkpoint_path=sidecars / "runtime.json",
+            outbox_root=outboxes / "runtime",
+            owner_revision=RUNTIME_REVISION,
+            exporter_revision=RUNTIME_EXPORTER_REVISION,
+            exported_at_ms=8_002 + ids.number * 10,
+            job_limit=20,
+            event_limit_per_job=2_000,
+        )
+        export_results.append(runtime_result)
+        producers.append(
+            ObservationProducerIdentity(
+                "ordivon-runtime", "runtime-registry", ids.runtime_instance
+            )
+        )
+        mappings.append(
+            ("ordivon-runtime", "runtime-registry", "runtime-observation-v1")
+        )
+    if any(result["status"] != "exported" for result in export_results):
         raise NativeTrialError("one B5 owner exporter produced no Bundle")
-    bundles = tuple(load_bundle(str(result["bundlePath"])) for result in results)
-    producers = (
-        ObservationProducerIdentity("ordivon-host", "host-journal", ids.host_instance),
-        ObservationProducerIdentity(
-            "ordivon-harness", "harness-journal", ids.harness_instance
-        ),
-        ObservationProducerIdentity(
-            "ordivon-runtime", "runtime-registry", ids.runtime_instance
-        ),
-    )
-    mappings = (
-        ("ordivon-host", "host-journal", "host-observation-v1"),
-        ("ordivon-harness", "harness-journal", "harness-observation-v1"),
-        ("ordivon-runtime", "runtime-registry", "runtime-observation-v1"),
+    bundles.extend(
+        load_bundle(str(result["bundlePath"])) for result in export_results
     )
     with SQLiteObservationGateway.initialize(
         root / "gateway",
         gateway_instance_id=f"observation-gateway:{ids.suffix}",
-        producer_allowlist=producers,
-        mapping_versions=mappings,
+        producer_allowlist=tuple(producers),
+        mapping_versions=tuple(mappings),
         created_at_ms=8_100 + ids.number * 10,
     ) as gateway:
-        for offset, bundle in enumerate((bundles[2], bundles[0], bundles[1])):
+        ordered = tuple(reversed(bundles))
+        for offset, bundle in enumerate(ordered):
             for batch in bundle.batches:
-                gateway.ingest(batch, ingested_at_ms=8_200 + ids.number * 10 + offset)
+                gateway.ingest(
+                    batch,
+                    ingested_at_ms=8_200 + ids.number * 10 + offset,
+                )
         if not gateway.doctor(full=True)["healthy"]:
             raise NativeTrialError("B5 Observation Gateway Doctor failed")
         selection = select_cross_owner_trajectory(
@@ -809,14 +853,443 @@ def build_selection(
         )
     return selection.to_dict()
 
+def provider_usage_totals(usage: dict[str, Any]) -> dict[str, int]:
+    totals = {
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "cachedInputTokens": 0,
+        "totalTokens": 0,
+    }
+    raw = usage.get("providerUsage", [])
+    if isinstance(raw, list):
+        for item in raw:
+            if not isinstance(item, dict):
+                continue
+            prompt = item.get("prompt_tokens", item.get("promptTokens", 0))
+            completion = item.get(
+                "completion_tokens", item.get("completionTokens", 0)
+            )
+            cached = item.get(
+                "prompt_cache_hit_tokens",
+                item.get("cachedInputTokens", item.get("cacheHitTokens", 0)),
+            )
+            total = item.get("total_tokens", item.get("totalTokens"))
+            prompt_value = prompt if type(prompt) is int and prompt >= 0 else 0
+            completion_value = (
+                completion if type(completion) is int and completion >= 0 else 0
+            )
+            cached_value = cached if type(cached) is int and cached >= 0 else 0
+            total_value = (
+                total
+                if type(total) is int and total >= 0
+                else prompt_value + completion_value
+            )
+            totals["inputTokens"] += prompt_value
+            totals["outputTokens"] += completion_value
+            totals["cachedInputTokens"] += cached_value
+            totals["totalTokens"] += total_value
+    aggregate = usage.get("totalTokens")
+    if type(aggregate) is int and aggregate >= totals["totalTokens"]:
+        totals["totalTokens"] = aggregate
+    return totals
 
-def usage_int(value: dict[str, Any], *keys: str) -> int:
-    for key in keys:
-        candidate = value.get(key)
-        if isinstance(candidate, int) and candidate >= 0:
-            return candidate
-    return 0
 
+def runtime_job_ids(loop: Any, recorder: RuntimeRecorder) -> tuple[str, ...]:
+    values = set(recorder.job_ids)
+    for observation in loop.observations:
+        reference = observation.runtime_job_ref
+        if isinstance(reference, str):
+            values.add(reference)
+    return tuple(sorted(values))
+
+
+def repeated_observation_count(loop: Any, tool_name: str) -> int:
+    seen: set[str] = set()
+    repeated = 0
+    for observation in loop.observations:
+        if observation.tool_name != tool_name:
+            continue
+        content = observation.structured_content
+        identity = canonical_digest(
+            {
+                "toolName": tool_name,
+                "relativePath": content.get("relativePath"),
+                "checkId": content.get("checkId"),
+                "digest": content.get("digest"),
+            }
+        )
+        if identity in seen:
+            repeated += 1
+        seen.add(identity)
+    return repeated
+
+
+def trial_axes(
+    loop: Any,
+    evaluation: CandidateEvaluation | None,
+    *,
+    selection_complete: bool,
+) -> dict[str, Any]:
+    if selection_complete and evaluation is not None:
+        return {
+            "validity": "valid",
+            "semanticOutcome": "accepted" if evaluation.accepted else "rejected",
+            "failureAttribution": "none" if evaluation.accepted else "candidate",
+            "comparisonEligible": True,
+        }
+    unknown_codes = {
+        RunStopCode.PROVIDER_STATE_UNKNOWN,
+        RunStopCode.RUNTIME_UNKNOWN,
+        RunStopCode.CANCEL_UNKNOWN,
+    }
+    candidate_codes = {
+        RunStopCode.INVALID_MODEL_OUTPUT,
+        RunStopCode.INVALID_TOOL_CALL,
+        RunStopCode.BUDGET_EXHAUSTED,
+        RunStopCode.NO_PROGRESS,
+        RunStopCode.NEEDS_INPUT,
+    }
+    return {
+        "validity": "unknown" if loop.stop_code in unknown_codes else "invalid",
+        "semanticOutcome": (
+            "accepted"
+            if evaluation is not None and evaluation.accepted
+            else "rejected"
+            if evaluation is not None
+            else "not_reached"
+        ),
+        "failureAttribution": (
+            "unknown"
+            if loop.stop_code in unknown_codes
+            else "candidate"
+            if evaluation is not None and not evaluation.accepted
+            else "candidate"
+            if loop.stop_code in candidate_codes
+            else "infrastructure"
+        ),
+        "comparisonEligible": False,
+    }
+
+
+def failure_classification(
+    loop: Any,
+    evaluation: CandidateEvaluation | None,
+    *,
+    selection_complete: bool,
+) -> tuple[str, str, str, str, str]:
+    if evaluation is not None and not evaluation.accepted:
+        return (
+            "MODEL",
+            "false_completion",
+            "model",
+            "Verifier rejected a candidate-completed Run.",
+            "Revise the candidate using the frozen verifier failures and rerun the Trial.",
+        )
+    if loop.stop_code is RunStopCode.CANDIDATE_COMPLETED and evaluation is None:
+        return (
+            "HARNESS",
+            "result_misrouting",
+            "harness",
+            "Harness reported candidate completion without a collectable Host proposal.",
+            "Repair completion routing before retrying the Trial.",
+        )
+    if evaluation is not None and not selection_complete:
+        return (
+            "HARNESS",
+            "trace_loss",
+            "harness",
+            "Candidate adjudication completed but the cross-owner evidence gate was incomplete.",
+            "Restore the missing owner evidence and rerun without reusing this invalid Trial.",
+        )
+    mapping = {
+        RunStopCode.PROVIDER_FAILED: (
+            "PROVIDER",
+            "transport_error",
+            "provider",
+        ),
+        RunStopCode.PROVIDER_TIMEOUT: (
+            "PROVIDER",
+            "transport_error",
+            "provider",
+        ),
+        RunStopCode.PROVIDER_TRANSPORT_FAILED: (
+            "PROVIDER",
+            "transport_error",
+            "provider",
+        ),
+        RunStopCode.PROVIDER_REJECTED: (
+            "PROVIDER",
+            "transport_error",
+            "provider",
+        ),
+        RunStopCode.PROVIDER_UNAVAILABLE: (
+            "PROVIDER",
+            "transport_error",
+            "provider",
+        ),
+        RunStopCode.PROVIDER_STATE_UNKNOWN: (
+            "PROVIDER",
+            "ambiguous_response_loss",
+            "provider",
+        ),
+        RunStopCode.INVALID_MODEL_OUTPUT: (
+            "MODEL",
+            "invalid_output",
+            "model",
+        ),
+        RunStopCode.INVALID_TOOL_CALL: (
+            "TOOL",
+            "invalid_arguments",
+            "tool",
+        ),
+        RunStopCode.BUDGET_EXHAUSTED: (
+            "HARNESS",
+            "budget_error",
+            "harness",
+        ),
+        RunStopCode.NO_PROGRESS: (
+            "MODEL",
+            "repeated_plan",
+            "model",
+        ),
+        RunStopCode.NEEDS_INPUT: (
+            "MODEL",
+            "unjustified_abstention",
+            "model",
+        ),
+        RunStopCode.RUNTIME_UNKNOWN: (
+            "RUNTIME",
+            "terminal_evidence_missing",
+            "runtime",
+        ),
+        RunStopCode.HARNESS_FAILED: (
+            "HARNESS",
+            "state_loss",
+            "harness",
+        ),
+        RunStopCode.CANCEL_UNKNOWN: (
+            "EFFECT",
+            "unknown_delivery",
+            "effect",
+        ),
+        RunStopCode.CANCELLED: (
+            "HARNESS",
+            "incorrect_stop",
+            "harness",
+        ),
+    }
+    failure_class, failure_code, boundary = mapping.get(
+        loop.stop_code,
+        ("HARNESS", "incorrect_stop", "harness"),
+    )
+    return (
+        failure_class,
+        failure_code,
+        boundary,
+        f"Native Harness Run stopped with {loop.stop_code.value} before valid completion.",
+        "Inspect the retained Trace and retry only after the responsible boundary is corrected.",
+    )
+
+
+def build_failure_record(
+    ids: TrialIds,
+    *,
+    loop: Any,
+    evaluation: CandidateEvaluation | None,
+    selection_complete: bool,
+) -> dict[str, Any] | None:
+    if selection_complete and evaluation is not None and evaluation.accepted:
+        return None
+    failure_class, failure_code, boundary, description, correction = (
+        failure_classification(
+            loop,
+            evaluation,
+            selection_complete=selection_complete,
+        )
+    )
+    if evaluation is not None:
+        first_event = {
+            "sequence": None,
+            "eventKind": "verifier.completed",
+            "evidenceRef": "grader-bundle.json",
+        }
+    else:
+        event = loop.trace.events[-1] if loop.trace.events else None
+        first_event = {
+            "sequence": None if event is None else event.sequence,
+            "eventKind": "run_stopped" if event is None else event.kind,
+            "evidenceRef": f"harness-run:{ids.harness_run_id}",
+        }
+    value = with_integrity(
+        {
+            "schemaVersion": 1,
+            "kind": "ordivon.evaluation-failure",
+            "failureId": f"failure:{ids.suffix}:primary",
+            "trialId": ids.trial_id,
+            "failureClass": failure_class,
+            "failureCode": failure_code,
+            "firstObservableEvent": first_event,
+            "responsibleBoundary": boundary,
+            "recoverable": True,
+            "recovered": False,
+            "duplicateEffect": False,
+            "humanIntervention": False,
+            "description": description,
+            "minimalCorrection": correction,
+            "correctionCost": None,
+            "evidenceRefs": [
+                f"harness-run:{ids.harness_run_id}",
+                "observation-selection.json",
+            ],
+        }
+    )
+    b4.validate_track_r_record(value)
+    return value
+
+
+def build_result_record(
+    ids: TrialIds,
+    *,
+    loop: Any,
+    evaluation: CandidateEvaluation | None,
+    decision: dict[str, Any] | None,
+    completion_text: str | None,
+    workspace_id: str,
+    job_ids: tuple[str, ...],
+    started_at_ms: int,
+    completed_at_ms: int,
+    failure: dict[str, Any] | None,
+) -> dict[str, Any]:
+    usage = provider_usage_totals(dict(loop.usage))
+    adjudicated = evaluation is not None and decision is not None
+    artifacts: list[dict[str, Any]] = []
+    if completion_text is not None:
+        artifacts.append(
+            {
+                "ref": (
+                    f"workspace-artifact:{workspace_id}:"
+                    "artifacts/completion.json"
+                ),
+                "kind": "completion",
+                "digest": text_digest(completion_text),
+                "valid": (
+                    None
+                    if evaluation is None
+                    else evaluation.completion_artifact_valid
+                ),
+            }
+        )
+    if adjudicated:
+        assert evaluation is not None
+        assertions = [
+            {
+                "assertionId": "visible-tests-pass",
+                "status": "passed" if evaluation.visible_passed else "failed",
+                "evidenceRefs": [evaluation.visible_digest],
+            },
+            {
+                "assertionId": "hidden-tests-pass",
+                "status": "passed" if evaluation.hidden_passed else "failed",
+                "evidenceRefs": [evaluation.hidden_digest],
+            },
+            {
+                "assertionId": "protected-files-unchanged",
+                "status": (
+                    "passed"
+                    if evaluation.protected_files_unchanged
+                    else "failed"
+                ),
+                "evidenceRefs": [evaluation.candidate_source_digest],
+            },
+            {
+                "assertionId": "completion-artifact-valid",
+                "status": (
+                    "passed"
+                    if evaluation.completion_artifact_valid
+                    else "failed"
+                ),
+                "evidenceRefs": [
+                    evaluation.completion_artifact_digest
+                    or evaluation.candidate_source_digest
+                ],
+            },
+        ]
+        acceptance = {
+            "status": "accepted" if evaluation.accepted else "rejected",
+            "decisionRef": decision["decisionRef"],
+            "falseCompletion": bool(
+                loop.candidate_completed and not evaluation.accepted
+            ),
+            "verifier": {
+                "verifierId": "HARNESS-REPO-REPAIR-001-verifier",
+                "verifierRevision": "1",
+                "status": "passed" if evaluation.accepted else "failed",
+                "assertions": assertions,
+            },
+        }
+    else:
+        acceptance = {
+            "status": "not_adjudicated",
+            "decisionRef": None,
+            "falseCompletion": False,
+            "verifier": {
+                "verifierId": "HARNESS-REPO-REPAIR-001-verifier",
+                "verifierRevision": "1",
+                "status": "not_run",
+                "assertions": [],
+            },
+        }
+    value = with_integrity(
+        {
+            "schemaVersion": 1,
+            "kind": "ordivon.evaluation-result",
+            "trialId": ids.trial_id,
+            "taskRef": {"taskId": TASK_ID, "taskVersion": TASK_VERSION},
+            "stopCode": loop.stop_code.value,
+            "acceptance": acceptance,
+            "metrics": {
+                "modelCalls": loop.model_calls,
+                "toolCalls": loop.tool_calls,
+                "runtimeJobs": len(job_ids),
+                "observationBytes": loop.observation_bytes,
+                "inputTokens": usage["inputTokens"],
+                "outputTokens": usage["outputTokens"],
+                "cachedInputTokens": usage["cachedInputTokens"],
+                "reasoningTokens": 0,
+                "totalTokens": usage["totalTokens"],
+                "wallTimeMs": max(0, completed_at_ms - started_at_ms),
+                "estimatedCostUsd": None,
+                "repeatedReads": repeated_observation_count(
+                    loop, "read_workspace"
+                ),
+                "repeatedCommands": repeated_observation_count(
+                    loop, "run_check"
+                ),
+                "invalidToolCalls": (
+                    dict(loop.usage).get("toolCorrections", 0)
+                    if type(dict(loop.usage).get("toolCorrections", 0)) is int
+                    and dict(loop.usage).get("toolCorrections", 0) >= 0
+                    else 0
+                ),
+                "humanInterventionCount": 0,
+            },
+            "artifacts": artifacts,
+            "trace": {
+                "digest": loop.trace.digest,
+                "eventCount": len(loop.trace.events),
+                "ref": f"harness-run:{ids.harness_run_id}",
+            },
+            "failureRefs": (
+                [] if failure is None else [failure["failureId"]]
+            ),
+            "limitations": [
+                "No raw Provider response or private reasoning is retained.",
+                "Estimated monetary cost is unavailable from the Provider response.",
+            ],
+        }
+    )
+    b4.validate_track_r_record(value)
+    return value
 
 def write_attempt_closeout(
     output: Path,
@@ -931,15 +1404,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "maxInputTokens": 1_000_000,
             "maxOutputTokens": 100_000,
         }
+        provider_config = provider_configuration(settings)
+        provider_config_digest = provider_config["integrity"]["payloadDigest"]
         environment = {
             "platform": platform.platform(),
             "python": platform.python_version(),
             "runtimeEndpoint": args.runtime_endpoint,
             "historicalHostRevision": HISTORICAL_HOST_REVISION,
             "extractedSourceRevision": extracted_revision,
-            "provider": "deepseek",
-            "model": settings.model,
-            "credentialScopeId": settings.credential_scope_id,
+            "providerConfigurationDigest": provider_config_digest,
         }
         trial = TrialRecordStore.initialize(
             output,
@@ -970,9 +1443,10 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             }
         )
         snapshot_digest = trial.write_record("system-snapshot.json", snapshot)
+        trial.write_record("provider-configuration.json", provider_config)
         manifest = system_manifest(
+            ids,
             settings=settings,
-            computing_revision=computing_revision,
             environment_digest=canonical_digest(environment),
             prompt_digest=prompt_digest,
             context_digest=context_digest,
@@ -984,7 +1458,11 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             expected_stage="prepared",
             next_stage="executing",
             updated_at_ms=int(time.time_ns() // 1_000_000),
-            records=("system-snapshot.json", "system-manifest.json"),
+            records=(
+                "system-snapshot.json",
+                "provider-configuration.json",
+                "system-manifest.json",
+            ),
         )
 
         host_root = temporary / "host"
@@ -1001,7 +1479,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         )
         capture = ExecutionCapture()
 
-        def resolve(request) -> HarnessRunContract:
+        def resolve(request: Any) -> HarnessRunContract:
             if request.request_id != ids.external_request_id:
                 raise NativeTrialError("unexpected external request")
             return contract
@@ -1064,40 +1542,55 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 correlation_context={"trialId": ids.trial_id},
                 created_at_ms=host_clock(),
             )
-            coordinator = ExternalExecutorCoordinator(HostExtensionPort(storage, kernel))
+            coordinator = ExternalExecutorCoordinator(
+                HostExtensionPort(storage, kernel)
+            )
             coordinator.start(request, adapter)
-            coordinator.collect_completion(ids.host_task_id, adapter)
+            completion_proposal = coordinator.collect_completion(
+                ids.host_task_id, adapter
+            )
         if capture.driver_creations != 1 or capture.loop_result is None:
             raise NativeTrialError("independent Harness execution identity differs")
         loop = capture.loop_result
 
-        candidate_source = b4.read_workspace(client, workspace_id, "allocation.py")
+        candidate_source = b4.read_workspace(
+            client, workspace_id, "allocation.py"
+        )
         protected_observed = {
-            "SPEC.md": text_digest(b4.read_workspace(client, workspace_id, "SPEC.md")),
+            "SPEC.md": text_digest(
+                b4.read_workspace(client, workspace_id, "SPEC.md")
+            ),
             "test_allocation.py": text_digest(
                 b4.read_workspace(client, workspace_id, "test_allocation.py")
             ),
         }
-        completion_text: str | None
         try:
-            completion_text = b4.read_workspace(
+            completion_text: str | None = b4.read_workspace(
                 client, workspace_id, "artifacts/completion.json"
             )
-        except Exception:  # noqa: BLE001 - absence is a candidate result, not runner failure.
+        except Exception:  # noqa: BLE001 - absence is a candidate result.
             completion_text = None
-        evaluation = evaluate_candidate(
-            temporary,
-            candidate_source=candidate_source,
-            completion_text=completion_text,
-            protected_observed=protected_observed,
-            protected_expected=protected_expected,
-        )
-        decision = host_finalize(
-            ids,
-            host_root=host_root,
-            host_clock=host_clock,
-            evaluation=evaluation,
-        )
+
+        evaluation: CandidateEvaluation | None = None
+        decision: dict[str, Any] | None = None
+        if (
+            loop.stop_code is RunStopCode.CANDIDATE_COMPLETED
+            and completion_proposal is not None
+        ):
+            evaluation = evaluate_candidate(
+                temporary,
+                candidate_source=candidate_source,
+                completion_text=completion_text,
+                protected_observed=protected_observed,
+                protected_expected=protected_expected,
+            )
+            decision = host_finalize(
+                ids,
+                host_root=host_root,
+                host_clock=host_clock,
+                evaluation=evaluation,
+            )
+
         with SQLiteHarnessStore(harness_root) as reopened_harness:
             harness_doctor = reopened_harness.doctor(full=True)
             harness_event_count = len(
@@ -1106,29 +1599,23 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         if not harness_doctor["healthy"]:
             raise NativeTrialError("Harness Doctor failed")
 
-        job_ids = tuple(sorted(runtime.job_ids))
-        runtime_snapshot = temporary / "runtime-snapshot"
+        job_ids = runtime_job_ids(loop, runtime)
+        runtime_snapshot: Path | None = None
         if job_ids:
+            runtime_snapshot = temporary / "runtime-snapshot"
             copy_runtime_jobs(registry_root, runtime_snapshot, job_ids)
         client.call_tool(
             "workspace.close",
-            {"schemaVersion": 1, "workspaceId": workspace_id, "force": True},
+            {
+                "schemaVersion": 1,
+                "workspaceId": workspace_id,
+                "force": True,
+            },
         )
         workspace_closed = workspace_absent(client, workspace_id)
         if not workspace_closed:
             raise NativeTrialError("Runtime Workspace remained present after close")
 
-        if not job_ids:
-            write_attempt_closeout(
-                output,
-                ids=ids,
-                status="invalid_incomplete",
-                reason="No Runtime Job was linked to the Trial",
-                computing_revision=computing_revision,
-                workspace_closed=workspace_closed,
-                job_count=0,
-            )
-            raise NativeTrialError("Trial is invalid: no Runtime Job")
         selection = build_selection(
             ids,
             root=temporary,
@@ -1136,18 +1623,30 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             harness_root=harness_root,
             runtime_snapshot=runtime_snapshot,
         )
-        if selection["completeness"]["complete"] is not True:
-            write_attempt_closeout(
-                output,
-                ids=ids,
-                status="invalid_incomplete",
-                reason="Observation Selection is incomplete",
-                computing_revision=computing_revision,
-                workspace_closed=workspace_closed,
-                job_count=len(job_ids),
-            )
-            raise NativeTrialError("Trial is invalid: incomplete Selection")
-
+        selection_complete = selection["completeness"]["complete"] is True
+        axes = trial_axes(
+            loop,
+            evaluation,
+            selection_complete=selection_complete,
+        )
+        provider_identity = with_integrity(
+            {
+                "schemaVersion": 1,
+                "kind": "ordivon.evaluation-provider-identity",
+                "trialId": ids.trial_id,
+                "providerId": "deepseek",
+                "requestedModelId": settings.model,
+                "effectiveModelIds": list(
+                    dict(loop.usage).get("effectiveModelIds", [])
+                ),
+                "adapterId": DeepSeekTurnAdapter.adapter_id,
+                "adapterRevision": HARNESS_REVISION,
+                "credentialScopeId": settings.credential_scope_id,
+                "providerUsageDigest": canonical_digest(
+                    dict(loop.usage).get("providerUsage", [])
+                ),
+            }
+        )
         native_refs = with_integrity(
             {
                 "schemaVersion": 1,
@@ -1160,12 +1659,13 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "runtimeWorkspaceId": workspace_id,
                 "runtimeJobIds": list(job_ids),
                 "completionArtifactRef": (
-                    f"workspace-artifact:{workspace_id}:artifacts/completion.json"
+                    f"workspace-artifact:{workspace_id}:"
+                    "artifacts/completion.json"
                     if completion_text is not None
                     else None
                 ),
-                "decisionRef": decision["decisionRef"],
-                "outcomeRef": decision["outcomeRef"],
+                "decisionRef": None if decision is None else decision["decisionRef"],
+                "outcomeRef": None if decision is None else decision["outcomeRef"],
             }
         )
         grader_bundle = with_integrity(
@@ -1175,31 +1675,75 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "trialId": ids.trial_id,
                 "verifierId": "HARNESS-REPO-REPAIR-001-verifier",
                 "verifierRevision": "1",
-                "visible": {
-                    "status": "passed" if evaluation.visible_passed else "failed",
+                "status": "not_run"
+                if evaluation is None
+                else "passed"
+                if evaluation.accepted
+                else "failed",
+                "visible": None
+                if evaluation is None
+                else {
+                    "status": "passed"
+                    if evaluation.visible_passed
+                    else "failed",
                     "digest": evaluation.visible_digest,
                 },
-                "hidden": {
-                    "status": "passed" if evaluation.hidden_passed else "failed",
+                "hidden": None
+                if evaluation is None
+                else {
+                    "status": "passed"
+                    if evaluation.hidden_passed
+                    else "failed",
                     "digest": evaluation.hidden_digest,
                 },
-                "protectedFilesUnchanged": evaluation.protected_files_unchanged,
-                "completionArtifactValid": evaluation.completion_artifact_valid,
-                "completionArtifactDigest": evaluation.completion_artifact_digest,
-                "candidateSourceDigest": evaluation.candidate_source_digest,
-                "failureCodes": list(evaluation.failure_codes),
+                "protectedFilesUnchanged": (
+                    None
+                    if evaluation is None
+                    else evaluation.protected_files_unchanged
+                ),
+                "completionArtifactValid": (
+                    None
+                    if evaluation is None
+                    else evaluation.completion_artifact_valid
+                ),
+                "completionArtifactDigest": (
+                    None
+                    if evaluation is None
+                    else evaluation.completion_artifact_digest
+                ),
+                "candidateSourceDigest": text_digest(candidate_source),
+                "failureCodes": (
+                    [] if evaluation is None else list(evaluation.failure_codes)
+                ),
                 "disagreement": False,
             }
         )
-        trial.write_record("native-refs.json", native_refs, minimum_stage="executing")
-        trial.write_record("grader-bundle.json", grader_bundle, minimum_stage="executing")
+        trial.write_record(
+            "provider-identity.json",
+            provider_identity,
+            minimum_stage="executing",
+        )
+        trial.write_record(
+            "native-refs.json",
+            native_refs,
+            minimum_stage="executing",
+        )
+        trial.write_record(
+            "grader-bundle.json",
+            grader_bundle,
+            minimum_stage="executing",
+        )
         trial.advance(
             expected_stage="executing",
             next_stage="evidence_collected",
             updated_at_ms=int(time.time_ns() // 1_000_000),
-            records=("native-refs.json", "grader-bundle.json"),
+            records=(
+                "provider-identity.json",
+                "native-refs.json",
+                "grader-bundle.json",
+            ),
         )
-        trial.admit_selection(selection)
+        trial.record_selection(selection)
 
         intent_created_at = trial.intent().get("createdAtMs")
         if not isinstance(intent_created_at, int):
@@ -1227,7 +1771,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     "sourceRevision": HISTORICAL_HOST_REVISION,
                     "environmentDigest": canonical_digest(environment),
                     "contextDigest": context_digest,
-                    "toolCatalogDigest": INDEPENDENT_REPOSITORY_REPAIR_TOOL_SURFACE_DIGEST,
+                    "toolCatalogDigest": (
+                        INDEPENDENT_REPOSITORY_REPAIR_TOOL_SURFACE_DIGEST
+                    ),
                     "systemSnapshotRef": "system-snapshot.json",
                     "systemManifestRef": {
                         "repositoryId": "ordivon-computing",
@@ -1260,189 +1806,120 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     },
                 ],
                 "limitations": [
-                    "Provider sampling parameters are omitted by the adapter and use Provider defaults.",
-                    "This Trial contributes to a three-run development baseline, not a model ranking.",
+                    "Provider sampling parameters use Provider defaults.",
+                    "This Trial contributes to a three-run development baseline.",
                     "Runtime Artifact traversal is owner-native only.",
                 ],
             }
         )
         b4.validate_track_r_record(trial_value)
-        trial.write_record("trial.json", trial_value, minimum_stage="evidence_collected")
-
-        usage = dict(loop.usage)
-        input_tokens = usage_int(
-            usage, "prompt_tokens", "promptTokens", "input_tokens", "inputTokens"
+        failure = build_failure_record(
+            ids,
+            loop=loop,
+            evaluation=evaluation,
+            selection_complete=selection_complete,
         )
-        output_tokens = usage_int(
-            usage,
-            "completion_tokens",
-            "completionTokens",
-            "output_tokens",
-            "outputTokens",
+        result = build_result_record(
+            ids,
+            loop=loop,
+            evaluation=evaluation,
+            decision=decision,
+            completion_text=completion_text,
+            workspace_id=workspace_id,
+            job_ids=job_ids,
+            started_at_ms=intent_created_at,
+            completed_at_ms=completed_at_ms,
+            failure=failure,
         )
-        cached_tokens = usage_int(
-            usage,
-            "prompt_cache_hit_tokens",
-            "cachedInputTokens",
-            "cacheHitTokens",
-        )
-        total_tokens = usage_int(usage, "total_tokens", "totalTokens")
-        if total_tokens == 0:
-            total_tokens = input_tokens + output_tokens
-        repeated_commands = max(0, len(job_ids) - 1)
-        invalid_calls = sum(
-            event.kind.endswith("tool-rejected") for event in loop.trace.events
-        )
-        result = with_integrity(
-            {
-                "schemaVersion": 1,
-                "kind": "ordivon.evaluation-result",
-                "trialId": ids.trial_id,
-                "taskRef": {"taskId": TASK_ID, "taskVersion": TASK_VERSION},
-                "stopCode": loop.stop_code.value,
-                "acceptance": {
-                    "status": "accepted" if evaluation.accepted else "rejected",
-                    "decisionRef": decision["decisionRef"],
-                    "falseCompletion": bool(
-                        loop.candidate_completed and not evaluation.accepted
-                    ),
-                    "verifier": {
-                        "verifierId": "HARNESS-REPO-REPAIR-001-verifier",
-                        "verifierRevision": "1",
-                        "status": "passed" if evaluation.accepted else "failed",
-                        "assertions": [
-                            {
-                                "assertionId": "visible-tests-pass",
-                                "status": (
-                                    "passed" if evaluation.visible_passed else "failed"
-                                ),
-                                "evidenceRefs": [evaluation.visible_digest],
-                            },
-                            {
-                                "assertionId": "hidden-tests-pass",
-                                "status": (
-                                    "passed" if evaluation.hidden_passed else "failed"
-                                ),
-                                "evidenceRefs": [evaluation.hidden_digest],
-                            },
-                            {
-                                "assertionId": "protected-files-unchanged",
-                                "status": (
-                                    "passed"
-                                    if evaluation.protected_files_unchanged
-                                    else "failed"
-                                ),
-                                "evidenceRefs": list(protected_expected.values()),
-                            },
-                            {
-                                "assertionId": "completion-artifact-valid",
-                                "status": (
-                                    "passed"
-                                    if evaluation.completion_artifact_valid
-                                    else "failed"
-                                ),
-                                "evidenceRefs": (
-                                    [evaluation.completion_artifact_digest]
-                                    if evaluation.completion_artifact_digest
-                                    else [decision["decisionRef"]]
-                                ),
-                            },
-                        ],
-                    },
-                },
-                "metrics": {
-                    "modelCalls": loop.model_calls,
-                    "toolCalls": loop.tool_calls,
-                    "runtimeJobs": len(job_ids),
-                    "observationBytes": loop.observation_bytes,
-                    "inputTokens": input_tokens,
-                    "outputTokens": output_tokens,
-                    "cachedInputTokens": cached_tokens,
-                    "reasoningTokens": 0,
-                    "totalTokens": total_tokens,
-                    "wallTimeMs": max(0, completed_at_ms - intent_created_at),
-                    "estimatedCostUsd": None,
-                    "repeatedReads": max(
-                        0, runtime.calls.count("workspace.read") - 4
-                    ),
-                    "repeatedCommands": repeated_commands,
-                    "invalidToolCalls": invalid_calls,
-                    "humanInterventionCount": 0,
-                },
-                "artifacts": [
-                    {
-                        "ref": f"artifact:{ids.suffix}:completion",
-                        "kind": "completion-artifact",
-                        "digest": (
-                            evaluation.completion_artifact_digest
-                            or evaluation.candidate_source_digest
-                        ),
-                        "valid": evaluation.completion_artifact_valid,
-                    }
-                ],
-                "trace": {
-                    "digest": loop.trace.digest,
-                    "eventCount": len(loop.trace.events),
-                    "ref": f"harness-trace:{ids.harness_run_id}",
-                },
-                "failureRefs": [],
-                "limitations": [
-                    "No raw Provider response or private reasoning is retained.",
-                    "Estimated monetary cost is unavailable from the Provider response.",
-                ],
-            }
-        )
-        b4.validate_track_r_record(result)
-        trial.write_record("result.json", result, minimum_stage="evidence_collected")
         review = with_integrity(
             {
                 "schemaVersion": 1,
                 "kind": "ordivon.evaluation-review",
                 "trialId": ids.trial_id,
-                "verdict": "accepted" if evaluation.accepted else "rejected",
-                "validity": "valid",
-                "comparisonEligible": True,
-                "failureAttribution": (
-                    "none" if evaluation.accepted else "candidate"
-                ),
-                "failureCodes": list(evaluation.failure_codes),
-                "rawReasoningReviewed": False,
+                "reviewRequired": True,
+                "reviewStatus": "completed",
+                "validity": axes["validity"],
+                "semanticOutcome": axes["semanticOutcome"],
+                "comparisonEligible": axes["comparisonEligible"],
+                "failureAttribution": axes["failureAttribution"],
+                "selectionComplete": selection_complete,
+                "reasoningContentRetained": False,
                 "operatorIntervention": False,
+                "findings": [
+                    f"Harness stop code: {loop.stop_code.value}",
+                    f"Runtime Jobs linked: {len(job_ids)}",
+                    (
+                        "Independent verifier completed."
+                        if evaluation is not None
+                        else "Independent verifier was not reached."
+                    ),
+                ],
             }
         )
-        trial.write_record("review.json", review, minimum_stage="evidence_collected")
+        trial.write_record(
+            "trial.json", trial_value, minimum_stage="evidence_collected"
+        )
+        trial.write_record(
+            "result.json", result, minimum_stage="evidence_collected"
+        )
+        trial.write_record(
+            "review.json", review, minimum_stage="evidence_collected"
+        )
+        verified_records = [
+            "observation-selection.json",
+            "trial.json",
+            "result.json",
+            "review.json",
+        ]
+        if failure is not None:
+            trial.write_record(
+                "failure.json",
+                failure,
+                minimum_stage="evidence_collected",
+            )
+            verified_records.append("failure.json")
         trial.advance(
             expected_stage="evidence_collected",
             next_stage="verified",
             updated_at_ms=int(time.time_ns() // 1_000_000),
-            records=(
-                "observation-selection.json",
-                "trial.json",
-                "result.json",
-                "review.json",
-            ),
+            records=tuple(verified_records),
         )
+        reasons = [
+            (
+                "cross-owner Selection complete"
+                if selection_complete
+                else "cross-owner Selection incomplete"
+            ),
+            (
+                "independent verifier accepted candidate"
+                if evaluation is not None and evaluation.accepted
+                else "independent verifier rejected candidate"
+                if evaluation is not None
+                else "candidate adjudication was not reached"
+            ),
+        ]
         disposition = TrialDisposition(
             trial_id=ids.trial_id,
-            validity="valid",
-            semantic_outcome=("accepted" if evaluation.accepted else "rejected"),
+            validity=axes["validity"],
+            semantic_outcome=axes["semanticOutcome"],
             comparative_outcome="not_applicable",
-            failure_attribution=("none" if evaluation.accepted else "candidate"),
-            comparison_eligible=True,
-            reasons=(
-                "three-owner evidence and independent verification completed",
-                (
-                    "candidate passed all assertions"
-                    if evaluation.accepted
-                    else "candidate failed one or more frozen assertions"
-                ),
-            ),
+            failure_attribution=axes["failureAttribution"],
+            comparison_eligible=axes["comparisonEligible"],
+            reasons=tuple(reasons),
             selection_digest=selection["selectionDigest"],
         )
         trial.dispose(
             disposition,
             updated_at_ms=int(time.time_ns() // 1_000_000),
         )
+        disposition_digest = trial.record("disposition.json")["integrity"][
+            "payloadDigest"
+        ]
+        effective_models = dict(loop.usage).get("effectiveModelIds", [])
+        if not isinstance(effective_models, list) or any(
+            not isinstance(item, str) for item in effective_models
+        ):
+            raise NativeTrialError("effective Provider model identities differ")
         closeout = with_integrity(
             {
                 "schemaVersion": 1,
@@ -1451,18 +1928,23 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "configurationId": CONFIGURATION_ID,
                 "computingRevision": computing_revision,
                 "computingClean": not computing_dirty,
+                "providerConfigurationDigest": provider_config_digest,
                 "credentialScopeId": settings.credential_scope_id,
-                "modelId": settings.model,
-                "validity": "valid",
-                "semanticOutcome": (
-                    "accepted" if evaluation.accepted else "rejected"
-                ),
-                "comparisonEligible": True,
+                "requestedModelId": settings.model,
+                "effectiveModelIds": effective_models,
+                "validity": axes["validity"],
+                "semanticOutcome": axes["semanticOutcome"],
+                "comparisonEligible": axes["comparisonEligible"],
+                "selectionComplete": selection_complete,
                 "selectionDigest": selection["selectionDigest"],
                 "resultDigest": result["integrity"]["payloadDigest"],
-                "dispositionDigest": disposition.to_dict()["integrity"][
-                    "payloadDigest"
-                ],
+                "failureDigest": (
+                    None
+                    if failure is None
+                    else failure["integrity"]["payloadDigest"]
+                ),
+                "dispositionDigest": disposition_digest,
+                "stopCode": loop.stop_code.value,
                 "modelCalls": loop.model_calls,
                 "toolCalls": loop.tool_calls,
                 "runtimeJobCount": len(job_ids),
@@ -1472,7 +1954,9 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "b6Implemented": False,
             }
         )
-        trial.write_record("closeout.json", closeout, minimum_stage="disposed")
+        trial.write_record(
+            "closeout.json", closeout, minimum_stage="disposed"
+        )
         trial.advance(
             expected_stage="disposed",
             next_stage="closed",
@@ -1494,13 +1978,13 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                     },
                 )
                 workspace_closed = workspace_absent(client, workspace_id)
-            except Exception:  # noqa: BLE001 - retain original Trial failure.
+            except Exception:  # noqa: BLE001 - retain original failure.
                 workspace_closed = False
         if trial is not None and not (output / "attempt-closeout.json").exists():
             write_attempt_closeout(
                 output,
                 ids=ids,
-                status="invalid_or_failed",
+                status="runner_error",
                 reason=f"{type(error).__name__}: {error}",
                 computing_revision=computing_revision,
                 workspace_closed=workspace_closed,
@@ -1509,7 +1993,6 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         raise
     finally:
         shutil.rmtree(temporary, ignore_errors=True)
-
 
 def main() -> int:
     args = parse_args()
