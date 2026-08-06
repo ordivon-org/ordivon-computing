@@ -121,6 +121,21 @@ class FormalTrialPlanTests(unittest.TestCase):
             preflight["conclusionGateReceiptDigest"],
             "sha256:a35fb2a4859657069b112cc3172dcb5e0f2aeb748d0fe693ff09c0dd95a1218a",
         )
+        self.assertEqual(
+            preflight["trialReservation"],
+            {
+                "acquisition": "exclusive_create",
+                "acquireBefore": [
+                    "runtime_workspace_open",
+                    "provider_dispatch",
+                ],
+                "collisionPolicy": "fail_closed",
+                "releasePolicy": "never",
+                "evidenceRecord": "campaign-reservation.json",
+                "stateRootMode": "operator_private_0700",
+                "recordMode": "0600",
+            },
+        )
 
     def test_task_matches_admitted_suite_reference(self) -> None:
         task = self.plan["task"]

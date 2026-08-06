@@ -12,6 +12,7 @@ from pathlib import Path
 import platform
 import shutil
 import sqlite3
+import stat
 import subprocess
 import sys
 import tempfile
@@ -41,7 +42,9 @@ from formal_runner import (  # noqa: E402
     TrialDisposition,
     TrialRecordStore,
     canonical_digest,
+    reject_sensitive_content,
     validate_completion_artifact,
+    verify_integrity,
     with_integrity,
 )
 from ordivon_host import EventKind, HostKernel, HostStorage, TaskState  # noqa: E402
@@ -91,6 +94,11 @@ from ordivon_observation_core import (  # noqa: E402
 TASK_ID = "HARNESS-REPO-REPAIR-001"
 TASK_VERSION = 1
 CONFIGURATION_ID = "ordivon-harness-deepseek"
+CAMPAIGN_ID = "HHR-R3-BASELINE-001"
+DEFAULT_CAMPAIGN_STATE_ROOT = Path(
+    "/root/.local/state/ordivon/b5-native-campaign-v1"
+)
+FORMAL_TRIAL_PLAN = EXPERIMENT / "formal-trial-plan-v1.json"
 HISTORICAL_HOST_REVISION = "b4bc43a4ea7eb1e7771644d507bc4a3a39b4e741"
 HOST_REVISION = "a76a620160b28d870670696e04c39e539296fe00"
 HOST_EXPORTER_REVISION = "e1c134f330a90c15495126a67021b06c56245156"
@@ -243,6 +251,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--runtime-endpoint", default="http://127.0.0.1:8897/mcp")
     parser.add_argument("--runtime-registry-root", type=Path)
     parser.add_argument("--output-root", type=Path, required=True)
+    parser.add_argument(
+        "--campaign-state-root",
+        type=Path,
+        default=DEFAULT_CAMPAIGN_STATE_ROOT,
+    )
     parser.add_argument("--allow-dirty-computing", action="store_true")
     return parser.parse_args()
 
@@ -268,6 +281,113 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace(
         "+00:00", "Z"
     )
+
+
+def load_b5_preflight() -> tuple[dict[str, Any], str]:
+    value = json.loads(FORMAL_TRIAL_PLAN.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise NativeTrialError("Formal Trial Plan must be an object")
+    verify_integrity(value)
+    preflight = value.get("b5Preflight")
+    if not isinstance(preflight, dict):
+        raise NativeTrialError("Formal Trial Plan omitted B5 preflight")
+    digest = value["integrity"]["payloadDigest"]
+    if not isinstance(digest, str):
+        raise NativeTrialError("Formal Trial Plan digest is not a string")
+    return preflight, digest
+
+
+def validate_planned_trial_number(number: int) -> str:
+    preflight, plan_digest = load_b5_preflight()
+    expected = preflight.get("nextTrialNumber")
+    if type(expected) is not int or expected < 1:
+        raise NativeTrialError("Formal Trial Plan next Trial number is invalid")
+    if number != expected:
+        raise NativeTrialError(
+            f"Trial number differs from the formal plan: {number} != {expected}"
+        )
+    if preflight.get("sequentialOnly") is not True:
+        raise NativeTrialError("Formal Trial Plan does not require sequential execution")
+    if preflight.get("status") != "ready":
+        raise NativeTrialError("Formal Trial Plan is not ready")
+    return plan_digest
+
+
+def _private_campaign_directory(path: Path) -> Path:
+    value = path.expanduser()
+    if value.is_symlink():
+        raise NativeTrialError("Campaign state root cannot be a symlink")
+    if not value.exists():
+        try:
+            value.mkdir(parents=True, mode=0o700)
+        except FileExistsError:
+            pass
+        else:
+            os.chmod(value, 0o700)
+    resolved = value.resolve(strict=True)
+    if (
+        not resolved.is_dir()
+        or stat.S_IMODE(resolved.stat().st_mode) != 0o700
+    ):
+        raise NativeTrialError("Campaign state root must be a private 0700 directory")
+    return resolved
+
+
+def reserve_trial_number(
+    state_root: Path,
+    ids: TrialIds,
+    *,
+    computing_revision: str,
+    output_root: Path,
+    formal_plan_digest: str,
+    created_at_ms: int,
+) -> dict[str, Any]:
+    if created_at_ms < 0:
+        raise ValueError("Trial reservation time must be non-negative")
+    root = _private_campaign_directory(state_root)
+    record = with_integrity(
+        {
+            "schemaVersion": 1,
+            "kind": "ordivon.evaluation-trial-reservation",
+            "reservationId": f"reservation:{ids.suffix}",
+            "campaignId": CAMPAIGN_ID,
+            "trialId": ids.trial_id,
+            "trialNumber": ids.number,
+            "computingRevision": computing_revision,
+            "formalTrialPlanDigest": formal_plan_digest,
+            "outputIdentityDigest": canonical_digest(str(output_root)),
+            "createdAtMs": created_at_ms,
+        }
+    )
+    reject_sensitive_content(record)
+    path = root / f"trial-{ids.number:03d}.json"
+    encoded = json.dumps(
+        record,
+        ensure_ascii=False,
+        sort_keys=True,
+        indent=2,
+        allow_nan=False,
+    ).encode("utf-8") + b"\n"
+    try:
+        descriptor = os.open(
+            path,
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+            0o600,
+        )
+    except FileExistsError as error:
+        raise NativeTrialError(
+            f"Trial number is already reserved: {ids.number}"
+        ) from error
+    with os.fdopen(descriptor, "wb") as handle:
+        handle.write(encoded)
+        handle.flush()
+        os.fsync(handle.fileno())
+    directory = os.open(root, os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        os.fsync(directory)
+    finally:
+        os.close(directory)
+    return record
 
 
 def build_contract(
@@ -1292,6 +1412,7 @@ def build_result_record(
         }
     )
     b4.validate_track_r_record(value)
+    reject_sensitive_content(value)
     return value
 
 def write_attempt_closeout(
@@ -1303,6 +1424,7 @@ def write_attempt_closeout(
     computing_revision: str,
     workspace_closed: bool,
     job_count: int,
+    reservation_digest: str,
 ) -> None:
     output.mkdir(parents=True, exist_ok=True, mode=0o700)
     os.chmod(output, 0o700)
@@ -1316,6 +1438,7 @@ def write_attempt_closeout(
             "computingRevision": computing_revision,
             "workspaceClosed": workspace_closed,
             "runtimeJobCount": job_count,
+            "campaignReservationDigest": reservation_digest,
             "comparisonEligible": False,
             "b6Implemented": False,
         }
@@ -1327,6 +1450,7 @@ def write_attempt_closeout(
 
 def run(args: argparse.Namespace) -> dict[str, Any]:
     ids = TrialIds.build(args.trial_number)
+    formal_plan_digest = validate_planned_trial_number(ids.number)
     token = os.environ.get("ORDIVON_BEARER_TOKEN")
     if not token:
         raise NativeTrialError("ORDIVON_BEARER_TOKEN is not set")
@@ -1356,6 +1480,8 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             raise NativeTrialError("Runtime Registry root is not configured")
         registry_root = Path(configured)
     output = args.output_root.expanduser().resolve()
+    if output.exists():
+        raise NativeTrialError("Trial output root already exists")
     client = McpRuntimeClient(
         args.runtime_endpoint,
         token,
@@ -1363,11 +1489,29 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         client_version="1.0.0",
     )
     client.initialize()
+    reservation = reserve_trial_number(
+        args.campaign_state_root,
+        ids,
+        computing_revision=computing_revision,
+        output_root=output,
+        formal_plan_digest=formal_plan_digest,
+        created_at_ms=int(time.time_ns() // 1_000_000),
+    )
+    reservation_digest = reservation["integrity"]["payloadDigest"]
+    if not isinstance(reservation_digest, str):
+        raise NativeTrialError("Campaign reservation digest is not a string")
+    trial: TrialRecordStore | None = TrialRecordStore.initialize(
+        output,
+        trial_id=ids.trial_id,
+        configuration_id=CONFIGURATION_ID,
+        task_ref={"taskId": TASK_ID, "taskVersion": TASK_VERSION},
+        created_at_ms=int(time.time_ns() // 1_000_000),
+    )
+    trial.write_record("campaign-reservation.json", reservation)
     runtime = RuntimeRecorder(client)
     temporary = Path(tempfile.mkdtemp(prefix=f"ordivon-{ids.suffix}-"))
     workspace_id: str | None = None
     workspace_closed = False
-    trial: TrialRecordStore | None = None
     try:
         source_root = temporary / "source"
         extracted_revision = b4.extract_historical_fixture(source_root)
@@ -1417,17 +1561,11 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             "extractedSourceRevision": extracted_revision,
             "providerConfigurationDigest": provider_config_digest,
         }
-        trial = TrialRecordStore.initialize(
-            output,
-            trial_id=ids.trial_id,
-            configuration_id=CONFIGURATION_ID,
-            task_ref={"taskId": TASK_ID, "taskVersion": TASK_VERSION},
-            created_at_ms=int(time.time_ns() // 1_000_000),
-        )
         trial.advance(
             expected_stage="planned",
             next_stage="prepared",
             updated_at_ms=int(time.time_ns() // 1_000_000),
+            records=("campaign-reservation.json",),
         )
         snapshot = with_integrity(
             {
@@ -1941,6 +2079,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "computingRevision": computing_revision,
                 "computingClean": not computing_dirty,
                 "providerConfigurationDigest": provider_config_digest,
+                "campaignReservationDigest": reservation_digest,
                 "credentialScopeId": settings.credential_scope_id,
                 "requestedModelId": settings.model,
                 "effectiveModelIds": effective_models,
@@ -2001,6 +2140,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 computing_revision=computing_revision,
                 workspace_closed=workspace_closed,
                 job_count=len(runtime.job_ids),
+                reservation_digest=reservation_digest,
             )
         raise
     finally:

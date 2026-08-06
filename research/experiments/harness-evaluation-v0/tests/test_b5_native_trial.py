@@ -117,6 +117,65 @@ class B5NativeTrialTests(unittest.TestCase):
             "sha256:a35fb2a4859657069b112cc3172dcb5e0f2aeb748d0fe693ff09c0dd95a1218a",
         )
 
+    def test_formal_plan_enforces_the_next_trial_number(self) -> None:
+        plan = json.loads(b5.FORMAL_TRIAL_PLAN.read_text(encoding="utf-8"))
+        self.assertEqual(
+            b5.validate_planned_trial_number(3),
+            plan["integrity"]["payloadDigest"],
+        )
+        with self.assertRaises(b5.NativeTrialError):
+            b5.validate_planned_trial_number(2)
+        with self.assertRaises(b5.NativeTrialError):
+            b5.validate_planned_trial_number(4)
+
+    def test_trial_reservation_is_private_durable_and_single_use(self) -> None:
+        ids = b5.TrialIds.build(3)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "campaign"
+            output = Path(directory) / "trial-output"
+            value = b5.reserve_trial_number(
+                root,
+                ids,
+                computing_revision="a" * 40,
+                output_root=output,
+                formal_plan_digest=DIGEST_A,
+                created_at_ms=10,
+            )
+            path = root / "trial-003.json"
+            self.assertEqual(root.stat().st_mode & 0o777, 0o700)
+            self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+            loaded = json.loads(path.read_text(encoding="utf-8"))
+            b5.verify_integrity(loaded)
+            self.assertEqual(loaded, value)
+            self.assertEqual(loaded["trialId"], ids.trial_id)
+            self.assertEqual(loaded["formalTrialPlanDigest"], DIGEST_A)
+            self.assertNotIn(str(output), json.dumps(loaded, sort_keys=True))
+            with self.assertRaisesRegex(
+                b5.NativeTrialError,
+                "already reserved",
+            ):
+                b5.reserve_trial_number(
+                    root,
+                    ids,
+                    computing_revision="b" * 40,
+                    output_root=Path(directory) / "other-output",
+                    formal_plan_digest=DIGEST_B,
+                    created_at_ms=11,
+                )
+            root.chmod(0o755)
+            with self.assertRaisesRegex(
+                b5.NativeTrialError,
+                "private 0700",
+            ):
+                b5.reserve_trial_number(
+                    root,
+                    b5.TrialIds.build(4),
+                    computing_revision="c" * 40,
+                    output_root=Path(directory) / "fourth-output",
+                    formal_plan_digest=DIGEST_C,
+                    created_at_ms=12,
+                )
+
     def test_trial_identities_are_stable_and_distinct(self) -> None:
         first = b5.TrialIds.build(1)
         second = b5.TrialIds.build(2)
