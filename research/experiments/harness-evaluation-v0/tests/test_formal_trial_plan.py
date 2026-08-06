@@ -94,7 +94,7 @@ class FormalTrialPlanTests(unittest.TestCase):
         preflight = self.plan["b5Preflight"]
         self.assertEqual(preflight["status"], "ready")
         self.assertTrue(preflight["sequentialOnly"])
-        self.assertEqual(preflight["nextTrialNumber"], 3)
+        self.assertEqual(preflight["nextTrialNumber"], 4)
         self.assertEqual(preflight["requiredValidCompleteTrials"], 3)
         self.assertFalse(preflight["b6Authorized"])
         self.assertEqual(
@@ -102,6 +102,7 @@ class FormalTrialPlanTests(unittest.TestCase):
             [
                 "research/experiments/harness-evaluation-v0/diagnostics/b5-native-001-ad3ca58",
                 "research/experiments/harness-evaluation-v0/diagnostics/b5-native-002-b7d2c47",
+                "research/experiments/harness-evaluation-v0/diagnostics/b5-native-003-1e8eda0",
             ],
         )
         self.assertEqual(preflight["runnerPolicyTextFix"], "implemented")
@@ -155,6 +156,20 @@ class FormalTrialPlanTests(unittest.TestCase):
                     "tool_arguments",
                     "raw_error_detail",
                 ],
+            },
+        )
+        self.assertEqual(
+            preflight["runtimeExceptionAdapter"],
+            {
+                "status": "implemented",
+                "revision": "4c885c2934d573eddfba01d826fd13633c3cafd6",
+                "sourceContract": "ordivon_host.runtime",
+                "targetContract": "ordivon_harness.runtime_port",
+                "traceSummaryRecord": "trace-summary.json",
+                "trial003Diagnostic": (
+                    "research/experiments/harness-evaluation-v0/"
+                    "diagnostics/b5-native-003-1e8eda0"
+                ),
             },
         )
 

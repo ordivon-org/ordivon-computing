@@ -120,13 +120,13 @@ class B5NativeTrialTests(unittest.TestCase):
     def test_formal_plan_enforces_the_next_trial_number(self) -> None:
         plan = json.loads(b5.FORMAL_TRIAL_PLAN.read_text(encoding="utf-8"))
         self.assertEqual(
-            b5.validate_planned_trial_number(3),
+            b5.validate_planned_trial_number(4),
             plan["integrity"]["payloadDigest"],
         )
         with self.assertRaises(b5.NativeTrialError):
-            b5.validate_planned_trial_number(2)
+            b5.validate_planned_trial_number(3)
         with self.assertRaises(b5.NativeTrialError):
-            b5.validate_planned_trial_number(4)
+            b5.validate_planned_trial_number(5)
 
     def test_trial_reservation_is_private_durable_and_single_use(self) -> None:
         ids = b5.TrialIds.build(3)
