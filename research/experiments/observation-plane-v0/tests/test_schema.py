@@ -23,6 +23,8 @@ class ObservationSchemaTests(unittest.TestCase):
                 "observation-envelope-v1.schema.json",
                 "observation-ingest-batch-v1.schema.json",
                 "observation-ingest-acknowledgement-v1.schema.json",
+                "observation-export-checkpoint-v1.schema.json",
+                "observation-export-bundle-v1.schema.json",
             },
         )
         for name, schema in generated.items():
@@ -37,6 +39,21 @@ class ObservationSchemaTests(unittest.TestCase):
         self.assertNotIn("exportedAtMs", properties)
         self.assertIn("occurredAtMs", properties)
         self.assertFalse(schema["additionalProperties"])
+
+    def test_export_receipt_schemas_keep_dynamic_time_outside_envelopes(self) -> None:
+        generated = schemas()
+        checkpoint = generated["observation-export-checkpoint-v1.schema.json"]
+        bundle = generated["observation-export-bundle-v1.schema.json"]
+        self.assertIn("updatedAtMs", checkpoint["properties"])
+        self.assertIn("exportedAtMs", bundle["properties"])
+        self.assertNotIn(
+            "exportedAtMs",
+            generated["observation-envelope-v1.schema.json"]["properties"],
+        )
+        self.assertEqual(
+            bundle["properties"]["ownerRevision"]["pattern"],
+            "^[0-9a-f]{40}$",
+        )
 
     def test_minimum_core_is_metadata_and_reference_only(self) -> None:
         schema = schemas()["observation-envelope-v1.schema.json"]

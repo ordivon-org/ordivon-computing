@@ -1,0 +1,87 @@
+{
+  "$id": "https://ordivon.com/schemas/observation-export-checkpoint-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "integrity": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "canonicalization": {
+          "const": "ordivon-evidence-json-v1"
+        },
+        "payloadDigest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "payloadDigest"
+      ],
+      "type": "object"
+    },
+    "kind": {
+      "const": "ordivon.observation-export-checkpoint"
+    },
+    "mappingVersion": {
+      "maxLength": 128,
+      "minLength": 1,
+      "type": "string"
+    },
+    "producerIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "componentId": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "instanceId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        },
+        "projectId": {
+          "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectId",
+        "componentId",
+        "instanceId"
+      ],
+      "type": "object"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "streams": {
+      "additionalProperties": {
+        "minimum": 0,
+        "type": "integer"
+      },
+      "maxProperties": 1000000,
+      "type": "object"
+    },
+    "updatedAtMs": {
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "producerIdentity",
+    "mappingVersion",
+    "streams",
+    "updatedAtMs",
+    "integrity"
+  ],
+  "title": "Ordivon Observation Export Checkpoint v1",
+  "type": "object"
+}

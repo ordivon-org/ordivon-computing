@@ -60,6 +60,15 @@ __all__ = [
     "ObservationRejected",
     "ObservationSequenceGap",
     "SQLiteObservationGateway",
+    "BUNDLE_KIND",
+    "CHECKPOINT_KIND",
+    "ObservationCheckpointConflict",
+    "ObservationCheckpointCorrupt",
+    "ObservationExportBundle",
+    "ObservationExportCheckpoint",
+    "ObservationExportError",
+    "load_checkpoint",
+    "write_checkpoint",
 ]
 
 from .gateway import (
@@ -72,4 +81,16 @@ from .gateway import (
     ObservationRejected,
     ObservationSequenceGap,
     SQLiteObservationGateway,
+)
+
+from .exporter import (
+    BUNDLE_KIND,
+    CHECKPOINT_KIND,
+    ObservationCheckpointConflict,
+    ObservationCheckpointCorrupt,
+    ObservationExportBundle,
+    ObservationExportCheckpoint,
+    ObservationExportError,
+    load_checkpoint,
+    write_checkpoint,
 )

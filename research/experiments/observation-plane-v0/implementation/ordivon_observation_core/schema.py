@@ -14,6 +14,7 @@ from .contract import (
     PRIVACY_CLASSES,
     RELATION_TYPES,
 )
+from .exporter import BUNDLE_KIND, CHECKPOINT_KIND
 
 _DIGEST_PATTERN = r"^sha256:[0-9a-f]{64}$"
 _KIND_PATTERN = r"^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$"
@@ -255,11 +256,118 @@ def observation_acknowledgement_schema() -> dict[str, Any]:
     }
 
 
+def observation_export_checkpoint_schema() -> dict[str, Any]:
+    producer = _strict_object(
+        {
+            "projectId": {"type": "string", "pattern": _KIND_PATTERN},
+            "componentId": {"type": "string", "minLength": 1, "maxLength": 256},
+            "instanceId": {"type": "string", "minLength": 1, "maxLength": 512},
+        },
+        required=["projectId", "componentId", "instanceId"],
+    )
+    integrity = _strict_object(
+        {
+            "algorithm": {"const": "sha256"},
+            "canonicalization": {"const": "ordivon-evidence-json-v1"},
+            "payloadDigest": {"type": "string", "pattern": _DIGEST_PATTERN},
+        },
+        required=["algorithm", "canonicalization", "payloadDigest"],
+    )
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://ordivon.com/schemas/observation-export-checkpoint-v1.json",
+        "title": "Ordivon Observation Export Checkpoint v1",
+        **_strict_object(
+            {
+                "schemaVersion": {"const": 1},
+                "kind": {"const": CHECKPOINT_KIND},
+                "producerIdentity": producer,
+                "mappingVersion": {"type": "string", "minLength": 1, "maxLength": 128},
+                "streams": {
+                    "type": "object",
+                    "maxProperties": 1000000,
+                    "additionalProperties": {"type": "integer", "minimum": 0},
+                },
+                "updatedAtMs": {"type": "integer", "minimum": 0},
+                "integrity": integrity,
+            },
+            required=[
+                "schemaVersion",
+                "kind",
+                "producerIdentity",
+                "mappingVersion",
+                "streams",
+                "updatedAtMs",
+                "integrity",
+            ],
+        ),
+    }
+
+
+def observation_export_bundle_schema() -> dict[str, Any]:
+    producer = _strict_object(
+        {
+            "projectId": {"type": "string", "pattern": _KIND_PATTERN},
+            "componentId": {"type": "string", "minLength": 1, "maxLength": 256},
+            "instanceId": {"type": "string", "minLength": 1, "maxLength": 512},
+        },
+        required=["projectId", "componentId", "instanceId"],
+    )
+    integrity = _strict_object(
+        {
+            "algorithm": {"const": "sha256"},
+            "canonicalization": {"const": "ordivon-evidence-json-v1"},
+            "payloadDigest": {"type": "string", "pattern": _DIGEST_PATTERN},
+        },
+        required=["algorithm", "canonicalization", "payloadDigest"],
+    )
+    revision = {"type": "string", "pattern": r"^[0-9a-f]{40}$"}
+    digest = {"type": "string", "pattern": _DIGEST_PATTERN}
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://ordivon.com/schemas/observation-export-bundle-v1.json",
+        "title": "Ordivon Observation Export Bundle v1",
+        **_strict_object(
+            {
+                "schemaVersion": {"const": 1},
+                "kind": {"const": BUNDLE_KIND},
+                "producerIdentity": producer,
+                "mappingVersion": {"type": "string", "minLength": 1, "maxLength": 128},
+                "ownerRevision": revision,
+                "exporterRevision": revision,
+                "exportedAtMs": {"type": "integer", "minimum": 0},
+                "checkpointBeforeDigest": digest,
+                "checkpointAfterDigest": digest,
+                "batches": {
+                    "type": "array",
+                    "items": observation_batch_schema(),
+                },
+                "integrity": integrity,
+            },
+            required=[
+                "schemaVersion",
+                "kind",
+                "producerIdentity",
+                "mappingVersion",
+                "ownerRevision",
+                "exporterRevision",
+                "exportedAtMs",
+                "checkpointBeforeDigest",
+                "checkpointAfterDigest",
+                "batches",
+                "integrity",
+            ],
+        ),
+    }
+
+
 def schemas() -> dict[str, dict[str, Any]]:
     return {
         "observation-envelope-v1.schema.json": observation_envelope_schema(),
         "observation-ingest-batch-v1.schema.json": observation_batch_schema(),
         "observation-ingest-acknowledgement-v1.schema.json": observation_acknowledgement_schema(),
+        "observation-export-checkpoint-v1.schema.json": observation_export_checkpoint_schema(),
+        "observation-export-bundle-v1.schema.json": observation_export_bundle_schema(),
     }
 
 
@@ -277,6 +385,8 @@ __all__ = [
     "observation_acknowledgement_schema",
     "observation_batch_schema",
     "observation_envelope_schema",
+    "observation_export_bundle_schema",
+    "observation_export_checkpoint_schema",
     "schemas",
     "write_schemas",
 ]
