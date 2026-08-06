@@ -1,6 +1,6 @@
 # Harness Evaluation v0
 
-Status: the R0–R2 evidence contract and P0 control plane are implemented. B3 cross-owner Selection is complete. The B4 thin Formal Runner, deterministic integrated smoke, and bounded fault-cell executor are implemented and have passed development validation; exact clean-revision evidence remains the next gate before live Native Trials.
+Status: the R0–R2 evidence contract and P0 control plane are implemented. B3 cross-owner Selection and B4 Formal Runner/fault-cell acceptance are complete. B5 is ready: the live native Trial runner is implemented and under clean-revision validation. Three sequential valid complete DeepSeek Trials remain required before B5 closeout; B6 remains blocked pending an explicit review.
 
 ## Question
 
@@ -152,3 +152,23 @@ Host remains the Task and semantic-decision authority. Harness remains the Run a
 ## Canonicalization domain
 
 Track R records use `ordivon-evidence-json-v1`: sorted-key compact JSON over the finite JSON number domain admitted by the evaluation schemas. This label is intentionally distinct from the integer-only strict `anc_canonical` protocol domain. The two profiles may share byte ordering without claiming the same accepted value set.
+
+## B5 native baseline runner
+
+`run_b5_native_trial.py` executes exactly one sequential native Ordivon Harness Trial. Each invocation creates a fresh historical source repository, Runtime Workspace, Host state, Harness state, and Provider conversation. It uses the frozen independent repository-repair Tool surface, DeepSeek non-thinking adapter, independent visible and hidden verification, Host semantic acceptance or rejection, the three owner exporters, one complete `ObservationSelectionManifest`, and the B4 `TrialRecordStore`.
+
+A valid Trial may be accepted or rejected. Candidate failure is retained as a valid negative result only when the Runtime Workspace is closed, all three owner streams are complete, the verifier ran, and the Trial disposition is unambiguous. Infrastructure or Selection failure does not count toward the required three Trials.
+
+All three baseline Trials must use the same Provider, model, adapter, credential scope, prompt/context/tool/budget policy, and exact owner revision vector. Credential bytes, raw Provider responses, and private reasoning are never written to evidence. Trials are strictly sequential.
+
+```bash
+set -a
+. /etc/ordivon/ordivon-runtime.env
+set +a
+python3.12 research/experiments/harness-evaluation-v0/run_b5_native_trial.py \
+  --trial-number 1 \
+  --deepseek-secret /root/.config/ordivon/secrets/deepseek.json \
+  --output-root /path/to/private-trial-root
+```
+
+B5 does not authorize B6, TCG, Child Runs, a graph store, a daemon, concurrent campaigns, or automatic credential rotation.
