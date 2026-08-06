@@ -94,8 +94,11 @@ CONFIGURATION_ID = "ordivon-harness-deepseek"
 HISTORICAL_HOST_REVISION = "b4bc43a4ea7eb1e7771644d507bc4a3a39b4e741"
 HOST_REVISION = "a76a620160b28d870670696e04c39e539296fe00"
 HOST_EXPORTER_REVISION = "e1c134f330a90c15495126a67021b06c56245156"
-HARNESS_REVISION = "ac10497f1b6e681899cfe98c347ed6d48941ba23"
+HARNESS_REVISION = "437de1666a4124bc8a2791ee1a52456f913e9677"
 HARNESS_EXPORTER_REVISION = "e3cb34b4991b5f52e1c0ed0151ea17b067e88e16"
+HARNESS_CONCLUSION_GATE_IMPLEMENTATION_REVISION = "b23d5fa6c820c10f937f48cc16c2d8e03d3e18ae"
+HARNESS_CONCLUSION_GATE_RECEIPT_REVISION = "437de1666a4124bc8a2791ee1a52456f913e9677"
+HARNESS_CONCLUSION_GATE_RECEIPT_DIGEST = "sha256:a35fb2a4859657069b112cc3172dcb5e0f2aeb748d0fe693ff09c0dd95a1218a"
 RUNTIME_REVISION = "a455fd01ce0dea25684956e5e5da899d41832a1b"
 RUNTIME_EXPORTER_REVISION = "a455fd01ce0dea25684956e5e5da899d41832a1b"
 PROTOCOL_REVISION = "420dc356cb664d75db0f34f356156baebe5843db"
@@ -1433,6 +1436,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
                 "computingRevision": computing_revision,
                 "hostRevision": HOST_REVISION,
                 "harnessRevision": HARNESS_REVISION,
+                "harnessConclusionGateImplementationRevision": (
+                    HARNESS_CONCLUSION_GATE_IMPLEMENTATION_REVISION
+                ),
+                "harnessConclusionGateReceiptRevision": (
+                    HARNESS_CONCLUSION_GATE_RECEIPT_REVISION
+                ),
+                "harnessConclusionGateReceiptDigest": (
+                    HARNESS_CONCLUSION_GATE_RECEIPT_DIGEST
+                ),
                 "runtimeRevision": RUNTIME_REVISION,
                 "protocolRevision": PROTOCOL_REVISION,
                 "b4ImplementationRevision": B4_IMPLEMENTATION_REVISION,

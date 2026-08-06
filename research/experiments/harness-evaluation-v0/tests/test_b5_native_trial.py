@@ -88,6 +88,20 @@ def evaluation(*, accepted: bool) -> object:
 
 
 class B5NativeTrialTests(unittest.TestCase):
+    def test_selected_harness_conclusion_gate_is_exact(self) -> None:
+        self.assertEqual(
+            b5.HARNESS_REVISION,
+            "437de1666a4124bc8a2791ee1a52456f913e9677",
+        )
+        self.assertEqual(
+            b5.HARNESS_CONCLUSION_GATE_IMPLEMENTATION_REVISION,
+            "b23d5fa6c820c10f937f48cc16c2d8e03d3e18ae",
+        )
+        self.assertEqual(
+            b5.HARNESS_CONCLUSION_GATE_RECEIPT_DIGEST,
+            "sha256:a35fb2a4859657069b112cc3172dcb5e0f2aeb748d0fe693ff09c0dd95a1218a",
+        )
+
     def test_trial_identities_are_stable_and_distinct(self) -> None:
         first = b5.TrialIds.build(1)
         second = b5.TrialIds.build(2)

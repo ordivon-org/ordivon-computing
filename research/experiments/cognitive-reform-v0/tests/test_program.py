@@ -117,6 +117,20 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(progress["B5"]["requiredValidTrials"], 3)
         self.assertFalse(progress["B5"]["b6MayStart"])
         self.assertEqual(
+            progress["B5"]["selectedVersionVector"]["harness"],
+            "437de1666a4124bc8a2791ee1a52456f913e9677",
+        )
+        gate = progress["B5"]["harnessConclusionGate"]
+        self.assertEqual(
+            gate["implementationRevision"],
+            "b23d5fa6c820c10f937f48cc16c2d8e03d3e18ae",
+        )
+        self.assertEqual(
+            gate["receiptDigest"],
+            "sha256:a35fb2a4859657069b112cc3172dcb5e0f2aeb748d0fe693ff09c0dd95a1218a",
+        )
+        self.assertEqual(gate["status"], "verified")
+        self.assertEqual(
             progress["B6"]["status"],
             "blocked_by_B5_and_explicit_review",
         )
@@ -149,7 +163,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
             authority["selectedOwnerRevisions"],
             {
                 "host": "a76a620160b28d870670696e04c39e539296fe00",
-                "harness": "ac10497f1b6e681899cfe98c347ed6d48941ba23",
+                "harness": "437de1666a4124bc8a2791ee1a52456f913e9677",
                 "runtime": "a455fd01ce0dea25684956e5e5da899d41832a1b",
                 "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
             },

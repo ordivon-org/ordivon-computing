@@ -70,7 +70,7 @@ class ObservationPlanTests(unittest.TestCase):
             authority["selectedOwnerRevisions"],
             {
                 "host": "a76a620160b28d870670696e04c39e539296fe00",
-                "harness": "ac10497f1b6e681899cfe98c347ed6d48941ba23",
+                "harness": "437de1666a4124bc8a2791ee1a52456f913e9677",
                 "runtime": "a455fd01ce0dea25684956e5e5da899d41832a1b",
                 "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
             },
@@ -247,6 +247,18 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertIn("p1_minimum_core_passed", value["resumeRequirements"])
         self.assertTrue(value["formalRunnerUnblocked"])
         self.assertTrue(value["liveTrialUnlocked"])
+        self.assertEqual(
+            value["selectedHarnessRevision"],
+            "437de1666a4124bc8a2791ee1a52456f913e9677",
+        )
+        self.assertEqual(
+            value["harnessConclusionGate"]["implementationRevision"],
+            "b23d5fa6c820c10f937f48cc16c2d8e03d3e18ae",
+        )
+        self.assertEqual(
+            value["harnessConclusionGate"]["receiptDigest"],
+            "sha256:a35fb2a4859657069b112cc3172dcb5e0f2aeb748d0fe693ff09c0dd95a1218a",
+        )
 
     def test_execution_plan_and_read_only_exporter_state_are_explicit(self) -> None:
         execution_path = Path(self.plan["executionPlanRef"])
