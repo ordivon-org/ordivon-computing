@@ -481,6 +481,8 @@ At P1 closeout:
 
 ## P1-A — observation contract
 
+The wide field inventory below is historical design context. The executable reduced Contract in [`P1-EXECUTION-PLAN.md`](P1-EXECUTION-PLAN.md) and `implementation/ordivon_observation_core/` is authoritative for M1. In particular, dynamic export time is receipt metadata and is excluded from canonical Envelope bytes.
+
 ### Envelope
 
 `ordivon.observation-envelope.v1` contains:
@@ -490,7 +492,6 @@ schemaVersion
 kind
 eventId
 occurredAt
-exportedAt
 source
   projectId
   componentId
@@ -533,6 +534,7 @@ integrity
 Required properties:
 
 - `eventId` is stable across retries;
+- owner-native occurrence time may be canonical; dynamic export/ingest time belongs to receipts;
 - `streamId + sequence` is strictly ordered for one owner stream;
 - absent measurements are absent or `null`, never invented zeroes;
 - payload bytes are bounded and canonical;

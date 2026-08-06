@@ -1,6 +1,6 @@
 # HHO-P1 Execution Plan
 
-Status: Level A correction accepted; minimum experimental core designed; implementation not started.
+Status: Level A complete; Minimum Core M1 contract, in-process Gateway, schemas, privacy rejection, and synthetic rebuild fixture implemented; run-once owner exporters pending.
 
 Plan: `HHO-P0-P1-001`, phase `HHO-P1`.
 
@@ -24,7 +24,7 @@ The full P1 design remains the long-term hardening envelope, but it no longer bl
 - **P1 Minimum Experimental Core** — canonical contract, in-process SQLite ingest, run-once read-only Host/Harness/Runtime exporters, cross-owner trajectory query, privacy rejection, rebuild determinism, and one stable `ObservationSelectionManifest`. This is the only Observation prerequisite for the first R3 deterministic smoke and sequential baseline.
 - **P1 Production Hardening** — Unix-socket daemon, follow services, systemd packaging, long outage/load gates, million-event query benchmark, operational backup/restore, OpenTelemetry bridge, Collector, and repository extraction. These require a recurring consumer and do not block the first R3 campaign.
 
-The request-only Host-to-Harness recovery gap is no longer a blocker. Current Harness `f39943e4bc4e5e9e0478994a68a05f69d480406f` already proves a committed Host request can recover or reopen exactly one independently durable Harness Run after delivery loss. Remaining Level A blockers are the bounded batch/scale receipt and production state-root, exact release-pin, backup/rollback, cutover, and no-dual-write receipts.
+Level A is complete. Harness `f098f9492ab788068fd09da771bffc21e0fdc1b3` is remote-reachable, pins Host `7b17807784cc52f0be4f1786719f6dc20deb92c8`, and carries current live and 1,000-Run/100,000-Event receipts for implementation `f7e03aa78fec63237df6690c0c8f85e4a2ef76c1`. Computing retains the exact release vector and a staging-only backup/restore/cutover rehearsal at `a10c10f23215f02e1bddd2c567377193c0a144f8`. Production authority remains inactive by design and does not block P1.
 
 Run Actor scheduling, Child Runs, Prime/RLM Engine integration, Runtime Workers, graph storage, and continual Harness are outside P1 and are not prerequisites for TCG-P0 or the first single-Actor comparison.
 
@@ -34,18 +34,15 @@ The execution plan was prepared against these local revisions:
 
 | Repository | Revision | Relevant fact |
 | --- | --- | --- |
-| `ordivon-computing` | `3109e884be8e4fcfe0bc91493db2d7a9aba0bfd8` | accepted P0/P1 architecture and blocked Track R plan |
-| `ordivon-host` | `7b17807784cc52f0be4f1786719f6dc20deb92c8` | schema-v4 Journal/CAS and external executor boundary |
-| `ordivon-harness` | `f39943e4bc4e5e9e0478994a68a05f69d480406f` | independent SQLite/CAS store, standalone core, Host adapter, and cutover controls |
-| `ordivon-runtime` | `ce061a5995d7a59246a103dcc51f0539245209a6` | append-only Job events, Attempts, Artifacts, terminal evidence, and stable foreign references |
+| `ordivon-computing` | `a10c10f23215f02e1bddd2c567377193c0a144f8` | Level A closeout, release vector, and staging rehearsal baseline consumed by M1 |
+| `ordivon-host` | `7b17807784cc52f0be4f1786719f6dc20deb92c8` | remote-reachable schema-v4 Journal/CAS and external executor boundary |
+| `ordivon-harness` | `f098f9492ab788068fd09da771bffc21e0fdc1b3` | remote-reachable exact Host pin, independent Store, live H2 and scale evidence |
+| `ordivon-runtime` | `ce061a5995d7a59246a103dcc51f0539245209a6` | remote-reachable append-only Job streams and real system acceptance |
 | `ordivon-protocol` package | `420dc356cb664d75db0f34f356156baebe5843db` | current pinned cross-repository wire package |
 
-P0 is no longer `not_started`, but it is not yet accepted. The request-only external recovery gap is implemented and tested. P1 production enablement remains blocked by two P0 closeout items:
+P0 is accepted for research and release progression. Atomic bounded Harness admission, the 1,000-Run/100,000-Event gate, exact remote Host pin, clean wheel installation, live H2 journey, Runtime system acceptance, and staging backup/restore/cutover/rollback receipts all pass. Production Host/Harness roots remain absent and production authority is not activated.
 
-1. replace the current per-event high-cost Harness admission path with an atomic bounded batch path and produce the required 1,000-Run / 100,000-event performance receipt;
-2. initialize and verify production Host/Harness state roots under exact cross-repository release pins, execute the no-dual-write cutover gates, and retain deployment, backup, rollback, and cutover receipts.
-
-P1 contract and gateway work may begin before those closeout items finish. Real exporters may be developed against fixtures and temporary owner stores, but they must not be enabled against the production path until P0 is accepted.
+Run-once exporters may now be developed and accepted against exact owner revisions and temporary or read-only owner stores. No exporter service is enabled on a production path in the Minimum Core.
 
 ## 3. Non-negotiable execution invariants
 
@@ -118,7 +115,6 @@ schemaVersion: 1
 kind: ordivon.observation-envelope
 eventId
 occurredAtMs
-exportedAtMs
 source:
   projectId
   componentId
@@ -161,6 +157,8 @@ integrity:
 
 Rules:
 
+- `occurredAtMs` is owner-native event time and participates in canonical bytes;
+- dynamic exporter and gateway times do **not** participate in canonical Envelope bytes; they live in exporter and ingest receipts so rebuilding the same native event cannot create false corruption;
 - `eventId` is stable for one native event across retries and mapping re-execution;
 - `nativeDigest` binds the source record used by the mapping;
 - `source.streamId + source.sequence` defines completeness only inside that native stream;
@@ -733,13 +731,19 @@ Rollback is deletion-safe by construction:
 
 ## 12. Immediate Ready Frontier
 
-The first implementation slice is the **P1 Minimum Experimental Core**, while Level A closeout proceeds separately:
+M1 is implemented and tested:
 
-1. freeze the reduced envelope, relation vocabulary, privacy classes, and native stream rules;
-2. implement canonicalization, strict decoding, event identity, batch acknowledgement, and the SQLite transactional ingest library in process;
-3. validate exact duplicate, corruption, gap, privacy, and rebuild behavior with synthetic three-owner fixtures;
-4. add bounded run-once Harness, Host, and Runtime exporters;
-5. freeze one deterministic cross-owner `ObservationSelectionManifest`;
-6. hand that selection to the R3 deterministic smoke before authorizing daemon, follow-service, OTel, Collector, or million-event hardening.
+- reduced Envelope, relation vocabulary, privacy classes, and native stream rules;
+- canonicalization, strict decoding, native event identity, Batch and Acknowledgement contracts;
+- in-process SQLite Gateway with atomic ingest, exact replay, corruption/gap/mapping/privacy quarantine, private modes, reopen and full-history Doctor;
+- generated/frozen JSON Schemas;
+- deterministic metadata-only Host/Harness/Runtime fixture with 13 Events, three complete streams, and catalog digest `sha256:c71a5af70734d6a1f41167141affc9f6482194895cb3ab843bd6d5c6bd093f15`.
 
-This slice is useful even if P1 later narrows, and it does not encode the legacy Host-backed Harness layout. Production hardening requires measured recurring use by R3, TCG, or operations.
+The immediate frontier is now:
+
+1. freeze this M1 implementation revision as the common exporter contract;
+2. add bounded run-once Harness, Host, and Runtime exporters with observation-owned sidecars and read-only owner access;
+3. reconstruct one real deterministic cross-owner trajectory and freeze an `ObservationSelectionManifest`;
+4. hand that selection to the R3 deterministic smoke before authorizing daemon, follow-service, OTel, Collector, backup operations, or million-event hardening.
+
+Production hardening requires measured recurring use by R3, TCG, or operations.

@@ -1,0 +1,104 @@
+{
+  "$id": "https://ordivon.com/schemas/observation-ingest-acknowledgement-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "accepted": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "duplicates": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "firstSequence": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "gatewayReceiptDigest": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "ingestedAtMs": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "kind": {
+      "const": "ordivon.observation-ingest-acknowledgement"
+    },
+    "lastContiguousSequence": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "lastSequence": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "producerIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "componentId": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "instanceId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        },
+        "projectId": {
+          "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectId",
+        "componentId",
+        "instanceId"
+      ],
+      "type": "object"
+    },
+    "rejected": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "requestId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "status": {
+      "enum": [
+        "committed",
+        "rejected"
+      ]
+    },
+    "streamId": {
+      "maxLength": 1024,
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "requestId",
+    "producerIdentity",
+    "streamId",
+    "firstSequence",
+    "lastSequence",
+    "accepted",
+    "duplicates",
+    "rejected",
+    "lastContiguousSequence",
+    "status",
+    "ingestedAtMs",
+    "gatewayReceiptDigest"
+  ],
+  "title": "Ordivon Observation Ingest Acknowledgement v1",
+  "type": "object"
+}

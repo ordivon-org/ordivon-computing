@@ -1,0 +1,358 @@
+{
+  "$id": "https://ordivon.com/schemas/observation-envelope-v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "attributes": {
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": [
+              "string",
+              "number",
+              "integer",
+              "boolean",
+              "null"
+            ]
+          },
+          {
+            "items": {
+              "type": [
+                "string",
+                "number",
+                "integer",
+                "boolean",
+                "null"
+              ]
+            },
+            "maxItems": 32,
+            "type": "array"
+          }
+        ]
+      },
+      "maxProperties": 128,
+      "type": "object"
+    },
+    "eventId": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "integrity": {
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "canonicalization": {
+          "const": "ordivon-evidence-json-v1"
+        },
+        "payloadDigest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "payloadDigest"
+      ],
+      "type": "object"
+    },
+    "kind": {
+      "const": "ordivon.observation-envelope"
+    },
+    "measurements": {
+      "additionalProperties": {
+        "additionalProperties": false,
+        "properties": {
+          "unit": {
+            "maxLength": 64,
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "type": [
+              "number",
+              "integer"
+            ]
+          }
+        },
+        "required": [
+          "value",
+          "unit"
+        ],
+        "type": "object"
+      },
+      "maxProperties": 128,
+      "type": "object"
+    },
+    "occurredAtMs": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "outcome": {
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": [
+              "string",
+              "number",
+              "integer",
+              "boolean",
+              "null"
+            ]
+          },
+          {
+            "items": {
+              "type": [
+                "string",
+                "number",
+                "integer",
+                "boolean",
+                "null"
+              ]
+            },
+            "maxItems": 32,
+            "type": "array"
+          }
+        ]
+      },
+      "maxProperties": 32,
+      "type": "object"
+    },
+    "payloadRef": {
+      "additionalProperties": false,
+      "properties": {
+        "digest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "kind": {
+          "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+          "type": "string"
+        },
+        "locatorClass": {
+          "enum": [
+            "external_reference",
+            "owner_cas",
+            "owner_store",
+            "runtime_artifact"
+          ]
+        },
+        "nativeId": {
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "owner": {
+          "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "owner",
+        "kind",
+        "digest",
+        "locatorClass"
+      ],
+      "type": "object"
+    },
+    "privacy": {
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "enum": [
+            "private_content_ref",
+            "private_metadata",
+            "public_metadata",
+            "restricted_content_ref"
+          ]
+        },
+        "containsInlineContent": {
+          "const": false
+        },
+        "policyId": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "class",
+        "policyId",
+        "containsInlineContent"
+      ],
+      "type": "object"
+    },
+    "relations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "relationType": {
+            "enum": [
+              "accepted_by",
+              "belongs_to",
+              "caused_by",
+              "derived_from",
+              "evaluates",
+              "executes",
+              "linked_to",
+              "observes",
+              "produced",
+              "proposes_for",
+              "reconciles",
+              "references",
+              "requested_by",
+              "verifies"
+            ]
+          },
+          "targetDigest": {
+            "pattern": "^sha256:[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "targetId": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "targetKind": {
+            "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "relationType",
+          "targetKind",
+          "targetId"
+        ],
+        "type": "object"
+      },
+      "maxItems": 256,
+      "type": "array"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "componentId": {
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "instanceId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        },
+        "mappingVersion": {
+          "maxLength": 128,
+          "minLength": 1,
+          "type": "string"
+        },
+        "nativeDigest": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "nativeId": {
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "nativeKind": {
+          "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+          "type": "string"
+        },
+        "nativeRevision": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "projectId": {
+          "pattern": "^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "streamId": {
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectId",
+        "componentId",
+        "instanceId",
+        "streamId",
+        "sequence",
+        "nativeKind",
+        "nativeId",
+        "nativeDigest",
+        "mappingVersion"
+      ],
+      "type": "object"
+    },
+    "trace": {
+      "additionalProperties": false,
+      "properties": {
+        "links": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "spanId": {
+                "pattern": "^[0-9a-f]{16}$",
+                "type": "string"
+              },
+              "traceId": {
+                "pattern": "^[0-9a-f]{32}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "traceId",
+              "spanId"
+            ],
+            "type": "object"
+          },
+          "maxItems": 128,
+          "type": "array"
+        },
+        "parentSpanId": {
+          "pattern": "^[0-9a-f]{16}$",
+          "type": "string"
+        },
+        "spanId": {
+          "pattern": "^[0-9a-f]{16}$",
+          "type": "string"
+        },
+        "traceId": {
+          "pattern": "^[0-9a-f]{32}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "links"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "eventId",
+    "occurredAtMs",
+    "source",
+    "relations",
+    "attributes",
+    "measurements",
+    "privacy",
+    "integrity"
+  ],
+  "title": "Ordivon Observation Envelope v1",
+  "type": "object"
+}

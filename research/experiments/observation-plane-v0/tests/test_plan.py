@@ -37,7 +37,7 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(self.plan["planId"], "HHO-P0-P1-001")
         self.assertEqual(
             self.plan["status"],
-            "level_a_closeout_active_p1_minimum_core_designed",
+            "level_a_complete_p1_m1_implemented",
         )
         self.assertEqual(
             self.plan["integrity"],
@@ -80,8 +80,12 @@ class ObservationPlanTests(unittest.TestCase):
 
     def test_p0_contains_no_observation_platform(self) -> None:
         p0 = self.plan["p0"]
-        self.assertEqual(p0["status"], "closeout_pending")
-        self.assertEqual(len(p0["closeoutBlockers"]), 2)
+        self.assertEqual(
+            p0["status"],
+            "accepted_release_reproducible_staging_rehearsed_production_inactive",
+        )
+        self.assertEqual(p0["closeoutBlockers"], [])
+        self.assertFalse(p0["productionAuthorityActivated"])
         self.assertIn(
             "request_only_external_recovery_gap_full_tested",
             p0["completedCloseoutItems"],
@@ -127,10 +131,14 @@ class ObservationPlanTests(unittest.TestCase):
         p1 = self.plan["p1"]
         self.assertEqual(
             p1["status"],
-            "minimum_core_designed_waiting_for_level_a_closeout",
+            "minimum_core_m1_implemented_exporters_pending",
         )
-        self.assertTrue(
+        self.assertFalse(
             p1["executionReadiness"]["contractAndGatewayFixtureWorkMayStart"]
+        )
+        self.assertTrue(p1["executionReadiness"]["p0CloseoutSatisfied"])
+        self.assertTrue(
+            p1["executionReadiness"]["runOnceExporterWorkMayStart"]
         )
         self.assertTrue(
             p1["executionReadiness"]["productionExporterEnablementRequiresP0Closeout"]
@@ -180,9 +188,10 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertTrue(value["designRetained"])
         self.assertEqual(
             value["executionStatus"],
-            "blocked_by_hho_p0_and_p1_minimum_core",
+            "blocked_by_p1_exporters_selection_and_formal_runner",
         )
-        self.assertEqual(len(value["resumeRequirements"]), 6)
+        self.assertEqual(len(value["resumeRequirements"]), 5)
+        self.assertEqual(value["satisfiedPrerequisites"], ["p0_passed"])
         self.assertIn(
             "observation_selection_manifest_stable",
             value["resumeRequirements"],
@@ -230,6 +239,21 @@ class ObservationPlanTests(unittest.TestCase):
             "observation_selection_manifest_fixture_stable",
             self.plan["p1"]["coreCloseoutGate"],
         )
+
+    def test_m1_implementation_and_canonical_time_correction_are_frozen(self) -> None:
+        p1 = self.plan["p1"]
+        correction = p1["contractCorrections"]
+        self.assertTrue(correction["canonicalEnvelopeExcludesDynamicExportTime"])
+        self.assertTrue(correction["occurredAtMsIsOwnerNativeAndCanonical"])
+        self.assertTrue(correction["exportedAtAndIngestedAtAreReceiptOnly"])
+        progress = p1["implementationProgress"]
+        self.assertEqual(progress["M1"]["status"], "implemented")
+        self.assertEqual(progress["M1"]["tests"], 21)
+        self.assertEqual(progress["M1"]["fixture"]["events"], 13)
+        self.assertEqual(progress["M1"]["fixture"]["streams"], 3)
+        self.assertEqual(progress["M2"]["status"], "ready")
+        self.assertEqual(progress["M3"]["status"], "blocked_by_M2")
+        self.assertIn("owner_exporters", progress["M1"]["notIncluded"])
 
     def test_minimum_core_precedes_production_hardening(self) -> None:
         p1 = self.plan["p1"]

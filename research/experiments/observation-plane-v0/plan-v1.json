@@ -83,21 +83,23 @@
   "executionPlanRef": "research/experiments/observation-plane-v0/P1-EXECUTION-PLAN.md",
   "formalTrialEffect": {
     "designRetained": true,
-    "executionStatus": "blocked_by_hho_p0_and_p1_minimum_core",
+    "executionStatus": "blocked_by_p1_exporters_selection_and_formal_runner",
     "planId": "HHR-R3-001",
     "resumeRequirements": [
-      "p0_passed",
       "p1_minimum_core_passed",
       "deterministic_cross_owner_trajectory_queryable",
       "system_manifest_contains_observation_contract_and_mapping_versions",
       "formal_runner_uses_owner_native_refs_not_host_cas_assumption",
       "observation_selection_manifest_stable"
+    ],
+    "satisfiedPrerequisites": [
+      "p0_passed"
     ]
   },
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:8224a8e1495063620a40ea8c4c2ae67f00b99ddf34c338ac298232143a77688c"
+    "payloadDigest": "sha256:5bd92f16fe3eba734d6ac4ad5aeda154a759774389f89eb34ebde9fa126fad2c"
   },
   "kind": "ordivon.host-harness-observation-plan",
   "nonGoals": [
@@ -115,8 +117,8 @@
     "raw_chain_of_thought_collection"
   ],
   "observedRevisions": {
-    "computing": "5c9d6dbb673990269b1c115acfa92c037670779d",
-    "harness": "f39943e4bc4e5e9e0478994a68a05f69d480406f",
+    "computing": "a10c10f23215f02e1bddd2c567377193c0a144f8",
+    "harness": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
     "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
     "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
     "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6"
@@ -141,10 +143,12 @@
       "one_thousand_runs_one_hundred_thousand_events_load_test",
       "current_run_inspect_under_one_second_on_recorded_target"
     ],
-    "closeoutBlockers": [
-      "atomic_bounded_harness_event_batch_and_scale_receipt",
-      "production_state_roots_exact_release_pins_backup_restore_cutover_and_no_dual_write_receipts"
-    ],
+    "closeoutBlockers": [],
+    "closeoutEvidence": {
+      "program": "research/experiments/cognitive-reform-v0/program-v1.json",
+      "stagingReceipt": "research/experiments/cognitive-reform-v0/evidence/a4-staging-rehearsal-f6173b2.json",
+      "versionVector": "research/experiments/cognitive-reform-v0/system-version-vector-v1.json"
+    },
     "closeoutOutputs": [
       "host_gate_receipt",
       "harness_gate_receipt",
@@ -161,7 +165,12 @@
       "independent_harness_journal_and_cas",
       "standalone_runner_and_completion_proposal",
       "host_foreign_run_binding_and_response_loss_recovery",
-      "append_only_cutover_control_and_legacy_writer_guard"
+      "append_only_cutover_control_and_legacy_writer_guard",
+      "atomic_bounded_harness_event_batch_and_scale_receipt",
+      "exact_remote_release_vector_and_clean_install",
+      "live_host_harness_runtime_acceptance",
+      "runtime_real_system_acceptance",
+      "staging_backup_restore_cutover_rollback_and_cleanup"
     ],
     "forbiddenCapabilities": [
       "observation_gateway",
@@ -194,11 +203,12 @@
       "newRunStoreCount": 1
     },
     "phaseId": "HHO-P0",
+    "productionAuthorityActivated": false,
     "stateRoots": {
       "harness": "/var/lib/ordivon/harness",
       "host": "/var/lib/ordivon/host"
     },
-    "status": "closeout_pending",
+    "status": "accepted_release_reproducible_staging_rehearsed_production_inactive",
     "stopConditions": [
       "run_recovery_requires_mutable_host_projection_fields",
       "host_must_decode_harness_internal_events",
@@ -327,6 +337,12 @@
       "p1_disposition",
       "observation_selection_manifest_fixture"
     ],
+    "contractCorrections": {
+      "canonicalEnvelopeExcludesDynamicExportTime": true,
+      "exportedAtAndIngestedAtAreReceiptOnly": true,
+      "occurredAtMsIsOwnerNativeAndCanonical": true,
+      "reason": "stable_rebuild_must_not_depend_on_export_or_ingest_clock"
+    },
     "coreCloseoutGate": [
       "three_read_only_owner_exporters",
       "complete_deterministic_cross_owner_trajectory",
@@ -362,12 +378,14 @@
       "P1.P2_open_telemetry_interop"
     ],
     "executionReadiness": {
-      "contractAndGatewayFixtureWorkMayStart": true,
+      "contractAndGatewayFixtureWorkMayStart": false,
       "exporterDevelopmentAgainstTemporaryStoresMayStart": true,
       "formalTrialsRequireMinimumExperimentalCore": true,
       "formalTrialsRequireP1CoreCloseout": false,
       "openTelemetryInteropBlocksFormalTrials": false,
-      "productionExporterEnablementRequiresP0Closeout": true
+      "p0CloseoutSatisfied": true,
+      "productionExporterEnablementRequiresP0Closeout": true,
+      "runOnceExporterWorkMayStart": true
     },
     "experimentLoopBoundary": {
       "downstreamPlanId": "CEL-R4-001",
@@ -405,6 +423,55 @@
       "quarantine",
       "mapping_versions"
     ],
+    "implementationProgress": {
+      "M1": {
+        "capabilities": [
+          "strict_contract",
+          "canonical_identity_and_digest",
+          "in_process_sqlite_gateway",
+          "atomic_single_stream_ingest",
+          "exact_duplicate_replay",
+          "corruption_gap_mapping_privacy_quarantine",
+          "private_modes",
+          "reopen_and_full_history_doctor",
+          "generated_frozen_schemas",
+          "deterministic_three_owner_rebuild"
+        ],
+        "fixture": {
+          "catalogDigest": "sha256:c71a5af70734d6a1f41167141affc9f6482194895cb3ab843bd6d5c6bd093f15",
+          "events": 13,
+          "streams": 3
+        },
+        "fixturePath": "research/experiments/observation-plane-v0/fixtures/three-owner-trajectory-v1.json",
+        "implementationPath": "research/experiments/observation-plane-v0/implementation/ordivon_observation_core",
+        "notIncluded": [
+          "owner_exporters",
+          "exporter_sidecars",
+          "daemon_or_socket",
+          "operational_backup_restore",
+          "trajectory_query",
+          "observation_selection_manifest",
+          "open_telemetry",
+          "trial_validity"
+        ],
+        "schemasPath": "research/experiments/observation-plane-v0/schemas",
+        "sourceBaseline": "a10c10f23215f02e1bddd2c567377193c0a144f8",
+        "status": "implemented",
+        "tests": 21
+      },
+      "M2": {
+        "status": "ready",
+        "work": "run_once_read_only_host_harness_runtime_exporters"
+      },
+      "M3": {
+        "status": "blocked_by_M2",
+        "work": "cross_owner_trajectory_privacy_rebuild_and_selection"
+      },
+      "M4": {
+        "status": "blocked_by_M3",
+        "work": "track_r_deterministic_smoke"
+      }
+    },
     "interopCloseoutGate": [
       "derived_otel_trace_preserves_native_identity",
       "collector_restart_resumes_persistent_queue",
@@ -494,7 +561,7 @@
       "ordivon-runtime"
     ],
     "stateRoot": "/var/lib/ordivon/observation",
-    "status": "minimum_core_designed_waiting_for_level_a_closeout",
+    "status": "minimum_core_m1_implemented_exporters_pending",
     "stopConditions": [
       "observation_loss_despite_intact_owner_journal",
       "exporter_requires_out_of_band_owner_state_mutation",
@@ -604,5 +671,5 @@
   "planId": "HHO-P0-P1-001",
   "questionRef": "ANC-VERIFY-001",
   "schemaVersion": 1,
-  "status": "level_a_closeout_active_p1_minimum_core_designed"
+  "status": "level_a_complete_p1_m1_implemented"
 }

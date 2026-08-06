@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "ordivon.cognitive-reform-execution-program",
   "programId": "OCR-V0-001",
-  "status": "level_a_complete_b1_authorized",
+  "status": "level_a_complete_b1_m1_complete",
   "questionRef": "ANC-COMPILER-002",
   "evaluationQuestionRef": "ANC-VERIFY-001",
   "observedRevisions": {
@@ -46,7 +46,7 @@
     {
       "levelId": "B",
       "title": "Evidence and strong sequential baseline",
-      "status": "b1_authorized_remaining_packages_blocked",
+      "status": "b1_complete_exporters_ready",
       "required": true,
       "gate": [
         "minimum_observation_core_rebuilds_one_cross_owner_selection",
@@ -240,6 +240,50 @@
         "cleanup": "passed",
         "productionActivated": false
       }
+    },
+    {
+      "id": "B1",
+      "owner": "ordivon-computing",
+      "title": "Observation contract, in-process Gateway, and frozen reconstruction fixture",
+      "status": "completed",
+      "inputRevision": "a10c10f23215f02e1bddd2c567377193c0a144f8",
+      "inScope": [
+        "strict_metadata_only_observation_envelope_batch_and_acknowledgement",
+        "deterministic_native_event_identity_and_canonical_digest",
+        "closed_relation_and_privacy_vocabularies",
+        "generated_and_frozen_json_schemas",
+        "in_process_sqlite_gateway",
+        "atomic_single_stream_ingest",
+        "exact_replay_duplicate_corruption_gap_mapping_and_privacy_behavior",
+        "private_modes_reopen_and_full_history_doctor",
+        "frozen_three_owner_rebuild_fixture"
+      ],
+      "outOfScope": [
+        "owner_database_imports",
+        "owner_exporters",
+        "exporter_sidecars",
+        "daemon_or_socket",
+        "operational_backup_restore",
+        "cross_owner_trajectory_query",
+        "observation_selection_manifest",
+        "open_telemetry",
+        "trial_validity"
+      ],
+      "completion": {
+        "implementation": "research/experiments/observation-plane-v0/implementation/ordivon_observation_core",
+        "schemas": "research/experiments/observation-plane-v0/schemas",
+        "fixture": "research/experiments/observation-plane-v0/fixtures/three-owner-trajectory-v1.json",
+        "tests": 21,
+        "fixtureEvents": 13,
+        "fixtureStreams": 3,
+        "catalogDigest": "sha256:c71a5af70734d6a1f41167141affc9f6482194895cb3ab843bd6d5c6bd093f15",
+        "contractCorrection": "dynamic_export_and_ingest_times_are_receipt_only",
+        "downstream": [
+          "B2-H",
+          "B2-A",
+          "B2-R"
+        ]
+      }
     }
   ],
   "observationExecution": {
@@ -312,6 +356,28 @@
     },
     "b1ObservationMinimumCoreAuthorized": true,
     "levelAStatus": "completed",
-    "nextGate": "B1_observation_minimum_core"
+    "nextGate": "B2_run_once_owner_exporters"
+  },
+  "levelBProgress": {
+    "B1": {
+      "status": "completed",
+      "package": "B1",
+      "sourceBaseline": "a10c10f23215f02e1bddd2c567377193c0a144f8"
+    },
+    "exporters": {
+      "status": "ready",
+      "packages": [
+        "B2-H",
+        "B2-A",
+        "B2-R"
+      ],
+      "contractPath": "research/experiments/observation-plane-v0/implementation/ordivon_observation_core"
+    },
+    "B3": {
+      "status": "blocked_by_exporters"
+    },
+    "B4": {
+      "status": "blocked_by_B3"
+    }
   }
 }
