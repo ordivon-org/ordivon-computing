@@ -1,6 +1,6 @@
 # HHO-P1 Execution Plan
 
-Status: execution designed; implementation not started.
+Status: Level A correction accepted; minimum experimental core designed; implementation not started.
 
 Plan: `HHO-P0-P1-001`, phase `HHO-P1`.
 
@@ -17,6 +17,17 @@ The execution strategy is split into two gates:
 - **P1 Core** — canonical observation envelope, local gateway, three read-only owner exporters, cross-owner trajectory queries, privacy enforcement, and Track R projection. P1 Core unblocks formal Trials.
 - **P1 Interop** — OpenTelemetry projection and loopback Collector integration. This is an interoperability layer and does not block formal Trials once P1 Core has passed.
 
+## 1.1 Level A execution correction
+
+The full P1 design remains the long-term hardening envelope, but it no longer blocks the first formal Trial as one indivisible production project. Execution is split into:
+
+- **P1 Minimum Experimental Core** — canonical contract, in-process SQLite ingest, run-once read-only Host/Harness/Runtime exporters, cross-owner trajectory query, privacy rejection, rebuild determinism, and one stable `ObservationSelectionManifest`. This is the only Observation prerequisite for the first R3 deterministic smoke and sequential baseline.
+- **P1 Production Hardening** — Unix-socket daemon, follow services, systemd packaging, long outage/load gates, million-event query benchmark, operational backup/restore, OpenTelemetry bridge, Collector, and repository extraction. These require a recurring consumer and do not block the first R3 campaign.
+
+The request-only Host-to-Harness recovery gap is no longer a blocker. Current Harness `f39943e4bc4e5e9e0478994a68a05f69d480406f` already proves a committed Host request can recover or reopen exactly one independently durable Harness Run after delivery loss. Remaining Level A blockers are the bounded batch/scale receipt and production state-root, exact release-pin, backup/rollback, cutover, and no-dual-write receipts.
+
+Run Actor scheduling, Child Runs, Prime/RLM Engine integration, Runtime Workers, graph storage, and continual Harness are outside P1 and are not prerequisites for TCG-P0 or the first single-Actor comparison.
+
 ## 2. Current baseline
 
 The execution plan was prepared against these local revisions:
@@ -29,11 +40,10 @@ The execution plan was prepared against these local revisions:
 | `ordivon-runtime` | `ce061a5995d7a59246a103dcc51f0539245209a6` | append-only Job events, Attempts, Artifacts, terminal evidence, and stable foreign references |
 | `ordivon-protocol` package | `420dc356cb664d75db0f34f356156baebe5843db` | current pinned cross-repository wire package |
 
-P0 is no longer `not_started`, but it is not yet accepted. P1 production enablement remains blocked by three P0 closeout items:
+P0 is no longer `not_started`, but it is not yet accepted. The request-only external recovery gap is implemented and tested. P1 production enablement remains blocked by two P0 closeout items:
 
-1. merge and full-test the request-only external recovery gap so one committed Host request can recover or create exactly one Harness Run;
-2. replace the current per-event high-cost Harness admission path with an atomic bounded batch path and produce the required 1,000-Run / 100,000-event performance receipt;
-3. initialize and verify production Host/Harness state roots, execute the no-dual-write cutover gates, and retain deployment, backup, rollback, and cutover receipts.
+1. replace the current per-event high-cost Harness admission path with an atomic bounded batch path and produce the required 1,000-Run / 100,000-event performance receipt;
+2. initialize and verify production Host/Harness state roots under exact cross-repository release pins, execute the no-dual-write cutover gates, and retain deployment, backup, rollback, and cutover receipts.
 
 P1 contract and gateway work may begin before those closeout items finish. Real exporters may be developed against fixtures and temporary owner stores, but they must not be enabled against the production path until P0 is accepted.
 
@@ -350,7 +360,7 @@ Repositories: Computing, Harness, Host.
 Deliverables:
 
 - update machine plan from `not_started` to `closeout_pending` for P0 and `execution_designed_waiting_for_p0_closeout` for P1;
-- merge and full-test the request-only Harness recovery fix;
+- retain the completed request-only Harness recovery acceptance as a prerequisite receipt;
 - complete Harness batch-admission performance work and scale receipt;
 - produce production state-root, backup/restore, cutover, and no-dual-write receipts;
 - freeze exact source revisions used by the first exporter fixtures.
@@ -723,12 +733,13 @@ Rollback is deletion-safe by construction:
 
 ## 12. Immediate Ready Frontier
 
-The first implementation slice is **P1.1 + the in-process half of P1.2**, while P0 closeout proceeds separately:
+The first implementation slice is the **P1 Minimum Experimental Core**, while Level A closeout proceeds separately:
 
 1. freeze the reduced envelope, relation vocabulary, privacy classes, and native stream rules;
-2. implement canonicalization, strict decoding, event identity, and batch acknowledgement;
-3. create the SQLite gateway schema and transactional ingest library without a daemon;
-4. validate exact duplicate, corruption, gap, and privacy behavior with synthetic three-owner fixtures;
-5. only then add the Unix socket service and owner exporters.
+2. implement canonicalization, strict decoding, event identity, batch acknowledgement, and the SQLite transactional ingest library in process;
+3. validate exact duplicate, corruption, gap, privacy, and rebuild behavior with synthetic three-owner fixtures;
+4. add bounded run-once Harness, Host, and Runtime exporters;
+5. freeze one deterministic cross-owner `ObservationSelectionManifest`;
+6. hand that selection to the R3 deterministic smoke before authorizing daemon, follow-service, OTel, Collector, or million-event hardening.
 
-This slice is useful even if P1 later narrows, and it does not encode the legacy Host-backed Harness layout.
+This slice is useful even if P1 later narrows, and it does not encode the legacy Host-backed Harness layout. Production hardening requires measured recurring use by R3, TCG, or operations.

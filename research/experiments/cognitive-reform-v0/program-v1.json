@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.cognitive-reform-execution-program",
+  "programId": "OCR-V0-001",
+  "status": "level_a_active",
+  "questionRef": "ANC-COMPILER-002",
+  "evaluationQuestionRef": "ANC-VERIFY-001",
+  "observedRevisions": {
+    "computing": "5c9d6dbb673990269b1c115acfa92c037670779d",
+    "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
+    "harness": "f39943e4bc4e5e9e0478994a68a05f69d480406f",
+    "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6",
+    "protocol": "420dc356cb664d75db0f34f356156baebe5843db"
+  },
+  "decision": {
+    "architecturePreApproved": false,
+    "sequentialBaselineRetained": true,
+    "strongTranscriptBaselineRequired": true,
+    "shadowGraphBeforeAuthoritativeGraph": true,
+    "runActorIsPrerequisite": false,
+    "childRunsArePrerequisite": false,
+    "primeEngineIsPrerequisite": false,
+    "continualHarnessAuthorized": false,
+    "graphDatabaseAuthorized": false,
+    "runtimeWorkerAuthorized": false,
+    "newRepositoryAuthorized": false
+  },
+  "levels": [
+    {
+      "levelId": "A",
+      "title": "Current-system closeout",
+      "status": "active",
+      "required": true,
+      "gate": [
+        "independent_harness_path_has_exact_remaining_gap_inventory",
+        "request_only_recovery_is_recorded_as_completed_not_blocking",
+        "bounded_batch_and_scale_acceptance_are_available",
+        "production_cutover_requirements_are_explicit_and_receipted_or_marked_external",
+        "computing_program_and_portfolio_are_synchronized"
+      ],
+      "workPackages": [
+        "A1",
+        "A2"
+      ]
+    },
+    {
+      "levelId": "B",
+      "title": "Evidence and strong sequential baseline",
+      "status": "blocked_by_level_a",
+      "required": true,
+      "gate": [
+        "minimum_observation_core_rebuilds_one_cross_owner_selection",
+        "formal_runner_passes_deterministic_smoke_and_fault_cells",
+        "three_native_sequential_trials_are_valid_and_complete",
+        "transcript_compaction_retrieval_baseline_is_frozen"
+      ],
+      "workPackages": [
+        "B1",
+        "B2-H",
+        "B2-A",
+        "B2-R",
+        "B3",
+        "B4",
+        "B5",
+        "B6"
+      ]
+    },
+    {
+      "levelId": "C",
+      "title": "Minimal TCG falsification",
+      "status": "blocked_by_level_b",
+      "required": false,
+      "gate": [
+        "cognitive_workload_contains_conflict_stale_evidence_and_interruption",
+        "shadow_projection_is_deterministically_rebuildable",
+        "single_actor_working_set_beats_or_explains_a_gap_in_the_strong_transcript_baseline"
+      ],
+      "workPackages": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ]
+    },
+    {
+      "levelId": "D",
+      "title": "Conditional expansion",
+      "status": "not_authorized",
+      "required": false,
+      "gate": [
+        "level_c_passes",
+        "a_real_workload_requires_each_requested_capability",
+        "the_simpler_host_task_or_sequential_alternative_is_inadequate"
+      ],
+      "workPackages": [
+        "D1",
+        "D2",
+        "D3",
+        "D4"
+      ]
+    }
+  ],
+  "workPackages": [
+    {
+      "id": "A1",
+      "owner": "ordivon-harness",
+      "title": "Harness P0 final closeout",
+      "status": "in_progress",
+      "inScope": [
+        "remaining_gap_audit",
+        "atomic_bounded_event_batch",
+        "one_thousand_run_one_hundred_thousand_event_acceptance",
+        "fault_matrix",
+        "production_state_root_and_cutover_preflight",
+        "exact_release_pin_inventory",
+        "closeout_receipt"
+      ],
+      "outOfScope": [
+        "observation_exporter",
+        "run_actor_daemon",
+        "cognitive_graph",
+        "child_runs",
+        "prime_engine"
+      ]
+    },
+    {
+      "id": "A2",
+      "owner": "ordivon-computing",
+      "title": "Program plan correction",
+      "status": "completed",
+      "inScope": [
+        "remove_completed_request_only_recovery_blocker",
+        "split_observation_minimum_core_from_production_hardening",
+        "make_run_actor_conditional",
+        "freeze_work_package_dependencies",
+        "synchronize_portfolio_and_generated_view"
+      ],
+      "outOfScope": [
+        "product_behavior_change",
+        "observation_gateway_implementation",
+        "formal_trial_execution",
+        "tcg_implementation"
+      ],
+      "completion": {
+        "disposition": "retain",
+        "evidence": [
+          "research/experiments/cognitive-reform-v0/tests/test_program.py",
+          "research/experiments/observation-plane-v0/tests/test_plan.py",
+          "research/portfolio.json"
+        ],
+        "remainingLevelABlocker": "A1"
+      }
+    }
+  ],
+  "observationExecution": {
+    "minimumCore": [
+      "canonical_envelope",
+      "in_process_sqlite_ingest",
+      "run_once_host_exporter",
+      "run_once_harness_exporter",
+      "run_once_runtime_exporter",
+      "cross_owner_trajectory_query",
+      "observation_selection_manifest",
+      "privacy_rejection",
+      "rebuild_determinism"
+    ],
+    "productionHardeningDeferred": [
+      "daemon_and_follow_modes",
+      "systemd_packaging",
+      "open_telemetry_bridge",
+      "collector",
+      "million_event_benchmark",
+      "long_duration_backlog_acceptance",
+      "independent_observation_repository"
+    ]
+  },
+  "closeoutPacket": [
+    "work_package_id",
+    "input_revision",
+    "final_commit",
+    "changed_files",
+    "completed_scope",
+    "uncompleted_scope",
+    "authority_changes",
+    "new_events_or_data",
+    "tests_and_acceptance",
+    "known_limits",
+    "rollback",
+    "downstream_impact"
+  ],
+  "stopConditions": [
+    "level_a_requires_new_cognitive_architecture",
+    "observation_becomes_owner_write_path",
+    "tcg_is_implemented_before_strong_transcript_baseline",
+    "run_actor_or_child_run_is_added_without_a_reproduced_workload_failure",
+    "program_records_duplicate_product_authority"
+  ]
+}

@@ -83,11 +83,11 @@
   "executionPlanRef": "research/experiments/observation-plane-v0/P1-EXECUTION-PLAN.md",
   "formalTrialEffect": {
     "designRetained": true,
-    "executionStatus": "blocked_by_hho_p0_and_p1_core",
+    "executionStatus": "blocked_by_hho_p0_and_p1_minimum_core",
     "planId": "HHR-R3-001",
     "resumeRequirements": [
       "p0_passed",
-      "p1_host_harness_runtime_passed",
+      "p1_minimum_core_passed",
       "deterministic_cross_owner_trajectory_queryable",
       "system_manifest_contains_observation_contract_and_mapping_versions",
       "formal_runner_uses_owner_native_refs_not_host_cas_assumption",
@@ -97,7 +97,7 @@
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:842eb991d5b0af3a478de53593b07005b48b782ceeec9a1fef0084a44cc34497"
+    "payloadDigest": "sha256:8224a8e1495063620a40ea8c4c2ae67f00b99ddf34c338ac298232143a77688c"
   },
   "kind": "ordivon.host-harness-observation-plan",
   "nonGoals": [
@@ -115,7 +115,7 @@
     "raw_chain_of_thought_collection"
   ],
   "observedRevisions": {
-    "computing": "3109e884be8e4fcfe0bc91493db2d7a9aba0bfd8",
+    "computing": "5c9d6dbb673990269b1c115acfa92c037670779d",
     "harness": "f39943e4bc4e5e9e0478994a68a05f69d480406f",
     "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
     "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
@@ -142,9 +142,8 @@
       "current_run_inspect_under_one_second_on_recorded_target"
     ],
     "closeoutBlockers": [
-      "request_only_external_recovery_gap_full_test_and_merge",
       "atomic_bounded_harness_event_batch_and_scale_receipt",
-      "production_state_roots_backup_restore_cutover_and_no_dual_write_receipts"
+      "production_state_roots_exact_release_pins_backup_restore_cutover_and_no_dual_write_receipts"
     ],
     "closeoutOutputs": [
       "host_gate_receipt",
@@ -156,6 +155,13 @@
       "fault_matrix",
       "performance_receipt",
       "p0_disposition"
+    ],
+    "completedCloseoutItems": [
+      "request_only_external_recovery_gap_full_tested",
+      "independent_harness_journal_and_cas",
+      "standalone_runner_and_completion_proposal",
+      "host_foreign_run_binding_and_response_loss_recovery",
+      "append_only_cutover_control_and_legacy_writer_guard"
     ],
     "forbiddenCapabilities": [
       "observation_gateway",
@@ -348,21 +354,18 @@
       "incomplete_trajectory"
     ],
     "executionOrder": [
-      "P1.0_p0_closeout_alignment",
-      "P1.1_contract_and_fixtures",
-      "P1.2_gateway_core",
-      "P1.3_harness_exporter",
-      "P1.4_host_exporter",
-      "P1.5_runtime_exporter",
-      "P1.6_cross_owner_correlation_and_privacy",
-      "P1.7_track_r_projection",
-      "P1.8_open_telemetry_interop",
-      "P1.9_closeout"
+      "P1.M1_contract_fixtures_and_in_process_gateway",
+      "P1.M2_run_once_harness_host_runtime_exporters",
+      "P1.M3_cross_owner_selection_privacy_and_rebuild",
+      "P1.M4_track_r_deterministic_smoke",
+      "P1.P1_daemon_follow_operations_and_scale_hardening",
+      "P1.P2_open_telemetry_interop"
     ],
     "executionReadiness": {
       "contractAndGatewayFixtureWorkMayStart": true,
       "exporterDevelopmentAgainstTemporaryStoresMayStart": true,
-      "formalTrialsRequireP1CoreCloseout": true,
+      "formalTrialsRequireMinimumExperimentalCore": true,
+      "formalTrialsRequireP1CoreCloseout": false,
       "openTelemetryInteropBlocksFormalTrials": false,
       "productionExporterEnablementRequiresP0Closeout": true
     },
@@ -407,6 +410,17 @@
       "collector_restart_resumes_persistent_queue",
       "collector_unavailable_does_not_affect_p1_core"
     ],
+    "minimumExperimentalCore": [
+      "canonical_observation_envelope",
+      "in_process_sqlite_gateway",
+      "run_once_host_exporter",
+      "run_once_harness_exporter",
+      "run_once_runtime_exporter",
+      "cross_owner_trajectory_query",
+      "observation_selection_manifest",
+      "privacy_rejection",
+      "rebuild_determinism"
+    ],
     "nativeStreams": {
       "ordivon-harness": "one_global_journal_stream",
       "ordivon-host": "one_global_journal_stream",
@@ -435,6 +449,16 @@
       "rawPrivateReasoning": "forbidden",
       "secrets": "reject"
     },
+    "productionHardeningDeferred": [
+      "unix_socket_daemon_and_follow_modes",
+      "systemd_service_packaging",
+      "ten_thousand_event_outage_acceptance",
+      "one_hundred_events_per_second_sustained_acceptance",
+      "one_million_event_query_benchmark",
+      "gateway_backup_restore_operations",
+      "open_telemetry_bridge_and_collector",
+      "independent_observation_repository"
+    ],
     "prototypeOwner": "ordivon-computing",
     "relationVocabulary": [
       "belongs_to",
@@ -470,7 +494,7 @@
       "ordivon-runtime"
     ],
     "stateRoot": "/var/lib/ordivon/observation",
-    "status": "execution_designed_waiting_for_p0_closeout",
+    "status": "minimum_core_designed_waiting_for_level_a_closeout",
     "stopConditions": [
       "observation_loss_despite_intact_owner_journal",
       "exporter_requires_out_of_band_owner_state_mutation",
@@ -580,5 +604,5 @@
   "planId": "HHO-P0-P1-001",
   "questionRef": "ANC-VERIFY-001",
   "schemaVersion": 1,
-  "status": "p0_closeout_pending_p1_execution_designed"
+  "status": "level_a_closeout_active_p1_minimum_core_designed"
 }

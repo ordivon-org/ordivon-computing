@@ -37,7 +37,7 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(self.plan["planId"], "HHO-P0-P1-001")
         self.assertEqual(
             self.plan["status"],
-            "p0_closeout_pending_p1_execution_designed",
+            "level_a_closeout_active_p1_minimum_core_designed",
         )
         self.assertEqual(
             self.plan["integrity"],
@@ -81,7 +81,11 @@ class ObservationPlanTests(unittest.TestCase):
     def test_p0_contains_no_observation_platform(self) -> None:
         p0 = self.plan["p0"]
         self.assertEqual(p0["status"], "closeout_pending")
-        self.assertEqual(len(p0["closeoutBlockers"]), 3)
+        self.assertEqual(len(p0["closeoutBlockers"]), 2)
+        self.assertIn(
+            "request_only_external_recovery_gap_full_tested",
+            p0["completedCloseoutItems"],
+        )
         forbidden = set(p0["forbiddenCapabilities"])
         self.assertTrue(
             {
@@ -123,13 +127,19 @@ class ObservationPlanTests(unittest.TestCase):
         p1 = self.plan["p1"]
         self.assertEqual(
             p1["status"],
-            "execution_designed_waiting_for_p0_closeout",
+            "minimum_core_designed_waiting_for_level_a_closeout",
         )
         self.assertTrue(
             p1["executionReadiness"]["contractAndGatewayFixtureWorkMayStart"]
         )
         self.assertTrue(
             p1["executionReadiness"]["productionExporterEnablementRequiresP0Closeout"]
+        )
+        self.assertTrue(
+            p1["executionReadiness"]["formalTrialsRequireMinimumExperimentalCore"]
+        )
+        self.assertFalse(
+            p1["executionReadiness"]["formalTrialsRequireP1CoreCloseout"]
         )
         self.assertFalse(
             p1["executionReadiness"]["openTelemetryInteropBlocksFormalTrials"]
@@ -170,13 +180,14 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertTrue(value["designRetained"])
         self.assertEqual(
             value["executionStatus"],
-            "blocked_by_hho_p0_and_p1_core",
+            "blocked_by_hho_p0_and_p1_minimum_core",
         )
         self.assertEqual(len(value["resumeRequirements"]), 6)
         self.assertIn(
             "observation_selection_manifest_stable",
             value["resumeRequirements"],
         )
+        self.assertIn("p1_minimum_core_passed", value["resumeRequirements"])
 
     def test_execution_plan_and_read_only_exporter_state_are_explicit(self) -> None:
         execution_path = Path(self.plan["executionPlanRef"])
@@ -218,6 +229,19 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertIn(
             "observation_selection_manifest_fixture_stable",
             self.plan["p1"]["coreCloseoutGate"],
+        )
+
+    def test_minimum_core_precedes_production_hardening(self) -> None:
+        p1 = self.plan["p1"]
+        self.assertIn("in_process_sqlite_gateway", p1["minimumExperimentalCore"])
+        self.assertIn("run_once_harness_exporter", p1["minimumExperimentalCore"])
+        self.assertIn(
+            "open_telemetry_bridge_and_collector",
+            p1["productionHardeningDeferred"],
+        )
+        self.assertIn(
+            "one_million_event_query_benchmark",
+            p1["productionHardeningDeferred"],
         )
 
     def test_no_heavy_platform_or_secret_paths(self) -> None:

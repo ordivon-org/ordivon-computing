@@ -13,8 +13,8 @@ audience:
   - maintainer
   - builder
   - agent
-updated: 2026-08-05
-summary: Accepted cross-project boundary requiring independent Host and Harness authority, journal-derived automatic observation, and a non-authoritative local observation plane before formal repeated Trials.
+updated: 2026-08-06
+summary: Accepted boundary with independent Harness persistence implemented locally, production cutover still pending, and a reduced observation minimum core required before the first formal repeated Trials.
 evidence_status: observed
 readiness: not_applicable
 applies_to:
@@ -234,7 +234,7 @@ Formal Host–Harness–Runtime Trials remain designed but blocked until P0 and 
 
 ## Status
 
-Accepted as the cross-project design boundary. P0 and P1 are designed but not implemented. Implementation remains distributed across Host, Harness, Runtime, and the Computing experiment; this decision does not register a new project or certify a production observation service.
+Accepted as the cross-project design boundary. P0 independent Harness persistence, standalone execution, Host foreign-Run integration, response-loss recovery, and cutover control are implemented and locally tested; production state-root activation, exact release pins, scale acceptance, and final no-dual-write receipts remain open. P1 is split into a minimum experimental core and later production hardening. Only the minimum core blocks the first formal Trial. This decision does not register a new project or certify a production observation service.
 
 ## Reopen conditions
 

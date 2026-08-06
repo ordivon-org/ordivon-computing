@@ -4,6 +4,7 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 ## Current executable research
 
+- [`cognitive-reform-v0/`](cognitive-reform-v0/) — bounded Level A–D execution program; only Level A is active, and future cognition layers remain evidence-gated.
 - [`harness-evaluation-v0/`](harness-evaluation-v0/) — the active Track R evidence contract and R3 fixed-Campaign Trial surface. Product-owned frozen workloads and real Harness runs remain in their owning repositories.
 
 ## Designed execution dependencies and successors
