@@ -62,6 +62,7 @@ __all__ = [
     "SQLiteObservationGateway",
     "BUNDLE_KIND",
     "CHECKPOINT_KIND",
+    "ObservationBundleConflict",
     "ObservationCheckpointConflict",
     "ObservationCheckpointCorrupt",
     "ObservationExportBundle",
@@ -69,6 +70,7 @@ __all__ = [
     "ObservationExportError",
     "load_checkpoint",
     "write_checkpoint",
+    "write_export_bundle",
 ]
 
 from .gateway import (
@@ -86,6 +88,7 @@ from .gateway import (
 from .exporter import (
     BUNDLE_KIND,
     CHECKPOINT_KIND,
+    ObservationBundleConflict,
     ObservationCheckpointConflict,
     ObservationCheckpointCorrupt,
     ObservationExportBundle,
@@ -93,4 +96,5 @@ from .exporter import (
     ObservationExportError,
     load_checkpoint,
     write_checkpoint,
+    write_export_bundle,
 )

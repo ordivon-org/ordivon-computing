@@ -40,6 +40,10 @@ class ObservationCheckpointCorrupt(ObservationExportError):
     pass
 
 
+class ObservationBundleConflict(ObservationExportError):
+    pass
+
+
 def _revision(value: Any, *, label: str) -> str:
     if not isinstance(value, str) or _REVISION_RE.fullmatch(value) is None:
         raise ObservationContractError(f"{label} must be an exact 40-character Git revision")
@@ -385,6 +389,57 @@ class ObservationExportBundle:
             raise ObservationContractError(str(error)) from error
 
 
+def write_export_bundle(
+    root: str | Path,
+    bundle: ObservationExportBundle,
+) -> Path:
+    destination = Path(root).expanduser()
+    if destination.is_symlink():
+        raise ObservationBundleConflict("bundle outbox cannot be a symlink")
+    if destination.exists():
+        if not destination.is_dir():
+            raise ObservationBundleConflict("bundle outbox is not a directory")
+        if os.stat(destination).st_mode & 0o077:
+            raise ObservationBundleConflict("bundle outbox permissions are not private")
+    else:
+        destination.mkdir(parents=True, mode=0o700)
+        os.chmod(destination, 0o700)
+    name = f"bundle-{bundle.integrity_digest.removeprefix('sha256:')}.json"
+    target = destination / name
+    encoded = canonical_bytes(bundle.to_dict()) + b"\n"
+    if target.is_symlink():
+        raise ObservationBundleConflict("bundle target cannot be a symlink")
+    if target.exists():
+        if not target.is_file():
+            raise ObservationBundleConflict("bundle target is not a regular file")
+        if os.stat(target).st_mode & 0o077:
+            raise ObservationBundleConflict("bundle target permissions are not private")
+        if target.read_bytes() != encoded:
+            raise ObservationBundleConflict("bundle target bytes differ")
+        return target
+    temporary = target.with_name(
+        f".{target.name}.tmp-{os.getpid()}-{uuid.uuid4().hex}"
+    )
+    directory_fd: int | None = None
+    try:
+        with temporary.open("xb") as handle:
+            os.chmod(temporary, 0o600)
+            handle.write(encoded)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, target)
+        os.chmod(target, 0o600)
+        directory_fd = os.open(
+            destination, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
+        )
+        os.fsync(directory_fd)
+    finally:
+        if directory_fd is not None:
+            os.close(directory_fd)
+        temporary.unlink(missing_ok=True)
+    return target
+
+
 def load_checkpoint(
     path: str | Path,
     *,
@@ -475,9 +530,11 @@ __all__ = [
     "CHECKPOINT_KIND",
     "ObservationCheckpointConflict",
     "ObservationCheckpointCorrupt",
+    "ObservationBundleConflict",
     "ObservationExportBundle",
     "ObservationExportCheckpoint",
     "ObservationExportError",
     "load_checkpoint",
     "write_checkpoint",
+    "write_export_bundle",
 ]

@@ -12,6 +12,7 @@ IMPLEMENTATION = ROOT / "implementation"
 sys.path.insert(0, str(IMPLEMENTATION))
 
 from ordivon_observation_core import (  # noqa: E402
+    ObservationBundleConflict,
     ObservationCheckpointConflict,
     ObservationCheckpointCorrupt,
     ObservationExportBundle,
@@ -19,6 +20,7 @@ from ordivon_observation_core import (  # noqa: E402
     ObservationProducerIdentity,
     load_checkpoint,
     write_checkpoint,
+    write_export_bundle,
 )
 from ordivon_observation_core.fixtures import (  # noqa: E402
     HOST,
@@ -223,6 +225,70 @@ class ObservationExporterContractTests(unittest.TestCase):
                 checkpoint_after=after,
                 batches=(harness_batch,),
             )
+
+    def test_bundle_outbox_is_private_atomic_and_idempotent(self) -> None:
+        host_batch = three_owner_batches()[0]
+        before = ObservationExportCheckpoint.empty(
+            producer_identity=HOST, mapping_version=MAPPING_VERSION
+        )
+        after = before.advance(
+            {host_batch.stream_id: host_batch.last_sequence}, updated_at_ms=2_000
+        )
+        bundle = ObservationExportBundle.build(
+            producer_identity=HOST,
+            mapping_version=MAPPING_VERSION,
+            owner_revision=OWNER_REVISION,
+            exporter_revision=EXPORTER_REVISION,
+            exported_at_ms=2_001,
+            checkpoint_before=before,
+            checkpoint_after=after,
+            batches=(host_batch,),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            outbox = Path(directory) / "outbox"
+            first = write_export_bundle(outbox, bundle)
+            second = write_export_bundle(outbox, bundle)
+            self.assertEqual(first, second)
+            self.assertEqual(os.stat(outbox).st_mode & 0o777, 0o700)
+            self.assertEqual(os.stat(first).st_mode & 0o777, 0o600)
+            self.assertEqual(
+                ObservationExportBundle.from_dict(
+                    json.loads(first.read_text(encoding="utf-8"))
+                ),
+                bundle,
+            )
+            self.assertEqual([item.name for item in outbox.iterdir()], [first.name])
+
+    def test_bundle_outbox_rejects_public_or_symlink_paths(self) -> None:
+        host_batch = three_owner_batches()[0]
+        before = ObservationExportCheckpoint.empty(
+            producer_identity=HOST, mapping_version=MAPPING_VERSION
+        )
+        after = before.advance(
+            {host_batch.stream_id: host_batch.last_sequence}, updated_at_ms=2_000
+        )
+        bundle = ObservationExportBundle.build(
+            producer_identity=HOST,
+            mapping_version=MAPPING_VERSION,
+            owner_revision=OWNER_REVISION,
+            exporter_revision=EXPORTER_REVISION,
+            exported_at_ms=2_001,
+            checkpoint_before=before,
+            checkpoint_after=after,
+            batches=(host_batch,),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            public = Path(directory) / "public"
+            public.mkdir(mode=0o755)
+            os.chmod(public, 0o755)
+            with self.assertRaisesRegex(ObservationBundleConflict, "permissions"):
+                write_export_bundle(public, bundle)
+            private = Path(directory) / "private"
+            private.mkdir(mode=0o700)
+            link = Path(directory) / "link"
+            link.symlink_to(private, target_is_directory=True)
+            with self.assertRaisesRegex(ObservationBundleConflict, "symlink"):
+                write_export_bundle(link, bundle)
 
     def test_checkpoint_bytes_do_not_retain_temporary_files(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
