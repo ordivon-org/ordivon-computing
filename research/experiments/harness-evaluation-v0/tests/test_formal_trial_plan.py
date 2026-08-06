@@ -77,7 +77,7 @@ class FormalTrialPlanTests(unittest.TestCase):
         )
         self.assertEqual(
             base["harnessRevision"],
-            "437de1666a4124bc8a2791ee1a52456f913e9677",
+            "ac10497f1b6e681899cfe98c347ed6d48941ba23",
         )
         self.assertEqual(
             base["runtimeRevision"],
@@ -89,21 +89,30 @@ class FormalTrialPlanTests(unittest.TestCase):
         self.assertEqual(closeout["deterministicFaultCellGroups"], 3)
         self.assertTrue(closeout["liveTrialUnlocked"])
         self.assertFalse(closeout["b6Implemented"])
+
+    def test_b5_preflight_selects_verified_conclusion_gate(self) -> None:
+        preflight = self.plan["b5Preflight"]
+        self.assertEqual(preflight["status"], "ready")
+        self.assertTrue(preflight["sequentialOnly"])
+        self.assertEqual(preflight["nextTrialNumber"], 2)
+        self.assertEqual(preflight["requiredValidCompleteTrials"], 3)
+        self.assertFalse(preflight["b6Authorized"])
         self.assertEqual(
-            base["harnessConclusionGateImplementationRevision"],
+            preflight["selectedHarnessRevision"],
+            "437de1666a4124bc8a2791ee1a52456f913e9677",
+        )
+        self.assertEqual(
+            preflight["conclusionGateImplementationRevision"],
             "b23d5fa6c820c10f937f48cc16c2d8e03d3e18ae",
         )
         self.assertEqual(
-            base["harnessConclusionGateReceiptDigest"],
+            preflight["conclusionGateReceiptRevision"],
+            "437de1666a4124bc8a2791ee1a52456f913e9677",
+        )
+        self.assertEqual(
+            preflight["conclusionGateReceiptDigest"],
             "sha256:a35fb2a4859657069b112cc3172dcb5e0f2aeb748d0fe693ff09c0dd95a1218a",
         )
-        preflight = self.plan["b5Preflight"]
-        self.assertEqual(preflight["status"], "ready")
-        self.assertEqual(preflight["selectedHarnessRevision"], base["harnessRevision"])
-        self.assertEqual(preflight["nextTrialNumber"], 2)
-        self.assertEqual(preflight["requiredValidCompleteTrials"], 3)
-        self.assertTrue(preflight["sequentialOnly"])
-        self.assertFalse(preflight["b6Authorized"])
 
     def test_task_matches_admitted_suite_reference(self) -> None:
         task = self.plan["task"]

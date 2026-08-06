@@ -116,14 +116,14 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(progress["B5"]["blockers"], [])
         self.assertEqual(progress["B5"]["requiredValidTrials"], 3)
         self.assertFalse(progress["B5"]["b6MayStart"])
-        self.assertEqual(
-            progress["B5"]["selectedVersionVector"]["harness"],
-            "437de1666a4124bc8a2791ee1a52456f913e9677",
-        )
         gate = progress["B5"]["harnessConclusionGate"]
         self.assertEqual(
             gate["implementationRevision"],
             "b23d5fa6c820c10f937f48cc16c2d8e03d3e18ae",
+        )
+        self.assertEqual(
+            gate["receiptRevision"],
+            "437de1666a4124bc8a2791ee1a52456f913e9677",
         )
         self.assertEqual(
             gate["receiptDigest"],
