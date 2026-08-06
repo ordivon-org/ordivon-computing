@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.evaluation-diagnostic-index",
+  "diagnosticId": "diagnostic:b5-native-004-ead663e",
+  "classification": "model_tool_use_no_progress",
+  "sourceAttemptRevision": "ead663ede46a1b166e08d68a4c472884be6783a6",
+  "evidenceAndModelPivotRevision": "ac7116082198f705cb03ef7d1aae5fa71e1e08a6",
+  "trialIntentId": "trial:b5-native-004",
+  "configurationId": "ordivon-harness-deepseek",
+  "providerId": "deepseek",
+  "requestedModelId": "deepseek-v4-flash",
+  "effectiveModelIds": [
+    "deepseek-v4-flash"
+  ],
+  "baselineEligible": false,
+  "comparisonEligible": false,
+  "taskOutcomeAdjudicated": false,
+  "toolInteractionQualityObserved": true,
+  "modelQualityConclusion": "negative_tool_use_signal_not_task_acceptance_score",
+  "stopCode": "no_progress",
+  "failureClass": "MODEL",
+  "failureCode": "repeated_plan",
+  "responsibleBoundary": "model",
+  "metrics": {
+    "modelCalls": 4,
+    "toolCalls": 6,
+    "invalidToolCalls": 2,
+    "repeatedReads": 1,
+    "runtimeJobs": 0,
+    "totalTokens": 11612,
+    "wallTimeMs": 18783
+  },
+  "actionSequence": [
+    {
+      "sequence": 6,
+      "kind": "tool_call_proposed",
+      "toolName": "read_workspace"
+    },
+    {
+      "sequence": 9,
+      "kind": "tool_call_proposed",
+      "toolName": "read_workspace"
+    },
+    {
+      "sequence": 12,
+      "kind": "tool_call_proposed",
+      "toolName": "read_workspace"
+    },
+    {
+      "sequence": 20,
+      "kind": "tool_call_proposed",
+      "toolName": "patch_workspace"
+    },
+    {
+      "sequence": 21,
+      "kind": "tool_call_rejected",
+      "toolName": "patch_workspace"
+    },
+    {
+      "sequence": 27,
+      "kind": "tool_call_proposed",
+      "toolName": "read_workspace"
+    },
+    {
+      "sequence": 35,
+      "kind": "tool_call_proposed",
+      "toolName": "patch_workspace"
+    },
+    {
+      "sequence": 36,
+      "kind": "tool_call_rejected",
+      "toolName": "patch_workspace"
+    },
+    {
+      "sequence": 38,
+      "kind": "run_stopped",
+      "toolName": null
+    }
+  ],
+  "actionCounts": {
+    "workspaceReads": 4,
+    "workspacePatches": 2,
+    "rejectedPatches": 2,
+    "visibleChecks": 0,
+    "workspaceDiffs": 0
+  },
+  "runtimeRejectionTranslations": [
+    {
+      "code": "INVALID_REQUEST",
+      "commitState": "not_committed",
+      "operation": "workspace.patch",
+      "retryable": false,
+      "sourceType": "RuntimeToolRejected",
+      "targetType": "HarnessRuntimeToolRejected"
+    }
+  ],
+  "selectionComplete": false,
+  "selectionDigest": "sha256:4f50102d0cd0ee67c4d1f197375542927bd6ffb22c576c6376074f90f4f3d9ef",
+  "selectedEventCount": 28,
+  "sourceStreamCount": 2,
+  "workspaceClosed": true,
+  "verifierStatus": "not_run",
+  "completionArtifactPresent": false,
+  "campaignReservationDigest": "sha256:0f67f130ecb45c6335e0e71c10e84e095aa8c32d637240b13416ec69d6748696",
+  "runnerStage": "closed",
+  "controlEvidence": {
+    "samePatchSurfacePassedDeterministicSmoke": true,
+    "b4ImplementationRevision": "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+    "b4ReceiptRevision": "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+    "b4CloseoutDigest": "sha256:51ffa2bc77e474f355e99d07356d515b84718379412c93ab833e5a2c2b2e23f5"
+  },
+  "knownEvidenceDefects": [
+    {
+      "defect": "harness_run_reference_double_prefix",
+      "presentIn": [
+        "result.json",
+        "failure.json"
+      ],
+      "fixedRevision": "ac7116082198f705cb03ef7d1aae5fa71e1e08a6"
+    },
+    {
+      "defect": "tool_observation_error_metadata_not_retained",
+      "effect": "One Runtime INVALID_REQUEST translation is retained, but the exact local rejection reason is unavailable.",
+      "fixedRevision": "ac7116082198f705cb03ef7d1aae5fa71e1e08a6"
+    }
+  ],
+  "observations": [
+    "The model read the three required visible files before attempting a patch.",
+    "Two patch_workspace calls were rejected; one reached Runtime and returned INVALID_REQUEST with no committed change.",
+    "After feedback, the model repeated a read-and-invalid-patch pattern and stopped without running the visible Check.",
+    "No completion Artifact, Host verification, or independent verifier result was reached."
+  ],
+  "limitations": [
+    "This attempt is a negative Tool-use signal, not a final model ranking or an accepted/rejected task score.",
+    "The source Trace predates structured Tool Observation summaries, so one rejection cannot be classified more precisely.",
+    "The attempt does not count toward the three valid complete B5 Trials."
+  ],
+  "retainedFiles": [
+    "campaign-reservation.json",
+    "closeout.json",
+    "disposition.json",
+    "failure.json",
+    "grader-bundle.json",
+    "intent.json",
+    "native-refs.json",
+    "observation-selection.json",
+    "provider-configuration.json",
+    "provider-identity.json",
+    "result.json",
+    "review.json",
+    "runner-state.json",
+    "system-manifest.json",
+    "system-snapshot.json",
+    "trace-summary.json",
+    "trial.json"
+  ],
+  "recordDigests": {
+    "campaign-reservation.json": "sha256:0f67f130ecb45c6335e0e71c10e84e095aa8c32d637240b13416ec69d6748696",
+    "closeout.json": "sha256:81fa76d3204d16962dd9fa9341f400835558872984d885e50c7d032b025cfd6c",
+    "disposition.json": "sha256:bded77cb8e0603d56bbb38f198461f905d0db3536ac9724abc95ea4e62d561db",
+    "failure.json": "sha256:4bf7839adcc1c3a2a90549a74cd931cb924b7ce84a7dad5a12feca5a2e1fff67",
+    "grader-bundle.json": "sha256:638cf9b8dd8acc24b9787604c0d0f80bff70f2532311ca6d9e5040f02f75de42",
+    "intent.json": "sha256:333047e18fd6bacb02e3fe19ce4ae80e61086f140a1797ce44e58601123990fe",
+    "native-refs.json": "sha256:93c5b8855ada848ae927ef027b1c9bb1039f5317ee17fd22de09ab7800e8df29",
+    "observation-selection.json": "sha256:22f87f9fb9867ed3c7bd0e46787f40ea1a75515e01d8f7a061494c6fcaae0346",
+    "provider-configuration.json": "sha256:dade8c15cb9a4e2bd84cebec9cc528efa29db18279445b607438b1c3f4a9907c",
+    "provider-identity.json": "sha256:7d50cbb80bceb763f87536f3b2e0d3749d9c66a3716c0816876ba85e68b79ba5",
+    "result.json": "sha256:dc8118366f388ce3bfc375a200c868e46daca9094051384b34001b0f80b6f032",
+    "review.json": "sha256:db1c10d7d30ce17d12adf664d255d5ba151b453b07c4d43bf6527b5f0362e1b7",
+    "runner-state.json": "sha256:2b239d3e83eeda9965e146201cac9db4d220cbcb7c42465e750831343b8c77ea",
+    "system-manifest.json": "sha256:e0fa1b742d99af407fb6a4076fb18536bc9834cea33c721e1305e3baec7ae727",
+    "system-snapshot.json": "sha256:902be3277a07d87532a4f2ea2e30277613d54d713358d75423f424e0807e834b",
+    "trace-summary.json": "sha256:a3a4a0581904318cacffe0bacd48b463790de358e4e44a6c6ae834596c7b3d0d",
+    "trial.json": "sha256:8de321f49d85433d6487b23fcebbaad83851858cceefc740883df271899f9564"
+  },
+  "productionActivated": false,
+  "b6Implemented": false,
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:a9ccdd7ebe00ac12a3664175223088218918244925ae6f0db9ec89d07edcbdbc"
+  }
+}

@@ -120,13 +120,13 @@ class B5NativeTrialTests(unittest.TestCase):
     def test_formal_plan_enforces_the_next_trial_number(self) -> None:
         plan = json.loads(b5.FORMAL_TRIAL_PLAN.read_text(encoding="utf-8"))
         self.assertEqual(
-            b5.validate_planned_trial_number(4),
+            b5.validate_planned_trial_number(5),
             plan["integrity"]["payloadDigest"],
         )
         with self.assertRaises(b5.NativeTrialError):
-            b5.validate_planned_trial_number(3)
+            b5.validate_planned_trial_number(4)
         with self.assertRaises(b5.NativeTrialError):
-            b5.validate_planned_trial_number(5)
+            b5.validate_planned_trial_number(6)
 
     def test_trial_reservation_is_private_durable_and_single_use(self) -> None:
         ids = b5.TrialIds.build(3)
@@ -268,6 +268,18 @@ class B5NativeTrialTests(unittest.TestCase):
         self.assertEqual(default_configuration, b5.FLASH_CONFIGURATION_ID)
         with self.assertRaisesRegex(b5.NativeTrialError, "unsupported"):
             b5.select_deepseek_settings(base, "unknown-model")
+        b5.validate_planned_configuration(
+            b5.PRO_CONFIGURATION_ID,
+            "deepseek-v4-pro",
+        )
+        with self.assertRaisesRegex(
+            b5.NativeTrialError,
+            "differs from the formal plan",
+        ):
+            b5.validate_planned_configuration(
+                b5.FLASH_CONFIGURATION_ID,
+                "deepseek-v4-flash",
+            )
 
     def test_trace_summary_is_metadata_only_and_retains_failure_boundary(self) -> None:
         events = (
