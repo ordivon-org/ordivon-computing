@@ -123,6 +123,40 @@
       ],
       "noFurtherDeepSeekCanaries": true,
       "b6Authorized": false
+    },
+    "independentHarnessCapability": {
+      "capabilityId": "HHR-INDEPENDENT-EDIT-V2",
+      "status": "verified_noncomparable",
+      "relationshipToB5": "separate_capability_does_not_resume_frozen_campaign",
+      "implementationRevision": "dd50136ef722b9df3dfb0fef195fcc1a137fd8ed",
+      "evidenceRevision": "593a389d1b035ee46b91b374bf76f40ed2c697ef",
+      "receipt": "ordivon-harness:evidence/repository-repair-edit-runtime-bridge-dd50136.json",
+      "receiptDigest": "sha256:3b89c2f092f7c4cb966751d2227744d5c3b3af7784e1ed2e44d8ad58c3e3c4e0",
+      "toolSurfaceDigest": "sha256:fc2daeee2a95ff5d83d4efbc17a003788c52277ec582be3a14c34662cf1d51eb",
+      "toolGrantDigest": "sha256:6c3a0a889c6082448b9e685f3388845e28e1b9ce226e95ad6404835324b37bec",
+      "runtimeAcceptance": {
+        "harnessClean": true,
+        "scriptedProvider": true,
+        "modelCalls": 8,
+        "toolCalls": 6,
+        "runtimeJobs": 1,
+        "harnessEvents": 37,
+        "workspaceClosed": true
+      },
+      "guarantees": [
+        "exact_text_replace_lowers_to_durable_workspace_patch",
+        "completion_file_create_lowers_to_durable_workspace_patch",
+        "durable_client_request_identity",
+        "workspace_patch_get_response_loss_reconciliation",
+        "path_grant_visible_check_diff_and_reread",
+        "v1_surface_and_grant_digests_unchanged"
+      ],
+      "doesNot": [
+        "alter_frozen_b5_task_prompt_tool_surface_or_grant",
+        "resume_or_authorize_trial_006",
+        "establish_provider_or_model_capability",
+        "authorize_b6_production_or_architecture_comparison"
+      ]
     }
   },
   "campaignGates": [
@@ -383,7 +417,7 @@
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:f6a5f61b683c36ce529ec3be4cbb19222526318228bc1256e5d9095e4b1aed59"
+    "payloadDigest": "sha256:bda09d30a3a687f32669953ae931c36cbe487bf00777644effbd6e5de270b560"
   },
   "kind": "ordivon.evaluation-formal-trial-plan",
   "observationSelection": {
