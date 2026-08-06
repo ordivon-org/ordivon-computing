@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "ordivon.cognitive-reform-execution-program",
   "programId": "OCR-V0-001",
-  "status": "level_a_complete_b3_complete_b4_ready",
+  "status": "level_a_complete_b4_complete_b5_ready",
   "questionRef": "ANC-COMPILER-002",
   "evaluationQuestionRef": "ANC-VERIFY-001",
   "decision": {
@@ -39,7 +39,7 @@
     {
       "levelId": "B",
       "title": "Evidence and strong sequential baseline",
-      "status": "b3_complete_b4_ready",
+      "status": "b4_complete_b5_ready",
       "required": true,
       "gate": [
         "minimum_observation_core_rebuilds_one_cross_owner_selection",
@@ -568,7 +568,7 @@
       "id": "B4",
       "owner": "ordivon-computing",
       "title": "Formal runner deterministic smoke and fault cells",
-      "status": "ready",
+      "status": "completed",
       "inScope": [
         "deterministic_smoke",
         "response_loss",
@@ -588,13 +588,32 @@
       ],
       "stopConditions": [
         "runner_uses_host_cas_as_universal_authority"
-      ]
+      ],
+      "completion": {
+        "implementationRevision": "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+        "receiptRevision": "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+        "closeout": "research/experiments/harness-evaluation-v0/evidence/b4-smoke-78de3a6/closeout.json",
+        "closeoutDigest": "sha256:51ffa2bc77e474f355e99d07356d515b84718379412c93ab833e5a2c2b2e23f5",
+        "selection": "research/experiments/harness-evaluation-v0/evidence/b4-smoke-78de3a6/observation-selection.json",
+        "selectionDigest": "sha256:ea79b3a28a4119b506bb36b676d2e47cf265ff48c76dba0ab84e831e81b5b999",
+        "systemSnapshot": {
+          "host": "a76a620160b28d870670696e04c39e539296fe00",
+          "harness": "ac10497f1b6e681899cfe98c347ed6d48941ba23",
+          "runtime": "a455fd01ce0dea25684956e5e5da899d41832a1b",
+          "protocol": "420dc356cb664d75db0f34f356156baebe5843db"
+        },
+        "integratedFaultCells": 4,
+        "deterministicFaultCellGroups": 3,
+        "liveTrialUnlocked": true,
+        "productionActivated": false,
+        "b6Implemented": false
+      }
     },
     {
       "id": "B5",
       "owner": "ordivon-harness",
       "title": "Three native sequential Trials",
-      "status": "blocked_by_B4",
+      "status": "ready",
       "inScope": [
         "short_task",
         "restart_recovery_task",
@@ -711,7 +730,7 @@
     },
     "b1ObservationMinimumCoreAuthorized": true,
     "levelAStatus": "completed",
-    "nextGate": "B4_formal_runner_deterministic_smoke_and_fault_cells"
+    "nextGate": "B5_three_valid_complete_native_sequential_trials"
   },
   "levelBProgress": {
     "B1": {
@@ -757,24 +776,38 @@
       "trialValidityInferred": false
     },
     "B4": {
-      "status": "ready",
-      "blockers": [],
-      "liveTrialUnlocked": false
+      "status": "completed",
+      "implementationRevision": "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+      "receiptRevision": "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+      "closeout": "research/experiments/harness-evaluation-v0/evidence/b4-smoke-78de3a6/closeout.json",
+      "closeoutDigest": "sha256:51ffa2bc77e474f355e99d07356d515b84718379412c93ab833e5a2c2b2e23f5",
+      "selectionDigest": "sha256:ea79b3a28a4119b506bb36b676d2e47cf265ff48c76dba0ab84e831e81b5b999",
+      "integratedFaultCells": 4,
+      "deterministicFaultCellGroups": 3,
+      "liveTrialUnlocked": true,
+      "productionActivated": false
     },
     "B2-J": {
       "status": "completed",
       "inventory": "research/experiments/observation-plane-v0/join-key-inventory-v1.json"
     },
     "B5": {
-      "status": "blocked_by_B4"
+      "status": "ready",
+      "blockers": [],
+      "requiredValidTrials": 3,
+      "sequentialOnly": true,
+      "b6MayStart": false
+    },
+    "B6": {
+      "status": "blocked_by_B5_and_explicit_review"
     }
   },
   "revisionAuthority": {
     "authoritySourceRevision": "7553ba2c904a685ff496cde964b51fa15a77d291",
     "selectedOwnerRevisions": {
       "host": "a76a620160b28d870670696e04c39e539296fe00",
-      "harness": "e1f6596fa2694ec520d1d12eab8b18beeda39e50",
-      "runtime": "cff5bc583e878560c1e299e691e7e490ca279c9d",
+      "harness": "ac10497f1b6e681899cfe98c347ed6d48941ba23",
+      "runtime": "a455fd01ce0dea25684956e5e5da899d41832a1b",
       "protocol": "420dc356cb664d75db0f34f356156baebe5843db"
     },
     "sharedContractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
@@ -802,5 +835,14 @@
     "formalRunnerUnblocked": true,
     "liveTrialUnlocked": false,
     "nextWorkPackage": "B4"
+  },
+  "b4Closeout": {
+    "status": "completed",
+    "implementationRevision": "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+    "receiptRevision": "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+    "closeout": "research/experiments/harness-evaluation-v0/evidence/b4-smoke-78de3a6/closeout.json",
+    "liveTrialUnlocked": true,
+    "nextWorkPackage": "B5",
+    "b6Implemented": false
   }
 }

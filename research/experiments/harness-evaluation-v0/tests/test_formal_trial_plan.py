@@ -37,7 +37,10 @@ class FormalTrialPlanTests(unittest.TestCase):
             "ordivon.evaluation-formal-trial-plan",
         )
         self.assertEqual(self.plan["planId"], "HHR-R3-001")
-        self.assertEqual(self.plan["status"], "designed_not_executed")
+        self.assertEqual(
+            self.plan["status"],
+            "b4_smoke_passed_b5_live_baseline_ready",
+        )
         self.assertEqual(
             self.plan["integrity"],
             {
@@ -61,6 +64,31 @@ class FormalTrialPlanTests(unittest.TestCase):
         )
         for revision in revisions.values():
             self.assertRegex(revision, re.compile(r"^[0-9a-f]{40}$"))
+
+    def test_b4_execution_base_and_closeout_are_exact(self) -> None:
+        base = self.plan["executionBase"]
+        self.assertEqual(
+            base["computingImplementationRevision"],
+            "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+        )
+        self.assertEqual(
+            base["b4ReceiptRevision"],
+            "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+        )
+        self.assertEqual(
+            base["harnessRevision"],
+            "ac10497f1b6e681899cfe98c347ed6d48941ba23",
+        )
+        self.assertEqual(
+            base["runtimeRevision"],
+            "a455fd01ce0dea25684956e5e5da899d41832a1b",
+        )
+        closeout = self.plan["b4Closeout"]
+        self.assertEqual(closeout["status"], "completed")
+        self.assertEqual(closeout["integratedFaultCells"], 4)
+        self.assertEqual(closeout["deterministicFaultCellGroups"], 3)
+        self.assertTrue(closeout["liveTrialUnlocked"])
+        self.assertFalse(closeout["b6Implemented"])
 
     def test_task_matches_admitted_suite_reference(self) -> None:
         task = self.plan["task"]
@@ -95,7 +123,7 @@ class FormalTrialPlanTests(unittest.TestCase):
 
     def test_first_campaign_does_not_prematurely_run_all_comparisons(self) -> None:
         first = self.plan["firstCampaign"]
-        self.assertEqual(first["status"], "blocked_by_hho_p0_and_p1_core")
+        self.assertEqual(first["status"], "b4_passed_b5_ready")
         self.assertTrue(first["sequentialOnly"])
         self.assertIn(
             "three_ordivon_harness_deepseek_trials",
@@ -105,6 +133,18 @@ class FormalTrialPlanTests(unittest.TestCase):
         self.assertIn(
             "provider_harness_live_trials",
             first["excludedUntilBaselineCloseout"],
+        )
+        self.assertEqual(
+            first["completedPhases"],
+            [
+                "complete_campaign_preflight",
+                "scripted_integrated_smoke",
+                "five_boundary_fault_cells",
+            ],
+        )
+        self.assertEqual(
+            first["nextPhase"],
+            "three_ordivon_harness_deepseek_trials",
         )
 
     def test_observation_prerequisite_is_explicit(self) -> None:
@@ -142,6 +182,13 @@ class FormalTrialPlanTests(unittest.TestCase):
         )
         self.assertEqual(native["repetitions"]["development"], 3)
         self.assertGreaterEqual(native["repetitions"]["architectureDecision"], 5)
+        self.assertEqual(native["status"], "ready_for_live_canary")
+        scripted = next(
+            configuration
+            for configuration in self.plan["configurations"]
+            if configuration["configurationId"] == "scripted-integrated-control"
+        )
+        self.assertEqual(scripted["status"], "completed")
 
     def test_fault_cells_cover_each_required_boundary(self) -> None:
         cells = self.plan["faultCells"]

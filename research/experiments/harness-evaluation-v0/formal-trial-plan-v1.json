@@ -1,4 +1,14 @@
 {
+  "b4Closeout": {
+    "b6Implemented": false,
+    "closeout": "research/experiments/harness-evaluation-v0/evidence/b4-smoke-78de3a6/closeout.json",
+    "deterministicFaultCellGroups": 3,
+    "implementationRevision": "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+    "integratedFaultCells": 4,
+    "liveTrialUnlocked": true,
+    "receiptRevision": "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+    "status": "completed"
+  },
   "campaignGates": [
     {
       "command": "uv run python scripts/ordivon_conformance.py gate --receipt <path>",
@@ -65,7 +75,7 @@
         "development": 1,
         "smoke": 1
       },
-      "status": "planned"
+      "status": "completed"
     },
     {
       "competitive": true,
@@ -102,7 +112,7 @@
         "development": 3,
         "smoke": 1
       },
-      "status": "first_live_baseline_after_runner_smoke"
+      "status": "ready_for_live_canary"
     },
     {
       "competitive": true,
@@ -125,6 +135,17 @@
     "hostRevision": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
     "protocolRevision": "420dc356cb664d75db0f34f356156baebe5843db",
     "runtimeRevision": "ce061a5995d7a59246a103dcc51f0539245209a6"
+  },
+  "executionBase": {
+    "b4Closeout": "research/experiments/harness-evaluation-v0/evidence/b4-smoke-78de3a6/closeout.json",
+    "b4CloseoutDigest": "sha256:51ffa2bc77e474f355e99d07356d515b84718379412c93ab833e5a2c2b2e23f5",
+    "b4ReceiptRevision": "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+    "b4SelectionDigest": "sha256:ea79b3a28a4119b506bb36b676d2e47cf265ff48c76dba0ab84e831e81b5b999",
+    "computingImplementationRevision": "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+    "harnessRevision": "ac10497f1b6e681899cfe98c347ed6d48941ba23",
+    "hostRevision": "a76a620160b28d870670696e04c39e539296fe00",
+    "protocolRevision": "420dc356cb664d75db0f34f356156baebe5843db",
+    "runtimeRevision": "a455fd01ce0dea25684956e5e5da899d41832a1b"
   },
   "executionRevisionPolicy": "Capture exact clean component, binary, protocol, Provider, model, Adapter, prompt, Context, Tool, budget, environment, Task, and verifier identities in a complete System Manifest at campaign start. Any material change creates a new configuration group.",
   "experimentLoopHandoff": {
@@ -188,6 +209,11 @@
   ],
   "firstCampaign": {
     "campaignId": "HHR-R3-BASELINE-001",
+    "completedPhases": [
+      "complete_campaign_preflight",
+      "scripted_integrated_smoke",
+      "five_boundary_fault_cells"
+    ],
     "excludedUntilBaselineCloseout": [
       "one_shot_live_trials",
       "provider_harness_live_trials",
@@ -199,6 +225,7 @@
       "multi_round_search",
       "automatic_merge_or_deploy"
     ],
+    "nextPhase": "three_ordivon_harness_deepseek_trials",
     "phases": [
       "complete_campaign_preflight",
       "scripted_integrated_smoke",
@@ -207,12 +234,12 @@
       "trajectory_review_and_closeout"
     ],
     "sequentialOnly": true,
-    "status": "blocked_by_hho_p0_and_p1_core"
+    "status": "b4_passed_b5_ready"
   },
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:8f670ab9f4d4738ef493dbde39e2aa888879cea4dbd4e71ede872b75172bd9b4"
+    "payloadDigest": "sha256:241c6c22724800f857b71a5d8707f024ce4e39351e24f219eb422edb45c6abc1"
   },
   "kind": "ordivon.evaluation-formal-trial-plan",
   "observationSelection": {
@@ -276,7 +303,7 @@
     "rawReasoningRequired": false
   },
   "schemaVersion": 1,
-  "status": "designed_not_executed",
+  "status": "b4_smoke_passed_b5_live_baseline_ready",
   "stopConditions": [
     "task_or_verifier_qa_instability",
     "material_configuration_change_within_group",

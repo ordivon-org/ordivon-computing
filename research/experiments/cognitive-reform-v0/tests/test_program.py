@@ -18,7 +18,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(self.program["programId"], "OCR-V0-001")
         self.assertEqual(
             self.program["status"],
-            "level_a_complete_b3_complete_b4_ready",
+            "level_a_complete_b4_complete_b5_ready",
         )
         levels = {item["levelId"]: item for item in self.program["levels"]}
         self.assertEqual(
@@ -27,7 +27,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         )
         self.assertEqual(
             levels["B"]["status"],
-            "b3_complete_b4_ready",
+            "b4_complete_b5_ready",
         )
         self.assertEqual(levels["D"]["status"], "not_authorized")
 
@@ -86,7 +86,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertFalse(progress["aDeploy"]["productionActivationRequiredForLevelB"])
         self.assertTrue(progress["b1ObservationMinimumCoreAuthorized"])
 
-    def test_b1_exporters_and_b3_are_closed_and_b4_is_ready(self) -> None:
+    def test_b1_through_b4_are_closed_and_b5_is_ready(self) -> None:
         progress = self.program["levelBProgress"]
         self.assertEqual(progress["B1"]["status"], "completed")
         self.assertEqual(progress["exporters"]["status"], "completed")
@@ -101,10 +101,25 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(progress["B3"]["status"], "completed")
         self.assertFalse(progress["B3"]["trialValidityInferred"])
         self.assertEqual(progress["B3"]["artifactCoverage"], "owner_native_only")
-        self.assertEqual(progress["B4"]["status"], "ready")
-        self.assertEqual(progress["B4"]["blockers"], [])
-        self.assertFalse(progress["B4"]["liveTrialUnlocked"])
-        self.assertEqual(progress["B5"]["status"], "blocked_by_B4")
+        self.assertEqual(progress["B4"]["status"], "completed")
+        self.assertEqual(
+            progress["B4"]["implementationRevision"],
+            "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+        )
+        self.assertEqual(
+            progress["B4"]["receiptRevision"],
+            "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+        )
+        self.assertTrue(progress["B4"]["liveTrialUnlocked"])
+        self.assertFalse(progress["B4"]["productionActivated"])
+        self.assertEqual(progress["B5"]["status"], "ready")
+        self.assertEqual(progress["B5"]["blockers"], [])
+        self.assertEqual(progress["B5"]["requiredValidTrials"], 3)
+        self.assertFalse(progress["B5"]["b6MayStart"])
+        self.assertEqual(
+            progress["B6"]["status"],
+            "blocked_by_B5_and_explicit_review",
+        )
 
     def test_observation_is_split_by_real_consumer_need(self) -> None:
         observation = self.program["observationExecution"]
@@ -128,6 +143,15 @@ class CognitiveReformProgramTests(unittest.TestCase):
                 "B2-H": "e1c134f330a90c15495126a67021b06c56245156",
                 "B2-A": "e3cb34b4991b5f52e1c0ed0151ea17b067e88e16",
                 "B2-R": "8c22c2b409e99a0fd07fd72a9029ef8c74c6cb47",
+            },
+        )
+        self.assertEqual(
+            authority["selectedOwnerRevisions"],
+            {
+                "host": "a76a620160b28d870670696e04c39e539296fe00",
+                "harness": "ac10497f1b6e681899cfe98c347ed6d48941ba23",
+                "runtime": "a455fd01ce0dea25684956e5e5da899d41832a1b",
+                "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
             },
         )
         for revision in revisions.values():
@@ -154,7 +178,20 @@ class CognitiveReformProgramTests(unittest.TestCase):
         )
         self.assertTrue(packages["B3"]["completion"]["formalRunnerUnblocked"])
         self.assertFalse(packages["B3"]["completion"]["liveTrialUnlocked"])
-        self.assertEqual(packages["B4"]["status"], "ready")
+        self.assertEqual(packages["B4"]["status"], "completed")
+        self.assertEqual(
+            packages["B4"]["completion"]["implementationRevision"],
+            "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+        )
+        self.assertEqual(
+            packages["B4"]["completion"]["receiptRevision"],
+            "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+        )
+        self.assertTrue(packages["B4"]["completion"]["liveTrialUnlocked"])
+        self.assertFalse(packages["B4"]["completion"]["productionActivated"])
+        self.assertFalse(packages["B4"]["completion"]["b6Implemented"])
+        self.assertEqual(packages["B5"]["status"], "ready")
+        self.assertEqual(packages["B6"]["status"], "blocked_by_B5")
         closeout = self.program["p0P4Closeout"]
         self.assertEqual(closeout["status"], "completed")
         self.assertFalse(closeout["formalTrialUnlocked"])

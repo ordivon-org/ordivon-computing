@@ -68,6 +68,15 @@
     "receiptRevision": "e6e480b03a7db336b950b73d8a837ef1799bde12",
     "status": "completed"
   },
+  "b4Closeout": {
+    "b6Implemented": false,
+    "closeout": "research/experiments/harness-evaluation-v0/evidence/b4-smoke-78de3a6/closeout.json",
+    "implementationRevision": "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+    "liveTrialUnlocked": true,
+    "nextWorkPackage": "B5",
+    "receiptRevision": "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+    "status": "completed"
+  },
   "decisionRef": "computing.projects.host-harness-observation",
   "decisions": {
     "automaticEvalAdmission": false,
@@ -91,9 +100,9 @@
   "executionPlanRef": "research/experiments/observation-plane-v0/P1-EXECUTION-PLAN.md",
   "formalTrialEffect": {
     "designRetained": true,
-    "executionStatus": "blocked_by_B4_formal_runner_smoke",
+    "executionStatus": "live_native_baseline_ready",
     "formalRunnerUnblocked": true,
-    "liveTrialUnlocked": false,
+    "liveTrialUnlocked": true,
     "planId": "HHR-R3-001",
     "resumeRequirements": [
       "p1_minimum_core_passed",
@@ -105,13 +114,14 @@
     "satisfiedPrerequisites": [
       "p0_passed",
       "p1_owner_exporters_passed",
-      "p1_cross_owner_selection_passed"
+      "p1_cross_owner_selection_passed",
+      "b4_formal_runner_and_fault_cells_passed"
     ]
   },
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:6ae6efe7b5c2442715dbcf403de780dee5c33741042776888c0d7d8a481c74a7"
+    "payloadDigest": "sha256:22f77892ef379c217304d363208d73f8d4fe0c718a041e9cce9b06ec400f5c3e"
   },
   "kind": "ordivon.host-harness-observation-plan",
   "nonGoals": [
@@ -305,7 +315,7 @@
   },
   "p0P4Closeout": {
     "formalTrialUnlocked": false,
-    "nextWorkPackage": "B4",
+    "nextWorkPackage": "B5",
     "record": "research/experiments/observation-plane-v0/owner-exporter-closeout-v1.json",
     "status": "completed"
   },
@@ -393,10 +403,11 @@
       "crossOwnerTrajectoryWorkCompleted": true,
       "crossOwnerTrajectoryWorkMayStart": false,
       "exporterDevelopmentAgainstTemporaryStoresMayStart": true,
-      "formalRunnerWorkMayStart": true,
+      "formalRunnerWorkCompleted": true,
+      "formalRunnerWorkMayStart": false,
       "formalTrialsRequireMinimumExperimentalCore": true,
       "formalTrialsRequireP1CoreCloseout": false,
-      "liveTrialWorkMayStart": false,
+      "liveTrialWorkMayStart": true,
       "openTelemetryInteropBlocksFormalTrials": false,
       "p0CloseoutSatisfied": true,
       "productionExporterEnablementAuthorized": false,
@@ -532,8 +543,16 @@
         "trialValidityInferred": false
       },
       "M4": {
-        "status": "blocked_by_M3",
-        "work": "track_r_deterministic_smoke"
+        "closeout": "research/experiments/harness-evaluation-v0/evidence/b4-smoke-78de3a6/closeout.json",
+        "closeoutDigest": "sha256:51ffa2bc77e474f355e99d07356d515b84718379412c93ab833e5a2c2b2e23f5",
+        "deterministicFaultCellGroups": 3,
+        "implementationRevision": "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+        "integratedFaultCells": 4,
+        "liveTrialUnlocked": true,
+        "productionActivated": false,
+        "receiptRevision": "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+        "selectionDigest": "sha256:ea79b3a28a4119b506bb36b676d2e47cf265ff48c76dba0ab84e831e81b5b999",
+        "status": "completed"
       }
     },
     "interopCloseoutGate": [
@@ -632,7 +651,7 @@
       "status": "first_trajectory_owner_native_only"
     },
     "stateRoot": "/var/lib/ordivon/observation",
-    "status": "minimum_core_b3_complete_b4_ready",
+    "status": "minimum_core_b4_complete_b5_ready",
     "stopConditions": [
       "observation_loss_despite_intact_owner_journal",
       "exporter_requires_out_of_band_owner_state_mutation",
@@ -765,13 +784,13 @@
       "B2-R": "cff5bc583e878560c1e299e691e7e490ca279c9d"
     },
     "selectedOwnerRevisions": {
-      "harness": "e1f6596fa2694ec520d1d12eab8b18beeda39e50",
+      "harness": "ac10497f1b6e681899cfe98c347ed6d48941ba23",
       "host": "a76a620160b28d870670696e04c39e539296fe00",
       "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
-      "runtime": "cff5bc583e878560c1e299e691e7e490ca279c9d"
+      "runtime": "a455fd01ce0dea25684956e5e5da899d41832a1b"
     },
     "sharedContractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36"
   },
   "schemaVersion": 1,
-  "status": "level_a_complete_p1_b3_complete_b4_ready"
+  "status": "level_a_complete_p1_b4_complete_b5_ready"
 }

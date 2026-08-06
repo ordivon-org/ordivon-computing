@@ -37,7 +37,7 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(self.plan["planId"], "HHO-P0-P1-001")
         self.assertEqual(
             self.plan["status"],
-            "level_a_complete_p1_b3_complete_b4_ready",
+            "level_a_complete_p1_b4_complete_b5_ready",
         )
         self.assertEqual(
             self.plan["integrity"],
@@ -66,6 +66,15 @@ class ObservationPlanTests(unittest.TestCase):
             },
         )
         self.assertEqual(set(authority["receiptRevisions"]), {"B2-A", "B2-H", "B2-R"})
+        self.assertEqual(
+            authority["selectedOwnerRevisions"],
+            {
+                "host": "a76a620160b28d870670696e04c39e539296fe00",
+                "harness": "ac10497f1b6e681899cfe98c347ed6d48941ba23",
+                "runtime": "a455fd01ce0dea25684956e5e5da899d41832a1b",
+                "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
+            },
+        )
 
     def test_authorities_remain_separate(self) -> None:
         decisions = self.plan["decisions"]
@@ -141,7 +150,7 @@ class ObservationPlanTests(unittest.TestCase):
         p1 = self.plan["p1"]
         self.assertEqual(
             p1["status"],
-            "minimum_core_b3_complete_b4_ready",
+            "minimum_core_b4_complete_b5_ready",
         )
         self.assertFalse(
             p1["executionReadiness"]["contractAndGatewayFixtureWorkMayStart"]
@@ -159,10 +168,13 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertTrue(
             p1["executionReadiness"]["crossOwnerTrajectoryWorkCompleted"]
         )
-        self.assertTrue(
+        self.assertFalse(
             p1["executionReadiness"]["formalRunnerWorkMayStart"]
         )
-        self.assertFalse(
+        self.assertTrue(
+            p1["executionReadiness"]["formalRunnerWorkCompleted"]
+        )
+        self.assertTrue(
             p1["executionReadiness"]["liveTrialWorkMayStart"]
         )
         self.assertFalse(
@@ -210,13 +222,13 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertIn("host_harness_runtime_complete_correlation", gates)
         self.assertIn("process_exit_success_does_not_imply_task_acceptance", gates)
 
-    def test_formal_trials_are_blocked_but_design_is_retained(self) -> None:
+    def test_formal_runner_is_complete_and_live_baseline_is_ready(self) -> None:
         value = self.plan["formalTrialEffect"]
         self.assertEqual(value["planId"], "HHR-R3-001")
         self.assertTrue(value["designRetained"])
         self.assertEqual(
             value["executionStatus"],
-            "blocked_by_B4_formal_runner_smoke",
+            "live_native_baseline_ready",
         )
         self.assertEqual(len(value["resumeRequirements"]), 5)
         self.assertEqual(
@@ -225,6 +237,7 @@ class ObservationPlanTests(unittest.TestCase):
                 "p0_passed",
                 "p1_owner_exporters_passed",
                 "p1_cross_owner_selection_passed",
+                "b4_formal_runner_and_fault_cells_passed",
             ],
         )
         self.assertIn(
@@ -233,7 +246,7 @@ class ObservationPlanTests(unittest.TestCase):
         )
         self.assertIn("p1_minimum_core_passed", value["resumeRequirements"])
         self.assertTrue(value["formalRunnerUnblocked"])
-        self.assertFalse(value["liveTrialUnlocked"])
+        self.assertTrue(value["liveTrialUnlocked"])
 
     def test_execution_plan_and_read_only_exporter_state_are_explicit(self) -> None:
         execution_path = Path(self.plan["executionPlanRef"])
@@ -316,6 +329,19 @@ class ObservationPlanTests(unittest.TestCase):
         )
         self.assertEqual(progress["M3"]["selectedEventCount"], 12)
         self.assertFalse(progress["M3"]["trialValidityInferred"])
+        self.assertEqual(progress["M4"]["status"], "completed")
+        self.assertEqual(
+            progress["M4"]["implementationRevision"],
+            "78de3a6225802ea6eb7d8970eaabc1cca1e25407",
+        )
+        self.assertEqual(
+            progress["M4"]["receiptRevision"],
+            "fe4ba60c56f58017513b00b8b8fc54d0e7ffa57a",
+        )
+        self.assertEqual(progress["M4"]["integratedFaultCells"], 4)
+        self.assertEqual(progress["M4"]["deterministicFaultCellGroups"], 3)
+        self.assertTrue(progress["M4"]["liveTrialUnlocked"])
+        self.assertFalse(progress["M4"]["productionActivated"])
         self.assertIn("owner_exporters", progress["M1"]["notIncluded"])
 
     def test_m2_closeout_and_runtime_artifact_boundary_are_explicit(self) -> None:
