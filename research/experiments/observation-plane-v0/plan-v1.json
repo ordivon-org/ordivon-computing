@@ -60,6 +60,14 @@
       "owner": "observation_plane"
     }
   ],
+  "b3Closeout": {
+    "formalRunnerUnblocked": true,
+    "implementationRevision": "e9bc8b49941fb332f9f1f5774588bddca72a5b49",
+    "liveTrialUnlocked": false,
+    "nextWorkPackage": "B4",
+    "receiptRevision": "e6e480b03a7db336b950b73d8a837ef1799bde12",
+    "status": "completed"
+  },
   "decisionRef": "computing.projects.host-harness-observation",
   "decisions": {
     "automaticEvalAdmission": false,
@@ -83,7 +91,9 @@
   "executionPlanRef": "research/experiments/observation-plane-v0/P1-EXECUTION-PLAN.md",
   "formalTrialEffect": {
     "designRetained": true,
-    "executionStatus": "blocked_by_B3_selection_and_formal_runner",
+    "executionStatus": "blocked_by_B4_formal_runner_smoke",
+    "formalRunnerUnblocked": true,
+    "liveTrialUnlocked": false,
     "planId": "HHR-R3-001",
     "resumeRequirements": [
       "p1_minimum_core_passed",
@@ -94,13 +104,14 @@
     ],
     "satisfiedPrerequisites": [
       "p0_passed",
-      "p1_owner_exporters_passed"
+      "p1_owner_exporters_passed",
+      "p1_cross_owner_selection_passed"
     ]
   },
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:bf9147b85d2889369527311eed95c4840fc86814db9ddce0b951a4975b847c27"
+    "payloadDigest": "sha256:6ae6efe7b5c2442715dbcf403de780dee5c33741042776888c0d7d8a481c74a7"
   },
   "kind": "ordivon.host-harness-observation-plan",
   "nonGoals": [
@@ -294,7 +305,7 @@
   },
   "p0P4Closeout": {
     "formalTrialUnlocked": false,
-    "nextWorkPackage": "B3",
+    "nextWorkPackage": "B4",
     "record": "research/experiments/observation-plane-v0/owner-exporter-closeout-v1.json",
     "status": "completed"
   },
@@ -379,10 +390,13 @@
     ],
     "executionReadiness": {
       "contractAndGatewayFixtureWorkMayStart": false,
-      "crossOwnerTrajectoryWorkMayStart": true,
+      "crossOwnerTrajectoryWorkCompleted": true,
+      "crossOwnerTrajectoryWorkMayStart": false,
       "exporterDevelopmentAgainstTemporaryStoresMayStart": true,
+      "formalRunnerWorkMayStart": true,
       "formalTrialsRequireMinimumExperimentalCore": true,
       "formalTrialsRequireP1CoreCloseout": false,
+      "liveTrialWorkMayStart": false,
       "openTelemetryInteropBlocksFormalTrials": false,
       "p0CloseoutSatisfied": true,
       "productionExporterEnablementAuthorized": false,
@@ -503,10 +517,19 @@
         "testsAdded": 8
       },
       "M3": {
-        "blockers": [],
-        "requiredDecision": "runtime_artifact_append_only_mapping_or_first_trajectory_exclusion",
-        "status": "ready",
-        "work": "real_cross_owner_trajectory_privacy_rebuild_and_selection"
+        "artifactCoverage": "owner_native_only",
+        "catalogDigest": "sha256:496b8beef57131562849f50094a5c5bd7d49bc6806ef44d64c26cb60d5318349",
+        "formalRunnerUnblocked": true,
+        "implementationRevision": "e9bc8b49941fb332f9f1f5774588bddca72a5b49",
+        "liveTrialUnlocked": false,
+        "receipt": "research/experiments/observation-plane-v0/evidence/b3-owner-native-e9bc8b4/receipt.json",
+        "receiptRevision": "e6e480b03a7db336b950b73d8a837ef1799bde12",
+        "selectedEventCount": 12,
+        "selection": "research/experiments/observation-plane-v0/evidence/b3-owner-native-e9bc8b4/observation-selection.json",
+        "selectionDigest": "sha256:e5b79f770bdd98ff76f6ac3d09ef54ee1f735d17302dab874d06f1d7cc138a8e",
+        "sourceStreamCount": 3,
+        "status": "completed",
+        "trialValidityInferred": false
       },
       "M4": {
         "status": "blocked_by_M3",
@@ -602,16 +625,14 @@
       "ordivon-runtime"
     ],
     "runtimeArtifactProjection": {
-      "allowedNextChoices": [
-        "independent_append_only_artifact_observations",
-        "explicit_artifact_exclusion_from_first_B3_trajectory"
-      ],
+      "currentCoverage": "owner_native_only",
       "forbiddenChoice": "recompute_existing_runtime_event_digests_when_artifacts_arrive",
-      "reason": "mutable Artifact lists cannot be attached to existing Job Event canonical digests",
-      "status": "deferred_to_M3_design_decision"
+      "futureOption": "independent_append_only_artifact_observations",
+      "reason": "B3 completed without attaching mutable Artifact lists to historical Runtime Job Events",
+      "status": "first_trajectory_owner_native_only"
     },
     "stateRoot": "/var/lib/ordivon/observation",
-    "status": "minimum_core_m1_m2_exporters_complete_b3_ready",
+    "status": "minimum_core_b3_complete_b4_ready",
     "stopConditions": [
       "observation_loss_despite_intact_owner_journal",
       "exporter_requires_out_of_band_owner_state_mutation",
@@ -752,5 +773,5 @@
     "sharedContractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36"
   },
   "schemaVersion": 1,
-  "status": "level_a_complete_p1_m2_owner_exporters_implemented_b3_ready"
+  "status": "level_a_complete_p1_b3_complete_b4_ready"
 }

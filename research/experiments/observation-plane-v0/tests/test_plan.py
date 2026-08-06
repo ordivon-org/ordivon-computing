@@ -37,7 +37,7 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(self.plan["planId"], "HHO-P0-P1-001")
         self.assertEqual(
             self.plan["status"],
-            "level_a_complete_p1_m2_owner_exporters_implemented_b3_ready",
+            "level_a_complete_p1_b3_complete_b4_ready",
         )
         self.assertEqual(
             self.plan["integrity"],
@@ -141,7 +141,7 @@ class ObservationPlanTests(unittest.TestCase):
         p1 = self.plan["p1"]
         self.assertEqual(
             p1["status"],
-            "minimum_core_m1_m2_exporters_complete_b3_ready",
+            "minimum_core_b3_complete_b4_ready",
         )
         self.assertFalse(
             p1["executionReadiness"]["contractAndGatewayFixtureWorkMayStart"]
@@ -153,8 +153,17 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertTrue(
             p1["executionReadiness"]["runOnceExporterWorkCompleted"]
         )
-        self.assertTrue(
+        self.assertFalse(
             p1["executionReadiness"]["crossOwnerTrajectoryWorkMayStart"]
+        )
+        self.assertTrue(
+            p1["executionReadiness"]["crossOwnerTrajectoryWorkCompleted"]
+        )
+        self.assertTrue(
+            p1["executionReadiness"]["formalRunnerWorkMayStart"]
+        )
+        self.assertFalse(
+            p1["executionReadiness"]["liveTrialWorkMayStart"]
         )
         self.assertFalse(
             p1["executionReadiness"]["productionExporterEnablementAuthorized"]
@@ -207,18 +216,24 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertTrue(value["designRetained"])
         self.assertEqual(
             value["executionStatus"],
-            "blocked_by_B3_selection_and_formal_runner",
+            "blocked_by_B4_formal_runner_smoke",
         )
         self.assertEqual(len(value["resumeRequirements"]), 5)
         self.assertEqual(
             value["satisfiedPrerequisites"],
-            ["p0_passed", "p1_owner_exporters_passed"],
+            [
+                "p0_passed",
+                "p1_owner_exporters_passed",
+                "p1_cross_owner_selection_passed",
+            ],
         )
         self.assertIn(
             "observation_selection_manifest_stable",
             value["resumeRequirements"],
         )
         self.assertIn("p1_minimum_core_passed", value["resumeRequirements"])
+        self.assertTrue(value["formalRunnerUnblocked"])
+        self.assertFalse(value["liveTrialUnlocked"])
 
     def test_execution_plan_and_read_only_exporter_state_are_explicit(self) -> None:
         execution_path = Path(self.plan["executionPlanRef"])
@@ -294,7 +309,13 @@ class ObservationPlanTests(unittest.TestCase):
             progress["M2"]["streamSemantics"]["runtime"],
             "per_job_event_sequence",
         )
-        self.assertEqual(progress["M3"]["status"], "ready")
+        self.assertEqual(progress["M3"]["status"], "completed")
+        self.assertEqual(
+            progress["M3"]["implementationRevision"],
+            "e9bc8b49941fb332f9f1f5774588bddca72a5b49",
+        )
+        self.assertEqual(progress["M3"]["selectedEventCount"], 12)
+        self.assertFalse(progress["M3"]["trialValidityInferred"])
         self.assertIn("owner_exporters", progress["M1"]["notIncluded"])
 
     def test_m2_closeout_and_runtime_artifact_boundary_are_explicit(self) -> None:
@@ -308,10 +329,11 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertTrue(m2["acceptance"]["ownerStoresReadOnly"])
         self.assertFalse(m2["acceptance"]["productionActivated"])
         artifact = p1["runtimeArtifactProjection"]
-        self.assertEqual(artifact["status"], "deferred_to_M3_design_decision")
-        self.assertIn(
+        self.assertEqual(artifact["status"], "first_trajectory_owner_native_only")
+        self.assertEqual(artifact["currentCoverage"], "owner_native_only")
+        self.assertEqual(
+            artifact["futureOption"],
             "independent_append_only_artifact_observations",
-            artifact["allowedNextChoices"],
         )
         self.assertEqual(
             artifact["forbiddenChoice"],

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "ordivon.cognitive-reform-execution-program",
   "programId": "OCR-V0-001",
-  "status": "level_a_complete_b2_owner_exporters_complete_b3_ready",
+  "status": "level_a_complete_b3_complete_b4_ready",
   "questionRef": "ANC-COMPILER-002",
   "evaluationQuestionRef": "ANC-VERIFY-001",
   "decision": {
@@ -39,7 +39,7 @@
     {
       "levelId": "B",
       "title": "Evidence and strong sequential baseline",
-      "status": "b2_owner_exporters_complete_b3_ready",
+      "status": "b3_complete_b4_ready",
       "required": true,
       "gate": [
         "minimum_observation_core_rebuilds_one_cross_owner_selection",
@@ -521,7 +521,7 @@
       "id": "B3",
       "owner": "ordivon-computing",
       "title": "Real cross-owner trajectory rebuild and ObservationSelectionManifest",
-      "status": "ready",
+      "status": "completed",
       "inputRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
       "inScope": [
         "ingest_three_real_owner_bundles",
@@ -548,13 +548,27 @@
       "stopConditions": [
         "join_requires_unbounded_payload_copy",
         "selection_claims_trial_validity"
-      ]
+      ],
+      "completion": {
+        "implementationRevision": "e9bc8b49941fb332f9f1f5774588bddca72a5b49",
+        "receiptRevision": "e6e480b03a7db336b950b73d8a837ef1799bde12",
+        "receipt": "research/experiments/observation-plane-v0/evidence/b3-owner-native-e9bc8b4/receipt.json",
+        "selection": "research/experiments/observation-plane-v0/evidence/b3-owner-native-e9bc8b4/observation-selection.json",
+        "catalogDigest": "sha256:496b8beef57131562849f50094a5c5bd7d49bc6806ef44d64c26cb60d5318349",
+        "selectionDigest": "sha256:e5b79f770bdd98ff76f6ac3d09ef54ee1f735d17302dab874d06f1d7cc138a8e",
+        "selectedEventCount": 12,
+        "sourceStreamCount": 3,
+        "artifactCoverage": "owner_native_only",
+        "formalRunnerUnblocked": true,
+        "liveTrialUnlocked": false,
+        "productionActivated": false
+      }
     },
     {
       "id": "B4",
       "owner": "ordivon-computing",
       "title": "Formal runner deterministic smoke and fault cells",
-      "status": "blocked_by_B3",
+      "status": "ready",
       "inScope": [
         "deterministic_smoke",
         "response_loss",
@@ -697,7 +711,7 @@
     },
     "b1ObservationMinimumCoreAuthorized": true,
     "levelAStatus": "completed",
-    "nextGate": "B3_real_cross_owner_trajectory_and_selection_manifest"
+    "nextGate": "B4_formal_runner_deterministic_smoke_and_fault_cells"
   },
   "levelBProgress": {
     "B1": {
@@ -732,16 +746,27 @@
       }
     },
     "B3": {
-      "status": "ready",
-      "blockers": [],
-      "requiredDecision": "runtime_artifact_append_only_mapping_or_first_trajectory_exclusion"
+      "status": "completed",
+      "implementationRevision": "e9bc8b49941fb332f9f1f5774588bddca72a5b49",
+      "receiptRevision": "e6e480b03a7db336b950b73d8a837ef1799bde12",
+      "receipt": "research/experiments/observation-plane-v0/evidence/b3-owner-native-e9bc8b4/receipt.json",
+      "selection": "research/experiments/observation-plane-v0/evidence/b3-owner-native-e9bc8b4/observation-selection.json",
+      "catalogDigest": "sha256:496b8beef57131562849f50094a5c5bd7d49bc6806ef44d64c26cb60d5318349",
+      "selectionDigest": "sha256:e5b79f770bdd98ff76f6ac3d09ef54ee1f735d17302dab874d06f1d7cc138a8e",
+      "artifactCoverage": "owner_native_only",
+      "trialValidityInferred": false
     },
     "B4": {
-      "status": "blocked_by_B3"
+      "status": "ready",
+      "blockers": [],
+      "liveTrialUnlocked": false
     },
     "B2-J": {
       "status": "completed",
       "inventory": "research/experiments/observation-plane-v0/join-key-inventory-v1.json"
+    },
+    "B5": {
+      "status": "blocked_by_B4"
     }
   },
   "revisionAuthority": {
@@ -769,5 +794,13 @@
     "record": "research/experiments/observation-plane-v0/owner-exporter-closeout-v1.json",
     "formalTrialUnlocked": false,
     "nextWorkPackage": "B3"
+  },
+  "b3Closeout": {
+    "status": "completed",
+    "implementationRevision": "e9bc8b49941fb332f9f1f5774588bddca72a5b49",
+    "receiptRevision": "e6e480b03a7db336b950b73d8a837ef1799bde12",
+    "formalRunnerUnblocked": true,
+    "liveTrialUnlocked": false,
+    "nextWorkPackage": "B4"
   }
 }
