@@ -9,7 +9,7 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 ## Designed execution dependencies and successors
 
-- [`observation-plane-v0/`](observation-plane-v0/) — HHO-P1 automatic owner-native observation; contract and Gateway work may begin, but production exporters wait for P0 closeout.
+- [`observation-plane-v0/`](observation-plane-v0/) — HHO-P1 automatic owner-native observation; M1 Contract/Gateway and M2 read-only run-once Host/Harness/Runtime exporters are complete. B3 real cross-owner reconstruction is ready; production exporters remain unauthorized.
 - [`experiment-loop-v0/`](experiment-loop-v0/) — CEL-R4 bounded multi-round experiment selection, blocked until P1 Core and the R3 repeated native baseline pass.
 
 ## Frozen, completed, or promoted evidence

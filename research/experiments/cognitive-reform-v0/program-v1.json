@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "kind": "ordivon.cognitive-reform-execution-program",
   "programId": "OCR-V0-001",
-  "status": "level_a_complete_b2_join_inventory_complete_exporters_ready",
+  "status": "level_a_complete_b2_owner_exporters_complete_b3_ready",
   "questionRef": "ANC-COMPILER-002",
   "evaluationQuestionRef": "ANC-VERIFY-001",
   "decision": {
@@ -39,7 +39,7 @@
     {
       "levelId": "B",
       "title": "Evidence and strong sequential baseline",
-      "status": "b2_join_inventory_complete_owner_exporters_ready",
+      "status": "b2_owner_exporters_complete_b3_ready",
       "required": true,
       "gate": [
         "minimum_observation_core_rebuilds_one_cross_owner_selection",
@@ -354,7 +354,7 @@
       "id": "B2-H",
       "owner": "ordivon-host",
       "title": "Host run-once Observation exporter",
-      "status": "ready",
+      "status": "completed",
       "inputRevision": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
       "inScope": [
         "read_only_owner_snapshot",
@@ -392,13 +392,24 @@
         "sidecar_inside_owner_state_root",
         "checkpoint_advances_without_durable_bundle"
       ],
-      "streamSemantics": "global_host_journal_sequence"
+      "streamSemantics": "global_host_journal_sequence",
+      "completion": {
+        "implementationRevision": "e1c134f330a90c15495126a67021b06c56245156",
+        "selectedOwnerRevision": "a76a620160b28d870670696e04c39e539296fe00",
+        "receiptRevision": "a76a620160b28d870670696e04c39e539296fe00",
+        "receipt": "ordivon-host:evidence/observation-exporter-e1c134f.json",
+        "mappingVersion": "host-observation-v1",
+        "targetedTests": 3,
+        "ownerUnitTests": 180,
+        "gatewayAcceptedEvents": 3,
+        "liveHostRuntimeJourney": "passed"
+      }
     },
     {
       "id": "B2-A",
       "owner": "ordivon-harness",
       "title": "Harness run-once Observation exporter",
-      "status": "ready",
+      "status": "completed",
       "inputRevision": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
       "inScope": [
         "read_only_owner_snapshot",
@@ -436,13 +447,24 @@
         "sidecar_inside_owner_state_root",
         "checkpoint_advances_without_durable_bundle"
       ],
-      "streamSemantics": "global_harness_journal_sequence"
+      "streamSemantics": "global_harness_journal_sequence",
+      "completion": {
+        "implementationRevision": "e3cb34b4991b5f52e1c0ed0151ea17b067e88e16",
+        "selectedOwnerRevision": "e1f6596fa2694ec520d1d12eab8b18beeda39e50",
+        "receiptRevision": "e1f6596fa2694ec520d1d12eab8b18beeda39e50",
+        "receipt": "ordivon-harness:evidence/observation-exporter-e3cb34b.json",
+        "mappingVersion": "harness-observation-v1",
+        "targetedTests": 3,
+        "ownerUnitTests": 350,
+        "gatewayAcceptedEvents": 3,
+        "sequenceProof": "global_1_2_3_run_revision_1_1_2"
+      }
     },
     {
       "id": "B2-R",
       "owner": "ordivon-runtime",
       "title": "Runtime run-once Observation exporter",
-      "status": "ready",
+      "status": "completed",
       "inputRevision": "ce061a5995d7a59246a103dcc51f0539245209a6",
       "inScope": [
         "read_only_owner_snapshot",
@@ -480,13 +502,26 @@
         "sidecar_inside_owner_state_root",
         "checkpoint_advances_without_durable_bundle"
       ],
-      "streamSemantics": "per_job_event_sequence"
+      "streamSemantics": "per_job_event_sequence",
+      "completion": {
+        "implementationRevision": "8c22c2b409e99a0fd07fd72a9029ef8c74c6cb47",
+        "selectedOwnerRevision": "cff5bc583e878560c1e299e691e7e490ca279c9d",
+        "receiptRevision": "cff5bc583e878560c1e299e691e7e490ca279c9d",
+        "receipt": "ordivon-runtime:evidence/observation-exporter-8c22c2b.json",
+        "mappingVersion": "runtime-observation-v1",
+        "targetedTests": 3,
+        "rustWorkspaceCoreTests": 110,
+        "rustTransactionalCoreTests": 110,
+        "pythonOperationalTests": 52,
+        "gatewayAcceptedEvents": 3,
+        "artifactProjection": "deferred_to_B3_design_decision"
+      }
     },
     {
       "id": "B3",
       "owner": "ordivon-computing",
       "title": "Real cross-owner trajectory rebuild and ObservationSelectionManifest",
-      "status": "blocked_by_B2_exporters",
+      "status": "ready",
       "inputRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
       "inScope": [
         "ingest_three_real_owner_bundles",
@@ -662,7 +697,7 @@
     },
     "b1ObservationMinimumCoreAuthorized": true,
     "levelAStatus": "completed",
-    "nextGate": "B2-H_B2-A_B2-R_run_once_owner_exporters"
+    "nextGate": "B3_real_cross_owner_trajectory_and_selection_manifest"
   },
   "levelBProgress": {
     "B1": {
@@ -671,22 +706,35 @@
       "sourceBaseline": "a10c10f23215f02e1bddd2c567377193c0a144f8"
     },
     "exporters": {
-      "status": "ready_after_join_inventory",
+      "status": "completed",
       "sharedContractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
-      "packageSubdirectory": "research/experiments/observation-plane-v0/implementation",
-      "packages": [
-        "B2-H",
-        "B2-A",
-        "B2-R"
-      ],
+      "joinInventory": "research/experiments/observation-plane-v0/join-key-inventory-v1.json",
+      "closeout": "research/experiments/observation-plane-v0/owner-exporter-closeout-v1.json",
+      "packages": {
+        "B2-H": "completed",
+        "B2-A": "completed",
+        "B2-R": "completed"
+      },
+      "implementationRevisions": {
+        "B2-H": "e1c134f330a90c15495126a67021b06c56245156",
+        "B2-A": "e3cb34b4991b5f52e1c0ed0151ea17b067e88e16",
+        "B2-R": "8c22c2b409e99a0fd07fd72a9029ef8c74c6cb47"
+      },
+      "receiptRevisions": {
+        "B2-H": "a76a620160b28d870670696e04c39e539296fe00",
+        "B2-A": "e1f6596fa2694ec520d1d12eab8b18beeda39e50",
+        "B2-R": "cff5bc583e878560c1e299e691e7e490ca279c9d"
+      },
       "streamSemantics": {
         "B2-H": "global_host_journal_sequence",
-        "B2-A": "global_harness_journal_sequence",
+        "B2-A": "global_harness_journal_sequence_with_run_revision",
         "B2-R": "per_job_event_sequence"
       }
     },
     "B3": {
-      "status": "blocked_by_exporters"
+      "status": "ready",
+      "blockers": [],
+      "requiredDecision": "runtime_artifact_append_only_mapping_or_first_trajectory_exclusion"
     },
     "B4": {
       "status": "blocked_by_B3"
@@ -697,18 +745,29 @@
     }
   },
   "revisionAuthority": {
-    "authoritySourceRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
+    "authoritySourceRevision": "7553ba2c904a685ff496cde964b51fa15a77d291",
     "selectedOwnerRevisions": {
-      "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
-      "harness": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
-      "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6",
+      "host": "a76a620160b28d870670696e04c39e539296fe00",
+      "harness": "e1f6596fa2694ec520d1d12eab8b18beeda39e50",
+      "runtime": "cff5bc583e878560c1e299e691e7e490ca279c9d",
       "protocol": "420dc356cb664d75db0f34f356156baebe5843db"
     },
     "sharedContractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
     "implementationRevisions": {
-      "B2-H": null,
-      "B2-A": null,
-      "B2-R": null
+      "B2-H": "e1c134f330a90c15495126a67021b06c56245156",
+      "B2-A": "e3cb34b4991b5f52e1c0ed0151ea17b067e88e16",
+      "B2-R": "8c22c2b409e99a0fd07fd72a9029ef8c74c6cb47"
+    },
+    "receiptRevisions": {
+      "B2-H": "a76a620160b28d870670696e04c39e539296fe00",
+      "B2-A": "e1f6596fa2694ec520d1d12eab8b18beeda39e50",
+      "B2-R": "cff5bc583e878560c1e299e691e7e490ca279c9d"
     }
+  },
+  "p0P4Closeout": {
+    "status": "completed",
+    "record": "research/experiments/observation-plane-v0/owner-exporter-closeout-v1.json",
+    "formalTrialUnlocked": false,
+    "nextWorkPackage": "B3"
   }
 }

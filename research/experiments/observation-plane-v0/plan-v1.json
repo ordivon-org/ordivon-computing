@@ -83,7 +83,7 @@
   "executionPlanRef": "research/experiments/observation-plane-v0/P1-EXECUTION-PLAN.md",
   "formalTrialEffect": {
     "designRetained": true,
-    "executionStatus": "blocked_by_p1_exporters_selection_and_formal_runner",
+    "executionStatus": "blocked_by_B3_selection_and_formal_runner",
     "planId": "HHR-R3-001",
     "resumeRequirements": [
       "p1_minimum_core_passed",
@@ -93,13 +93,14 @@
       "observation_selection_manifest_stable"
     ],
     "satisfiedPrerequisites": [
-      "p0_passed"
+      "p0_passed",
+      "p1_owner_exporters_passed"
     ]
   },
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:2cbe223eb3340d3e694ba646154cd0f048cd83045fb47df1c69a2df9d7d850d6"
+    "payloadDigest": "sha256:bf9147b85d2889369527311eed95c4840fc86814db9ddce0b951a4975b847c27"
   },
   "kind": "ordivon.host-harness-observation-plan",
   "nonGoals": [
@@ -291,6 +292,12 @@
       }
     ]
   },
+  "p0P4Closeout": {
+    "formalTrialUnlocked": false,
+    "nextWorkPackage": "B3",
+    "record": "research/experiments/observation-plane-v0/owner-exporter-closeout-v1.json",
+    "status": "completed"
+  },
   "p1": {
     "acceptanceGates": [
       "gateway_down_during_ten_thousand_source_events_then_zero_missing",
@@ -372,13 +379,16 @@
     ],
     "executionReadiness": {
       "contractAndGatewayFixtureWorkMayStart": false,
+      "crossOwnerTrajectoryWorkMayStart": true,
       "exporterDevelopmentAgainstTemporaryStoresMayStart": true,
       "formalTrialsRequireMinimumExperimentalCore": true,
       "formalTrialsRequireP1CoreCloseout": false,
       "openTelemetryInteropBlocksFormalTrials": false,
       "p0CloseoutSatisfied": true,
+      "productionExporterEnablementAuthorized": false,
       "productionExporterEnablementRequiresP0Closeout": true,
-      "runOnceExporterWorkMayStart": true
+      "runOnceExporterWorkCompleted": true,
+      "runOnceExporterWorkMayStart": false
     },
     "experimentLoopBoundary": {
       "downstreamPlanId": "CEL-R4-001",
@@ -453,19 +463,37 @@
         "tests": 21
       },
       "M2": {
+        "acceptance": {
+          "durableBundleBeforeCheckpoint": true,
+          "gatewayIngestAndDoctor": true,
+          "ownerStoresReadOnly": true,
+          "productionActivated": false,
+          "rawPrivateContentAbsent": true
+        },
+        "closeout": "research/experiments/observation-plane-v0/owner-exporter-closeout-v1.json",
         "contractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
+        "implementationRevisions": {
+          "B2-A": "e3cb34b4991b5f52e1c0ed0151ea17b067e88e16",
+          "B2-H": "e1c134f330a90c15495126a67021b06c56245156",
+          "B2-R": "8c22c2b409e99a0fd07fd72a9029ef8c74c6cb47"
+        },
         "joinInventory": "research/experiments/observation-plane-v0/join-key-inventory-v1.json",
         "ownerPackages": {
-          "B2-A": "ready",
-          "B2-H": "ready",
-          "B2-R": "ready"
+          "B2-A": "completed",
+          "B2-H": "completed",
+          "B2-R": "completed"
         },
         "package": "ordivon-observation-core==0.1.0",
+        "receiptRevisions": {
+          "B2-A": "e1f6596fa2694ec520d1d12eab8b18beeda39e50",
+          "B2-H": "a76a620160b28d870670696e04c39e539296fe00",
+          "B2-R": "cff5bc583e878560c1e299e691e7e490ca279c9d"
+        },
         "schemas": [
           "observation-export-checkpoint-v1.schema.json",
           "observation-export-bundle-v1.schema.json"
         ],
-        "status": "shared_contract_and_join_inventory_complete_owner_exporters_ready",
+        "status": "completed",
         "streamSemantics": {
           "harness": "global_journal_sequence_with_run_revision",
           "host": "global_journal_sequence",
@@ -475,8 +503,10 @@
         "testsAdded": 8
       },
       "M3": {
-        "status": "blocked_by_M2",
-        "work": "cross_owner_trajectory_privacy_rebuild_and_selection"
+        "blockers": [],
+        "requiredDecision": "runtime_artifact_append_only_mapping_or_first_trajectory_exclusion",
+        "status": "ready",
+        "work": "real_cross_owner_trajectory_privacy_rebuild_and_selection"
       },
       "M4": {
         "status": "blocked_by_M3",
@@ -571,8 +601,17 @@
       "ordivon-harness",
       "ordivon-runtime"
     ],
+    "runtimeArtifactProjection": {
+      "allowedNextChoices": [
+        "independent_append_only_artifact_observations",
+        "explicit_artifact_exclusion_from_first_B3_trajectory"
+      ],
+      "forbiddenChoice": "recompute_existing_runtime_event_digests_when_artifacts_arrive",
+      "reason": "mutable Artifact lists cannot be attached to existing Job Event canonical digests",
+      "status": "deferred_to_M3_design_decision"
+    },
     "stateRoot": "/var/lib/ordivon/observation",
-    "status": "minimum_core_m1_and_join_inventory_complete_exporters_pending",
+    "status": "minimum_core_m1_m2_exporters_complete_b3_ready",
     "stopConditions": [
       "observation_loss_despite_intact_owner_journal",
       "exporter_requires_out_of_band_owner_state_mutation",
@@ -693,20 +732,25 @@
   "planId": "HHO-P0-P1-001",
   "questionRef": "ANC-VERIFY-001",
   "revisionAuthority": {
-    "authoritySourceRevision": "b0973311d84b0debe30ca002e15e02401e16ee36",
+    "authoritySourceRevision": "7553ba2c904a685ff496cde964b51fa15a77d291",
     "implementationRevisions": {
-      "B2-A": null,
-      "B2-H": null,
-      "B2-R": null
+      "B2-A": "e3cb34b4991b5f52e1c0ed0151ea17b067e88e16",
+      "B2-H": "e1c134f330a90c15495126a67021b06c56245156",
+      "B2-R": "8c22c2b409e99a0fd07fd72a9029ef8c74c6cb47"
+    },
+    "receiptRevisions": {
+      "B2-A": "e1f6596fa2694ec520d1d12eab8b18beeda39e50",
+      "B2-H": "a76a620160b28d870670696e04c39e539296fe00",
+      "B2-R": "cff5bc583e878560c1e299e691e7e490ca279c9d"
     },
     "selectedOwnerRevisions": {
-      "harness": "f098f9492ab788068fd09da771bffc21e0fdc1b3",
-      "host": "7b17807784cc52f0be4f1786719f6dc20deb92c8",
+      "harness": "e1f6596fa2694ec520d1d12eab8b18beeda39e50",
+      "host": "a76a620160b28d870670696e04c39e539296fe00",
       "protocol": "420dc356cb664d75db0f34f356156baebe5843db",
-      "runtime": "ce061a5995d7a59246a103dcc51f0539245209a6"
+      "runtime": "cff5bc583e878560c1e299e691e7e490ca279c9d"
     },
     "sharedContractRevision": "b0973311d84b0debe30ca002e15e02401e16ee36"
   },
   "schemaVersion": 1,
-  "status": "level_a_complete_join_inventory_frozen_exporters_ready"
+  "status": "level_a_complete_p1_m2_owner_exporters_implemented_b3_ready"
 }

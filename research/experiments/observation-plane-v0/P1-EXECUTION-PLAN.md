@@ -1,6 +1,6 @@
 # HHO-P1 Execution Plan
 
-Status: Level A complete; Minimum Core M1 contract, in-process Gateway, schemas, privacy rejection, and synthetic rebuild fixture implemented; run-once owner exporters pending.
+Status: Level A complete; Minimum Core M1 and M2 are implemented. The shared Contract, join-key inventory, and three read-only run-once owner exporters are frozen; B3 real cross-owner reconstruction is ready, while formal Trials remain blocked.
 
 Plan: `HHO-P0-P1-001`, phase `HHO-P1`.
 
@@ -517,7 +517,8 @@ Deliverables:
 - read-only Registry exporter binary or subcommand;
 - `runtime-observation-mapping.v1`;
 - per-Job stream discovery and sidecar head tracking;
-- mappings for Job events, Attempt identity, Execution Plan, Artifact references, terminal evidence, cancellation, reconciliation, orphan/lost/repair outcomes, request identity, and foreign references;
+- current run-once mapping for append-only Job events, Attempt identity, immutable Execution Plan digest, Workspace, request identity, state transitions, reconciliation and repair outcomes;
+- an explicit B3 decision for Artifact projection: independent append-only Artifact observations or exclusion from the first trajectory. Existing Job Event digests must never be recomputed when later Artifacts arrive;
 - no Host or Harness semantic status in Runtime mapping.
 
 Tests:
@@ -531,7 +532,7 @@ Tests:
 
 Gate:
 
-- one Runtime Job is queryable by Job, Attempt, Workspace, Artifact, `clientRequestId`, and foreign reference.
+- one Runtime Job is queryable by Job, Attempt, Workspace, `clientRequestId`, request/operation digest, and native Event sequence; Artifact traversal remains a B3 decision and is not claimed by P4.
 
 Rollback:
 
@@ -739,12 +740,20 @@ M1 is implemented and tested:
 - generated/frozen JSON Schemas;
 - deterministic metadata-only Host/Harness/Runtime fixture with 13 Events, three complete streams, and catalog digest `sha256:c71a5af70734d6a1f41167141affc9f6482194895cb3ab843bd6d5c6bd093f15`.
 
-The shared exporter contract is frozen at Computing `ad1d0240966441e783c1ce9ef0f79f710580ba70`. It provides an installable wheel, exact owner/exporter revision binding, dynamic export receipt time, and digest-CAS multi-stream checkpoints. Host and Harness use global Journal streams; Runtime uses one stream per Job and no fabricated global order.
+The current shared exporter contract is frozen at Computing `b0973311d84b0debe30ca002e15e02401e16ee36`. It provides an installable wheel, exact owner/exporter revision binding, dynamic export receipt time, digest-CAS multi-stream checkpoints, and a durable digest-named Bundle outbox.
+
+M2 is complete:
+
+- Host implementation `e1c134f330a90c15495126a67021b06c56245156`, receipt revision `a76a620160b28d870670696e04c39e539296fe00`;
+- Harness implementation `e3cb34b4991b5f52e1c0ed0151ea17b067e88e16`, receipt revision `e1f6596fa2694ec520d1d12eab8b18beeda39e50`;
+- Runtime implementation `8c22c2b409e99a0fd07fd72a9029ef8c74c6cb47`, receipt revision `cff5bc583e878560c1e299e691e7e490ca279c9d`.
+
+All three exporters are bounded, run-once, read-only, metadata/digest-first, and write only to observation-owned sidecars outside owner roots. Host and Harness use global Journal streams; Runtime uses one stream per Job and no fabricated global order.
 
 The immediate frontier is now:
 
-1. add bounded run-once Harness, Host, and Runtime exporters with observation-owned sidecars and read-only owner access;
-3. reconstruct one real deterministic cross-owner trajectory and freeze an `ObservationSelectionManifest`;
-4. hand that selection to the R3 deterministic smoke before authorizing daemon, follow-service, OTel, Collector, backup operations, or million-event hardening.
+1. decide whether Runtime Artifacts become independent append-only Observation records or are excluded from the first B3 trajectory;
+2. reconstruct one real deterministic cross-owner trajectory and freeze an `ObservationSelectionManifest`;
+3. hand that selection to the R3 deterministic smoke before authorizing daemon, follow-service, OTel, Collector, backup operations, or million-event hardening.
 
 Production hardening requires measured recurring use by R3, TCG, or operations.

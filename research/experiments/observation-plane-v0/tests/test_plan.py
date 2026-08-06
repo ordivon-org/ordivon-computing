@@ -37,7 +37,7 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(self.plan["planId"], "HHO-P0-P1-001")
         self.assertEqual(
             self.plan["status"],
-            "level_a_complete_join_inventory_frozen_exporters_ready",
+            "level_a_complete_p1_m2_owner_exporters_implemented_b3_ready",
         )
         self.assertEqual(
             self.plan["integrity"],
@@ -59,8 +59,13 @@ class ObservationPlanTests(unittest.TestCase):
             self.assertRegex(revision, re.compile(r"^[0-9a-f]{40}$"))
         self.assertEqual(
             authority["implementationRevisions"],
-            {"B2-A": None, "B2-H": None, "B2-R": None},
+            {
+                "B2-A": "e3cb34b4991b5f52e1c0ed0151ea17b067e88e16",
+                "B2-H": "e1c134f330a90c15495126a67021b06c56245156",
+                "B2-R": "8c22c2b409e99a0fd07fd72a9029ef8c74c6cb47",
+            },
         )
+        self.assertEqual(set(authority["receiptRevisions"]), {"B2-A", "B2-H", "B2-R"})
 
     def test_authorities_remain_separate(self) -> None:
         decisions = self.plan["decisions"]
@@ -136,14 +141,23 @@ class ObservationPlanTests(unittest.TestCase):
         p1 = self.plan["p1"]
         self.assertEqual(
             p1["status"],
-            "minimum_core_m1_and_join_inventory_complete_exporters_pending",
+            "minimum_core_m1_m2_exporters_complete_b3_ready",
         )
         self.assertFalse(
             p1["executionReadiness"]["contractAndGatewayFixtureWorkMayStart"]
         )
         self.assertTrue(p1["executionReadiness"]["p0CloseoutSatisfied"])
-        self.assertTrue(
+        self.assertFalse(
             p1["executionReadiness"]["runOnceExporterWorkMayStart"]
+        )
+        self.assertTrue(
+            p1["executionReadiness"]["runOnceExporterWorkCompleted"]
+        )
+        self.assertTrue(
+            p1["executionReadiness"]["crossOwnerTrajectoryWorkMayStart"]
+        )
+        self.assertFalse(
+            p1["executionReadiness"]["productionExporterEnablementAuthorized"]
         )
         self.assertTrue(
             p1["executionReadiness"]["productionExporterEnablementRequiresP0Closeout"]
@@ -193,10 +207,13 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertTrue(value["designRetained"])
         self.assertEqual(
             value["executionStatus"],
-            "blocked_by_p1_exporters_selection_and_formal_runner",
+            "blocked_by_B3_selection_and_formal_runner",
         )
         self.assertEqual(len(value["resumeRequirements"]), 5)
-        self.assertEqual(value["satisfiedPrerequisites"], ["p0_passed"])
+        self.assertEqual(
+            value["satisfiedPrerequisites"],
+            ["p0_passed", "p1_owner_exporters_passed"],
+        )
         self.assertIn(
             "observation_selection_manifest_stable",
             value["resumeRequirements"],
@@ -267,7 +284,7 @@ class ObservationPlanTests(unittest.TestCase):
         self.assertEqual(progress["M1"]["fixture"]["streams"], 3)
         self.assertEqual(
             progress["M2"]["status"],
-            "shared_contract_and_join_inventory_complete_owner_exporters_ready",
+            "completed",
         )
         self.assertEqual(
             progress["M2"]["contractRevision"],
@@ -277,8 +294,30 @@ class ObservationPlanTests(unittest.TestCase):
             progress["M2"]["streamSemantics"]["runtime"],
             "per_job_event_sequence",
         )
-        self.assertEqual(progress["M3"]["status"], "blocked_by_M2")
+        self.assertEqual(progress["M3"]["status"], "ready")
         self.assertIn("owner_exporters", progress["M1"]["notIncluded"])
+
+    def test_m2_closeout_and_runtime_artifact_boundary_are_explicit(self) -> None:
+        p1 = self.plan["p1"]
+        m2 = p1["implementationProgress"]["M2"]
+        self.assertEqual(m2["status"], "completed")
+        self.assertEqual(
+            m2["ownerPackages"],
+            {"B2-A": "completed", "B2-H": "completed", "B2-R": "completed"},
+        )
+        self.assertTrue(m2["acceptance"]["ownerStoresReadOnly"])
+        self.assertFalse(m2["acceptance"]["productionActivated"])
+        artifact = p1["runtimeArtifactProjection"]
+        self.assertEqual(artifact["status"], "deferred_to_M3_design_decision")
+        self.assertIn(
+            "independent_append_only_artifact_observations",
+            artifact["allowedNextChoices"],
+        )
+        self.assertEqual(
+            artifact["forbiddenChoice"],
+            "recompute_existing_runtime_event_digests_when_artifacts_arrive",
+        )
+        self.assertFalse(self.plan["p0P4Closeout"]["formalTrialUnlocked"])
 
     def test_minimum_core_precedes_production_hardening(self) -> None:
         p1 = self.plan["p1"]

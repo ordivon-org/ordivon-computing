@@ -18,7 +18,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertEqual(self.program["programId"], "OCR-V0-001")
         self.assertEqual(
             self.program["status"],
-            "level_a_complete_b2_join_inventory_complete_exporters_ready",
+            "level_a_complete_b2_owner_exporters_complete_b3_ready",
         )
         levels = {item["levelId"]: item for item in self.program["levels"]}
         self.assertEqual(
@@ -27,7 +27,7 @@ class CognitiveReformProgramTests(unittest.TestCase):
         )
         self.assertEqual(
             levels["B"]["status"],
-            "b2_join_inventory_complete_owner_exporters_ready",
+            "b2_owner_exporters_complete_b3_ready",
         )
         self.assertEqual(levels["D"]["status"], "not_authorized")
 
@@ -86,21 +86,21 @@ class CognitiveReformProgramTests(unittest.TestCase):
         self.assertFalse(progress["aDeploy"]["productionActivationRequiredForLevelB"])
         self.assertTrue(progress["b1ObservationMinimumCoreAuthorized"])
 
-    def test_b1_is_closed_and_exporters_are_the_next_frontier(self) -> None:
+    def test_b1_and_owner_exporters_are_closed_and_b3_is_ready(self) -> None:
         progress = self.program["levelBProgress"]
         self.assertEqual(progress["B1"]["status"], "completed")
+        self.assertEqual(progress["exporters"]["status"], "completed")
         self.assertEqual(
-            progress["exporters"]["status"], "ready_after_join_inventory"
-        )
-        self.assertEqual(
-            set(progress["exporters"]["packages"]),
-            {"B2-H", "B2-A", "B2-R"},
+            progress["exporters"]["packages"],
+            {"B2-H": "completed", "B2-A": "completed", "B2-R": "completed"},
         )
         self.assertEqual(
             progress["exporters"]["sharedContractRevision"],
             "b0973311d84b0debe30ca002e15e02401e16ee36",
         )
-        self.assertEqual(progress["B3"]["status"], "blocked_by_exporters")
+        self.assertEqual(progress["B3"]["status"], "ready")
+        self.assertEqual(progress["B3"]["blockers"], [])
+        self.assertEqual(progress["B4"]["status"], "blocked_by_B3")
 
     def test_observation_is_split_by_real_consumer_need(self) -> None:
         observation = self.program["observationExecution"]
@@ -115,28 +115,34 @@ class CognitiveReformProgramTests(unittest.TestCase):
             "authority": authority["authoritySourceRevision"],
             "contract": authority["sharedContractRevision"],
             **authority["selectedOwnerRevisions"],
+            **authority["implementationRevisions"],
+            **authority["receiptRevisions"],
         }
         self.assertEqual(
-            set(authority["implementationRevisions"]),
-            {"B2-H", "B2-A", "B2-R"},
-        )
-        self.assertTrue(
-            all(value is None for value in authority["implementationRevisions"].values())
+            authority["implementationRevisions"],
+            {
+                "B2-H": "e1c134f330a90c15495126a67021b06c56245156",
+                "B2-A": "e3cb34b4991b5f52e1c0ed0151ea17b067e88e16",
+                "B2-R": "8c22c2b409e99a0fd07fd72a9029ef8c74c6cb47",
+            },
         )
         for revision in revisions.values():
             self.assertEqual(len(revision), 40)
             int(revision, 16)
 
-    def test_level_b_packages_have_executable_contracts(self) -> None:
+    def test_level_b_packages_have_executable_closeout(self) -> None:
         packages = {item["id"]: item for item in self.program["workPackages"]}
         self.assertEqual(packages["B2-J"]["status"], "completed")
         for package_id in ("B2-H", "B2-A", "B2-R"):
             package = packages[package_id]
-            self.assertEqual(package["status"], "ready")
-            self.assertIn("gate", package)
-            self.assertIn("completionEvidence", package)
-            self.assertIn("stopConditions", package)
-        self.assertEqual(packages["B3"]["status"], "blocked_by_B2_exporters")
+            self.assertEqual(package["status"], "completed")
+            self.assertIn("completion", package)
+            self.assertIn("receipt", package["completion"])
+            self.assertIn("implementationRevision", package["completion"])
+        self.assertEqual(packages["B3"]["status"], "ready")
+        closeout = self.program["p0P4Closeout"]
+        self.assertEqual(closeout["status"], "completed")
+        self.assertFalse(closeout["formalTrialUnlocked"])
 
 
 if __name__ == "__main__":

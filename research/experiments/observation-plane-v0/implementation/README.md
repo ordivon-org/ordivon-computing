@@ -40,3 +40,9 @@ ordivon-observation-core @ git+https://github.com/zycxfyh/ordivon-computing.git@
 ```
 
 Host and Harness use one global Journal stream. Runtime uses one stream per Job because Runtime has no durable global Event sequence. The checkpoint contract therefore stores a map of stream heads and never fabricates a Runtime-global order.
+
+## M2 owner exporters
+
+The shared package revision used by all three owner exporters is `b0973311d84b0debe30ca002e15e02401e16ee36`. The owner implementations are Host `e1c134f330a90c15495126a67021b06c56245156`, Harness `e3cb34b4991b5f52e1c0ed0151ea17b067e88e16`, and Runtime `8c22c2b409e99a0fd07fd72a9029ef8c74c6cb47`. They are run-once adapters, not product daemons or owner write paths.
+
+Runtime exports one stream per Job from append-only `job_events`. Artifact lists are not attached to existing Job Events because later Artifacts would change historical Event digests. B3 must choose an independent append-only Artifact mapping or explicitly exclude Artifact traversal from its first trajectory.
