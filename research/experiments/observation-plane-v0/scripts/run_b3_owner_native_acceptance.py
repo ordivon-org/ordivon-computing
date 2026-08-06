@@ -738,7 +738,8 @@ def main() -> int:
                 "selectedEventCount": len(first.selected_events),
                 "sourceStreamCount": len(first.source_stream_heads),
                 "checks": checks,
-                "formalTrialUnlocked": computing_clean,
+                "formalRunnerUnblocked": computing_clean,
+                "liveTrialUnlocked": False,
                 "productionActivated": False,
                 "ownerStateRetained": args.keep_owner_state,
                 "knownLimits": [
