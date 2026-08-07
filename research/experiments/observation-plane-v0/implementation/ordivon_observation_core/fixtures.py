@@ -373,6 +373,87 @@ def three_owner_batches() -> tuple[ObservationBatch, ...]:
     )
 
 
+def independent_harness_runtime_batches() -> tuple[ObservationBatch, ...]:
+    run_id = "harness-run:independent-fixture"
+    job_id = "runtime-job:independent-fixture"
+    harness_events = (
+        _event(
+            producer=HARNESS,
+            stream_id="harness-journal:independent-fixture",
+            sequence=1,
+            native_kind="ordivon.harness.harness.run-created",
+            native_id="harness-event:independent-run-created",
+            mapping_version="harness-observation-v1",
+            attributes={"runState": "running", "runRevision": 1},
+            relations=(
+                ObservationRelation("belongs_to", "ordivon.harness.run", run_id),
+            ),
+        ),
+        _event(
+            producer=HARNESS,
+            stream_id="harness-journal:independent-fixture",
+            sequence=2,
+            native_kind="ordivon.harness.harness.tool-step-recorded",
+            native_id="harness-event:independent-tool-step",
+            mapping_version="harness-observation-v1",
+            attributes={"toolStepState": "completed", "runRevision": 2},
+            relations=(
+                ObservationRelation("belongs_to", "ordivon.harness.run", run_id),
+                ObservationRelation("executes", "ordivon.runtime.job", job_id),
+            ),
+        ),
+        _event(
+            producer=HARNESS,
+            stream_id="harness-journal:independent-fixture",
+            sequence=3,
+            native_kind="ordivon.harness.harness.run-stopped",
+            native_id="harness-event:independent-run-stopped",
+            mapping_version="harness-observation-v1",
+            attributes={"runState": "stopped", "runRevision": 3},
+            relations=(
+                ObservationRelation("belongs_to", "ordivon.harness.run", run_id),
+                ObservationRelation("executes", "ordivon.runtime.job", job_id),
+            ),
+        ),
+    )
+    runtime_events = (
+        _event(
+            producer=RUNTIME,
+            stream_id="runtime-job:independent-fixture",
+            sequence=1,
+            native_kind="ordivon.runtime.job-admitted",
+            native_id="runtime-event:independent-job-admitted",
+            mapping_version="runtime-observation-v1",
+            attributes={"physicalState": "accepted", "eventSequence": 1},
+            relations=(
+                ObservationRelation("belongs_to", "ordivon.runtime.job", job_id),
+            ),
+        ),
+        _event(
+            producer=RUNTIME,
+            stream_id="runtime-job:independent-fixture",
+            sequence=2,
+            native_kind="ordivon.runtime.job-completed",
+            native_id="runtime-event:independent-job-completed",
+            mapping_version="runtime-observation-v1",
+            attributes={"physicalState": "succeeded", "eventSequence": 2},
+            relations=(
+                ObservationRelation("belongs_to", "ordivon.runtime.job", job_id),
+            ),
+        ),
+    )
+    return (
+        ObservationBatch.build(
+            request_id="observation-request:independent:harness",
+            events=harness_events,
+        ),
+        ObservationBatch.build(
+            request_id="observation-request:independent:runtime",
+            events=runtime_events,
+        ),
+    )
+
+
 __all__ = [
     "HARNESS",
     "HOST",
@@ -380,4 +461,5 @@ __all__ = [
     "PRODUCERS",
     "RUNTIME",
     "three_owner_batches",
+    "independent_harness_runtime_batches",
 ]

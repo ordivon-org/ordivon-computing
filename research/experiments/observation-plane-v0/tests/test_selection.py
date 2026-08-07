@@ -7,6 +7,7 @@ import tempfile
 import unittest
 
 from ordivon_observation_core import (
+    INDEPENDENT_HARNESS_RUNTIME_QUERY_VERSION,
     ObservationSelectionError,
     ObservationSelectionManifest,
     SQLiteObservationGateway,
@@ -16,6 +17,7 @@ from ordivon_observation_core import (
 from ordivon_observation_core.fixtures import (
     MAPPING_VERSIONS,
     PRODUCERS,
+    independent_harness_runtime_batches,
     three_owner_batches,
 )
 
@@ -90,6 +92,77 @@ class ObservationSelectionTests(unittest.TestCase):
                 self.assertEqual(claims["runtime_job_linked"], "missing")
                 self.assertEqual(claims["three_owner_coverage"], "missing")
                 self.assertFalse(selection.completeness["trialValidityInferred"])
+
+    def test_independent_harness_runtime_selection_can_be_complete_without_completion_proposal(self) -> None:
+        batches = independent_harness_runtime_batches()
+        query = TrajectoryQuerySpec(
+            query_id="trajectory-query:independent-fixture",
+            query_version=INDEPENDENT_HARNESS_RUNTIME_QUERY_VERSION,
+            anchor_kind="ordivon.harness.run",
+            anchor_id="harness-run:independent-fixture",
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            gateway = SQLiteObservationGateway.initialize(
+                root / "gateway",
+                gateway_instance_id="observation-gateway:independent-selection-test",
+                producer_allowlist=(PRODUCERS[1], PRODUCERS[2]),
+                mapping_versions=(MAPPING_VERSIONS[1], MAPPING_VERSIONS[2]),
+                created_at_ms=100,
+            )
+            try:
+                gateway.ingest(batches[0], ingested_at_ms=200)
+                gateway.ingest(batches[1], ingested_at_ms=201)
+                selection = select_cross_owner_trajectory(gateway, query)
+            finally:
+                gateway.close()
+        self.assertTrue(selection.completeness["complete"])
+        self.assertFalse(selection.completeness["trialValidityInferred"])
+        claims = {
+            item["claimId"]: item["status"]
+            for item in selection.completeness["claims"]
+        }
+        self.assertEqual(claims["harness_run_anchored"], "satisfied")
+        self.assertEqual(claims["harness_terminal_receipt_recorded"], "satisfied")
+        self.assertEqual(claims["runtime_jobs_covered"], "satisfied")
+        self.assertEqual(claims["two_owner_coverage"], "satisfied")
+        self.assertEqual(claims["selected_streams_complete"], "satisfied")
+        self.assertEqual(
+            {entry["projectId"] for entry in selection.producer_mapping_versions},
+            {"ordivon-harness", "ordivon-runtime"},
+        )
+        self.assertNotIn("harness_completion_proposed", claims)
+
+    def test_independent_harness_runtime_selection_marks_missing_runtime_evidence(self) -> None:
+        batches = independent_harness_runtime_batches()
+        query = TrajectoryQuerySpec(
+            query_id="trajectory-query:independent-missing-runtime",
+            query_version=INDEPENDENT_HARNESS_RUNTIME_QUERY_VERSION,
+            anchor_kind="ordivon.harness.run",
+            anchor_id="harness-run:independent-fixture",
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            gateway = SQLiteObservationGateway.initialize(
+                root / "gateway",
+                gateway_instance_id="observation-gateway:independent-missing-runtime",
+                producer_allowlist=(PRODUCERS[1], PRODUCERS[2]),
+                mapping_versions=(MAPPING_VERSIONS[1], MAPPING_VERSIONS[2]),
+                created_at_ms=100,
+            )
+            try:
+                gateway.ingest(batches[0], ingested_at_ms=200)
+                selection = select_cross_owner_trajectory(gateway, query)
+            finally:
+                gateway.close()
+        self.assertFalse(selection.completeness["complete"])
+        claims = {
+            item["claimId"]: item["status"]
+            for item in selection.completeness["claims"]
+        }
+        self.assertEqual(claims["runtime_jobs_covered"], "missing")
+        self.assertEqual(claims["two_owner_coverage"], "missing")
+        self.assertFalse(selection.completeness["trialValidityInferred"])
 
     def test_unrelated_anchor_has_no_selection(self) -> None:
         batches = three_owner_batches()

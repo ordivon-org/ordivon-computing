@@ -17,6 +17,7 @@ from .gateway import SQLiteObservationGateway
 SELECTION_KIND = "ordivon.observation-selection-manifest"
 SELECTION_SCHEMA_VERSION = 1
 QUERY_VERSION = "cross-owner-task-trajectory-v1"
+INDEPENDENT_HARNESS_RUNTIME_QUERY_VERSION = "independent-harness-runtime-trajectory-v1"
 ARTIFACT_COVERAGE_MODES = frozenset(
     {"owner_native_only", "observation_append_only"}
 )
@@ -39,6 +40,7 @@ _CLOSURE_TARGET_KINDS = frozenset(
 _REQUIRED_PROJECTS = frozenset(
     {"ordivon-host", "ordivon-harness", "ordivon-runtime"}
 )
+_INDEPENDENT_REQUIRED_PROJECTS = frozenset({"ordivon-harness", "ordivon-runtime"})
 _HOST_VERIFICATION_KINDS = frozenset(
     {
         "ordivon.host.verification.recorded",
@@ -68,6 +70,14 @@ _HARNESS_COMPLETION_KINDS = frozenset(
 _HOST_EXTERNAL_COMPLETION_KINDS = frozenset(
     {"ordivon.host.external.completion-collected"}
 )
+_HARNESS_TERMINAL_KINDS = frozenset(
+    {
+        "ordivon.harness.harness.run-stopped",
+        "ordivon.harness.harness.run-completed",
+        "ordivon.harness.run-stopped",
+        "ordivon.harness.run-completed",
+    }
+)
 
 
 class ObservationSelectionError(ValueError):
@@ -90,9 +100,19 @@ class TrajectoryQuerySpec:
             bounded_text(self.anchor_id, label="query anchor ID", max_bytes=1_024)
         except ValueError as error:
             raise ObservationSelectionError(str(error)) from error
-        if self.anchor_kind != "ordivon.host.task":
+        if self.query_version == QUERY_VERSION:
+            if self.anchor_kind != "ordivon.host.task":
+                raise ObservationSelectionError(
+                    "cross-owner trajectory v1 requires a Host Task anchor"
+                )
+        elif self.query_version == INDEPENDENT_HARNESS_RUNTIME_QUERY_VERSION:
+            if self.anchor_kind != "ordivon.harness.run":
+                raise ObservationSelectionError(
+                    "independent Harness-Runtime trajectory v1 requires a Harness Run anchor"
+                )
+        else:
             raise ObservationSelectionError(
-                "cross-owner trajectory v1 requires a Host Task anchor"
+                f"unsupported trajectory query version: {self.query_version}"
             )
         if self.artifact_coverage not in ARTIFACT_COVERAGE_MODES:
             raise ObservationSelectionError(
@@ -480,31 +500,46 @@ def select_cross_owner_trajectory(
         for relation in event["relations"]
         if relation["targetKind"] == "ordivon.runtime.job"
     }
-    claim_values = {
-        "host_task_anchored": any(
-            relation["targetKind"] == query.anchor_kind
-            and relation["targetId"] == query.anchor_id
-            for event in selected_catalog_events
-            for relation in event["relations"]
-        ),
-        "host_external_request_linked": (
-            "ordivon.host.external-request" in entity_kinds
-        ),
-        "harness_run_linked": bool(harness_run_ids & harness_event_run_ids),
-        "runtime_job_linked": bool(runtime_job_ids & runtime_event_job_ids),
-        "harness_completion_proposed": bool(
-            native_kinds
-            & (_HARNESS_COMPLETION_KINDS | _HOST_EXTERNAL_COMPLETION_KINDS)
-        ),
-        "host_verification_recorded": bool(native_kinds & _HOST_VERIFICATION_KINDS),
-        "host_task_outcome_recorded": bool(native_kinds & _HOST_OUTCOME_KINDS),
-        "three_owner_coverage": selected_projects == _REQUIRED_PROJECTS,
-        "selected_streams_complete": all(
-            stream["completenessState"] == "complete"
-            and stream["lastContiguousSequence"] == stream["highestSeenSequence"]
-            for stream in source_stream_heads
-        ),
-    }
+    anchor_present = any(
+        relation["targetKind"] == query.anchor_kind
+        and relation["targetId"] == query.anchor_id
+        for event in selected_catalog_events
+        for relation in event["relations"]
+    )
+    streams_complete = all(
+        stream["completenessState"] == "complete"
+        and stream["lastContiguousSequence"] == stream["highestSeenSequence"]
+        for stream in source_stream_heads
+    )
+    if query.query_version == INDEPENDENT_HARNESS_RUNTIME_QUERY_VERSION:
+        claim_values = {
+            "harness_run_anchored": anchor_present,
+            "harness_terminal_receipt_recorded": bool(
+                native_kinds & _HARNESS_TERMINAL_KINDS
+            ),
+            "runtime_jobs_covered": (
+                bool(runtime_job_ids) and runtime_job_ids <= runtime_event_job_ids
+            ),
+            "two_owner_coverage": selected_projects == _INDEPENDENT_REQUIRED_PROJECTS,
+            "selected_streams_complete": streams_complete,
+        }
+    else:
+        claim_values = {
+            "host_task_anchored": anchor_present,
+            "host_external_request_linked": (
+                "ordivon.host.external-request" in entity_kinds
+            ),
+            "harness_run_linked": bool(harness_run_ids & harness_event_run_ids),
+            "runtime_job_linked": bool(runtime_job_ids & runtime_event_job_ids),
+            "harness_completion_proposed": bool(
+                native_kinds
+                & (_HARNESS_COMPLETION_KINDS | _HOST_EXTERNAL_COMPLETION_KINDS)
+            ),
+            "host_verification_recorded": bool(native_kinds & _HOST_VERIFICATION_KINDS),
+            "host_task_outcome_recorded": bool(native_kinds & _HOST_OUTCOME_KINDS),
+            "three_owner_coverage": selected_projects == _REQUIRED_PROJECTS,
+            "selected_streams_complete": streams_complete,
+        }
     claims = [
         {
             "claimId": claim_id,
@@ -527,7 +562,7 @@ def select_cross_owner_trajectory(
     limitations = []
     if query.artifact_coverage == "owner_native_only":
         limitations.append(
-            "Runtime Artifact traversal is owner-native only in cross-owner-task-trajectory-v1"
+            "Runtime Artifact traversal is owner-native only in " + query.query_version
         )
     if not complete:
         limitations.append(
@@ -576,6 +611,7 @@ def _stream_sort_key(item: dict[str, JsonValue]) -> tuple[Any, ...]:
 __all__ = [
     "ARTIFACT_COVERAGE_MODES",
     "QUERY_VERSION",
+    "INDEPENDENT_HARNESS_RUNTIME_QUERY_VERSION",
     "SELECTION_KIND",
     "SELECTION_SCHEMA_VERSION",
     "ObservationSelectionError",

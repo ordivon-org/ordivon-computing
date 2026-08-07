@@ -73,6 +73,7 @@ __all__ = [
     "write_export_bundle",
     "ARTIFACT_COVERAGE_MODES",
     "QUERY_VERSION",
+    "INDEPENDENT_HARNESS_RUNTIME_QUERY_VERSION",
     "SELECTION_KIND",
     "SELECTION_SCHEMA_VERSION",
     "ObservationSelectionError",
@@ -109,6 +110,7 @@ from .exporter import (
 
 from .selection import (
     ARTIFACT_COVERAGE_MODES,
+    INDEPENDENT_HARNESS_RUNTIME_QUERY_VERSION,
     QUERY_VERSION,
     SELECTION_KIND,
     SELECTION_SCHEMA_VERSION,
