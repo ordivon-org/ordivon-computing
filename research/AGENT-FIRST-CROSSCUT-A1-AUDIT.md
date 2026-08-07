@@ -234,3 +234,64 @@ A1 should reopen only for one narrow consumer test:
 4. retain only if a real integrity/correlation failure or recurring maintenance cost disappears.
 
 Until then the first A1 closeout is sufficient: **shared bytes, separate meaning, separate lifecycle.**
+
+# A1.2 addendum — production consumer gate
+
+A1.2 applied the promotion gate to two actual cross-repository consumers after the first semantic convergence result.
+
+## Security / Runtime failure found
+
+Security's P0-C Runtime-backed Harness path consumed Runtime Artifact descriptors containing `digest` and `retainedBytes`, then read the Artifact through Runtime `artifact.read`.
+
+Before A1.2, Security compared the returned Runtime digest but accepted `eof=true` at any `nextOffset`. The following boundary state was reproduced and accepted:
+
+```text
+descriptor digest         = D
+descriptor retainedBytes  = 31
+artifact.read digest      = D
+artifact.read nextOffset  = 10
+artifact.read eof         = true
+→ old Security consumer accepted
+```
+
+Runtime's current contract defines `nextOffset` as a byte offset and derives EOF from the authoritative Artifact byte length. Security therefore had enough facts to check the complete content identity without any Runtime change.
+
+Security revision `ae6c3a3300946e73e065eea0b4fa5bf5b2538049` now requires exact EOF byte count equality. It adds no dependency and changes no Runtime authority. Early EOF and overshoot regressions are retained; the full 145-test unit suite passes.
+
+## World / Cloudflare comparison consumer
+
+World already had the desired behavior at its Browser boundary. It independently checks:
+
+```text
+Host ArtifactRef digest == Receipt sha256
+retrieved content length == Receipt bytes
+```
+
+and separately verifies media type, provider key/generation, downloaded-body digest, PNG/UTF-8 structure and Manifest semantics.
+
+World revision `d1f827030467ed6a06076fa0f4a3d12b621e4b50` adds a regression that mutates Receipt digest and byte count independently. Both are rejected by the existing production implementation. The full 28-test World suite passes; no production code changed.
+
+## Promotion decision after two consumers
+
+This is intentionally a **negative package-promotion result**.
+
+The content-identity invariant is useful enough to expose a real cross-boundary bug, but the current reusable code surface is too small to justify a new production dependency:
+
+- Security would move from zero declared production dependencies to a Computing protocol pin for a two-field value object;
+- World would need a direct protocol dependency instead of relying on its existing Host dependency transitively;
+- neither owner could delete domain/authority/lifecycle checks;
+- the actual Security fix is four owner-local production lines;
+- World needed only an additional regression test.
+
+Therefore:
+
+```text
+shared semantic invariant   YES
+shared production package   NOT YET
+shared storage authority    NO
+new repository              NO
+```
+
+The promotion gate is now stricter and more empirical: reopen only when at least two consumers exchange/persist the same strict serialized `ContentIdentity`, or repeated local normalization causes another material incompatibility/correctness failure. Mere repetition of `(digest, length)` comparisons is insufficient.
+
+Retained A1.2 evidence lives at `research/experiments/content-identity-v0/evidence/a1-consumer-adoption-acceptance.json`.

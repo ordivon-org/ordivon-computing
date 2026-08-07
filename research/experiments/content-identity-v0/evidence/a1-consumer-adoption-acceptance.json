@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.a1-content-identity-consumer-adoption-acceptance",
+  "sourceRevisions": {
+    "computingBaseline": "c76e4e37e1d12f6bdcb8149feb193e7d47e3dd78",
+    "security": "ae6c3a3300946e73e065eea0b4fa5bf5b2538049",
+    "world": "d1f827030467ed6a06076fa0f4a3d12b621e4b50",
+    "runtimeContractObserved": "4bc563e6da83af50679149002d31507cbd703305"
+  },
+  "consumerTrials": {
+    "securityRuntimeArtifact": {
+      "boundary": "ordivon-security consumes ordivon-runtime Artifact descriptor plus artifact.read",
+      "preFixReproduction": {
+        "descriptorDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "descriptorRetainedBytes": 31,
+        "readDigestMatched": true,
+        "readNextOffset": 10,
+        "readEof": true,
+        "oldConsumerAccepted": true,
+        "reproductionJobId": "job-019fdb4e-0e6c-7663-8d53-6919e3aed7dd"
+      },
+      "postFix": {
+        "productionLinesAdded": 4,
+        "newProductionDependencyAdded": false,
+        "digestMismatchRejected": true,
+        "earlyEofByteCountMismatchRejected": true,
+        "eofOvershootByteCountMismatchRejected": true,
+        "securityUnitTestsPassed": 145
+      },
+      "interpretation": "Digest equality alone did not prove complete consumption. At EOF the Runtime artifact.read byte offset must equal descriptor retainedBytes."
+    },
+    "worldBrowserArtifact": {
+      "boundary": "ordivon-world reconciles Host ArtifactRef, Cloudflare Receipt and downloaded Artifact bytes",
+      "productionChangeRequired": false,
+      "regressionAdded": true,
+      "receiptDigestDriftRejected": true,
+      "receiptByteCountDriftRejected": true,
+      "mediaTypeRemainsSeparateOwnerSemanticCheck": true,
+      "worldTestsPassed": 28,
+      "interpretation": "The existing World boundary already protects digest and byte count independently while retaining provider key, media type and Receipt semantics outside byte identity."
+    }
+  },
+  "dependencyAssessment": {
+    "securityDeclaredProductionDependenciesBefore": 0,
+    "securityWouldNeedNewProtocolDependencyForSharedValueObject": true,
+    "worldAlreadyReceivesProtocolTransitivelyThroughHost": true,
+    "worldWouldNeedDirectProtocolDependencyForCorrectDirectImport": true,
+    "sharedPackageWouldRemoveMaterialOwnerLifecycleCode": false,
+    "sharedPackageWouldOwnNewState": false,
+    "sharedPackageWouldPreventTheObservedSecurityFailureByItself": false
+  },
+  "decision": {
+    "contentIdentitySemanticCandidateRetained": true,
+    "promoteToOrdivonProtocol": false,
+    "createSharedContentLibrary": false,
+    "createArtifactRepository": false,
+    "ownerLocalIntegrityChecksRemainRequired": true,
+    "reason": "A1.2 proved the two-field invariant can expose a real cross-boundary correctness bug, but current consumers need only tiny owner-local checks. A production package would add cross-repository version dependencies without removing lifecycle semantics or owning any state."
+  },
+  "reopenGate": "Promote only after at least two production consumers repeatedly need the same strict serialized ContentIdentity value across a wire or stored contract, or incompatible local normalization causes another demonstrated cross-project failure."
+}

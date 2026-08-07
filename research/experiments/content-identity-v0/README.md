@@ -108,3 +108,38 @@ Promotion gate:
 > At least two real cross-repository consumers must use the common identity to remove repeated digest/length normalization or prevent a demonstrated integrity/correlation failure, without importing owner lifecycle semantics.
 
 Even after protocol promotion, repository extraction is a separate decision. No `ordivon-artifact`, shared Artifact daemon, central CAS, or new object-storage authority is justified by A1.
+
+## A1.2 — consumer adoption / promotion test
+
+A1.2 tested whether the semantic candidate already justifies a production package dependency.
+
+Two real cross-repository consumers were used.
+
+### Security ← Runtime
+
+`ordivon-security` consumes Runtime terminal Artifact descriptors and retrieves their content through `artifact.read`.
+
+The pre-fix consumer verified the descriptor/read digest on every chunk but accepted `eof=true` without proving that the final Runtime byte offset equaled descriptor `retainedBytes`. A deterministic reproduction declared a 31-byte Artifact, returned the same digest, stopped at byte offset 10 and reported EOF. The old Security consumer accepted the partial read.
+
+Security fixed this owner-local boundary: EOF now requires `nextOffset == retainedBytes`. Early EOF and overshoot both fail closed. The complete Security unit suite passed 145 tests after the change.
+
+This is a concrete example of why A1 retained both digest and byte length: digest metadata equality alone did not prove complete byte consumption.
+
+### World ← Host / Cloudflare
+
+`ordivon-world` already performs the equivalent pair of checks while reconstructing Browser bundles: Host Artifact digest must match the Cloudflare Receipt, and downloaded Artifact byte count must match the Receipt byte count. A new regression test mutates each field independently and proves both mismatches fail closed. The complete World suite passed 28 tests.
+
+World also retains media type, provider key, Receipt and browser semantics as separate checks. A1 therefore did not replace this boundary with a generic Artifact object.
+
+Retained evidence: [`evidence/a1-consumer-adoption-acceptance.json`](evidence/a1-consumer-adoption-acceptance.json).
+
+### Promotion result
+
+The semantic candidate survives, but package promotion does not.
+
+- Security currently declares zero production dependencies. Importing a generic `ContentIdentity` from `ordivon-protocol` would add a cross-repository production/version dependency to replace a four-line owner-local correctness check.
+- World receives `ordivon-protocol` only transitively through Host. A correct direct import would require another explicit protocol dependency/pin even though World production code already enforces the invariant.
+- Neither consumer would delete its owner lifecycle, Receipt, media-type, truncation, authorization or storage checks.
+- The observed Security bug was removed without any new shared state or production dependency.
+
+Therefore A1.2 rejects promotion into `ordivon-protocol` for now. The shared semantic vocabulary remains a Computing experiment. Reopen only when at least two production consumers need the same **serialized** content-identity object across a wire/stored contract, or another incompatible local normalization produces a demonstrated cross-project failure.
