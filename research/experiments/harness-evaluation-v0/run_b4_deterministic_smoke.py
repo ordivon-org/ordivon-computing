@@ -879,6 +879,16 @@ def run_missing_artifact_cell(
         }
 
 
+def validate_system_manifest_record(value: dict[str, Any]) -> None:
+    path = EXPERIMENT / "validate_p0_artifacts.py"
+    spec = importlib.util.spec_from_file_location("b4_p0_validator", path)
+    if spec is None or spec.loader is None:
+        raise SmokeError("System Manifest validator cannot be loaded")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    module.validate_system_manifest(value)
+
+
 def system_manifest(
     *,
     environment_digest: str,
@@ -890,7 +900,7 @@ def system_manifest(
     def ref(path: str) -> dict[str, str]:
         return {"path": path, "digest": file_digest(COMPUTING_ROOT / path)}
 
-    return with_integrity(
+    value = with_integrity(
         {
             "schemaVersion": 1,
             "kind": "ordivon.evaluation-system-manifest",
@@ -937,8 +947,8 @@ def system_manifest(
                 ),
                 "graderSet": {
                     "path": (
-                        "/root/projects/ordivon-harness/evals/"
-                        "harness-repository-repair-001/verifier/test_outcome.py"
+                        "evals/harness-repository-repair-001/"
+                        "verifier/test_outcome.py"
                     ),
                     "digest": file_digest(
                         HARNESS_ROOT
@@ -958,6 +968,8 @@ def system_manifest(
             ],
         }
     )
+    validate_system_manifest_record(value)
+    return value
 
 
 def validate_track_r_record(value: dict[str, Any]) -> None:
