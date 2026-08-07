@@ -19,9 +19,15 @@ SCRIPT = Path(__file__).resolve()
 ROOT = SCRIPT.parent
 COMPUTING_ROOT = ROOT.parents[2]
 OBSERVATION_ROOT = COMPUTING_ROOT / "research" / "experiments" / "observation-plane-v0"
-DEFAULT_HOST_REPO = Path("/root/projects/ordivon-host")
-DEFAULT_HARNESS_REPO = Path("/root/projects/ordivon-harness")
-DEFAULT_RUNTIME_REPO = Path("/root/projects/ordivon-runtime")
+DEFAULT_HOST_REPO = Path(
+    os.environ.get("ORDIVON_A0_HOST_REPO", "/root/projects/ordivon-host")
+)
+DEFAULT_HARNESS_REPO = Path(
+    os.environ.get("ORDIVON_A0_HARNESS_REPO", "/root/projects/ordivon-harness")
+)
+DEFAULT_RUNTIME_REPO = Path(
+    os.environ.get("ORDIVON_A0_RUNTIME_REPO", "/root/projects/ordivon-runtime")
+)
 
 for source in (
     OBSERVATION_ROOT / "implementation",
