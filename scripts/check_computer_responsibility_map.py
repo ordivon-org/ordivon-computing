@@ -153,6 +153,75 @@ def check() -> list[str]:
     }:
         require(required in non_authorized, f"responsibility map lost non-authorization: {required}", issues)
 
+    receipt_path = ROOT / "research" / "evidence" / "computer-responsibility-reform-064345e.json"
+    require(receipt_path.is_file(), "Computer responsibility reform acceptance receipt is missing", issues)
+    if receipt_path.is_file():
+        try:
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            issues.append(f"Computer responsibility reform receipt cannot be loaded: {error}")
+        else:
+            require(receipt.get("schemaVersion") == 1, "Computer reform receipt schema differs", issues)
+            require(
+                receipt.get("kind") == "ordivon.computer-responsibility-reform-acceptance",
+                "Computer reform receipt kind differs",
+                issues,
+            )
+            require(receipt.get("acceptanceId") == "ACR-M1-C1-ACCEPT-001", "Computer reform receipt identity differs", issues)
+            require(receipt.get("mapId") == "ACR-M1-001", "Computer reform receipt map identity differs", issues)
+            require(receipt.get("mapPayloadDigest") == document.get("integrity", {}).get("payloadDigest"), "Computer reform receipt map digest differs", issues)
+            require(receipt.get("cleanAcceptance") is True, "Computer reform receipt is not a clean acceptance", issues)
+            require(receipt.get("integrity", {}).get("payloadDigest") == canonical_digest(receipt), "Computer reform receipt payload digest differs", issues)
+
+            implementation = receipt.get("implementationRevision")
+            require(isinstance(implementation, str) and len(implementation) == 40, "Computer reform implementation revision is invalid", issues)
+            files = receipt.get("implementationFiles")
+            require(isinstance(files, dict) and bool(files), "Computer reform implementation file bindings are missing", issues)
+            if isinstance(implementation, str) and isinstance(files, dict):
+                for relative, expected_digest in files.items():
+                    completed = subprocess.run(
+                        ["git", "-C", str(ROOT), "show", f"{implementation}:{relative}"],
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        check=False,
+                    )
+                    require(completed.returncode == 0, f"Computer reform implementation file is not recoverable: {relative}", issues)
+                    if completed.returncode == 0:
+                        actual = "sha256:" + hashlib.sha256(completed.stdout).hexdigest()
+                        require(actual == expected_digest, f"Computer reform implementation file digest differs: {relative}", issues)
+
+            conformance = receipt.get("conformance")
+            require(isinstance(conformance, dict), "Computer reform conformance summary is missing", issues)
+            if isinstance(conformance, dict):
+                require(conformance.get("status") == "passed", "Computer reform clean conformance did not pass", issues)
+                steps = conformance.get("steps")
+                require(isinstance(steps, list) and bool(steps), "Computer reform conformance steps are missing", issues)
+                if isinstance(steps, list):
+                    require(all(isinstance(step, dict) and step.get("exitCode") == 0 for step in steps), "Computer reform receipt contains a failed conformance step", issues)
+                    step_ids = {step.get("id") for step in steps if isinstance(step, dict)}
+                    for required_step in {
+                        "foundational-docs",
+                        "agent-research-method",
+                        "computer-responsibility-map",
+                        "historical-research-compression",
+                        "task-continuation",
+                        "track-r-evaluation",
+                        "rust-canonical-vectors",
+                    }:
+                        require(required_step in step_ids, f"Computer reform receipt omits gate step: {required_step}", issues)
+
+            limits = set(receipt.get("doesNotAuthorize", []))
+            for required_limit in {
+                "B5_Trial006",
+                "additional_DeepSeek_canaries",
+                "B6_implementation",
+                "Prime_or_TCG_implementation",
+                "Host_Harness_Runtime_merge",
+                "product_repository_refactor",
+                "new_World_Memory_Graph_or_Organization_platform",
+            }:
+                require(required_limit in limits, f"Computer reform receipt lost non-authorization: {required_limit}", issues)
+
     return sorted(set(issues))
 
 
