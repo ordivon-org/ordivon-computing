@@ -141,6 +141,59 @@ def check() -> list[str]:
     require(isinstance(frontier, list), "reform frontier is missing", issues)
     if isinstance(frontier, list):
         require([item.get("step") for item in frontier if isinstance(item, dict)] == ["C1", "C2", "C3", "C4", "C5"], "reform frontier order differs", issues)
+        by_step = {item.get("step"): item for item in frontier if isinstance(item, dict)}
+        require(by_step.get("C3", {}).get("status") == "completed", "C3 product-boundary review is not complete", issues)
+        require(
+            by_step.get("C3", {}).get("record") == "research/computer-product-boundary-review-v1.json",
+            "C3 product-boundary record binding differs",
+            issues,
+        )
+        require(by_step.get("C4", {}).get("status") == "next", "C4 is not the next reform frontier", issues)
+
+    review_path = ROOT / "research" / "computer-product-boundary-review-v1.json"
+    require(review_path.is_file(), "C3 product-boundary review is missing", issues)
+    if review_path.is_file():
+        try:
+            review = json.loads(review_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            issues.append(f"C3 product-boundary review cannot be loaded: {error}")
+        else:
+            require(review.get("schemaVersion") == 1, "C3 review schema differs", issues)
+            require(review.get("kind") == "ordivon.computer-product-boundary-review", "C3 review kind differs", issues)
+            require(review.get("reviewId") == "ACR-C3-001", "C3 review identity differs", issues)
+            require(review.get("status") == "completed", "C3 review status differs", issues)
+            require(review.get("integrity", {}).get("payloadDigest") == canonical_digest(review), "C3 review payload digest differs", issues)
+            products = review.get("products")
+            require(isinstance(products, dict), "C3 review product dispositions are missing", issues)
+            if isinstance(products, dict):
+                expected = {
+                    "host": ("surface_narrowed_workloads_localized", "428a6f2f90b4050535507c9be078c450552177e5"),
+                    "harness": ("recommended_api_caller_neutral_legacy_compat_explicit", "22fbbcd84d0a5fe5a4fcef7d2f1b920cd7736a26"),
+                    "runtime": ("retain_no_structural_change", "a455fd01ce0dea25684956e5e5da899d41832a1b"),
+                }
+                for name, (disposition, revision) in expected.items():
+                    item = products.get(name, {})
+                    require(item.get("disposition") == disposition, f"C3 {name} disposition differs", issues)
+                    observed_revision = item.get("acceptedRevision") or item.get("retainedRevision")
+                    require(observed_revision == revision, f"C3 {name} accepted revision differs", issues)
+                observation = products.get("observation", {})
+                require(
+                    observation.get("disposition") == "retain_research_projection_do_not_productize_plane",
+                    "C3 Observation disposition differs",
+                    issues,
+                )
+                require(observation.get("productionActivated") is False, "C3 Observation was accidentally productized", issues)
+                for relative in observation.get("evidenceRefs", []):
+                    require((ROOT / relative).is_file(), f"C3 Observation evidence is missing: {relative}", issues)
+                harness = products.get("harness", {})
+                require(
+                    harness.get("evidencePayloadDigest") == "sha256:f2c7dd80b4d6312de4ec9a2e5c603177f7ec6edc299d26362fce9158b41ea112",
+                    "C3 Harness evidence digest differs",
+                    issues,
+                )
+                validation = harness.get("validation", {})
+                for forbidden in ("productionCutoverActivated", "dualWriteActivated", "legacyWriterRemoved"):
+                    require(validation.get(forbidden) is False, f"C3 Harness changed forbidden state: {forbidden}", issues)
 
     non_authorized = set(document.get("doesNotAuthorize", []))
     for required in {
@@ -149,6 +202,9 @@ def check() -> list[str]:
         "B6_implementation",
         "Prime_or_TCG_implementation",
         "Host_Harness_Runtime_merge",
+        "Harness_production_state_cutover",
+        "Harness_legacy_writer_removal",
+        "Observation_productization_or_daemon",
         "new_World_Memory_Graph_or_Organization_platform",
     }:
         require(required in non_authorized, f"responsibility map lost non-authorization: {required}", issues)
@@ -169,7 +225,6 @@ def check() -> list[str]:
             )
             require(receipt.get("acceptanceId") == "ACR-M1-C1-ACCEPT-001", "Computer reform receipt identity differs", issues)
             require(receipt.get("mapId") == "ACR-M1-001", "Computer reform receipt map identity differs", issues)
-            require(receipt.get("mapPayloadDigest") == document.get("integrity", {}).get("payloadDigest"), "Computer reform receipt map digest differs", issues)
             require(receipt.get("cleanAcceptance") is True, "Computer reform receipt is not a clean acceptance", issues)
             require(receipt.get("integrity", {}).get("payloadDigest") == canonical_digest(receipt), "Computer reform receipt payload digest differs", issues)
 
@@ -178,6 +233,22 @@ def check() -> list[str]:
             files = receipt.get("implementationFiles")
             require(isinstance(files, dict) and bool(files), "Computer reform implementation file bindings are missing", issues)
             if isinstance(implementation, str) and isinstance(files, dict):
+                historical_map = subprocess.run(
+                    ["git", "-C", str(ROOT), "show", f"{implementation}:research/computer-responsibility-map-v1.json"],
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False,
+                )
+                require(historical_map.returncode == 0, "Computer reform historical map is not recoverable", issues)
+                if historical_map.returncode == 0:
+                    try:
+                        historical_document = json.loads(historical_map.stdout)
+                    except json.JSONDecodeError:
+                        issues.append("Computer reform historical map is invalid JSON")
+                    else:
+                        require(
+                            receipt.get("mapPayloadDigest") == historical_document.get("integrity", {}).get("payloadDigest"),
+                            "Computer reform receipt historical map digest differs",
+                            issues,
+                        )
                 for relative, expected_digest in files.items():
                     completed = subprocess.run(
                         ["git", "-C", str(ROOT), "show", f"{implementation}:{relative}"],
