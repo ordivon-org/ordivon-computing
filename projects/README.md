@@ -53,6 +53,6 @@ Protocol-path changes additionally run the bounded consumer gate against clean e
 python3.12 scripts/check_protocol_consumers.py   --computing-root /path/to/ordivon-computing   --host-root /path/to/ordivon-host   --game-root /path/to/ordivon-game   --receipt /tmp/ordivon-protocol-consumers.json
 ```
 
-This gate proves only released Artifact equality and the Host/Game contract suites. It does not turn Computing into a product CI controller, inspect unrelated product maturity, or run on ordinary research prose.
+The gate reports two distinct scopes. `release-frozen` revalidates the immutable consumer revisions and Protocol bindings recorded by the release manifest. `current-head` validates the actual clean sibling HEADs: Host runs against the exact Protocol revision it pins, and Game revalidates and executes its current frozen vector contract. Consumer tests run in detached clean worktrees so untracked checkout residue cannot change the meaning of a Git revision. The gate does not turn Computing into a product CI controller, inspect unrelated product maturity, or run on ordinary research prose.
 
 Cross-repository experiments bind exact repository commits, service binaries, Tool-contract digests, and evidence Artifacts through [`../research/evidence/system-snapshot.schema.json`](../research/evidence/system-snapshot.schema.json). A snapshot is historical evidence, not a mutable declaration of current system state.

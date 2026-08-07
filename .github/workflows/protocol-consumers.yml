@@ -6,6 +6,7 @@ on:
       - ".github/workflows/protocol-consumers.yml"
       - "packages/ordivon-protocol/**"
       - "projects/conformance.toml"
+      - "research/evidence/tests/test_protocol_consumer_gate.py"
       - "scripts/check_protocol_release.py"
       - "scripts/check_protocol_consumers.py"
       - "scripts/ordivon_conformance.py"
@@ -15,6 +16,7 @@ on:
       - ".github/workflows/protocol-consumers.yml"
       - "packages/ordivon-protocol/**"
       - "projects/conformance.toml"
+      - "research/evidence/tests/test_protocol_consumer_gate.py"
       - "scripts/check_protocol_release.py"
       - "scripts/check_protocol_consumers.py"
       - "scripts/ordivon_conformance.py"
@@ -47,7 +49,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "26"
-      - name: Released consumer compatibility
+      - name: Consumer gate unit tests
+        working-directory: ordivon-computing
+        run: python -m unittest research.evidence.tests.test_protocol_consumer_gate
+      - name: Frozen and current consumer compatibility
         run: |
           python ordivon-computing/scripts/check_protocol_consumers.py \
             --computing-root ordivon-computing \
