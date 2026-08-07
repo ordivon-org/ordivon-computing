@@ -197,6 +197,105 @@ def check_method(root: Path = ROOT) -> list[str]:
         _require(decisions.get("productPromotionOwnedByProductAuthority") is True, "CEL product promotion authority is unclear", issues)
         _require("humanOwnsPromotion" not in decisions, "legacy human-owned research promotion remains in CEL", issues)
 
+    receipt_path = root / "research" / "evidence" / "agent-first-research-method-2306821.json"
+    _require(receipt_path.is_file(), "Agent-first research method acceptance receipt is missing", issues)
+    if receipt_path.is_file():
+        try:
+            receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            issues.append(f"Agent-first research receipt cannot be loaded: {error}")
+        else:
+            _require(receipt.get("schemaVersion") == 1, "research receipt schema differs", issues)
+            _require(receipt.get("kind") == "ordivon.agent-first-research-method-acceptance", "research receipt kind differs", issues)
+            _require(receipt.get("acceptanceId") == "AFR-M1-001-ACCEPT-001", "research receipt identity differs", issues)
+            _require(receipt.get("methodId") == "AFR-M1-001", "research receipt method identity differs", issues)
+            _require(receipt.get("cleanAcceptance") is True, "research receipt is not a clean acceptance", issues)
+            receipt_integrity = receipt.get("integrity")
+            _require(isinstance(receipt_integrity, dict), "research receipt integrity is missing", issues)
+            if isinstance(receipt_integrity, dict):
+                _require(receipt_integrity.get("payloadDigest") == canonical_digest(receipt), "research receipt payload digest differs", issues)
+            implementation = receipt.get("implementationRevision")
+            _require(
+                isinstance(implementation, str)
+                and len(implementation) == 40
+                and all(character in "0123456789abcdef" for character in implementation),
+                "research receipt implementation revision is invalid",
+                issues,
+            )
+            if isinstance(implementation, str) and len(implementation) == 40:
+                import subprocess
+
+                def git_json(relative_path: str) -> dict[str, Any] | None:
+                    completed = subprocess.run(
+                        ["git", "-C", str(root), "show", f"{implementation}:{relative_path}"],
+                        text=True,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                        check=False,
+                    )
+                    if completed.returncode != 0:
+                        issues.append(f"cannot read {relative_path} at research implementation revision")
+                        return None
+                    try:
+                        value = json.loads(completed.stdout)
+                    except json.JSONDecodeError:
+                        issues.append(f"invalid JSON at research implementation revision: {relative_path}")
+                        return None
+                    return value if isinstance(value, dict) else None
+
+                method_at_impl = git_json("research/research-method-v1.json")
+                cel_at_impl = git_json("research/experiments/experiment-loop-v0/plan-v1.json")
+                if method_at_impl is not None:
+                    _require(
+                        receipt.get("methodPayloadDigest")
+                        == method_at_impl.get("integrity", {}).get("payloadDigest"),
+                        "research receipt method digest differs from implementation revision",
+                        issues,
+                    )
+                consumer = receipt.get("firstConsumer")
+                _require(isinstance(consumer, dict), "research receipt first consumer is missing", issues)
+                if isinstance(consumer, dict) and cel_at_impl is not None:
+                    _require(consumer.get("planId") == "CEL-R4-001", "research receipt first consumer identity differs", issues)
+                    _require(
+                        consumer.get("planPayloadDigest")
+                        == cel_at_impl.get("integrity", {}).get("payloadDigest"),
+                        "research receipt CEL digest differs from implementation revision",
+                        issues,
+                    )
+                    for field in (
+                        "agentOwnsBoundedResearchProgression",
+                        "humanAttentionIsConsequenceBounded",
+                        "productPromotionOwnedByProductAuthority",
+                    ):
+                        _require(consumer.get(field) is True, f"research receipt first consumer flag is false: {field}", issues)
+            conformance = receipt.get("conformance")
+            _require(isinstance(conformance, dict), "research receipt conformance summary is missing", issues)
+            if isinstance(conformance, dict):
+                _require(conformance.get("status") == "passed", "research receipt conformance did not pass", issues)
+                steps = conformance.get("steps")
+                _require(isinstance(steps, list) and bool(steps), "research receipt conformance steps are missing", issues)
+                if isinstance(steps, list):
+                    _require(all(isinstance(step, dict) and step.get("exitCode") == 0 for step in steps), "research receipt contains a failed conformance step", issues)
+                    ids = {step.get("id") for step in steps if isinstance(step, dict)}
+                    for required_step in {
+                        "agent-research-method",
+                        "research-portfolio",
+                        "protocol",
+                        "task-continuation",
+                        "track-r-evaluation",
+                        "evidence-and-conformance",
+                    }:
+                        _require(required_step in ids, f"research receipt omits gate step: {required_step}", issues)
+            not_authorized = set(receipt.get("doesNotAuthorize", []))
+            for required_limit in {
+                "B5_Trial006_or_additional_DeepSeek_canaries",
+                "B6_strong_transcript_baseline_implementation",
+                "TCG_or_graph_storage",
+                "automatic_product_merge_release_deployment_or_publication",
+                "unrestricted_recursive_self_modification",
+            }:
+                _require(required_limit in not_authorized, f"research receipt omits non-authorization: {required_limit}", issues)
+
     return sorted(set(issues))
 
 
