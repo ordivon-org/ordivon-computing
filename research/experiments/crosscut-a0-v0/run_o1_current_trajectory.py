@@ -709,6 +709,24 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], Path]:
         )
         if provider_usage_copied:
             raise O1Error("Harness Observation copied Provider usage detail")
+        retained_usage_summary = {
+            key: run_usage[key]
+            for key in (
+                "modelCalls",
+                "toolCalls",
+                "observationBytes",
+                "totalTokens",
+                "modelRetries",
+                "toolCorrections",
+                "observationOnlyTurns",
+                "noProgressTurns",
+                "providerAttempts",
+                "providerResultsReplayed",
+                "wallTimeMs",
+                "deadlineOverrunMs",
+            )
+            if key in run_usage
+        }
 
         producers = (
             ObservationProducerIdentity(HOST_PROJECT_ID, HOST_COMPONENT_ID, host_instance),
@@ -817,7 +835,8 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], Path]:
                     "modelCalls": execution.loop_result.model_calls,
                     "toolCalls": execution.loop_result.tool_calls,
                     "observationBytes": execution.loop_result.observation_bytes,
-                    "usage": dict(execution.loop_result.usage),
+                    "usageSummary": retained_usage_summary,
+                    "providerCallUsageDetailsRetained": False,
                     "stopCode": execution.loop_result.stop_code.value,
                     "candidateCompleted": execution.loop_result.candidate_completed,
                 },
@@ -864,7 +883,7 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], Path]:
                         and measurement_event.source.native_kind
                         == "ordivon.harness.harness.run-completed"
                     ),
-                    "providerUsageDetailNotCopied": not provider_usage_copied,
+                    "providerCallUsageDetailsNotCopied": not provider_usage_copied,
                 },
                 "limitations": [
                     "The Provider is scripted; O1 proves fresh current infrastructure composition, not model capability.",
