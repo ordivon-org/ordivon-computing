@@ -29,6 +29,8 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 ## Purpose
 
 - [`research-method-v1.json`](research-method-v1.json) — machine-readable Agent-first research method for burden discovery, responsibility placement, externalization admission, and consequence-gated escalation;
+- [`computer-responsibility-map-v1.json`](computer-responsibility-map-v1.json) — machine authority for the current future-model-robust Ordivon Computer re-derivation;
+- [`COMPUTER-RESPONSIBILITY-REVIEW.md`](COMPUTER-RESPONSIBILITY-REVIEW.md) — human projection of that responsibility map;
 - [`AGENT-FIRST-RESEARCH-METHOD.md`](AGENT-FIRST-RESEARCH-METHOD.md) — human-readable projection of that method;
 - [`portfolio.json`](portfolio.json) — authoritative research status, maturity, blockers, next falsifiers, and WIP lines;
 - [`PORTFOLIO.md`](PORTFOLIO.md) — generated human-readable portfolio and Ready Frontier;
@@ -47,6 +49,7 @@ Research may contain alternatives, failed experiments, changing terminology, and
 ## Start here
 
 - [`research-method-v1.json`](research-method-v1.json) defines how an Agent turns observed work burden into a falsifiable externalization experiment. It does not own research status.
+- [`computer-responsibility-map-v1.json`](computer-responsibility-map-v1.json) is the current reform input for Ordivon Computer; it classifies durable responsibilities, classical owners, product-specific packaging, and conditional cognition candidates without changing product authority.
 - [`portfolio.json`](portfolio.json) is the mutable source of truth for line status, maturity, blockers, falsifiers, and disposition.
 - [`PORTFOLIO.md`](PORTFOLIO.md) is its generated review projection.
 - [`questions/`](questions/) owns durable question pages, including completed and superseded questions; only `portfolio.json` determines which are active.
@@ -75,6 +78,8 @@ Research-method and portfolio maintenance commands:
 
 ```bash
 python3 scripts/check_agent_research_method.py
+python3 scripts/check_computer_responsibility_map.py
+python3 scripts/check_historical_research_compression.py
 python3 scripts/check_research_portfolio.py
 python3 scripts/render_research_portfolio.py --check
 ```

@@ -524,6 +524,7 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "research/evidence",
         "scripts/check_foundational_docs.py",
         "scripts/check_agent_research_method.py",
+        "scripts/check_computer_responsibility_map.py",
         "scripts/check_historical_research_compression.py",
         "scripts/check_research_portfolio.py",
         "scripts/render_research_portfolio.py",
@@ -580,6 +581,12 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         (
             "agent-research-method",
             [python, "scripts/check_agent_research_method.py"],
+            ROOT,
+            {},
+        ),
+        (
+            "computer-responsibility-map",
+            [python, "scripts/check_computer_responsibility_map.py"],
             ROOT,
             {},
         ),

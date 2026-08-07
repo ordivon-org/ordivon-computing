@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+"""Validate the Agent-first Ordivon Computer responsibility map."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import subprocess
+from pathlib import Path
+from typing import Any
+
+ROOT = Path(__file__).resolve().parents[1]
+MAP_PATH = ROOT / "research" / "computer-responsibility-map-v1.json"
+
+
+def canonical_digest(document: dict[str, Any]) -> str:
+    payload = {key: value for key, value in document.items() if key != "integrity"}
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
+    return "sha256:" + hashlib.sha256(encoded).hexdigest()
+
+
+def require(condition: bool, message: str, issues: list[str]) -> None:
+    if not condition:
+        issues.append(message)
+
+
+def check() -> list[str]:
+    issues: list[str] = []
+    try:
+        document = json.loads(MAP_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        return [f"computer responsibility map cannot be loaded: {error}"]
+
+    require(document.get("schemaVersion") == 1, "responsibility map schema differs", issues)
+    require(document.get("kind") == "ordivon.computer-responsibility-map", "responsibility map kind differs", issues)
+    require(document.get("mapId") == "ACR-M1-001", "responsibility map identity differs", issues)
+    require(document.get("status") == "active_reform_input", "responsibility map status differs", issues)
+    require(document.get("methodRef") == "research/research-method-v1.json", "responsibility map method binding differs", issues)
+    require((ROOT / "research" / "research-method-v1.json").is_file(), "Agent-first research method is missing", issues)
+    require((ROOT / "research" / "COMPUTER-RESPONSIBILITY-REVIEW.md").is_file(), "human responsibility review is missing", issues)
+
+    integrity = document.get("integrity")
+    require(isinstance(integrity, dict), "responsibility map integrity is missing", issues)
+    if isinstance(integrity, dict):
+        require(integrity.get("algorithm") == "sha256", "responsibility map integrity algorithm differs", issues)
+        require(
+            integrity.get("canonicalization") == "ordivon-evidence-json-v1",
+            "responsibility map canonicalization differs",
+            issues,
+        )
+        require(integrity.get("payloadDigest") == canonical_digest(document), "responsibility map payload digest differs", issues)
+
+    source_revision = document.get("sourceRevision")
+    require(isinstance(source_revision, str) and len(source_revision) == 40, "responsibility map source revision is invalid", issues)
+    if isinstance(source_revision, str):
+        completed = subprocess.run(
+            ["git", "-C", str(ROOT), "cat-file", "-e", f"{source_revision}^{{commit}}"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
+        )
+        require(completed.returncode == 0, "responsibility map source revision is not reachable", issues)
+
+    items = document.get("responsibilities")
+    require(isinstance(items, list) and bool(items), "responsibility map has no responsibilities", issues)
+    by_id: dict[str, dict[str, Any]] = {}
+    if isinstance(items, list):
+        for item in items:
+            require(isinstance(item, dict), "responsibility entry is not an object", issues)
+            if not isinstance(item, dict):
+                continue
+            item_id = item.get("id")
+            require(isinstance(item_id, str) and bool(item_id), "responsibility id is invalid", issues)
+            if not isinstance(item_id, str):
+                continue
+            require(item_id not in by_id, f"duplicate responsibility id: {item_id}", issues)
+            by_id[item_id] = item
+            for field in (
+                "name",
+                "futureModelRobustness",
+                "classification",
+                "lowestOwner",
+                "disposition",
+                "nextFalsifier",
+            ):
+                require(isinstance(item.get(field), str) and bool(item.get(field)), f"{item_id} missing {field}", issues)
+            carriers = item.get("currentCarrier")
+            require(
+                isinstance(carriers, list)
+                and bool(carriers)
+                and all(isinstance(value, str) and value for value in carriers),
+                f"{item_id} currentCarrier is invalid",
+                issues,
+            )
+            evidence_refs = item.get("evidenceRefs")
+            require(
+                isinstance(evidence_refs, list)
+                and bool(evidence_refs)
+                and all(isinstance(value, str) and value for value in evidence_refs),
+                f"{item_id} evidenceRefs are invalid",
+                issues,
+            )
+            if isinstance(evidence_refs, list):
+                for relative in evidence_refs:
+                    if isinstance(relative, str) and ":" not in relative:
+                        require((ROOT / relative).exists(), f"{item_id} evidence ref is missing: {relative}", issues)
+
+    required_ids = {f"CR-{index:02d}" for index in range(1, 19)}
+    require(set(by_id) == required_ids, "responsibility id set differs", issues)
+
+    durable = {"CR-02", "CR-03", "CR-04", "CR-05", "CR-06", "CR-07", "CR-09"}
+    for item_id in durable:
+        item = by_id.get(item_id, {})
+        require(item.get("futureModelRobustness") == "strong", f"durable responsibility lost strong future-model status: {item_id}", issues)
+        require("defer" not in str(item.get("disposition", "")), f"durable responsibility was accidentally deferred: {item_id}", issues)
+
+    conditional = {"CR-08", "CR-10", "CR-11", "CR-12", "CR-13", "CR-14", "CR-15", "CR-16", "CR-17", "CR-18"}
+    for item_id in conditional:
+        item = by_id.get(item_id, {})
+        require(item.get("classification") != "durable_invariant", f"conditional candidate promoted to durable invariant: {item_id}", issues)
+
+    for item_id in {"CR-11", "CR-13"}:
+        require(by_id.get(item_id, {}).get("disposition") == "do_not_build_shared_layer", f"shared-layer rejection changed: {item_id}", issues)
+    for item_id in {"CR-14", "CR-15", "CR-16"}:
+        require(
+            by_id.get(item_id, {}).get("disposition") == "defer_until_strong_baseline_fails",
+            f"cognitive candidate is no longer gated by a strong baseline: {item_id}",
+            issues,
+        )
+    require(by_id.get("CR-01", {}).get("disposition") == "delegate_to_classical", "classical substrate delegation changed", issues)
+    require(by_id.get("CR-10", {}).get("disposition") == "keep_product_specific_not_core", "Harness packaging was promoted into Core", issues)
+
+    frontier = document.get("reformFrontier")
+    require(isinstance(frontier, list), "reform frontier is missing", issues)
+    if isinstance(frontier, list):
+        require([item.get("step") for item in frontier if isinstance(item, dict)] == ["C1", "C2", "C3", "C4", "C5"], "reform frontier order differs", issues)
+
+    non_authorized = set(document.get("doesNotAuthorize", []))
+    for required in {
+        "B5_Trial006",
+        "additional_DeepSeek_canaries",
+        "B6_implementation",
+        "Prime_or_TCG_implementation",
+        "Host_Harness_Runtime_merge",
+        "new_World_Memory_Graph_or_Organization_platform",
+    }:
+        require(required in non_authorized, f"responsibility map lost non-authorization: {required}", issues)
+
+    return sorted(set(issues))
+
+
+def main() -> int:
+    issues = check()
+    print(
+        json.dumps(
+            {
+                "schemaVersion": 1,
+                "kind": "ordivon-computer-responsibility-map-check",
+                "ok": not issues,
+                "issues": issues,
+            },
+            indent=2,
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+    )
+    return 0 if not issues else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

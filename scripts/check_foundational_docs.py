@@ -32,6 +32,8 @@ REQUIRED_PATHS = (
     "knowledge/philosophy-creation-judgment-and-recoverability.md",
     "knowledge/philosophy-scarcity-operability-and-paradigm-change.md",
     "research/research-method-v1.json",
+    "research/computer-responsibility-map-v1.json",
+    "research/COMPUTER-RESPONSIBILITY-REVIEW.md",
     "research/evidence/agent-first-historical-research-compression-f95d721.json",
     "research/portfolio.json",
     "research/PORTFOLIO.md",
@@ -143,10 +145,19 @@ def reference_issues(root: Path) -> list[str]:
 def architecture_issues(root: Path) -> list[str]:
     issues: list[str] = []
     stack = (root / "core" / "stack.md").read_text(encoding="utf-8")
-    if "## 1. Inherited substrate map" not in stack:
-        issues.append("core stack lacks inherited substrate map")
-    if "## 2. Agent-native responsibility overlay" not in stack:
-        issues.append("core stack lacks Agent-native responsibility overlay")
+    required_stack_sections = (
+        "## 1. Flexible cognition and product policy",
+        "## 2. Durable responsibility boundaries",
+        "## 3. Classical substrate",
+        "## 6. What stays outside Core",
+    )
+    for fragment in required_stack_sections:
+        if fragment not in stack:
+            issues.append(f"core stack lacks three-band architecture section: {fragment}")
+    if "## 2. Agent-native responsibility overlay" in stack:
+        issues.append("core stack reintroduced the obsolete Agent-native responsibility overlay")
+    if re.search(r"\| R[0-8] \|", stack):
+        issues.append("core stack reintroduced R0-R8 as permanent architecture bands")
 
     for relative in ("README.md", "core/README.md", "core/stack.md"):
         text = (root / relative).read_text(encoding="utf-8").lower()
@@ -225,14 +236,45 @@ def architecture_issues(root: Path) -> list[str]:
             issues.append(f"working foundations lack acceleration alignment: {fragment}")
 
     primitives = (root / "core" / "primitives.md").read_text(encoding="utf-8")
+    required_primitive_sections = (
+        "## 2. Work identity and Context binding",
+        "## 3. Consequence and authority",
+        "## 4. Effect and Dispatch",
+        "## 5. Tool contract and Binding",
+        "## 6. Observation, Artifact, verification, and completion",
+        "## 7. Owner-native projection",
+        "## 8. Product-local vocabulary",
+        "## 9. Experiment-local and conditional vocabulary",
+    )
+    for fragment in required_primitive_sections:
+        if fragment not in primitives:
+            issues.append(f"core primitives lack minimal responsibility section: {fragment}")
     for fragment in (
-        "ActionProposal",
-        "CapabilityProfile",
-        "DecisionRequest",
-        "Refusal and Exit",
+        "A separate universal `Fact` object is not required by Core",
+        "Human approval is not a primitive",
+        "general Memory runtime",
+        "Temporal Cognitive Graph or graph storage",
     ):
         if fragment not in primitives:
-            issues.append(f"core primitives lack plural-intelligence candidate: {fragment}")
+            issues.append(f"core primitives lost Agent-first boundary: {fragment}")
+
+    responsibility_map = json.loads(
+        (root / "research" / "computer-responsibility-map-v1.json").read_text(encoding="utf-8")
+    )
+    responsibilities = {
+        item.get("id"): item for item in responsibility_map.get("responsibilities", [])
+        if isinstance(item, dict)
+    }
+    for item_id in ("CR-02", "CR-03", "CR-04", "CR-05", "CR-06", "CR-07", "CR-09"):
+        item = responsibilities.get(item_id, {})
+        if item.get("futureModelRobustness") != "strong":
+            issues.append(f"future-model-robust Core responsibility lost strong status: {item_id}")
+    for item_id in ("CR-11", "CR-13"):
+        if responsibilities.get(item_id, {}).get("disposition") != "do_not_build_shared_layer":
+            issues.append(f"unproven shared layer returned to active architecture: {item_id}")
+    for item_id in ("CR-14", "CR-15", "CR-16"):
+        if responsibilities.get(item_id, {}).get("disposition") != "defer_until_strong_baseline_fails":
+            issues.append(f"conditional cognition candidate bypassed strong baseline: {item_id}")
 
     research_map = (root / "research" / "map.yaml").read_text(encoding="utf-8")
     required = (

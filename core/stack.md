@@ -1,7 +1,7 @@
 ---
 schema_version: 1
 id: computing.stack
-title: Classical Substrate and Agent-Native Responsibility Overlay
+title: Classical Substrate, Durable Responsibility Boundaries, and Flexible Cognition
 type: architecture
 profile: engineering
 lifecycle: active
@@ -13,8 +13,8 @@ audience:
   - builder
   - researcher
   - agent
-updated: 2026-08-03
-summary: Canonical architecture boundary between inherited computing mechanisms and responsibilities introduced by persistent Agent participation.
+updated: 2026-08-07
+summary: Canonical three-band architecture separating flexible cognition, future-model-robust responsibility boundaries, and mature classical substrate.
 evidence_status: not_applicable
 readiness: READY
 applies_to:
@@ -23,156 +23,163 @@ related:
   - computing.foundations
   - computing.primitives
 ---
-# Classical Substrate and Agent-Native Responsibility Overlay
+# Classical Substrate, Durable Responsibility Boundaries, and Flexible Cognition
 
 ## Purpose
 
-Locate Ordivon's irreducible responsibilities without rebuilding operating systems, databases, version control, workflow engines, model runtimes, or other mature substrate.
+Ordivon Computer does not define a permanent stack of Agent-specific subsystems. It identifies the smallest responsibilities that remain valuable when models, Providers, Context windows, and reasoning quality improve materially, then places each responsibility in the lowest owner that can preserve it.
+
+## Contract
+
+A subsystem name is not an architectural invariant. Host, Harness, Runtime, Observation, Memory, World, Prime, Graph, and similar names remain implementation or research choices unless deleting them leaves an unowned non-bypassable responsibility.
+
+The current machine disposition is [`../research/computer-responsibility-map-v1.json`](../research/computer-responsibility-map-v1.json). This Core page preserves only the compact architecture that survived that review.
 
 ## Boundaries
 
-Classical systems continue to own physical execution, storage, transport, isolation, and durable mechanics. Ordivon admits a new layer only where participant purpose, open work, commitment, evidence, or consequence would otherwise remain unowned and bypassable.
+Flexible cognition may propose, search, plan, delegate, or use Provider-native capabilities, but it does not become the owner of external facts or consequences merely by reasoning about them. Mature classical systems keep their mechanical authority. The middle band contains only responsibilities that remain unowned if both sides are composed directly.
 
 ## Components
 
-The architecture combines the inherited substrate, an Agent-native responsibility overlay, and a hybrid participation boundary that separates reversible exploration from durable consequence.
+The architecture has exactly three conceptual bands: replaceable cognition/product policy, thin durable responsibility boundaries, and classical substrate. Current repositories are implementations mapped onto those bands rather than permanent architectural layers.
 
 ## Data flow
 
-Participant purpose lowers into persistent work and version-bound context; cognition proposes; capability and consequence are bound; classical systems execute; observations and artifacts return for verification, revision, negotiation, or responsible decision.
+Current work and source bindings compile one cognitive episode; cognition proposes; local adapters may lower semantic intent; the affected owner admits consequence; classical or domain backends execute; owner-native evidence returns; reconciliation and verification advance work state.
 
 ## Failure modes
 
-The architecture fails when it duplicates a mature lower owner, treats a proposal as commitment, hides uncertainty, promotes research vocabulary without a consumer, or retains a shared constraint whose friction exceeds its recurring value.
+The design fails when an attractive subsystem name becomes a permanent layer without an unowned invariant, when a derived projection becomes fact authority, when transcript or Provider Session becomes work truth, when response loss is guessed instead of reconciled, or when a current model limitation is frozen into shared infrastructure.
 
 ## Verification
 
-Claims move toward Core only through primary-source comparison, executable evidence, cross-project consumers, counterexamples, cost measurement, and deletion tests. Current research state remains owned by the research portfolio rather than this architecture summary.
+The responsibility map, Agent-first research method, controlled fault experiments, real provider-replacement trials, cross-owner Observation evidence, product consumers, and deletion tests determine what remains in the middle band. Product state remains owned by product repositories; this Core page cannot promote implementation by itself.
 
-Ordivon studies the complete computing world but does not treat that world as an implementation roadmap. The current architecture separates the inherited execution substrate from responsibilities that are introduced or materially rewritten when probabilistic cognition participates in persistent work, commitments, and shared worlds.
+## 1. Flexible cognition and product policy
 
-## 1. Inherited substrate map
+The upper band contains replaceable intelligence and domain-specific judgment:
 
-| Band | Subject | Authoritative responsibility |
+```text
+participant or domain purpose
++ product policy
++ model / Provider-native Agent capability
++ optional Ordivon Harness or local planner
++ local Skills, search, specialists, and heuristics
+```
+
+This band may change rapidly. A stronger Provider may absorb Tool loops, subagents, memory, retrieval, code execution, or planning that today require an external Harness. Ordivon should exploit those capabilities rather than flattening them into a permanent lowest-common-denominator cognition runtime.
+
+Model output remains a proposal. Flexible cognition does not own physical facts, external authority, or durable completion merely because it is capable of reasoning about them.
+
+## 2. Durable responsibility boundaries
+
+Only a small middle band currently survives the future-model test.
+
+| Responsibility | Required invariant | Preferred lowest owner |
 |---|---|---|
-| S0 | physical devices and compute primitives | energy, movement, storage, communication, arithmetic, acceleration |
-| S1 | machine, operating system, and isolation | ISA, processes, memory, files, namespaces, devices, scheduling, containment |
-| S2 | deterministic software and data systems | compilers, language runtimes, databases, version control, networks, protocols, durable workflows |
-| S3 | model learning and inference | training, parameters, tokenization, batching, KV state, routing, quantization, serving |
+| Open-work identity and continuity | current semantic work and unresolved operation identity survive model, Provider, process, and Session replacement | work owner or mature durable workflow |
+| Current Context binding | one cognitive episode is compiled from current, authorized, revision-valid sources rather than transcript authority | Context/retrieval adapter near the work owner |
+| Consequence and authority | reversible private exploration stays cheap while shared, stale, revoked, costly, or irreversible consequence is admitted by the affected owner | resource or domain owner |
+| Effect uncertainty and reconciliation | intended Effect and physical attempt remain distinct; `UNKNOWN` is explicit; response loss is reconciled before redispatch | effectful backend, durable workflow, Runtime, or narrow boundary contract |
+| Evidence, verification, and completion | proposal, Observation, Artifact, Claim, independent verification, and accepted completion remain distinct where the domain requires it | domain authority and owner-native evidence |
+| Tool contract identity and drift | pending work binds to the actual callable contract/revision rather than stale schema state | Tool provider or boundary adapter |
+| Owner-native observation projection | Agents can inspect compact cross-owner state without creating a new fact authority | each fact owner plus disposable derived projection |
 
-These bands remain active research subjects. Ordivon normally composes their mature implementations rather than reimplementing them.
+These are responsibilities, not mandatory repositories or universal schemas. If a database idempotency key, Temporal Activity, provider-native checkpoint, domain API, or other mature mechanism preserves the same invariant with lower recurring cost, Ordivon should use it.
 
-## 2. Agent-native responsibility overlay
+## 3. Classical substrate
 
-| Responsibility | Subject | Central question |
+The lower band remains classical even when Agents use it intensively.
+
+| Subject | Authoritative responsibility |
+|---|---|
+| hardware and compute | arithmetic, storage, acceleration, communication, device effects |
+| operating system and isolation | processes, memory, files, scheduling, namespaces, devices, containment |
+| deterministic software and data systems | databases, transactions, version control, networks, protocols, queues, durable workflows, compilers |
+| model learning and serving | training, parameters, tokenization, batching, KV state, routing, quantization, inference serving |
+| domain backends | cloud APIs, browsers, applications, exchanges, simulators, sensors, external services |
+
+Agent pressure may motivate better interfaces to these systems. It does not transfer their mechanical authority into an Agent-native layer.
+
+## 4. Current Ordivon packaging
+
+Current repositories map onto the responsibility model, but the mapping is not a permanent hierarchy.
+
+| Current component | Current role | Architectural status |
 |---|---|---|
-| R0 | participant identity, purpose, and commitments | Who is participating, what do they seek or accept, which resources and consequences bind them, and what counts as completion or exit? |
-| R1 | coordination, negotiation, and consequence allocation | Which commitments can proceed locally, which require another participant, verifier, resource owner, institution, or shared-world decision, and what evidence must be presented? |
-| R2 | open-work continuity | What Goal, Task frontier, Attempts, waits, commitments, and uncertainty persist across model and process replacement? |
-| R3 | context and memory compilation | Which versioned subset of durable state should influence one probabilistic cognitive episode, and what was omitted or invalidated? |
-| R4 | cognition, proposal, and coordination | Which model, branch, verifier, Join, stopping rule, Action Proposal, or negotiation should be selected next? |
-| R5 | capability, consequence, and Effect compilation | Can this proposal be lowered into an executable Effect against this world version under an applicable capability profile and consequence boundary? |
-| R6 | Effect commitment and reconciliation | How does one stable Effect bind to a concrete Dispatch, survive response loss, and reconcile with reality without fabricated completion or blind repetition? |
-| R7 | evidence, verification, and epistemic state | What was observed, what is claimed, how was it verified, and what can be accepted as current Fact? |
-| R8 | evaluation, learning, and adaptation | Which trajectories improve capability, verification, recovery, distribution, or cooperation, and which constraints or abstractions should be revised or deleted? |
+| Ordivon Host | durable Task/work ownership, assignment, semantic completion and some consequence admission | product implementation of durable responsibilities; packaging may evolve |
+| Ordivon Harness | one cognitive episode, Provider invocation, Context/Tool exposure and Agent loop | conditional product surface for Providers that need it, not Core |
+| Ordivon Runtime | Workspace/Job/Artifact execution facts, cancellation, recovery, durable request reconciliation | authoritative execution boundary whose mechanisms remain mostly classical |
+| Observation experiment | owner-native export, selection, join, and derived inspection | retain projection principle; generalized plane/daemon remains unproven |
+| `ordivon-protocol` | consumed cross-repository Effect/ToolContract/Binding contracts | retain only contracts with real consumers |
 
-The overlay is a feedback graph, not a strict linear call stack and not a permanent hierarchy in which one intelligence form owns every other one.
+An implementation may merge or split processes and repositories without changing this architecture, provided fact ownership, replacement, recovery, and consequence boundaries remain explicit.
 
-## 3. Hybrid participation boundary
+## 5. Working trajectory
 
 ```text
-participant purpose, commitments, or requests
-→ persistent open work
-→ version-bound context
-→ probabilistic Action Proposal or Claim
-→ capability and consequence resolution
-→ deterministic Effect commitment
-→ classical execution substrate
-→ Observation and Artifact evidence
-→ Verification and revised work
-→ negotiation, responsible decision, refusal, or exit when required
+purpose or assigned work
+→ owner-native current work state
+→ current-source Context compilation
+→ replaceable cognition proposes
+→ semantic intent may be lowered by a local adapter
+→ consequence and authority admission
+→ stable request / Effect identity
+→ classical execution or domain API
+→ owner-native Observation / Artifact / receipt
+→ reconciliation and independent completion where required
+→ current work state advances
 ```
 
-The model supplies flexible search over possible next steps and may propose actions not pre-enumerated by the surrounding program. Deterministic state establishes what was proposed, compiled, admitted, dispatched, observed, verified, and accepted.
+No step requires a universal Memory database, cognition graph, World bus, or organization runtime.
 
-Current people and organizations usually retain legal and physical control over machines, credentials, money, and public commitments. The overlay must represent those owners exactly while remaining capable of supporting future artificial participants with stable identity, commitments, responsibilities, refusal, and exit if evidence and institutions warrant it.
+## 6. What stays outside Core
 
-## 4. Exploration and commitment are different paths
+The following remain product-local or Research until a stronger simpler baseline fails:
 
-Low-consequence exploration should not inherit the complete friction of irreversible commitment.
+- a universal Ordivon Harness or Agent VM;
+- a general Memory runtime;
+- a universal internal Agent IR;
+- a generic World layer beyond direct domain adapters and consumed boundary contracts;
+- semantic Action lowering as a universal primitive;
+- Prime-style programmable cognition or persistent Run Actor;
+- Temporal Cognitive Graph or graph storage;
+- generic multi-Agent branch/join infrastructure;
+- universal Participant/Commitment organization objects;
+- continual self-modification, self-training, or automatic product promotion.
 
-```text
-reversible / isolated / private
-→ broad capability profile
-→ parallel exploration
-→ candidate Artifact or Claim
-→ cheap deletion or rollback
+Their absence from Core does not prohibit experiments. It prevents temporary model limitations or attractive abstractions from becoming permanent compatibility obligations.
 
-shared / durable / costly / irreversible
-→ explicit Effect
-→ current world and contract binding
-→ responsible participant or institution
-→ evidence and recovery plan
-```
+## 7. Cross-cutting invariants
 
-The distinction is consequence-sensitive, not a simplistic read-versus-write split. A read can violate privacy; a local write in a disposable Workspace can be highly reversible.
+1. **Ownership** — every authoritative fact has an identifiable owner; derived projections do not silently become truth.
+2. **Identity** — work, consequential requests, Artifacts, contracts, and relevant external objects keep stable identities across replacement where recovery requires them.
+3. **Version binding** — Context sources, Tools, repositories, policies, authorities, and external objects bind to observable revisions when drift can invalidate work.
+4. **Explicit uncertainty** — unknown outcome remains different from failure, success, or completion.
+5. **Provenance** — durable evidence preserves enough source and causal binding to audit the claim it supports.
+6. **Consequence and reversibility** — cheap private exploration is distinguished from shared, costly, privacy-sensitive, or irreversible commitment.
+7. **Recovery** — current work and unresolved external effects can be reconstructed without requiring an old model Session or hidden reasoning state.
+8. **Replacement** — models, Providers, Harnesses, adapters, and derived views may be replaced without changing the authoritative meaning of ongoing work.
 
-## 5. What is not new
+## 8. Admission and deletion test
 
-The following mechanisms remain classical even when Agents use them:
-
-- processes, Jobs, retries, queues, and controllers;
-- database transactions, event logs, and crash recovery;
-- Git objects, branches, and content identity;
-- containers, VMs, sandboxes, and network policy;
-- RPC, MCP, A2A, and Tool schemas;
-- compilers, tests, tracing, and metrics;
-- model training and inference serving;
-- replay of predeclared durable workflows.
-
-Agent scale can amplify their importance. Composition can create a valuable product. Neither fact alone creates a new layer.
-
-## 6. Cross-cutting invariants
-
-1. **Identity** — participants, principals, Goals, Tasks, model invocations, Effects, Dispatches, Artifacts, authorities, commitments, and world objects retain stable identities across replacement.
-2. **Version binding** — context, policies, Tools, repositories, models, authorities, and external objects bind to observable revisions.
-3. **Explicit uncertainty** — unknown outcome and unsupported Claim remain distinct from failure, success, and Fact.
-4. **Provenance** — durable outputs preserve their source, causal relation, and verification path.
-5. **Consequence and reversibility** — reversible exploration is distinguished from shared, durable, or irreversible commitment.
-6. **Recovery** — current work and Effect history can be reconstructed without relying on model memory.
-7. **Negotiability** — commitments and authority can be proposed, delegated, revised, refused, revoked, or ended according to the domain contract.
-8. **Non-domination** — current ownership and capability do not silently become unlimited authority over another participant.
-
-## 7. Constraint test
-
-Every durable gate, approval, policy object, compatibility path, schema version, containment mechanism, or shared abstraction must answer:
+A proposed durable structure must answer:
 
 ```text
-What unrecoverable loss does it prevent?
-What verification, recovery, coordination, or consequence boundary does it add?
-What latency, interruption, cognitive compression, maintenance, and control concentration does it impose?
-Can a narrower local mechanism provide the same benefit?
-Who is the real current consumer?
-What is the deletion trigger?
-```
-
-The audit begins with the mechanism outside the active path; existence does not count as evidence for retention. Only current consumers, concrete protected failures or capabilities, narrower-alternative analysis, and positive recurring net value rescue it. Otherwise the mechanism is removed, narrowed, archived, or kept outside the active path. Git history supplies recovery for cheap implementation; externally governed data and consequence remain subject to their domain authority.
-
-## 8. Promotion rule
-
-A proposed layer must answer:
-
-```text
+What repeated Agent or human-runtime burden was observed?
+Who carries the responsibility now?
 Which mature lower mechanism is insufficient?
-What exact invariant remains unowned?
-What realistic trajectory fails if the layer is bypassed?
-Which second workload demonstrates the same responsibility?
-Can the mechanism remain a policy or module instead of a new repository?
-Does it increase verified improvement or reduce unrecoverable loss after its full cost is counted?
+What exact invariant would remain unowned if the candidate is deleted?
+Does a stronger and simpler baseline fail?
+What permanent state, compatibility, latency, and maintenance cost is added?
+Which second workload needs the same invariant?
+What deletes or localizes the candidate later?
 ```
 
-Unanswered proposals remain in Research.
+Unanswered proposals remain outside Core. Existing structures receive no presumption of retention from age, implementation effort, documentation volume, or test count.
 
-## 9. Current derivation path
+## 9. Research path
 
-The compact Agent-first derivation is [`../knowledge/agents/capability-externalization-and-responsibility-placement.md`](../knowledge/agents/capability-externalization-and-responsibility-placement.md), and the executable research method is [`../research/research-method-v1.json`](../research/research-method-v1.json). Complete earlier Computing derivations remain recoverable from Git rather than staying in the active tree. The retained adaptive-acceleration study is a normative position, not an architecture dependency.
+The governing research method is [`../research/research-method-v1.json`](../research/research-method-v1.json). The evidence-backed Computer disposition is [`../research/computer-responsibility-map-v1.json`](../research/computer-responsibility-map-v1.json), with a human projection in [`../research/COMPUTER-RESPONSIBILITY-REVIEW.md`](../research/COMPUTER-RESPONSIBILITY-REVIEW.md).
+
+Reusable reasoning lives in [`../knowledge/agents/capability-externalization-and-responsibility-placement.md`](../knowledge/agents/capability-externalization-and-responsibility-placement.md). Historical derivations remain recoverable from Git rather than occupying the active architecture path.
