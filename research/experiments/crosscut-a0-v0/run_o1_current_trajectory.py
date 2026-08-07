@@ -654,6 +654,61 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], Path]:
             owner: _load_bundle(str(result["bundlePath"]))
             for owner, result in export_results.items()
         }
+        harness_measurement_events = tuple(
+            event
+            for batch in bundles["harness"].batches
+            for event in batch.events
+            if event.measurements
+        )
+        if len(harness_measurement_events) != 1:
+            raise O1Error(
+                "Harness Observation must project measurements on exactly one terminal Run event"
+            )
+        measurement_event = harness_measurement_events[0]
+        if measurement_event.source.native_kind != "ordivon.harness.harness.run-completed":
+            raise O1Error(
+                "Harness measurements were projected on a non-terminal Run event"
+            )
+        run_usage = dict(execution.loop_result.usage)
+        expected_measurements = {
+            "ordivon.harness.model_calls": (execution.loop_result.model_calls, "1"),
+            "ordivon.harness.tool_calls": (execution.loop_result.tool_calls, "1"),
+            "ordivon.harness.observation_bytes": (
+                execution.loop_result.observation_bytes,
+                "By",
+            ),
+            "ordivon.harness.total_tokens": (run_usage.get("totalTokens"), "token"),
+            "ordivon.harness.wall_time": (run_usage.get("wallTimeMs"), "ms"),
+            "ordivon.harness.tool_corrections": (
+                run_usage.get("toolCorrections"),
+                "1",
+            ),
+        }
+        observed_measurements = {
+            key: (measurement.value, measurement.unit)
+            for key, measurement in measurement_event.measurements.items()
+        }
+        if observed_measurements != expected_measurements:
+            raise O1Error(
+                "Harness Observation measurements differ from owner-native Run usage: "
+                f"expected={expected_measurements} observed={observed_measurements}"
+            )
+        harness_bundle_text = json.dumps(
+            bundles["harness"].to_dict(),
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        provider_usage_copied = any(
+            marker in harness_bundle_text
+            for marker in (
+                '"providerUsage"',
+                '"inputTokens"',
+                '"outputTokens"',
+            )
+        )
+        if provider_usage_copied:
+            raise O1Error("Harness Observation copied Provider usage detail")
 
         producers = (
             ObservationProducerIdentity(HOST_PROJECT_ID, HOST_COMPONENT_ID, host_instance),
@@ -781,6 +836,10 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], Path]:
                     "claims": claims,
                     "privacy": selection.privacy,
                     "trialValidityInferred": selection.completeness["trialValidityInferred"],
+                    "harnessTerminalMeasurements": {
+                        key: {"value": value, "unit": unit}
+                        for key, (value, unit) in sorted(observed_measurements.items())
+                    },
                 },
                 "checks": {
                     "onePhysicalRuntimeJobLinked": len(runtime_job_ids) == 1,
@@ -797,6 +856,15 @@ def run(args: argparse.Namespace) -> tuple[dict[str, Any], Path]:
                         runtime_result["registryJobCount"] > runtime_result["jobCount"] == 1
                     ),
                     "runtimeWorkspaceClosed": workspace_closed,
+                    "harnessMeasurementsMatchOwnerUsage": (
+                        observed_measurements == expected_measurements
+                    ),
+                    "harnessMeasurementsTerminalOnly": (
+                        len(harness_measurement_events) == 1
+                        and measurement_event.source.native_kind
+                        == "ordivon.harness.harness.run-completed"
+                    ),
+                    "providerUsageDetailNotCopied": not provider_usage_copied,
                 },
                 "limitations": [
                     "The Provider is scripted; O1 proves fresh current infrastructure composition, not model capability.",
