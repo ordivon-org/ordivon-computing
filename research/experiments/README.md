@@ -4,6 +4,7 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 ## Current executable research
 
+- [`content-identity-v0/`](content-identity-v0/) — A1 deletion-style audit of exact-byte identity across Runtime, Finance, Security, Studio, and World. The current candidate is only `{digest, byteLength}`; shared storage and protocol promotion remain evidence-gated.
 - [`cognitive-reform-v0/`](cognitive-reform-v0/) — bounded Level A–D execution program; only Level A is active, and future cognition layers remain evidence-gated.
 - [`harness-evaluation-v0/`](harness-evaluation-v0/) — the active Track R evidence contract and R3 fixed-Campaign Trial surface. Product-owned frozen workloads and real Harness runs remain in their owning repositories.
 
