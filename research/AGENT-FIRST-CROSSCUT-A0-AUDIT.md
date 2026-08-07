@@ -1,6 +1,6 @@
 # Agent-first Cross-cutting Infrastructure A0 Audit
 
-Status: active A0 closeout and next-gate decision.
+Status: A0 first closeout accepted; later promotion remains evidence-gated.
 
 Baseline revisions inspected:
 
@@ -27,9 +27,9 @@ The audit asks whether each candidate is inherited infrastructure, an owner-loca
 
 | Candidate | Evidence today | A0 decision | Repository decision |
 | --- | --- | --- | --- |
-| Observation Plane | Host, Harness, and Runtime have independent owner-native histories and read-only exporters; B3 reconstructs one complete three-owner trajectory; B4 formal evaluation consumes a frozen Observation Selection | **Shared semantic responsibility earned; retain the minimum core** | **No extraction.** Keep shared contract/query prototype in Computing and exporters beside owners |
-| System / Environment identity | Evaluation has an exact System Manifest; Security independently binds EnvironmentIdentity; Harness requires a caller-supplied `systemManifestRef` | **Shared problem earned, shared contract not yet earned** | **No extraction.** Run one bounded common-identity experiment in Computing |
-| Usage / Cost accounting | Harness owns Run usage, Runtime owns physical timing/artifact facts, Security owns domain raw metrics, Evaluation hand-assembles comparable metrics | **Do not create a new usage authority. Project owner-native measurements into Observation** | **No repository and no service** |
+| Observation Plane | B3/B4 plus A0 O1 now reconstruct complete Host/Harness/Runtime trajectories from owner-native read-only exports; O1 passed against a >20k-Job live Runtime Registry | **Shared semantic responsibility earned; retain the minimum core** | **No extraction.** Keep shared contract/query implementation in Computing and exporters beside owners |
+| System / Environment identity | Evaluation and Security expose materially different environment identity needs; M1 composed both without copying domain payloads, but the Security side is still a contract-shaped fixture | **Shared problem earned; shared contract still not earned** | **No extraction.** Retain the bounded composition experiment until a second real owner record passes |
+| Usage / Cost accounting | U1 found and repaired Harness token normalization, then projected six terminal Run aggregates into Observation on a fresh O1 trajectory | **No new usage authority. Keep owner-native facts and bounded read-only measurements** | **No repository, service, or metrics database** |
 
 The target composition is therefore:
 
@@ -66,6 +66,8 @@ The current implementation has crossed the threshold from a logging convenience 
 - Payload bytes remain owner-native by default; observations carry metadata, digests, privacy class, and references.
 - B3 selected twelve events from three source streams and reconstructed one Host → Harness → Runtime trajectory without inferring Trial validity.
 - B4 froze an Observation Selection Manifest as part of a valid formal deterministic Trial.
+- A0 O1 then ran a fresh current Host → independent Harness → real Runtime workload, selected 25 events from all three owners, retained no payload bytes, and kept Trial validity inference false.
+- O1 used one exact Runtime Job while the long-lived Registry contained 20,399 Jobs, proving the same reconstruction path still works against accumulated production history.
 
 This satisfies the core extraction-pressure test: deleting the shared observation contract would recreate cross-owner manual evidence joining for materially different owners and would break the current formal evaluation path.
 
@@ -93,24 +95,27 @@ Owner state remains sufficient when observation is absent
 
 A daemon is not admitted. If continuous telemetry becomes useful, OpenTelemetry Collector remains the inherited operational-telemetry baseline rather than an Ordivon reimplementation.
 
-## Current gaps
+## A0-O dogfood findings and remaining gaps
 
-1. `README.md` was stale and still described run-once exporters as pending after B3/B4 had closed them.
-2. `ObservationEnvelope.measurements` exists in the v1 contract, but current Host/Harness/Runtime exporters do not populate it.
-3. The Gateway stores canonical envelopes and relation indexes but has no dedicated measurement index. Adding one before producers exist would be premature.
-4. Runtime Artifact traversal remains owner-native; attaching later Artifact lists to historical Runtime events would mutate historical meaning, so this remains intentionally separate.
-5. Production activation remains false, which is correct for the current single-owner local deployment.
+O1 converted two paper risks into concrete engineering decisions.
 
-## A0-O next gate
+1. The Observation README was stale after B3/B4 and was corrected; mutable status belongs in current evidence rather than copied old prose.
+2. Runtime export was blocked by global Registry size: the old exporter rejected any Registry with more Jobs than `job_limit`, even for one known Job. Runtime now supports exact `job_ids`; the old whole-Registry bound remains the default when no explicit scope is supplied.
+3. The final O1 run proved exact export with one selected Job while the live Registry contained 20,399 Jobs. This is an owner-local mechanical fix, not a reason to build an Observation service.
+4. Harness now emits measurements only on the terminal `IndependentHarnessRunReceipt` Observation. Host and Runtime remain measurement-empty until their own real queries justify fields.
+5. The Gateway still stores canonical envelopes without a dedicated measurement index. O1 did not need one, so none is admitted.
+6. Runtime Artifact traversal remains owner-native; attaching later Artifact lists to historical Runtime events would mutate historical meaning.
+7. Production Observation authority remains false. Owner recovery and correctness do not depend on export or Gateway availability.
 
-Do not expand the platform. The next observation work is dogfood:
+## A0-O disposition
 
-- reconstruct one fresh real Agent workload on current Host/Harness/Runtime revisions;
-- answer trajectory questions from owner-native observation without hand-reading three stores;
-- record actual export/query friction;
-- add only the mechanical operation that repeated use proves missing.
+O1 is accepted. The current minimum is sufficient for fresh Agent dogfood without a daemon:
 
-An independent observation repository is reconsidered only after independent versioning/deployment or materially different non-Computing consumers make colocation more expensive.
+```text
+owner truth → run-once read-only export → in-process Gateway → Selection/query
+```
+
+The next Observation change must come from another observed workload. Continuous collection should first inherit OpenTelemetry/Collector mechanisms if needed; an independent `ordivon-observation` repository is reconsidered only after independent deployment/versioning or materially different consumers make colocation more expensive.
 
 # A0-M — System / Environment identity
 
@@ -163,7 +168,7 @@ A second weakness is that Evaluation currently retains an `environment` digest w
 
 ## A0-M decision
 
-Do not promote the Evaluation schema. Run a bounded **configuration-identity v0** experiment inside Computing.
+Do not promote the Evaluation schema. A bounded **configuration-identity v0** experiment now exists inside Computing.
 
 Its common layer should be composition, not a universal machine ontology. A candidate minimum is:
 
@@ -183,6 +188,10 @@ integrity
 ```
 
 Each binding should be an immutable reference with identity, kind, and digest. Owner-specific payloads remain in Runtime, Harness, Security, Finance, Game, or another domain. Paths and host-local locators are never canonical identity.
+
+M1 consumed a retained B5 Evaluation System Manifest and a metadata-only Security-shaped `EnvironmentIdentity`. It preserved the Security record as one opaque owner binding and marked Evaluation's environment `digest_only`; therefore it can say two configurations differ without pretending to explain an unavailable environment payload. The experiment is accepted as composition evidence, not as a shared schema release.
+
+A shared configuration contract remains deferred until at least one real non-Evaluation owner record—preferably a Security KVM evaluation or another materially different domain—passes the same composition without domain leakage.
 
 ## A0-M falsifier
 
@@ -274,6 +283,14 @@ The first mapping profile should cover only values with demonstrated cross-run c
 
 OpenTelemetry semantic conventions are useful export compatibility, especially for model/provider identity and GenAI token usage, but they are not Ordivon's durable authority. Their GenAI conventions are still evolving and have moved to a dedicated GenAI semantic-conventions repository. Ordivon should preserve owner-native facts and map outward rather than freezing a moving external vocabulary into recovery state.
 
+### U1 live result
+
+O1 exposed an owner-local accounting bug before measurement promotion: Harness retained Provider records using `inputTokens`/`outputTokens`, but `_usage_total_tokens()` did not recognize that naming pair, so the same Run reported aggregate `totalTokens=0`. Harness added the missing fallback and a hard-limit regression test; the repaired O1 Run reports `totalTokens=58`, exactly equal to the two scripted Provider calls.
+
+Only after repairing the source did Harness project six terminal aggregates into `ObservationEnvelope.measurements`: model calls, Tool calls, observation bytes, total tokens, wall time, and Tool corrections. Per-call Provider usage remains owner-native and is absent from the retained Observation Bundle and O1 receipt. Monetary cost remains absent.
+
+This is the desired A0 pattern: fix owner truth first, then project a small non-authoritative measurement view.
+
 ## What not to add yet
 
 - no global cost service;
@@ -293,29 +310,39 @@ The first useful cross-cutting Agent query is:
 
 A0 does not require a single API that owns all of those facts. It requires that an Agent can compose them without manual archaeology or invented equivalence.
 
-## Next implementation sequence
+## A0 closeout and future gates
 
-### O1 — fresh trajectory dogfood
+A0 O1/M1/U1 are closed for the first version. Their combined evidence is sufficient to answer the intended Agent query by composition: reconstruct one work trajectory, bind exact implementation/configuration references, surface comparable owned measurements, and preserve unknowns without inventing equivalence. No single authority owns the combined answer.
 
-Run one current real workload through the existing owner exporters and Selection path. Measure manual steps and query friction. No daemon.
+Retain now:
 
-### M1 — configuration-identity v0
+- Observation contract, owner-local read-only exporters, reference Gateway, and Selection semantics;
+- exact Runtime Job export for bounded queries against a long-lived Registry;
+- configuration-identity material bindings as a Computing experiment;
+- terminal Harness measurement projection for already-owned Run aggregates.
 
-Prototype the smallest immutable reference bundle in Computing and encode both:
+Explicitly do not build now:
 
-1. one current Harness/Evaluation configuration;
-2. one current Security EnvironmentIdentity.
+- an Observation repository/daemon;
+- a universal System Manifest;
+- a writable global UsageRecord or cost authority;
+- a measurement index/database;
+- hard-coded Provider price tables as evidence;
+- Runtime CPU/peak-memory/IO accounting solely for completeness.
 
-Delete or narrow the common contract if either requires domain leakage.
+Reopen only through new evidence:
 
-### U1 — measurement projection v0
+- **O2:** another materially different workload repeatedly pays manual export/query cost or needs continuous telemetry;
+- **M2:** a real Security/Finance/Game/Studio owner manifest must compose without domain-field copying before a shared contract is considered;
+- **U2:** another owner must need comparable measurements, or a decision must depend on physical CPU/memory/IO or monetary cost, before those fields/layers are added.
 
-Define a bounded mapping profile for already-retained Harness/Runtime usage into Observation measurements. Prove one selected trajectory can answer usage questions without copying private payload content or creating another writable store.
-
-Only after O1/M1/U1 should A0 revisit shared package extraction, continuous collection, measurement indexes, or a dedicated repository.
+Repository extraction remains a later consequence of independent cadence/deployment/consumer pressure, never an A0 goal.
 
 # Validation notes
 
 The Observation Plane test set was run directly against the current Computing source with its implementation on `PYTHONPATH`: 59 tests passed; one schema test could not import because the system Python environment did not contain `jsonschema`. The failure was an execution-environment dependency, not an observed contract assertion failure. The schema contract remains covered by the repository's intended dependency environment.
 
 The current B5 retained System Manifest passes the canonical System Manifest validator. The frozen B4 manifest fails only the normalized-relative-path admission rule described above; its historical bytes are intentionally left unchanged.
+The final fresh O1 evidence is retained under `research/experiments/crosscut-a0-v0/evidence/o1-current-a0-o1-1786086849266-5a8cef08ce/`. It binds Computing `c772e93a9d102139842991c19922bed45e640211`, Host `a76a620160b28d870670696e04c39e539296fe00`, Harness `0d1e825e37b139d6b0b31a307fdc8bf904eeb722`, Runtime owner `a455fd01ce0dea25684956e5e5da899d41832a1b`, and Runtime exporter `4bc563e6da83af50679149002d31507cbd703305`. The retained Selection contains 25 events and all completeness claims pass while `trialValidityInferred=false`.
+
+The final O1 Harness terminal measurements are six aggregate values; `ordivon.harness.total_tokens=58`. Cross-cutting retained evidence contains no Provider-call `providerUsage`, `inputTokens`, or `outputTokens` payload detail. The Runtime Workspace was closed and confirmed absent.

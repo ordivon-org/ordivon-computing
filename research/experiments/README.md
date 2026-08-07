@@ -9,11 +9,12 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 ## Designed execution dependencies and successors
 
-- [`observation-plane-v0/`](observation-plane-v0/) — HHO-P1 automatic owner-native observation; M1 Contract/Gateway and M2 read-only run-once Host/Harness/Runtime exporters are complete. B3 real cross-owner reconstruction is ready; production exporters remain unauthorized.
+- [`observation-plane-v0/`](observation-plane-v0/) — owner-native Observation Minimum Core. Host/Harness/Runtime run-once exporters, B3 reconstruction, B4 formal deterministic use, and fresh A0 O1 dogfood are accepted; production Observation authority remains inactive.
 - [`experiment-loop-v0/`](experiment-loop-v0/) — CEL-R4 bounded multi-round experiment selection, blocked until P1 Core and the R3 repeated native baseline pass.
 
 ## Frozen, completed, or promoted evidence
 
+- [`crosscut-a0-v0/`](crosscut-a0-v0/) — completed first A0 closeout for Observation, material configuration identity, and usage measurement projection. It retained thin shared semantics and explicitly rejected new daemons, universal manifests, and global accounting authority.
 - [`harness-boundary-v0/`](harness-boundary-v0/) — frozen H1–H5 boundary evidence; no shared cross-Provider Harness layer was promoted.
 - [`core-work-system-v1/`](core-work-system-v1/) — completed Round 1 comparison; conclusions were localized, reduced, or rejected.
 - [`task-continuation-v0/`](task-continuation-v0/) — completed continuation evidence and bounded TaskCapsule ablations.
