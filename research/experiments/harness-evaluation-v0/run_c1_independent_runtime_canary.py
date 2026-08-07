@@ -56,7 +56,12 @@ def load_env_file(path: Path) -> dict[str, str]:
 
 
 def _prepare_imports(harness_root: Path, runtime_root: Path) -> None:
-    for source in (harness_root / "src", runtime_root / "scripts"):
+    computing_root = Path(__file__).resolve().parents[3]
+    for source in (
+        computing_root / "packages" / "ordivon-protocol" / "src",
+        harness_root / "src",
+        runtime_root / "scripts",
+    ):
         text = str(source)
         if text not in sys.path:
             sys.path.insert(0, text)
