@@ -2,14 +2,18 @@
 
 This directory coordinates the bounded implementation program derived from `ANC-COMPILER-002` without turning the Temporal Cognitive Graph into a pre-approved product architecture.
 
-Current execution has completed **A-Core** and now runs two bounded fronts:
+Current execution authority is [`program-v1.json`](program-v1.json). Its work-package identifiers are qualified as `OCR-V0:*` when referenced outside this directory.
 
-- `A3` — make the exact Host/Harness/Computing/Runtime version vector remote-reachable and clean-install reproducible;
-- `B1` — implement only the Observation Minimum Core contract, fixtures, in-process Gateway, and deterministic rebuild.
+The current state is:
 
-`A4` is a staging-only deployment rehearsal and remains blocked by `A3`. Production authority activation is not required for Level B.
+- **Level A completed** — `OCR-V0:A1` through `OCR-V0:A4` closed the Harness engineering/evidence, release-vector, and staging-rehearsal prerequisites without activating production authority;
+- **Level B reached B4** — the Observation Minimum Core, owner exporters, cross-owner Selection, and deterministic Formal Runner/fault cells are complete;
+- **`OCR-V0:B5` is provider-blocked** — the frozen DeepSeek Flash/Pro attempts produced zero valid complete Trials under the required Patch contract, so the campaign does not continue with additional DeepSeek canaries;
+- **`OCR-V0:B6` is blocked** behind the B5 provider-capability gate and explicit review;
+- **Level C is blocked by Level B** and no TCG/graph/Prime/Child-Run implementation is authorized;
+- **Level D remains not authorized**.
 
-The machine-readable authority for this execution program is [`program-v1.json`](program-v1.json). Product behavior remains owned by Host, Harness, and Runtime. Research status remains owned by [`../../portfolio.json`](../../portfolio.json).
+Product behavior remains owned by Host, Harness, and Runtime. Research status remains owned by [`../../portfolio.json`](../../portfolio.json). Production Harness authority activation is a separate product/operator decision and is not required to preserve these research results.
 
 ## Program rule
 

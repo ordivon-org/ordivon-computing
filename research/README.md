@@ -69,6 +69,16 @@ The cross-layer construction program is [#1 — Construct the Agent-Native Machi
 
 The canonical current view is [`PORTFOLIO.md`](PORTFOLIO.md), generated from [`portfolio.json`](portfolio.json). This overview intentionally does not repeat active line identifiers, question statuses, or next actions.
 
+## Stage identifier scopes
+
+Short stage labels are local to their program; they are not global Ordivon identifiers. Cross-program discussion should use qualified names:
+
+- `ACR-C1` … `ACR-C5` — the Agent-first Computer Responsibility reform recorded in the responsibility map and review;
+- `XINF-A0` … `XINF-A8` — the cross-cutting infrastructure audit sequence; `XINF-A0` and `XINF-A1` are closed reference work, while later labels remain plan-local until recorded by an owning artifact;
+- `OCR-V0:A1` … `OCR-V0:D4` — work packages inside [`experiments/cognitive-reform-v0/program-v1.json`](experiments/cognitive-reform-v0/program-v1.json).
+
+A shared suffix such as `A1` or `C4` implies no dependency, status, or shared authority across these scopes. New cross-program prose should use the qualified form.
+
 ## Historical comparisons
 
 - `ANC-EDGE-001`, `ANC-LINK-001`, and `ANC-WORLD-001` are superseded by `ANC-WORLD-002`;

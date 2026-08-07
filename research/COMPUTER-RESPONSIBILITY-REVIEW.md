@@ -106,13 +106,12 @@ The middle band should remain thin. Each responsibility chooses the lowest exist
 
 ## Reform frontier
 
-`C1` is now the next step: rewrite Core architecture around this three-band model and remove wording that accidentally makes R0–R8 look like permanent subsystem layers.
+The responsibility reform has completed its first three work packages. To avoid collision with other local A/C-series plans, this document refers to them as `ACR-C*` (Agent-first Computer Responsibility reform):
 
-Then:
+- `ACR-C1` — **completed**: Core was rewritten around the three-band responsibility model;
+- `ACR-C2` — **completed**: completed derivations without live falsifiers were compressed to Knowledge, portfolio dispositions, and Git history;
+- `ACR-C3` — **completed**: Host, Harness, Runtime, and Observation packaging was re-audited against current consumers and recovery boundaries;
+- `ACR-C4` — **next**: test Agent-facing semantic actions, inspect projections, and minimal operational working state before Prime/TCG/multi-Agent construction;
+- `ACR-C5` — later: apply the same method to the rest of Ordivon under each domain's own authority.
 
-- `C2` compresses completed research questions that no longer own a live falsifier;
-- `C3` re-audits Host, Harness, Runtime, and Observation packaging against current consumers;
-- `C4` tests Agent-facing semantic actions, inspect projections, and operational working state before Prime/TCG/multi-Agent construction;
-- `C5` applies the method to the rest of Ordivon under each domain's own authority.
-
-No step is authorized merely by appearing in this sequence. Each still passes the Agent-first research admission gates.
+`ACR-C4` is an experiment frontier, not authorization for a new platform. Existing product repositories remain authoritative, and each candidate must still pass the Agent-first admission and deletion gates.

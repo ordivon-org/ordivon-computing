@@ -13,7 +13,7 @@ audience:
   - builder
   - researcher
   - agent
-updated: 2026-08-04
+updated: 2026-08-07
 summary: Canonical entry to Ordivon Computing, its responsibility boundary, core model, research system, and project family.
 evidence_status: not_applicable
 readiness: READY
@@ -152,7 +152,7 @@ The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](researc
 ## Project roles
 
 - [**Ordivon Host**](https://github.com/zycxfyh/ordivon-host) — durable Task continuity, commitments, verification records, participant decisions, and outcomes;
-- [**Ordivon Harness**](https://github.com/zycxfyh/ordivon-harness) — Assignment-scoped Agent Runs, Provider adapters, Tool steps, recovery, and completion proposals;
+- [**Ordivon Harness**](https://github.com/zycxfyh/ordivon-harness) — caller-neutral Agent Runs, Provider adapters, Tool steps, durable Run continuity, recovery, and completion proposals;
 - [**Ordivon Runtime**](https://github.com/zycxfyh/ordivon-runtime) — trusted-local Workspaces, Jobs, Runtime Attempts, Artifacts, physical dispatch, cancellation, reconciliation, and recovery;
 - [**Ordivon Game**](https://github.com/zycxfyh/ordivon-game) — playable interactive Worlds, Station Zero, player intervention, replay, and Agent participation;
 - [**Ordivon World**](https://github.com/zycxfyh/ordivon-world) — Cloudflare provider-native capabilities and private workstation network tools, without shared World authority;
