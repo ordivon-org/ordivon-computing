@@ -19,6 +19,16 @@ def _require(condition: bool, message: str, issues: list[str]) -> None:
         issues.append(message)
 
 
+def _contains_repository_revision(value: Any, repository_id: str, revision: str) -> bool:
+    if isinstance(value, dict):
+        if value.get("repositoryId") == repository_id and value.get("revision") == revision:
+            return True
+        return any(_contains_repository_revision(item, repository_id, revision) for item in value.values())
+    if isinstance(value, list):
+        return any(_contains_repository_revision(item, repository_id, revision) for item in value)
+    return False
+
+
 def load_portfolio(path: Path = PORTFOLIO) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -42,6 +52,7 @@ def check_portfolio(root: Path = ROOT, path: Path | None = None) -> list[str]:
     _require(isinstance(active_limit, int) and active_limit > 0, "activeLineLimit must be positive", issues)
     _require(bool(policy.get("judgmentRule")), "portfolio judgmentRule is missing", issues)
     _require(bool(policy.get("externalObservationRule")), "portfolio externalObservationRule is missing", issues)
+    _require(bool(policy.get("sourceIdentityRule")), "portfolio sourceIdentityRule is missing", issues)
 
     map_path = root / "research" / "map.yaml"
     map_text = map_path.read_text(encoding="utf-8") if map_path.is_file() else ""
@@ -129,8 +140,21 @@ def check_portfolio(root: Path = ROOT, path: Path | None = None) -> list[str]:
                 observation_evidence = observation.get("evidence")
                 _require(isinstance(observation_evidence, list) and observation_evidence, f"externalObservation evidence is missing: {question_id}", issues)
                 if isinstance(observation_evidence, list):
+                    bound = False
                     for evidence in observation_evidence:
-                        _require((root / evidence).is_file(), f"externalObservation evidence is missing: {question_id} -> {evidence}", issues)
+                        evidence_path = root / evidence
+                        _require(evidence_path.is_file(), f"externalObservation evidence is missing: {question_id} -> {evidence}", issues)
+                        if evidence_path.is_file() and evidence_path.suffix == ".json":
+                            try:
+                                evidence_document = json.loads(evidence_path.read_text(encoding="utf-8"))
+                            except json.JSONDecodeError:
+                                evidence_document = None
+                            if evidence_document is not None and _contains_repository_revision(
+                                evidence_document, str(observation.get("repositoryId")), str(observation.get("revision"))
+                            ):
+                                bound = True
+                    if live_status and question.get("owner") != "ordivon-computing":
+                        _require(bound, f"externalObservation evidence does not bind exact revision: {question_id}", issues)
         if question.get("status") in {"active", "ready"} and question.get("owner") != "ordivon-computing":
             _require(isinstance(observation, dict), f"externally owned live question lacks an exact observation: {question_id}", issues)
 

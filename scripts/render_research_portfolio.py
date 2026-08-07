@@ -92,6 +92,7 @@ def render(document: dict[str, Any]) -> str:
         f"- **Judgment:** {policy['judgmentRule']}",
         f"- **New question admission:** {policy['newQuestionRule']}",
         f"- **External observations:** {policy['externalObservationRule']}",
+        f"- **Source identity:** {policy['sourceIdentityRule']}",
         "- Every completed experiment ends in one of: `retain`, `localize`, `shrink`, `defer`, or `delete`.",
         "- `active` is a WIP state, not a statement of importance. `deferred` preserves a valid question without consuming current execution bandwidth.",
         "- Historical evidence is retained through `completed`, `superseded`, or `frozen`; it does not remain in the Ready Frontier.",

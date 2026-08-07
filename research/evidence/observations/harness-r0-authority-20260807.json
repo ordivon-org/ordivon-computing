@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.harness-r0-authority-observation",
+  "observedAt": "2026-08-07",
+  "scope": "Post-I0 Harness authority, release-line, consumer, and remaining-evidence observation for the Computing Ready Frontier",
+  "repositories": [
+    {
+      "repositoryId": "ordivon-harness",
+      "revision": "9bc26ba71c33f21cfd2e5ea4ea54078ad75c1adb",
+      "upstreamRevision": "22fbbcd84d0a5fe5a4fcef7d2f1b920cd7736a26",
+      "upstreamIsAncestor": true,
+      "observations": [
+        {
+          "id": "HARNESS-I0-CANONICAL-LOCAL-LINE",
+          "files": [
+            "evidence/index.json",
+            "evidence/harness-i0-source-integration-0ec4f1b.json"
+          ],
+          "claim": "The current local Harness line contains the C3 Agent-first API and A0/U1 changes in one history; its current verified integration receipt reports 369 passing unit tests with three skips, wheel smoke, documentation, dependency, and evidence gates, and no production cutover."
+        },
+        {
+          "id": "HARNESS-PUBLIC-API-BOUNDARY",
+          "files": [
+            "src/ordivon_harness/api.py",
+            "src/ordivon_harness/host_api.py",
+            "docs/STATUS.md"
+          ],
+          "claim": "ordivon_harness.api is the recommended Host-free Agent application facade, ordivon_harness.core is the wider Host-free integration surface, and historical Host-backed application behavior is explicit in ordivon_harness.host_api."
+        },
+        {
+          "id": "HARNESS-HOST-RELEASE-PIN",
+          "files": [
+            "pyproject.toml",
+            "uv.lock",
+            "src/ordivon_harness/_host_compat/__init__.py"
+          ],
+          "claim": "The active optional Host integration and development graph pin Host 428a6f2f90b4050535507c9be078c450552177e5."
+        },
+        {
+          "id": "HARNESS-REAL-MODEL-INDEPENDENT-GAP",
+          "files": [
+            "evidence/harness-i0-source-integration-0ec4f1b.json"
+          ],
+          "claim": "The retained I0 acceptance explicitly leaves the independent durable real-model Runtime end-to-end path unproven and makes no Provider capability claim."
+        }
+      ]
+    },
+    {
+      "repositoryId": "ordivon-security",
+      "revision": "ae6c3a3300946e73e065eea0b4fa5bf5b2538049",
+      "upstreamRevision": "53414ca18b509920a6c4e1630cd45b1a7031fdeb",
+      "upstreamIsAncestor": true,
+      "observations": [
+        {
+          "id": "SECURITY-REAL-HARNESS-CONSUMER",
+          "files": [
+            "README.md",
+            "docs/AGENT-EXPERIMENT-P0.md",
+            "src/ordivon_security/actors/agent_stack.py"
+          ],
+          "claim": "Security already exercises a materially different real DeepSeek Flash CAGE workload through Harness and documents Host- and Runtime-backed variants, so Harness has a real second workload beyond repository repair."
+        },
+        {
+          "id": "SECURITY-PACKAGE-BOUNDARY-GAP",
+          "files": [
+            "pyproject.toml",
+            "src/ordivon_security/actors/agent_stack.py",
+            "src/ordivon_security/actors/host_assigned.py"
+          ],
+          "claim": "Security declares no base Harness dependency while dynamically importing ordivon_harness.domain_tools, ordivon_harness.ordivon.deepseek, ordivon_harness.version, and additional package-root/internal Harness surfaces; the real consumer therefore does not yet validate the C3 public package boundary."
+        }
+      ]
+    }
+  ],
+  "releaseFacts": {
+    "harnessHostPin": "428a6f2f90b4050535507c9be078c450552177e5",
+    "worldHostPin": "428a6f2f90b4050535507c9be078c450552177e5",
+    "protocolPin": "420dc356cb664d75db0f34f356156baebe5843db",
+    "protocolChangedSincePin": false
+  },
+  "conclusion": "Source-line divergence is closed. The next Harness authority gates are real-consumer public-package adoption and one real-model independent durable Harness-to-Runtime canary before any canonical writer or production state-root decision. Observation infrastructure is not the blocker."
+}

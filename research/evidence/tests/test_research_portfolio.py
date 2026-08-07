@@ -45,6 +45,35 @@ class ResearchPortfolioTests(unittest.TestCase):
             issues = CHECK.check_portfolio(root, path)
             self.assertIn("portfolio judgmentRule is missing", issues)
 
+    def test_source_identity_rule_is_required(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "research" / "questions").mkdir(parents=True)
+            document = json.loads((ROOT / "research" / "portfolio.json").read_text())
+            document["policy"].pop("sourceIdentityRule")
+            path = root / "research" / "portfolio.json"
+            path.write_text(json.dumps(document), encoding="utf-8")
+            issues = CHECK.check_portfolio(root, path)
+            self.assertIn("portfolio sourceIdentityRule is missing", issues)
+
+    def test_external_observation_must_bind_exact_revision(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "research" / "questions").mkdir(parents=True)
+            document = json.loads((ROOT / "research" / "portfolio.json").read_text())
+            harness = next(item for item in document["questions"] if item["id"] == "ANC-HARNESS-002")
+            evidence_rel = harness["externalObservation"]["evidence"][0]
+            evidence_path = root / evidence_rel
+            evidence_path.parent.mkdir(parents=True)
+            evidence_path.write_text(json.dumps({"repositoryId":"ordivon-harness","revision":"0" * 40}), encoding="utf-8")
+            source_page = root / harness["source"]
+            source_page.parent.mkdir(parents=True, exist_ok=True)
+            source_page.write_text("# fixture\n", encoding="utf-8")
+            path = root / "research" / "portfolio.json"
+            path.write_text(json.dumps(document), encoding="utf-8")
+            issues = CHECK.check_portfolio(root, path)
+            self.assertIn("externalObservation evidence does not bind exact revision: ANC-HARNESS-002", issues)
+
     def test_wip_limit_is_enforced(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

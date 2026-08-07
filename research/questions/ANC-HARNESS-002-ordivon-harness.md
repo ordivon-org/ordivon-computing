@@ -2,7 +2,7 @@
 
 ## Status
 
-Ready at M4. The first-party Loop now has a standalone implementation and durable Host integration, but retention remains conditional on the Track R R3 comparison. Broad model-to-work taxonomy is closed; only the current question, product evidence, stronger baselines, and falsifier remain active.
+Current status, maturity, and next action are owned by [`research/portfolio.json`](../portfolio.json). This page preserves the stable Harness question, ownership hypothesis, frozen v0 scope, acceptance criteria, falsifier, and deletion outcome rather than duplicating the Ready Frontier.
 
 ## Question
 

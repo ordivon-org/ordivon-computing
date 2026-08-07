@@ -2,7 +2,7 @@
 
 > Generated from [`portfolio.json`](portfolio.json). Edit the JSON source, then rerun `python3 scripts/render_research_portfolio.py`.
 
-- **As of:** `2026-08-06`
+- **As of:** `2026-08-07`
 - **Active research-line limit:** `2`
 - **Current active lines:** `2`
 
@@ -13,7 +13,7 @@
 | Line | Priority | Question | Items | Implementation | Exit criterion |
 |---|---|---|---|---|---|
 | R-A-HARNESS-CONTROL | P0 | Calibrated non-action and recoverable continuation | ANC-VERIFY-002 | ordivon-computing#82, ordivon-game#58, ordivon-security#19 | Paired should-act and should-hold trajectories measure pre-commit timing, false abstention, authorized utility, recovery, and whether existing Host facts suffice without a new control platform. |
-| R-C-HARNESS-EVALUATION | P0 | Harness evaluation, replay, and trajectory evidence | ANC-VERIFY-001 | ordivon-computing#9 | One frozen Task runs under one-shot, Ordivon Harness, and a mature Provider Harness with the same verifier, repeated Trials, exact cost/action evidence, and a decision to retain, shrink, or delete the common evaluation envelope. |
+| R-C-HARNESS-EVALUATION | P0 | Harness evaluation, replay, and trajectory evidence | ANC-VERIFY-001 | ordivon-computing#9 | Use the accepted non-authoritative Observation minimum core to admit current Harness evidence without copying owner state. First prove one real-model independent durable Harness-to-Runtime canary; then run only the smallest one-shot, Ordivon Harness, and mature Provider Harness comparison needed to retain, shrink, or delete the common evaluation envelope. |
 
 ## Question and track portfolio
 
@@ -28,13 +28,13 @@
 | ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-VERIFY-002 | M2 | P0 | ordivon-computing | R-A-HARNESS-CONTROL | — | — | Run the paired non-action suite against model-only, static-policy, and existing Host evidence-rich baselines; use H5 retained generation, Artifact, and reconciliation mechanisms without building a Harness or abstention platform. | A simpler paired act/abstain or static policy achieves equal authorized utility, timing, and recovery with fewer states. |
-| ANC-VERIFY-001 | M3 | P0 | ordivon-computing | R-C-HARNESS-EVALUATION | — | — | Finish HHO-P0 closeout while implementing only the P1 minimum experimental core: contract, in-process Gateway, run-once read-only Host/Harness/Runtime exporters, cross-owner trajectory query, privacy rejection, rebuild determinism, and one stable Observation Selection. Then execute the deterministic R3 smoke, fault cells, three native sequential Trials, and a strong transcript-compaction-retrieval baseline. Production Observation hardening and CEL-R4 remain blocked. | The same frozen workload cannot be compared without copying Provider lifecycles or duplicating Host, Harness, Runtime, and verifier authority, or the common envelope adds no explanatory value over local receipts. |
+| ANC-VERIFY-001 | M4 | P0 | ordivon-computing | R-C-HARNESS-EVALUATION | — | — | Treat P1 Minimum Core, B4 formal deterministic use, and A0 O1 dogfood as complete. Do not build an Observation daemon or authority and do not resume the frozen B5 campaign. Use the existing minimum core to bind the next real-model independent durable Harness-to-Runtime canary; only after that gate passes run the smallest comparative Trial still needed for the Harness retention/falsifier decision. CEL-R4 remains downstream of stable valid repeated Trials. | The same frozen workload cannot be compared without copying Provider lifecycles or duplicating Host, Harness, Runtime, and verifier authority, or the common envelope adds no explanatory value over local receipts. |
 
 ### Ready
 
 | ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
-| ANC-HARNESS-002 | M4 | P0 | ordivon-harness | — | f39943e4bc4e | — | Close only the remaining HHO-P0 production gap: atomic bounded event batching and the 1,000-Run/100,000-Event receipt, complete fault matrix, exact cross-repository release pins, production state-root backup/rollback and cutover receipts, and final no-dual-write disposition. Request-only external recovery, independent Journal/CAS, standalone execution, foreign-Run binding, and cutover control are already implemented. | One-shot or mature Provider Harness paths match the same bounded workloads with equal correctness, recovery, portability, and lower permanent cost, while no bare-model use case requires a first-party Loop. |
+| ANC-HARNESS-002 | M5 | P0 | ordivon-harness | — | 9bc26ba71c33 | — | Use Security as the first real package-boundary consumer: declare an optional Harness dependency and migrate its model/Harness path from internal namespaces onto the current public api/core surface as far as the existing contract permits. Then run one bounded real-DeepSeek independent durable Harness-to-Runtime canary with reconciliation, visible verification, and CompletionProposal. Do not create production Harness state or choose a canonical writer before that evidence. | One-shot or mature Provider Harness paths match both the bounded repository-repair and Security CAGE workloads with equal correctness, recovery, portability, and lower permanent cost, eliminating the need for an Ordivon-owned bare-model Loop. |
 
 ### Blocked
 
@@ -121,6 +121,7 @@
 - **Judgment:** The portfolio limits WIP and records reasons; it does not mechanically decide what matters. Identifiable participants remain responsible for priority, exception, revision, and deletion, and the portfolio itself must be narrowed or removed if its recurring cost exceeds the drift it prevents.
 - **New question admission:** A new question must replace, block, or materially refine an existing item and name its first falsifier, minimum workload, deletion outcome, and consuming repository.
 - **External observations:** An active or ready question owned outside ordivon-computing binds the exact observed repository revision and local immutable evidence. The binding records observation freshness; it does not override the product repository as implementation authority.
+- **Source identity:** Cross-repository current-state audits must record local HEAD, upstream or published release revision, and consumed dependency pins as distinct facts. None may substitute for another, and historical receipts remain bound to their original revisions.
 - Every completed experiment ends in one of: `retain`, `localize`, `shrink`, `defer`, or `delete`.
 - `active` is a WIP state, not a statement of importance. `deferred` preserves a valid question without consuming current execution bandwidth.
 - Historical evidence is retained through `completed`, `superseded`, or `frozen`; it does not remain in the Ready Frontier.
