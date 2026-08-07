@@ -25,6 +25,7 @@ markdownlint-cli2 docs/content-engineering/README.md packages/content-{contract,
 cspell lint --no-progress --no-summary docs/content-engineering/README.md packages/content-{contract,cli,templates}/**/*.md
 lychee --config lychee.toml docs/content-engineering/README.md packages/content-{contract,cli,templates}/**/*.md
 python3.12 scripts/check_foundational_docs.py
+python3.12 scripts/check_agent_research_method.py
 python3.12 scripts/check_research_portfolio.py
 python3.12 scripts/render_research_portfolio.py --check
 python3.12 -m unittest research.evidence.tests.test_foundational_docs
@@ -49,7 +50,7 @@ PYTHONPATH=../../../packages/ordivon-protocol/src:../semantic-core-v0/src:. \
 
 ## T1 — complete deterministic gate
 
-The repository root owns the canonical gate. It validates managed content paths and the content CLI, foundational documents, the single-source research portfolio and generated view, project and Protocol manifests, release Artifact digests, Schema/vector/implementation agreement, static checks, deterministic semantic and continuation experiments, evidence, and Rust canonical vectors.
+The repository root owns the canonical gate. It validates managed content paths and the content CLI, foundational documents, the Agent-first research method, the single-source research portfolio and generated view, project and Protocol manifests, release Artifact digests, Schema/vector/implementation agreement, static checks, deterministic semantic and continuation experiments, evidence, and Rust canonical vectors.
 
 ```bash
 python3.12 scripts/ordivon_conformance.py gate \

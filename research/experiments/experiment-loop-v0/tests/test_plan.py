@@ -35,6 +35,7 @@ class ContinuousExperimentLoopPlanTests(unittest.TestCase):
         )
         self.assertEqual(self.plan["planId"], "CEL-R4-001")
         self.assertEqual(self.plan["status"], "designed_not_executed")
+        self.assertEqual(self.plan["methodRef"], "research/research-method-v1.json")
         self.assertEqual(
             self.plan["integrity"],
             {
@@ -54,7 +55,7 @@ class ContinuousExperimentLoopPlanTests(unittest.TestCase):
         self.assertTrue(decisions["formalTrialOwnsValidity"])
         self.assertTrue(decisions["campaignRecordsAreResearchOnly"])
 
-    def test_no_platform_or_automatic_promotion_is_authorized(self) -> None:
+    def test_no_platform_or_automatic_product_promotion_is_authorized(self) -> None:
         decisions = self.plan["decisions"]
         for key in (
             "newRepositoryAuthorized",
@@ -66,7 +67,10 @@ class ContinuousExperimentLoopPlanTests(unittest.TestCase):
             "automaticDatasetAdmission",
         ):
             self.assertFalse(decisions[key])
-        self.assertTrue(decisions["humanOwnsPromotion"])
+        self.assertTrue(decisions["agentOwnsBoundedResearchProgression"])
+        self.assertTrue(decisions["humanAttentionIsConsequenceBounded"])
+        self.assertTrue(decisions["productPromotionOwnedByProductAuthority"])
+        self.assertNotIn("humanOwnsPromotion", decisions)
 
     def test_roles_have_non_overlapping_authority_boundaries(self) -> None:
         roles = {item["roleId"]: item for item in self.plan["roles"]}
@@ -77,12 +81,20 @@ class ContinuousExperimentLoopPlanTests(unittest.TestCase):
                 "implementer",
                 "evaluator",
                 "search_controller",
-                "human_release_authority",
+                "consequence_authority",
             },
         )
         self.assertIn("mark_trial_valid", roles["proposer"]["forbidden"])
         self.assertIn("override_invalidity", roles["search_controller"]["forbidden"])
-        self.assertIn("merge", roles["human_release_authority"]["may"])
+        self.assertIn(
+            "promote_research_candidate_within_campaign",
+            roles["search_controller"]["may"],
+        )
+        self.assertIn(
+            "authorize_irreversible_or_public_commitment",
+            roles["consequence_authority"]["may"],
+        )
+        self.assertIn("mark_trial_valid", roles["consequence_authority"]["forbidden"])
 
     def test_trial_disposition_separates_validity_outcome_and_failure(self) -> None:
         disposition = self.plan["trialDisposition"]
@@ -120,7 +132,7 @@ class ContinuousExperimentLoopPlanTests(unittest.TestCase):
         self.assertIn("owner_mappings", e1["forbiddenSurface"])
         self.assertEqual(
             e1["promotionBoundary"],
-            "candidate_commit_and_review_packet_only",
+            "research_candidate_commit_and_evidence_packet_only",
         )
 
     def test_anti_gaming_and_negative_result_requirements_are_explicit(self) -> None:
@@ -131,6 +143,14 @@ class ContinuousExperimentLoopPlanTests(unittest.TestCase):
         self.assertTrue(self.plan["decisions"]["negativeResultsRetained"])
         self.assertIn(
             "campaign_retains_useful_negative_or_null_result",
+            self.plan["acceptanceGates"],
+        )
+        self.assertIn(
+            "ordinary_private_reversible_research_requires_no_human_intervention",
+            self.plan["acceptanceGates"],
+        )
+        self.assertIn(
+            "research_candidate_promotion_does_not_equal_product_promotion",
             self.plan["acceptanceGates"],
         )
 

@@ -4,6 +4,8 @@ Status: execution designed; implementation not started.
 
 Plan: `CEL-R4-001`.
 
+Research method: [`../../research-method-v1.json`](../../research-method-v1.json) (`AFR-M1-001`). CEL-R4 is the first bounded consumer of the Agent-first burden-to-externalization method; it does not own the method or portfolio status.
+
 Questions: primary `ANC-VERIFY-001`; downstream consumer `ANC-ADAPT-001` remains blocked until repeated trajectory and promotion evidence exists.
 
 ## 1. Decision
@@ -22,7 +24,8 @@ Research Question
 → validity and failure attribution
 → Pareto comparison
 → next-round proposal or stop
-→ human-owned promotion decision
+→ Agent-owned bounded research disposition
+→ consequence-gated product/domain admission only when the research result leaves research scope
 ```
 
 The loop uses existing product authorities:
@@ -67,7 +70,7 @@ These questions must remain separate. An Observation stream can be complete whil
 - preservation of negative and null results;
 - bounded next-round proposal;
 - stop, retain, narrow, or delete decision;
-- production of candidate commits and evidence packets for human review.
+- production of research candidate commits and evidence packets for owner-native admission or further Agent-led research.
 
 ### 3.2 Out of scope
 
@@ -151,7 +154,7 @@ selection policy
 resource budget
 parallelism ceiling
 privacy policy
-human release authority
+consequence authority and product-owner boundary
 createdAt
 integrity
 ```
@@ -296,7 +299,7 @@ domain verifier
 trajectory rules
 resource and cost accounting
 optional rubric grader
-human calibration refs
+consequence-calibration refs
 bundle digest
 ```
 
@@ -318,7 +321,7 @@ retained diversity candidate
 next-round budget
 stop or continue decision
 search-controller identity
-review refs
+evidence and escalation refs
 integrity
 ```
 
@@ -354,7 +357,7 @@ replication result
 verified improvement claims
 negative results
 resource use
-human decision
+research disposition and any consequence-authority decision
 retained artifacts and owner refs
 limitations
 retain / narrow / delete disposition
@@ -376,7 +379,7 @@ May not:
 - modify hidden graders or holdouts;
 - mark a Trial valid;
 - accept a TaskOutcome;
-- choose production promotion alone.
+- promote to production or alter owner authority.
 
 ## 6.2 Implementer
 
@@ -426,15 +429,19 @@ May not:
 - override invalidity or grader disagreement;
 - promote to production.
 
-## 6.5 Human release authority
+## 6.5 Consequence authority and product-owner boundary
 
-Owns:
+The default research operator is an Agent. Routine private, reversible, evidence-bounded research does not stop for human approval. Human attention is reserved for purpose or consequence changes, while the affected product/domain owner retains its existing merge, release, canary, rollback, deployment, and external-commitment authority.
 
-- merge, release, canary, rollback, publication, and consequential deployment decisions;
-- changes to objectives, hidden graders, promotion thresholds, or risk policy;
-- acceptance of major architecture deletion or expansion.
+Consequence authority is required for:
 
-The first Experiment Loop can be highly automated internally while still stopping at a candidate commit and review packet.
+- changing the research mission or admitted consequence policy;
+- irreversible or public commitments;
+- cross-owner authority transfer;
+- budget-ceiling or access-scope expansion;
+- unknown high-consequence effects that cannot be made safely reversible.
+
+It cannot mark a Trial valid, override evaluator disagreement, suppress a negative result, or convert a research score directly into a product merge. The first Experiment Loop stops at a research candidate commit and evidence packet unless the affected product/domain owner separately admits the change.
 
 ## 7. Candidate isolation and anti-gaming
 
@@ -520,7 +527,7 @@ It stops when:
 - marginal information gain is low relative to remaining budget;
 - all admissible Candidates violate hard gates;
 - the Campaign reaches its round, Trial, compute, or time limit;
-- human review changes the question or promotion boundary.
+- consequence authority changes the research mission, admitted boundary, budget ceiling, or access scope.
 
 ## 9. Execution state machine
 
@@ -545,7 +552,7 @@ STOPPED_EVALUATOR_UNSTABLE
 STOPPED_INFRASTRUCTURE_UNSTABLE
 STOPPED_PRIVACY
 STOPPED_BUDGET
-STOPPED_HUMAN
+STOPPED_CONSEQUENCE_AUTHORITY
 ABANDONED
 ```
 
@@ -617,9 +624,9 @@ Grader Bundle:
 
 Promotion boundary:
 
-- candidate commit and review packet only;
-- human decides merge;
-- post-merge P1 regression gates run independently.
+- research candidate commit and evidence packet only;
+- the affected product owner independently decides whether to admit any merge;
+- any admitted product change still runs P1 regression gates independently.
 
 ## E2 — Harness policy experiment
 
@@ -627,7 +634,7 @@ Only after R3 completes a stable repeated native baseline:
 
 - change one Context, Tool exposure, stopping, or recovery policy at a time;
 - use held-out Tasks or seeds;
-- compare success, false completion, unnecessary actions, token use, recovery, and request-human quality;
+- compare success, false completion, unnecessary actions, token use, recovery, and request-consequence-attention quality;
 - do not mix model, Tool, Task, and policy changes in one Cell.
 
 This phase may provide the first evidence that unblocks part of `ANC-ADAPT-001`.
@@ -708,7 +715,7 @@ R3 remains independently useful even if CEL-R4 is deleted.
 - each compared Candidate has three valid Trials;
 - one provisional winner receives fresh replication;
 - Campaign emits at least one useful negative or null result;
-- final result is a candidate commit plus evidence packet and human decision;
+- final result is a research candidate commit plus evidence packet and an Agent research disposition; any product admission is separate;
 - measured improvement survives independent post-campaign regression gates.
 
 ## 14. Closeout outputs
@@ -743,7 +750,7 @@ Stop and redesign if:
 - useful decisions require a universal scalar score;
 - hidden grader protection requires a permanent centralized security service;
 - file/Git records cannot support one bounded Campaign without a database;
-- a fixed human-designed candidate set yields the same decisions with materially less cost;
+- a fixed non-adaptive candidate set yields the same decisions with materially less cost;
 - static held-out evaluation predicts Security decisions as well as coevolution;
 - the loop optimizes benchmark scores without replicated real improvement.
 

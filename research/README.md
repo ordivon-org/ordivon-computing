@@ -13,8 +13,8 @@ audience:
   - researcher
   - builder
   - agent
-updated: 2026-08-04
-summary: Canonical entry to active questions, portfolio state, experiments, evidence, and research construction rules.
+updated: 2026-08-07
+summary: Canonical entry to the Agent-first research method, active questions, portfolio state, experiments, evidence, and construction rules.
 evidence_status: not_applicable
 readiness: READY
 applies_to:
@@ -28,6 +28,8 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 
 ## Purpose
 
+- [`research-method-v1.json`](research-method-v1.json) — machine-readable Agent-first research method for burden discovery, responsibility placement, externalization admission, and consequence-gated escalation;
+- [`AGENT-FIRST-RESEARCH-METHOD.md`](AGENT-FIRST-RESEARCH-METHOD.md) — human-readable projection of that method;
 - [`portfolio.json`](portfolio.json) — authoritative research status, maturity, blockers, next falsifiers, and WIP lines;
 - [`PORTFOLIO.md`](PORTFOLIO.md) — generated human-readable portfolio and Ready Frontier;
 - [`map.yaml`](map.yaml) — stable typed relations among construction tracks and research questions;
@@ -44,6 +46,7 @@ Research may contain alternatives, failed experiments, changing terminology, and
 
 ## Start here
 
+- [`research-method-v1.json`](research-method-v1.json) defines how an Agent turns observed work burden into a falsifiable externalization experiment. It does not own research status.
 - [`portfolio.json`](portfolio.json) is the mutable source of truth for line status, maturity, blockers, falsifiers, and disposition.
 - [`PORTFOLIO.md`](PORTFOLIO.md) is its generated review projection.
 - [`questions/`](questions/) owns durable question pages, including completed and superseded questions; only `portfolio.json` determines which are active.
@@ -68,9 +71,10 @@ The canonical current view is [`PORTFOLIO.md`](PORTFOLIO.md), generated from [`p
 - `ANC-SECURITY-002` remains completed Phase 0 substrate evidence and is superseded by the unified World and strategic-Security programs;
 - Semantic Core, Effect IR, Task continuation, Host boundary, and original Game/Host convergence are completed or frozen evidence, not open construction promises.
 
-Portfolio maintenance commands:
+Research-method and portfolio maintenance commands:
 
 ```bash
+python3 scripts/check_agent_research_method.py
 python3 scripts/check_research_portfolio.py
 python3 scripts/render_research_portfolio.py --check
 ```

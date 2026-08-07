@@ -14,7 +14,10 @@
     "e1_has_baseline_plus_two_materially_distinct_candidates",
     "three_valid_trials_per_compared_candidate",
     "campaign_retains_useful_negative_or_null_result",
-    "independent_post_campaign_regression_gate_passes"
+    "independent_post_campaign_regression_gate_passes",
+    "ordinary_private_reversible_research_requires_no_human_intervention",
+    "human_attention_triggered_by_consequence_not_routine_step_count",
+    "research_candidate_promotion_does_not_equal_product_promotion"
   ],
   "antiGaming": [
     "candidate_path_allowlist_and_denylist",
@@ -92,6 +95,7 @@
     }
   ],
   "decisions": {
+    "agentOwnsBoundedResearchProgression": true,
     "automaticDatasetAdmission": false,
     "automaticDeploymentAuthorized": false,
     "automaticMergeAuthorized": false,
@@ -99,10 +103,11 @@
     "daemonAuthorized": false,
     "databaseAuthorized": false,
     "formalTrialOwnsValidity": true,
-    "humanOwnsPromotion": true,
+    "humanAttentionIsConsequenceBounded": true,
     "negativeResultsRetained": true,
     "newRepositoryAuthorized": false,
     "observationIsSensingOnly": true,
+    "productPromotionOwnedByProductAuthority": true,
     "rawPrivateReasoningRequired": false,
     "schedulerAuthorized": false
   },
@@ -133,7 +138,7 @@
         "benchmark_or_grader_code"
       ],
       "phaseId": "E1",
-      "promotionBoundary": "candidate_commit_and_review_packet_only",
+      "promotionBoundary": "research_candidate_commit_and_evidence_packet_only",
       "status": "blocked_by_p1_core_and_r3_baseline",
       "title": "Observation Gateway ingest and query optimization"
     },
@@ -153,9 +158,10 @@
   "integrity": {
     "algorithm": "sha256",
     "canonicalization": "ordivon-evidence-json-v1",
-    "payloadDigest": "sha256:d9dc397678a39fa2339a516b47a3ba8f17eee3ca091d8eddc1a0e88036833ad7"
+    "payloadDigest": "sha256:e264c7e44d8f054f1de44d5e0c9ba0682043ae130d54ae0585b1fe263080b25a"
   },
   "kind": "ordivon.continuous-experiment-loop-plan",
+  "methodRef": "research/research-method-v1.json",
   "outputs": [
     "cel-contract-v1.json",
     "cel-plan-receipt.json",
@@ -217,7 +223,10 @@
       "may": [
         "propose_hypothesis",
         "propose_candidate",
-        "predict_observable_change"
+        "predict_observable_change",
+        "identify_burden",
+        "map_responsibility_carrier",
+        "propose_externalization_candidate"
       ],
       "roleId": "proposer"
     },
@@ -248,26 +257,34 @@
       "forbidden": [
         "dispatch_product_effect_directly",
         "override_invalidity",
-        "promote_to_production"
+        "promote_to_production",
+        "change_research_mission"
       ],
       "may": [
         "compare_selection_eligible_groups",
         "request_replication",
         "allocate_bounded_next_round",
-        "stop_campaign"
+        "stop_campaign",
+        "promote_research_candidate_within_campaign",
+        "propose_portfolio_update"
       ],
       "roleId": "search_controller"
     },
     {
-      "forbidden": [],
-      "may": [
-        "merge",
-        "release",
-        "canary",
-        "rollback",
-        "change_objective_or_hidden_grader"
+      "forbidden": [
+        "mark_trial_valid",
+        "override_invalidity",
+        "suppress_negative_result",
+        "perform_product_merge_by_research_score"
       ],
-      "roleId": "human_release_authority"
+      "may": [
+        "change_research_mission",
+        "authorize_irreversible_or_public_commitment",
+        "authorize_cross_owner_authority_transfer",
+        "expand_campaign_budget_ceiling",
+        "expand_access_scope"
+      ],
+      "roleId": "consequence_authority"
     }
   ],
   "schemaVersion": 1,
@@ -309,7 +326,7 @@
       "STOPPED_INFRASTRUCTURE_UNSTABLE",
       "STOPPED_PRIVACY",
       "STOPPED_BUDGET",
-      "STOPPED_HUMAN",
+      "STOPPED_CONSEQUENCE_AUTHORITY",
       "ABANDONED"
     ]
   },
@@ -321,7 +338,7 @@
     "owner_databases_or_full_transcripts_must_be_copied",
     "controller_requires_product_dispatch_or_deployment_authority",
     "universal_scalar_score_required",
-    "fixed_human_candidate_set_matches_decisions_at_materially_lower_cost",
+    "fixed_nonadaptive_candidate_set_matches_decisions_at_materially_lower_cost",
     "benchmark_gain_does_not_survive_replication",
     "operational_overhead_exceeds_information_value"
   ],
