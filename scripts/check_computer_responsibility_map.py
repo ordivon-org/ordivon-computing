@@ -169,7 +169,6 @@ def check() -> list[str]:
             )
             require(receipt.get("acceptanceId") == "ACR-M1-C1-ACCEPT-001", "Computer reform receipt identity differs", issues)
             require(receipt.get("mapId") == "ACR-M1-001", "Computer reform receipt map identity differs", issues)
-            require(receipt.get("mapPayloadDigest") == document.get("integrity", {}).get("payloadDigest"), "Computer reform receipt map digest differs", issues)
             require(receipt.get("cleanAcceptance") is True, "Computer reform receipt is not a clean acceptance", issues)
             require(receipt.get("integrity", {}).get("payloadDigest") == canonical_digest(receipt), "Computer reform receipt payload digest differs", issues)
 
@@ -178,6 +177,22 @@ def check() -> list[str]:
             files = receipt.get("implementationFiles")
             require(isinstance(files, dict) and bool(files), "Computer reform implementation file bindings are missing", issues)
             if isinstance(implementation, str) and isinstance(files, dict):
+                historical_map = subprocess.run(
+                    ["git", "-C", str(ROOT), "show", f"{implementation}:research/computer-responsibility-map-v1.json"],
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False,
+                )
+                require(historical_map.returncode == 0, "Computer reform historical map is not recoverable", issues)
+                if historical_map.returncode == 0:
+                    try:
+                        historical_document = json.loads(historical_map.stdout)
+                    except json.JSONDecodeError:
+                        issues.append("Computer reform historical map is invalid JSON")
+                    else:
+                        require(
+                            receipt.get("mapPayloadDigest") == historical_document.get("integrity", {}).get("payloadDigest"),
+                            "Computer reform receipt historical map digest differs",
+                            issues,
+                        )
                 for relative, expected_digest in files.items():
                     completed = subprocess.run(
                         ["git", "-C", str(ROOT), "show", f"{implementation}:{relative}"],

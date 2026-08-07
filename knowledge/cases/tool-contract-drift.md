@@ -83,4 +83,4 @@ active long-running Job
 → continue observation by stable execution identity
 ```
 
-The research question is tracked as [`../../research/questions/ANC-EFFECT-001-tool-contract-evolution.md`](../../research/questions/ANC-EFFECT-001-tool-contract-evolution.md).
+The closed question `ANC-EFFECT-001` is indexed in the research portfolio; its full historical narrative is Git-only. Current Tool-drift responsibility is summarized in the Computer responsibility map.

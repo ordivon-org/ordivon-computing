@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -94,11 +95,26 @@ def check_portfolio(root: Path = ROOT, path: Path | None = None) -> list[str]:
         if question.get("status") == "superseded":
             _require(bool(question.get("supersededBy")), f"superseded question lacks successor: {question_id}", issues)
         source = question.get("source", "")
-        if isinstance(source, str) and not source.startswith("github:"):
-            _require((root / source).is_file(), f"question source is missing: {question_id} -> {source}", issues)
         live_status = question.get("status") in {"active", "ready", "blocked"}
+        if isinstance(source, str) and source.startswith("git:"):
+            match = re.fullmatch(r"git:([0-9a-f]{40}):(.+)", source)
+            _require(match is not None, f"historical question source is malformed: {question_id} -> {source}", issues)
+            _require(not live_status, f"live question cannot use Git-only history: {question_id}", issues)
+            if match is not None:
+                revision, relative = match.groups()
+                completed = subprocess.run(
+                    ["git", "-C", str(root), "cat-file", "-e", f"{revision}:{relative}"],
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=False,
+                )
+                _require(completed.returncode == 0, f"historical question source is not recoverable: {question_id} -> {source}", issues)
+        elif isinstance(source, str) and not source.startswith("github:"):
+            _require((root / source).is_file(), f"question source is missing: {question_id} -> {source}", issues)
         if live_status:
-            _require(isinstance(source, str) and not source.startswith("github:"), f"live question lacks a durable page: {question_id}", issues)
+            _require(
+                isinstance(source, str) and not source.startswith(("github:", "git:")),
+                f"live question lacks a durable page: {question_id}",
+                issues,
+            )
             _require(question_id in map_question_ids, f"live question is absent from research map: {question_id}", issues)
         for evidence in question.get("evidence", []):
             _require((root / evidence).exists(), f"evidence reference is missing: {question_id} -> {evidence}", issues)
