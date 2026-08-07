@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import subprocess
 import sys
 from typing import Any
 
@@ -42,6 +43,13 @@ def load_object(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError(f"{path} must contain an object")
     return value
+
+
+def git_revision() -> str:
+    return subprocess.check_output(
+        ["git", "-C", str(COMPUTING_ROOT), "rev-parse", "HEAD"],
+        text=True,
+    ).strip()
 
 
 def with_integrity(value: dict[str, Any]) -> dict[str, Any]:
@@ -130,6 +138,7 @@ def run() -> dict[str, Any]:
             "status": "accepted_bounded_experiment",
             "source": {
                 "computingBaseRevision": "c239dff62f9f15baa4ee2056d2db9d7d1b3f12d6",
+                "experimentImplementationRevision": git_revision(),
                 "securityShapeRevision": SECURITY_REVISION,
                 "b5SystemManifestDigest": canonical_digest(manifest),
                 "b5ResultDigest": canonical_digest(result),
