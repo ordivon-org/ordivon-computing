@@ -307,6 +307,3 @@ Does it expand capability, continuity, understanding, expression, or chosen valu
 ```
 
 [`../core/intent.md`](../core/intent.md) preserves the compact project intent. [`../core/foundations.md`](../core/foundations.md) preserves the stable system principles. Load this page when its reasoning is relevant to a decision, experiment, or architectural review.
-
-
-The detailed derivation of this retention-default inversion is preserved in [`../studies/2026-retention-default-inversion/`](../studies/2026-retention-default-inversion/).

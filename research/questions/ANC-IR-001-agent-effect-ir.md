@@ -98,6 +98,6 @@ This paragraph described the pre-closeout state. Subsequent failure injection, c
 
 - [`../../core/primitives.md`](../../core/primitives.md)
 - [`../../knowledge/agents/goal-task-effect.md`](../../knowledge/agents/goal-task-effect.md)
-- [`../../studies/2026-computing-stack-walkthrough/12-agent-language.md`](../../studies/2026-computing-stack-walkthrough/12-agent-language.md)
+- [`../../knowledge/agents/goal-task-effect.md`](../../knowledge/agents/goal-task-effect.md)
 - [`../experiments/semantic-core-v0/`](../experiments/semantic-core-v0/)
 - Ordivon

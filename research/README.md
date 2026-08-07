@@ -79,18 +79,12 @@ python3 scripts/check_research_portfolio.py
 python3 scripts/render_research_portfolio.py --check
 ```
 
-The primary-source derivation for `ANC-STACK-001` and the cross-paradigm validation program live in [`../studies/2026-classical-to-agent-native-computing/`](../studies/2026-classical-to-agent-native-computing/).
-
-The first-principles derivation from transcript-centered Agent loops to a typed Temporal Cognitive Graph, including the pinned Host/Harness/Runtime audit, frontier evidence, candidate model, falsifiers, and reversible migration, lives in [`../studies/2026-linear-loop-to-temporal-cognitive-graph/`](../studies/2026-linear-loop-to-temporal-cognitive-graph/). It is consumed through deferred `ANC-COMPILER-002`; it does not activate a graph platform, Runtime Worker, multi-Agent layer, or third WIP line by itself.
+Completed Computing derivations no longer remain in the active tree by default. Their reusable conclusions are compressed into [`../knowledge/agents/capability-externalization-and-responsibility-placement.md`](../knowledge/agents/capability-externalization-and-responsibility-placement.md); exact removed Git trees and dispositions are recorded in [`evidence/agent-first-historical-research-compression-f95d721.json`](evidence/agent-first-historical-research-compression-f95d721.json). Live conditional ideas such as `ANC-COMPILER-002` retain only the current question, stronger baseline, falsifier, and exact evidence pointer.
 
 The strategic adversarial-systems reorientation, source comparison, insertion map, and research program live in [`../studies/2026-agent-native-adversarial-systems/`](../studies/2026-agent-native-adversarial-systems/).
 
 The execution-entity, lineage, propagation, organization, control, resilience, and adversarial-ecology synthesis lives in [`../studies/2026-execution-entity-adversarial-ecology/`](../studies/2026-execution-entity-adversarial-ecology/). It is a completed reference study consumed through `ANC-SECURITY-007`; it does not activate implementation or promote a shared entity protocol.
 
 The expanded Game thesis, comparative source set, experience/infrastructure admission split, and bounded post-alpha falsification program live in [`../studies/2026-agent-native-game-worlds/`](../studies/2026-agent-native-game-worlds/). `ANC-GAME-001` remains the completed Host/Game ownership question; `ANC-GAME-002` is the deferred product-and-world question and must not displace the current Ready Frontier.
-
-The scarcity, operability, and paradigm-change lens that guided the August 2026 Ordivon reform audit lives in [`../studies/2026-scarcity-operability-and-paradigm-change/`](../studies/2026-scarcity-operability-and-paradigm-change/). It is retained as a reference study; it does not alter the active Ready Frontier, admit a Core primitive, or authorize implementation changes by itself.
-
-The dated Ordivon formalism and A11 reform audit is preserved in [`../studies/2026-ordivon-paradigm-reform/`](../studies/2026-ordivon-paradigm-reform/). It records the source-level deletion judgments that informed the August 2026 P0/P1 closeout; it is closed evidence, not a new active research line or mandatory governance process.
 
 The one-time [`HISTORICAL-DOCUMENT-AUDIT.md`](HISTORICAL-DOCUMENT-AUDIT.md) records the retain, merge, historical, archive, delete, and rewrite-summary decisions applied to high-impact historical documents. It is audit evidence and does not own portfolio status or architecture.

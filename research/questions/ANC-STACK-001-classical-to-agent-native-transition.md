@@ -46,7 +46,7 @@ A concept becomes a layer only when it has a stable contract, can fail independe
 - counterexamples from mature workflow, database, security, and protocol systems;
 - falsification attempts against every proposed Agent-native responsibility.
 
-The derivation is preserved in [`../../studies/2026-classical-to-agent-native-computing/`](../../studies/2026-classical-to-agent-native-computing/).
+The current reusable derivation is [`../../knowledge/agents/capability-externalization-and-responsibility-placement.md`](../../knowledge/agents/capability-externalization-and-responsibility-placement.md). The longer pre-compression study remains recoverable from Git at the revision bound by [`../evidence/agent-first-historical-research-compression-f95d721.json`](../evidence/agent-first-historical-research-compression-f95d721.json).
 
 ## Admission criteria for a Core change
 

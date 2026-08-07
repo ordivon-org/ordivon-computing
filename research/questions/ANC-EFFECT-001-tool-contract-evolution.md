@@ -50,5 +50,5 @@ Build a catalog normalizer and differ that can detect the observed field narrowi
 
 - [`../../knowledge/agents/tool-contracts-and-world-interfaces.md`](../../knowledge/agents/tool-contracts-and-world-interfaces.md)
 - [`../../knowledge/cases/tool-contract-drift.md`](../../knowledge/cases/tool-contract-drift.md)
-- [`../../studies/2026-computing-stack-walkthrough/14-world-interfaces.md`](../../studies/2026-computing-stack-walkthrough/14-world-interfaces.md)
+- [`../../knowledge/agents/tool-contracts-and-world-interfaces.md`](../../knowledge/agents/tool-contracts-and-world-interfaces.md)
 - Ordivon

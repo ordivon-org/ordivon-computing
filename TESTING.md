@@ -6,7 +6,7 @@ Tests protect explicit semantic and foundational invariants; they are not a mand
 
 Production-candidate protocol code, normative Schemas, and canonical vectors live under `packages/ordivon-protocol/`. Executable experiments, fixtures, live evidence scripts, and conformance suites remain under `research/experiments/`. The independent `ordivon-host` repository owns product Host code; Computing does not carry a shadow Host tree.
 
-Core, Knowledge, the classical-to-Agent transition Study, research map, and source ledger form a foundational architecture contract. They are checked mechanically for required files, relative links, reference identifiers, substrate/overlay structure, and obsolete layer terminology.
+Core, Knowledge, the Agent-first research method, research map, live questions, and source-bound evidence form the foundational architecture contract. They are checked mechanically for required files, relative links, reference identifiers, substrate/overlay structure, historical-compression recoverability, and obsolete layer terminology.
 
 ## T0 — surgical edit loop
 
@@ -26,6 +26,7 @@ cspell lint --no-progress --no-summary docs/content-engineering/README.md packag
 lychee --config lychee.toml docs/content-engineering/README.md packages/content-{contract,cli,templates}/**/*.md
 python3.12 scripts/check_foundational_docs.py
 python3.12 scripts/check_agent_research_method.py
+python3.12 scripts/check_historical_research_compression.py
 python3.12 scripts/check_research_portfolio.py
 python3.12 scripts/render_research_portfolio.py --check
 python3.12 -m unittest research.evidence.tests.test_foundational_docs
@@ -50,7 +51,7 @@ PYTHONPATH=../../../packages/ordivon-protocol/src:../semantic-core-v0/src:. \
 
 ## T1 — complete deterministic gate
 
-The repository root owns the canonical gate. It validates managed content paths and the content CLI, foundational documents, the Agent-first research method, the single-source research portfolio and generated view, project and Protocol manifests, release Artifact digests, Schema/vector/implementation agreement, static checks, deterministic semantic and continuation experiments, evidence, and Rust canonical vectors.
+The repository root owns the canonical gate. It validates managed content paths and the content CLI, foundational documents, the Agent-first research method, historical-research compression recoverability, the single-source research portfolio and generated view, project and Protocol manifests, release Artifact digests, Schema/vector/implementation agreement, static checks, deterministic semantic and continuation experiments, evidence, and Rust canonical vectors.
 
 ```bash
 python3.12 scripts/ordivon_conformance.py gate \

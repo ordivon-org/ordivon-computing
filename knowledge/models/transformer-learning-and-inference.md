@@ -70,5 +70,3 @@ world state → observation → cognition → effect → new world state
 ```
 
 The model is the probabilistic cognitive component. Task state, tools, execution, artifacts, and recovery belong to the surrounding runtime.
-
-See [Transformer learning](../../studies/2026-computing-stack-walkthrough/08-transformer-learning.md), [modern model architecture](../../studies/2026-computing-stack-walkthrough/09-modern-model-architecture.md), [training and post-training](../../studies/2026-computing-stack-walkthrough/10-training-and-post-training.md), and [inference runtime](../../studies/2026-computing-stack-walkthrough/11-inference-runtime.md).

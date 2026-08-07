@@ -104,4 +104,4 @@ model memory may fail or be replaced
 but Task identity, Effect history, and evidence remain reconstructible
 ```
 
-See [`classical-substrate-and-agent-overlay.md`](classical-substrate-and-agent-overlay.md) and the [transition study](../../studies/2026-classical-to-agent-native-computing/README.md).
+See [`classical-substrate-and-agent-overlay.md`](classical-substrate-and-agent-overlay.md) and [`../agents/capability-externalization-and-responsibility-placement.md`](../agents/capability-externalization-and-responsibility-placement.md).

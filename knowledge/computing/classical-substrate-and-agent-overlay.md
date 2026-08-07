@@ -98,4 +98,4 @@ A new Ordivon layer, repository, gate, or compatibility path requires:
 
 Research can remain broader. Studying chips, memory, storage, networks, or model architecture does not obligate Ordivon to implement them.
 
-See the full derivation in [`../../studies/2026-classical-to-agent-native-computing/`](../../studies/2026-classical-to-agent-native-computing/) and the civilizational direction in [`../../studies/2026-adaptive-acceleration/`](../../studies/2026-adaptive-acceleration/).
+See [`../agents/capability-externalization-and-responsibility-placement.md`](../agents/capability-externalization-and-responsibility-placement.md). The retained adaptive-acceleration study is a separate normative position rather than an architecture dependency.

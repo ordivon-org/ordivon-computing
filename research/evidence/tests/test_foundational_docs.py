@@ -35,7 +35,7 @@ class FoundationalDocsTests(unittest.TestCase):
     def test_reference_ledger_rejects_unknown_identifier(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            study = root / "studies" / "2026-classical-to-agent-native-computing"
+            study = root / "studies" / "2026-adaptive-acceleration"
             study.mkdir(parents=True)
             (study / "REFERENCES.md").write_text(
                 "### C01 — Known\n", encoding="utf-8"
@@ -43,7 +43,7 @@ class FoundationalDocsTests(unittest.TestCase):
             (study / "README.md").write_text("Unknown [A99].\n", encoding="utf-8")
             self.assertEqual(
                 CHECK.reference_issues(root),
-                ["undeclared primary-source reference in 2026-classical-to-agent-native-computing: A99"],
+                ["undeclared primary-source reference in 2026-adaptive-acceleration: A99"],
             )
 
 

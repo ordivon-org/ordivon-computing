@@ -173,4 +173,4 @@ How does it behave under retry, duplication, drift, and stale ownership?
 Can a mature lower mechanism or local adapter solve it more cheaply?
 ```
 
-The complete derivation, standards comparison, and research program are in [`../../studies/2026-agent-system-concept-system/`](../../studies/2026-agent-system-concept-system/).
+The durable ownership conclusions are summarized in [`capability-externalization-and-responsibility-placement.md`](capability-externalization-and-responsibility-placement.md); exact historical derivation remains recoverable from Git.

@@ -69,6 +69,6 @@ This research does not decide consciousness, legal personhood, political legitim
 ## Related material
 
 - [`../../knowledge/institutions/plural-intelligence-organization.md`](../../knowledge/institutions/plural-intelligence-organization.md)
-- [`../../studies/2026-computing-stack-walkthrough/15-products-and-institutions.md`](../../studies/2026-computing-stack-walkthrough/15-products-and-institutions.md)
+- [`../../knowledge/institutions/plural-intelligence-organization.md`](../../knowledge/institutions/plural-intelligence-organization.md)
 - [`../../studies/2026-adaptive-acceleration/README.md`](../../studies/2026-adaptive-acceleration/README.md)
 - `ordivon-host`, `ordivon-game`, and `ordivon-web`

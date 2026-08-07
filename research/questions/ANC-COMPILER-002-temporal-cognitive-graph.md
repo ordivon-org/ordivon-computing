@@ -2,7 +2,7 @@
 
 ## Status
 
-Deferred at M1. The first-principles derivation, pinned Ordivon source audit, and primary-source comparison are complete in [`../../studies/2026-linear-loop-to-temporal-cognitive-graph/`](../../studies/2026-linear-loop-to-temporal-cognitive-graph/). Construction remains blocked behind the current Harness control and evaluation lines so the research portfolio does not hide unfinished P0 work.
+Deferred at M1. The historical TCG derivation has been removed from the active tree after compression. The live research object is now only this question, its strong transcript/compaction/retrieval baseline, falsifiers, and the exact pinned source audit in [`../evidence/observations/temporal-cognitive-source-audit-20260806.json`](../evidence/observations/temporal-cognitive-source-audit-20260806.json). Construction remains blocked behind the current Harness control and evaluation lines.
 
 ## Question
 
@@ -69,7 +69,7 @@ A transcript-centered Harness with bounded compaction/retrieval, current Artifac
 4. `TCG-P3` external RLM/recursive Harness Engine behind the same boundary;
 5. `TCG-P4` governed HarnessRevision only after replay, holdout, canary, and rollback.
 
-The complete metrics and fault matrix are in [`../../studies/2026-linear-loop-to-temporal-cognitive-graph/06-experiment-program-and-falsifiers.md`](../../studies/2026-linear-loop-to-temporal-cognitive-graph/06-experiment-program-and-falsifiers.md).
+Do not restore the old phase program merely to run this experiment. Define the smallest metrics and fault cells when the prerequisite baseline is actually runnable, under the current Agent-first research method.
 
 ## Ownership hypothesis
 
@@ -96,7 +96,7 @@ If falsified:
 
 - delete graph-authoritative execution and Child Run objects;
 - retain useful transcript compaction/retrieval or read-only diagnostics;
-- preserve the study, labeled fixtures, and negative evidence;
+- preserve exact negative evidence and the live falsifier; use Git only if historical derivation is needed;
 - do not promote a Cognitive Graph schema, graph store, Agent VM, or Runtime Worker.
 
 ## Reopen and scheduling condition

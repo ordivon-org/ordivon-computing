@@ -15,9 +15,7 @@ REFERENCE = re.compile(r"\[([A-Z]\d{2})\]")
 REFERENCE_HEADING = re.compile(r"^### ([A-Z]\d{2}) — ", re.MULTILINE)
 
 SOURCE_LEDGER_STUDIES = (
-    "2026-classical-to-agent-native-computing",
     "2026-adaptive-acceleration",
-    "2026-scarcity-operability-and-paradigm-change",
 )
 
 REQUIRED_PATHS = (
@@ -29,24 +27,23 @@ REQUIRED_PATHS = (
     "core/primitives.md",
     "knowledge/computing/classical-substrate-and-agent-overlay.md",
     "knowledge/agents/probabilistic-work-control-loop.md",
+    "knowledge/agents/capability-externalization-and-responsibility-placement.md",
     "knowledge/agents/task-context-authority-effect-evidence.md",
     "knowledge/philosophy-creation-judgment-and-recoverability.md",
     "knowledge/philosophy-scarcity-operability-and-paradigm-change.md",
+    "research/research-method-v1.json",
+    "research/evidence/agent-first-historical-research-compression-f95d721.json",
     "research/portfolio.json",
     "research/PORTFOLIO.md",
     "research/charters/README.md",
     "research/questions/ANC-STACK-001-classical-to-agent-native-transition.md",
     "research/questions/ANC-VERIFY-002-calibrated-non-action.md",
     "research/COMPUTER-P0-P1-A-SERIES-AUDIT.md",
-    "studies/2026-classical-to-agent-native-computing/README.md",
-    "studies/2026-classical-to-agent-native-computing/REFERENCES.md",
     "studies/2026-adaptive-acceleration/README.md",
     "studies/2026-adaptive-acceleration/HISTORICAL-MANIFESTO.md",
     "studies/2026-adaptive-acceleration/PUBLICATION.md",
     "studies/2026-adaptive-acceleration/ARGUMENT-MAP.md",
     "studies/2026-adaptive-acceleration/REFERENCES.md",
-    "studies/2026-scarcity-operability-and-paradigm-change/README.md",
-    "studies/2026-scarcity-operability-and-paradigm-change/REFERENCES.md",
 )
 
 
@@ -202,6 +199,18 @@ def architecture_issues(root: Path) -> list[str]:
                 issues.append(
                     f"obsolete human-exclusive or control framing remains in {relative}: {phrase}"
                 )
+
+    externalization = (
+        root / "knowledge" / "agents" / "capability-externalization-and-responsibility-placement.md"
+    ).read_text(encoding="utf-8")
+    for fragment in (
+        "Future-model robustness test",
+        "Responsibility placement",
+        "Conditional hypotheses, not durable architecture",
+        "Git provides exact archaeology",
+    ):
+        if fragment not in externalization:
+            issues.append(f"Agent-first externalization knowledge lacks required fragment: {fragment}")
 
     foundations = (root / "core" / "foundations.md").read_text(encoding="utf-8")
     required_alignment_fragments = (

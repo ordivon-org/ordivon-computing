@@ -67,5 +67,3 @@ Task parallelism benefits from versioned workspaces, explicit dependencies, arti
 ## Design consequence
 
 Parallelism is a property of the dependency graph. Scheduling should expose true independence, place work near its state, and keep synchronization proportional to actual shared facts.
-
-See [pipeline and speculation](../../studies/2026-computing-stack-walkthrough/03-pipeline-and-speculation.md), [multicore and GPU](../../studies/2026-computing-stack-walkthrough/05-multicore-and-gpu.md), and [distributed AI computing](../../studies/2026-computing-stack-walkthrough/06-distributed-ai-computing.md).

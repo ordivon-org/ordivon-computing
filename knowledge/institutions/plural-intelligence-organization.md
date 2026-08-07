@@ -153,4 +153,4 @@ A persistent intelligence system should optimize for outcomes such as:
 
 As generation becomes cheaper, value moves toward problem selection, unique world access, reliable verification, durable continuity, broad participation, trusted commitments, and responsibility for consequences.
 
-See the [probabilistic work-control loop](../agents/probabilistic-work-control-loop.md), the [transition study](../../studies/2026-classical-to-agent-native-computing/README.md), and the [adaptive-acceleration study](../../studies/2026-adaptive-acceleration/README.md).
+See the [probabilistic work-control loop](../agents/probabilistic-work-control-loop.md), [`../agents/capability-externalization-and-responsibility-placement.md`](../agents/capability-externalization-and-responsibility-placement.md), and the [adaptive-acceleration study](../../studies/2026-adaptive-acceleration/README.md).

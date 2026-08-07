@@ -32,6 +32,12 @@ Cross-repository content baselines are diagnostic inventory evidence rather than
 
 Counts may expose review pressure, but they do not authorize deletion, rewriting, metadata promotion, or a claim that one repository is better documented than another.
 
+## Agent-first historical compression
+
+[`agent-first-historical-research-compression-f95d721.json`](agent-first-historical-research-compression-f95d721.json) records the one-time removal of completed, absorbed, superseded, or dated Computing studies from the current tree. Each removed study is bound to the exact pre-compression Git revision, path, tree object, and file count. [`../../scripts/check_historical_research_compression.py`](../../scripts/check_historical_research_compression.py) verifies that the current tree stays compressed while every recorded historical tree remains exactly recoverable from Git.
+
+The receipt is not a substitute for live research evidence and does not make historical narrative authoritative. Current reusable conclusions live in Knowledge; live hypotheses retain only their question, baseline, falsifier, and exact evidence references.
+
 ## Immutability rule
 
 A committed snapshot file is never edited. A correction or later observation creates a new snapshot with an optional `supersedes` reference.

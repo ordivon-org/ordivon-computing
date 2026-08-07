@@ -221,7 +221,7 @@ Before that point, retain the boundary as Host-local interfaces, adapters, and C
 - `ordivon-world` — capability negotiation and external rebinding;
 - `ordivon-web` — publication only after accepted evidence.
 
-The source-grounded concept system and complete experiment program live in [`../../studies/2026-agent-system-concept-system/`](../../studies/2026-agent-system-concept-system/).
+The durable ownership result is in [`../../knowledge/agents/host-harness-runtime-and-agent-system-concepts.md`](../../knowledge/agents/host-harness-runtime-and-agent-system-concepts.md); exact historical derivation remains available through Git and the compression receipt.
 ## H5 closeout
 
 The completed experiment ran both live replacement orders:

@@ -173,8 +173,6 @@ Does it increase verified improvement or reduce unrecoverable loss after its ful
 
 Unanswered proposals remain in Research.
 
-## 9. Three complementary studies
+## 9. Current derivation path
 
-- [`../studies/2026-computing-stack-walkthrough/`](../studies/2026-computing-stack-walkthrough/) preserves the full physical-to-institutional learning route.
-- [`../studies/2026-classical-to-agent-native-computing/`](../studies/2026-classical-to-agent-native-computing/) derives the substrate/overlay boundary, counterexamples, evidence, and falsifiers.
-- [`../studies/2026-adaptive-acceleration/`](../studies/2026-adaptive-acceleration/) supplies the civilizational direction: accelerate capability together with verification, resilience, diffusion, adaptation, distribution, and cooperation rather than treating global frontier suppression as the stable foundation of the future.
+The compact Agent-first derivation is [`../knowledge/agents/capability-externalization-and-responsibility-placement.md`](../knowledge/agents/capability-externalization-and-responsibility-placement.md), and the executable research method is [`../research/research-method-v1.json`](../research/research-method-v1.json). Complete earlier Computing derivations remain recoverable from Git rather than staying in the active tree. The retained adaptive-acceleration study is a normative position, not an architecture dependency.

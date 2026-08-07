@@ -92,4 +92,4 @@ hybrid control loop
   flexible proposal inside persistent commitment and evidence
 ```
 
-See [`task-context-authority-effect-evidence.md`](task-context-authority-effect-evidence.md) and the [full transition study](../../studies/2026-classical-to-agent-native-computing/README.md).
+See [`task-context-authority-effect-evidence.md`](task-context-authority-effect-evidence.md) and [`capability-externalization-and-responsibility-placement.md`](capability-externalization-and-responsibility-placement.md).

@@ -124,4 +124,4 @@ This lens explains the shared logic behind:
 
 > Do not mistake a local fall in cost for the disappearance of all constraints and consequences.
 
-The detailed derivation, external cases, and pre-reform audit questions are preserved in [`../studies/2026-scarcity-operability-and-paradigm-change/`](../studies/2026-scarcity-operability-and-paradigm-change/).
+The reusable conclusion remains on this page; the longer pre-reform derivation is recoverable from Git if historical reconstruction is needed.

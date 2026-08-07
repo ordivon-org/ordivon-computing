@@ -2,7 +2,7 @@
 
 ## Status
 
-Ready at M4. The first-party Loop now has a standalone implementation and durable Host integration, but retention remains conditional on the Track R R3 comparison. The broad model-to-work and cross-Provider boundary research is closed in [`../../studies/2026-model-to-work-and-ordivon-harness/`](../../studies/2026-model-to-work-and-ordivon-harness/).
+Ready at M4. The first-party Loop now has a standalone implementation and durable Host integration, but retention remains conditional on the Track R R3 comparison. Broad model-to-work taxonomy is closed; only the current question, product evidence, stronger baselines, and falsifier remain active.
 
 ## Question
 

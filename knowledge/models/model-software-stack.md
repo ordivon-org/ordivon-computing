@@ -97,5 +97,3 @@ natural-language goal
 ```
 
 Freedom of expression remains at the top; explicit IR connects it to deterministic execution below.
-
-See [frameworks and compilers](../../studies/2026-computing-stack-walkthrough/07-frameworks-and-compilers.md).

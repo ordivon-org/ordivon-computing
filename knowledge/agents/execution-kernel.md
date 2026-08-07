@@ -90,4 +90,4 @@ No single conversation transcript is sufficient for all three.
 
 The general Task runtime, cognitive scheduler, memory governance, and operator decision plane remain incomplete research areas.
 
-See [`probabilistic-work-control-loop.md`](probabilistic-work-control-loop.md) and the [transition study](../../studies/2026-classical-to-agent-native-computing/README.md).
+See [`probabilistic-work-control-loop.md`](probabilistic-work-control-loop.md) and [`capability-externalization-and-responsibility-placement.md`](capability-externalization-and-responsibility-placement.md).

@@ -89,22 +89,19 @@ real workloads, primary sources, failures, and observations
 |---|---|---|
 | **Core** | Minimal current theory and responsibility boundaries | [`core/`](core/) |
 | **Knowledge** | Reusable explanations, comparisons, and cases | [`knowledge/`](knowledge/) |
-| **Studies** | Preserved derivations and source-grounded learning paths | [`studies/`](studies/) |
+| **Studies** | Only long-form work with a current domain or publication consumer; completed Computing derivations are recoverable from Git | [`studies/`](studies/) |
 | **Research** | Questions, competing hypotheses, experiments, and immutable evidence | [`research/`](research/) |
 | **Projects** | Real systems through which ideas are constructed and tested | [`projects/`](projects/) |
 
 Current research status, evidence maturity, blockers, falsifiers, and the bounded Ready Frontier live in [`research/PORTFOLIO.md`](research/PORTFOLIO.md), generated from [`research/portfolio.json`](research/portfolio.json).
 
-Eight studies are especially important:
+The current tree deliberately keeps only long-form studies with a current consumer:
 
-- [`studies/2026-computing-stack-walkthrough/`](studies/2026-computing-stack-walkthrough/) — the complete physical-to-institutional computing route;
-- [`studies/2026-classical-to-agent-native-computing/`](studies/2026-classical-to-agent-native-computing/) — the strict derivation of what remains classical, what Agents merely amplify, and what responsibilities are genuinely rewritten or new;
-- [`studies/2026-scarcity-operability-and-paradigm-change/`](studies/2026-scarcity-operability-and-paradigm-change/) — the first-principles lens connecting productive capability, operational resolution, scarcity migration, conceptual decoupling, and the pre-reform audit of Ordivon;
-- [`studies/2026-agent-native-adversarial-systems/`](studies/2026-agent-native-adversarial-systems/) — the strategic re-derivation of Ordivon Security from classical offense/defense, autonomous cyber operations, game theory, opponent modelling, deception, organization, and coevolution;
-- [`studies/2026-agent-native-game-worlds/`](studies/2026-agent-native-game-worlds/) — the bounded thesis and research program for intrinsic play, creation, persistent Agent participation, plural Game verticals, and the separation of experiential value from research utility;
-- [`studies/2026-adaptive-acceleration/`](studies/2026-adaptive-acceleration/) — the historical and cross-disciplinary argument for accelerating capability together with adoption, verification, defense, recovery, distribution, and cooperative intelligence rather than relying on a global frontier slowdown.
-- [`studies/2026-agent-system-concept-system/`](studies/2026-agent-system-concept-system/) — the source-grounded taxonomy and ownership system for Host, Harness, Runtime, Goals, Tasks, Skills, Tools, Hooks, Events, Graphs, Loops, durability, and evaluation.
-- [`studies/2026-retention-default-inversion/`](studies/2026-retention-default-inversion/) — the Game-triggered inversion from historically presumed retention to default active removal and audited, time-bounded retention.
+- [`studies/2026-agent-native-adversarial-systems/`](studies/2026-agent-native-adversarial-systems/) and [`studies/2026-execution-entity-adversarial-ecology/`](studies/2026-execution-entity-adversarial-ecology/) — Security-domain research pending its own Agent-first reform;
+- [`studies/2026-agent-native-game-worlds/`](studies/2026-agent-native-game-worlds/) — Game-domain research pending its own Agent-first reform;
+- [`studies/2026-adaptive-acceleration/`](studies/2026-adaptive-acceleration/) — a retained published normative position, not a Computing architecture dependency.
+
+Completed Computing derivations are compressed into [`knowledge/agents/capability-externalization-and-responsibility-placement.md`](knowledge/agents/capability-externalization-and-responsibility-placement.md). Their exact pre-compression Git trees are bound by [`research/evidence/agent-first-historical-research-compression-f95d721.json`](research/evidence/agent-first-historical-research-compression-f95d721.json).
 
 ## Core thesis
 

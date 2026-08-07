@@ -73,4 +73,4 @@ holder + action + object scope + lifetime
 
 Capabilities inform planning before execution. A task can progress through construction and testing, then wait for a deployment capability rather than discovering that mismatch only at the final call.
 
-See the [world-interface study](../../studies/2026-computing-stack-walkthrough/14-world-interfaces.md) and the [Tool Contract Drift case](../cases/tool-contract-drift.md).
+See [`capability-externalization-and-responsibility-placement.md`](capability-externalization-and-responsibility-placement.md) and the [Tool Contract Drift case](../cases/tool-contract-drift.md).

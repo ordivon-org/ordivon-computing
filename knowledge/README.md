@@ -5,8 +5,8 @@ The knowledge base stores reusable explanations, conceptual models, comparisons,
 ## Relationship to the rest of the repository
 
 ```text
-Studies  → preserve learning and derivation
-Knowledge → preserve reusable understanding
+Git history → preserve complete derivation when current retention is unnecessary
+Knowledge   → preserve reusable understanding
 Core      → preserve the smallest generative theory
 Research  → preserve open questions and experiments
 Projects  → preserve real construction in their own repositories
@@ -20,7 +20,7 @@ A topic belongs here when it is already coherent enough to reuse, but still bene
 - [`philosophy-scarcity-operability-and-paradigm-change.md`](philosophy-scarcity-operability-and-paradigm-change.md) — how productive capability changes operational resolution, separates scarcity-forced couplings, migrates bottlenecks, and exposes structures that earlier systems could not sustain;
 - [`computing/`](computing/) — state, memory, parallelism, data movement, and machine execution;
 - [`models/`](models/) — framework, compiler, Transformer, training, and inference-runtime concepts;
-- [`agents/`](agents/) — goals, tasks, effects, execution kernels, tools, and continuity;
+- [`agents/`](agents/) — goals, tasks, effects, execution kernels, tools, continuity, and capability externalization;
 - [`institutions/`](institutions/) — human–Agent products, collaboration, and organization;
 - [`cases/`](cases/) — concrete systems and failures that reveal reusable abstractions.
 
@@ -28,7 +28,7 @@ A topic belongs here when it is already coherent enough to reuse, but still bene
 
 ```text
 raw observation or learning
-→ Study or Research note
+→ Research / experiment / temporary Study
 → reusable Knowledge page
 → repeated cross-project validation
 → compact Core principle or primitive
@@ -45,4 +45,4 @@ A strong knowledge page usually contains:
 3. an example and a contrasting case;
 4. its relationship to other layers;
 5. practical implications for Agent-native systems;
-6. links to deeper studies, research questions, or real projects.
+6. links to live research questions, exact evidence, or real projects; historical derivation may remain only in Git.
