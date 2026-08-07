@@ -107,10 +107,10 @@ Current repositories map onto the responsibility model, but the mapping is not a
 
 | Current component | Current role | Architectural status |
 |---|---|---|
-| Ordivon Host | durable Task/work ownership, assignment, semantic completion and some consequence admission | product implementation of durable responsibilities; packaging may evolve |
-| Ordivon Harness | one cognitive episode, Provider invocation, Context/Tool exposure and Agent loop | conditional product surface for Providers that need it, not Core |
-| Ordivon Runtime | Workspace/Job/Artifact execution facts, cancellation, recovery, durable request reconciliation | authoritative execution boundary whose mechanisms remain mostly classical |
-| Observation experiment | owner-native export, selection, join, and derived inspection | retain projection principle; generalized plane/daemon remains unproven |
+| Ordivon Host | durable Task/work ownership, assignment, semantic completion, consequence admission and foreign-executor binding | responsibility-oriented package root; proven repository read/mutation/code-change workloads are explicit local `engine` modules rather than Host primitives |
+| Ordivon Harness | caller-neutral cognitive Run, Provider/Tool loop, durable Run continuity and Runtime bridging | recommended application API is Host-free; Host-backed `HarnessRunner` remains an explicit compatibility path, and Harness itself remains conditional product packaging rather than Core |
+| Ordivon Runtime | Workspace/Job/Artifact execution facts, cancellation, recovery, durable request reconciliation | retained without C3 structural change; authoritative execution boundary whose mechanisms remain mostly classical |
+| Observation experiment | owner-native run-once export, derived join/inspection and frozen selection | retain inspect/export + disposable projection pattern; no production Plane/daemon or new fact authority admitted |
 | `ordivon-protocol` | consumed cross-repository Effect/ToolContract/Binding contracts | retain only contracts with real consumers |
 
 An implementation may merge or split processes and repositories without changing this architecture, provided fact ownership, replacement, recovery, and consequence boundaries remain explicit.
