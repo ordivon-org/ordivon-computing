@@ -13,8 +13,8 @@ audience:
   - maintainer
   - builder
   - agent
-updated: 2026-08-04
-summary: Canonical index and review procedure for cross-project ownership, admission, extraction, merge, and retirement decisions.
+updated: 2026-08-07
+summary: Canonical index and review procedure for cross-project ownership, admission, extraction, merge, retirement, and infrastructure-promotion decisions.
 evidence_status: not_applicable
 readiness: READY
 applies_to:
@@ -42,7 +42,7 @@ what pressure was observed
 
 ## Start here
 
-Read [`host-harness-independent-persistence-and-observation.md`](host-harness-independent-persistence-and-observation.md) for the accepted Host/Harness authority and automatic-observation boundary. Read [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) for the current review of production support and the possible `ordivon-studio` boundary. Use the rules below before adding another cross-project decision.
+Read [`agent-first-infrastructure-promotion.md`](agent-first-infrastructure-promotion.md) for the default rule that mature infrastructure and thin Agent-facing adaptations precede any new Ordivon abstraction or repository. Read [`host-harness-independent-persistence-and-observation.md`](host-harness-independent-persistence-and-observation.md) for the accepted Host/Harness authority and automatic-observation boundary. Read [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) for the current review of production support and the possible `ordivon-studio` boundary. Use the rules below before adding another cross-project decision.
 
 ## Current boundary
 
@@ -66,6 +66,7 @@ These records own cross-project decision rationale. They do not own implementati
 
 | Record | Lifecycle | Current result |
 | --- | --- | --- |
+| [`agent-first-infrastructure-promotion.md`](agent-first-infrastructure-promotion.md) | accepted | Agents first inherit mature mechanisms, then add only thin local Agent-facing adaptations; a new Ordivon abstraction or repository requires repeated evidence for an independent durable semantic responsibility. |
 | [`host-harness-independent-persistence-and-observation.md`](host-harness-independent-persistence-and-observation.md) | accepted | Host and Harness become independently durable; committed owner events feed a non-authoritative automatic observation plane before formal repeated Trials. |
 | [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) | review | Production support is identified as a distinct responsibility; admission of `ordivon-studio` remains conditional. |
 
