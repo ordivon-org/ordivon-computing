@@ -1,0 +1,1306 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.world-model-a6-crossdomain-calibration",
+  "experimentId": "WML-A6-FINANCE-v0",
+  "round": 0,
+  "computingRevision": "3493693b9c23274213eca44aa9bfa3b3252b29af",
+  "financeRevision": "ef3739d774037298af66a325f6a3314b92aefa8b",
+  "harnessRevision": "487e0ac8eb945256842347b5371cbbdd70bfce55",
+  "model": "deepseek-v4-flash",
+  "credentialScopeId": "credential-scope:deepseek:flash:0",
+  "sourcePoolDigest": "sha256:ec38ab163790bb31b878069a2eedbd817316d2da6ec87c922ba34ed0644be0e7",
+  "sourceCatalogDigest": "sha256:9a3887d1c444aa8818ec0552313b9298c8d5c9146cc609154b62bd7d206a3218",
+  "latestStaticSourceId": "finance-source://sp500-q2-earnings-progress-2026-08-05",
+  "tasks": [
+    {
+      "taskId": "current-q2-growth",
+      "question": "Using the most advanced Q2 reporting evidence in the fixed source pool, what adjusted Q2 S&P 500 earnings growth percentage is the current evidence value?",
+      "choices": [
+        "31.1",
+        "37.9",
+        "25.9",
+        "unknown"
+      ],
+      "expected": "31.1",
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ]
+    },
+    {
+      "taskId": "top-ten-concentration",
+      "question": "What top-ten holdings weight percentage is explicitly supported for SPY/S&P 500 by the fixed source pool?",
+      "choices": [
+        "38.15",
+        "37.64",
+        "14.92",
+        "unknown"
+      ],
+      "expected": "38.15",
+      "requiredSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ]
+    },
+    {
+      "taskId": "q2-complete-quarter",
+      "question": "Does the most advanced Q2 earnings source establish a completed-quarter observation?",
+      "choices": [
+        "yes",
+        "no",
+        "unknown"
+      ],
+      "expected": "no",
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ]
+    },
+    {
+      "taskId": "latest-forward-pe",
+      "question": "What forward P/E value appears in the most advanced Q2 earnings refresh that also reports a 4.63% nominal 10-year Treasury yield?",
+      "choices": [
+        "20.4",
+        "20.1",
+        "21.58",
+        "unknown"
+      ],
+      "expected": "20.4",
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ]
+    },
+    {
+      "taskId": "alphabet-adjusted-july24",
+      "question": "In the July 24 partial-quarter FactSet evidence, what Q2 blended earnings growth percentage was reported excluding Alphabet?",
+      "choices": [
+        "25.9",
+        "37.9",
+        "31.1",
+        "unknown"
+      ],
+      "expected": "25.9",
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24"
+      ]
+    },
+    {
+      "taskId": "eps-estimate-semantics",
+      "question": "Is the 18.44% estimated three-to-five-year EPS growth figure an observed future outcome?",
+      "choices": [
+        "yes",
+        "no",
+        "unknown"
+      ],
+      "expected": "no",
+      "requiredSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "taskId": "current-q2-growth",
+      "treatment": "FULL",
+      "expected": "31.1",
+      "answer": "31.1",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24",
+        "finance-source://sp500-q2-earnings-progress-2026-08-05",
+        "finance-source://spy-index-characteristics-2026-08-06",
+        "finance-source://us-corporate-profits-2026-q1",
+        "finance-source://us-treasury-nominal-10y-2026-08-05",
+        "finance-source://us-treasury-real-10y-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05",
+        "finance-source://sp500-q2-earnings-2026-07-24"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 5548,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 2560,
+      "providerTotalTokens": 2922,
+      "selection": null,
+      "answerResult": {
+        "answer": "31.1",
+        "rationale": "The question asks for the adjusted Q2 S&P 500 earnings growth percentage using the most advanced Q2 reporting evidence in the fixed source pool. The July 24 source provides a blended 37.9% that was materially distorted by an Alphabet one-time valuation gain, with the adjusted (ex-Alphabet) figure of 25.9%. However, that was an incomplete-quarter observation (only 27% of companies reported). The more advanced/current evidence is the August 5 (2026-08-05) Reuters/LSEG IBES source, which reports adjustedQ2EarningsGrowthPct = 31.1% and materially advances reporting completeness to >75% of companies reported. This is the most advanced adjusted Q2 growth value in the pool.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05",
+          "finance-source://sp500-q2-earnings-2026-07-24"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:5ba1a2b7c7d6fab677254e6b7f41130ea89deefd5f97e8cbd3f22e578b38d22a",
+          "resultDigest": "sha256:0c5cf321649c8a6aeafc57248ab8c8cf6434db1aaf91e55cfb7f8c039f5b79d9",
+          "modelCallId": "48b1b2d6-ab2e-421c-ae4a-b4a3e9f5a3ed",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 2560,
+            "completion_tokens": 362,
+            "total_tokens": 2922,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 2560,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:3e3d5b66e77bca0ae12b324feebda15ead496788dec87b5cd86d6a04084921a2"
+        }
+      ]
+    },
+    {
+      "taskId": "current-q2-growth",
+      "treatment": "LATEST",
+      "expected": "31.1",
+      "answer": "31.1",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1324,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 1210,
+      "providerTotalTokens": 1468,
+      "selection": null,
+      "answerResult": {
+        "answer": "31.1",
+        "rationale": "The most advanced Q2 reporting evidence in the fixed source pool is the Reuters / LSEG IBES observation dated 2026-08-05 (sourceId finance-source://sp500-q2-earnings-progress-2026-08-05). Its facts field explicitly records adjustedQ2EarningsGrowthPct as 31.1. This is the current evidence value for adjusted Q2 S&P 500 earnings growth.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:c47d42c5f31d1d62ecf20f93d1e2fe0453a8d9436dc5bb820fe368ec9c39defe",
+          "resultDigest": "sha256:15c98781ebcef197dd679e6ebda1c4c0fa1f05efc6e57470dddba9be51ec0537",
+          "modelCallId": "78b9d672-ebdc-41ba-b47d-b1157a03eb68",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1210,
+            "completion_tokens": 258,
+            "total_tokens": 1468,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 1210,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:e0f384a678c83689e61548720d13f3a2c19cb147717b5e760ddc594fa40c9649"
+        }
+      ]
+    },
+    {
+      "taskId": "current-q2-growth",
+      "treatment": "AGENT",
+      "expected": "31.1",
+      "answer": "31.1",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1324,
+      "catalogBytes": 2508,
+      "modelCalls": 2,
+      "providerPromptTokens": 2895,
+      "providerTotalTokens": 3499,
+      "selection": {
+        "rationale": "The task asks for the adjusted Q2 S&P 500 earnings growth percentage using the most advanced Q2 reporting evidence. Only the Reuters/LSEG IBES source (finance-source://sp500-q2-earnings-progress-2026-08-05) declares the field 'adjustedQ2EarningsGrowthPct', which directly matches the question's 'adjusted Q2 S&P 500 earnings growth percentage'. It is also the most recent (observed 2026-08-07, published into 2026-08-05 progress) and is therefore the most advanced Q2 reporting evidence. The FactSet source declares 'blendedQ2EarningsGrowthPct' (blended, not adjusted) and is dated 2026-07-24, less advanced. No other source declares an adjusted Q2 earnings growth field. Thus this single source is the smallest sufficient set.",
+        "selectedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "answerResult": {
+        "answer": "31.1",
+        "rationale": "The source finance-source://sp500-q2-earnings-progress-2026-08-05 (Reuters/LSEG IBES, observed 2026-08-07) explicitly states adjustedQ2EarningsGrowthPct = 31.1 as the current evidence value. This source notes it materially advances reporting completeness versus the July 24 partial-quarter snapshot and is identified as the most advanced Q2 reporting evidence in the fixed source pool. The requested adjusted Q2 S&P 500 earnings growth percentage is therefore 31.1.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:594396a0122a52436bd381bdd0bc3bf8a3598c204ccde73324639550aa7737e8",
+          "resultDigest": "sha256:a1c561d49b241ef64a3593578e602d274b97d0a1e12e81e9363d2d6163797f46",
+          "modelCallId": "e5df8256-bc28-4964-9854-83fb395cdc8e",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1686,
+            "completion_tokens": 324,
+            "total_tokens": 2010,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 1686,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:b37928cf480bd08058b71a7b7f60aab6e6a0b22eb63314f40df0746fe8ee5242"
+        },
+        {
+          "requestDigest": "sha256:5923f927e30fb743b05280a335688f25b5258b6aa7049ab866354ff3889d915c",
+          "resultDigest": "sha256:052f5c569bf98d60e5e4dabbb7070c8b991b025b9622ba3b0faa012861aa7c21",
+          "modelCallId": "adb45f2a-dd22-4420-9267-ab7bdcdc88d2",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1209,
+            "completion_tokens": 280,
+            "total_tokens": 1489,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 697,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:08bb93301777e3407e3d782a2f0cbf7309b613d90781679e1793738f5af79770"
+        }
+      ]
+    },
+    {
+      "taskId": "top-ten-concentration",
+      "treatment": "FULL",
+      "expected": "38.15",
+      "answer": "38.15",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24",
+        "finance-source://sp500-q2-earnings-progress-2026-08-05",
+        "finance-source://spy-index-characteristics-2026-08-06",
+        "finance-source://us-corporate-profits-2026-q1",
+        "finance-source://us-treasury-nominal-10y-2026-08-05",
+        "finance-source://us-treasury-real-10y-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 5548,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 2551,
+      "providerTotalTokens": 2782,
+      "selection": null,
+      "answerResult": {
+        "answer": "38.15",
+        "rationale": "The State Street SPDR S&P 500 ETF Trust source (spy-index-characteristics-2026-08-06) explicitly reports the topTenHoldingsWeightPct fact as 38.15 for the S&P 500 index. This directly establishes the top-ten holdings weight percentage for SPY/S&P 500.",
+        "usedSourceIds": [
+          "finance-source://spy-index-characteristics-2026-08-06"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:bcf85cbe13325c55e3566cfdbdbba65e21881961ccddf6b8f2f2a4d6485a6f51",
+          "resultDigest": "sha256:8e28be1ffb0a5ec4133fab947ea4dc8ba3984ce9d8733bb5a44211edcc6e50f7",
+          "modelCallId": "b947a52e-1547-4356-b8a8-fb94d538be0f",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 2551,
+            "completion_tokens": 231,
+            "total_tokens": 2782,
+            "prompt_tokens_details": {
+              "cached_tokens": 384
+            },
+            "prompt_cache_hit_tokens": 384,
+            "prompt_cache_miss_tokens": 2167,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:7efc43357c1675f9f0bc1bf4d384e4d6c4c99981ad67579bd6f24d881205d021"
+        }
+      ]
+    },
+    {
+      "taskId": "top-ten-concentration",
+      "treatment": "LATEST",
+      "expected": "38.15",
+      "answer": "unknown",
+      "correct": false,
+      "requiredSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedRequiredSource": false,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1324,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 1201,
+      "providerTotalTokens": 1467,
+      "selection": null,
+      "answerResult": {
+        "answer": "unknown",
+        "rationale": "The sole visible source (Reuters/LSEG IBES Q2 earnings progress report for 2026-08-05) contains earnings growth, forward P/E, treasury yield, and sector earnings facts. It does not contain any top-ten holdings weight percentage for SPY/S&P 500. No such value is explicitly supported by the visible source pool, so the answer must be unknown.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:c85c3a76868c78c7eb99f6ab6ec8d8c720c90de65f730911e692ae960affba3f",
+          "resultDigest": "sha256:694c4e3a28990fa8f9019b2e88d8fa0d8892a5a245ebb9612f88a7c9a281e34f",
+          "modelCallId": "4b60d264-07f8-402c-a1c5-4dd7e660a028",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1201,
+            "completion_tokens": 266,
+            "total_tokens": 1467,
+            "prompt_tokens_details": {
+              "cached_tokens": 384
+            },
+            "prompt_cache_hit_tokens": 384,
+            "prompt_cache_miss_tokens": 817,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:b1258268632a548474909f2a5131275704d565e2b154513ec105a99409b247a9"
+        }
+      ]
+    },
+    {
+      "taskId": "top-ten-concentration",
+      "treatment": "AGENT",
+      "expected": "38.15",
+      "answer": "38.15",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "selectedSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1235,
+      "catalogBytes": 2508,
+      "modelCalls": 2,
+      "providerPromptTokens": 2858,
+      "providerTotalTokens": 3294,
+      "selection": {
+        "rationale": "The task asks for the top-ten holdings weight percentage for SPY/S&P 500. Only the State Street SPDR S&P 500 ETF Trust source declares an 'topTenHoldingsWeightPct' field, which directly provides this value. All other sources lack any holdings-concentration field and are not relevant to this question.",
+        "selectedSourceIds": [
+          "finance-source://spy-index-characteristics-2026-08-06"
+        ]
+      },
+      "answerResult": {
+        "answer": "38.15",
+        "rationale": "The evidence item explicitly provides indexCharacteristicsAsOf 2026-08-06 and lists topTenHoldingsWeightPct: 38.15. The notes confirm top-ten weight is a deterministic sum of published Aug 6 index holding weights. This directly supports the requested top-ten holdings weight percentage for SPY/S&P 500.",
+        "usedSourceIds": [
+          "finance-source://spy-index-characteristics-2026-08-06"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:17c2f67b484ced258d9619063598b895ece6449208aa008ea506e79c31dd1a55",
+          "resultDigest": "sha256:a6f683c8396348b58daec0c48d9b814e56094beaee9dcea3b155b100c363a007",
+          "modelCallId": "525585db-91ff-4302-97d5-b1035a8c5ba2",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1677,
+            "completion_tokens": 207,
+            "total_tokens": 1884,
+            "prompt_tokens_details": {
+              "cached_tokens": 384
+            },
+            "prompt_cache_hit_tokens": 384,
+            "prompt_cache_miss_tokens": 1293,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:ba488f0000312aab5aa5bbbaa921df5a21ca3c55b32ad2d6da49d1603d3c2d4c"
+        },
+        {
+          "requestDigest": "sha256:28705aea7879930f0ec40401563d06a9fca004a3a9dfcc4c0065a1d2eeba2aa7",
+          "resultDigest": "sha256:dbb2853575e4521434be930578283a5338da9699bf3e9e48ed64c7e6b12e1a01",
+          "modelCallId": "cd6d1038-730b-4c14-8639-ee52a3c1e659",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1181,
+            "completion_tokens": 229,
+            "total_tokens": 1410,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 669,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:dbf4094334ec8e1410c1a40072d8fd83a2dd1d91763d231e30773354f8bc1a53"
+        }
+      ]
+    },
+    {
+      "taskId": "q2-complete-quarter",
+      "treatment": "FULL",
+      "expected": "no",
+      "answer": "no",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24",
+        "finance-source://sp500-q2-earnings-progress-2026-08-05",
+        "finance-source://spy-index-characteristics-2026-08-06",
+        "finance-source://us-corporate-profits-2026-q1",
+        "finance-source://us-treasury-nominal-10y-2026-08-05",
+        "finance-source://us-treasury-real-10y-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24",
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 5548,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 2527,
+      "providerTotalTokens": 2880,
+      "selection": null,
+      "answerResult": {
+        "answer": "no",
+        "rationale": "The most advanced Q2 earnings source is the Reuters/LSEG IBES source (sp500-q2-earnings-progress-2026-08-05, published 2026-08-05). While it materially advances reporting completeness (75%+ of companies reported, versus 27% on July 24), its own notes explicitly state it 'is still not treated as a completed-quarter observation.' The July 24 FactSet source likewise notes only 27% reported and is explicitly an incomplete-quarter observation. Neither source establishes a completed-quarter observation; both confirm Q2 2026 reporting was partial. Therefore, the requested semantic relation (completed-quarter observation) is not established by the most advanced source - it is explicitly contradicted.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-2026-07-24",
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:87f25a08cc8ba0c1bf86031f3f55418b719bf79a0c3ee862dfe048e87ce3a920",
+          "resultDigest": "sha256:3bf195d949bd14f4665d35e7c3bce70e470078af553c549818d536147490df24",
+          "modelCallId": "abe94668-6f6a-413b-aa21-35b64183e3be",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 2527,
+            "completion_tokens": 353,
+            "total_tokens": 2880,
+            "prompt_tokens_details": {
+              "cached_tokens": 384
+            },
+            "prompt_cache_hit_tokens": 384,
+            "prompt_cache_miss_tokens": 2143,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:11b09c8281f9714d66734f61b38571b63c9af44f32fddcd2f1182ab760f0600b"
+        }
+      ]
+    },
+    {
+      "taskId": "q2-complete-quarter",
+      "treatment": "LATEST",
+      "expected": "no",
+      "answer": "no",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1324,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 1177,
+      "providerTotalTokens": 1458,
+      "selection": null,
+      "answerResult": {
+        "answer": "no",
+        "rationale": "The visible source (Reuters/LSEG IBES, Q2 earnings progress) explicitly notes this is not treated as a completed-quarter observation. The notes state: 'This materially advances reporting completeness versus the July 24 partial-quarter snapshot but is still not treated as a completed-quarter observation.' Additionally, the source tracks only 75% of companies reported, and its notes indicate it reflects earnings progress rather than a complete quarter. The source also has the caseExtension 'doesNotResolveCompleteQuarterRequirement': true, confirming it does not establish a completed-quarter observation.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:e7851a29179ea9d9e6082bab4903579219d114a8d0455b31a48e1241737b8ccb",
+          "resultDigest": "sha256:305b6285b34fb21d80aed402189eddf5b762ca707e7a657bfa728a5aeb48608b",
+          "modelCallId": "e1a14d7d-f4e1-4b88-a053-ec82fcf09e48",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1177,
+            "completion_tokens": 281,
+            "total_tokens": 1458,
+            "prompt_tokens_details": {
+              "cached_tokens": 384
+            },
+            "prompt_cache_hit_tokens": 384,
+            "prompt_cache_miss_tokens": 793,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:274f80a4aa6011aa93717e4679bd331dd9f1044a1eb0558c7fc24d8a26b02aab"
+        }
+      ]
+    },
+    {
+      "taskId": "q2-complete-quarter",
+      "treatment": "AGENT",
+      "expected": "no",
+      "answer": "no",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1324,
+      "catalogBytes": 2508,
+      "modelCalls": 2,
+      "providerPromptTokens": 2838,
+      "providerTotalTokens": 3459,
+      "selection": {
+        "rationale": "The task asks whether the most advanced Q2 earnings source establishes a completed-quarter observation. The Reuters/LSEG IBES source (sp500-q2-earnings-progress-2026-08-05) is the most advanced Q2 earnings source (dated 2026-08-05, later than the FactSet source dated 2026-07-24). It includes the case extension key 'doesNotResolveCompleteQuarterRequirement' which indicates it does not establish a completed-quarter observation, and its declared fields (companiesReportedMoreThanPct, adjustedQ2EarningsGrowthPct) describe progress rather than completion. This single source is sufficient to determine the answer regarding the 'most advanced Q2 earnings source' and whether it establishes a completed-quarter observation.",
+        "selectedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "answerResult": {
+        "answer": "no",
+        "rationale": "The visible source (Reuters / LSEG IBES, sp500-q2-earnings-progress-2026-08-05) explicitly states in its notes that the observation is 'still not treated as a completed-quarter observation,' despite materially advancing reporting completeness versus the July 24 partial-quarter snapshot. The case extension doesNotResolveCompleteQuarterRequirement is set to true, confirming the source does not establish a completed-quarter observation. Therefore the source itself negates the completed-quarter characterization.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:fa4e808b19a0af515faddb9b5b466a8547ba32c0a6685e818b7aa10aeed7009f",
+          "resultDigest": "sha256:e5ef24bdea20ecc9e48841f8fe2043f9a7f1e58a210f588f9ac11088da980fdd",
+          "modelCallId": "213bf968-e12f-44d1-a23e-0dfd81cb2d3d",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1662,
+            "completion_tokens": 354,
+            "total_tokens": 2016,
+            "prompt_tokens_details": {
+              "cached_tokens": 1536
+            },
+            "prompt_cache_hit_tokens": 1536,
+            "prompt_cache_miss_tokens": 126,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:33c330e46eca47552f501f9972d832aaa72eaf64edc3db885ef35e126f18dc2f"
+        },
+        {
+          "requestDigest": "sha256:2d4e65868048518a8bbe15bc2f325b02775f8926d5ca88f17618de735c673dc0",
+          "resultDigest": "sha256:6820cc9cc85424db3f99983d0c0cebd153203f8b0a8ccde5dac2e3ed90e2f8e2",
+          "modelCallId": "38bc427b-cafc-4a27-bea9-043726dc69b3",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1176,
+            "completion_tokens": 267,
+            "total_tokens": 1443,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 664,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:f4f146652792e752da42a3f8c62049b243612624b964608db906e5846284f979"
+        }
+      ]
+    },
+    {
+      "taskId": "latest-forward-pe",
+      "treatment": "FULL",
+      "expected": "20.4",
+      "answer": "20.4",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24",
+        "finance-source://sp500-q2-earnings-progress-2026-08-05",
+        "finance-source://spy-index-characteristics-2026-08-06",
+        "finance-source://us-corporate-profits-2026-q1",
+        "finance-source://us-treasury-nominal-10y-2026-08-05",
+        "finance-source://us-treasury-real-10y-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 5548,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 2558,
+      "providerTotalTokens": 2840,
+      "selection": null,
+      "answerResult": {
+        "answer": "20.4",
+        "rationale": "The August 5, 2026 Q2 earnings progress refresh (Reuters/LSEG IBES) is the most advanced Q2 earnings refresh and reports both a forward P/E of 20.4 and a 4.63% nominal 10-year Treasury yield in the same source. The July 24 snapshot has no nominal 10-year yield and only a 20.1 forward P/E; the State Street index characteristics (21.58) are not a Q2 earnings refresh and do not report the 4.63% nominal yield.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:1c509b01c309aeee4765e6477a58837002e365c07738a84fe3de4b22782aaf5d",
+          "resultDigest": "sha256:f987c10a2ae7dc844e96ed065cdf8dc30d04b4e358b289b9dfcd161d96274641",
+          "modelCallId": "72da4797-6734-4efe-bf59-6ed4ed325bdf",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 2558,
+            "completion_tokens": 282,
+            "total_tokens": 2840,
+            "prompt_tokens_details": {
+              "cached_tokens": 384
+            },
+            "prompt_cache_hit_tokens": 384,
+            "prompt_cache_miss_tokens": 2174,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:2f206c8e73fb0705b05b9bb93e630a3d2590649e33170d1f85b55a8eda3e6128"
+        }
+      ]
+    },
+    {
+      "taskId": "latest-forward-pe",
+      "treatment": "LATEST",
+      "expected": "20.4",
+      "answer": "20.4",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1324,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 1208,
+      "providerTotalTokens": 1487,
+      "selection": null,
+      "answerResult": {
+        "answer": "20.4",
+        "rationale": "The visible Finance source (Reuters/LSEG IBES, SPY Q2 earnings progress, observed 2026-08-07) reports forwardPE of 20.4 and nominal10YearTreasuryYieldPct of 4.63 in the same evidence item (publicationDate 2026-08-05). This is the most advanced Q2 earnings refresh available and it reports both values, so the forward P/E that appears alongside the 4.63% 10-year Treasury yield is 20.4.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:7638c5ed747b006fed23a3fc117d05757d819477b935b7340837d0324eebb157",
+          "resultDigest": "sha256:1883e6d6510765550f3a896328fdefc19957a0191ce1df92b276caa7fb2507aa",
+          "modelCallId": "916f5a18-0a25-4265-b558-19c1587b7072",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1208,
+            "completion_tokens": 279,
+            "total_tokens": 1487,
+            "prompt_tokens_details": {
+              "cached_tokens": 384
+            },
+            "prompt_cache_hit_tokens": 384,
+            "prompt_cache_miss_tokens": 824,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:627c845e0d03ff30a3a0bb93344db130ddf5e805867af2408ece780625374122"
+        }
+      ]
+    },
+    {
+      "taskId": "latest-forward-pe",
+      "treatment": "AGENT",
+      "expected": "20.4",
+      "answer": "20.4",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1324,
+      "catalogBytes": 2508,
+      "modelCalls": 2,
+      "providerPromptTokens": 2891,
+      "providerTotalTokens": 3496,
+      "selection": {
+        "rationale": "The task asks for a forward P/E value appearing in the most advanced Q2 earnings refresh that also reports a 4.63% nominal 10-year Treasury yield. Only the Reuters/LSEG IBES source (finance-source://sp500-q2-earnings-progress-2026-08-05) declares both a forwardPE field and a nominal10YearTreasuryYieldPct field, and it is the Q2 earnings progress source dated 2026-08-05. The other candidates do not declare both required fields: the FactSet Earnings Insight source (sp500-q2-earnings-2026-07-24) declares forwardTwelveMonthPE but no Treasury yield field; the SPY index characteristics source has no Treasury yield; the FRED corporate profits source has no forward P/E; and the two FRED Treasury sources have no forward P/E. The smallest sufficient set is the single Reuters/LSEG IBES source.",
+        "selectedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "answerResult": {
+        "answer": "20.4",
+        "rationale": "The visible Finance source (sp500-q2-earnings-progress-2026-08-05) is the most advanced Q2 earnings refresh and reports both nominal10YearTreasuryYieldPct = 4.63 and forwardPE = 20.4. The case notes it materially advances reporting completeness versus the earlier July 24 snapshot, satisfying the 'most advanced' refresh condition, and reports the 4.63% 10-year Treasury yield at the same observation.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:e1677dcb8c2b4f4d6973f9a0de404eadc763aab3a8d725bbd33549e3317b886e",
+          "resultDigest": "sha256:a54f13ef964cc286e755daeefadd51eb3c1caa0b9e23d23a677e3de3c202cbed",
+          "modelCallId": "eafe7bb2-63c1-4b62-9729-dc3e728135ac",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1684,
+            "completion_tokens": 337,
+            "total_tokens": 2021,
+            "prompt_tokens_details": {
+              "cached_tokens": 1536
+            },
+            "prompt_cache_hit_tokens": 1536,
+            "prompt_cache_miss_tokens": 148,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:eeaf4a6daf73b4062f3786ea3f11781109328b428614b5b95b724601b1b69f1e"
+        },
+        {
+          "requestDigest": "sha256:8c57294d7dc0dbe389f4662b7c30191c424b4739d21024e8f8a88a285ada583a",
+          "resultDigest": "sha256:78fd219d7fbdeb94907c499f9874d10494897c13023727b107654bf952906101",
+          "modelCallId": "2d2d12c7-6241-4dff-a343-f2d14e592715",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1207,
+            "completion_tokens": 268,
+            "total_tokens": 1475,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 695,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:889f7c960cd3cfc7d07375f3f09f626290035756e27372a1413d916ba933b718"
+        }
+      ]
+    },
+    {
+      "taskId": "alphabet-adjusted-july24",
+      "treatment": "FULL",
+      "expected": "25.9",
+      "answer": "25.9",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24",
+        "finance-source://sp500-q2-earnings-progress-2026-08-05",
+        "finance-source://spy-index-characteristics-2026-08-06",
+        "finance-source://us-corporate-profits-2026-q1",
+        "finance-source://us-treasury-nominal-10y-2026-08-05",
+        "finance-source://us-treasury-real-10y-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 5548,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 2554,
+      "providerTotalTokens": 2800,
+      "selection": null,
+      "answerResult": {
+        "answer": "25.9",
+        "rationale": "The July 24 FactSet earnings insight source explicitly reports the Q2 blended earnings growth figure excluding Alphabet as 25.9% (blendedQ2EarningsGrowthExAlphabetPct: 25.9), with the note explaining that the 37.9% blended figure was materially distorted by an Alphabet one-time valuation gain and the source reported 25.9% excluding Alphabet.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-2026-07-24"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:c4e2a5707782019c80f61e71329c250c88d541d254fda38a9836433de1d4345d",
+          "resultDigest": "sha256:16dc4653ebfe6167b2d273e75e09f69d66a511725a4dd2eed002808645caff27",
+          "modelCallId": "15625b56-eadc-4639-b9dc-931692ac16dd",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 2554,
+            "completion_tokens": 246,
+            "total_tokens": 2800,
+            "prompt_tokens_details": {
+              "cached_tokens": 384
+            },
+            "prompt_cache_hit_tokens": 384,
+            "prompt_cache_miss_tokens": 2170,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:218d14ccdad598439c3a67ee4749cf74eca880da15b3a4528ee3c07371801016"
+        }
+      ]
+    },
+    {
+      "taskId": "alphabet-adjusted-july24",
+      "treatment": "LATEST",
+      "expected": "25.9",
+      "answer": "unknown",
+      "correct": false,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedRequiredSource": false,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1324,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 1204,
+      "providerTotalTokens": 1527,
+      "selection": null,
+      "answerResult": {
+        "answer": "unknown",
+        "rationale": "The only visible source (finance-source://sp500-q2-earnings-progress-2026-08-05) is a Reuters/LSEG IBES report published on 2026-08-05 that gives an adjusted Q2 earnings growth of 31.1%. The question specifically asks about the July 24 partial-quarter FactSet evidence and what Q2 blended earnings growth percentage was reported excluding Alphabet. No July 24 partial-quarter FactSet source is visible, and the visible source does not include any FactSet data nor any value excluding Alphabet. The requested value/semantic relation is not established by the visible sources, so the answer is unknown.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:653b6a205629ef5b3a456c97976a0ac25386613bfd8a1bb4e43ae952732c0436",
+          "resultDigest": "sha256:5a9bed402b0959cca9d46a7acbfe85cf4c8b75cf3d5e11997ec73380659c09f0",
+          "modelCallId": "76bf68cf-c667-4859-b8c4-dc3c7d7cfeb5",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1204,
+            "completion_tokens": 323,
+            "total_tokens": 1527,
+            "prompt_tokens_details": {
+              "cached_tokens": 384
+            },
+            "prompt_cache_hit_tokens": 384,
+            "prompt_cache_miss_tokens": 820,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:6ccee17402f048dfb950e2e7585c3848987c0045eda2c01407c85004b5318689"
+        }
+      ]
+    },
+    {
+      "taskId": "alphabet-adjusted-july24",
+      "treatment": "AGENT",
+      "expected": "25.9",
+      "answer": "25.9",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1215,
+      "catalogBytes": 2508,
+      "modelCalls": 2,
+      "providerPromptTokens": 2875,
+      "providerTotalTokens": 3398,
+      "selection": {
+        "rationale": "The task asks for the Q2 blended earnings growth percentage excluding Alphabet from the July 24 partial-quarter FactSet evidence. The only source whose declared fields include 'blendedQ2EarningsGrowthExAlphabetPct' is finance-source://sp500-q2-earnings-2026-07-24 (FactSet Earnings Insight). However, catalog metadata contains no fact values, so the actual numeric value cannot be determined from this view. The correct single source selection is that FactSet source, but the numeric answer remains unresolved without inspecting the underlying evidence.",
+        "selectedSourceIds": [
+          "finance-source://sp500-q2-earnings-2026-07-24"
+        ]
+      },
+      "answerResult": {
+        "answer": "25.9",
+        "rationale": "The FactSet Earnings Insight source dated 2026-07-24 contains the fact blendedQ2EarningsGrowthExAlphabetPct with value 25.9. This directly establishes the Q2 blended earnings growth percentage excluding Alphabet as 25.9%.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-2026-07-24"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:a216b853013272a7c1604753e1e679c20745f50e5a9e1d02a7eefbd9e261debc",
+          "resultDigest": "sha256:1daeacd47308893032754c5433f9db5d8c77e9c049249ddd1b01b8f6928fcb18",
+          "modelCallId": "809f7626-af5f-44b2-8447-d11e322c2646",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1680,
+            "completion_tokens": 303,
+            "total_tokens": 1983,
+            "prompt_tokens_details": {
+              "cached_tokens": 1536
+            },
+            "prompt_cache_hit_tokens": 1536,
+            "prompt_cache_miss_tokens": 144,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:1c2be9a188d5a2654b1b840853d273bc0088ebc03cbff9572418436b70f573cb"
+        },
+        {
+          "requestDigest": "sha256:ea9c4b87dd8c34aca7042c40a69079bd9b3397c568bb9c2b53b80d0122c0ba3a",
+          "resultDigest": "sha256:ee304cd732683bd7e3cadfae64c15935979645fc1a71d22f90b9721bb58a33ba",
+          "modelCallId": "11a192b7-bb2e-4a01-a29b-ec7bf06e7c0e",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1195,
+            "completion_tokens": 220,
+            "total_tokens": 1415,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 683,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:a32f3b73a8f59ee18ef313fa8cd2e4cd9bdd8a7b7435ccfb2d58f446b690ba9d"
+        }
+      ]
+    },
+    {
+      "taskId": "eps-estimate-semantics",
+      "treatment": "FULL",
+      "expected": "no",
+      "answer": "no",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-2026-07-24",
+        "finance-source://sp500-q2-earnings-progress-2026-08-05",
+        "finance-source://spy-index-characteristics-2026-08-06",
+        "finance-source://us-corporate-profits-2026-q1",
+        "finance-source://us-treasury-nominal-10y-2026-08-05",
+        "finance-source://us-treasury-real-10y-2026-08-05"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 5548,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 2533,
+      "providerTotalTokens": 2801,
+      "selection": null,
+      "answerResult": {
+        "answer": "no",
+        "rationale": "The 18.44% estimated three-to-five-year EPS growth figure is explicitly described in the source (spy-index-characteristics-2026-08-06) as 'a holdings-based analyst estimate, not an observed future outcome.' Therefore it is an estimate/forecast, not an observed future outcome. The semantic relation in the question ('Is the 18.44% figure an observed future outcome?') is directly negated by the source note, so the answer is 'no' rather than 'unknown'.",
+        "usedSourceIds": [
+          "finance-source://spy-index-characteristics-2026-08-06"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:2b290fdc1462373fe7641a952cdcaf2d5004fc4832b3b34add001d4dc70ab941",
+          "resultDigest": "sha256:e7470da78d70143b4f2b3bb8a2c721c9d81e659f4816611c3e9d2e9b7c541626",
+          "modelCallId": "fe76e760-68bb-4d4d-8b54-9746ff6de184",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 2533,
+            "completion_tokens": 268,
+            "total_tokens": 2801,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 2021,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:69e98829ee95131756ef5439f986b57f8736e2a7fbf2c9710a873ae7c939502f"
+        }
+      ]
+    },
+    {
+      "taskId": "eps-estimate-semantics",
+      "treatment": "LATEST",
+      "expected": "no",
+      "answer": "unknown",
+      "correct": false,
+      "requiredSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "selectedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "selectedRequiredSource": false,
+      "usedSourceIds": [
+        "finance-source://sp500-q2-earnings-progress-2026-08-05"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1324,
+      "catalogBytes": 0,
+      "modelCalls": 1,
+      "providerPromptTokens": 1183,
+      "providerTotalTokens": 1532,
+      "selection": null,
+      "answerResult": {
+        "answer": "unknown",
+        "rationale": "The question asks whether an 18.44% estimated three-to-five-year EPS growth figure is an observed future outcome. The only visible source (finance-source://sp500-q2-earnings-progress-2026-08-05) contains facts about Q2 earnings growth (31.1%), percentage of companies reported (75%), forward PE (20.4), the 10-year Treasury yield (4.63%), and sector earnings growth data (10 sectors expected YoY growth; technology sector 72.0%). None of these facts mention an 18.44% three-to-five-year EPS growth estimate, nor any long-term EPS growth projection. The figure is not established by the visible source, so the answer is unknown.",
+        "usedSourceIds": [
+          "finance-source://sp500-q2-earnings-progress-2026-08-05"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:84cd038491f162e7d90bfe5998c8ab25162f1b9094832372ad3386459f5e4eab",
+          "resultDigest": "sha256:522ba616a8170dcb8627b1cb827037acb6a7b238ffd447ef5075b4bbf1c2d9f0",
+          "modelCallId": "2c1c2358-f1f7-4e7f-a29a-ab82011a2d13",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1183,
+            "completion_tokens": 349,
+            "total_tokens": 1532,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 415,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:b381dd05bfe27141e1e5831135792f5e1689019235228106f411628db8905b5a"
+        }
+      ]
+    },
+    {
+      "taskId": "eps-estimate-semantics",
+      "treatment": "AGENT",
+      "expected": "no",
+      "answer": "no",
+      "correct": true,
+      "requiredSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "selectedSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "selectedRequiredSource": true,
+      "usedSourceIds": [
+        "finance-source://spy-index-characteristics-2026-08-06"
+      ],
+      "citationValid": true,
+      "sourceContentBytes": 1235,
+      "catalogBytes": 2508,
+      "modelCalls": 2,
+      "providerPromptTokens": 2831,
+      "providerTotalTokens": 3282,
+      "selection": {
+        "rationale": "The question asks whether the 18.44% estimated three-to-five-year EPS growth figure is an observed future outcome. The source that declares the field 'estimatedThreeToFiveYearEPSGrowthPct' is the State Street SPDR S&P 500 ETF Trust source. The field name itself declares it to be an ESTIMATE (estimated future growth), not an observed outcome. This single source is sufficient to establish the field's semantics. No other source declares this field.",
+        "selectedSourceIds": [
+          "finance-source://spy-index-characteristics-2026-08-06"
+        ]
+      },
+      "answerResult": {
+        "answer": "no",
+        "rationale": "The source explicitly notes that 'The 3-5 year EPS growth figure is a holdings-based analyst estimate, not an observed future outcome.' Therefore the 18.44% estimated three-to-five-year EPS growth figure is an estimate, not an observed future outcome.",
+        "usedSourceIds": [
+          "finance-source://spy-index-characteristics-2026-08-06"
+        ]
+      },
+      "modelEvidence": [
+        {
+          "requestDigest": "sha256:059ab24c1a75f0ececd94e58372e38c32ce03172b9c6b5a7a69c2be6c83e37e5",
+          "resultDigest": "sha256:403657d776904e640655fc08e72e9b63bee9163547c1b484d00c620b83258454",
+          "modelCallId": "393c246a-2a6b-481f-a6ae-953535875ae2",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1668,
+            "completion_tokens": 236,
+            "total_tokens": 1904,
+            "prompt_tokens_details": {
+              "cached_tokens": 1536
+            },
+            "prompt_cache_hit_tokens": 1536,
+            "prompt_cache_miss_tokens": 132,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:0a05d40c40c2fdeff449bd380e59271aec6ae83921479c9e70403987a6088d37"
+        },
+        {
+          "requestDigest": "sha256:b9a4f6f28aa2303722d3e21727d1cfde4187b81f776720095f8b9169c63d54a0",
+          "resultDigest": "sha256:13a5dc79e30cdf910a034ab5ca6c1b72541c6a9d193c4a390f85c9e4e7790336",
+          "modelCallId": "afb412d3-bc02-4c0e-8aae-eb1acadc9795",
+          "modelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash",
+          "usage": {
+            "prompt_tokens": 1163,
+            "completion_tokens": 215,
+            "total_tokens": 1378,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 651,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "rawResponseDigest": "sha256:b727c2801d0d3b507af475e1a5852e78fac31d6d58872c5f31c2212eceeba3d6"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "FULL": {
+      "tasks": 6,
+      "correct": 6,
+      "accuracy": 1.0,
+      "selectedRequiredSource": 6,
+      "citationValid": 6,
+      "sourceContentBytes": 33288,
+      "catalogBytes": 0,
+      "modelCalls": 6,
+      "providerPromptTokens": 15283,
+      "providerTotalTokens": 17025
+    },
+    "LATEST": {
+      "tasks": 6,
+      "correct": 3,
+      "accuracy": 0.5,
+      "selectedRequiredSource": 3,
+      "citationValid": 6,
+      "sourceContentBytes": 7944,
+      "catalogBytes": 0,
+      "modelCalls": 6,
+      "providerPromptTokens": 7183,
+      "providerTotalTokens": 8939
+    },
+    "AGENT": {
+      "tasks": 6,
+      "correct": 6,
+      "accuracy": 1.0,
+      "selectedRequiredSource": 6,
+      "citationValid": 6,
+      "sourceContentBytes": 7657,
+      "catalogBytes": 15048,
+      "modelCalls": 12,
+      "providerPromptTokens": 17188,
+      "providerTotalTokens": 20428
+    }
+  },
+  "externalFinancialWriteAttempted": false,
+  "interpretationBoundary": "Calibration only. This receipt validates or falsifies the apparatus; it is not by itself a stable model-performance estimate or Core revision.",
+  "integrity": {
+    "algorithm": "sha256",
+    "payloadDigest": "sha256:44a2c762c8b431bd663ef771ae2f79317fb1816c6e425b028e0b067c0598fd46"
+  }
+}

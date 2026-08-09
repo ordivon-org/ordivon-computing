@@ -96,3 +96,9 @@ The loop itself is part of the world model. If repeated assimilation shows that 
 ## First dogfood round
 
 [`world-model-frontier.json`](world-model-frontier.json) records the first post-Agent-first assimilation frontier. It intentionally marks project revisions for review without asserting that every revision changed the shared world model. Finance and Studio also expose a simpler structural drift: both are real Ordivon projects while the previous stable registry still described a nine-project family. Fixing that drift is the first concrete demonstration that project reality must be able to revise Computing's own model of Ordivon.
+
+## First lower-half re-test
+
+[`experiments/world-model-a6-cross-domain-v0/`](experiments/world-model-a6-cross-domain-v0/) consumes the Round 001 A6 implication against exact Finance and Harness revisions. It demonstrates why the lower half of the loop is not a synchronized architecture rollout: the shared claim can survive while one implementation choice is rejected. Agent-owned selection transferred to the Finance workload; a static latest-only caller rule did not, and a separate selection-only Model call carried a measurable fixed cost.
+
+The experiment also exposed a method pressure. A transient Provider disconnect after many completed observations initially erased the campaign-level receipt. The repaired campaign checkpoints completed steps independently and later resumed without dispatching them again. This is retained as evidence that experiment-step truth and terminal runner success are different facts; whether that becomes a machine-level world-model-loop rule remains an open method question rather than an automatic v1 mutation.

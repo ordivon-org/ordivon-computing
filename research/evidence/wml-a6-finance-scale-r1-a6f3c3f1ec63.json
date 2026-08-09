@@ -1,0 +1,1791 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.world-model-a6-crossdomain-scale-sweep",
+  "experimentId": "WML-A6-FINANCE-v0",
+  "round": 1,
+  "computingRevision": "3493693b9c23274213eca44aa9bfa3b3252b29af",
+  "financeRevision": "ef3739d774037298af66a325f6a3314b92aefa8b",
+  "harnessRevision": "487e0ac8eb945256842347b5371cbbdd70bfce55",
+  "model": "deepseek-v4-flash",
+  "credentialScopeId": "credential-scope:deepseek:flash:0",
+  "taskIds": [
+    "current-q2-growth",
+    "eps-estimate-semantics",
+    "top-ten-concentration"
+  ],
+  "progressIdentityDigest": "sha256:6d9f2a718598d243dcc5d5f936683ebe3e55f635403ac27c9f24065bb16bd5ba",
+  "tiers": [
+    {
+      "distractorCount": 0,
+      "distractorSourceIds": [],
+      "sourcePoolCount": 6,
+      "sourcePoolDigest": "sha256:ec38ab163790bb31b878069a2eedbd817316d2da6ec87c922ba34ed0644be0e7",
+      "catalogDigest": "sha256:9a3887d1c444aa8818ec0552313b9298c8d5c9146cc609154b62bd7d206a3218",
+      "records": [
+        {
+          "taskId": "current-q2-growth",
+          "treatment": "FULL",
+          "expected": "31.1",
+          "answer": "31.1",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedSourceIds": [
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 5548,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 2560,
+          "providerTotalTokens": 2932,
+          "selection": null,
+          "answerResult": {
+            "answer": "31.1",
+            "rationale": "The most advanced Q2 reporting evidence is the Reuters/LSEG IBES source published 2026-08-05, which reports adjusted Q2 earnings growth of 31.1% after 75%+ of companies reported. The earlier July 24 FactSet snapshot reported 37.9% blended but noted that figure was materially distorted by an Alphabet one-time valuation gain, with 25.9% excluding Alphabet. Since only 27% of companies had reported by July 24 (an incomplete-quarter observation) and the August 5 evidence materially advances reporting completeness, the current evidence value for adjusted Q2 S&P 500 earnings growth is 31.1%.",
+            "usedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05",
+              "finance-source://sp500-q2-earnings-2026-07-24"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:46cbe15beb35f84dd32fd7cf97f4e1844bf07eee18b9a29e97a20ad01ab310e5",
+              "resultDigest": "sha256:0d57022d04cf4f33b0a8fe4f90d16065650e1d45d2fc672f0a0becb93c14c9a1",
+              "modelCallId": "d7d8ced9-12e6-47ef-9420-d09c2c4603d8",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 2560,
+                "completion_tokens": 372,
+                "total_tokens": 2932,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2432
+                },
+                "prompt_cache_hit_tokens": 2432,
+                "prompt_cache_miss_tokens": 128,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:62da82728448aa88201e1ad1a7651c433bb58dd1375be50b9c8e57a2ed14f977"
+            }
+          ]
+        },
+        {
+          "taskId": "current-q2-growth",
+          "treatment": "AGENT",
+          "expected": "31.1",
+          "answer": "31.1",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1324,
+          "catalogBytes": 2508,
+          "modelCalls": 2,
+          "providerPromptTokens": 2895,
+          "providerTotalTokens": 3491,
+          "selection": {
+            "rationale": "The task asks for the adjusted Q2 S&P 500 earnings growth percentage using the most advanced Q2 reporting evidence. The Reuters/LSEG IBES source (sp500-q2-earnings-progress-2026-08-05) is the only source that declares an 'adjustedQ2EarningsGrowthPct' field, which directly matches the requested metric. It is also the most recent Q2 reporting source (observed 2026-08-05) compared to the FactSet source (observed 2026-07-24). The FactSet source provides 'blendedQ2EarningsGrowthPct' (blended, not adjusted) and is earlier. This single source is therefore the smallest sufficient set.",
+            "selectedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05"
+            ]
+          },
+          "answerResult": {
+            "answer": "31.1",
+            "rationale": "The visible source (finance-source://sp500-q2-earnings-progress-2026-08-05, Reuters/LSEG IBES dated 2026-08-05) explicitly records the fact adjustedQ2EarningsGrowthPct = 31.1, described as the most advanced Q2 reporting evidence (materially advancing the July 24 partial-quarter snapshot). This directly establishes the current evidence value for adjusted Q2 S&P 500 earnings growth as 31.1%.",
+            "usedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:e71cd7f62d6ac6206358829a657b8f59dd707840ecace5ba7e17e98cd05dbdf1",
+              "resultDigest": "sha256:4b9f3177338bcf90a2fd57059018bc0c663d97bcf48738fafd9dd33aad212102",
+              "modelCallId": "9a473e1d-ef6f-4b94-a647-dcfae2e46191",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1686,
+                "completion_tokens": 325,
+                "total_tokens": 2011,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1664
+                },
+                "prompt_cache_hit_tokens": 1664,
+                "prompt_cache_miss_tokens": 22,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:779876d2b94fd25790f8d67517af83ca7107b0a68f6b03401e8e876d3d0f5ce4"
+            },
+            {
+              "requestDigest": "sha256:588a3909933745e8ee90766662d3db9e7812c96b0904f09cbd45d560eb785b5a",
+              "resultDigest": "sha256:d9c9d0f03796ac837d8ce84c6c2fa1d20159f1a874c31cbcb44b132b042c2905",
+              "modelCallId": "6a6f0571-ff42-4820-9838-eec28553555f",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1209,
+                "completion_tokens": 271,
+                "total_tokens": 1480,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 57,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:6fdb89277bde08b537080caec649e3925b776f765dc28aa0583204f02e316df8"
+            }
+          ]
+        },
+        {
+          "taskId": "eps-estimate-semantics",
+          "treatment": "FULL",
+          "expected": "no",
+          "answer": "no",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 5548,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 2533,
+          "providerTotalTokens": 2832,
+          "selection": null,
+          "answerResult": {
+            "answer": "no",
+            "rationale": "The source that provides the 18.44% estimated three-to-five-year EPS growth figure (State Street SPDR S&P 500 ETF Trust index characteristics) explicitly notes: 'The 3-5 year EPS growth figure is a holdings-based analyst estimate, not an observed future outcome.' An estimate is a forecast or projection, not a realized/observed outcome. Since the source itself identifies this figure as an estimate rather than an observed future outcome, the requested semantic relation (that it IS an observed future outcome) is not established; in fact it is contradicted. The other visible sources do not address the 18.44% three-to-five-year EPS growth figure at all.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:613d72a84da11fea2b02d3c4a6fbac697bac8f82796dc1a9beb34508fd87bdd3",
+              "resultDigest": "sha256:4272f5681416b1d1010e42f644132123ed31fe82c0d97f641dd388ea07ada4bd",
+              "modelCallId": "b735de61-852e-4430-be15-99c10dd61434",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 2533,
+                "completion_tokens": 299,
+                "total_tokens": 2832,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2432
+                },
+                "prompt_cache_hit_tokens": 2432,
+                "prompt_cache_miss_tokens": 101,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:611e6a480757a0a1d138bbb881ecd6e383d4438486ff41247d3cb3e760d23b40"
+            }
+          ]
+        },
+        {
+          "taskId": "eps-estimate-semantics",
+          "treatment": "AGENT",
+          "expected": "no",
+          "answer": "no",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1235,
+          "catalogBytes": 2508,
+          "modelCalls": 2,
+          "providerPromptTokens": 2831,
+          "providerTotalTokens": 3292,
+          "selection": {
+            "rationale": "The question asks whether the 18.44% estimated three-to-five-year EPS growth figure is an observed future outcome. The field 'estimatedThreeToFiveYearEPSGrowthPct' is declared only by the State Street SPDR S&P 500 ETF Trust source. The field name contains 'estimated' and 'EPS growth', indicating a forward-looking estimate rather than an observed/historical outcome. A single source declaring this field is sufficient to assess whether this figure represents an observed future outcome. No other source declares this field, so this is the smallest sufficient set.",
+            "selectedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "answerResult": {
+            "answer": "no",
+            "rationale": "The source explicitly notes that the 18.44% three-to-five-year EPS growth figure is 'a holdings-based analyst estimate, not an observed future outcome.' Therefore, it is an estimate, not an observed future outcome.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:4741d768d33a891fcb6cf8f29ea586a965eb3f67de8c1d0357532928badb9167",
+              "resultDigest": "sha256:e8da732b347f077af54649637c76ff278feab27d617623200f8510207b176a8d",
+              "modelCallId": "a0b03410-54a0-48c1-9e91-c1ebadca7a20",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1668,
+                "completion_tokens": 254,
+                "total_tokens": 1922,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1664
+                },
+                "prompt_cache_hit_tokens": 1664,
+                "prompt_cache_miss_tokens": 4,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:d42ba5ae7096a602799b4a60412dd4844111005deaf6721c4441e3e8bc31e483"
+            },
+            {
+              "requestDigest": "sha256:6f841f32cb17154a5834483cdab83b6f5fbaaad2d480e7735064b65d0ac97268",
+              "resultDigest": "sha256:24f69429ecc5d5d52cfb3216d390ea07a1cb8e83dca80ced8ec12e8aa522d198",
+              "modelCallId": "272e9ef0-8b59-4a1c-801b-5c0739542c51",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1163,
+                "completion_tokens": 207,
+                "total_tokens": 1370,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 11,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:8659f64d2e798c7f0f35bf6d543f6d9ad6b57cfb9c74f2ac2f81dc7f02987ca4"
+            }
+          ]
+        },
+        {
+          "taskId": "top-ten-concentration",
+          "treatment": "FULL",
+          "expected": "38.15",
+          "answer": "38.15",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 5548,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 2551,
+          "providerTotalTokens": 2775,
+          "selection": null,
+          "answerResult": {
+            "answer": "38.15",
+            "rationale": "The State Street SPDR S&P 500 ETF Trust source (spy-index-characteristics-2026-08-06) explicitly reports topTenHoldingsWeightPct: 38.15 for the S&P 500/SPY index as of 2026-08-06.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:f566f771b550250dbc9223d9792d395f67bc213de69de2a69305b0c88851261f",
+              "resultDigest": "sha256:735eef1212e608e835b8da22ecb71163a5927fd95b45d099f585952c99ff42f4",
+              "modelCallId": "802b883a-b2b2-4038-8e55-6f1920c10656",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 2551,
+                "completion_tokens": 224,
+                "total_tokens": 2775,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2432
+                },
+                "prompt_cache_hit_tokens": 2432,
+                "prompt_cache_miss_tokens": 119,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:0c7755db1e5a0de4c612b1c835d4bbb53a2a47e039221b1c50ef8156fc8b780d"
+            }
+          ]
+        },
+        {
+          "taskId": "top-ten-concentration",
+          "treatment": "AGENT",
+          "expected": "38.15",
+          "answer": "38.15",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1235,
+          "catalogBytes": 2508,
+          "modelCalls": 2,
+          "providerPromptTokens": 2858,
+          "providerTotalTokens": 3272,
+          "selection": {
+            "rationale": "The task asks for the top-ten holdings weight percentage for SPY/S&P 500. Only the State Street SPDR S&P 500 ETF Trust source declares the field 'topTenHoldingsWeightPct', making it the sole source with the required field. No other sources in the catalog declare any top-ten holdings concentration field.",
+            "selectedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "answerResult": {
+            "answer": "38.15",
+            "rationale": "The visible source explicitly records topTenHoldingsWeightPct: 38.15 for the SPY/S&P 500 index characteristics. This value is directly stated in the source facts, so it is explicitly supported.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:c3ead11196c1098ea8664013d3db81c2ecf522d66e14a82e832daf4d80e31eb7",
+              "resultDigest": "sha256:c7f26b282d388c864c80c7227ec0340e5a44b73b771c11a2b09c029b942f63d5",
+              "modelCallId": "77f3783c-0c11-49a7-b139-8e3bc95cf0ef",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1677,
+                "completion_tokens": 207,
+                "total_tokens": 1884,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1664
+                },
+                "prompt_cache_hit_tokens": 1664,
+                "prompt_cache_miss_tokens": 13,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:4e270fa358b76c5dece1497cd7c699148f238d5b5cbcc84681a2a658453eae2e"
+            },
+            {
+              "requestDigest": "sha256:68d6f2fa8d7abc27e4dba6b565a30eb23082bb3c37a8bc68e3846cb40c9d6a92",
+              "resultDigest": "sha256:86f3bc8200ba33821e98462d38b2356226be85c6924ea0c306116b0887cb80f4",
+              "modelCallId": "10d10e1f-4895-41a1-abf9-60ce332560c0",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1181,
+                "completion_tokens": 207,
+                "total_tokens": 1388,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 29,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:819f68daa8b225573609030d31567ea51c7b6d4f4e5ff8dfd44694cf7f8b7b39"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "FULL": {
+          "tasks": 3,
+          "correct": 3,
+          "accuracy": 1.0,
+          "selectedRequiredSource": 3,
+          "sourceContentBytes": 16644,
+          "catalogBytes": 0,
+          "modelCalls": 3,
+          "providerPromptTokens": 7644,
+          "providerTotalTokens": 8539
+        },
+        "AGENT": {
+          "tasks": 3,
+          "correct": 3,
+          "accuracy": 1.0,
+          "selectedRequiredSource": 3,
+          "sourceContentBytes": 3794,
+          "catalogBytes": 7524,
+          "modelCalls": 6,
+          "providerPromptTokens": 8584,
+          "providerTotalTokens": 10055
+        }
+      }
+    },
+    {
+      "distractorCount": 2,
+      "distractorSourceIds": [
+        "finance-file://schemas/schema-manifest.json",
+        "finance-file://schemas/agent-context-v10.schema.json"
+      ],
+      "sourcePoolCount": 8,
+      "sourcePoolDigest": "sha256:b31ffb3c4576f911dbdd927d9d67906c1459ace06356ae93dbef2988bab040d9",
+      "catalogDigest": "sha256:7bdc2618e1c477ffb02e111dc959b801996b661199e8f6602251a19cefb48eb6",
+      "records": [
+        {
+          "taskId": "current-q2-growth",
+          "treatment": "FULL",
+          "expected": "31.1",
+          "answer": "31.1",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedSourceIds": [
+            "finance-file://schemas/agent-context-v10.schema.json",
+            "finance-file://schemas/schema-manifest.json",
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 21296,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 6931,
+          "providerTotalTokens": 7328,
+          "selection": null,
+          "answerResult": {
+            "answer": "31.1",
+            "rationale": "The question asks for the adjusted Q2 S&P 500 earnings growth percentage using the most advanced Q2 reporting evidence in the fixed source pool. The July 24, 2026 FactSet source reports blended Q2 earnings growth of 37.9%, but notes this was distorted by an Alphabet one-time valuation gain, reporting an adjusted figure of 25.9% excluding Alphabet. This July 24 snapshot is based on only 27% of companies having reported (incomplete quarter). The more advanced source, sp500-q2-earnings-progress-2026-08-05 (Reuters/LSEG IBES, published 2026-08-05), reports adjustedQ2EarningsGrowthPct of 31.1 with over 75% of companies reported, materially advancing reporting completeness versus the July 24 partial-quarter snapshot. This is the most advanced Q2 reporting evidence value for adjusted S&P 500 earnings growth.",
+            "usedSourceIds": [
+              "finance-source://sp500-q2-earnings-2026-07-24",
+              "finance-source://sp500-q2-earnings-progress-2026-08-05"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:2dcbe226329c416ca8bbc18bdd95367e1e3026a5f06bfc7bc8737872cc7ffc66",
+              "resultDigest": "sha256:32aeb85ba58208c50ed766ddc3d33015604ec51f16df8b3f4f48295db3a1614c",
+              "modelCallId": "0c5d264f-2bee-4833-ad5b-6821343ae236",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 6931,
+                "completion_tokens": 397,
+                "total_tokens": 7328,
+                "prompt_tokens_details": {
+                  "cached_tokens": 6912
+                },
+                "prompt_cache_hit_tokens": 6912,
+                "prompt_cache_miss_tokens": 19,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:14f86d2f6491ac644f271651cf33e18a61bf9c4d822e3ebf7296336e7088f84f"
+            }
+          ]
+        },
+        {
+          "taskId": "current-q2-growth",
+          "treatment": "AGENT",
+          "expected": "31.1",
+          "answer": "31.1",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1324,
+          "catalogBytes": 3064,
+          "modelCalls": 2,
+          "providerPromptTokens": 3078,
+          "providerTotalTokens": 3626,
+          "selection": {
+            "rationale": "The task asks for the adjusted Q2 S&P 500 earnings growth percentage using the most advanced Q2 reporting evidence. The source finance-source://sp500-q2-earnings-progress-2026-08-05 (Reuters / LSEG IBES) explicitly declares the field 'adjustedQ2EarningsGrowthPct', which matches the task's requirement for the adjusted Q2 earnings growth figure. It also has the latest observedAt (2026-08-07T12:05:36Z) and carries purpose extension keys indicating progress reporting. The other sources either lack this specific adjusted field (e.g., FactSet source has blendedQ2EarningsGrowthPct, not adjusted) or cover different subjects (corporate profits, treasuries, index characteristics). This single source is sufficient and minimal.",
+            "selectedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05"
+            ]
+          },
+          "answerResult": {
+            "answer": "31.1",
+            "rationale": "The most advanced Q2 reporting evidence in the fixed source pool is the Reuters / LSEG IBES observation (sp500-q2-earnings-progress-2026-08-05), which states adjusted Q2 S&P 500 earnings growth of 31.1%. This is the current evidence value for adjusted Q2 earnings growth percentage.",
+            "usedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:90d83aa9406a957d5646dc36042d16eb1662a40ba436c1351f40eaa80453d64a",
+              "resultDigest": "sha256:c91c13388b18b11c15e17bcd52a7589c1f4d48464923b0b616663c80550a6f8b",
+              "modelCallId": "0a32341f-c812-41be-9eed-50e97e19897d",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1869,
+                "completion_tokens": 308,
+                "total_tokens": 2177,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1792
+                },
+                "prompt_cache_hit_tokens": 1792,
+                "prompt_cache_miss_tokens": 77,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:eaaff94e0e8d902224cf415f2794679a8ce7fcfa47cb3b2383c63b065949dc44"
+            },
+            {
+              "requestDigest": "sha256:aa1e1bc534a79ab934cd6c240fd85b99a70231255018687f704dbef0960851b6",
+              "resultDigest": "sha256:4ce9500bb5360e2344fc1a31da09158a854bfdcd529ebbf1c7c22053615f403c",
+              "modelCallId": "63f1bb19-a564-4029-8525-315b8d3d90c0",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1209,
+                "completion_tokens": 240,
+                "total_tokens": 1449,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 57,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:f643b8bd5fe8b1fef0c77e4a4c650b9ab5faa87db45430467099729cd6a264ad"
+            }
+          ]
+        },
+        {
+          "taskId": "eps-estimate-semantics",
+          "treatment": "FULL",
+          "expected": "no",
+          "answer": "no",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-file://schemas/agent-context-v10.schema.json",
+            "finance-file://schemas/schema-manifest.json",
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 21296,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 6904,
+          "providerTotalTokens": 7118,
+          "selection": null,
+          "answerResult": {
+            "answer": "no",
+            "rationale": "The visible source explicitly states that the estimatedThreeToFiveYearEPSGrowthPct figure of 18.44% 'is a holdings-based analyst estimate, not an observed future outcome.' Therefore, it is not an observed future outcome; it is an estimate.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:a943506d3166b29a4c76a4ab4865d28bd50208fe7682dd07722f1f4e41a34e08",
+              "resultDigest": "sha256:5df8b3b8be619e51ae4c11abae3c16766f068ed95d52dc158399281e856423bd",
+              "modelCallId": "68966a4e-b9ff-4c4b-966e-302d4c1b738d",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 6904,
+                "completion_tokens": 214,
+                "total_tokens": 7118,
+                "prompt_tokens_details": {
+                  "cached_tokens": 6784
+                },
+                "prompt_cache_hit_tokens": 6784,
+                "prompt_cache_miss_tokens": 120,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:f4b6ae825da5c341fc9a0502a24445851c29147a746278f1e1d8be160bd2b3b0"
+            }
+          ]
+        },
+        {
+          "taskId": "eps-estimate-semantics",
+          "treatment": "AGENT",
+          "expected": "no",
+          "answer": "no",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1235,
+          "catalogBytes": 3064,
+          "modelCalls": 2,
+          "providerPromptTokens": 3014,
+          "providerTotalTokens": 3508,
+          "selection": {
+            "rationale": "The question asks whether the 18.44% estimated three-to-five-year EPS growth figure is an observed future outcome. This figure directly maps to the 'estimatedThreeToFiveYearEPSGrowthPct' field, which is an estimate (projection) rather than an observed outcome. The only source that declares this field is the State Street SPDR S&P 500 ETF Trust (spy-index-characteristics-2026-08-06). No other source in the catalog declares any three-to-five-year EPS growth field. The field name itself contains 'estimated', indicating it is a forward-looking projection, not an observed outcome. Only this single source is needed and sufficient.",
+            "selectedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "answerResult": {
+            "answer": "no",
+            "rationale": "The visible source explicitly notes that the 3-5 year EPS growth figure (18.44%) 'is a holdings-based analyst estimate, not an observed future outcome.' Therefore it is not an observed future outcome.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:983c58c01f120773bdcdfe96b36e6ac57f2378b086383293f24c9a5ee4b83131",
+              "resultDigest": "sha256:c5b8b10ba1ed097529e411521e250d5f4de768a99ec54589aabead4227adc141",
+              "modelCallId": "2f4abc80-8bc7-423e-94c7-1f59ce7a336c",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1851,
+                "completion_tokens": 292,
+                "total_tokens": 2143,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1792
+                },
+                "prompt_cache_hit_tokens": 1792,
+                "prompt_cache_miss_tokens": 59,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:a2db9af9e40a03b1118e3114bd8832b360395991e87c621f3007fde506f52b4e"
+            },
+            {
+              "requestDigest": "sha256:536a00fffe39747735efaef41dd0aa875abf00a4f25ca7f50d220389a9a6d94c",
+              "resultDigest": "sha256:f52c5d2a7ad02357548d56baad5448cce3bf1f2b87a16eef6c8f13d504152f1d",
+              "modelCallId": "12eaa6dd-ba8e-4721-957d-d99c10f53d15",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1163,
+                "completion_tokens": 202,
+                "total_tokens": 1365,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 11,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:14615a536946743d3c3fd3f97e34de88953077ede779dfbef19e86276c8ba3b7"
+            }
+          ]
+        },
+        {
+          "taskId": "top-ten-concentration",
+          "treatment": "FULL",
+          "expected": "38.15",
+          "answer": "38.15",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-file://schemas/agent-context-v10.schema.json",
+            "finance-file://schemas/schema-manifest.json",
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 21296,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 6922,
+          "providerTotalTokens": 7145,
+          "selection": null,
+          "answerResult": {
+            "answer": "38.15",
+            "rationale": "The State Street SPDR S&P 500 ETF Trust source explicitly reports `topTenHoldingsWeightPct: 38.15` for the SPY/S&P 500 index characteristics (as of 2026-08-06). This directly answers the top-ten holdings weight percentage.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:8e0f1b6418db1c60b3cce1f979d0dabfcb488583b34704ca7c31509921acbc54",
+              "resultDigest": "sha256:672c81c4fd4111216669d6e0e920b631c6aa12b21ebffdcd10c84d7a7baea1d8",
+              "modelCallId": "159a0b1e-3c20-42c9-977f-8d5b47a84f12",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 6922,
+                "completion_tokens": 223,
+                "total_tokens": 7145,
+                "prompt_tokens_details": {
+                  "cached_tokens": 6912
+                },
+                "prompt_cache_hit_tokens": 6912,
+                "prompt_cache_miss_tokens": 10,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:a7a6969634435f5197882270778d5b91c656c9bd4949c52fb7de7b197e41092f"
+            }
+          ]
+        },
+        {
+          "taskId": "top-ten-concentration",
+          "treatment": "AGENT",
+          "expected": "38.15",
+          "answer": "38.15",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1235,
+          "catalogBytes": 3064,
+          "modelCalls": 2,
+          "providerPromptTokens": 3041,
+          "providerTotalTokens": 3474,
+          "selection": {
+            "rationale": "The task asks for the top-ten holdings weight percentage for SPY/S&P 500. The source 'spy-index-characteristics-2026-08-06' explicitly declares 'topTenHoldingsWeightPct' among its available fields, which directly corresponds to the requested fact. No other source in the pool declares a top-ten holdings weight field. This is the smallest sufficient set (one source).",
+            "selectedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "answerResult": {
+            "answer": "38.15",
+            "rationale": "The fixed source pool explicitly provides topTenHoldingsWeightPct: 38.15 for SPY/S&P 500 in the State Street SPDR S&P 500 ETF Trust index characteristics as of 2026-08-06.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:3ee44de1a06b2855338f9bcb044966d1197263fc255a2925a47a1ff32d0d4f70",
+              "resultDigest": "sha256:04bc4a60c4fa97ad1e701c890e12376926cff4d868610e33de39d24075d74d34",
+              "modelCallId": "03403dab-781c-4e58-afa0-872a00576975",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1860,
+                "completion_tokens": 223,
+                "total_tokens": 2083,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1792
+                },
+                "prompt_cache_hit_tokens": 1792,
+                "prompt_cache_miss_tokens": 68,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:6467bc0992fa5700d39434c9e7b3a914611d2756f4b8d490e9ec66aaebb1004b"
+            },
+            {
+              "requestDigest": "sha256:f54a3c750a6ba935cfed172c8cb9d59eb332ed534c77f70eb39925aeb84d8776",
+              "resultDigest": "sha256:628b8004307d6e6fbaae674581bacd4d46afccec29ae0e87823cc0996b10bbac",
+              "modelCallId": "e1f12661-07dd-4db3-a1ec-9eadb5ba1d61",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1181,
+                "completion_tokens": 210,
+                "total_tokens": 1391,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 29,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:73e7d1faeb8a1f6e77080ac6b0f580f4360509ce5a6e876fb542963ff0eb31dc"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "FULL": {
+          "tasks": 3,
+          "correct": 3,
+          "accuracy": 1.0,
+          "selectedRequiredSource": 3,
+          "sourceContentBytes": 63888,
+          "catalogBytes": 0,
+          "modelCalls": 3,
+          "providerPromptTokens": 20757,
+          "providerTotalTokens": 21591
+        },
+        "AGENT": {
+          "tasks": 3,
+          "correct": 3,
+          "accuracy": 1.0,
+          "selectedRequiredSource": 3,
+          "sourceContentBytes": 3794,
+          "catalogBytes": 9192,
+          "modelCalls": 6,
+          "providerPromptTokens": 9133,
+          "providerTotalTokens": 10608
+        }
+      }
+    },
+    {
+      "distractorCount": 4,
+      "distractorSourceIds": [
+        "finance-file://schemas/schema-manifest.json",
+        "finance-file://schemas/agent-context-v10.schema.json",
+        "finance-file://schemas/agent-context-v7.schema.json",
+        "finance-file://schemas/agent-context-v8.schema.json"
+      ],
+      "sourcePoolCount": 10,
+      "sourcePoolDigest": "sha256:8eecb74f872cacf46878636d3a0f6ae9aaffca9e8f542ccd1f4e021c634304c1",
+      "catalogDigest": "sha256:32a61633afbc82c324e62710aca5fd11007754beb09b4aecf371657ccf32b904",
+      "records": [
+        {
+          "taskId": "current-q2-growth",
+          "treatment": "FULL",
+          "expected": "31.1",
+          "answer": "31.1",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedSourceIds": [
+            "finance-file://schemas/agent-context-v10.schema.json",
+            "finance-file://schemas/agent-context-v7.schema.json",
+            "finance-file://schemas/agent-context-v8.schema.json",
+            "finance-file://schemas/schema-manifest.json",
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 31354,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 9547,
+          "providerTotalTokens": 9836,
+          "selection": null,
+          "answerResult": {
+            "answer": "31.1",
+            "rationale": "The question asks for the current evidence value of adjusted Q2 S&P 500 earnings growth using the most advanced Q2 reporting evidence. The Reuters/LSEG IBES source (published 2026-08-05, observed 2026-08-07) reports an adjustedQ2EarningsGrowthPct fact of 31.1 and is the most recent/most complete Q2 reporting evidence, materially advancing reporting completeness (75%+ of companies reported) versus the July 24 partial-quarter snapshot. It is described as the current evidence value for adjusted Q2 earnings growth.",
+            "usedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:67467bccf24ae245ead00128745b095fb7eeb8137d313dfaee0fa7ccd4c64fe1",
+              "resultDigest": "sha256:3cd61c5d8222e1203aa89238f6961354e833a87be81bd904eb8bcc6bbb93bc30",
+              "modelCallId": "d93928b7-48e0-47d7-9846-c3af01778e0b",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 9547,
+                "completion_tokens": 289,
+                "total_tokens": 9836,
+                "prompt_tokens_details": {
+                  "cached_tokens": 9472
+                },
+                "prompt_cache_hit_tokens": 9472,
+                "prompt_cache_miss_tokens": 75,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:c299fee89b3924265f052bf81a5c3a109a8347226a96cbb2bc882c7f4f2e285d"
+            }
+          ]
+        },
+        {
+          "taskId": "current-q2-growth",
+          "treatment": "AGENT",
+          "expected": "31.1",
+          "answer": "31.1",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1324,
+          "catalogBytes": 3682,
+          "modelCalls": 2,
+          "providerPromptTokens": 3284,
+          "providerTotalTokens": 3850,
+          "selection": {
+            "rationale": "The task asks for the most advanced Q2 reporting evidence value for adjusted Q2 S&P 500 earnings growth percentage. The source 'finance-source://sp500-q2-earnings-progress-2026-08-05' (Reuters / LSEG IBES) is the only source whose declared fields include 'adjustedQ2EarningsGrowthPct', which directly matches the requested adjusted Q2 earnings growth percentage. Its observedAt (2026-08-07T12:05:36Z) is later than the other SPY sources, and it carries the later publication evidence. The FactSet Earnings Insight source has 'blendedQ2EarningsGrowthPct' (not adjusted) and an earlier caseId. Therefore the single smallest sufficient source is the LSEG IBES source.",
+            "selectedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05"
+            ]
+          },
+          "answerResult": {
+            "answer": "31.1",
+            "rationale": "The visible Finance source (finance-source://sp500-q2-earnings-progress-2026-08-05) from Reuters/LSEG IBES, published 2026-08-05, contains the fact adjustedQ2EarningsGrowthPct = 31.1. This is the current evidence value for adjusted Q2 S&P 500 earnings growth percentage from the most advanced Q2 reporting evidence in the fixed source pool.",
+            "usedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:2110731232c586e01e71b4b52934a56c6aef085a6c3bb05d2b9bef0fea068501",
+              "resultDigest": "sha256:07c8f9b5d27e345a6d791c8750384d436825c9d9c25daf3a422783b8ca60b46d",
+              "modelCallId": "6e483cbd-bba2-418d-98d3-a2d1861a5b4d",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 2075,
+                "completion_tokens": 306,
+                "total_tokens": 2381,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2048
+                },
+                "prompt_cache_hit_tokens": 2048,
+                "prompt_cache_miss_tokens": 27,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:8a6f47d496b1f012e350dd20b9f41ef173d3ff5f24c93af8788e6563eea4ccc9"
+            },
+            {
+              "requestDigest": "sha256:f8e5da4efaebd24da07a52accb3c0b7d68cbad010e4d48cb99c846b2515a8d2a",
+              "resultDigest": "sha256:812e9d7da5356c3c3fca3b9816679545e53f4f316ab97db7ae6aafd1cc7bf9b8",
+              "modelCallId": "24936779-5c4e-477f-816c-d3cfe6dc0b13",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1209,
+                "completion_tokens": 260,
+                "total_tokens": 1469,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 57,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:086a3645bdbda00178fc4f3b838973230a60c100b9003a094b7a69f0c158ad39"
+            }
+          ]
+        },
+        {
+          "taskId": "eps-estimate-semantics",
+          "treatment": "FULL",
+          "expected": "no",
+          "answer": "no",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-file://schemas/agent-context-v10.schema.json",
+            "finance-file://schemas/agent-context-v7.schema.json",
+            "finance-file://schemas/agent-context-v8.schema.json",
+            "finance-file://schemas/schema-manifest.json",
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 31354,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 9520,
+          "providerTotalTokens": 9739,
+          "selection": null,
+          "answerResult": {
+            "answer": "no",
+            "rationale": "The source explicitly notes that the 3-5 year EPS growth figure of 18.44% is a holdings-based analyst estimate, not an observed future outcome. An estimate of future growth is a projection/forecast, not an observed realized outcome, so the answer is no.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:a21165a57f6372c9b09d5cec43649dd7cf9e7f37ff369005512c9014e254d4d2",
+              "resultDigest": "sha256:d64e99abbfa13710d524f0b47e842529461601f1e0dab85fa4233d7ba4d790af",
+              "modelCallId": "8274f33e-7231-4148-9b11-9a66bfdf41e8",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 9520,
+                "completion_tokens": 219,
+                "total_tokens": 9739,
+                "prompt_tokens_details": {
+                  "cached_tokens": 9472
+                },
+                "prompt_cache_hit_tokens": 9472,
+                "prompt_cache_miss_tokens": 48,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:57e0ffa6ec052412730eb14bca3012bc2067118514facf6dcd5039cd7c0e6cf7"
+            }
+          ]
+        },
+        {
+          "taskId": "eps-estimate-semantics",
+          "treatment": "AGENT",
+          "expected": "no",
+          "answer": "no",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1235,
+          "catalogBytes": 3682,
+          "modelCalls": 2,
+          "providerPromptTokens": 3220,
+          "providerTotalTokens": 3678,
+          "selection": {
+            "rationale": "The task asks whether the 18.44% three-to-five-year EPS growth figure is an observed future outcome. The only source that declares the field `estimatedThreeToFiveYearEPSGrowthPct` is the State Street SPDR S&P 500 ETF Trust (spy-index-characteristics-2026-08-06). The field name itself contains 'estimated', indicating a forward-looking estimate rather than an observed outcome. This single source is sufficient to answer the question about the semantics of that figure.",
+            "selectedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "answerResult": {
+            "answer": "no",
+            "rationale": "The source explicitly states that the 18.44% three-to-five-year EPS growth figure (estimatedThreeToFiveYearEPSGrowthPct) is a holdings-based analyst estimate, not an observed future outcome. Therefore it is an estimate, not an observed future outcome.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:aa76112a04d154028b968c5ad3e10fbdbe0ac995fe593f70d21611b9bc1575f5",
+              "resultDigest": "sha256:c1f1489c9d0ff9d9d44c8bc60fde73d8bae913a7257f1cacd6d80383c093bcfc",
+              "modelCallId": "35f758b7-c27b-4130-8bf8-afb3465cca55",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 2057,
+                "completion_tokens": 242,
+                "total_tokens": 2299,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2048
+                },
+                "prompt_cache_hit_tokens": 2048,
+                "prompt_cache_miss_tokens": 9,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:093110bb71c28cbb005d0e5c593782439dd3d3ab7e33c85d143d652e4fee2df9"
+            },
+            {
+              "requestDigest": "sha256:dba00c096cc12b5c10656a69edeeb7aef1d24ac5560bc3a26934d8a4caaca9c2",
+              "resultDigest": "sha256:b703681032d2e45cd8a54c4fa9ebbdb68eab5e31c75879bd8a692cb98a48d513",
+              "modelCallId": "0a664879-ca58-4f44-9a7e-9543cc7cae5d",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1163,
+                "completion_tokens": 216,
+                "total_tokens": 1379,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 11,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:0a29971eaeee4f89b702e9febadc63333bd59a9fed4ee72f5155b486e6da5f59"
+            }
+          ]
+        },
+        {
+          "taskId": "top-ten-concentration",
+          "treatment": "FULL",
+          "expected": "38.15",
+          "answer": "38.15",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-file://schemas/agent-context-v10.schema.json",
+            "finance-file://schemas/agent-context-v7.schema.json",
+            "finance-file://schemas/agent-context-v8.schema.json",
+            "finance-file://schemas/schema-manifest.json",
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 31354,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 9538,
+          "providerTotalTokens": 9817,
+          "selection": null,
+          "answerResult": {
+            "answer": "38.15",
+            "rationale": "The Source Pool includes the State Street SPDR S&P 500 ETF Trust source (finance-source://spy-index-characteristics-2026-08-06) which explicitly publishes the fact topTenHoldingsWeightPct: 38.15. This is the top-ten holdings weight percentage for SPY/S&P 500 explicitly supported by the fixed source pool. The other candidate values correspond to different facts: 14.92 is the top-two holdings weight and 37.64 is the information technology sector weight, neither of which is the top-ten holdings weight.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:7c3163c28d729d9605f7edd9262f84982cecef579a3fa4a1e3e2ba37f66a5391",
+              "resultDigest": "sha256:2a944fd4e55555c839202e01412e66526144bdb7da98a915fd51293dd7484b61",
+              "modelCallId": "7c1ba04e-4471-43ff-87ed-7a5103d0d1b2",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 9538,
+                "completion_tokens": 279,
+                "total_tokens": 9817,
+                "prompt_tokens_details": {
+                  "cached_tokens": 9472
+                },
+                "prompt_cache_hit_tokens": 9472,
+                "prompt_cache_miss_tokens": 66,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:96fec238788463a92d72f41487cc7c8adac881a4799633d7907180ff8954bcb9"
+            }
+          ]
+        },
+        {
+          "taskId": "top-ten-concentration",
+          "treatment": "AGENT",
+          "expected": "38.15",
+          "answer": "38.15",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1235,
+          "catalogBytes": 3682,
+          "modelCalls": 2,
+          "providerPromptTokens": 3247,
+          "providerTotalTokens": 3672,
+          "selection": {
+            "rationale": "The task asks for the top-ten holdings weight percentage for SPY/S&P 500. The only source in the catalog that declares a field named 'topTenHoldingsWeightPct' is finance-source://spy-index-characteristics-2026-08-06 (State Street SPDR S&P 500 ETF Trust). This is the smallest sufficient set, as no other source declares a field relevant to top-ten holdings weight concentration.",
+            "selectedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "answerResult": {
+            "answer": "38.15",
+            "rationale": "The source explicitly reports topTenHoldingsWeightPct: 38.15 for the SPY/S&P 500 index, directly supporting the requested top-ten holdings weight percentage.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:e79633f13790c63a05f6c632bad3b193d196bfe75f094045d2ac17ed8709f80b",
+              "resultDigest": "sha256:66cbc9fb08cc044e2d203c81cf22c41e39f7a7a75753c320fd97f573887cd8e7",
+              "modelCallId": "28e8b3ee-dbe8-4b88-8485-e1d00e42ad94",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 2066,
+                "completion_tokens": 228,
+                "total_tokens": 2294,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2048
+                },
+                "prompt_cache_hit_tokens": 2048,
+                "prompt_cache_miss_tokens": 18,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:f00e04f313be73d7f0c100edd188635517349168181e98435f648925c49496b0"
+            },
+            {
+              "requestDigest": "sha256:f90c703f431483cc5dcea59f65a535763fe10850e5ec7fc0a7db5de3c441f6b3",
+              "resultDigest": "sha256:6bb05a45569511f0ba45f719069c5ccaaf3f1375871a0aa0d4917d65eea1496a",
+              "modelCallId": "c4b76c4f-4d4d-48a1-9d24-4527332ab571",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1181,
+                "completion_tokens": 197,
+                "total_tokens": 1378,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 29,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:3e9093b2038a4cb0bc777fdde0ef96ad516aa6f17011d145cf96c5c8eddd46ca"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "FULL": {
+          "tasks": 3,
+          "correct": 3,
+          "accuracy": 1.0,
+          "selectedRequiredSource": 3,
+          "sourceContentBytes": 94062,
+          "catalogBytes": 0,
+          "modelCalls": 3,
+          "providerPromptTokens": 28605,
+          "providerTotalTokens": 29392
+        },
+        "AGENT": {
+          "tasks": 3,
+          "correct": 3,
+          "accuracy": 1.0,
+          "selectedRequiredSource": 3,
+          "sourceContentBytes": 3794,
+          "catalogBytes": 11046,
+          "modelCalls": 6,
+          "providerPromptTokens": 9751,
+          "providerTotalTokens": 11200
+        }
+      }
+    },
+    {
+      "distractorCount": 8,
+      "distractorSourceIds": [
+        "finance-file://schemas/schema-manifest.json",
+        "finance-file://schemas/agent-context-v10.schema.json",
+        "finance-file://schemas/agent-context-v7.schema.json",
+        "finance-file://schemas/agent-context-v8.schema.json",
+        "finance-file://schemas/agent-context-v9.schema.json",
+        "finance-file://schemas/agent-context-v6.schema.json",
+        "finance-file://schemas/agent-context-v4.schema.json",
+        "finance-file://schemas/agent-context-v5.schema.json"
+      ],
+      "sourcePoolCount": 14,
+      "sourcePoolDigest": "sha256:8c55f6f6609be85083e09d5c7924f4d13fd82aa948d68d0b824b62e318c49e4e",
+      "catalogDigest": "sha256:e0ba2974f23639c2c270b783618201ec9442c43105147e88645377b361355314",
+      "records": [
+        {
+          "taskId": "current-q2-growth",
+          "treatment": "FULL",
+          "expected": "31.1",
+          "answer": "31.1",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedSourceIds": [
+            "finance-file://schemas/agent-context-v10.schema.json",
+            "finance-file://schemas/agent-context-v4.schema.json",
+            "finance-file://schemas/agent-context-v5.schema.json",
+            "finance-file://schemas/agent-context-v6.schema.json",
+            "finance-file://schemas/agent-context-v7.schema.json",
+            "finance-file://schemas/agent-context-v8.schema.json",
+            "finance-file://schemas/agent-context-v9.schema.json",
+            "finance-file://schemas/schema-manifest.json",
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 48857,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 14098,
+          "providerTotalTokens": 14477,
+          "selection": null,
+          "answerResult": {
+            "answer": "31.1",
+            "rationale": "The question asks for the current adjusted Q2 S&P 500 earnings growth percentage using the most advanced Q2 reporting evidence. The most advanced Q2 reporting evidence is the 2026-08-05 Reuters/LSEG IBES progress source, which reports 'adjustedQ2EarningsGrowthPct': 31.1 with over 75% of companies having reported. This is more advanced than the July 24 FactSet snapshot (37.9% blended, 25.9% ex-Alphabet, only 27% reported). The 37.9 figure was noted as materially distorted by an Alphabet one-time gain, and the 25.9 (ex-Alphabet) figure from July 24 is a less complete observation. The 31.1 from the August 5 progress source is the current adjusted Q2 earnings growth evidence value.",
+            "usedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05",
+              "finance-source://sp500-q2-earnings-2026-07-24"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:9449faf871180af2b458aa27f3d595eecfa61ad91e9d83debc7c84d4b268b169",
+              "resultDigest": "sha256:06ebd89f21b7ba118ad326b1da6a8577a9fc911ec652ea5c665cc1e3fa26282f",
+              "modelCallId": "1b682b7b-ef05-44cf-8b9c-d9b89ae74667",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 14098,
+                "completion_tokens": 379,
+                "total_tokens": 14477,
+                "prompt_tokens_details": {
+                  "cached_tokens": 14080
+                },
+                "prompt_cache_hit_tokens": 14080,
+                "prompt_cache_miss_tokens": 18,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:9095b39ea822fc71712457b953d477733e663e04d57f5c9423e5b2889c5e6a86"
+            }
+          ]
+        },
+        {
+          "taskId": "current-q2-growth",
+          "treatment": "AGENT",
+          "expected": "31.1",
+          "answer": "31.1",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedSourceIds": [
+            "finance-source://sp500-q2-earnings-progress-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1324,
+          "catalogBytes": 4918,
+          "modelCalls": 2,
+          "providerPromptTokens": 3696,
+          "providerTotalTokens": 4302,
+          "selection": {
+            "rationale": "The task asks for the adjusted Q2 S&P 500 earnings growth percentage based on the most advanced Q2 reporting evidence. The source 'finance-source://sp500-q2-earnings-progress-2026-08-05' (Reuters / LSEG IBES) is the most advanced/computable source, explicitly declaring 'adjustedQ2EarningsGrowthPct' among its available fields, and is dated 2026-08-05 (later than the other earnings source dated 2026-07-24). Its declared fields/provenance are sufficient to answer the adjusted Q2 earnings growth question. The earlier 'sp500-q2-earnings-2026-07-24' source exposes a 'blendedQ2EarningsGrowthPct' field, not an 'adjusted' growth percentage, and is less recent.",
+            "selectedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05"
+            ]
+          },
+          "answerResult": {
+            "answer": "31.1",
+            "rationale": "The visible Finance source (Reuters / LSEG IBES, publication date 2026-08-05) explicitly records the fact 'adjustedQ2EarningsGrowthPct': 31.1. This is the most advanced Q2 reporting evidence in the fixed source pool, and its value for adjusted Q2 S&P 500 earnings growth is 31.1%. The source notes it is the most advanced evidence versus the July 24 partial-quarter snapshot, satisfying the 'most advanced' requirement.",
+            "usedSourceIds": [
+              "finance-source://sp500-q2-earnings-progress-2026-08-05"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:69bc047e339398d57de2f6ddea67a641994648c405d88ca24c9e02fc07c9cb82",
+              "resultDigest": "sha256:a37d3eac467fbf3acf88510f33d6cba13a1178d18194e439251885a5436f8b3c",
+              "modelCallId": "963546dc-8150-48d5-a26d-5a62db9a8bd5",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 2487,
+                "completion_tokens": 334,
+                "total_tokens": 2821,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2432
+                },
+                "prompt_cache_hit_tokens": 2432,
+                "prompt_cache_miss_tokens": 55,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:17ffcad0b2196425e8698ba36163e71508bc7aeb5e7ff78296f33fa9b2d247bc"
+            },
+            {
+              "requestDigest": "sha256:f5608b96782cb9e89b6f5d50d0fb324a4c5440d3c578b0a9f415a0d0f37aa717",
+              "resultDigest": "sha256:38e4528139f51fb4de6012a7b8885a95086986145c82ba140f2de7d81267afc0",
+              "modelCallId": "e34a15aa-b4ef-47ec-bdd3-6fb499bb06cb",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1209,
+                "completion_tokens": 272,
+                "total_tokens": 1481,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 57,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:da5301094232dc8cafc78a3624328002f6148b9f59ecc2f336dd5c2b3af74dc4"
+            }
+          ]
+        },
+        {
+          "taskId": "eps-estimate-semantics",
+          "treatment": "FULL",
+          "expected": "no",
+          "answer": "no",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-file://schemas/agent-context-v10.schema.json",
+            "finance-file://schemas/agent-context-v4.schema.json",
+            "finance-file://schemas/agent-context-v5.schema.json",
+            "finance-file://schemas/agent-context-v6.schema.json",
+            "finance-file://schemas/agent-context-v7.schema.json",
+            "finance-file://schemas/agent-context-v8.schema.json",
+            "finance-file://schemas/agent-context-v9.schema.json",
+            "finance-file://schemas/schema-manifest.json",
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 48857,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 14071,
+          "providerTotalTokens": 14314,
+          "selection": null,
+          "answerResult": {
+            "answer": "no",
+            "rationale": "The source that contains the 18.44% estimated three-to-five-year EPS growth figure explicitly notes in its notes field: 'The 3-5 year EPS growth figure is a holdings-based analyst estimate, not an observed future outcome.' The figure is an estimate, not an observed future outcome. Therefore, the answer to whether the 18.44% figure is an observed future outcome is no.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:5c1eaeb58e7d570c8a3454558d14bdcf64d44f9fb6296187a06b2afe019ccddd",
+              "resultDigest": "sha256:4255b015f9a6ff65da8ae03ee4c5affb15d91cbe7805aa90dc9f7c6efa22dbfb",
+              "modelCallId": "04059acd-2e4d-4f93-a06f-bb306129704c",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 14071,
+                "completion_tokens": 243,
+                "total_tokens": 14314,
+                "prompt_tokens_details": {
+                  "cached_tokens": 13952
+                },
+                "prompt_cache_hit_tokens": 13952,
+                "prompt_cache_miss_tokens": 119,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:7c0544e7a4268f87a22842773267e6ef826da646afa737602561f7e31605dfd7"
+            }
+          ]
+        },
+        {
+          "taskId": "eps-estimate-semantics",
+          "treatment": "AGENT",
+          "expected": "no",
+          "answer": "no",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1235,
+          "catalogBytes": 4918,
+          "modelCalls": 2,
+          "providerPromptTokens": 3632,
+          "providerTotalTokens": 4110,
+          "selection": {
+            "rationale": "The task asks whether the 18.44% estimated three-to-five-year EPS growth figure is an observed future outcome. The field 'estimatedThreeToFiveYearEPSGrowthPct' appears in finance-source://spy-index-characteristics-2026-08-06 (State Street SPDR S&P 500 ETF Trust). The term 'estimated' in the field name and the source's provenance indicate this is a forward-looking estimate, not an observed future outcome. This single source provides the relevant field to answer the question.",
+            "selectedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "answerResult": {
+            "answer": "no",
+            "rationale": "The source explicitly notes that the 18.44% three-to-five-year EPS growth figure is 'a holdings-based analyst estimate, not an observed future outcome.' Therefore the 18.44% estimated three-to-five-year EPS growth figure is not an observed future outcome.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:3a252f7049ed87fd70dc20129bd6598377eb422b323e7feb893b3e7c6fd5f98e",
+              "resultDigest": "sha256:695d548bcca27dc5d0f83749d43063810ef5169f8d45c6f21172a60a032da2f8",
+              "modelCallId": "712cc587-eb6f-4c88-8fc3-2292d0836788",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 2469,
+                "completion_tokens": 262,
+                "total_tokens": 2731,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2432
+                },
+                "prompt_cache_hit_tokens": 2432,
+                "prompt_cache_miss_tokens": 37,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:d6a00b52c48323f725cfb0ae0a4bdac5e462cade579f71120945f66172bc12db"
+            },
+            {
+              "requestDigest": "sha256:87bff6a3e91212e6f01b609d8c63f0f5f1335b6c056274b14eb111ebef5db410",
+              "resultDigest": "sha256:77a2b175513d0e69189d13c96fdab70a75b25879542f4a6bf6e7afd48bc86c76",
+              "modelCallId": "85bb6b39-72ca-40c7-935e-294383d3b890",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1163,
+                "completion_tokens": 216,
+                "total_tokens": 1379,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 11,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:11b004c0154a446fb67182dcb173c550824e6c17418b98c9764b54ce5949d074"
+            }
+          ]
+        },
+        {
+          "taskId": "top-ten-concentration",
+          "treatment": "FULL",
+          "expected": "38.15",
+          "answer": "38.15",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-file://schemas/agent-context-v10.schema.json",
+            "finance-file://schemas/agent-context-v4.schema.json",
+            "finance-file://schemas/agent-context-v5.schema.json",
+            "finance-file://schemas/agent-context-v6.schema.json",
+            "finance-file://schemas/agent-context-v7.schema.json",
+            "finance-file://schemas/agent-context-v8.schema.json",
+            "finance-file://schemas/agent-context-v9.schema.json",
+            "finance-file://schemas/schema-manifest.json",
+            "finance-source://sp500-q2-earnings-2026-07-24",
+            "finance-source://sp500-q2-earnings-progress-2026-08-05",
+            "finance-source://spy-index-characteristics-2026-08-06",
+            "finance-source://us-corporate-profits-2026-q1",
+            "finance-source://us-treasury-nominal-10y-2026-08-05",
+            "finance-source://us-treasury-real-10y-2026-08-05"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 48857,
+          "catalogBytes": 0,
+          "modelCalls": 1,
+          "providerPromptTokens": 14089,
+          "providerTotalTokens": 14406,
+          "selection": null,
+          "answerResult": {
+            "answer": "38.15",
+            "rationale": "The question asks for the top-ten holdings weight percentage explicitly supported for SPY/S&P 500 by the fixed source pool. The State Street SPDR S&P 500 ETF Trust source (finance-source://spy-index-characteristics-2026-08-06) explicitly lists the fact 'topTenHoldingsWeightPct': 38.15. This is the exact value for the top-ten holdings weight percentage for SPY/S&P 500 as of 2026-08-06. Note that 37.64 is the 'informationTechnologyWeightPct' and 14.92 is the 'topTwoHoldingsWeightPct' — neither is the requested top-ten weight. Therefore, 38.15 is the directly supported answer.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:d6c06b87bac804ff0cac0eb65b01e55aac8234d35aab5601b6b86783d5c245a6",
+              "resultDigest": "sha256:3535aaee49fc657e38608174ff2eb980c1537de337b1aa0999047df939671de8",
+              "modelCallId": "7a3b5c54-2dec-4207-9f35-f999f06c9c6f",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 14089,
+                "completion_tokens": 317,
+                "total_tokens": 14406,
+                "prompt_tokens_details": {
+                  "cached_tokens": 14080
+                },
+                "prompt_cache_hit_tokens": 14080,
+                "prompt_cache_miss_tokens": 9,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:7ed0713cf0ebb2ac6dc3eacac0f3c4ac030960685a1a521efdbbc6c5c0b9ee9b"
+            }
+          ]
+        },
+        {
+          "taskId": "top-ten-concentration",
+          "treatment": "AGENT",
+          "expected": "38.15",
+          "answer": "38.15",
+          "correct": true,
+          "requiredSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedSourceIds": [
+            "finance-source://spy-index-characteristics-2026-08-06"
+          ],
+          "selectedRequiredSource": true,
+          "sourceContentBytes": 1235,
+          "catalogBytes": 4918,
+          "modelCalls": 2,
+          "providerPromptTokens": 3659,
+          "providerTotalTokens": 4111,
+          "selection": {
+            "rationale": "The task asks for the top-ten holdings weight percentage explicitly supported for SPY/S&P 500. The State Street SPDR S&P 500 ETF Trust source (finance-source://spy-index-characteristics-2026-08-06) declares the field `topTenHoldingsWeightPct`, which directly answers this question. This is the minimal sufficient single source. The schema files contain no fact values, and the other sources (earnings, treasury yields, corporate profits) do not declare top-ten holdings weight fields.",
+            "selectedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "answerResult": {
+            "answer": "38.15",
+            "rationale": "The source explicitly records the field topTenHoldingsWeightPct as 38.15 for the SPY/S&P 500 index characteristics, which directly answers the question about the top-ten holdings weight percentage.",
+            "usedSourceIds": [
+              "finance-source://spy-index-characteristics-2026-08-06"
+            ]
+          },
+          "modelEvidence": [
+            {
+              "requestDigest": "sha256:745911728407ebfa8ac35a9984283764f55f252bf28698bf6ddcf0411c252953",
+              "resultDigest": "sha256:5d170da0b1f7a3c047014bb5966ef1597a8da016bfb6155b5154adffdf0a6c10",
+              "modelCallId": "e17b28d2-8166-4ca2-ab5d-7f0289c2ae47",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 2478,
+                "completion_tokens": 246,
+                "total_tokens": 2724,
+                "prompt_tokens_details": {
+                  "cached_tokens": 2432
+                },
+                "prompt_cache_hit_tokens": 2432,
+                "prompt_cache_miss_tokens": 46,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:3bf7d842dc9d0040496b7b1c7f6b83edd45c2889c7be503d6e1cc1ec4a3f6c79"
+            },
+            {
+              "requestDigest": "sha256:95a5f8e335ee44d7dba05c9059c1c0b1bfc4f6a544c0b1c211e75ea51d0abb61",
+              "resultDigest": "sha256:30b1663bf4b93e914892b22e5832f90270b7473b2595b348ee709fe1daddd26f",
+              "modelCallId": "dd58042d-0bb3-4d83-89c2-64a20d1604b7",
+              "modelId": "deepseek-v4-flash",
+              "effectiveModelId": "deepseek-v4-flash",
+              "usage": {
+                "prompt_tokens": 1181,
+                "completion_tokens": 206,
+                "total_tokens": 1387,
+                "prompt_tokens_details": {
+                  "cached_tokens": 1152
+                },
+                "prompt_cache_hit_tokens": 1152,
+                "prompt_cache_miss_tokens": 29,
+                "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                "providerModel": "deepseek-v4-flash",
+                "providerRequestMode": "non-thinking"
+              },
+              "rawResponseDigest": "sha256:a1eb28a270347f424b62492ba424e5a95d33ffd52a608a00f8d2d8a3bd683efb"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "FULL": {
+          "tasks": 3,
+          "correct": 3,
+          "accuracy": 1.0,
+          "selectedRequiredSource": 3,
+          "sourceContentBytes": 146571,
+          "catalogBytes": 0,
+          "modelCalls": 3,
+          "providerPromptTokens": 42258,
+          "providerTotalTokens": 43197
+        },
+        "AGENT": {
+          "tasks": 3,
+          "correct": 3,
+          "accuracy": 1.0,
+          "selectedRequiredSource": 3,
+          "sourceContentBytes": 3794,
+          "catalogBytes": 14754,
+          "modelCalls": 6,
+          "providerPromptTokens": 10987,
+          "providerTotalTokens": 12523
+        }
+      }
+    }
+  ],
+  "externalFinancialWriteAttempted": false,
+  "interpretationBoundary": "Scale sweep over exact Git-bound Finance sources. It tests context-selection cost scaling, not investment quality or stable benchmark performance.",
+  "integrity": {
+    "algorithm": "sha256",
+    "payloadDigest": "sha256:a6f3c3f1ec6381a6b156039fc6e545de8c1809bab7965034dd4211ba9239b6a7"
+  }
+}

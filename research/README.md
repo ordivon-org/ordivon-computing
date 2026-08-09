@@ -32,6 +32,7 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 - [`world-model-frontier.json`](world-model-frontier.json) — Computing-owned assimilation state binding exact observed project revisions without copying product maturity or domain state;
 - [`WORLD-MODEL-LOOP.md`](WORLD-MODEL-LOOP.md) — human-readable projection of the world-model loop;
 - [`world-model-assimilation-round-001.json`](world-model-assimilation-round-001.json) and [`WORLD-MODEL-ASSIMILATION-001.md`](WORLD-MODEL-ASSIMILATION-001.md) — first accepted return pass from current project practice into shared Core claims;
+- [`experiments/world-model-a6-cross-domain-v0/`](experiments/world-model-a6-cross-domain-v0/) — first lower-half world-model re-test: Finance evidence tests Agent-owned source selection against full and caller-preselected views, including scale and campaign-recovery pressure;
 - [`research-method-v1.json`](research-method-v1.json) — specialized Agent-first method for burden discovery, responsibility placement, externalization admission, and consequence-gated escalation;
 - [`computer-responsibility-map-v1.json`](computer-responsibility-map-v1.json) — machine authority for the current future-model-robust Ordivon Computer re-derivation;
 - [`computer-product-boundary-review-v1.json`](computer-product-boundary-review-v1.json) — C3 closeout for Host, Harness, Runtime and Observation packaging against real consumers and recovery boundaries;
