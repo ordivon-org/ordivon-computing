@@ -115,3 +115,9 @@ evaluator independence != domain truth authority
 ```
 
 Cross-project evaluation must bind its oracle to owner-native semantics or to an explicit counterfactual law declared as part of the experiment. Computing may compare and falsify shared claims, but it cannot make an unresolved project-local truth rule become true by placing a label in a benchmark. This is retained as method pressure; it does not yet justify a new machine loop version.
+
+## Second-domain A10 re-test
+
+[`experiments/world-model-a10-world-presence-v0/`](experiments/world-model-a10-world-presence-v0/) tests the same A10 distinction against committed World Presence semantics rather than Security predicate truth. World independently requires current relation evidence to remain bound to exact Subject, Body, owner scope and query coordinates: historical occurrence or materialization does not become current Presence, observation failure remains `UNKNOWN`, and absence through one Body does not imply global Subject absence.
+
+The cross-domain relation survived, but the Security experiment's candidate temporal reduction did not generalize into a shared mechanism. Raw World owner records already produced the correct relation in every evaluated decision; an added query-relation index changed no answer and increased Provider token use. The shared model therefore retains the semantic/authority distinction while leaving temporal evidence representation owner-native.
