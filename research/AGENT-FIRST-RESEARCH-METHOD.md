@@ -24,7 +24,7 @@ related:
 ---
 # Agent-First Research Method
 
-The machine authority for this method is [`research-method-v1.json`](research-method-v1.json). This document explains the method; it does not own portfolio status, Trial validity, product state, or deployment authority.
+The machine authority for this method is [`research-method-v1.json`](research-method-v1.json). This document explains one **specialized research method for responsibility externalization**; it does not define the whole Ordivon world-model loop, own portfolio status, Trial validity, product state, or deployment authority. Cross-project world-model revision is governed separately by [`world-model-loop-v1.json`](world-model-loop-v1.json).
 
 ## Research question
 
@@ -166,4 +166,4 @@ The method therefore prefers the lowest-risk externalization first: deterministi
 
 [`experiments/experiment-loop-v0/`](experiments/experiment-loop-v0/) is the first consumer. Its bounded Propose–Implement–Evaluate–Select–Learn loop is changed from human-managed routine progression to Agent-led progression under deterministic gates. Human attention remains consequence-gated; product promotion remains owned by the affected product/domain authority.
 
-The next consumer is Ordivon Computer itself. Existing structures will be re-audited by measured burden and responsibility placement before any broader architecture reform is admitted.
+The next consumer is Ordivon Computer itself. Existing structures will be re-audited by measured burden and responsibility placement before any broader architecture reform is admitted. When project evidence challenges a broader assumption rather than a responsibility placement, the result returns to the world-model loop instead of being forced into this externalization method.

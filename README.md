@@ -71,23 +71,26 @@ A constraint earns a current active place only when the recoverability, verifica
 ## Start here
 
 ```text
-real workloads, primary sources, failures, and observations
-                    ↓
-                 Studies
-                    ↓ distill
-                Knowledge
-                    ↓ compress
-                   Core
-                    ↓ generate falsifiable questions
-                 Research
-                    ↓ construct and test
-                 Projects
-                    └────────→ new evidence
+Projects and external worlds
+        ↓ owner-native observations, failures, results
+Studies / Research
+        ↓ compare, falsify, explain
+Knowledge
+        ↓ retain reusable conclusions and limits
+Core
+        ↓ compress the current shared world model
+Research
+        ↓ generate falsifiable questions and reform implications
+Projects
+        ↓ independently construct, act, and test
+        └────────────────────────────────────────↺
 ```
+
+This is a closed world-model loop rather than a one-way architecture pipeline. Project facts never move into Computing as copied authority; only evidence-bound cross-project conclusions may revise the shared world model. See [`research/WORLD-MODEL-LOOP.md`](research/WORLD-MODEL-LOOP.md).
 
 | Area | Role | Entry point |
 |---|---|---|
-| **Core** | Minimal current theory and responsibility boundaries | [`core/`](core/) |
+| **Core** | Compressed current world model and durable responsibility boundaries | [`core/`](core/) |
 | **Knowledge** | Reusable explanations, comparisons, and cases | [`knowledge/`](knowledge/) |
 | **Studies** | Only long-form work with a current domain or publication consumer; completed Computing derivations are recoverable from Git | [`studies/`](studies/) |
 | **Research** | Questions, competing hypotheses, experiments, and immutable evidence | [`research/`](research/) |
@@ -97,8 +100,8 @@ Current research status, evidence maturity, blockers, falsifiers, and the bounde
 
 The current tree deliberately keeps only long-form studies with a current consumer:
 
-- [`studies/2026-agent-native-adversarial-systems/`](studies/2026-agent-native-adversarial-systems/) and [`studies/2026-execution-entity-adversarial-ecology/`](studies/2026-execution-entity-adversarial-ecology/) — Security-domain research pending its own Agent-first reform;
-- [`studies/2026-agent-native-game-worlds/`](studies/2026-agent-native-game-worlds/) — Game-domain research pending its own Agent-first reform;
+- [`studies/2026-agent-native-adversarial-systems/`](studies/2026-agent-native-adversarial-systems/) and [`studies/2026-execution-entity-adversarial-ecology/`](studies/2026-execution-entity-adversarial-ecology/) — retained comparative inputs whose current Security implications must be re-checked against owner-native evidence rather than assumed from the older study state;
+- [`studies/2026-agent-native-game-worlds/`](studies/2026-agent-native-game-worlds/) — retained Game research input whose broader claims are re-tested against the current Game implementation and play evidence;
 - [`studies/2026-adaptive-acceleration/`](studies/2026-adaptive-acceleration/) — a retained published normative position, not a Computing architecture dependency.
 
 Completed Computing derivations are compressed into [`knowledge/agents/capability-externalization-and-responsibility-placement.md`](knowledge/agents/capability-externalization-and-responsibility-placement.md). Their exact pre-compression Git trees are bound by [`research/evidence/agent-first-historical-research-compression-f95d721.json`](research/evidence/agent-first-historical-research-compression-f95d721.json).
@@ -117,7 +120,7 @@ above
 classical execution, storage, networking, isolation, and model serving
 ```
 
-The compact Core is:
+The compact Core is the current shared world model:
 
 - [`core/intent.md`](core/intent.md) — project intent, capability externalization, judgment, creative freedom, and governance burden;
 - [`core/foundations.md`](core/foundations.md) — working foundations;
@@ -155,9 +158,11 @@ The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](researc
 - [**Ordivon Harness**](https://github.com/zycxfyh/ordivon-harness) — caller-neutral Agent Runs, Provider adapters, Tool steps, durable Run continuity, recovery, and completion proposals;
 - [**Ordivon Runtime**](https://github.com/zycxfyh/ordivon-runtime) — trusted-local Workspaces, Jobs, Runtime Attempts, Artifacts, physical dispatch, cancellation, reconciliation, and recovery;
 - [**Ordivon Game**](https://github.com/zycxfyh/ordivon-game) — playable interactive Worlds, Station Zero, player intervention, replay, and Agent participation;
-- [**Ordivon World**](https://github.com/zycxfyh/ordivon-world) — Cloudflare provider-native capabilities and private workstation network tools, without shared World authority;
+- [**Ordivon World**](https://github.com/zycxfyh/ordivon-world) — provider-native external adapters and cross-World Resource, Message, and Entity trajectories without a global World or Presence authority;
+- [**Ordivon Security**](https://github.com/zycxfyh/ordivon-security) — authorized adversarial-autonomy research, independent truth, consequence verification, recovery, and evaluator-integrity experiments;
+- [**Ordivon Finance**](https://github.com/zycxfyh/ordivon-finance) — local Agent-first capital and financial research laboratory with owner-native market, portfolio, belief, execution, reconciliation, and experiment state;
 - [**Ordivon Human**](https://github.com/zycxfyh/ordivon-human) — problem-driven human research, practical paths, methods, evidence limits, ethics, and privacy boundaries;
-- [**Ordivon Security**](https://github.com/zycxfyh/ordivon-security) — bounded strategic adversarial experiments, independent scoring, transfer, and evaluator-integrity research;
+- [**Ordivon Studio**](https://github.com/zycxfyh/ordivon-studio) — Art & Expression research plus multi-medium production from project-owned facts and evidence;
 - [**Ordivon Web**](https://github.com/zycxfyh/ordivon-web) — public orientation, publication, project navigation, and dated editorial projections rather than copied live system state.
 
 The linked authority and public-orientation map is [`projects/README.md`](projects/README.md); stable machine declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each owning repository.

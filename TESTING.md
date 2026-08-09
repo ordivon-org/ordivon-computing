@@ -25,6 +25,7 @@ markdownlint-cli2 docs/content-engineering/README.md packages/content-{contract,
 cspell lint --no-progress --no-summary docs/content-engineering/README.md packages/content-{contract,cli,templates}/**/*.md
 lychee --config lychee.toml docs/content-engineering/README.md packages/content-{contract,cli,templates}/**/*.md
 python3.12 scripts/check_foundational_docs.py
+python3.12 scripts/check_world_model_loop.py
 python3.12 scripts/check_agent_research_method.py
 python3.12 scripts/check_computer_responsibility_map.py
 python3.12 scripts/check_historical_research_compression.py

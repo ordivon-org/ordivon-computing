@@ -28,7 +28,11 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 
 ## Purpose
 
-- [`research-method-v1.json`](research-method-v1.json) — machine-readable Agent-first research method for burden discovery, responsibility placement, externalization admission, and consequence-gated escalation;
+- [`world-model-loop-v1.json`](world-model-loop-v1.json) — machine-readable closed loop for project-evidence assimilation, cross-project comparison, shared world-model revision, and project re-test;
+- [`world-model-frontier.json`](world-model-frontier.json) — Computing-owned assimilation state binding exact observed project revisions without copying product maturity or domain state;
+- [`WORLD-MODEL-LOOP.md`](WORLD-MODEL-LOOP.md) — human-readable projection of the world-model loop;
+- [`world-model-assimilation-round-001.json`](world-model-assimilation-round-001.json) and [`WORLD-MODEL-ASSIMILATION-001.md`](WORLD-MODEL-ASSIMILATION-001.md) — first accepted return pass from current project practice into shared Core claims;
+- [`research-method-v1.json`](research-method-v1.json) — specialized Agent-first method for burden discovery, responsibility placement, externalization admission, and consequence-gated escalation;
 - [`computer-responsibility-map-v1.json`](computer-responsibility-map-v1.json) — machine authority for the current future-model-robust Ordivon Computer re-derivation;
 - [`computer-product-boundary-review-v1.json`](computer-product-boundary-review-v1.json) — C3 closeout for Host, Harness, Runtime and Observation packaging against real consumers and recovery boundaries;
 - [`COMPUTER-RESPONSIBILITY-REVIEW.md`](COMPUTER-RESPONSIBILITY-REVIEW.md) — human projection of the responsibility map;
@@ -49,7 +53,8 @@ Research may contain alternatives, failed experiments, changing terminology, and
 
 ## Start here
 
-- [`research-method-v1.json`](research-method-v1.json) defines how an Agent turns observed work burden into a falsifiable externalization experiment. It does not own research status.
+- [`world-model-loop-v1.json`](world-model-loop-v1.json) defines how owner-native project evidence can challenge and revise the shared world model without centralizing project facts.
+- [`research-method-v1.json`](research-method-v1.json) defines how an Agent turns one specific class of observed work burden into a falsifiable externalization experiment. It is a method consumed by the broader world-model loop, not the universal research method.
 - [`computer-responsibility-map-v1.json`](computer-responsibility-map-v1.json) is the current reform input for Ordivon Computer; it classifies durable responsibilities, classical owners, product-specific packaging, and conditional cognition candidates without changing product authority.
 - [`portfolio.json`](portfolio.json) is the mutable source of truth for line status, maturity, blockers, falsifiers, and disposition.
 - [`PORTFOLIO.md`](PORTFOLIO.md) is its generated review projection.
@@ -88,6 +93,7 @@ A shared suffix such as `A1` or `C4` implies no dependency, status, or shared au
 Research-method and portfolio maintenance commands:
 
 ```bash
+python3 scripts/check_world_model_loop.py
 python3 scripts/check_agent_research_method.py
 python3 scripts/check_computer_responsibility_map.py
 python3 scripts/check_historical_research_compression.py

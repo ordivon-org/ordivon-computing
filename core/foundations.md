@@ -67,9 +67,9 @@ Natural language can express purpose before the execution path is known. A persi
 
 A Task has its own semantic identity across conversations, Model Sessions, Harness Runs, Runtime Jobs, Tool calls, and failed Task Attempts. Durable work state preserves current purpose, commitments, dependencies, uncertainty, world bindings, Artifacts, and next admissible work through replacement and interruption.
 
-## A6 — Context is a compiled view of separately owned state
+## A6 — Context is a selected view of separately owned state
 
-Parameters, KV state, conversation history, Task state, durable knowledge, Artifacts, and external world state have different identities and lifetimes. Context is the bounded selected view supplied to one cognitive episode. Commitments and execution history remain in their authoritative stores.
+Parameters, KV state, conversation history, Task state, durable knowledge, Artifacts, and external world state have different identities and lifetimes. Context is the bounded model-visible view selected for one model episode; the underlying source state, the selected view, and the authority that changes that selection are different things. Selection may be compiled mechanically by a caller or Harness, or changed through an Agent-authored proposal under explicit authority. Persisting or recalling selected material preserves exact state and provenance where required; it does not make the selected content true. Commitments, accepted facts, and execution history remain in their authoritative stores.
 
 ## A7 — Capability and consequence are separate dimensions
 
@@ -87,9 +87,9 @@ External rules and resource ownership enter at commitment admission. Low-consequ
 
 An Effect preserves the stable intended observation or change. Its identity is separate from an Action Proposal, concrete Dispatch, backend Job, and declared idempotency behavior. Lost responses remain explicitly uncertain until reality is reconciled.
 
-## A10 — Evidence mediates knowledge admission
+## A10 — Evidence mediates truth admission and is time-scoped
 
-Observation, Artifact, Claim, Verification, and Fact are distinct roles. Accepted system truth requires the evidence and decision method declared by the relevant domain authority.
+Observation, Artifact, Claim, Verification, and Fact are distinct roles. Accepted system truth requires the evidence and decision method declared by the relevant domain authority. Evidence and accepted truth are scoped to the property, owner, and time they establish: historical evidence remains valid history without automatically proving current state. Multiple legitimate observations may conflict while current world truth remains unresolved; later authoritative current evidence may resolve the present property without rewriting the historical conflict.
 
 ## A11 — Every durable constraint must prove net acceleration
 
@@ -109,7 +109,7 @@ Architecture supports identity, proposal, negotiation, delegation, commitment, e
 
 ## A13 — New layers require unowned non-bypassable responsibility
 
-A concept becomes an Agent-native layer when a stable contract owns an invariant absent from lower layers, bypassing it causes a real failure class, the abstraction creates leverage across materially different workloads, and measured benefit exceeds permanent cost. Promotion follows cross-workload evidence and a deletion test.
+A concept becomes an Agent-native layer when a stable contract owns an invariant absent from lower layers, bypassing it causes a real failure class, the abstraction creates leverage across materially different workloads, and measured benefit exceeds permanent cost. Similar fields, transport steps, or recovery mechanics do not by themselves establish shared semantics. Cross-project promotion preserves the smallest intersection of invariants that materially different owners actually share; owner-specific meaning remains local. Promotion follows cross-workload evidence and a deletion test.
 
 ## A14 — Knowledge grows through evidence and deletion
 
@@ -135,17 +135,41 @@ Human-facing surfaces remain first-class where human perception, judgment, autho
 
 Neither “Agent-first” nor “human-facing” is a universal product style. Each interface identifies who must act on it, what decision or experience it enables, and why a narrower machine or human projection is insufficient. Presentation cost follows the actual participant boundary rather than inherited software convention.
 
+## A18 — The world model changes through practice
+
+Ordivon’s world model is the current compressed set of claims used to decide what distinctions matter, which responsibilities exist, which structures are justified, and which questions are worth testing. Core contains its smallest stable form; Knowledge preserves reusable support and limits; Research holds live challenges; projects and domains retain their own facts.
+
+The world model is not upstream of reality. Structures built from the current model create new capabilities and new interventions; those capabilities expose distinctions, failures, costs, relationships, and consequences that the previous model may have compressed or described incorrectly. Owner-native evidence can therefore challenge not only an implementation but the assumptions that generated the implementation.
+
+```text
+current world model
+→ research questions and project structures
+→ practice and world interaction
+→ owner-native observations, failures, and results
+→ cross-project comparison
+→ retain, narrow, split, or revise world-model claims
+→ new falsifiers and reform implications
+→ project re-test
+→ new evidence
+↺
+```
+
+Computing owns cross-project synthesis, not the underlying domain facts. A world-model revision cannot silently rewrite product state, declare a local claim universal, or command a product change. It must identify the evidence that challenged the previous claim, the scope of the replacement, contradictory evidence, and the projects that should independently re-test the new implication. The loop itself is also revisable when repeated use shows that its selection, synthesis, or propagation method loses important evidence or creates unnecessary work.
+
 ## Research cycle
 
 ```text
-observe
-→ distinguish classical responsibility from Agent pressure
-→ formulate a falsifiable question
-→ construct the smallest useful artifact
-→ run against reality and a strong baseline
-→ measure capability, understanding, attention, constraint cost, and unrecoverable-loss reduction
-→ revise or delete the abstraction
-→ preserve the result at the lowest sufficient layer
+observe owner-native work and external evidence
+→ identify a local burden, contradiction, or newly operational distinction
+→ choose the narrowest applicable research method
+→ formulate a falsifiable question and strong baseline
+→ construct and run the smallest useful experiment
+→ retain local facts with their owner
+→ compare materially different projects when a broader claim is plausible
+→ revise, narrow, split, or retain the shared world model
+→ emit bounded reform implications as new questions, not product commands
+→ re-test in projects
+↺
 ```
 
-The Core remains small enough to load, challenge, and reconstruct as one coherent model.
+The Core remains small enough to load, challenge, and reconstruct as one coherent world model.

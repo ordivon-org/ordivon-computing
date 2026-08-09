@@ -11,7 +11,21 @@ available capability
 → locally rational structures
 ```
 
-When capability changes, the useful world model can change with it.
+The relationship is recursive rather than one-way. Structures change what can be done; practice produces new evidence; new capabilities expose distinctions that the previous world model could not use. The complete loop is therefore:
+
+```text
+available capability
+→ operational distinctions
+→ usable world model
+→ locally rational structures
+→ practice and world interaction
+→ new evidence, failures, and capabilities
+→ revised operational distinctions
+→ revised world model
+↺
+```
+
+When capability changes, the useful world model can change with it. When practice falsifies the model that justified a structure, the structure must re-enter audit rather than inherit legitimacy.
 
 ## 1. Operational resolution
 
