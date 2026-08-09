@@ -2,7 +2,7 @@
 
 > Generated from [`portfolio.json`](portfolio.json). Edit the JSON source, then rerun `python3 scripts/render_research_portfolio.py`.
 
-- **As of:** `2026-08-07`
+- **As of:** `2026-08-10`
 - **Active research-line limit:** `2`
 - **Current active lines:** `2`
 
@@ -12,8 +12,8 @@
 
 | Line | Priority | Question | Items | Implementation | Exit criterion |
 |---|---|---|---|---|---|
-| R-A-HARNESS-CONTROL | P0 | Calibrated non-action and recoverable continuation | ANC-VERIFY-002 | ordivon-computing#82, ordivon-game#58, ordivon-security#19 | Paired should-act and should-hold trajectories measure pre-commit timing, false abstention, authorized utility, recovery, and whether existing Host facts suffice without a new control platform. |
-| R-C-HARNESS-EVALUATION | P0 | Harness evaluation, replay, and trajectory evidence | ANC-VERIFY-001 | ordivon-computing#9 | Use the accepted non-authoritative Observation minimum core to admit current Harness evidence without copying owner state. C1 has proven the independent durable Harness-to-Runtime evidence path; do not sample it further. Admit the smallest one-shot, Ordivon Harness, and mature Provider Harness comparison only after the Harness owner resolves the H4 acceptance conflict for the C1 reconciliation fix. |
+| R-A-HARNESS-CONTROL | P0 | Calibrated non-action and recoverable continuation | ANC-VERIFY-002 | ordivon-computing#82, ordivon-game#58, ordivon-security#19 | Security IF0-IF3 counts as the first live authority-timing consumer. Close or narrow the line after one materially different act/hold comparison determines whether deliberation-before-authority improves intent convergence and authorized utility over direct Tool exposure without transaction ceremony or a new control platform. |
+| R-C-HARNESS-EVALUATION | P0 | Harness evaluation, replay, and trajectory evidence | ANC-VERIFY-001 | ordivon-computing#9 | The former Harness acceptance-conflict blocker is retired. Run only the smallest frozen-workload comparison still needed to decide whether Ordivon Harness adds measurable recovery/evidence value over a strong simpler one-shot or Provider-native baseline; no Observation daemon or replica campaign is required. |
 
 ## Question and track portfolio
 
@@ -27,14 +27,14 @@
 
 | ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
-| ANC-VERIFY-002 | M2 | P0 | ordivon-computing | R-A-HARNESS-CONTROL | — | — | Run the paired non-action suite against model-only, static-policy, and existing Host evidence-rich baselines; use H5 retained generation, Artifact, and reconciliation mechanisms without building a Harness or abstention platform. | A simpler paired act/abstain or static policy achieves equal authorized utility, timing, and recovery with fewer states. |
-| ANC-VERIFY-001 | M4 | P0 | ordivon-computing | R-C-HARNESS-EVALUATION | — | — | Treat P1 Minimum Core, B4 formal deterministic use, A0 O1 dogfood, and C1 independent Harness-to-Runtime evidence as complete. Do not build an Observation daemon, resume B5, or add C1 replicas. Wait for the Harness owner to resolve the H4 acceptance conflict exposed while promoting the C1 reconciliation fix; only then run the smallest comparative Trial still needed for the Harness retain/shrink/delete decision. | The same frozen workload cannot be compared without copying Provider lifecycles or duplicating Host, Harness, Runtime, and verifier authority, or the common envelope adds no explanatory value over local receipts. |
+| ANC-VERIFY-002 | M4 | P0 | ordivon-computing | R-A-HARNESS-CONTROL | — | — | Treat Security IF0-IF3 as one live-Provider positive consumer and as negative evidence against transaction-like readback/finalization ceremony. The next experiment should leave the AC2 Security world: use one materially different bounded act/hold workload or a Harness-native ablation, expose consequence authority only after a non-authoritative deliberation opportunity, and compare against direct Tool exposure. Do not build a generic abstention or approval platform. | A materially different second consumer or Harness-native ablation must show whether non-authoritative deliberation before consequence authority improves act/hold intent convergence and authorized utility versus direct Tool exposure; if the effect does not reproduce, keep the Security IF0-IF3 result local. |
+| ANC-VERIFY-001 | M4 | P0 | ordivon-computing | R-C-HARNESS-EVALUATION | — | — | Retire the stale Harness acceptance-conflict blocker: current Harness 5a42afd includes the post-merge revision-fenced repair and H2 closeout. Run only the smallest comparative Trial still needed across an Ordivon Harness path and a strong simpler one-shot or Provider-native baseline on one frozen workload, preserving owner-native Runtime/Provider/verifier receipts. Do not build an Observation daemon or add replicas merely for volume. | The same frozen workload cannot be compared without copying Provider lifecycles or duplicating Host, Harness, Runtime, and verifier authority, or the common envelope adds no explanatory value over local receipts. |
 
 ### Ready
 
 | ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
-| ANC-HARNESS-002 | M5 | P0 | ordivon-harness | — | 9bc26ba71c33 | — | Use Security as the first real package-boundary consumer: declare an optional Harness dependency and migrate its model/Harness path from internal namespaces onto the current public api/core surface as far as the existing contract permits. Then run one bounded real-DeepSeek independent durable Harness-to-Runtime canary with reconciliation, visible verification, and CompletionProposal. Do not create production Harness state or choose a canonical writer before that evidence. | One-shot or mature Provider Harness paths match both the bounded repository-repair and Security CAGE workloads with equal correctness, recovery, portability, and lower permanent cost, eliminating the need for an Ordivon-owned bare-model Loop. |
+| ANC-HARNESS-002 | M5 | P0 | ordivon-harness | — | 5a42afdf5e01 | — | Do not force Security or another domain to adopt advanced/internal H2 merely to manufacture a second consumer. Bind the current Harness public api/core boundary at 5a42afd, keep H2 internal, and let ANC-VERIFY-001 run the smallest comparative Trial still needed for the Harness retain/shrink/delete decision. Promote a new public lifecycle surface only when an independent consumer naturally requires the same invariant. | One-shot or mature Provider Harness paths match both the bounded repository-repair and Security CAGE workloads with equal correctness, recovery, portability, and lower permanent cost, eliminating the need for an Ordivon-owned bare-model Loop. |
 
 ### Blocked
 
