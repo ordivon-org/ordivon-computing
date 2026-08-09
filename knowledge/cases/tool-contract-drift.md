@@ -84,3 +84,19 @@ active long-running Job
 ```
 
 The closed question `ANC-EFFECT-001` is indexed in the research portfolio; its full historical narrative is Git-only. Current Tool-drift responsibility is summarized in the Computer responsibility map.
+## 2026-08-10 recurrence: frozen Agent app snapshot
+
+The same responsibility reappeared in a materially stronger form during P1-B. Owner-native Runtime `tools/list` exposed 19 Tools and `workspace.exec.executionTarget` / `windowsAuthority`; the current ChatGPT-loaded Ordivon Runtime app exposed 12 Tools and neither field. Owner-native Host `tools/list` exposed 6 Tools and `task.checkpoint.continuityDisposition`; the current ChatGPT-loaded Host app exposed 4 Tools and omitted that field. Re-listing app resources inside the same conversation did not change the loaded definitions.
+
+This recurrence sharpens the earlier model:
+
+```text
+repository capability
+!= deployed service
+!= owner-native tools/list
+!= approved / client-loaded app snapshot
+```
+
+The narrow operational rule is therefore: when an Agent-facing app uses a frozen approved Tool snapshot, server evolution requires explicit client/app adoption before new capabilities are usable. A live server catalog digest remains necessary evidence, but it is not proof of Agent-effective capability. Do not solve this by inventing a second central Tool registry; first use the app/provider's own refresh/review/republication boundary and then re-observe the client-loaded schema.
+
+The exact P1-B observation is retained at `research/experiments/p1b-mcp-contract-freshness-v0/evidence/p1b-b0-58a945a.json`.

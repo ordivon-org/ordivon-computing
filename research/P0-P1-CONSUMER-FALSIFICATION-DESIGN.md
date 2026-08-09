@@ -345,6 +345,8 @@ This is a CR-07 Tool-contract drift / client adoption problem, not evidence of m
 
 ### B0 — freeze the mismatch
 
+**Completed on 2026-08-10.** Owner-native Runtime/Host catalogs were re-observed from clean repositories and active loopback services, then compared against the exact Tool definitions loaded by the current ChatGPT session. Runtime was `19 live / 12 client-loaded`; Host was `6 live / 4 client-loaded`. Live `workspace.exec` contained `executionTarget` and `windowsAuthority`; live `task.checkpoint` contained `continuityDisposition`; all three were absent from the current Agent-loaded schemas. Re-listing the installed app resources in the same session preserved the stale snapshot. See `experiments/p1b-mcp-contract-freshness-v0/evidence/p1b-b0-58a945a.json`.
+
 Before refresh, retain:
 
 - live server `serverInterface` / Tool catalog identity;
@@ -354,11 +356,13 @@ Before refresh, retain:
 
 Do not infer stale/fresh from version labels alone.
 
-### B1 — ordinary refresh
+### B1 — explicit ChatGPT app snapshot refresh
 
-Use the normal ChatGPT connector/session refresh/reload boundary. No server redeploy and no schema changes are allowed during this test.
+B0 established that re-listing the currently installed app resources inside the same conversation does **not** refresh the Agent-loaded contract. Current OpenAI product behavior also freezes approved custom MCP Tool/input snapshots rather than automatically adopting later server changes. Therefore a server restart, local service redeploy, conversation-level re-list, or reconnect banner is not a valid B1 treatment.
 
-After refresh, re-observe the **client-loaded** Tool definitions. Success requires both Runtime fields and Host `continuityDisposition` to appear where the refreshed connector exposes those Tools. A reconnect banner or successful server response is insufficient evidence.
+Use the ordinary ChatGPT **Apps-side** update boundary for the actual publication mode: explicitly refresh/review the app actions where supported, or recreate/republish the custom app when that mode does not support in-place action refresh. No Runtime/Host redeploy and no schema changes are allowed during this test. Then start a **new chat** with the refreshed Ordivon apps selected and re-observe the client-loaded Tool definitions.
+
+Success requires both Runtime fields and Host `continuityDisposition` to appear where the refreshed app exposes those Tools. Tool-count convergence is supporting evidence only; field-level client schemas are the gate. A successful owner-native `tools/list` response remains insufficient evidence of client adoption.
 
 ### B2 — connector-level functional smoke
 

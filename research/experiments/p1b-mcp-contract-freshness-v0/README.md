@@ -44,6 +44,12 @@ python research/experiments/p1b-mcp-contract-freshness-v0/probe_live_catalog.py
 
 The probe fails closed unless all three expected live fields are present.
 
+## Frozen B0 evidence
+
+[`evidence/p1b-b0-58a945a.json`](evidence/p1b-b0-58a945a.json) binds the clean Computing probe revision `58a945aec5b53d48e591cf94bcb4c10b9737f2f8`, Host `95cd5479e71281baed5a1d1c34cbfaadffe2a22f`, and Runtime `480ef703d1d28a5a5b6ac7d7111a7764a22574d7`. It records the owner-native live catalogs separately from the current ChatGPT-loaded snapshot and classifies the result as client snapshot/adoption drift.
+
+The evidence intentionally does not claim a provider-issued identity for the client snapshot because the current Agent surface does not expose one. Instead it records the exact loaded Tool names and relevant field sets plus a local normalized observation digest.
+
 ## B1 success gate
 
 After the explicit ChatGPT app refresh/rebuild, a fresh conversation must observe:
