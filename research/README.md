@@ -13,7 +13,7 @@ audience:
   - researcher
   - builder
   - agent
-updated: 2026-08-07
+updated: 2026-08-10
 summary: Canonical entry to the Agent-first research method, active questions, portfolio state, experiments, evidence, and construction rules.
 evidence_status: not_applicable
 readiness: READY
@@ -43,6 +43,7 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 - [`COMPUTER-RESPONSIBILITY-REVIEW.md`](COMPUTER-RESPONSIBILITY-REVIEW.md) — human projection of the responsibility map;
 - [`AGENT-FIRST-RESEARCH-METHOD.md`](AGENT-FIRST-RESEARCH-METHOD.md) — human-readable projection of that method;
 - [`portfolio.json`](portfolio.json) — authoritative research status, maturity, blockers, next falsifiers, and WIP lines;
+- [`P0-P1-CONSUMER-FALSIFICATION-DESIGN.md`](P0-P1-CONSUMER-FALSIFICATION-DESIGN.md) — current execution design for Harness retain/shrink/delete, deliberation-before-authority falsification, ordinary Web production, and Agent-visible MCP contract freshness;
 - [`PORTFOLIO.md`](PORTFOLIO.md) — generated human-readable portfolio and Ready Frontier;
 - [`map.yaml`](map.yaml) — stable typed relations among construction tracks and research questions;
 - [`questions/`](questions/) — one durable page per file-backed question, including historical questions;
