@@ -121,3 +121,19 @@ Cross-project evaluation must bind its oracle to owner-native semantics or to an
 [`experiments/world-model-a10-world-presence-v0/`](experiments/world-model-a10-world-presence-v0/) tests the same A10 distinction against committed World Presence semantics rather than Security predicate truth. World independently requires current relation evidence to remain bound to exact Subject, Body, owner scope and query coordinates: historical occurrence or materialization does not become current Presence, observation failure remains `UNKNOWN`, and absence through one Body does not imply global Subject absence.
 
 The cross-domain relation survived, but the Security experiment's candidate temporal reduction did not generalize into a shared mechanism. Raw World owner records already produced the correct relation in every evaluated decision; an added query-relation index changed no answer and increased Provider token use. The shared model therefore retains the semantic/authority distinction while leaving temporal evidence representation owner-native.
+
+## Structured commitment boundary
+
+[`experiments/structured-commitment-consistency-v0/`](experiments/structured-commitment-consistency-v0/) tests a failure first exposed by the Security A10 campaign: one schema-valid structured answer disagreed with the semantic conclusion stated in the same model output. The follow-up does not promote free-form rationale into authority. Instead it separates four boundaries:
+
+```text
+structural validity
+!=
+semantic consistency
+!=
+owner truth admission
+!=
+downstream effect authority
+```
+
+A deterministic falsifier proves that the existing Harness structured codec can correctly accept a schema-valid but cross-field-inconsistent candidate, while the existing caller/domain `validate_conclusion` hook can reject that candidate and drive a correction turn before terminal completion. A 48-decision live campaign produced no naturally occurring inconsistency or truth error under an explicit owner law, so the result supports the current responsibility split rather than a new global Harness semantic verifier. Domain semantic admission remains conditional on an actual owner invariant and consequence boundary.
