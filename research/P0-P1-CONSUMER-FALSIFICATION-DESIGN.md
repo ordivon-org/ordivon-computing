@@ -1,8 +1,8 @@
 # P0–P1 Consumer Falsification Design
 
-Status: designed for execution; no new shared infrastructure is authorized by this document.
+Status: executing. P0-A0/P0-B0 deterministic apparatus has been implemented and validated; no live Provider comparison is claimed yet. No new shared infrastructure is authorized by this document.
 
-This design starts from Computing revision `51fa2cd3046b8e746292c7a68e7e6f5a3a56e693` and the reconciled 2026-08-10 Ready Frontier. It operationalizes the transition from infrastructure construction to ordinary consumer falsification. Product and domain repositories retain their own authority. Computing owns only experiment design, cross-project comparison, and interpretation.
+This design started from the reconciled 2026-08-10 Ready Frontier and was first landed at Computing `32014ceea7590e172407c309e411c899109c8bde`. P0 execution must bind fresh exact owner revisions rather than treating that design revision as deployment truth. It operationalizes the transition from infrastructure construction to ordinary consumer falsification. Product and domain repositories retain their own authority. Computing owns only experiment design, cross-project comparison, and interpretation.
 
 ## Program contract
 
@@ -53,9 +53,13 @@ An evaluation-local direct Provider adapter receives exactly the visible Task ma
 
 This adapter is experiment apparatus only. It must not become a product-side one-shot Harness.
 
-#### Cell H — current Ordivon Harness
+#### Cell H — current Ordivon Harness loop
 
-Use current `HarnessAgentRun` / recommended public API, the same Provider/model family, visible Task information, verifier, budget envelope and Runtime execution authority. Harness may use its normal iterative Tool loop, durable cognition and reconciliation mechanisms because those are the mechanism under evaluation.
+P0-A0 found that the current high-level `HarnessAgentRun` handle is **not closed over the frozen repository-repair custom Tool catalog**: its supported exact compositions are currently the no-Tool and independent-search surfaces. P0 must not enlarge that high-level API merely to make a benchmark fit.
+
+The first causal S/H comparison therefore uses the current public dependency-inverted `DomainToolLoopRunner` for the Harness cognitive loop, with the same Provider/model family, visible Task information, verifier and aggregate configuration budget. This isolates the incremental value/cost of iterative Harness Tool cognition against one-shot cognition without mislabeling an advanced/historical composition as `HarnessAgentRun`.
+
+Durable Run continuation, Runtime reconciliation and response-loss recovery remain separate Harness value dimensions. If the public domain-loop comparison shows no useful cognitive-loop advantage, those durable mechanisms can still be tested independently before a repository-wide shrink/delete decision. If the loop does show value, a later consumer—not this benchmark—must justify whether a more general high-level `HarnessAgentRun` Tool-surface composition is needed.
 
 #### Cell P — Provider-native/mature Harness reference, optional
 
@@ -81,13 +85,14 @@ They are allowed to differ in Tool interaction count, intermediate observations,
 
 #### A0 — rebind and deterministic preflight
 
-1. Capture exact current Computing, Harness, Runtime and any Host/verifier revisions.
-2. Re-run only the deterministic gates that prove current apparatus compatibility: evaluation validators/tests and one B4-style deterministic end-to-end smoke.
-3. Build a fresh comparison System Manifest.
-4. Implement Cell S as the minimum new apparatus.
-5. Bind Cell H to current supported Harness public API.
+1. Capture exact current Computing, Host, Harness and Runtime revisions.
+2. Preserve historical B4 as revision-bound evidence. Its current rerun is expected to fail closed when owner revisions differ; do not edit its pinned owner vector to manufacture freshness. Reuse only its frozen Task/verifier primitives where their exact historical identities remain valid.
+3. Build a fresh current-revision A0 comparator and later System Manifest.
+4. Implement Cell S as the minimum evaluation-local one-shot apparatus.
+5. Bind Cell H first to the current public `DomainToolLoopRunner`; separately probe the high-level `HarnessAgentRun` custom-Tool closure rather than assuming it.
+6. Require scripted S/H to bind the same visible Task, hidden verifier and oracle candidate before any live call.
 
-No live comparative Provider call occurs until the same runner can accept a scripted Cell S and scripted Cell H result through the exact verifier/evidence chain.
+P0-A0 satisfied this deterministic apparatus gate. It also retained the `HarnessAgentRun` custom-Tool surface gap as evidence instead of expanding Harness. No live comparative Provider call occurs until the Agent-visible MCP contract freshness gate is closed.
 
 #### A1 — paired canary
 
@@ -230,9 +235,9 @@ The non-authoritative deliberation record is cognition evidence, not effect auth
 
 ### Sampling sequence
 
-1. Scripted deterministic apparatus acceptance for both treatments.
-2. One live D/L canary for ACT and HOLD.
-3. If valid, three live replicates per `treatment × context` cell.
+1. Scripted deterministic apparatus acceptance for both treatments. **Completed in P0-B0** with a mechanically derived ACT/HOLD oracle, exact Context equality, direct first-request Tool exposure, late first-request Tool absence, and the same Tool catalog opening in phase B under one H2 aggregate lifecycle budget.
+2. After Agent-visible MCP contract freshness is proven, run one live D/L canary for ACT and HOLD under one exact Provider/model configuration.
+3. If valid, run three live replicates per `treatment × context` cell.
 4. Review every disagreement, not just aggregate correctness.
 
 A single positive replicate does not generalize the mechanism.
