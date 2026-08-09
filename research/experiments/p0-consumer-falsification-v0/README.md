@@ -56,6 +56,15 @@ uv run python -m unittest discover \
 
 During authoring from an isolated dirty Computing Workspace, pass `--allow-dirty-computing`. Final evidence receipts must be regenerated from an exact clean committed Computing revision.
 
+## Frozen deterministic evidence
+
+The first clean exact-revision receipts bind Computing `bbdfbd54874fba9f5117fcb2687fe67035240863`, Host `95cd5479e71281baed5a1d1c34cbfaadffe2a22f`, Harness `5a42afdf5e01a6f5ad2b12738c52a249edb91dda`, and Runtime `480ef703d1d28a5a5b6ac7d7111a7764a22574d7`, all observed clean at execution time:
+
+- [`evidence/p0-a0-bbdfbd5.json`](evidence/p0-a0-bbdfbd5.json) — same visible frozen Task, same hidden verifier, same scripted oracle candidate; records the `HarnessAgentRun` custom-Tool closure gap and authorizes no live or architecture claim.
+- [`evidence/p0-b0-bbdfbd5.json`](evidence/p0-b0-bbdfbd5.json) — mechanically scored ACT/HOLD fixtures and exact direct/late Tool-exposure isolation; records no live Provider evidence, no Security generalization, no Game confirmation and no public H2 promotion.
+
+These receipts are deterministic apparatus evidence. They do not increase `ANC-VERIFY-001` or `ANC-VERIFY-002` maturity beyond M4.
+
 ## Stop rules
 
 - Do not resume `run_b5_native_trial.py` as the new campaign.

@@ -1,6 +1,6 @@
 # P0–P1 Consumer Falsification Design
 
-Status: executing. P0-A0/P0-B0 deterministic apparatus has been implemented and validated; no live Provider comparison is claimed yet. No new shared infrastructure is authorized by this document.
+Status: executing. P0-A0/P0-B0 deterministic apparatus is implemented, validated, and frozen in exact-revision receipts; no live Provider comparison is claimed yet. No new shared infrastructure is authorized by this document.
 
 This design started from the reconciled 2026-08-10 Ready Frontier and was first landed at Computing `32014ceea7590e172407c309e411c899109c8bde`. P0 execution must bind fresh exact owner revisions rather than treating that design revision as deployment truth. It operationalizes the transition from infrastructure construction to ordinary consumer falsification. Product and domain repositories retain their own authority. Computing owns only experiment design, cross-project comparison, and interpretation.
 
