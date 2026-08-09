@@ -102,3 +102,16 @@ The loop itself is part of the world model. If repeated assimilation shows that 
 [`experiments/world-model-a6-cross-domain-v0/`](experiments/world-model-a6-cross-domain-v0/) consumes the Round 001 A6 implication against exact Finance and Harness revisions. It demonstrates why the lower half of the loop is not a synchronized architecture rollout: the shared claim can survive while one implementation choice is rejected. Agent-owned selection transferred to the Finance workload; a static latest-only caller rule did not, and a separate selection-only Model call carried a measurable fixed cost.
 
 The experiment also exposed a method pressure. A transient Provider disconnect after many completed observations initially erased the campaign-level receipt. The repaired campaign checkpoints completed steps independently and later resumed without dispatching them again. This is retained as evidence that experiment-step truth and terminal runner success are different facts; whether that becomes a machine-level world-model-loop rule remains an open method question rather than an automatic v1 mutation.
+
+## Evaluator authority pressure
+
+[`experiments/world-model-a10-time-scope-v0/`](experiments/world-model-a10-time-scope-v0/) exposed a second lower-half failure: Computing initially assigned a unique expected answer to one Security counterfactual even though Security had not defined the relevant current-truth invalidation law. The raw model observations remain evidence, but that case is excluded from accepted scientific accuracy.
+
+This sharpens the return-loop discipline:
+
+```text
+candidate != evaluator
+evaluator independence != domain truth authority
+```
+
+Cross-project evaluation must bind its oracle to owner-native semantics or to an explicit counterfactual law declared as part of the experiment. Computing may compare and falsify shared claims, but it cannot make an unresolved project-local truth rule become true by placing a label in a benchmark. This is retained as method pressure; it does not yet justify a new machine loop version.

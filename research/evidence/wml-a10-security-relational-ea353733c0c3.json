@@ -1,0 +1,1261 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.world-model-a10-relational-followup",
+  "status": "completed",
+  "identity": {
+    "experimentId": "WML-A10-SECURITY-RELATIONAL-v0",
+    "parentReceiptDigest": "sha256:c9d33bc515405babcef8f3db434bdd7077583e5425b899ecb4277db0258655bc",
+    "computingBaseRevision": "cadc0154a2fee54504b8fe680cc6751107c9ae57",
+    "securityRevision": "ad24160ab0a3eaec7656ffd8f530a6a86ba55b75",
+    "harnessRevision": "f09c3795fc811c5a564a5285cf227b2a44283cf5",
+    "model": "deepseek-v4-flash",
+    "credentialScopeId": "credential-scope:deepseek:flash:0",
+    "casesDigest": "sha256:e65366dbbd5153f038fa78ffbc2d74fc5c4ba672fb334398dcb7e12dfa73937d",
+    "timelineDigest": "sha256:74a5829613196a351e3178b78af62a0f88e4213fe4202cbda3ff6a07c0af771c",
+    "treatments": [
+      "RAW_SCOPED",
+      "PROPERTY_TIMELINE"
+    ],
+    "replicates": [
+      1,
+      2
+    ],
+    "ownerEvidence": [
+      {
+        "ref": "evidence/acceptance/c1n-downstream-truth-failure-88d068b.json",
+        "sha256": "sha256:5e56770757591c0c5febc6382752c4786875e6ec75bc32e6dfac69f88540d8af",
+        "kind": "ordivon.security.c1n-downstream-truth-failure-acceptance-index"
+      },
+      {
+        "ref": "evidence/acceptance/ae2-conflicting-observations-990e71f.json",
+        "sha256": "sha256:5ae0abb0663a50c0864bd9fa9f3ce20d4e02b05983272edace14ebda991c63ed",
+        "kind": "ordivon.security.adversarial-epistemics-ae2-acceptance-index"
+      },
+      {
+        "ref": "evidence/acceptance/ae3c-evidence-reduction-7667668.json",
+        "sha256": "sha256:f3880aff66a2dc1e3aedf38facb6a008e495ca150f2cc395d134d17e74a2aab0",
+        "kind": "ordivon.security.adversarial-epistemics-ae3c-acceptance-index"
+      }
+    ]
+  },
+  "cases": [
+    {
+      "caseId": "c1n-current-after-unknown-effect",
+      "query": {
+        "property": "balance",
+        "logicalTime": 30,
+        "question": "What is the current balance at logical time 30?"
+      },
+      "records": [
+        {
+          "recordId": "record:c1n:witness-balance-1",
+          "role": "state-witness",
+          "property": "balance",
+          "authority": "truth-recovery:c1n-sealed-state-witness-v1",
+          "logicalTime": 10,
+          "value": "1",
+          "integrity": "valid",
+          "statement": "The witness establishes balance=1 at its observation point."
+        },
+        {
+          "recordId": "record:c1n:post-witness-effect-attempt",
+          "role": "effect-attempt",
+          "property": "balance",
+          "authority": "experiment-local-counterfactual-effect",
+          "logicalTime": 20,
+          "outcome": "unknown",
+          "semantics": "If committed, this effect changes balance from 1 to 2. Its physical outcome is not known.",
+          "producesWorldTruth": false
+        }
+      ],
+      "allowedAnswers": [
+        "1",
+        "2",
+        "unknown"
+      ],
+      "expected": "unknown",
+      "compatibleCurrentWorlds": [
+        "1",
+        "2"
+      ],
+      "class": "expected-unknown"
+    },
+    {
+      "caseId": "c1n-historical-query-remains-valid",
+      "query": {
+        "property": "balance",
+        "logicalTime": 10,
+        "question": "What balance did the authoritative witness establish at logical time 10?"
+      },
+      "records": [
+        {
+          "recordId": "record:c1n:witness-balance-1",
+          "role": "state-witness",
+          "property": "balance",
+          "authority": "truth-recovery:c1n-sealed-state-witness-v1",
+          "logicalTime": 10,
+          "value": "1",
+          "integrity": "valid",
+          "statement": "The witness establishes balance=1 at its observation point."
+        }
+      ],
+      "allowedAnswers": [
+        "1",
+        "2",
+        "unknown"
+      ],
+      "expected": "1",
+      "compatibleCurrentWorlds": [
+        "not-a-current-query"
+      ],
+      "class": "expected-concrete"
+    },
+    {
+      "caseId": "c1n-new-current-truth-overrides-history",
+      "query": {
+        "property": "balance",
+        "logicalTime": 30,
+        "question": "What is the current balance at logical time 30?"
+      },
+      "records": [
+        {
+          "recordId": "record:c1n:witness-balance-1",
+          "role": "state-witness",
+          "property": "balance",
+          "authority": "truth-recovery:c1n-sealed-state-witness-v1",
+          "logicalTime": 10,
+          "value": "1",
+          "integrity": "valid",
+          "statement": "The witness establishes balance=1 at its observation point."
+        },
+        {
+          "recordId": "record:c1n:post-witness-effect-applied",
+          "role": "effect-receipt",
+          "property": "balance",
+          "authority": "experiment-local-counterfactual-effect",
+          "logicalTime": 20,
+          "outcome": "known-applied",
+          "semantics": "The effect changed balance from 1 to 2.",
+          "producesWorldTruth": false
+        },
+        {
+          "recordId": "record:c1n:current-balance-truth-2",
+          "role": "world-truth",
+          "property": "balance",
+          "authority": "owned-downstream-current-observer",
+          "logicalTime": 30,
+          "value": "2"
+        }
+      ],
+      "allowedAnswers": [
+        "1",
+        "2",
+        "unknown"
+      ],
+      "expected": "2",
+      "compatibleCurrentWorlds": [
+        "2"
+      ],
+      "class": "expected-concrete"
+    },
+    {
+      "caseId": "ae2-old-truth-plus-new-conflict",
+      "query": {
+        "property": "serviceCompromised",
+        "logicalTime": 25,
+        "question": "What is the current serviceCompromised value at logical time 25?"
+      },
+      "records": [
+        {
+          "recordId": "record:ae2:world-truth-false",
+          "role": "world-truth",
+          "property": "serviceCompromised",
+          "authority": "owned-range-prior-adjudication",
+          "logicalTime": 10,
+          "value": "false"
+        },
+        {
+          "recordId": "record:ae2:sensor-a-true",
+          "role": "sensor-observation",
+          "property": "serviceCompromised",
+          "authority": "range-owned-independent-sensor-not-world-truth",
+          "logicalTime": 20,
+          "sourceId": "sensor:ae2-a",
+          "value": "true"
+        },
+        {
+          "recordId": "record:ae2:sensor-b-false",
+          "role": "sensor-observation",
+          "property": "serviceCompromised",
+          "authority": "range-owned-independent-sensor-not-world-truth",
+          "logicalTime": 21,
+          "sourceId": "sensor:ae2-b",
+          "value": "false"
+        }
+      ],
+      "allowedAnswers": [
+        "true",
+        "false",
+        "unknown"
+      ],
+      "expected": "unknown",
+      "compatibleCurrentWorlds": [
+        "true",
+        "false"
+      ],
+      "class": "expected-unknown"
+    },
+    {
+      "caseId": "ae2-current-truth-resolves-new-conflict",
+      "query": {
+        "property": "serviceCompromised",
+        "logicalTime": 30,
+        "question": "What is the current serviceCompromised value at logical time 30?"
+      },
+      "records": [
+        {
+          "recordId": "record:ae2:world-truth-false",
+          "role": "world-truth",
+          "property": "serviceCompromised",
+          "authority": "owned-range-prior-adjudication",
+          "logicalTime": 10,
+          "value": "false"
+        },
+        {
+          "recordId": "record:ae2:sensor-a-true",
+          "role": "sensor-observation",
+          "property": "serviceCompromised",
+          "authority": "range-owned-independent-sensor-not-world-truth",
+          "logicalTime": 20,
+          "sourceId": "sensor:ae2-a",
+          "value": "true"
+        },
+        {
+          "recordId": "record:ae2:sensor-b-false",
+          "role": "sensor-observation",
+          "property": "serviceCompromised",
+          "authority": "range-owned-independent-sensor-not-world-truth",
+          "logicalTime": 21,
+          "sourceId": "sensor:ae2-b",
+          "value": "false"
+        },
+        {
+          "recordId": "record:ae2:new-world-truth-true",
+          "role": "world-truth",
+          "property": "serviceCompromised",
+          "authority": "owned-range-current-adjudication",
+          "logicalTime": 30,
+          "value": "true"
+        }
+      ],
+      "allowedAnswers": [
+        "true",
+        "false",
+        "unknown"
+      ],
+      "expected": "true",
+      "compatibleCurrentWorlds": [
+        "true"
+      ],
+      "class": "expected-concrete"
+    }
+  ],
+  "records": [
+    {
+      "caseId": "c1n-current-after-unknown-effect",
+      "caseClass": "expected-unknown",
+      "treatment": "RAW_SCOPED",
+      "replicate": 1,
+      "expected": "unknown",
+      "answer": "unknown",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:witness-balance-1",
+        "record:c1n:post-witness-effect-attempt"
+      ],
+      "result": {
+        "answer": "unknown",
+        "basisRecordIds": [
+          "record:c1n:witness-balance-1",
+          "record:c1n:post-witness-effect-attempt"
+        ],
+        "reason": "The witness record establishes balance=1 at logical time 10, its observation point. The effect-attempt record at logical time 20 has outcome 'unknown' and does not produce world truth; it only describes a conditional effect (changing balance from 1 to 2) whose physical outcome is not known. The query asks for the balance at logical time 30. The effect record does not establish whether the balance became 2, stayed 1, or something else at time 20, and there is no record establishing balance at time 30. Therefore the balance at logical time 30 is not established."
+      },
+      "promptDigest": "sha256:3a0e1f2b9feb2cb2f61b3993167b4551d013b97374af74089d21e3fc67e6149d",
+      "modelEvidence": {
+        "requestDigest": "sha256:7e18044db35b340ccd218d8e5c18de9e82e5625027d3ab04038a1f79ca0a851f",
+        "resultDigest": "sha256:afba884380a86eeb5376c024f90282809d89dcaf2d87fec69e366215ec96f0dd",
+        "modelCallId": "7b18d334-3e25-4919-b995-fe12eaae37ba",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1077,
+          "completion_tokens": 347,
+          "total_tokens": 1424,
+          "prompt_tokens_details": {
+            "cached_tokens": 896
+          },
+          "prompt_cache_hit_tokens": 896,
+          "prompt_cache_miss_tokens": 181,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:6644d648c6fb74e6842daea2f172d8b3f5a4bb670b44ce6b78bdc903276ed52f"
+      }
+    },
+    {
+      "caseId": "c1n-current-after-unknown-effect",
+      "caseClass": "expected-unknown",
+      "treatment": "PROPERTY_TIMELINE",
+      "replicate": 1,
+      "expected": "unknown",
+      "answer": "unknown",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:witness-balance-1",
+        "record:c1n:post-witness-effect-attempt"
+      ],
+      "result": {
+        "answer": "unknown",
+        "basisRecordIds": [
+          "record:c1n:witness-balance-1",
+          "record:c1n:post-witness-effect-attempt"
+        ],
+        "reason": "The witness record establishes balance=1 at logical time 10. The effect-attempt record at logical time 20 has outcome 'unknown' and explicitly states 'producesWorldTruth': false, meaning it does not establish that balance became 2. Its semantics say it would change balance from 1 to 2 if committed, but the physical outcome is not known. Since the effect's outcome is unknown and it does not carry world-truth authority, the balance at logical time 30 is not established. No record establishes the balance at logical time 30, so the answer is unknown."
+      },
+      "promptDigest": "sha256:7ae0e5a0bd219710cced11efb93ed7e0de56897dcdb946db66fc6ca82ed6de32",
+      "modelEvidence": {
+        "requestDigest": "sha256:42909b4874f92e767c3876c328af4f2e770bc38a0477019da3b5bb6ea51f4b77",
+        "resultDigest": "sha256:58f17ec9973d97498dd6b708652ca0c0d4b53935d2308075c567103da4515e0f",
+        "modelCallId": "a44abf2c-9e5f-4ebc-a039-16b7ac1579d2",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1144,
+          "completion_tokens": 328,
+          "total_tokens": 1472,
+          "prompt_tokens_details": {
+            "cached_tokens": 512
+          },
+          "prompt_cache_hit_tokens": 512,
+          "prompt_cache_miss_tokens": 632,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:2f9b7dfd3e65bc63b80b59607d0053070124b03855f75a1fbcf724407d71f98d"
+      }
+    },
+    {
+      "caseId": "c1n-historical-query-remains-valid",
+      "caseClass": "expected-concrete",
+      "treatment": "RAW_SCOPED",
+      "replicate": 1,
+      "expected": "1",
+      "answer": "1",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:witness-balance-1"
+      ],
+      "result": {
+        "answer": "1",
+        "basisRecordIds": [
+          "record:c1n:witness-balance-1"
+        ],
+        "reason": "The authoritative witness record (record:c1n:witness-balance-1) establishes balance=1 at logical time 10, matching the requested property (balance) and logical time. The record integrity is valid and it is a state-witness for the queried property."
+      },
+      "promptDigest": "sha256:091da2d3294ceaf676c13ec4104b758d142bdfab338b2abe00959df8527f38d2",
+      "modelEvidence": {
+        "requestDigest": "sha256:3123a76ae08bdf42647c5756c11f188b7d80bb85c0a87254fa512e59e75bcaae",
+        "resultDigest": "sha256:969d150951e2bbdd0f2d7c3a9cd1b09442d0427c3f132a1d0ea6c691900117d4",
+        "modelCallId": "491b109f-eafc-41dd-9840-f167c92f1c7c",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 991,
+          "completion_tokens": 206,
+          "total_tokens": 1197,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 223,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:1974e7a8be2eecd15b80dfe5d77f6d46d15ffbefc47660790ef90b9ae09022d7"
+      }
+    },
+    {
+      "caseId": "c1n-historical-query-remains-valid",
+      "caseClass": "expected-concrete",
+      "treatment": "PROPERTY_TIMELINE",
+      "replicate": 1,
+      "expected": "1",
+      "answer": "1",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:witness-balance-1"
+      ],
+      "result": {
+        "answer": "1",
+        "basisRecordIds": [
+          "record:c1n:witness-balance-1"
+        ],
+        "reason": "The authoritative state-witness record c1n:witness-balance-1 establishes balance=1 at logical time 10 (its observation point), which is exactly the queried logical time. The record has valid integrity, and the propertyTimeline confirms it is the state-establishing record for this query."
+      },
+      "promptDigest": "sha256:4d92297e1aee061ca2b9ac058623c747bf349dbce0971be8a23434e9bf0f0153",
+      "modelEvidence": {
+        "requestDigest": "sha256:b6ace0b11bbb27f4fe8856d7f8759a66bb2a17c92f8dd73ef1320e3ff78badef",
+        "resultDigest": "sha256:d6ffc4cbdf7b54387eedf67a200854b0137bb460b3f197877c54817662211c49",
+        "modelCallId": "87223edf-dd07-46ee-84e5-74105dc7d24b",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1055,
+          "completion_tokens": 212,
+          "total_tokens": 1267,
+          "prompt_tokens_details": {
+            "cached_tokens": 384
+          },
+          "prompt_cache_hit_tokens": 384,
+          "prompt_cache_miss_tokens": 671,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:47a743124282b32cf2e23b2d3852d7a6074a7f929ace2db53fe7fb53546fd60a"
+      }
+    },
+    {
+      "caseId": "c1n-new-current-truth-overrides-history",
+      "caseClass": "expected-concrete",
+      "treatment": "RAW_SCOPED",
+      "replicate": 1,
+      "expected": "2",
+      "answer": "2",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:current-balance-truth-2"
+      ],
+      "result": {
+        "answer": "2",
+        "basisRecordIds": [
+          "record:c1n:current-balance-truth-2"
+        ],
+        "reason": "The query asks for the current balance at logical time 30. Record record:c1n:current-balance-truth-2 has role 'world-truth', logicalTime 30, and explicitly establishes value '2' for the balance property at that time. This is the state-establishing record for the requested logical time. The earlier witness record (balance=1 at logical time 10) remains valid for its own scope but is superseded at time 30 by the current truth record establishing balance=2."
+      },
+      "promptDigest": "sha256:99aa535c8e214622a19404c02bd9a6af9be88f3f65d8e3c2d47f468d7e78f039",
+      "modelEvidence": {
+        "requestDigest": "sha256:e5ee78ac60bda4b59f5b97658ed0f1c3b455e7b00058a25d4a233f38c4535c5f",
+        "resultDigest": "sha256:6568ad3c14a11726a106f964d7153c964e2512486980a1a05a6b1a4015b1c8ce",
+        "modelCallId": "1c695826-4057-4d6f-a871-6534c41ae57c",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1133,
+          "completion_tokens": 259,
+          "total_tokens": 1392,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 365,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:5f8f3be7fea30c65b88edf6960a0e61dd264b85fe6558a7f7da0050e9893fd18"
+      }
+    },
+    {
+      "caseId": "c1n-new-current-truth-overrides-history",
+      "caseClass": "expected-concrete",
+      "treatment": "PROPERTY_TIMELINE",
+      "replicate": 1,
+      "expected": "2",
+      "answer": "2",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:witness-balance-1",
+        "record:c1n:post-witness-effect-applied",
+        "record:c1n:current-balance-truth-2"
+      ],
+      "result": {
+        "answer": "2",
+        "basisRecordIds": [
+          "record:c1n:witness-balance-1",
+          "record:c1n:post-witness-effect-applied",
+          "record:c1n:current-balance-truth-2"
+        ],
+        "reason": "The query asks for the current balance at logical time 30. The latest state-establishing record, record:c1n:current-balance-truth-2 (world-truth at logical time 30, value=2), establishes balance=2 at exactly the queried logical time. The prior state-establishing record (witness-balance-1, value=1 at time 10) and the later relevant effect-receipt record (post-witness-effect-applied at time 20) are consistent with the progression to 2 but do not override the world-truth record at time 30. Therefore the current balance at logical time 30 is 2."
+      },
+      "promptDigest": "sha256:ab0c21ddc45a4a6d964b90905fc81dfb526e04be452cca600eedc3a5b237e3fc",
+      "modelEvidence": {
+        "requestDigest": "sha256:4ba78e5fd624793ae936191b21f1b93f68800928d314314da1695896085c4183",
+        "resultDigest": "sha256:bf951068f48ba239acd9c3569ab60622f2959476f6b859baa54ec50c7565c950",
+        "modelCallId": "29b67537-b01a-449b-a0ca-6fff63253897",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1211,
+          "completion_tokens": 341,
+          "total_tokens": 1552,
+          "prompt_tokens_details": {
+            "cached_tokens": 512
+          },
+          "prompt_cache_hit_tokens": 512,
+          "prompt_cache_miss_tokens": 699,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:1fc8b600142a0720a6f5af237b1fdda51a52ae0932c36851516c2c4417848323"
+      }
+    },
+    {
+      "caseId": "ae2-old-truth-plus-new-conflict",
+      "caseClass": "expected-unknown",
+      "treatment": "RAW_SCOPED",
+      "replicate": 1,
+      "expected": "unknown",
+      "answer": "true",
+      "correct": false,
+      "errorClass": "false-certainty",
+      "basisRecordIds": [
+        "record:ae2:sensor-a-true",
+        "record:ae2:sensor-b-false",
+        "record:ae2:world-truth-false"
+      ],
+      "result": {
+        "answer": "true",
+        "basisRecordIds": [
+          "record:ae2:sensor-a-true",
+          "record:ae2:sensor-b-false",
+          "record:ae2:world-truth-false"
+        ],
+        "reason": "At logical time 25, the query asks for the current serviceCompromised value. The records available: world-truth at time 10 (false), sensor A at time 20 (true), and sensor B at time 21 (false). Authority applies only to properties a record actually establishes. The sensor records are observations (sensor-observation), not world-truth, and do not carry world-truth authority. The only record with world-truth authority establishes serviceCompromised=false at logical time 10. However, the sensors report conflicting values after that (true at 20, false at 21). Neither sensor observation can establish the world-truth value for serviceCompromised at time 25. The world-truth record at time 10 established false, but whether it remains current through time 25 is not independently established by any authoritative record. Given conflicting sensor observations and no authoritative post-time-10 world-truth record for time 25, the current value at logical time 25 is not cleanly established by an authoritative record. The most recent observation (sensor B, time 21) reports false, but observations do not carry world-truth authority. Based on applying the world-truth record (the only authority-establishing record) to the scope, serviceCompromised was established as false at time 10. Since no later world-truth record supersedes it, and observations lack world-truth authority, the value established for the query at its scope remains false from the world-truth record."
+      },
+      "promptDigest": "sha256:e48daedc12ccccb644efdb67ff104074ca1e40af4ad55483fc6de64fbe28e861",
+      "modelEvidence": {
+        "requestDigest": "sha256:22de2e4a0a51c6d67386d7fb3d1e407e07d153e75c25376d93a65a766d32ebcb",
+        "resultDigest": "sha256:efdd76b3386089a3d1d17ad87655eac8cd22e737877dd52dfaa8e153491d993b",
+        "modelCallId": "f908234d-1326-4ecc-9221-4a4900028aa0",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1115,
+          "completion_tokens": 505,
+          "total_tokens": 1620,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024
+          },
+          "prompt_cache_hit_tokens": 1024,
+          "prompt_cache_miss_tokens": 91,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:22a604ecafd10b606b85f30c6acd7c20627db1bc3ae1ce1f8de4eae522afe06b"
+      }
+    },
+    {
+      "caseId": "ae2-old-truth-plus-new-conflict",
+      "caseClass": "expected-unknown",
+      "treatment": "PROPERTY_TIMELINE",
+      "replicate": 1,
+      "expected": "unknown",
+      "answer": "false",
+      "correct": false,
+      "errorClass": "false-certainty",
+      "basisRecordIds": [
+        "record:ae2:world-truth-false"
+      ],
+      "result": {
+        "answer": "false",
+        "basisRecordIds": [
+          "record:ae2:world-truth-false"
+        ],
+        "reason": "The world-truth record at logical time 10 establishes serviceCompromised as false for the owned-range prior adjudication. The later sensor observations (sensor-a-true at time 20, sensor-b-false at time 21) are range-owned independent sensor observations and are not world-truth authority. The query asks for the serviceCompromised value at logical time 25. The world-truth record established false at time 10 and no later state-establishing record (world-truth) exists after the later relevant records. The sensors are not authoritative for the world-truth property. However, there is a conflict between the prior world-truth value (false) and the later relevant sensor record sensor-a-true. The sensor observations do not carry world-truth authority for serviceCompromised, so the established value remains false as established by the world-truth record at time 10. The propertyTimeline shows no state-establishing record after the later relevant records, meaning the prior world-truth value stands. Sensors are observations, not world-truth establishing records, so the world-truth value false is the established answer."
+      },
+      "promptDigest": "sha256:200def5f3d984ee40069727be90e856de05a5ef5211445a23967943d9e7d856a",
+      "modelEvidence": {
+        "requestDigest": "sha256:a6c6ec2c228dd6d621d284ed13e457709900f7ffe2c1dbdb560a320a7f751e3e",
+        "resultDigest": "sha256:06c740bb81e33f17d146efe083a5bb5e9b811d555a6374b128126391886b47eb",
+        "modelCallId": "8bbacbb2-3a37-4af5-9f19-c4af934ef9aa",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1193,
+          "completion_tokens": 404,
+          "total_tokens": 1597,
+          "prompt_tokens_details": {
+            "cached_tokens": 512
+          },
+          "prompt_cache_hit_tokens": 512,
+          "prompt_cache_miss_tokens": 681,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:490cc2fd40805024f8238a23e25cbaccf4666903f640f9849a79762a673b07bb"
+      }
+    },
+    {
+      "caseId": "ae2-current-truth-resolves-new-conflict",
+      "caseClass": "expected-concrete",
+      "treatment": "RAW_SCOPED",
+      "replicate": 1,
+      "expected": "true",
+      "answer": "true",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:ae2:new-world-truth-true"
+      ],
+      "result": {
+        "answer": "true",
+        "basisRecordIds": [
+          "record:ae2:new-world-truth-true"
+        ],
+        "reason": "The query asks for the current serviceCompromised value at logical time 30. The record record:ae2:new-world-truth-true has authority 'owned-range-current-adjudication' and role 'world-truth', establishing serviceCompromised=true at logical time 30, which is the requested logical time. This current world-truth record supersedes the prior world-truth record at time 10 (false) and the sensor observations at times 20 and 21."
+      },
+      "promptDigest": "sha256:735b3aea29d3b14ddf06a6e0f5a11307be6d2495c9eacdc362d82c29b18140f2",
+      "modelEvidence": {
+        "requestDigest": "sha256:235b5f7e6eb1ae54285c32683224446c791082034af3bb9831dfce197e370bbc",
+        "resultDigest": "sha256:94d4c772d5da06dc72312a30db0d1608e31c5c21671d7de30dcaa5c472de84ed",
+        "modelCallId": "275dd6ec-d044-4c78-a04b-42423290a831",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1178,
+          "completion_tokens": 252,
+          "total_tokens": 1430,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024
+          },
+          "prompt_cache_hit_tokens": 1024,
+          "prompt_cache_miss_tokens": 154,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:4d43af5677897e30465bd2fa02f0fa9b97bb3e5af26633092a120e96e252c022"
+      }
+    },
+    {
+      "caseId": "ae2-current-truth-resolves-new-conflict",
+      "caseClass": "expected-concrete",
+      "treatment": "PROPERTY_TIMELINE",
+      "replicate": 1,
+      "expected": "true",
+      "answer": "true",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:ae2:new-world-truth-true"
+      ],
+      "result": {
+        "answer": "true",
+        "basisRecordIds": [
+          "record:ae2:new-world-truth-true"
+        ],
+        "reason": "The query asks for serviceCompromised at logical time 30. The record record:ae2:new-world-truth-true is an owned-range current-adjudication world-truth record that establishes serviceCompromised=true at logical time 30. This is the state-establishing record after the later relevant sensor records, as confirmed by the propertyTimeline's stateEstablishingRecordAfterLaterRelevantRecords. The later sensor records (sensor-a at t20, sensor-b at t21) are not world-truth authorities for the current state. The world-truth record at logical time 30 directly establishes the answer as true."
+      },
+      "promptDigest": "sha256:17d4290c7e408a0f69ae2a647b55472906a45fc66873d388e07693bd5dccdc92",
+      "modelEvidence": {
+        "requestDigest": "sha256:605cd9c0ecb13de5b5becda7f4eb72bfc740a5c39419d7936eca3ea9f3c97d6b",
+        "resultDigest": "sha256:fbe2c75e211dfd2c0d73303fe8f1ea789639348512dd58c1259ef1088e00adfe",
+        "modelCallId": "d78dfa08-d581-442c-a23a-9cbccbf67b9f",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1266,
+          "completion_tokens": 283,
+          "total_tokens": 1549,
+          "prompt_tokens_details": {
+            "cached_tokens": 512
+          },
+          "prompt_cache_hit_tokens": 512,
+          "prompt_cache_miss_tokens": 754,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:ee6b012e8389f26d5994b2eaa3ac1e545106708db89a3386f3078e1cf5015395"
+      }
+    },
+    {
+      "caseId": "c1n-current-after-unknown-effect",
+      "caseClass": "expected-unknown",
+      "treatment": "PROPERTY_TIMELINE",
+      "replicate": 2,
+      "expected": "unknown",
+      "answer": "unknown",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:witness-balance-1",
+        "record:c1n:post-witness-effect-attempt"
+      ],
+      "result": {
+        "answer": "unknown",
+        "basisRecordIds": [
+          "record:c1n:witness-balance-1",
+          "record:c1n:post-witness-effect-attempt"
+        ],
+        "reason": "The witness at logical time 10 establishes balance=1, but the effect-attempt record at logical time 20 states it would change balance from 1 to 2 if committed, yet its physical outcome is unknown and it does not produce world truth. No record establishes the balance at logical time 30. Since the effect outcome is explicitly unknown and no state-establishing record covers logical time 30, the queried value is not established."
+      },
+      "promptDigest": "sha256:7ae0e5a0bd219710cced11efb93ed7e0de56897dcdb946db66fc6ca82ed6de32",
+      "modelEvidence": {
+        "requestDigest": "sha256:b145ec85c5419a0d36c23128777e5e32fe34a082a4de900ddc955243afd0076b",
+        "resultDigest": "sha256:b36568015be6df6611aa8ed5432285eee7373cd76217c156441f775144d23c05",
+        "modelCallId": "23d762f7-0bb1-4e4e-a15d-ebe1f086ef96",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1144,
+          "completion_tokens": 289,
+          "total_tokens": 1433,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024
+          },
+          "prompt_cache_hit_tokens": 1024,
+          "prompt_cache_miss_tokens": 120,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:b95c5f71f96338c98089c005de18aa7ddba863a571599f79eaeb9aa5d32dc16d"
+      }
+    },
+    {
+      "caseId": "c1n-current-after-unknown-effect",
+      "caseClass": "expected-unknown",
+      "treatment": "RAW_SCOPED",
+      "replicate": 2,
+      "expected": "unknown",
+      "answer": "1",
+      "correct": false,
+      "errorClass": "false-certainty",
+      "basisRecordIds": [
+        "record:c1n:witness-balance-1"
+      ],
+      "result": {
+        "answer": "1",
+        "basisRecordIds": [
+          "record:c1n:witness-balance-1"
+        ],
+        "reason": "The only state-establishing record is the witness at logical time 10, which establishes balance=1. The effect-attempt record at logical time 20 states its outcome is 'unknown' and producesWorldTruth is false, so it does not establish any change to the balance. At logical time 30, no record establishes a different value, so the established balance remains 1."
+      },
+      "promptDigest": "sha256:3a0e1f2b9feb2cb2f61b3993167b4551d013b97374af74089d21e3fc67e6149d",
+      "modelEvidence": {
+        "requestDigest": "sha256:20f2e926dce31ece9487fb3d846e7158df8d1c8e93777da5b24fec129e6e910c",
+        "resultDigest": "sha256:d8bbc47cc81836eff70462c50d55c320aed3f0c04afec8d3d2a4c2ee161d01ca",
+        "modelCallId": "ef57d0ac-68e1-407d-b89f-6b9234734103",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1077,
+          "completion_tokens": 261,
+          "total_tokens": 1338,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024
+          },
+          "prompt_cache_hit_tokens": 1024,
+          "prompt_cache_miss_tokens": 53,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:0f4425733424495a17b0a6bbc1c760b240fe05e5eaa22d4f83093f99fca1770a"
+      }
+    },
+    {
+      "caseId": "c1n-historical-query-remains-valid",
+      "caseClass": "expected-concrete",
+      "treatment": "PROPERTY_TIMELINE",
+      "replicate": 2,
+      "expected": "1",
+      "answer": "1",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:witness-balance-1"
+      ],
+      "result": {
+        "answer": "1",
+        "basisRecordIds": [
+          "record:c1n:witness-balance-1"
+        ],
+        "reason": "The authoritative witness record record:c1n:witness-balance-1 establishes that balance=1 at logical time 10, which is the requested query logical time. The record integrity is valid and the witness directly establishes the balance value at its observation point (logical time 10)."
+      },
+      "promptDigest": "sha256:4d92297e1aee061ca2b9ac058623c747bf349dbce0971be8a23434e9bf0f0153",
+      "modelEvidence": {
+        "requestDigest": "sha256:88bbf5769d9bd78ede267c8b41b873788d7f0dd6f251f75f4e9c8798247a1c42",
+        "resultDigest": "sha256:9100afbf2bb8e19ee91c962c9679744ff94f48c39bac0dfa90926287258651ef",
+        "modelCallId": "3013fe38-6d46-4102-b35e-b472589eab14",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1055,
+          "completion_tokens": 209,
+          "total_tokens": 1264,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024
+          },
+          "prompt_cache_hit_tokens": 1024,
+          "prompt_cache_miss_tokens": 31,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:aa05a1465b95835c25f63c4630b8f808abea44673a22d6cb2c7d740a1b3495b2"
+      }
+    },
+    {
+      "caseId": "c1n-historical-query-remains-valid",
+      "caseClass": "expected-concrete",
+      "treatment": "RAW_SCOPED",
+      "replicate": 2,
+      "expected": "1",
+      "answer": "1",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:witness-balance-1"
+      ],
+      "result": {
+        "answer": "1",
+        "basisRecordIds": [
+          "record:c1n:witness-balance-1"
+        ],
+        "reason": "The authoritative state-witness record at logical time 10 establishes balance=1. The record's statement directly establishes the balance property with value 1 at its observation point (logical time 10), and the integrity is valid. No other records contradict or supersede this establishment for logical time 10."
+      },
+      "promptDigest": "sha256:091da2d3294ceaf676c13ec4104b758d142bdfab338b2abe00959df8527f38d2",
+      "modelEvidence": {
+        "requestDigest": "sha256:10ac1f05be96b7326429a276297f3cd918d12a6349a7639c85abe343e3b2c5ec",
+        "resultDigest": "sha256:ad8f16606a50774c841dca46bae33a6ed1c77a3c3fa0da6e4e480ff536ee0089",
+        "modelCallId": "4b625242-b194-4e7f-8235-b538b5416760",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 991,
+          "completion_tokens": 212,
+          "total_tokens": 1203,
+          "prompt_tokens_details": {
+            "cached_tokens": 896
+          },
+          "prompt_cache_hit_tokens": 896,
+          "prompt_cache_miss_tokens": 95,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:219d302d2b4eb8cd7b97a19b667d2ba11aec5bb1ab8051f1d6b73a40015ca987"
+      }
+    },
+    {
+      "caseId": "c1n-new-current-truth-overrides-history",
+      "caseClass": "expected-concrete",
+      "treatment": "PROPERTY_TIMELINE",
+      "replicate": 2,
+      "expected": "2",
+      "answer": "2",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:current-balance-truth-2",
+        "record:c1n:post-witness-effect-applied",
+        "record:c1n:witness-balance-1"
+      ],
+      "result": {
+        "answer": "2",
+        "basisRecordIds": [
+          "record:c1n:current-balance-truth-2",
+          "record:c1n:post-witness-effect-applied",
+          "record:c1n:witness-balance-1"
+        ],
+        "reason": "At logical time 30, record record:c1n:current-balance-truth-2 establishes balance=2 as the current world-truth. This is the latest state-establishing record at the query time. The witness at time 10 established balance=1 historically, and the effect receipt indicates balance changed from 1 to 2. The current-balance-truth record directly establishes the value 2 for the queried property at the query's logical time."
+      },
+      "promptDigest": "sha256:ab0c21ddc45a4a6d964b90905fc81dfb526e04be452cca600eedc3a5b237e3fc",
+      "modelEvidence": {
+        "requestDigest": "sha256:435fad9f017c9371c47097894bc5c3ea21017bb0be61e9934f59baf87760a3a7",
+        "resultDigest": "sha256:659e795f260338eea8c17d710b9866e8d9cb5bab308e343da6f5614ffdb03cd3",
+        "modelCallId": "b92cefdb-df62-467e-a454-c6c8f5c579a9",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1211,
+          "completion_tokens": 299,
+          "total_tokens": 1510,
+          "prompt_tokens_details": {
+            "cached_tokens": 1152
+          },
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 59,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:366a49bda15719093eb925731332f03508162b409c2044d34d1b39f55ba4e787"
+      }
+    },
+    {
+      "caseId": "c1n-new-current-truth-overrides-history",
+      "caseClass": "expected-concrete",
+      "treatment": "RAW_SCOPED",
+      "replicate": 2,
+      "expected": "2",
+      "answer": "2",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:c1n:current-balance-truth-2",
+        "record:c1n:post-witness-effect-applied",
+        "record:c1n:witness-balance-1"
+      ],
+      "result": {
+        "answer": "2",
+        "basisRecordIds": [
+          "record:c1n:current-balance-truth-2",
+          "record:c1n:post-witness-effect-applied",
+          "record:c1n:witness-balance-1"
+        ],
+        "reason": "The query asks for the balance at logical time 30. The record record:c1n:current-balance-truth-2 is a world-truth record at logical time 30 with role world-truth establishing value 2 for the balance property. Authority applies at the record's own scope (logical time 30). This is the current state-establishing record at the requested logical time. The historical witness record at time 10 establishes balance=1 at that point, and the effect receipt at time 20 indicates the balance changed from 1 to 2, consistent with the time-30 truth of 2. No record contradicts the value 2 at logical time 30."
+      },
+      "promptDigest": "sha256:99aa535c8e214622a19404c02bd9a6af9be88f3f65d8e3c2d47f468d7e78f039",
+      "modelEvidence": {
+        "requestDigest": "sha256:858cc8b0d573306ce6dcf877060011f3fcbe32a1ceb340e60780e2abbddc228a",
+        "resultDigest": "sha256:12b51cfe0f3ef9b749e1d83d59431121f7e338ffb825afaefde9df9ef392250d",
+        "modelCallId": "f7d6d325-4315-4335-8ccc-712728020a37",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1133,
+          "completion_tokens": 344,
+          "total_tokens": 1477,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024
+          },
+          "prompt_cache_hit_tokens": 1024,
+          "prompt_cache_miss_tokens": 109,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:b62b0c68f2e3fc9068b36672e72431012bd0de01abc927bec50f8f3c1e8fd80f"
+      }
+    },
+    {
+      "caseId": "ae2-old-truth-plus-new-conflict",
+      "caseClass": "expected-unknown",
+      "treatment": "PROPERTY_TIMELINE",
+      "replicate": 2,
+      "expected": "unknown",
+      "answer": "unknown",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:ae2:world-truth-false",
+        "record:ae2:sensor-a-true",
+        "record:ae2:sensor-b-false"
+      ],
+      "result": {
+        "answer": "unknown",
+        "basisRecordIds": [
+          "record:ae2:world-truth-false",
+          "record:ae2:sensor-a-true",
+          "record:ae2:sensor-b-false"
+        ],
+        "reason": "The world-truth record establishes serviceCompromised=false at logical time 10 (own scope). The two sensor-observation records at times 20 and 21 are explicitly 'not-world-truth' and are independent sensor observations, not state-establishing adjudications. Sensor observations report what a sensor observed, not what the world state is. At logical time 25, no record with state-establishing authority establishes the current serviceCompromised value. The sensors conflict (true at 20, false at 21), and neither carries world-truth authority. The question asks for the current established value at time 25, which is not established by any supplied record. Answer: unknown."
+      },
+      "promptDigest": "sha256:200def5f3d984ee40069727be90e856de05a5ef5211445a23967943d9e7d856a",
+      "modelEvidence": {
+        "requestDigest": "sha256:a9971f6653dd6382f7103ede24cb14e0f5187a1792c8843885e11999e9717ced",
+        "resultDigest": "sha256:31a32bbb24b7157f3800eb37bf014c32919387098822c8a14457271516f87438",
+        "modelCallId": "f404f8f8-66df-41c1-8e62-a11f0aae2ae2",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1193,
+          "completion_tokens": 357,
+          "total_tokens": 1550,
+          "prompt_tokens_details": {
+            "cached_tokens": 1152
+          },
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 41,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:ab40e88f7dc91933a60cabc8d8ce9e459edb83f3f5b08bf9dcd1701a070d527c"
+      }
+    },
+    {
+      "caseId": "ae2-old-truth-plus-new-conflict",
+      "caseClass": "expected-unknown",
+      "treatment": "RAW_SCOPED",
+      "replicate": 2,
+      "expected": "unknown",
+      "answer": "unknown",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:ae2:world-truth-false",
+        "record:ae2:sensor-a-true",
+        "record:ae2:sensor-b-false"
+      ],
+      "result": {
+        "answer": "unknown",
+        "basisRecordIds": [
+          "record:ae2:world-truth-false",
+          "record:ae2:sensor-a-true",
+          "record:ae2:sensor-b-false"
+        ],
+        "reason": "The query asks for serviceCompromised at logical time 25. The record:ae2:world-truth-false establishes world-truth false at time 10, but this is scoped to its own time and does not establish the value at time 25. The two sensor observations (sensor-a true at time 20, sensor-b false at time 21) are sensor-observation records without world-truth authority, and they conflict with each other. No record establishes the serviceCompromised value at logical time 25. Therefore the value is not established for the requested time and the answer is unknown."
+      },
+      "promptDigest": "sha256:e48daedc12ccccb644efdb67ff104074ca1e40af4ad55483fc6de64fbe28e861",
+      "modelEvidence": {
+        "requestDigest": "sha256:5afc2ec9d425634fceaa937b397ab326f10484edc50a67caed4b1315adde2c5f",
+        "resultDigest": "sha256:7502e5bf08bde61e9e753f06b2dc2381b4bd74b88b081a8ee0909e82f152e44f",
+        "modelCallId": "2e5b3571-0e6b-4a98-8be6-f3bdc6bd3b7e",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1115,
+          "completion_tokens": 332,
+          "total_tokens": 1447,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024
+          },
+          "prompt_cache_hit_tokens": 1024,
+          "prompt_cache_miss_tokens": 91,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:af17a6304e38ebc6849d2d124041f15e248c5dbb262ab0c2989c01316162fc30"
+      }
+    },
+    {
+      "caseId": "ae2-current-truth-resolves-new-conflict",
+      "caseClass": "expected-concrete",
+      "treatment": "PROPERTY_TIMELINE",
+      "replicate": 2,
+      "expected": "true",
+      "answer": "true",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:ae2:new-world-truth-true"
+      ],
+      "result": {
+        "answer": "true",
+        "basisRecordIds": [
+          "record:ae2:new-world-truth-true"
+        ],
+        "reason": "The query asks for serviceCompromised at logical time 30. The record record:ae2:new-world-truth-true is an owned-range-current-adjudication world-truth record establishing serviceCompromised=true at logical time 30, which is the query logical time. This is the current state-establishing record after the later relevant records (sensor-a at 20 and sensor-b at 21), and as a world-truth record it authoritatively establishes the value for the query time."
+      },
+      "promptDigest": "sha256:17d4290c7e408a0f69ae2a647b55472906a45fc66873d388e07693bd5dccdc92",
+      "modelEvidence": {
+        "requestDigest": "sha256:516256dda08c8414a7011a3c93ab71b829fb3771be68a9b0605f8628b28ba67f",
+        "resultDigest": "sha256:56c07e4c0875d9456588e41713119110199a22f950554ab525374e1bcbd1b4fb",
+        "modelCallId": "9016f765-7cc1-43f0-b1d3-5a0190902b51",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1266,
+          "completion_tokens": 256,
+          "total_tokens": 1522,
+          "prompt_tokens_details": {
+            "cached_tokens": 1152
+          },
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 114,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:616c862dba86714772333a45de91d39c76d6f77e048a55f6f8681934fa065c73"
+      }
+    },
+    {
+      "caseId": "ae2-current-truth-resolves-new-conflict",
+      "caseClass": "expected-concrete",
+      "treatment": "RAW_SCOPED",
+      "replicate": 2,
+      "expected": "true",
+      "answer": "true",
+      "correct": true,
+      "errorClass": null,
+      "basisRecordIds": [
+        "record:ae2:new-world-truth-true"
+      ],
+      "result": {
+        "answer": "true",
+        "basisRecordIds": [
+          "record:ae2:new-world-truth-true"
+        ],
+        "reason": "At logical time 30, the record 'record:ae2:new-world-truth-true' (authority: owned-range-current-adjudication, role: world-truth) establishes serviceCompromised=true for the current logical time. This is the most recent world-truth adjudication, and authority applies to the property it establishes at its own scope. Historical records are valid for their own times but do not override the current world-truth record at time 30."
+      },
+      "promptDigest": "sha256:735b3aea29d3b14ddf06a6e0f5a11307be6d2495c9eacdc362d82c29b18140f2",
+      "modelEvidence": {
+        "requestDigest": "sha256:a5dade0551e4e747ce3f85359b9b29871aac1cb2bf7147eea9359ef54de0124e",
+        "resultDigest": "sha256:38fbf267c4fe6f00c6906f13c0a03d17f5071e2f46530859f44e48f78b8f3e97",
+        "modelCallId": "9ecb3385-4c9b-4d8e-8333-ec204b6393c8",
+        "modelId": "deepseek-v4-flash",
+        "effectiveModelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1178,
+          "completion_tokens": 284,
+          "total_tokens": 1462,
+          "prompt_tokens_details": {
+            "cached_tokens": 1152
+          },
+          "prompt_cache_hit_tokens": 1152,
+          "prompt_cache_miss_tokens": 26,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "rawResponseDigest": "sha256:d44b1df77d80ee7d09d6583ef7048c2c77dd383ba8daf54ebb4f5b45f38d38cd"
+      }
+    }
+  ],
+  "summary": {
+    "RAW_SCOPED": {
+      "decisions": 10,
+      "correct": 8,
+      "accuracy": 0.8,
+      "falseCertainty": 2,
+      "falseAbstention": 0,
+      "wrongConcrete": 0,
+      "providerPromptTokens": 10988,
+      "providerTotalTokens": 13990
+    },
+    "PROPERTY_TIMELINE": {
+      "decisions": 10,
+      "correct": 9,
+      "accuracy": 0.9,
+      "falseCertainty": 1,
+      "falseAbstention": 0,
+      "wrongConcrete": 0,
+      "providerPromptTokens": 11738,
+      "providerTotalTokens": 14716
+    }
+  },
+  "pairedComparison": {
+    "pairs": 10,
+    "answerChanged": 2,
+    "timelineFixedRawError": 1,
+    "timelineHarmedRawCorrect": 0,
+    "details": [
+      {
+        "caseId": "c1n-current-after-unknown-effect",
+        "replicate": 1,
+        "rawCorrect": true,
+        "timelineCorrect": true,
+        "answerChanged": false,
+        "timelineFixedRawError": false,
+        "timelineHarmedRawCorrect": false
+      },
+      {
+        "caseId": "c1n-current-after-unknown-effect",
+        "replicate": 2,
+        "rawCorrect": false,
+        "timelineCorrect": true,
+        "answerChanged": true,
+        "timelineFixedRawError": true,
+        "timelineHarmedRawCorrect": false
+      },
+      {
+        "caseId": "c1n-historical-query-remains-valid",
+        "replicate": 1,
+        "rawCorrect": true,
+        "timelineCorrect": true,
+        "answerChanged": false,
+        "timelineFixedRawError": false,
+        "timelineHarmedRawCorrect": false
+      },
+      {
+        "caseId": "c1n-historical-query-remains-valid",
+        "replicate": 2,
+        "rawCorrect": true,
+        "timelineCorrect": true,
+        "answerChanged": false,
+        "timelineFixedRawError": false,
+        "timelineHarmedRawCorrect": false
+      },
+      {
+        "caseId": "c1n-new-current-truth-overrides-history",
+        "replicate": 1,
+        "rawCorrect": true,
+        "timelineCorrect": true,
+        "answerChanged": false,
+        "timelineFixedRawError": false,
+        "timelineHarmedRawCorrect": false
+      },
+      {
+        "caseId": "c1n-new-current-truth-overrides-history",
+        "replicate": 2,
+        "rawCorrect": true,
+        "timelineCorrect": true,
+        "answerChanged": false,
+        "timelineFixedRawError": false,
+        "timelineHarmedRawCorrect": false
+      },
+      {
+        "caseId": "ae2-old-truth-plus-new-conflict",
+        "replicate": 1,
+        "rawCorrect": false,
+        "timelineCorrect": false,
+        "answerChanged": true,
+        "timelineFixedRawError": false,
+        "timelineHarmedRawCorrect": false
+      },
+      {
+        "caseId": "ae2-old-truth-plus-new-conflict",
+        "replicate": 2,
+        "rawCorrect": true,
+        "timelineCorrect": true,
+        "answerChanged": false,
+        "timelineFixedRawError": false,
+        "timelineHarmedRawCorrect": false
+      },
+      {
+        "caseId": "ae2-current-truth-resolves-new-conflict",
+        "replicate": 1,
+        "rawCorrect": true,
+        "timelineCorrect": true,
+        "answerChanged": false,
+        "timelineFixedRawError": false,
+        "timelineHarmedRawCorrect": false
+      },
+      {
+        "caseId": "ae2-current-truth-resolves-new-conflict",
+        "replicate": 2,
+        "rawCorrect": true,
+        "timelineCorrect": true,
+        "answerChanged": false,
+        "timelineFixedRawError": false,
+        "timelineHarmedRawCorrect": false
+      }
+    ]
+  },
+  "externalSecurityEffectAttempted": false,
+  "interpretationBoundary": "Follow-up tests a deterministic relation index over the same Security-grounded records. The timeline carries no independent truth authority and does not establish a universal schema.",
+  "integrity": {
+    "algorithm": "sha256",
+    "payloadDigest": "sha256:ea353733c0c33db84fd11be144671943b3f41201ef834dda1d5e39e7aaf40f78"
+  }
+}
