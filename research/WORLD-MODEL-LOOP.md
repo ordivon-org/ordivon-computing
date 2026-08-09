@@ -137,3 +137,21 @@ downstream effect authority
 ```
 
 A deterministic falsifier proves that the existing Harness structured codec can correctly accept a schema-valid but cross-field-inconsistent candidate, while the existing caller/domain `validate_conclusion` hook can reject that candidate and drive a correction turn before terminal completion. A 48-decision live campaign produced no naturally occurring inconsistency or truth error under an explicit owner law, so the result supports the current responsibility split rather than a new global Harness semantic verifier. Domain semantic admission remains conditional on an actual owner invariant and consequence boundary.
+
+## Finance consequence-boundary dogfood
+
+[`experiments/finance-conclusion-admission-dogfood-v0/`](experiments/finance-conclusion-admission-dogfood-v0/) takes the next return edge into a real owner domain. The Agent submits only Finance `ExecutionOrderIntent v0`; Finance itself deterministically lowers the intent through `execution.request.prepare@1` and applies current C2 Proposal, authority, market-basis, notional, lot/tick and risk semantics without reserving or dispatching an external effect.
+
+The dogfood naturally produced schema-valid but Finance-denied intents. In one gated Run, the same Agent moved from delegated size 13, to 13 again, to admitted size 12 after Finance rejection; in another replicate, rejection failed to converge before the current correction budget was exhausted. This establishes both the value and the limit of owner-native conclusion admission.
+
+It also exposes a Harness-local collapse that does **not** justify moving Finance semantics into Harness:
+
+```text
+Tool-call correction
+!=
+conclusion correction
+```
+
+Current Harness increments `toolCorrections` and consumes `max_tool_corrections` for model-correctable conclusion rejection even when no Tool call occurs. Its correction message also assumes the candidate is incomplete and evidence is missing, which is false for a Finance authority/notional denial. These are focused Harness mechanics pressures. A separate live non-decodable structured conclusion is retained as pressure only; its exact terminal path was not captured and requires deterministic reproduction before completion fallback semantics change.
+
+The experiment also caught and excluded its own first runner revision after the evaluator target accidentally entered Agent-visible context. This reinforces the same authority discipline at the method layer: evaluator answers are not ordinary Agent input merely because the evaluator owns scoring.
