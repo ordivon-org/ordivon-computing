@@ -152,6 +152,17 @@ Tool-call correction
 conclusion correction
 ```
 
-Current Harness increments `toolCorrections` and consumes `max_tool_corrections` for model-correctable conclusion rejection even when no Tool call occurs. Its correction message also assumes the candidate is incomplete and evidence is missing, which is false for a Finance authority/notional denial. These are focused Harness mechanics pressures. A separate live non-decodable structured conclusion is retained as pressure only; its exact terminal path was not captured and requires deterministic reproduction before completion fallback semantics change.
+The dogfood exposed two focused Harness mechanics pressures: model-correctable conclusion rejection consumed `toolCorrections` / `max_tool_corrections` despite zero Tool calls, and the correction message incorrectly assumed every domain rejection meant incompleteness or missing evidence. Harness later resolved both without importing Finance semantics. Implementation `9e47ee615b2db77e274921ef5a043e429ba04c56` separates conclusion correction from Tool correction; acceptance `a38f4cfde3b20c64219ab00d911cac738da8961e` verifies the boundary, and both revisions remain ancestors of the currently observed clean Harness main `49a388238ed5df9d50be182f06bb86e3e2ff2e5b`.
+
+The remaining live non-decodable structured-conclusion pressure was then reproduced deterministically in Harness. The exact path was not a Finance semantic error: a Harness-owned external-observation `NO_PROGRESS` disposition synthesized a plain-text `needs_input` `AgentRunConclusion`, so a valid `structured-result-v1` caller received a non-null conclusion that could not satisfy its caller-owned result representation. Harness implementation `8170e65778ba40a1e6cdc2b526b2b753f7387317` removes that synthesized conclusion while retaining the stop reason in Run detail/Trace; acceptance `a4b28963ee7a0196df961a7409c599da90d26ec0` verifies the result and also remains an ancestor of current Harness main.
+
+The returned relation is therefore broader than the original Finance failure but still narrower than a Core revision:
+
+```text
+Tool-call correction != conclusion correction
+Harness execution disposition != Agent semantic conclusion
+```
+
+These are candidate shared ownership relations. They do not justify a global semantic verifier, a generic correction service, or a new Round 002 by themselves. The next Computing assimilation review should compare them with independent Runtime, Host, World and domain evidence before deciding whether they remain reusable Knowledge or pressure an existing Core claim.
 
 The experiment also caught and excluded its own first runner revision after the evaluator target accidentally entered Agent-visible context. This reinforces the same authority discipline at the method layer: evaluator answers are not ordinary Agent input merely because the evaluator owns scoring.
