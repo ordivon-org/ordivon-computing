@@ -1,0 +1,274 @@
+{
+  "metrics": {
+    "concepts": {
+      "bind_run_state": false,
+      "conclusion_correction": false,
+      "no_tool": false,
+      "tool_identity_collision": false
+    },
+    "efficientSuccess": false,
+    "forbiddenFix": false,
+    "localizedFiles": 0,
+    "maxScore": 6,
+    "observations": 10,
+    "observedBytes": 36824,
+    "score": 0
+  },
+  "replicate": 1,
+  "submission": {
+    "abstain": true,
+    "causalMechanism": "",
+    "confidence": 0.0,
+    "files": [],
+    "forcedByBudget": true,
+    "hypothesis": "observation budget exhausted without a submitted causal target",
+    "nextFalsifier": "reformulate the discovery plan before spending more observations"
+  },
+  "trace": [
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "ToolBridge",
+            "why": "Find the ToolBridge boundary mentioned in the pressure description"
+          },
+          "id": "call_00_4bqshfYklSH0HTxiqB1r5887",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "query": "conclusion correction control",
+            "why": "Find conclusion correction/control handling code"
+          },
+          "id": "call_01_9q5rgNrKmQhCUB9SOjsm0603",
+          "name": "search"
+        }
+      ],
+      "turn": 0
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "MODEL_CORRECTABLE",
+            "why": "Find where MODEL_CORRECTABLE ToolBridgeError is raised/used"
+          },
+          "id": "call_00_FsD6IxLOzZCw3O22FcAb1484",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "end": 60,
+            "path": "tests/test_conclusion_correction_separation.py",
+            "start": 1,
+            "why": "Understand the conclusion correction separation test"
+          },
+          "id": "call_01_yvaWr4agF9CmkuggcpRE7265",
+          "name": "read"
+        }
+      ],
+      "turn": 1
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 180,
+            "path": "tests/test_conclusion_correction_separation.py",
+            "start": 60,
+            "why": "Read full test for conclusion correction separation"
+          },
+          "id": "call_00_8YQL9hbbMIQoVVRpDHRZ8978",
+          "name": "read"
+        }
+      ],
+      "turn": 2
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 1100,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 1000,
+            "why": "Read the loop region where MODEL_CORRECTABLE errors are raised and corrected"
+          },
+          "id": "call_00_iEuJn8dDdikOo1jA22r45052",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "query": "conclusion_rejected",
+            "why": "Find where conclusion_rejected events are emitted"
+          },
+          "id": "call_01_nNybt8LDzcYgdUgXVUOz7486",
+          "name": "search"
+        }
+      ],
+      "turn": 3
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 2250,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 2100,
+            "why": "Read the conclusion correction handling region in loop.py"
+          },
+          "id": "call_00_348pnnFeiKHpNYOgF9fg4687",
+          "name": "read"
+        }
+      ],
+      "turn": 4
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 2360,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 2250,
+            "why": "Continue reading after conclusion handling to see the next turn's tool call / termination path"
+          },
+          "id": "call_00_U8QBeMsmCPHUL49kAXnm0522",
+          "name": "read"
+        }
+      ],
+      "turn": 5
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 80,
+            "path": "src/ordivon_harness/ordivon/tool_errors.py",
+            "start": 1,
+            "why": "Read tool_errors definitions to understand recoverable_by_model and error kinds"
+          },
+          "id": "call_00_1c8leETaxWy7RbIU0aht9722",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 120,
+            "path": "src/ordivon_harness/ordivon/runtime_lowering.py",
+            "start": 60,
+            "why": "Read runtime lowering to understand where MODEL_CORRECTABLE is used and how it relates to ToolBridge"
+          },
+          "id": "call_01_3JYz0G1TdbsfivzlvTRO6663",
+          "name": "read"
+        }
+      ],
+      "turn": 6
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 120,
+            "path": "src/ordivon_harness/ordivon/runtime_lowering.py",
+            "start": 60,
+            "why": "Read runtime lowering MODEL_CORRECTABLE sites to understand ToolBridge boundary semantics"
+          },
+          "id": "call_00_85wXv7PZ3FI8G6wecHPv6674",
+          "name": "read"
+        }
+      ],
+      "turn": 7
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 120,
+            "path": "src/ordivon_harness/ordivon/runtime_lowering.py",
+            "start": 60,
+            "why": "Read runtime lowering MODEL_CORRECTABLE sites to understand ToolBridge boundary semantics"
+          },
+          "id": "call_00_15VMQaBY5TZZGWj2pFpI6194",
+          "name": "read"
+        }
+      ],
+      "turn": 8
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "no-Tool structured result",
+            "why": "Find the no-Tool structured-result path that could end at a ToolBridge boundary"
+          },
+          "id": "call_00_avreZGCZeb77lGsssxyr2748",
+          "name": "search"
+        }
+      ],
+      "turn": 9
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "no_tool",
+            "why": "Find no_tool handling beyond projected_no_tool"
+          },
+          "id": "call_00_TLB6QG8jma8uEjIh0lAD9996",
+          "name": "search"
+        }
+      ],
+      "turn": 10
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 100,
+            "path": "src/ordivon_harness/projected_no_tool.py",
+            "start": 1,
+            "why": "Examine the projected_no_tool module for structured no-Tool results"
+          },
+          "id": "call_00_kyobQFK1pZltB4Rjdq4z4998",
+          "name": "read"
+        }
+      ],
+      "turn": 11
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 100,
+            "path": "src/ordivon_harness/projected_no_tool.py",
+            "start": 1,
+            "why": "Examine projected_no_tool for structured no-Tool results"
+          },
+          "id": "call_00_9eh8Pt7vQ6PcO2zlpsZV7676",
+          "name": "read"
+        }
+      ],
+      "turn": 12
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 100,
+            "path": "src/ordivon_harness/projected_no_tool.py",
+            "start": 1,
+            "why": "Examine projected_no_tool module for structured no-Tool results and their conclusion handling"
+          },
+          "id": "call_00_fUCu2LjzFQnxwXjupyZs4521",
+          "name": "read"
+        }
+      ],
+      "turn": 13
+    }
+  ],
+  "treatment": "taste",
+  "usage": {
+    "elapsedMs": 77410,
+    "inputTokens": 158276,
+    "outputTokens": 1672,
+    "totalTokens": 159948
+  }
+}

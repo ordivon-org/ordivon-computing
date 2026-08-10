@@ -1,0 +1,177 @@
+{
+  "consumer": "H-NOTOOL",
+  "metrics": {
+    "concepts": {
+      "bounded_falsifier": true,
+      "conclusion_correction": true,
+      "no_tool_boundary": true,
+      "state_binding": true
+    },
+    "forbiddenBoundary": false,
+    "localizedFiles": 2,
+    "maxScore": 6,
+    "observations": 8,
+    "observedBytes": 24716,
+    "score": 6,
+    "seedRequiredFileCoverage": 2,
+    "success": true
+  },
+  "replicate": 3,
+  "submission": {
+    "abstain": false,
+    "causalMechanism": "The conclusion correction flow in loop.py appends a user message with the \"Harness conclusion gate rejected this candidate conclusion\" text, then calls bind_run_state() to persist the run. The loop's bind_run_state() closure (line 680) passes `observations` and `seen_tool_call_ids` state accumulated during the run. When the conclusion correction handler force-appends a user \"correction\" message into the message list, the subsequent bind_run_state() at line 2188 passes the growing observations/seen_tool_call_ids accumulated in the loop (possibly non-empty from prior turns), which SQLiteHarnessAgentBridge.bind_run_state() rejects at line 120-124 because it checks `if observations or seen_tool_call_ids:` and raises ToolBridgeError. The loop catches this at 2189-2193 and stops with RUNTIME_UNKNOWN carrying the error text.",
+    "confidence": 0.58,
+    "files": [
+      "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+      "src/ordivon_harness/ordivon/loop.py"
+    ],
+    "hypothesis": "When a no-Tool Agent Run (bound to SQLiteHarnessAgentBridge) enters conclusion correction/control handling, the loop calls bind_run_state() with observations and seen_tool_call_ids that include the conclusion correction (rejection/user feedback) messages. The SQLiteHarnessAgentBridge.bind_run_state() at sqlite_agent_bridge.py:120 raises ToolBridgeError because `observations or seen_tool_call_ids` is truthy — meaning either accumulated tool observations or seen tool call identities from the conclusion correction control messages are being passed to the bridge, violating the no-Tool capability boundary. The loop.py conclusion correction path at lines 2187-2193 catches ToolBridgeError and stops with RUNTIME_UNKNOWN containing the no-Tool error message.",
+    "nextFalsifier": "Verify whether the loop's bind_run_state() closure actually passes non-empty observations/seen_tool_call_ids in the conclusion correction path, or whether the trigger is from the correction message content itself being interpreted as observations. Also check whether this only occurs after tool-using turns mixed with prediction (and check the exact condition that causes the bridge invariant breach in the conclusion_corrections retry path versus the normal bind path).",
+    "parallelCallCountAtSubmit": 1
+  },
+  "trace": [
+    {
+      "observations": [
+        {
+          "anchor": "no-Tool Agent Run cannot bind Tool observations or Tool Call identities",
+          "bytes": 186,
+          "operator": "literal_git_search",
+          "outputDigest": "sha256:155e5b2049b48df38ad443ed7abc39c1cb2d4a090dc54a137fa4e5184a0e8489"
+        },
+        {
+          "anchor": "conclusion correction",
+          "bytes": 352,
+          "operator": "literal_git_search",
+          "outputDigest": "sha256:b47bb33dd0eb24ca7c5525fca44838a1ef5b779dfe45cc6940ce49ddb6824b7e"
+        }
+      ],
+      "turn": "seed"
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 160,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 90,
+            "why": "Examine the error message location and surrounding context"
+          },
+          "id": "call_00_mIcJ7NuLFXJguau02X1R1918",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 2180,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 2080,
+            "why": "Examine the conclusion correction flow in loop.py"
+          },
+          "id": "call_01_F80qEm88DnHsbAKi6VIG5482",
+          "name": "read"
+        }
+      ],
+      "turn": 0
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 2300,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 2180,
+            "why": "Continue reading conclusion correction flow"
+          },
+          "id": "call_00_aYhn7CsmfeTuKicAWRFz5328",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 90,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 1,
+            "why": "Examine bridge context to understand what triggers the error"
+          },
+          "id": "call_01_duF1feENW0JQAJpWuRL30380",
+          "name": "read"
+        }
+      ],
+      "turn": 1
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 2230,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 2180,
+            "why": "Already looked at this. Looking at the conclusion correction flow issue."
+          },
+          "id": "call_00_3gmCYTlurFHMOOm8ts5K1518",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "query": "bind_run_state",
+            "why": "Find all bind_run_state call sites and how it's wired"
+          },
+          "id": "call_01_Mzaw3FUqajbsT61JdJ0H0360",
+          "name": "search"
+        }
+      ],
+      "turn": 2
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 720,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 660,
+            "why": "Examine the bind_run_state function definition and what arguments it passes"
+          },
+          "id": "call_00_ARR0iVNNq9oSCzrXdLk49304",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 2130,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 2000,
+            "why": "Examine the flow around line 2043 and 2123 in the conclusion correction context"
+          },
+          "id": "call_01_v9dbvlZMWflZa6xNY6XG1127",
+          "name": "read"
+        }
+      ],
+      "turn": 3
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "abstain": false,
+            "causalMechanism": "The conclusion correction flow in loop.py appends a user message with the \"Harness conclusion gate rejected this candidate conclusion\" text, then calls bind_run_state() to persist the run. The loop's bind_run_state() closure (line 680) passes `observations` and `seen_tool_call_ids` state accumulated during the run. When the conclusion correction handler force-appends a user \"correction\" message into the message list, the subsequent bind_run_state() at line 2188 passes the growing observations/seen_tool_call_ids accumulated in the loop (possibly non-empty from prior turns), which SQLiteHarnessAgentBridge.bind_run_state() rejects at line 120-124 because it checks `if observations or seen_tool_call_ids:` and raises ToolBridgeError. The loop catches this at 2189-2193 and stops with RUNTIME_UNKNOWN carrying the error text.",
+            "confidence": 0.58,
+            "files": [
+              "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+              "src/ordivon_harness/ordivon/loop.py"
+            ],
+            "hypothesis": "When a no-Tool Agent Run (bound to SQLiteHarnessAgentBridge) enters conclusion correction/control handling, the loop calls bind_run_state() with observations and seen_tool_call_ids that include the conclusion correction (rejection/user feedback) messages. The SQLiteHarnessAgentBridge.bind_run_state() at sqlite_agent_bridge.py:120 raises ToolBridgeError because `observations or seen_tool_call_ids` is truthy — meaning either accumulated tool observations or seen tool call identities from the conclusion correction control messages are being passed to the bridge, violating the no-Tool capability boundary. The loop.py conclusion correction path at lines 2187-2193 catches ToolBridgeError and stops with RUNTIME_UNKNOWN containing the no-Tool error message.",
+            "nextFalsifier": "Verify whether the loop's bind_run_state() closure actually passes non-empty observations/seen_tool_call_ids in the conclusion correction path, or whether the trigger is from the correction message content itself being interpreted as observations. Also check whether this only occurs after tool-using turns mixed with prediction (and check the exact condition that causes the bridge invariant breach in the conclusion_corrections retry path versus the normal bind path)."
+          },
+          "id": "call_00_DAbGjutDR0RRiT3Y7lTm4992",
+          "name": "submit"
+        }
+      ],
+      "turn": 4
+    }
+  ],
+  "treatment": "evidence_first",
+  "usage": {
+    "elapsedMs": 28585,
+    "inputTokens": 32609,
+    "outputTokens": 1390,
+    "totalTokens": 33999,
+    "transportRetries": 0
+  }
+}

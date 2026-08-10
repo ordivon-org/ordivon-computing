@@ -1,0 +1,179 @@
+{
+  "consumer": "S-UNKNOWN",
+  "metrics": {
+    "concepts": {
+      "driver_drops_unknown": true,
+      "evidence_carrier_gap": true,
+      "lifecycle_hardcodes_empty": true,
+      "prompt_forces_empty": true
+    },
+    "forbiddenBoundary": false,
+    "localizedFiles": 1,
+    "maxScore": 6,
+    "observations": 8,
+    "observedBytes": 34911,
+    "score": 5,
+    "seedRequiredFileCoverage": 0,
+    "success": true
+  },
+  "replicate": 3,
+  "submission": {
+    "abstain": false,
+    "causalMechanism": "HostAssigned driver's run_turn constructs the persisted conclusion dict with a hard-coded empty unresolved_unknowns list (host_assigned.py:688) and the system prompt instructs the model to emit empty unresolved_unknowns (line 369), so any Harness-side unresolved uncertainty is discarded at the Security-owned completion-record layer rather than preserved.",
+    "confidence": 0.82,
+    "files": [
+      "src/ordivon_security/actors/host_assigned.py"
+    ],
+    "hypothesis": "In host_assigned.py at line 685-689, when the Host records a candidate_completed run, it unconditionally hard-codes `\"unresolved_unknowns\": []` into the conclusion dictionary that is persisted via lifecycle.record_run. This discards any unresolved uncertainty that the Harness may have surfaced in its conclusion trace, because the recorded conclusion is constructed from only `evidence.rationale` (summary) and a literal empty list, rather than forwarding the actual unresolved_unknowns from the Harness conclusion. The system prompt (lines 367-370) additionally instructs the model to force unresolved_unknowns to an empty array, so any genuine unresolved uncertainty is flattened into caveats in the summary text. The narrow Security-owned representation path that loses the uncertainty is the conclusion recording step at host_assigned.py:685-690 where the `conclusion` dict with `\"unresolved_unknowns\": []` is built and handed to lifecycle.record_run for Host-assigned completion, separate from Harness core semantics.",
+    "nextFalsifier": "Check whether the Harness conclusion object (result.conclusion) actually carries an unresolved_unknowns field, and verify that lifecycle.record_run or HarnessHost is the Security-owned layer where the empty list is injected; also inspect agent_stack.py AgentTurnEvidence to see whether the field is even represented in the evidence model.",
+    "parallelCallCountAtSubmit": 1
+  },
+  "trace": [
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "candidate_completed",
+            "why": "Find occurrences of candidate_completed in owner tree"
+          },
+          "id": "call_00_PKTyigwsspdId1KmxHKK9645",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "query": "unresolved_unknowns",
+            "why": "Find occurrences of unresolved_unknowns in owner tree"
+          },
+          "id": "call_01_3iiq6unMNFNfLwxmKCYR6623",
+          "name": "search"
+        }
+      ],
+      "turn": 0
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 460,
+            "path": "src/ordivon_security/actors/host_assigned.py",
+            "start": 340,
+            "why": "Read candidate_completed handling in host_assigned"
+          },
+          "id": "call_00_uVJzPV6UhlsWVGTUdptZ0083",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 720,
+            "path": "src/ordivon_security/actors/host_assigned.py",
+            "start": 640,
+            "why": "Read host-assigned completion recording with unresolved_unknowns"
+          },
+          "id": "call_01_2nxFoISL2YBlhOpF3S959274",
+          "name": "read"
+        }
+      ],
+      "turn": 1
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 560,
+            "path": "src/ordivon_security/actors/host_assigned.py",
+            "start": 460,
+            "why": "Read the conclusion structure from evidence to see how unresolved_unknowns get lost"
+          },
+          "id": "call_00_UMEEyOLVN6PLppY5MDQL9676",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 830,
+            "path": "src/ordivon_security/actors/agent_stack.py",
+            "start": 730,
+            "why": "Read agent_stack candidate_completed handling"
+          },
+          "id": "call_01_PnZerBxQO9YguCx8OwmG0690",
+          "name": "read"
+        }
+      ],
+      "turn": 2
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 640,
+            "path": "src/ordivon_security/actors/host_assigned.py",
+            "start": 560,
+            "why": "Read the middle of run_turn including evidence construction"
+          },
+          "id": "call_00_cqumZHsVyQIjh1jNYAvj7329",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "query": "AgentTurnEvidence",
+            "why": "Find AgentTurnEvidence definition to see fields for unresolved_unknowns"
+          },
+          "id": "call_01_fAiGtJEbMOPYcn9qmXL81021",
+          "name": "search"
+        }
+      ],
+      "turn": 3
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 180,
+            "path": "src/ordivon_security/actors/agent_stack.py",
+            "start": 130,
+            "why": "Read AgentTurnEvidence definition fields"
+          },
+          "id": "call_00_Vz0uvZeaFH7qXe9r0gHc3322",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 870,
+            "path": "src/ordivon_security/actors/agent_stack.py",
+            "start": 830,
+            "why": "Read agent_stack run return AgentTurnEvidence construction"
+          },
+          "id": "call_01_cPaBykauOHRRiVa2hebe0097",
+          "name": "read"
+        }
+      ],
+      "turn": 4
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "abstain": false,
+            "causalMechanism": "HostAssigned driver's run_turn constructs the persisted conclusion dict with a hard-coded empty unresolved_unknowns list (host_assigned.py:688) and the system prompt instructs the model to emit empty unresolved_unknowns (line 369), so any Harness-side unresolved uncertainty is discarded at the Security-owned completion-record layer rather than preserved.",
+            "confidence": 0.82,
+            "files": [
+              "src/ordivon_security/actors/host_assigned.py"
+            ],
+            "hypothesis": "In host_assigned.py at line 685-689, when the Host records a candidate_completed run, it unconditionally hard-codes `\"unresolved_unknowns\": []` into the conclusion dictionary that is persisted via lifecycle.record_run. This discards any unresolved uncertainty that the Harness may have surfaced in its conclusion trace, because the recorded conclusion is constructed from only `evidence.rationale` (summary) and a literal empty list, rather than forwarding the actual unresolved_unknowns from the Harness conclusion. The system prompt (lines 367-370) additionally instructs the model to force unresolved_unknowns to an empty array, so any genuine unresolved uncertainty is flattened into caveats in the summary text. The narrow Security-owned representation path that loses the uncertainty is the conclusion recording step at host_assigned.py:685-690 where the `conclusion` dict with `\"unresolved_unknowns\": []` is built and handed to lifecycle.record_run for Host-assigned completion, separate from Harness core semantics.",
+            "nextFalsifier": "Check whether the Harness conclusion object (result.conclusion) actually carries an unresolved_unknowns field, and verify that lifecycle.record_run or HarnessHost is the Security-owned layer where the empty list is injected; also inspect agent_stack.py AgentTurnEvidence to see whether the field is even represented in the evidence model."
+          },
+          "id": "call_00_8Rw9gRbCaiLBjKev1QdX3381",
+          "name": "submit"
+        }
+      ],
+      "turn": 5
+    }
+  ],
+  "treatment": "open",
+  "usage": {
+    "elapsedMs": 37519,
+    "inputTokens": 56589,
+    "outputTokens": 1378,
+    "totalTokens": 57967,
+    "transportRetries": 0
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.tm3-compiled-evidence-frontier",
+  "status": "frozen_before_live_provider_trials",
+  "comparatorReceipt": "../tm2-operator-selection/evidence/tm2-live-v1.json",
+  "comparatorReceiptDigest": "sha256:f383db610f40846a4750b085d081abce29e73a0d2ad012d225d3fc22260a5edf",
+  "consumers": [
+    {
+      "id": "H-NOTOOL",
+      "repo": "/root/projects/ordivon-harness",
+      "revision": "999d7535242b14c432cd14527ec109f2c6749969",
+      "pressure": "A real no-Tool structured-result Run entered conclusion correction/control handling and failed with `ToolBridgeError: no-Tool Agent Run cannot bind Tool observations or Tool Call identities`. Identify the exact Harness-owned causal interaction without weakening the no-Tool capability boundary.",
+      "anchors": [
+        "no-Tool Agent Run cannot bind Tool observations or Tool Call identities",
+        "conclusion correction"
+      ],
+      "requiredFiles": [
+        "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+        "src/ordivon_harness/ordivon/loop.py"
+      ]
+    },
+    {
+      "id": "S-UNKNOWN",
+      "repo": "/root/projects/ordivon-security",
+      "revision": "f109cb8cc548479e852c8a4dbc914bd7d3e22ce0",
+      "pressure": "The Security CAGE HostAssignedDeepSeekHarnessTurnDriver must preserve exact Harness unresolved uncertainty, but current owner evidence shows candidate_completed forces unresolved_unknowns empty and Host-assigned completion records an empty list. Identify the narrow Security-owned representation path that loses the uncertainty without changing Harness core semantics.",
+      "anchors": [
+        "HostAssignedDeepSeekHarnessTurnDriver",
+        "unresolved_unknowns"
+      ],
+      "requiredFiles": [
+        "src/ordivon_security/actors/agent_stack.py",
+        "src/ordivon_security/actors/host_assigned.py"
+      ]
+    }
+  ],
+  "replicatesPerConsumer": 3,
+  "maximumEvidenceObservations": 8,
+  "searchObservations": 2,
+  "maximumReadWindows": 6,
+  "candidateRanking": [
+    "distinct_anchor_match_count_desc",
+    "total_match_count_desc",
+    "path_lexicographic"
+  ],
+  "readWindow": "first matched line +/- 45 lines, maximum 91 lines",
+  "providerCallsPerTrial": 1,
+  "providerTools": ["submit"],
+  "sameHiddenScoringAsTM2": true
+}

@@ -1,0 +1,67 @@
+{
+  "consumer": "S-UNKNOWN",
+  "evidencePlan": {
+    "observations": 8,
+    "observedBytes": 16511,
+    "rankedReadPaths": [
+      "src/ordivon_security/actors/host_assigned.py",
+      "src/ordivon_security/cli_cage4_deepseek.py",
+      "src/ordivon_security/integrations/__init__.py",
+      "tests/unit/test_surface.py",
+      "src/ordivon_security/actors/runtime_assigned.py",
+      "src/ordivon_security/actors/__init__.py"
+    ],
+    "readDigests": [
+      "sha256:0c195e54fca3b3a16c0ac38825ca4a542f67e1305d84f18f565e65967f1b5b0e",
+      "sha256:ddbfa32a4c8f32447ff437421b0a3b15af550463b70766a6880f8930cffd42a2",
+      "sha256:1a9b8b53a3b262adde8c48cf2bcce02e183fcbd83ad02d1722eeb9f86cdb2d59",
+      "sha256:4c81d4b2e01e4fd84dedc704c3d1d066683e1b1603f08abdf0567e6f4657e734",
+      "sha256:65c839c1a07eece1f7dfefdf8266a771fd24870f269141ebec83e877e1b5ce99",
+      "sha256:95a9af81d2942f40ef7781c17c61dd548fc6031601e600ca488d5d35354e3f37"
+    ],
+    "readRequiredFileCoverage": 1,
+    "searchDigests": [
+      "sha256:00a1d53fb03abe4b9571844b2f9ffd88af53c9e579e4511e988102326b625719",
+      "sha256:e4d29832bbb6eed443b9ad9e727347f3a7e95e256ac7b6de7d61a59ab5b77fe6"
+    ],
+    "searchRequiredFileCoverage": 2
+  },
+  "metrics": {
+    "compiledReadRequiredFileCoverage": 1,
+    "concepts": {
+      "driver_drops_unknown": false,
+      "evidence_carrier_gap": false,
+      "lifecycle_hardcodes_empty": true,
+      "prompt_forces_empty": false
+    },
+    "forbiddenBoundary": true,
+    "localizedFiles": 1,
+    "maxScore": 6,
+    "observations": 8,
+    "observedBytes": 16511,
+    "score": 0,
+    "seedRequiredFileCoverage": 2,
+    "success": false
+  },
+  "replicate": 3,
+  "submission": {
+    "abstain": false,
+    "causalMechanism": "At host_assigned.py:688, the completion record for candidate_completed is constructed as a literal dict containing \\\"unresolved_unknowns\\\": [] rather than derived from the delegate/source evidence. The literal empty array is baked into the Host's durable completion representation while the Harness core semantic rule (agent_stack.py:753) only constrains what an emitted candidate_completed may contain, and host_assigned.py:369 carries the same constraint message. The loss is therefore in the Host's hard-coded completion record construction path — the Host writes an empty list without reading, copying, or surfacing the delegate's real unresolved_unknowns, so any uncertainty the Harness produced for the completed turn is dropped at the Security/Host boundary. This is a narrow Representation-path defect: it does not change Harness core semantics (the candidate_completed constraint message and contract are left intact) but the Host's own durable record that should preserve and testify to the exact unresolved uncertainty instead substitutes an empty list.",
+    "confidence": 0.82,
+    "files": [
+      "src/ordivon_security/actors/host_assigned.py"
+    ],
+    "hypothesis": "The narrow Security-owned representation path that loses unresolved uncertainty is the HostAssignedDeepSeekHarnessTurnDriver's completion-recording block at src/ordivon_security/actors/host_assigned.py:688, where it Writes the completion dict with \\\"unresolved_unknowns\\\": [] unconditionally for candidate_completed, discarding the delegate's actual unresolved_unknowns list. This is the Host's durable representation of a completed turn, separate from the Harness core semantics (which require unresolved_unknowns to be an empty array in the candidate_completed direction per agent_stack.py:753). The Host owns the durable completion record and, in recording it, neither validates nor propagates the delegate's non-empty unresolved_unknowns, so the uncertainty is lost at the completion-record boundary even though Harness core semantics for what a candidate_completed must look like are preserved.",
+    "nextFalsifier": "A falsifying test should construct HostAssignedDeepSeekHarnessTurnDriver with a delegate whose candidate_completed evidence carries a non-empty unresolved_unknowns list (simulating a turn that completed with genuine unresolved world uncertainty), drive a turn, and then inspect the Host's durable completion record and any post-completion unresolved-unknown assertion. The test passes (falsifies this localization) if the Host record preserves or surfaces the delegate's non-empty unresolved_unknowns; it fails (confirms this localization) if the record again contains the literal empty list, proving the Host's completion-recording path at host_assigned.py:688 is where the uncertainty is nullified rather than the Harness core constraint.",
+    "parallelCallCountAtSubmit": 1
+  },
+  "treatment": "compiled_one_shot",
+  "usage": {
+    "elapsedMs": 8760,
+    "inputTokens": 6105,
+    "model": "deepseek-v4-flash",
+    "outputTokens": 665,
+    "totalTokens": 6770,
+    "transportRetries": 0
+  }
+}

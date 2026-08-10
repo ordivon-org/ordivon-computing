@@ -1,0 +1,1834 @@
+{
+  "apparatusVersion": 2,
+  "discoveryAggregate": {
+    "baseline": {
+      "efficientSuccesses": 0,
+      "meanObservations": 10.0,
+      "meanObservedBytes": 43064.666666666664,
+      "meanScore": 3.3333333333333335,
+      "replicates": 3,
+      "tokens": 346776
+    },
+    "taste": {
+      "efficientSuccesses": 0,
+      "meanObservations": 10.0,
+      "meanObservedBytes": 38942.666666666664,
+      "meanScore": 0.0,
+      "replicates": 3,
+      "tokens": 512761
+    }
+  },
+  "discoveryTrials": [
+    {
+      "metrics": {
+        "concepts": {
+          "bind_run_state": false,
+          "conclusion_correction": false,
+          "no_tool": false,
+          "tool_identity_collision": false
+        },
+        "efficientSuccess": false,
+        "forbiddenFix": false,
+        "localizedFiles": 0,
+        "maxScore": 6,
+        "observations": 10,
+        "observedBytes": 36824,
+        "score": 0
+      },
+      "replicate": 1,
+      "submission": {
+        "abstain": true,
+        "causalMechanism": "",
+        "confidence": 0.0,
+        "files": [],
+        "forcedByBudget": true,
+        "hypothesis": "observation budget exhausted without a submitted causal target",
+        "nextFalsifier": "reformulate the discovery plan before spending more observations"
+      },
+      "trace": [
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "ToolBridge",
+                "why": "Find the ToolBridge boundary mentioned in the pressure description"
+              },
+              "id": "call_00_4bqshfYklSH0HTxiqB1r5887",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "query": "conclusion correction control",
+                "why": "Find conclusion correction/control handling code"
+              },
+              "id": "call_01_9q5rgNrKmQhCUB9SOjsm0603",
+              "name": "search"
+            }
+          ],
+          "turn": 0
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "MODEL_CORRECTABLE",
+                "why": "Find where MODEL_CORRECTABLE ToolBridgeError is raised/used"
+              },
+              "id": "call_00_FsD6IxLOzZCw3O22FcAb1484",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "end": 60,
+                "path": "tests/test_conclusion_correction_separation.py",
+                "start": 1,
+                "why": "Understand the conclusion correction separation test"
+              },
+              "id": "call_01_yvaWr4agF9CmkuggcpRE7265",
+              "name": "read"
+            }
+          ],
+          "turn": 1
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 180,
+                "path": "tests/test_conclusion_correction_separation.py",
+                "start": 60,
+                "why": "Read full test for conclusion correction separation"
+              },
+              "id": "call_00_8YQL9hbbMIQoVVRpDHRZ8978",
+              "name": "read"
+            }
+          ],
+          "turn": 2
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 1100,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 1000,
+                "why": "Read the loop region where MODEL_CORRECTABLE errors are raised and corrected"
+              },
+              "id": "call_00_iEuJn8dDdikOo1jA22r45052",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "query": "conclusion_rejected",
+                "why": "Find where conclusion_rejected events are emitted"
+              },
+              "id": "call_01_nNybt8LDzcYgdUgXVUOz7486",
+              "name": "search"
+            }
+          ],
+          "turn": 3
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 2250,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 2100,
+                "why": "Read the conclusion correction handling region in loop.py"
+              },
+              "id": "call_00_348pnnFeiKHpNYOgF9fg4687",
+              "name": "read"
+            }
+          ],
+          "turn": 4
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 2360,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 2250,
+                "why": "Continue reading after conclusion handling to see the next turn's tool call / termination path"
+              },
+              "id": "call_00_U8QBeMsmCPHUL49kAXnm0522",
+              "name": "read"
+            }
+          ],
+          "turn": 5
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 80,
+                "path": "src/ordivon_harness/ordivon/tool_errors.py",
+                "start": 1,
+                "why": "Read tool_errors definitions to understand recoverable_by_model and error kinds"
+              },
+              "id": "call_00_1c8leETaxWy7RbIU0aht9722",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "end": 120,
+                "path": "src/ordivon_harness/ordivon/runtime_lowering.py",
+                "start": 60,
+                "why": "Read runtime lowering to understand where MODEL_CORRECTABLE is used and how it relates to ToolBridge"
+              },
+              "id": "call_01_3JYz0G1TdbsfivzlvTRO6663",
+              "name": "read"
+            }
+          ],
+          "turn": 6
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 120,
+                "path": "src/ordivon_harness/ordivon/runtime_lowering.py",
+                "start": 60,
+                "why": "Read runtime lowering MODEL_CORRECTABLE sites to understand ToolBridge boundary semantics"
+              },
+              "id": "call_00_85wXv7PZ3FI8G6wecHPv6674",
+              "name": "read"
+            }
+          ],
+          "turn": 7
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 120,
+                "path": "src/ordivon_harness/ordivon/runtime_lowering.py",
+                "start": 60,
+                "why": "Read runtime lowering MODEL_CORRECTABLE sites to understand ToolBridge boundary semantics"
+              },
+              "id": "call_00_15VMQaBY5TZZGWj2pFpI6194",
+              "name": "read"
+            }
+          ],
+          "turn": 8
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "no-Tool structured result",
+                "why": "Find the no-Tool structured-result path that could end at a ToolBridge boundary"
+              },
+              "id": "call_00_avreZGCZeb77lGsssxyr2748",
+              "name": "search"
+            }
+          ],
+          "turn": 9
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "no_tool",
+                "why": "Find no_tool handling beyond projected_no_tool"
+              },
+              "id": "call_00_TLB6QG8jma8uEjIh0lAD9996",
+              "name": "search"
+            }
+          ],
+          "turn": 10
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 100,
+                "path": "src/ordivon_harness/projected_no_tool.py",
+                "start": 1,
+                "why": "Examine the projected_no_tool module for structured no-Tool results"
+              },
+              "id": "call_00_kyobQFK1pZltB4Rjdq4z4998",
+              "name": "read"
+            }
+          ],
+          "turn": 11
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 100,
+                "path": "src/ordivon_harness/projected_no_tool.py",
+                "start": 1,
+                "why": "Examine projected_no_tool for structured no-Tool results"
+              },
+              "id": "call_00_9eh8Pt7vQ6PcO2zlpsZV7676",
+              "name": "read"
+            }
+          ],
+          "turn": 12
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 100,
+                "path": "src/ordivon_harness/projected_no_tool.py",
+                "start": 1,
+                "why": "Examine projected_no_tool module for structured no-Tool results and their conclusion handling"
+              },
+              "id": "call_00_fUCu2LjzFQnxwXjupyZs4521",
+              "name": "read"
+            }
+          ],
+          "turn": 13
+        }
+      ],
+      "treatment": "taste",
+      "usage": {
+        "elapsedMs": 77410,
+        "inputTokens": 158276,
+        "outputTokens": 1672,
+        "totalTokens": 159948
+      }
+    },
+    {
+      "metrics": {
+        "concepts": {
+          "bind_run_state": false,
+          "conclusion_correction": false,
+          "no_tool": false,
+          "tool_identity_collision": false
+        },
+        "efficientSuccess": false,
+        "forbiddenFix": false,
+        "localizedFiles": 0,
+        "maxScore": 6,
+        "observations": 10,
+        "observedBytes": 54954,
+        "score": 0
+      },
+      "replicate": 2,
+      "submission": {
+        "abstain": true,
+        "causalMechanism": "",
+        "confidence": 0.0,
+        "files": [],
+        "forcedByBudget": true,
+        "hypothesis": "observation budget exhausted without a submitted causal target",
+        "nextFalsifier": "reformulate the discovery plan before spending more observations"
+      },
+      "trace": [
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "conclusion correction",
+                "why": "Find the conclusion correction control handling code referenced in the pressure question."
+              },
+              "id": "call_00_0VYXsaZwf7oStV6xbzH29898",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "query": "ToolBridge boundary",
+                "why": "Find the ToolBridge boundary where the run terminated."
+              },
+              "id": "call_01_Se46hVno6mbHvABYfhe07987",
+              "name": "search"
+            }
+          ],
+          "turn": 0
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "tool_bridge",
+                "why": "Find ToolBridge-related code across the catalog."
+              },
+              "id": "call_00_jBq7jYl3T5OQwSjEY1T44046",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "query": "conclusion correction",
+                "why": "Look for the broader conclusion correction handling in loop.py and elsewhere."
+              },
+              "id": "call_01_9ZeYMheU9z54C6Pi6KXl7933",
+              "name": "search"
+            }
+          ],
+          "turn": 1
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 2270,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 2050,
+                "why": "Read the conclusion correction handling and surrounding context in loop.py."
+              },
+              "id": "call_00_lRlloegfipsvw1BezBFV1683",
+              "name": "read"
+            }
+          ],
+          "turn": 2
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 220,
+                "path": "src/ordivon_harness/ordivon/tool_bridge.py",
+                "start": 1,
+                "why": "Read the ToolBridge class and its validate_conclusion method to understand the boundary."
+              },
+              "id": "call_00_t8isxAPlfebqOh0YfYyI5277",
+              "name": "read"
+            }
+          ],
+          "turn": 3
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 220,
+                "path": "src/ordivon_harness/agent_tool_observation.py",
+                "start": 1,
+                "why": "Read the agent_tool_observation module to understand ToolObservation."
+              },
+              "id": "call_00_xI94ybwg0jVQCp9D46y65167",
+              "name": "read"
+            }
+          ],
+          "turn": 4
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 180,
+                "path": "tests/test_conclusion_correction_separation.py",
+                "start": 1,
+                "why": "Read the conclusion correction separation test to understand what scenario is being tested."
+              },
+              "id": "call_00_iMyJ7cD90PvbmqJcDJxs6756",
+              "name": "read"
+            }
+          ],
+          "turn": 5
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 480,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 260,
+                "why": "Read the loop setup and run orchestration around tool bridge handling."
+              },
+              "id": "call_00_ae3sple6r6Rc5zGeaKp24147",
+              "name": "read"
+            }
+          ],
+          "turn": 6
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 700,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 480,
+                "why": "Continue reading the resume path and state restoration, specifically looking for conclusion correction state handling."
+              },
+              "id": "call_00_TeXqijqz8ZS0ZGU592V80060",
+              "name": "read"
+            }
+          ],
+          "turn": 7
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 920,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Continue reading loop.py to see the main loop iteration, focusing on no-tool and conclusion handling paths."
+              },
+              "id": "call_00_Irw4p9nbTpjUfEFHRzSH0256",
+              "name": "read"
+            }
+          ],
+          "turn": 8
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 920,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Reading the main loop iteration and no-tool structured-result path from line 700 onward."
+              },
+              "id": "call_00_7q358WfUlqHmfhFy3OEn1785",
+              "name": "read"
+            }
+          ],
+          "turn": 9
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 760,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Reading a smaller portion of the main loop iteration to stay within observation budget."
+              },
+              "id": "call_00_CXxhhREnnDm7LNFoPrmp2608",
+              "name": "read"
+            }
+          ],
+          "turn": 10
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 750,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Read the main loop iteration starting line 700 within the smaller observation budget."
+              },
+              "id": "call_00_S2bSXvB89uqqDrpx8f2g4977",
+              "name": "read"
+            }
+          ],
+          "turn": 11
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 740,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Read a minimal slice of the main loop."
+              },
+              "id": "call_00_A4IPu3F5xr9Su1p9CRw50557",
+              "name": "read"
+            }
+          ],
+          "turn": 12
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 710,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Try a tiny slice to see if it fits in the observation budget."
+              },
+              "id": "call_00_3TkRTvvutvkTcUPNRhvL9112",
+              "name": "read"
+            }
+          ],
+          "turn": 13
+        }
+      ],
+      "treatment": "baseline",
+      "usage": {
+        "elapsedMs": 80284,
+        "inputTokens": 162373,
+        "outputTokens": 1553,
+        "totalTokens": 163926
+      }
+    },
+    {
+      "metrics": {
+        "concepts": {
+          "bind_run_state": false,
+          "conclusion_correction": false,
+          "no_tool": false,
+          "tool_identity_collision": false
+        },
+        "efficientSuccess": false,
+        "forbiddenFix": false,
+        "localizedFiles": 0,
+        "maxScore": 6,
+        "observations": 10,
+        "observedBytes": 42106,
+        "score": 0
+      },
+      "replicate": 2,
+      "submission": {
+        "abstain": true,
+        "causalMechanism": "",
+        "confidence": 0.0,
+        "files": [],
+        "forcedByBudget": true,
+        "hypothesis": "observation budget exhausted without a submitted causal target",
+        "nextFalsifier": "reformulate the discovery plan before spending more observations"
+      },
+      "trace": [
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "ToolBridge",
+                "why": "Find where the run terminates at a ToolBridge boundary."
+              },
+              "id": "call_00_IPiE9jV4wzkIPsIPcIZw3452",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "query": "conclusion correction",
+                "why": "Find the correction/control handling logic."
+              },
+              "id": "call_01_nnsGSSZMQkFlVLm8CtUY0967",
+              "name": "search"
+            }
+          ],
+          "turn": 0
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 2260,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 2040,
+                "why": "Read the conclusion correction/control handling block and the ToolBridge boundary termination."
+              },
+              "id": "call_00_p4iON6Tb7mZLBTSIcQ9m8691",
+              "name": "read"
+            }
+          ],
+          "turn": 1
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 220,
+                "path": "src/ordivon_harness/ordivon/tool_bridge.py",
+                "start": 1,
+                "why": "Inspect ToolBridge definition and validate_conclusion behavior."
+              },
+              "id": "call_00_KrnYyQ53ZgH68PHgibT56276",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "end": 220,
+                "path": "tests/test_conclusion_correction_separation.py",
+                "start": 1,
+                "why": "Read the existing test for conclusion correction separation."
+              },
+              "id": "call_01_bIvpijBabEQEH6EORgh70793",
+              "name": "read"
+            }
+          ],
+          "turn": 2
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "needs_input",
+                "why": "Find needs_input handling, particularly whether it's classified as ToolBridge CONTROL or a correction."
+              },
+              "id": "call_00_KXgIvGCIwigaKw8jwypQ9001",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "query": "candidate_completed",
+                "why": "Find candidate_completed handling."
+              },
+              "id": "call_01_7ZXYEpLGOXchctFEQRhc6237",
+              "name": "search"
+            }
+          ],
+          "turn": 3
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "record_pause",
+                "why": "Find the record_pause bridge contract — whether it is a ToolBridge boundary method."
+              },
+              "id": "call_00_UhYIokAZvxrn8vMpsKAw1491",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "query": "CONTROL_STOPPED",
+                "why": "Find what CONTROL_STOPPED is used for — could it be the boundary control/state interaction in question?"
+              },
+              "id": "call_01_GaER25ORHOLTVdae4YnV2070",
+              "name": "search"
+            }
+          ],
+          "turn": 4
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 340,
+                "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+                "start": 300,
+                "why": "README of record_pause on the SQLite agent bridge to check for exceptions and their classification."
+              },
+              "id": "call_00_6i4YCitVv4qvNseAvOx81808",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "end": 60,
+                "path": "src/ordivon_harness/ordivon/tool_errors.py",
+                "start": 1,
+                "why": "Read ToolBridgeErrorKind definitions and ToolBridgeError properties."
+              },
+              "id": "call_01_ZM1dQG8qVU3eomEAgDcv9973",
+              "name": "read"
+            }
+          ],
+          "turn": 5
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 220,
+                "path": "tests/test_deepseek_mixed_turn.py",
+                "start": 100,
+                "why": "Find the mixed-turn test that exercises conclusion (candidate_completed or needs_input) with tool calls. This likely has the ToolBridge boundary."
+              },
+              "id": "call_00_nkBklCv5gkj0q4qBUX6E4379",
+              "name": "read"
+            }
+          ],
+          "turn": 6
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 60,
+                "path": "src/ordivon_harness/ordivon/tool_errors.py",
+                "start": 1,
+                "why": "Read ToolBridgeErrorKind and ToolBridgeError fields."
+              },
+              "id": "call_00_vrCITEU7BVUHDx1pLx8j5002",
+              "name": "read"
+            }
+          ],
+          "turn": 7
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 40,
+                "path": "src/ordivon_harness/ordivon/tool_errors.py",
+                "start": 1,
+                "why": "Read ToolBridgeError definitions."
+              },
+              "id": "call_00_YPX5QWxjyPBES6lQHJJB8162",
+              "name": "read"
+            }
+          ],
+          "turn": 8
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "recoverable_by_model",
+                "why": "Find where recoverable_by_model is set on ToolBridgeError."
+              },
+              "id": "call_00_r67mA3EogVlwrWBrrsgF1393",
+              "name": "search"
+            }
+          ],
+          "turn": 9
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "recoverable_by_model",
+                "why": "Locate recoverable_by_model property and how kinds map to recovery."
+              },
+              "id": "call_00_Kjeyn65wkMcYYkd6k8es9739",
+              "name": "search"
+            }
+          ],
+          "turn": 10
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 45,
+                "path": "src/ordivon_harness/ordivon/tool_errors.py",
+                "start": 1,
+                "why": "Compulsory read of ToolBridgeError model."
+              },
+              "id": "call_00_nA5t8JP2uA0ZuMpFiq8b4778",
+              "name": "read"
+            }
+          ],
+          "turn": 11
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 50,
+                "path": "src/ordivon_harness/ordivon/tool_errors.py",
+                "start": 1,
+                "why": "Read ToolBridgeError to understand recoverable_by_model mapping and kinds."
+              },
+              "id": "call_00_qlZfDG6LiXHw0KmMQMfS1343",
+              "name": "read"
+            }
+          ],
+          "turn": 12
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 50,
+                "path": "src/ordivon_harness/ordivon/tool_errors.py",
+                "start": 1,
+                "why": "Read tool_errors module."
+              },
+              "id": "call_00_gTqO0uyC0X9J7oh2RT3r9215",
+              "name": "read"
+            }
+          ],
+          "turn": 13
+        }
+      ],
+      "treatment": "taste",
+      "usage": {
+        "elapsedMs": 80694,
+        "inputTokens": 182305,
+        "outputTokens": 1693,
+        "totalTokens": 183998
+      }
+    },
+    {
+      "metrics": {
+        "concepts": {
+          "bind_run_state": false,
+          "conclusion_correction": false,
+          "no_tool": false,
+          "tool_identity_collision": false
+        },
+        "efficientSuccess": false,
+        "forbiddenFix": false,
+        "localizedFiles": 0,
+        "maxScore": 6,
+        "observations": 10,
+        "observedBytes": 37898,
+        "score": 0
+      },
+      "replicate": 3,
+      "submission": {
+        "abstain": true,
+        "causalMechanism": "",
+        "confidence": 0.0,
+        "files": [],
+        "forcedByBudget": true,
+        "hypothesis": "observation budget exhausted without a submitted causal target",
+        "nextFalsifier": "reformulate the discovery plan before spending more observations"
+      },
+      "trace": [
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "conclusion correction",
+                "why": "Find the conclusion correction/control handling code mentioned in the pressure question"
+              },
+              "id": "call_00_bnN6qquDqKxC8IP2tyCg9368",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "query": "toolbridge",
+                "why": "Locate the ToolBridge boundary code"
+              },
+              "id": "call_01_pOruBnbzUREHPWXHteCm2546",
+              "name": "search"
+            }
+          ],
+          "turn": 0
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 2230,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 2000,
+                "why": "Examine the conclusion correction budget and ToolBridge error handling section"
+              },
+              "id": "call_00_YMkqacL9jAN04ybA7ZRV6249",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "end": 160,
+                "path": "tests/test_conclusion_correction_separation.py",
+                "start": 1,
+                "why": "Examine the test that supposedly shows the conclusion correction separation behavior"
+              },
+              "id": "call_01_kqrmgzYo3HdBqLbikrFI4299",
+              "name": "read"
+            }
+          ],
+          "turn": 1
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 2300,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 2210,
+                "why": "Continue reading after conclusion handling to see the ToolBridge boundary termination"
+              },
+              "id": "call_00_wmddPK55VkP4RrS3L5nK9652",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "end": 220,
+                "path": "src/ordivon_harness/ordivon/tool_errors.py",
+                "start": 1,
+                "why": "Examine the ToolBridgeError kinds, especially MODEL_CORRECTABLE and CONTROL_STOPPED"
+              },
+              "id": "call_01_ZbfaCKbGYS1TJLJq7bOV1396",
+              "name": "read"
+            }
+          ],
+          "turn": 2
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "bind_run_state",
+                "why": "Find the definition of bind_run_state and what ToolBridge interaction it performs"
+              },
+              "id": "call_00_eALTtCYxYW8vGX7SWLze5310",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "end": 2650,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 2450,
+                "why": "Find bind_run_state definition and surrounding logic"
+              },
+              "id": "call_01_chKid9L3edtj2BpYD7j00919",
+              "name": "read"
+            }
+          ],
+          "turn": 3
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 700,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 675,
+                "why": "Look at bind_run_state local function definition"
+              },
+              "id": "call_00_SBUC1tnC7g9nTVPk91kI5297",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "end": 200,
+                "path": "src/ordivon_harness/ordivon/sqlite_runtime_bridge.py",
+                "start": 140,
+                "why": "Examine what the SQLite runtime bridge's bind_run_state does to understand the ToolBridge boundary"
+              },
+              "id": "call_01_gn7jlyhiNZPxt4Jdxta32374",
+              "name": "read"
+            }
+          ],
+          "turn": 4
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 760,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Continue reading bind_run_state and understand how remaining_budget is computed"
+              },
+              "id": "call_00_cJ333DpOR3rBsN9IGn1P9379",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "query": "max_conclusion_corrections",
+                "why": "Understand the conclusion correction budget model and whether it interacts with tool bridge"
+              },
+              "id": "call_01_GOfQJcj3JW6S0QFdhgQ93424",
+              "name": "search"
+            }
+          ],
+          "turn": 5
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 720,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Read bind_run_state remaining portion"
+              },
+              "id": "call_00_2N5DuTPdClbLMV73nz5B1019",
+              "name": "read"
+            }
+          ],
+          "turn": 6
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 740,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Read bind_run_state remaining portion"
+              },
+              "id": "call_00_TTjQRr2zPqumTeW4IXIg2598",
+              "name": "read"
+            }
+          ],
+          "turn": 7
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 790,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Read bind_run_state remaining portion"
+              },
+              "id": "call_00_TGDIjuuyB2Zppd2Giy596518",
+              "name": "read"
+            }
+          ],
+          "turn": 8
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 740,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 700,
+                "why": "Read bind_run_state continuation lines 700-740"
+              },
+              "id": "call_00_XzJ6NH0R8yO1lvLatLD30926",
+              "name": "read"
+            }
+          ],
+          "turn": 9
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 730,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 696,
+                "why": "Read lines 696-730 to see continuation of bind_run_state"
+              },
+              "id": "call_00_FSi886h9xFEfjatlT2RK0689",
+              "name": "read"
+            }
+          ],
+          "turn": 10
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 730,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 696,
+                "why": "Read bind_run_state continuation"
+              },
+              "id": "call_00_btY13Dv6TUyEdssFZGXA8624",
+              "name": "read"
+            }
+          ],
+          "turn": 11
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 400,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 220,
+                "why": "Look at how RunBudget and remaining_budget passes conclusion_corrections; exploring whether the conclusion correction feed-forward affects the model-visible remaining_budget"
+              },
+              "id": "call_00_DD3pMcBTSF90Hoxg7i434122",
+              "name": "read"
+            }
+          ],
+          "turn": 12
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 400,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 220,
+                "why": "Read loop concurrency and model_request sections to understand bind_run_state flow"
+              },
+              "id": "call_00_JpsMyl7Kvg7ofkkq7Ih37167",
+              "name": "read"
+            }
+          ],
+          "turn": 13
+        }
+      ],
+      "treatment": "taste",
+      "usage": {
+        "elapsedMs": 85019,
+        "inputTokens": 166856,
+        "outputTokens": 1959,
+        "totalTokens": 168815
+      }
+    },
+    {
+      "metrics": {
+        "concepts": {
+          "bind_run_state": true,
+          "conclusion_correction": true,
+          "no_tool": true,
+          "tool_identity_collision": true
+        },
+        "efficientSuccess": false,
+        "forbiddenFix": false,
+        "localizedFiles": 2,
+        "maxScore": 6,
+        "observations": 10,
+        "observedBytes": 54195,
+        "score": 6
+      },
+      "replicate": 1,
+      "submission": {
+        "abstain": false,
+        "causalMechanism": "The OrdivonAgentLoop's conclusion correction path (loop.py 2132-2201) appends a correction request message to `messages`, then calls `bind_run_state()` (line 2188). For a no-Tool run using SQLiteHarnessAgentBridge, `bind_run_state` enforces that no tool observations or tool-call identities are bound (sqlite_agent_bridge.py lines 120-124). When the correction path passes through the accumulated messages that contain the conclusion gate rejection feedback plus the original tool-call-adjacent state, the strict PROTOCOL_INVALID check on `seen_tool_call_ids` or observations rejects the state binding. This terminates the run at a ToolBridge boundary with RUNTIME_UNKNOWN/HARNESS_FAILED instead of continuing the correction loop to a subsequent model call — the correction cannot proceed because the no-Tool bridge's bind_run_state safety guard treats the correction-triggered state as an invalid Tool crossing. Alternatively, when using SQLiteRepositoryRepairBridge, validate_conclusion exists and can raise MODEL_CORRECTABLE errors, but the bridge's bind_run_state may similarly reject the accumulated messages if the correction flow attempts to cross the boundary. The root issue is that conclusion-correction handling in the loop does not separate model-visible message state from ToolBridge state semantics for no-Tool runs: the correction feedback message (which references tool/domain rejection) is persisted through the ToolBridge, where the no-Tool surface contract explicitly forbids any Tool-related content.",
+        "confidence": "0.55",
+        "files": [
+          "src/ordivon_harness/ordivon/loop.py",
+          "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+          "src/ordivon_harness/ordivon/sqlite_repository_repair_bridge.py",
+          "tests/test_conclusion_correction_separation.py"
+        ],
+        "hypothesis": "The causal interaction is in the OrdivonAgentLoop conclusion-decision path (loop.py ~2132-2201): when a no-Tool run produces a conclusion, the loop calls `self.tool_bridge.validate_conclusion(result.conclusion)` which delegates to the caller-supplied ToolBridge. For the SQLiteHarnessAgentBridge (used by the no-Tool Working View / independent runner), `validate_conclusion` is NOT defined - the bridge has no `validate_conclusion` method. The loop uses `getattr(self.tool_bridge, \"validate_conclusion\", None)` which gracefully treats a missing validator as passing. However, when using `SQLiteRepositoryRepairBridge` (the repository-repair bridge), `validate_conclusion` at line 453 examines observations from `_bound_observations` or `load_current_snapshot()`, and when those observations contradict the conclusion, it raises a `ToolBridgeError` with `recoverable_by_model=True` (MODEL_CORRECTABLE). The loop then appends the rejection message to `messages` and calls `bind_run_state()` before continuing. The bug: when a no-Tool run at a ToolBridge boundary has its conclusion corrected, the loop's correction path appends both a newly formatted \"Harness conclusion gate rejected...\" user message and a new assistant turn that attempts to bind state. But the `SQLiteHarnessAgentBridge.bind_run_state` (line 120-124 of sqlite_agent_bridge.py) rejects any state containing `seen_tool_call_ids` or observations, while the loop's `bind_run_state()` call passes through the accumulated state that includes the rejection feedback messages. This causes the correction attempt to fail at the ToolBridge boundary — the state-binding rejects because the correction flow attempts to cross the bridge without proper no-Tool authority handling. The minimal reproducible falsifier is the existing test `test_conclusion_correction_does_not_consume_tool_budget` in `tests/test_conclusion_correction_separation.py` extended to use a `SQLiteHarnessAgentBridge` (no-Tool surface) or the actual no-Tool runner path, where a conclusion correction requires `bind_run_state` after the rejection message is appended — and the no-Tool bridge's strict PROTOCOL_INVALID rejection of the accumulated messages (which include the correction feedback containing tool-bridge-gate content) prevents the correction from proceeding, causing the run to terminate at the ToolBridge boundary with RUNTIME_UNKNOWN instead of completing the correction loop.",
+        "nextFalsifier": "A test that reproaches the existing `test_conclusion_correction_does_not_consume_tool_budget` but swaps `ConclusionGateBridge` for a `SQLiteHarnessAgentBridge`-backed bridge (or any no-Tool bridge that raises PROTOCOL_INVALID on bind_run_state when messages contain tool references) and verifies that the conclusion correction path either fails at the ToolBridge boundary or cannot continue to the next model turn.",
+        "parallelCallCountAtSubmit": 1
+      },
+      "trace": [
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "conclusion correction",
+                "why": "Find the conclusion correction handling logic in the harness."
+              },
+              "id": "call_00_MR5wPtU6fon4yWKkiJtb8581",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "query": "ToolBridge",
+                "why": "Find ToolBridge boundary handling."
+              },
+              "id": "call_01_38pct0XK7VWJ2Kgcde6o9474",
+              "name": "search"
+            }
+          ],
+          "turn": 0
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 2250,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 2100,
+                "why": "Examine the conclusion correction handling in the loop."
+              },
+              "id": "call_00_0wn0p5pWExMFA8KGodyE1925",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "end": 200,
+                "path": "tests/test_conclusion_correction_separation.py",
+                "start": 1,
+                "why": "Examine the existing test for conclusion correction separation."
+              },
+              "id": "call_01_jtTSElFYmpdRBg2bfwjO9979",
+              "name": "read"
+            }
+          ],
+          "turn": 1
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "no-tool",
+                "why": "Find the no-tool authority handling in the harness."
+              },
+              "id": "call_00_ewSZxG3EIGswFUP28qHT7020",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "end": 220,
+                "path": "src/ordivon_harness/projected_no_tool.py",
+                "start": 1,
+                "why": "Examine the projected no-tool module."
+              },
+              "id": "call_01_qh820Tyw2UYNLkS4DYZa6114",
+              "name": "read"
+            }
+          ],
+          "turn": 2
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 220,
+                "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+                "start": 1,
+                "why": "Examine the SQLiteHarnessAgentBridge for no-Tool handling and conclusion correction."
+              },
+              "id": "call_00_zGhGGZAHw3w3TN9cja1w4651",
+              "name": "read"
+            }
+          ],
+          "turn": 3
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 440,
+                "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+                "start": 220,
+                "why": "Continue examining the bridge for conclusion validation."
+              },
+              "id": "call_00_HcJFKgoQUJ3D5rciJO5Z9486",
+              "name": "read"
+            }
+          ],
+          "turn": 4
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "validate_conclusion",
+                "why": "Find all places where validate_conclusion is defined/used."
+              },
+              "id": "call_00_sdajKC5iS5DW6NoAgj2K2636",
+              "name": "search"
+            }
+          ],
+          "turn": 5
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 480,
+                "path": "src/ordivon_harness/ordivon/sqlite_repository_repair_bridge.py",
+                "start": 440,
+                "why": "Examine the validate_conclusion in the repository repair bridge."
+              },
+              "id": "call_00_xh4vFuJC3LkMO7ypbyel6650",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "end": 120,
+                "path": "tests/test_pc12b_multiturn_projection.py",
+                "start": 60,
+                "why": "Examine validate_conclusion in the multiturn projection test."
+              },
+              "id": "call_01_DU15Ltq6AW4Hvo02jhrh0502",
+              "name": "read"
+            }
+          ],
+          "turn": 6
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 560,
+                "path": "src/ordivon_harness/ordivon/sqlite_repository_repair_bridge.py",
+                "start": 480,
+                "why": "Continue examining validate_conclusion."
+              },
+              "id": "call_00_nnd6dqyxG1VvKxfG2UiS6884",
+              "name": "read"
+            }
+          ],
+          "turn": 7
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 560,
+                "path": "src/ordivon_harness/ordivon/sqlite_repository_repair_bridge.py",
+                "start": 480,
+                "why": "Continue examining validate_conclusion in the repository repair bridge to understand its rejection reasons."
+              },
+              "id": "call_00_Ryg6jEhc2x6LIg21PkTv0736",
+              "name": "read"
+            }
+          ],
+          "turn": 8
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "abstain": false,
+                "causalMechanism": "The OrdivonAgentLoop's conclusion correction path (loop.py 2132-2201) appends a correction request message to `messages`, then calls `bind_run_state()` (line 2188). For a no-Tool run using SQLiteHarnessAgentBridge, `bind_run_state` enforces that no tool observations or tool-call identities are bound (sqlite_agent_bridge.py lines 120-124). When the correction path passes through the accumulated messages that contain the conclusion gate rejection feedback plus the original tool-call-adjacent state, the strict PROTOCOL_INVALID check on `seen_tool_call_ids` or observations rejects the state binding. This terminates the run at a ToolBridge boundary with RUNTIME_UNKNOWN/HARNESS_FAILED instead of continuing the correction loop to a subsequent model call — the correction cannot proceed because the no-Tool bridge's bind_run_state safety guard treats the correction-triggered state as an invalid Tool crossing. Alternatively, when using SQLiteRepositoryRepairBridge, validate_conclusion exists and can raise MODEL_CORRECTABLE errors, but the bridge's bind_run_state may similarly reject the accumulated messages if the correction flow attempts to cross the boundary. The root issue is that conclusion-correction handling in the loop does not separate model-visible message state from ToolBridge state semantics for no-Tool runs: the correction feedback message (which references tool/domain rejection) is persisted through the ToolBridge, where the no-Tool surface contract explicitly forbids any Tool-related content.",
+                "confidence": "0.55",
+                "files": [
+                  "src/ordivon_harness/ordivon/loop.py",
+                  "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+                  "src/ordivon_harness/ordivon/sqlite_repository_repair_bridge.py",
+                  "tests/test_conclusion_correction_separation.py"
+                ],
+                "hypothesis": "The causal interaction is in the OrdivonAgentLoop conclusion-decision path (loop.py ~2132-2201): when a no-Tool run produces a conclusion, the loop calls `self.tool_bridge.validate_conclusion(result.conclusion)` which delegates to the caller-supplied ToolBridge. For the SQLiteHarnessAgentBridge (used by the no-Tool Working View / independent runner), `validate_conclusion` is NOT defined - the bridge has no `validate_conclusion` method. The loop uses `getattr(self.tool_bridge, \"validate_conclusion\", None)` which gracefully treats a missing validator as passing. However, when using `SQLiteRepositoryRepairBridge` (the repository-repair bridge), `validate_conclusion` at line 453 examines observations from `_bound_observations` or `load_current_snapshot()`, and when those observations contradict the conclusion, it raises a `ToolBridgeError` with `recoverable_by_model=True` (MODEL_CORRECTABLE). The loop then appends the rejection message to `messages` and calls `bind_run_state()` before continuing. The bug: when a no-Tool run at a ToolBridge boundary has its conclusion corrected, the loop's correction path appends both a newly formatted \"Harness conclusion gate rejected...\" user message and a new assistant turn that attempts to bind state. But the `SQLiteHarnessAgentBridge.bind_run_state` (line 120-124 of sqlite_agent_bridge.py) rejects any state containing `seen_tool_call_ids` or observations, while the loop's `bind_run_state()` call passes through the accumulated state that includes the rejection feedback messages. This causes the correction attempt to fail at the ToolBridge boundary — the state-binding rejects because the correction flow attempts to cross the bridge without proper no-Tool authority handling. The minimal reproducible falsifier is the existing test `test_conclusion_correction_does_not_consume_tool_budget` in `tests/test_conclusion_correction_separation.py` extended to use a `SQLiteHarnessAgentBridge` (no-Tool surface) or the actual no-Tool runner path, where a conclusion correction requires `bind_run_state` after the rejection message is appended — and the no-Tool bridge's strict PROTOCOL_INVALID rejection of the accumulated messages (which include the correction feedback containing tool-bridge-gate content) prevents the correction from proceeding, causing the run to terminate at the ToolBridge boundary with RUNTIME_UNKNOWN instead of completing the correction loop.",
+                "nextFalsifier": "A test that reproaches the existing `test_conclusion_correction_does_not_consume_tool_budget` but swaps `ConclusionGateBridge` for a `SQLiteHarnessAgentBridge`-backed bridge (or any no-Tool bridge that raises PROTOCOL_INVALID on bind_run_state when messages contain tool references) and verifies that the conclusion correction path either fails at the ToolBridge boundary or cannot continue to the next model turn."
+              },
+              "id": "call_00_Nucr0q44YaaFkDfnmW3Y8627",
+              "name": "submit"
+            }
+          ],
+          "turn": 9
+        }
+      ],
+      "treatment": "baseline",
+      "usage": {
+        "elapsedMs": 69171,
+        "inputTokens": 129239,
+        "outputTokens": 2330,
+        "totalTokens": 131569
+      }
+    },
+    {
+      "metrics": {
+        "concepts": {
+          "bind_run_state": true,
+          "conclusion_correction": true,
+          "no_tool": true,
+          "tool_identity_collision": false
+        },
+        "efficientSuccess": false,
+        "forbiddenFix": false,
+        "localizedFiles": 1,
+        "maxScore": 6,
+        "observations": 10,
+        "observedBytes": 20045,
+        "score": 4
+      },
+      "replicate": 3,
+      "submission": {
+        "abstain": false,
+        "causalMechanism": "The conclusion correction path in loop.py (lines 2132-2201) calls `bind_run_state()` at line 2188 after appending correction messages and incrementing `conclusion_corrections`. This `bind_run_state()` call persists state through the ToolBridge (via `self.tool_bridge.bind_run_state`). When the ToolBridge raises `ToolBridgeError` during this bind (line 2189), the run terminates with `RUNTIME_UNKNOWN` at the ToolBridge boundary. For a no-Tool structured-result run, the run has entered conclusion-correction/control handling, and the `bind_run_state()` call carries the correction state (including the appended messages and incremented budget counter) across the boundary — this is the causal Harness-owned control/state interaction. The exact control/state interaction is that the correction budget counter is part of `remaining_budget` and is persisted via `bind_run_state()`, so any bridge failure at that point kills the run mid-correction instead of allowing the correction to continue.",
+        "confidence": 0.45,
+        "files": [
+          "src/ordivon_harness/ordivon/loop.py",
+          "src/ordivon_harness/ordivon/tool_bridge.py",
+          "src/ordivon_harness/ordivon/sqlite_runtime_bridge.py"
+        ],
+        "hypothesis": "The causal interaction is in loop.py around lines 2132-2201: when a conclusion is produced and the conclusion validator on the ToolBridge rejects it as recoverable, the harness enters conclusion correction handling. It appends the assistant message and a correction prompt to `messages`, increments `conclusion_corrections`, and then calls `bind_run_state()`. The bind_run_state call persists `conclusion_corrections` into the remaining_budget via `self.budget.remaining(..., conclusion_corrections=conclusion_corrections, ...)`. The issue is that in the no-Tool structured-result path (projected no-tool), the run reaches the ToolBridge boundary through `bind_run_state()`, which raises a ToolBridgeError that surfaces as a RunStopCode.RUNTIME_UNKNOWN (line 2189-2193). The exact control/state interaction causal is the `bind_run_state()` call within the conclusion-correction branch persisting state through a ToolBridge that may not implement `bind_run_state` (the base `ToolBridge` protocol in tool_bridge.py only declares `definitions` and `execute`; `bind_run_state` is accessed via getattr and silently skipped if not present — but in the correction path, if the bridge does implement it and raises, the run terminates at the RUNTIME_UNKNOWN boundary). This is a conclusion-correction control state that gets persisted across the ToolBridge boundary without proper separation of the correction state from the bridge's own state.\n\nHowever, I need to be more precise: the key finding is at loop.py line 2175-2201. When a conclusion correction happens (recoverable rejection), the harness appends the model's assistant message plus the correction prompt to `messages`, records the rejection with correct `conclusion_corrections` count, then calls `bind_run_state()`. This persists state through the ToolBridge. The \"ToolBridge boundary\" termination happens because bind_run_state is invoked from within the conclusion-correction control path, and any ToolBridgeError there terminates the run as RUNTIME_UNKNOWN. The state being persisted includes the correction messages that were appended, but the harness correctly increments the correction counter before persisting. The causal issue is that `bind_run_state` is called at line 2188 before the `continue` on line 2201, which binds state that includes the correction-rejected messages — and for a no-Tool run, this goes through a ToolBridge implementation that may not support the conclusion-correction state path properly.\n\nThe most plausible smallest falsifier is: a run where the model produces a candidate conclusion that is rejected by the bridge's `validate_conclusion` as recoverable, triggering the conclusion correction path in loop.py, and then `bind_run_state()` at line 2188 fails with ToolBridgeError, causing the run to terminate with RUNTIME_UNKNOWN instead of continuing through the correction loop. For no-Tool runs, this means the harness state (including messages with the correction prompt) gets bound across the bridge boundary, but the correction state itself (the `conclusion_corrections` counter) is part of `remaining_budget`, which is then persisted — creating a subtle coupling between the harness's correction counter and the ToolBridge's persisted state such that a bridge error during this bind terminates the run at the boundary.",
+        "nextFalsifier": "Read src/ordivon_harness/projected_no_tool.py to see how the no-Tool structured-result path actually flows through the loop and whether `bind_run_state()` is actually expected to be implemented on the no-Tool bridge or is silently skipped. Also examine loop.py lines 680-700 more closely for how `conclusion_corrections` flows into `remaining_budget`.",
+        "parallelCallCountAtSubmit": 1
+      },
+      "trace": [
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "toolbridge boundary",
+                "why": "Find ToolBridge boundary handling in the codebase"
+              },
+              "id": "call_00_hsimK5nY12dVWvAKID9r2149",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "query": "conclusion correction",
+                "why": "Find conclusion correction/control handling"
+              },
+              "id": "call_01_QpDS08K850kIMGcwOJ4b5138",
+              "name": "search"
+            }
+          ],
+          "turn": 0
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 2200,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 2100,
+                "why": "Read the conclusion correction handling in loop.py"
+              },
+              "id": "call_00_CWK1MHuVLtVbX2iRzRP40134",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "end": 220,
+                "path": "src/ordivon_harness/ordivon/tool_bridge.py",
+                "start": 1,
+                "why": "Understand ToolBridge boundary"
+              },
+              "id": "call_01_6SdZJNIet3nUKi7y3nl44107",
+              "name": "read"
+            }
+          ],
+          "turn": 1
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 2300,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 2200,
+                "why": "Continue reading after the conclusion correction handling"
+              },
+              "id": "call_00_XVLWOkE1SlxAoZWxtj9z3613",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "query": "bind_run_state",
+                "why": "Find bind_run_state definition and related state control"
+              },
+              "id": "call_01_IzeXaMBxqysSyh10Geyh1052",
+              "name": "search"
+            }
+          ],
+          "turn": 2
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "end": 700,
+                "path": "src/ordivon_harness/ordivon/loop.py",
+                "start": 670,
+                "why": "Read bind_run_state definition in loop.py"
+              },
+              "id": "call_00_gXnD37imjQttJgB20LPo9376",
+              "name": "read"
+            },
+            {
+              "arguments": {
+                "end": 220,
+                "path": "src/ordivon_harness/ordivon/sqlite_runtime_bridge.py",
+                "start": 140,
+                "why": "Read SQLiteHarnessRuntimeBridge.bind_run_state"
+              },
+              "id": "call_01_hYp4PZE0yfQRZNItMHf44440",
+              "name": "read"
+            }
+          ],
+          "turn": 3
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "projected_no_tool",
+                "why": "Understand the projected no-tool path"
+              },
+              "id": "call_00_BBqZxHuczxA9SubrHQxf6543",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "query": "no-tool structured-result",
+                "why": "Look for the no-tool structured-result path"
+              },
+              "id": "call_01_mjxeM7YScSuFdEnfnKbb0390",
+              "name": "search"
+            }
+          ],
+          "turn": 4
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "no_tool",
+                "why": "Find no_tool related code"
+              },
+              "id": "call_00_YcPC8brfUDXiilyb6DMS4464",
+              "name": "search"
+            },
+            {
+              "arguments": {
+                "end": 220,
+                "path": "src/ordivon_harness/projected_no_tool.py",
+                "start": 1,
+                "why": "Read the projected_no_tool module"
+              },
+              "id": "call_01_nyPvhgpGr1J7Mw77iU2g5869",
+              "name": "read"
+            }
+          ],
+          "turn": 5
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "query": "no_tool",
+                "why": "Find no_tool handling in the loop"
+              },
+              "id": "call_00_N0KeG40nLM7HVnCefGQC3167",
+              "name": "search"
+            }
+          ],
+          "turn": 6
+        },
+        {
+          "batch": [
+            {
+              "arguments": {
+                "abstain": false,
+                "causalMechanism": "The conclusion correction path in loop.py (lines 2132-2201) calls `bind_run_state()` at line 2188 after appending correction messages and incrementing `conclusion_corrections`. This `bind_run_state()` call persists state through the ToolBridge (via `self.tool_bridge.bind_run_state`). When the ToolBridge raises `ToolBridgeError` during this bind (line 2189), the run terminates with `RUNTIME_UNKNOWN` at the ToolBridge boundary. For a no-Tool structured-result run, the run has entered conclusion-correction/control handling, and the `bind_run_state()` call carries the correction state (including the appended messages and incremented budget counter) across the boundary — this is the causal Harness-owned control/state interaction. The exact control/state interaction is that the correction budget counter is part of `remaining_budget` and is persisted via `bind_run_state()`, so any bridge failure at that point kills the run mid-correction instead of allowing the correction to continue.",
+                "confidence": 0.45,
+                "files": [
+                  "src/ordivon_harness/ordivon/loop.py",
+                  "src/ordivon_harness/ordivon/tool_bridge.py",
+                  "src/ordivon_harness/ordivon/sqlite_runtime_bridge.py"
+                ],
+                "hypothesis": "The causal interaction is in loop.py around lines 2132-2201: when a conclusion is produced and the conclusion validator on the ToolBridge rejects it as recoverable, the harness enters conclusion correction handling. It appends the assistant message and a correction prompt to `messages`, increments `conclusion_corrections`, and then calls `bind_run_state()`. The bind_run_state call persists `conclusion_corrections` into the remaining_budget via `self.budget.remaining(..., conclusion_corrections=conclusion_corrections, ...)`. The issue is that in the no-Tool structured-result path (projected no-tool), the run reaches the ToolBridge boundary through `bind_run_state()`, which raises a ToolBridgeError that surfaces as a RunStopCode.RUNTIME_UNKNOWN (line 2189-2193). The exact control/state interaction causal is the `bind_run_state()` call within the conclusion-correction branch persisting state through a ToolBridge that may not implement `bind_run_state` (the base `ToolBridge` protocol in tool_bridge.py only declares `definitions` and `execute`; `bind_run_state` is accessed via getattr and silently skipped if not present — but in the correction path, if the bridge does implement it and raises, the run terminates at the RUNTIME_UNKNOWN boundary). This is a conclusion-correction control state that gets persisted across the ToolBridge boundary without proper separation of the correction state from the bridge's own state.\n\nHowever, I need to be more precise: the key finding is at loop.py line 2175-2201. When a conclusion correction happens (recoverable rejection), the harness appends the model's assistant message plus the correction prompt to `messages`, records the rejection with correct `conclusion_corrections` count, then calls `bind_run_state()`. This persists state through the ToolBridge. The \"ToolBridge boundary\" termination happens because bind_run_state is invoked from within the conclusion-correction control path, and any ToolBridgeError there terminates the run as RUNTIME_UNKNOWN. The state being persisted includes the correction messages that were appended, but the harness correctly increments the correction counter before persisting. The causal issue is that `bind_run_state` is called at line 2188 before the `continue` on line 2201, which binds state that includes the correction-rejected messages — and for a no-Tool run, this goes through a ToolBridge implementation that may not support the conclusion-correction state path properly.\n\nThe most plausible smallest falsifier is: a run where the model produces a candidate conclusion that is rejected by the bridge's `validate_conclusion` as recoverable, triggering the conclusion correction path in loop.py, and then `bind_run_state()` at line 2188 fails with ToolBridgeError, causing the run to terminate with RUNTIME_UNKNOWN instead of continuing through the correction loop. For no-Tool runs, this means the harness state (including messages with the correction prompt) gets bound across the bridge boundary, but the correction state itself (the `conclusion_corrections` counter) is part of `remaining_budget`, which is then persisted — creating a subtle coupling between the harness's correction counter and the ToolBridge's persisted state such that a bridge error during this bind terminates the run at the boundary.",
+                "nextFalsifier": "Read src/ordivon_harness/projected_no_tool.py to see how the no-Tool structured-result path actually flows through the loop and whether `bind_run_state()` is actually expected to be implemented on the no-Tool bridge or is silently skipped. Also examine loop.py lines 680-700 more closely for how `conclusion_corrections` flows into `remaining_budget`."
+              },
+              "id": "call_00_z34PNlwwXthP2rSfU8W55209",
+              "name": "submit"
+            }
+          ],
+          "turn": 7
+        }
+      ],
+      "treatment": "baseline",
+      "usage": {
+        "elapsedMs": 49994,
+        "inputTokens": 49105,
+        "outputTokens": 2176,
+        "totalTokens": 51281
+      }
+    }
+  ],
+  "durablePerReplicateProgress": true,
+  "frontierDigest": "sha256:61b6a6830c20e95654a1433ac9951ba0740fa7170018e2f396342ac6a2b60dc7",
+  "kind": "ordivon.computing.tm1-frontier-calibration-receipt",
+  "maxDiscoveryObservations": 10,
+  "model": "deepseek-v4-flash",
+  "provider": "deepseek",
+  "rankAggregate": {
+    "baseline": {
+      "dInTop2": 0,
+      "deferredAllD": 3,
+      "replicates": 3,
+      "tokens": 4598,
+      "top3ContainsBothA": 2,
+      "topIsA": 3
+    },
+    "taste": {
+      "dInTop2": 1,
+      "deferredAllD": 3,
+      "replicates": 3,
+      "tokens": 5080,
+      "top3ContainsBothA": 0,
+      "topIsA": 3
+    }
+  },
+  "rankTrials": [
+    {
+      "metrics": {
+        "dInTop2": false,
+        "deferredAllD": true,
+        "top3ContainsBothA": false,
+        "topIsA": true
+      },
+      "parallelCallCount": 1,
+      "replicate": 1,
+      "result": {
+        "decisiveNextEvidence": "The smallest falsifier for H-NOTOOL: reproduce the no-Tool structured-result Run with read-only observation instrumented at the ToolBridge boundary, perturb the single control/state field under test (one orthogonal axis at a time per run), and observe whether the misclassified correction event toggles. A discriminating result is already obtained if two runs — differing only in which Harness-owned state field was preset — produce opposite termination outcomes; this is a 2–3 run, cheap, owner-native, reversible experiment that closes the causal question.",
+        "deferNow": [
+          "G-HUMAN",
+          "F-LIVE"
+        ],
+        "ranking": [
+          "H-NOTOOL",
+          "H-DISCOVERY",
+          "R-WITNESS",
+          "S-UNKNOWN",
+          "HOST-PKG",
+          "F-LIVE",
+          "G-HUMAN"
+        ],
+        "reason": "H-NOTOOL is the smallest falsifiable causal target: a real no-Tool Run already misclassified at a ToolBridge boundary, and the owner has a bounded reproduction request with read-only discovery first. This is a reproduced burden (prior 1) — not a hypothetical — and the falsifier is tiny: identify the exact Harness-owned control/state interaction causal to the illegal boundary termination. Closed-loop evidence cost is low (owner-native reproduction exists), reversible (read-only, no authority weakening), and frontier-changing: it discriminates whether Harness control handling or World semantics caused the correction, which no other card tests. H-DISCOVERY ranks second — it is real and quantified but not yet narrowed to a discriminating observation; it needs more candidate-generation before a cheap falsifier exists. R-WITNESS third: real exploit-context but stated as open-ended 'can X evade' rather than a terminal falsifier. S-UNKNOWN fourth: a narrow adapter patch, modest frontier value. HOST-PKG fifth: semantic-compat evidence is already observed; marginal package count is not frontier-changing. Deferred: F-LIVE (consequence-bearing real-capital work with ambiguous-outcome reconciliation — high cost, low information per unit, and owner authority is not yet clear) and G-HUMAN (0/11 responses; evidence is gated on external human availability, not on our budget).",
+        "topChoice": "H-NOTOOL"
+      },
+      "treatment": "taste",
+      "usage": {
+        "elapsedMs": 9090,
+        "inputTokens": 1176,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 558,
+        "totalTokens": 1734,
+        "transportRetries": 0
+      }
+    },
+    {
+      "metrics": {
+        "dInTop2": false,
+        "deferredAllD": true,
+        "top3ContainsBothA": true,
+        "topIsA": true
+      },
+      "parallelCallCount": 1,
+      "replicate": 2,
+      "result": {
+        "decisiveNextEvidence": "The smallest reproducible falsifier that isolates the exact Harness-owned control/state interaction causing the misclassified correction event at the ToolBridge boundary — causal admission flips the authority model for everything downstream.",
+        "deferNow": [
+          "G-HUMAN",
+          "HOST-PKG",
+          "F-LIVE"
+        ],
+        "ranking": [
+          "H-NOTOOL",
+          "S-UNKNOWN",
+          "R-WITNESS",
+          "H-DISCOVERY",
+          "G-HUMAN",
+          "HOST-PKG",
+          "F-LIVE"
+        ],
+        "reason": "H-NOTOOL is the strongest next frontier choice: it already has a bounded reproduction request from the owner, an exact causal event (misclassified correction at a ToolBridge boundary) that is empirically falsifiable read-only, and its resolution materially changes the Harness authority model — the highest-leverage node in this system. S-UNKNOWN is adjacent (same Harness owner, narrow adapter representation gap, patch path not yet closed) and would benefit immediately from the causal knowledge H-NOTOOL produces. R-WITNESS is high-value but requires a physical adversarial experiment that is slower to dispatch than H-NOTOOL's existing reproduction scaffold. H-DISCOVERY is efficient-later work that depends on the correctness of the control model established by H-NOTOOL. G-HUMAN is blocked by 0/11 responses and mechanical correctness cannot substitute — it should wait for human data, not budget. HOST-PKG's dependency-expansion observation (9→34) is a symptom already observed; mapping root cause is lower-marginal-value than the Harness causal explanation. F-LIVE involves real capital and consequence-bearing reconciliation; it is operationally risky to interleave as the next unit and is better deferred until the authority/control model is stabilized by H-NOTOOL.",
+        "topChoice": "H-NOTOOL"
+      },
+      "treatment": "baseline",
+      "usage": {
+        "elapsedMs": 7705,
+        "inputTokens": 1052,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 467,
+        "totalTokens": 1519,
+        "transportRetries": 0
+      }
+    },
+    {
+      "metrics": {
+        "dInTop2": false,
+        "deferredAllD": true,
+        "top3ContainsBothA": false,
+        "topIsA": true
+      },
+      "parallelCallCount": 1,
+      "replicate": 2,
+      "result": {
+        "decisiveNextEvidence": "One minimal run: replay the no-Tool structured-result Run's ToolBridge boundary under read-only instrumentation to pinpoint the single Harness-owned control/state interaction that misclassified the correction event — reproducing or refuting the causal claim with the smallest reproducible falsifier.",
+        "deferNow": [
+          "G-HUMAN",
+          "F-LIVE"
+        ],
+        "ranking": [
+          "H-NOTOOL",
+          "R-WITNESS",
+          "F-LIVE",
+          "H-DISCOVERY",
+          "S-UNKNOWN",
+          "HOST-PKG",
+          "G-HUMAN"
+        ],
+        "reason": "H-NOTOOL leads on all four discriminating priors. It has a real, bounded reproduction request already on the owner's plate (a reproduced burden, not conceptual completeness), and the smallest falsifier is explicitly the target: one exact Harness-owned control/state interaction misclassified at the ToolBridge boundary. Evidence cost is closed-loop low (read-only discovery into an existing failing run), whereas G-HUMAN has 0/11 responses — no observation is currently available at any price, so it fails the \"observation that can justify a causal target\" stop criterion. F-LIVE is high-value but consequence-bearing and deliberately excluded by \"do not take owner authority\" + real-capital reconciliation cost; it stays alive but deferred. R-WITNESS is a close second: physical adversarial test with a crisp falsifier, but it costs more materials/authority to set up and risks semantic-distortion detour that H-NOTOOL already has scoped. H-DISCOVERY is efficiency measurement (useful but frontier-changing only after H-NOTOOL's causal bug is resolved, since a no-change on 203 observations presumes the control path is healthy). HOST-PKG and S-UNKNOWN are narrower representation gaps with lower causal reach.",
+        "topChoice": "H-NOTOOL"
+      },
+      "treatment": "taste",
+      "usage": {
+        "elapsedMs": 7855,
+        "inputTokens": 1176,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 468,
+        "totalTokens": 1644,
+        "transportRetries": 0
+      }
+    },
+    {
+      "metrics": {
+        "dInTop2": true,
+        "deferredAllD": true,
+        "top3ContainsBothA": false,
+        "topIsA": true
+      },
+      "parallelCallCount": 1,
+      "replicate": 3,
+      "result": {
+        "decisiveNextEvidence": "Execute the owner-requested bounded reproduction: reproduce the no-Tool Run through the same conclusion-correction/control path and record the exact Harness-owned state interaction at the ToolBridge boundary where the misclassified correction occurred — testing (a) whether the correction event is causally pinned to a specific control/state transition, and (b) what the smallest observation definitively falsifies or confirms that causal account, staying read-only until the causal target is fixed.",
+        "deferNow": [
+          "F-LIVE",
+          "G-HUMAN",
+          "H-DISCOVERY",
+          "R-WITNESS",
+          "S-UNKNOWN",
+          "HOST-PKG"
+        ],
+        "ranking": [
+          "H-NOTOOL",
+          "F-LIVE",
+          "G-HUMAN",
+          "H-DISCOVERY",
+          "R-WITNESS",
+          "S-UNKNOWN",
+          "HOST-PKG"
+        ],
+        "reason": "H-NOTOOL leads on prior 1 (a real reproduced burden — a Run already entered conclusion correction/control handling and terminated at a ToolBridge boundary, with an exact misclassified event unresolved), prior 2 (the smallest falsifier is explicitly sought — a bounded reproduction request already exists from the owner, so the discriminating event is narrow and already scoped), and prior 3 (closed-loop evidence cost is low: the reproduction is owner-requested and read-only discovery precedes any action). It is also the only card where the frontier gap is *known to be a misclassification*, not an open question about whether a phenomenon exists — the evidence can flip the causal account immediately. F-LIVE is valuable but consequence-bearing owner work rides on it and is less reversible; G-HUMAN is blocked by a hard external dependency (0/11 human responses) making closed-loop cost high and unreachable now; H-DISCOVERY is efficiency optimization on proven authority (good but not frontier-changing); R-WITNESS is explicitly riskier physical adversarial work where stronger materialization was already rejected; S-UNKNOWN and HOST-PKG are adapter/package-surface disputes that change little frontier value per evidence dollar.",
+        "topChoice": "H-NOTOOL"
+      },
+      "treatment": "taste",
+      "usage": {
+        "elapsedMs": 6812,
+        "inputTokens": 1176,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 526,
+        "totalTokens": 1702,
+        "transportRetries": 0
+      }
+    },
+    {
+      "metrics": {
+        "dInTop2": false,
+        "deferredAllD": true,
+        "top3ContainsBothA": true,
+        "topIsA": true
+      },
+      "parallelCallCount": 1,
+      "replicate": 1,
+      "result": {
+        "decisiveNextEvidence": "A bounded, read-only reproduction of the no-Tool structured-result Run showing exactly which Harness-owned control/state transition caused the misclassified correction event at the ToolBridge boundary — resolving whether the defect is in correction handling, control-state propagation, or a startup/Terminal-condition interaction.",
+        "deferNow": [
+          "G-HUMAN",
+          "F-LIVE",
+          "HOST-PKG"
+        ],
+        "ranking": [
+          "H-NOTOOL",
+          "S-UNKNOWN",
+          "R-WITNESS",
+          "H-DISCOVERY",
+          "G-HUMAN",
+          "F-LIVE",
+          "HOST-PKG"
+        ],
+        "reason": "H-NOTOOL is the highest-information, highest-urgency frontier: a real, observed misclassification at a Harness-owned boundary (correction/control handling terminated at ToolBridge incorrectly) that is reproducible and falsifiable. The evidence would resolve a genuine correctness gap in the Harness core — not a marginal optimization or an experiment awaiting external actors. The exact causal control/state interaction is currently unknown, so a bounded reproduction could materially change the frontier now.\n\nS-UNKNOWN is also narrow and patch-relevant (security adapter representation gap) but its evidence path is explicitly not yet closed. R-WITNESS is prevention-adjacent with an adversarial experiment but the P3 witnesses already fail closed, so the delta is marginal.\n\nH-DISCOVERY is a valuable efficiency study but asks about observation-count optimization, not a correctness defect — its 203-observation result already proved the discovery authority works. HOST-PKG is an effort/cleanliness question with no correctness or security stakes. G-HUMAN and F-LIVE are deferred not for lack of value but because they depend on external actors (humans / independent executor) and real-capital consequences respectively, making them conditionally actionable rather than immediately decisive.",
+        "topChoice": "H-NOTOOL"
+      },
+      "treatment": "baseline",
+      "usage": {
+        "elapsedMs": 7466,
+        "inputTokens": 1052,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 473,
+        "totalTokens": 1525,
+        "transportRetries": 0
+      }
+    },
+    {
+      "metrics": {
+        "dInTop2": false,
+        "deferredAllD": true,
+        "top3ContainsBothA": false,
+        "topIsA": true
+      },
+      "parallelCallCount": 1,
+      "replicate": 3,
+      "result": {
+        "decisiveNextEvidence": "For H-NOTOOL: a single read-only trace of the terminated Run at the ToolBridge boundary, isolating which control/state interaction — authority transition, conclusion correction, or bridge serialization — caused the misclassification. That one trace either confirms the causal Harness-owned pathway (allowing a minimal falsifier) or eliminates it, which would redirect to H-DISCOVERY or R-WITNESS with material impact.",
+        "deferNow": [
+          "F-LIVE",
+          "G-HUMAN",
+          "HOST-PKG"
+        ],
+        "ranking": [
+          "H-NOTOOL",
+          "H-DISCOVERY",
+          "R-WITNESS",
+          "S-UNKNOWN",
+          "F-LIVE",
+          "HOST-PKG",
+          "G-HUMAN"
+        ],
+        "reason": "H-NOTOOL is the strongest next frontier because it targets an exact, unresolved misclassified correction event with a bounded reproduction request — the causal Harness-owned control/state interaction is unidentified, meaning a read-only discovery pass could immediately falsify or confirm the causal pathway and yield the smallest reproducible falsifier. This is materially decision-relevant: it sits at a ToolBridge boundary where authority semantics and control handling interact, and the outcome could reshape Harness authority boundaries. H-DISCOVERY is close behind — discovery authority is proven but efficiency is not, and a smaller observation plan is directly measurable. R-WITNESS follows: a physical adversarial experiment on continuity witnesses could confirm or rule out a false-success restoration vector, which is high-value but requires building the adversarial setup. S-UNKNOWN is a narrow adapter gap with an identified owner audit — real but lower magnitude than the two harness items. The remaining cards are deferred: F-LIVE is high-value but consequence-bearing owner work already active (not a fresh decision point), G-HUMAN waits on 0/11 human responses (blocked), and HOST-PKG's 9→34 package expansion is a packaging-efficiency concern that cannot materially reshape the frontier now.",
+        "topChoice": "H-NOTOOL"
+      },
+      "treatment": "baseline",
+      "usage": {
+        "elapsedMs": 8406,
+        "inputTokens": 1052,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 502,
+        "totalTokens": 1554,
+        "transportRetries": 0
+      }
+    }
+  ],
+  "receiptDigest": "sha256:232385508a6b8f934911c211c0ff71129ff0bd29361393fac8af4a1b1d705c3b",
+  "replicatesPerTreatment": 3,
+  "schemaVersion": 2,
+  "singleIdenticalTransportRetry": true
+}

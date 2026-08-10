@@ -1,0 +1,67 @@
+{
+  "consumer": "S-UNKNOWN",
+  "evidencePlan": {
+    "observations": 8,
+    "observedBytes": 16511,
+    "rankedReadPaths": [
+      "src/ordivon_security/actors/host_assigned.py",
+      "src/ordivon_security/cli_cage4_deepseek.py",
+      "src/ordivon_security/integrations/__init__.py",
+      "tests/unit/test_surface.py",
+      "src/ordivon_security/actors/runtime_assigned.py",
+      "src/ordivon_security/actors/__init__.py"
+    ],
+    "readDigests": [
+      "sha256:0c195e54fca3b3a16c0ac38825ca4a542f67e1305d84f18f565e65967f1b5b0e",
+      "sha256:ddbfa32a4c8f32447ff437421b0a3b15af550463b70766a6880f8930cffd42a2",
+      "sha256:1a9b8b53a3b262adde8c48cf2bcce02e183fcbd83ad02d1722eeb9f86cdb2d59",
+      "sha256:4c81d4b2e01e4fd84dedc704c3d1d066683e1b1603f08abdf0567e6f4657e734",
+      "sha256:65c839c1a07eece1f7dfefdf8266a771fd24870f269141ebec83e877e1b5ce99",
+      "sha256:95a9af81d2942f40ef7781c17c61dd548fc6031601e600ca488d5d35354e3f37"
+    ],
+    "readRequiredFileCoverage": 1,
+    "searchDigests": [
+      "sha256:00a1d53fb03abe4b9571844b2f9ffd88af53c9e579e4511e988102326b625719",
+      "sha256:e4d29832bbb6eed443b9ad9e727347f3a7e95e256ac7b6de7d61a59ab5b77fe6"
+    ],
+    "searchRequiredFileCoverage": 2
+  },
+  "metrics": {
+    "compiledReadRequiredFileCoverage": 1,
+    "concepts": {
+      "driver_drops_unknown": false,
+      "evidence_carrier_gap": false,
+      "lifecycle_hardcodes_empty": true,
+      "prompt_forces_empty": false
+    },
+    "forbiddenBoundary": false,
+    "localizedFiles": 1,
+    "maxScore": 6,
+    "observations": 8,
+    "observedBytes": 16511,
+    "score": 2,
+    "seedRequiredFileCoverage": 2,
+    "success": false
+  },
+  "replicate": 2,
+  "submission": {
+    "abstain": false,
+    "causalMechanism": "HostAssignedDeepSeekHarnessTurnDriver is Security's P0-B wrapper owning the durable lifecycle around one Harness turn. On the terminal `candidate_completed` path, Security's Host-side completion record materializes the conclusion/resolution map with a hardcoded literal `\"unresolved_unknowns\": []` (host_assigned.py:688) alongside the accompanying validation contract at line 369 that asserts `unresolved_unknowns MUST be empty for candidate_completed`. This Security-owned representation contract structurally forbids carrying forward any non-empty unresolved uncertainty from the Harness delegate's conclusion, so the exact unresolved uncertainty is deterministically collapsed to an empty list at the Security boundary while the underlying Harness conclusion object itself is never modified. The loss is introduced purely by Security's Host completion serialization, not by Harness core semantics, which is exactly the narrow Security-owned representation path sought.",
+    "confidence": 0.62,
+    "files": [
+      "src/ordivon_security/actors/host_assigned.py"
+    ],
+    "hypothesis": "The Security-owned representation path that loses the uncertainty is the Host-assigned completion rendering at host_assigned.py:688, where `candidate_completed` status hardcodes `\"unresolved_unknowns\": []`. This is Security's actor code that composes the Host-side completion record for the Harness turn, and it forces the empty list regardless of the Harness delegate's actual unresolved uncertainty, thereby wiping the uncertainty the Security driver is obligated to preserve. The owner boundary holds: the fix stays inside Security's representation layer (host_assigned.py) and does not alter Harness core semantics.",
+    "nextFalsifier": "A falsifying test would exercise the HostAssignedDeepSeekHarnessTurnDriver.end_turn / completion path with a delegate whose Harness conclusion carries non-empty unresolved_unknowns, assert that the Host-assigned completion record preserves those values verbatim, and confirm that the Security code currently emits [] and that the line-369 validation enforces emptiness. Such a test passing before the fix would refute the localization; conversely the localization stands if the test demonstrates the empty-list collapse at host_assigned.py:688 tied to the candidate_completed validation at line 369.",
+    "parallelCallCountAtSubmit": 1
+  },
+  "treatment": "compiled_one_shot",
+  "usage": {
+    "elapsedMs": 10366,
+    "inputTokens": 6105,
+    "model": "deepseek-v4-flash",
+    "outputTokens": 559,
+    "totalTokens": 6664,
+    "transportRetries": 0
+  }
+}

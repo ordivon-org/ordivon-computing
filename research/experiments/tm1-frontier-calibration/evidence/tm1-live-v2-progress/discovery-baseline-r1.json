@@ -1,0 +1,230 @@
+{
+  "metrics": {
+    "concepts": {
+      "bind_run_state": true,
+      "conclusion_correction": true,
+      "no_tool": true,
+      "tool_identity_collision": true
+    },
+    "efficientSuccess": false,
+    "forbiddenFix": false,
+    "localizedFiles": 2,
+    "maxScore": 6,
+    "observations": 10,
+    "observedBytes": 54195,
+    "score": 6
+  },
+  "replicate": 1,
+  "submission": {
+    "abstain": false,
+    "causalMechanism": "The OrdivonAgentLoop's conclusion correction path (loop.py 2132-2201) appends a correction request message to `messages`, then calls `bind_run_state()` (line 2188). For a no-Tool run using SQLiteHarnessAgentBridge, `bind_run_state` enforces that no tool observations or tool-call identities are bound (sqlite_agent_bridge.py lines 120-124). When the correction path passes through the accumulated messages that contain the conclusion gate rejection feedback plus the original tool-call-adjacent state, the strict PROTOCOL_INVALID check on `seen_tool_call_ids` or observations rejects the state binding. This terminates the run at a ToolBridge boundary with RUNTIME_UNKNOWN/HARNESS_FAILED instead of continuing the correction loop to a subsequent model call — the correction cannot proceed because the no-Tool bridge's bind_run_state safety guard treats the correction-triggered state as an invalid Tool crossing. Alternatively, when using SQLiteRepositoryRepairBridge, validate_conclusion exists and can raise MODEL_CORRECTABLE errors, but the bridge's bind_run_state may similarly reject the accumulated messages if the correction flow attempts to cross the boundary. The root issue is that conclusion-correction handling in the loop does not separate model-visible message state from ToolBridge state semantics for no-Tool runs: the correction feedback message (which references tool/domain rejection) is persisted through the ToolBridge, where the no-Tool surface contract explicitly forbids any Tool-related content.",
+    "confidence": "0.55",
+    "files": [
+      "src/ordivon_harness/ordivon/loop.py",
+      "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+      "src/ordivon_harness/ordivon/sqlite_repository_repair_bridge.py",
+      "tests/test_conclusion_correction_separation.py"
+    ],
+    "hypothesis": "The causal interaction is in the OrdivonAgentLoop conclusion-decision path (loop.py ~2132-2201): when a no-Tool run produces a conclusion, the loop calls `self.tool_bridge.validate_conclusion(result.conclusion)` which delegates to the caller-supplied ToolBridge. For the SQLiteHarnessAgentBridge (used by the no-Tool Working View / independent runner), `validate_conclusion` is NOT defined - the bridge has no `validate_conclusion` method. The loop uses `getattr(self.tool_bridge, \"validate_conclusion\", None)` which gracefully treats a missing validator as passing. However, when using `SQLiteRepositoryRepairBridge` (the repository-repair bridge), `validate_conclusion` at line 453 examines observations from `_bound_observations` or `load_current_snapshot()`, and when those observations contradict the conclusion, it raises a `ToolBridgeError` with `recoverable_by_model=True` (MODEL_CORRECTABLE). The loop then appends the rejection message to `messages` and calls `bind_run_state()` before continuing. The bug: when a no-Tool run at a ToolBridge boundary has its conclusion corrected, the loop's correction path appends both a newly formatted \"Harness conclusion gate rejected...\" user message and a new assistant turn that attempts to bind state. But the `SQLiteHarnessAgentBridge.bind_run_state` (line 120-124 of sqlite_agent_bridge.py) rejects any state containing `seen_tool_call_ids` or observations, while the loop's `bind_run_state()` call passes through the accumulated state that includes the rejection feedback messages. This causes the correction attempt to fail at the ToolBridge boundary — the state-binding rejects because the correction flow attempts to cross the bridge without proper no-Tool authority handling. The minimal reproducible falsifier is the existing test `test_conclusion_correction_does_not_consume_tool_budget` in `tests/test_conclusion_correction_separation.py` extended to use a `SQLiteHarnessAgentBridge` (no-Tool surface) or the actual no-Tool runner path, where a conclusion correction requires `bind_run_state` after the rejection message is appended — and the no-Tool bridge's strict PROTOCOL_INVALID rejection of the accumulated messages (which include the correction feedback containing tool-bridge-gate content) prevents the correction from proceeding, causing the run to terminate at the ToolBridge boundary with RUNTIME_UNKNOWN instead of completing the correction loop.",
+    "nextFalsifier": "A test that reproaches the existing `test_conclusion_correction_does_not_consume_tool_budget` but swaps `ConclusionGateBridge` for a `SQLiteHarnessAgentBridge`-backed bridge (or any no-Tool bridge that raises PROTOCOL_INVALID on bind_run_state when messages contain tool references) and verifies that the conclusion correction path either fails at the ToolBridge boundary or cannot continue to the next model turn.",
+    "parallelCallCountAtSubmit": 1
+  },
+  "trace": [
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "conclusion correction",
+            "why": "Find the conclusion correction handling logic in the harness."
+          },
+          "id": "call_00_MR5wPtU6fon4yWKkiJtb8581",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "query": "ToolBridge",
+            "why": "Find ToolBridge boundary handling."
+          },
+          "id": "call_01_38pct0XK7VWJ2Kgcde6o9474",
+          "name": "search"
+        }
+      ],
+      "turn": 0
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 2250,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 2100,
+            "why": "Examine the conclusion correction handling in the loop."
+          },
+          "id": "call_00_0wn0p5pWExMFA8KGodyE1925",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 200,
+            "path": "tests/test_conclusion_correction_separation.py",
+            "start": 1,
+            "why": "Examine the existing test for conclusion correction separation."
+          },
+          "id": "call_01_jtTSElFYmpdRBg2bfwjO9979",
+          "name": "read"
+        }
+      ],
+      "turn": 1
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "no-tool",
+            "why": "Find the no-tool authority handling in the harness."
+          },
+          "id": "call_00_ewSZxG3EIGswFUP28qHT7020",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "end": 220,
+            "path": "src/ordivon_harness/projected_no_tool.py",
+            "start": 1,
+            "why": "Examine the projected no-tool module."
+          },
+          "id": "call_01_qh820Tyw2UYNLkS4DYZa6114",
+          "name": "read"
+        }
+      ],
+      "turn": 2
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 220,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 1,
+            "why": "Examine the SQLiteHarnessAgentBridge for no-Tool handling and conclusion correction."
+          },
+          "id": "call_00_zGhGGZAHw3w3TN9cja1w4651",
+          "name": "read"
+        }
+      ],
+      "turn": 3
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 440,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 220,
+            "why": "Continue examining the bridge for conclusion validation."
+          },
+          "id": "call_00_HcJFKgoQUJ3D5rciJO5Z9486",
+          "name": "read"
+        }
+      ],
+      "turn": 4
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "validate_conclusion",
+            "why": "Find all places where validate_conclusion is defined/used."
+          },
+          "id": "call_00_sdajKC5iS5DW6NoAgj2K2636",
+          "name": "search"
+        }
+      ],
+      "turn": 5
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 480,
+            "path": "src/ordivon_harness/ordivon/sqlite_repository_repair_bridge.py",
+            "start": 440,
+            "why": "Examine the validate_conclusion in the repository repair bridge."
+          },
+          "id": "call_00_xh4vFuJC3LkMO7ypbyel6650",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 120,
+            "path": "tests/test_pc12b_multiturn_projection.py",
+            "start": 60,
+            "why": "Examine validate_conclusion in the multiturn projection test."
+          },
+          "id": "call_01_DU15Ltq6AW4Hvo02jhrh0502",
+          "name": "read"
+        }
+      ],
+      "turn": 6
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 560,
+            "path": "src/ordivon_harness/ordivon/sqlite_repository_repair_bridge.py",
+            "start": 480,
+            "why": "Continue examining validate_conclusion."
+          },
+          "id": "call_00_nnd6dqyxG1VvKxfG2UiS6884",
+          "name": "read"
+        }
+      ],
+      "turn": 7
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 560,
+            "path": "src/ordivon_harness/ordivon/sqlite_repository_repair_bridge.py",
+            "start": 480,
+            "why": "Continue examining validate_conclusion in the repository repair bridge to understand its rejection reasons."
+          },
+          "id": "call_00_Ryg6jEhc2x6LIg21PkTv0736",
+          "name": "read"
+        }
+      ],
+      "turn": 8
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "abstain": false,
+            "causalMechanism": "The OrdivonAgentLoop's conclusion correction path (loop.py 2132-2201) appends a correction request message to `messages`, then calls `bind_run_state()` (line 2188). For a no-Tool run using SQLiteHarnessAgentBridge, `bind_run_state` enforces that no tool observations or tool-call identities are bound (sqlite_agent_bridge.py lines 120-124). When the correction path passes through the accumulated messages that contain the conclusion gate rejection feedback plus the original tool-call-adjacent state, the strict PROTOCOL_INVALID check on `seen_tool_call_ids` or observations rejects the state binding. This terminates the run at a ToolBridge boundary with RUNTIME_UNKNOWN/HARNESS_FAILED instead of continuing the correction loop to a subsequent model call — the correction cannot proceed because the no-Tool bridge's bind_run_state safety guard treats the correction-triggered state as an invalid Tool crossing. Alternatively, when using SQLiteRepositoryRepairBridge, validate_conclusion exists and can raise MODEL_CORRECTABLE errors, but the bridge's bind_run_state may similarly reject the accumulated messages if the correction flow attempts to cross the boundary. The root issue is that conclusion-correction handling in the loop does not separate model-visible message state from ToolBridge state semantics for no-Tool runs: the correction feedback message (which references tool/domain rejection) is persisted through the ToolBridge, where the no-Tool surface contract explicitly forbids any Tool-related content.",
+            "confidence": "0.55",
+            "files": [
+              "src/ordivon_harness/ordivon/loop.py",
+              "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+              "src/ordivon_harness/ordivon/sqlite_repository_repair_bridge.py",
+              "tests/test_conclusion_correction_separation.py"
+            ],
+            "hypothesis": "The causal interaction is in the OrdivonAgentLoop conclusion-decision path (loop.py ~2132-2201): when a no-Tool run produces a conclusion, the loop calls `self.tool_bridge.validate_conclusion(result.conclusion)` which delegates to the caller-supplied ToolBridge. For the SQLiteHarnessAgentBridge (used by the no-Tool Working View / independent runner), `validate_conclusion` is NOT defined - the bridge has no `validate_conclusion` method. The loop uses `getattr(self.tool_bridge, \"validate_conclusion\", None)` which gracefully treats a missing validator as passing. However, when using `SQLiteRepositoryRepairBridge` (the repository-repair bridge), `validate_conclusion` at line 453 examines observations from `_bound_observations` or `load_current_snapshot()`, and when those observations contradict the conclusion, it raises a `ToolBridgeError` with `recoverable_by_model=True` (MODEL_CORRECTABLE). The loop then appends the rejection message to `messages` and calls `bind_run_state()` before continuing. The bug: when a no-Tool run at a ToolBridge boundary has its conclusion corrected, the loop's correction path appends both a newly formatted \"Harness conclusion gate rejected...\" user message and a new assistant turn that attempts to bind state. But the `SQLiteHarnessAgentBridge.bind_run_state` (line 120-124 of sqlite_agent_bridge.py) rejects any state containing `seen_tool_call_ids` or observations, while the loop's `bind_run_state()` call passes through the accumulated state that includes the rejection feedback messages. This causes the correction attempt to fail at the ToolBridge boundary — the state-binding rejects because the correction flow attempts to cross the bridge without proper no-Tool authority handling. The minimal reproducible falsifier is the existing test `test_conclusion_correction_does_not_consume_tool_budget` in `tests/test_conclusion_correction_separation.py` extended to use a `SQLiteHarnessAgentBridge` (no-Tool surface) or the actual no-Tool runner path, where a conclusion correction requires `bind_run_state` after the rejection message is appended — and the no-Tool bridge's strict PROTOCOL_INVALID rejection of the accumulated messages (which include the correction feedback containing tool-bridge-gate content) prevents the correction from proceeding, causing the run to terminate at the ToolBridge boundary with RUNTIME_UNKNOWN instead of completing the correction loop.",
+            "nextFalsifier": "A test that reproaches the existing `test_conclusion_correction_does_not_consume_tool_budget` but swaps `ConclusionGateBridge` for a `SQLiteHarnessAgentBridge`-backed bridge (or any no-Tool bridge that raises PROTOCOL_INVALID on bind_run_state when messages contain tool references) and verifies that the conclusion correction path either fails at the ToolBridge boundary or cannot continue to the next model turn."
+          },
+          "id": "call_00_Nucr0q44YaaFkDfnmW3Y8627",
+          "name": "submit"
+        }
+      ],
+      "turn": 9
+    }
+  ],
+  "treatment": "baseline",
+  "usage": {
+    "elapsedMs": 69171,
+    "inputTokens": 129239,
+    "outputTokens": 2330,
+    "totalTokens": 131569
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "consumer": "H-NOTOOL",
+  "evidencePlan": {
+    "observations": 5,
+    "observedBytes": 13955,
+    "rankedReadPaths": [
+      "src/ordivon_harness/ordivon/loop.py",
+      "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+      "tests/test_conclusion_correction_separation.py"
+    ],
+    "readDigests": [
+      "sha256:29cfcf85e4249c3bbd50dcb0081b31c1ec13494c22b9132a51b6fd4594f10048",
+      "sha256:4e94188aa5cd28a8fd7368c692f60067b6adfd2bba346c115babd021fb310d5c",
+      "sha256:efd00a39cdd57c0396e12811d0a285cb78d4bec7804d78a3a9e0a3085ff063ed"
+    ],
+    "readRequiredFileCoverage": 2,
+    "searchDigests": [
+      "sha256:155e5b2049b48df38ad443ed7abc39c1cb2d4a090dc54a137fa4e5184a0e8489",
+      "sha256:b47bb33dd0eb24ca7c5525fca44838a1ef5b779dfe45cc6940ce49ddb6824b7e"
+    ],
+    "searchRequiredFileCoverage": 2
+  },
+  "metrics": {
+    "compiledReadRequiredFileCoverage": 2,
+    "concepts": {
+      "bounded_falsifier": true,
+      "conclusion_correction": true,
+      "no_tool_boundary": true,
+      "state_binding": true
+    },
+    "forbiddenBoundary": false,
+    "localizedFiles": 2,
+    "maxScore": 6,
+    "observations": 5,
+    "observedBytes": 13955,
+    "score": 6,
+    "seedRequiredFileCoverage": 2,
+    "success": true
+  },
+  "replicate": 3,
+  "submission": {
+    "abstain": false,
+    "causalMechanism": "The conclusion correction control path builds a Tool bound-state payload (passes non-empty `observations` and/or `seen_tool_call_ids` to `bind_run_state`). Loop.py, after appending the correction feedback message (loop.py:2157-2174), calls `bind_run_state()` (loop.py:2188) carrying that Tool observational state. On a no-Tool Agent Run, SQLiteHarnessAgentBridge.bind_run_state (sqlite_agent_bridge.py:120) checks `if observations or seen_tool_call_ids:` and raises `ToolBridgeError` (kind PROTOCOL_INVALID) with the message at line 122, because a no-Tool run must not bind Tool observations or Tool Call identities. Loop.py catches this ToolBridgeError at line 2189-2193 and terminates with `RUNTIME_UNKNOWN` (str of the error). The causal interaction is the launch of Tool-bound state binding from the conclusion-correction control path onto a boundary whose Contract explicitly forbids Tool observations/Tool Call identities.",
+    "confidence": 0.78,
+    "files": [
+      "src/ordivon_harness/ordivon/loop.py",
+      "src/ordivon_harness/ordivon/sqlite_agent_bridge.py"
+    ],
+    "hypothesis": "A real no-Tool Agent Run (one whose Contract encodes a no-Tool surface with an empty tool catalog/grant) entered the harness conclusion-correction control path in loop.py (lines 2132-2146) and failed at sqlite_agent_bridge.py:120-122 when bind_run_state() observed that the correction control path was recording Tool observations / seen Tool Call identities onto the no-Tool run.",
+    "nextFalsifier": "Run the same real no-Tool adapter through the conclusion-correction path with a bridge variant that strips `observations`/`seen_tool_call_ids` (or passes empty tuples) into bind_run_state; if the run then completes or continues without ToolBridgeError, the causal mechanism is confirmed as the conclusion-control path forwarding Tool-bound state into the no-Tool bridge. Conversely, if the error still occurs at bind_run_state with empty observations/seen_tool_call_ids, the mechanism must be revised.",
+    "parallelCallCountAtSubmit": 1
+  },
+  "treatment": "compiled_one_shot",
+  "usage": {
+    "elapsedMs": 7665,
+    "inputTokens": 4244,
+    "model": "deepseek-v4-flash",
+    "outputTokens": 565,
+    "totalTokens": 4809,
+    "transportRetries": 0
+  }
+}

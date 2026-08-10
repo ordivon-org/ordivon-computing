@@ -1,0 +1,427 @@
+{
+  "aggregate": {
+    "H-NOTOOL": {
+      "causalSubmissions": 3,
+      "meanObservations": 5.0,
+      "meanObservedBytes": 13955.0,
+      "meanReadRequiredFileCoverage": 2.0,
+      "meanScore": 6.0,
+      "meanSearchRequiredFileCoverage": 2.0,
+      "providerCalls": 3,
+      "replicates": 3,
+      "successes": 3,
+      "tokens": 14721,
+      "transportRetries": 0
+    },
+    "S-UNKNOWN": {
+      "causalSubmissions": 3,
+      "meanObservations": 8.0,
+      "meanObservedBytes": 16511.0,
+      "meanReadRequiredFileCoverage": 1.0,
+      "meanScore": 1.3333333333333333,
+      "meanSearchRequiredFileCoverage": 2.0,
+      "providerCalls": 3,
+      "replicates": 3,
+      "successes": 0,
+      "tokens": 19932,
+      "transportRetries": 0
+    }
+  },
+  "frontierDigest": "sha256:e4ecd6915b9b03c79634c123dd5202e5ae3afe5138b3d95072b53d2ded15372e",
+  "kind": "ordivon.computing.tm3-compiled-evidence-receipt",
+  "maximumEvidenceObservations": 8,
+  "model": "deepseek-v4-flash",
+  "provider": "deepseek",
+  "receiptDigest": "sha256:113282437d80e0fb9e45e0fac2f63e612b0c90b810b6653923e17c02c64ff142",
+  "replicatesPerConsumer": 3,
+  "schemaVersion": 1,
+  "trials": [
+    {
+      "consumer": "H-NOTOOL",
+      "evidencePlan": {
+        "observations": 5,
+        "observedBytes": 13955,
+        "rankedReadPaths": [
+          "src/ordivon_harness/ordivon/loop.py",
+          "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+          "tests/test_conclusion_correction_separation.py"
+        ],
+        "readDigests": [
+          "sha256:29cfcf85e4249c3bbd50dcb0081b31c1ec13494c22b9132a51b6fd4594f10048",
+          "sha256:4e94188aa5cd28a8fd7368c692f60067b6adfd2bba346c115babd021fb310d5c",
+          "sha256:efd00a39cdd57c0396e12811d0a285cb78d4bec7804d78a3a9e0a3085ff063ed"
+        ],
+        "readRequiredFileCoverage": 2,
+        "searchDigests": [
+          "sha256:155e5b2049b48df38ad443ed7abc39c1cb2d4a090dc54a137fa4e5184a0e8489",
+          "sha256:b47bb33dd0eb24ca7c5525fca44838a1ef5b779dfe45cc6940ce49ddb6824b7e"
+        ],
+        "searchRequiredFileCoverage": 2
+      },
+      "metrics": {
+        "compiledReadRequiredFileCoverage": 2,
+        "concepts": {
+          "bounded_falsifier": true,
+          "conclusion_correction": true,
+          "no_tool_boundary": true,
+          "state_binding": true
+        },
+        "forbiddenBoundary": false,
+        "localizedFiles": 2,
+        "maxScore": 6,
+        "observations": 5,
+        "observedBytes": 13955,
+        "score": 6,
+        "seedRequiredFileCoverage": 2,
+        "success": true
+      },
+      "replicate": 1,
+      "submission": {
+        "abstain": false,
+        "causalMechanism": "The conclusion-correction branch in `loop.py` restores/binds run state after recording an assistant message plus a user correction prompt. That `bind_run_state()` call (loop.py:2188) hands `observations` and `seen_tool_call_ids` to the bridge. For the independent no-Tool `SQLiteHarnessAgentBridge`, `bind_run_state` contains an explicit guard (sqlite_agent_bridge.py:120-124) that raises `ToolBridgeError(PROTOCOL_INVALID)` when `observations or seen_tool_call_ids` is truthy — i.e., it refuses the Tool-typed bindings while preserving the no-Tool capability boundary. The crash is the harness control flow attempting to bind Tool identities/observations into the no-Tool surface rather than stripping/omitting them in the correction round.",
+        "confidence": 0.78,
+        "files": [
+          "src/ordivon_harness/ordivon/loop.py",
+          "src/ordivon_harness/ordivon/sqlite_agent_bridge.py"
+        ],
+        "hypothesis": "In the conclusion-correction control path of loop.py, when `result.conclusion` is present and the first message appended is the assistant turn carrying the rejected candidate conclusion (loop.py:2157-2163), the second (user feedback) message field (loop.py:2164-2174) carries the correction prompt. On the NEXT model turn, the harness calls `bind_run_state()` (loop.py:2188) before looping back for another provider call. That `bind_run_state()` routes to `SQLiteHarnessAgentBridge.bind_run_state` (sqlite_agent_bridge.py:106). Because the run is a no-Tool contract, the bridge's guard at sqlite_agent_bridge.py:120-124 raises `ToolBridgeError` with exactly the message \"no-Tool Agent Run cannot bind Tool observations or Tool Call identities\" whenever `observations` or `seen_tool_call_ids` is non-empty. The failure therefore originates from the harness conclusion-correction control flow passing Tool-typed bindings (Tool observations and/or seen Tool Call identities) into the no-Tool bridge's state binding, in the independent no-Tool surface, after an increment of the conclusion-correction budget (loop.py:2156).",
+        "nextFalsifier": "A test that runs a no-Tool contract through the conclusion-correction branch where the correction round's `bind_run_state` is called with empty `observations` and empty `seen_tool_call_ids` (i.e., the Tool bindings stripped) and asserts the run proceeds to `CANDIDATE_COMPLETED` / budget exhaustion without `ToolBridgeError`. If the error persists with empty Tool bindings, the guard mechanism attribution is wrong.",
+        "parallelCallCountAtSubmit": 1
+      },
+      "treatment": "compiled_one_shot",
+      "usage": {
+        "elapsedMs": 9009,
+        "inputTokens": 4244,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 683,
+        "totalTokens": 4927,
+        "transportRetries": 0
+      }
+    },
+    {
+      "consumer": "H-NOTOOL",
+      "evidencePlan": {
+        "observations": 5,
+        "observedBytes": 13955,
+        "rankedReadPaths": [
+          "src/ordivon_harness/ordivon/loop.py",
+          "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+          "tests/test_conclusion_correction_separation.py"
+        ],
+        "readDigests": [
+          "sha256:29cfcf85e4249c3bbd50dcb0081b31c1ec13494c22b9132a51b6fd4594f10048",
+          "sha256:4e94188aa5cd28a8fd7368c692f60067b6adfd2bba346c115babd021fb310d5c",
+          "sha256:efd00a39cdd57c0396e12811d0a285cb78d4bec7804d78a3a9e0a3085ff063ed"
+        ],
+        "readRequiredFileCoverage": 2,
+        "searchDigests": [
+          "sha256:155e5b2049b48df38ad443ed7abc39c1cb2d4a090dc54a137fa4e5184a0e8489",
+          "sha256:b47bb33dd0eb24ca7c5525fca44838a1ef5b779dfe45cc6940ce49ddb6824b7e"
+        ],
+        "searchRequiredFileCoverage": 2
+      },
+      "metrics": {
+        "compiledReadRequiredFileCoverage": 2,
+        "concepts": {
+          "bounded_falsifier": true,
+          "conclusion_correction": true,
+          "no_tool_boundary": true,
+          "state_binding": true
+        },
+        "forbiddenBoundary": false,
+        "localizedFiles": 2,
+        "maxScore": 6,
+        "observations": 5,
+        "observedBytes": 13955,
+        "score": 6,
+        "seedRequiredFileCoverage": 2,
+        "success": true
+      },
+      "replicate": 2,
+      "submission": {
+        "abstain": false,
+        "causalMechanism": "In the no-Tool configuration (contract tool_catalog_digest/tool_grant_digest encode empty surface), the agent bridge's `bind_run_state` guards its no-Tool boundary by raising `ToolBridgeError(PROTOCOL_INVALID)` whenever `observations` or `seen_tool_call_ids` are non-empty (sqlite_agent_bridge.py:120-124). The harness loop invokes `bind_run_state()` in the conclusion-correction control path (loop.py:2187-2188, immediately after the rejected-conclusion feedback is appended) just as it does in the progress-evaluation continuation path (loop.py:2122-2123). The failing Run is one that, at the correction step, carries non-empty Tool observation/identity state synthetically reintroduced by the Harness (via `restore_current_attempt_cognition_overlay` or the conclusion-correction feedback plumbing that reconstructs projected cognition from the stored continuity store). When that restored state is fed into `bind_run_state` on the no-Tool surface, the guard fires and the harness returns `RunStopCode.RUNTIME_UNKNOWN` with the exact message. The causal defect is the Harness-owned loop feeding non-empty `observations`/`seen_tool_call_ids` into the no-Tool `bind_run_state` during structured-result conclusion correction — the bridge guard correctly enforces the no-Tool capability boundary, but the Harness bounded-control path fails to strip/authenticate that Tool state before rebinding the no-Tool Run state.",
+        "confidence": 0.68,
+        "files": [
+          "src/ordivon_harness/ordivon/loop.py",
+          "src/ordivon_harness/ordivon/sqlite_agent_bridge.py"
+        ],
+        "hypothesis": "The Harness-owned loop's conclusion-correction handling path (loop.py:2132-2197) feeds the raw `bind_run_state()` with non-empty `observations`/`seen_tool_call_ids` (reintroduced via the continuity/cognition restoration path used after a rejected structured-result conclusion), while the no-Tool agent bridge (`sqlite_agent_bridge.bind_run_state`) enforces its contract by raising `ToolBridgeError(PROTOCOL_INVALID)` on that violated state (lines 120-124). The Harness fails to strip or authenticate the Tool-bound state before rebinding the no-Tool Run, producing the exact failure instead of keeping the correction within the no-Tool capability boundary.",
+        "nextFalsifier": "Open the loop.py control path that constructs the state passed into the line-2187 `bind_run_state()` call (around the `restore_current_attempt_cognition_overlay` / messages-observation reconstruction feeding the correction iteration) and verify whether it ever assigns non-empty observations or seen_tool_call_ids for a contract with maxToolCalls=0 and empty tool digest. If that state is provably always empty for no-Tool contracts, then the non-empty Tool state must originate from the adapter/model output rather than the Harness, which would relocate the fault.",
+        "parallelCallCountAtSubmit": 1
+      },
+      "treatment": "compiled_one_shot",
+      "usage": {
+        "elapsedMs": 11691,
+        "inputTokens": 4244,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 741,
+        "totalTokens": 4985,
+        "transportRetries": 0
+      }
+    },
+    {
+      "consumer": "H-NOTOOL",
+      "evidencePlan": {
+        "observations": 5,
+        "observedBytes": 13955,
+        "rankedReadPaths": [
+          "src/ordivon_harness/ordivon/loop.py",
+          "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+          "tests/test_conclusion_correction_separation.py"
+        ],
+        "readDigests": [
+          "sha256:29cfcf85e4249c3bbd50dcb0081b31c1ec13494c22b9132a51b6fd4594f10048",
+          "sha256:4e94188aa5cd28a8fd7368c692f60067b6adfd2bba346c115babd021fb310d5c",
+          "sha256:efd00a39cdd57c0396e12811d0a285cb78d4bec7804d78a3a9e0a3085ff063ed"
+        ],
+        "readRequiredFileCoverage": 2,
+        "searchDigests": [
+          "sha256:155e5b2049b48df38ad443ed7abc39c1cb2d4a090dc54a137fa4e5184a0e8489",
+          "sha256:b47bb33dd0eb24ca7c5525fca44838a1ef5b779dfe45cc6940ce49ddb6824b7e"
+        ],
+        "searchRequiredFileCoverage": 2
+      },
+      "metrics": {
+        "compiledReadRequiredFileCoverage": 2,
+        "concepts": {
+          "bounded_falsifier": true,
+          "conclusion_correction": true,
+          "no_tool_boundary": true,
+          "state_binding": true
+        },
+        "forbiddenBoundary": false,
+        "localizedFiles": 2,
+        "maxScore": 6,
+        "observations": 5,
+        "observedBytes": 13955,
+        "score": 6,
+        "seedRequiredFileCoverage": 2,
+        "success": true
+      },
+      "replicate": 3,
+      "submission": {
+        "abstain": false,
+        "causalMechanism": "The conclusion correction control path builds a Tool bound-state payload (passes non-empty `observations` and/or `seen_tool_call_ids` to `bind_run_state`). Loop.py, after appending the correction feedback message (loop.py:2157-2174), calls `bind_run_state()` (loop.py:2188) carrying that Tool observational state. On a no-Tool Agent Run, SQLiteHarnessAgentBridge.bind_run_state (sqlite_agent_bridge.py:120) checks `if observations or seen_tool_call_ids:` and raises `ToolBridgeError` (kind PROTOCOL_INVALID) with the message at line 122, because a no-Tool run must not bind Tool observations or Tool Call identities. Loop.py catches this ToolBridgeError at line 2189-2193 and terminates with `RUNTIME_UNKNOWN` (str of the error). The causal interaction is the launch of Tool-bound state binding from the conclusion-correction control path onto a boundary whose Contract explicitly forbids Tool observations/Tool Call identities.",
+        "confidence": 0.78,
+        "files": [
+          "src/ordivon_harness/ordivon/loop.py",
+          "src/ordivon_harness/ordivon/sqlite_agent_bridge.py"
+        ],
+        "hypothesis": "A real no-Tool Agent Run (one whose Contract encodes a no-Tool surface with an empty tool catalog/grant) entered the harness conclusion-correction control path in loop.py (lines 2132-2146) and failed at sqlite_agent_bridge.py:120-122 when bind_run_state() observed that the correction control path was recording Tool observations / seen Tool Call identities onto the no-Tool run.",
+        "nextFalsifier": "Run the same real no-Tool adapter through the conclusion-correction path with a bridge variant that strips `observations`/`seen_tool_call_ids` (or passes empty tuples) into bind_run_state; if the run then completes or continues without ToolBridgeError, the causal mechanism is confirmed as the conclusion-control path forwarding Tool-bound state into the no-Tool bridge. Conversely, if the error still occurs at bind_run_state with empty observations/seen_tool_call_ids, the mechanism must be revised.",
+        "parallelCallCountAtSubmit": 1
+      },
+      "treatment": "compiled_one_shot",
+      "usage": {
+        "elapsedMs": 7665,
+        "inputTokens": 4244,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 565,
+        "totalTokens": 4809,
+        "transportRetries": 0
+      }
+    },
+    {
+      "consumer": "S-UNKNOWN",
+      "evidencePlan": {
+        "observations": 8,
+        "observedBytes": 16511,
+        "rankedReadPaths": [
+          "src/ordivon_security/actors/host_assigned.py",
+          "src/ordivon_security/cli_cage4_deepseek.py",
+          "src/ordivon_security/integrations/__init__.py",
+          "tests/unit/test_surface.py",
+          "src/ordivon_security/actors/runtime_assigned.py",
+          "src/ordivon_security/actors/__init__.py"
+        ],
+        "readDigests": [
+          "sha256:0c195e54fca3b3a16c0ac38825ca4a542f67e1305d84f18f565e65967f1b5b0e",
+          "sha256:ddbfa32a4c8f32447ff437421b0a3b15af550463b70766a6880f8930cffd42a2",
+          "sha256:1a9b8b53a3b262adde8c48cf2bcce02e183fcbd83ad02d1722eeb9f86cdb2d59",
+          "sha256:4c81d4b2e01e4fd84dedc704c3d1d066683e1b1603f08abdf0567e6f4657e734",
+          "sha256:65c839c1a07eece1f7dfefdf8266a771fd24870f269141ebec83e877e1b5ce99",
+          "sha256:95a9af81d2942f40ef7781c17c61dd548fc6031601e600ca488d5d35354e3f37"
+        ],
+        "readRequiredFileCoverage": 1,
+        "searchDigests": [
+          "sha256:00a1d53fb03abe4b9571844b2f9ffd88af53c9e579e4511e988102326b625719",
+          "sha256:e4d29832bbb6eed443b9ad9e727347f3a7e95e256ac7b6de7d61a59ab5b77fe6"
+        ],
+        "searchRequiredFileCoverage": 2
+      },
+      "metrics": {
+        "compiledReadRequiredFileCoverage": 1,
+        "concepts": {
+          "driver_drops_unknown": false,
+          "evidence_carrier_gap": false,
+          "lifecycle_hardcodes_empty": true,
+          "prompt_forces_empty": false
+        },
+        "forbiddenBoundary": false,
+        "localizedFiles": 1,
+        "maxScore": 6,
+        "observations": 8,
+        "observedBytes": 16511,
+        "score": 2,
+        "seedRequiredFileCoverage": 2,
+        "success": false
+      },
+      "replicate": 1,
+      "submission": {
+        "abstain": false,
+        "causalMechanism": "HostAssignedDeepSeekHarnessTurnDriver treats candidate_completed as a terminal task-completion state where the world is fully known, so at line 369 it validates that unresolved_unknowns MUST be empty and at line 688 it records an empty list. Any non-empty uncertainty that the Harness delegate produced for the candidate is dropped/forcibly cleared at this Host-owned boundary, so the exact Harness unresolved uncertainty is lost in the Security-owned representation path.",
+        "confidence": 0.8,
+        "files": [
+          "src/ordivon_security/actors/host_assigned.py"
+        ],
+        "hypothesis": "The Security-owned representation path that loses the uncertainty is in HostAssignedDeepSeekHarnessTurnDriver's task-completion handling: line 688 hardcodes \"unresolved_unknowns\": [] for candidate_completed, and line 369 enforces \"For candidate_completed, unresolved_unknowns MUST be empty\". This causes Host-assigned completion to record an empty unresolved_unknowns list, discarding the Harness's produced uncertainty without altering Harness core semantics.",
+        "nextFalsifier": "Construct a candidate_completed result containing a non-empty unresolved_unknowns array and assert HostAssignedDeepSeekHarnessTurnDriver preserves it exactly in the recorded completion; the current code raises (line 369) or overwrites with [] (line 688), so the test should fail, demonstrating the loss.",
+        "parallelCallCountAtSubmit": 1
+      },
+      "treatment": "compiled_one_shot",
+      "usage": {
+        "elapsedMs": 7289,
+        "inputTokens": 6105,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 393,
+        "totalTokens": 6498,
+        "transportRetries": 0
+      }
+    },
+    {
+      "consumer": "S-UNKNOWN",
+      "evidencePlan": {
+        "observations": 8,
+        "observedBytes": 16511,
+        "rankedReadPaths": [
+          "src/ordivon_security/actors/host_assigned.py",
+          "src/ordivon_security/cli_cage4_deepseek.py",
+          "src/ordivon_security/integrations/__init__.py",
+          "tests/unit/test_surface.py",
+          "src/ordivon_security/actors/runtime_assigned.py",
+          "src/ordivon_security/actors/__init__.py"
+        ],
+        "readDigests": [
+          "sha256:0c195e54fca3b3a16c0ac38825ca4a542f67e1305d84f18f565e65967f1b5b0e",
+          "sha256:ddbfa32a4c8f32447ff437421b0a3b15af550463b70766a6880f8930cffd42a2",
+          "sha256:1a9b8b53a3b262adde8c48cf2bcce02e183fcbd83ad02d1722eeb9f86cdb2d59",
+          "sha256:4c81d4b2e01e4fd84dedc704c3d1d066683e1b1603f08abdf0567e6f4657e734",
+          "sha256:65c839c1a07eece1f7dfefdf8266a771fd24870f269141ebec83e877e1b5ce99",
+          "sha256:95a9af81d2942f40ef7781c17c61dd548fc6031601e600ca488d5d35354e3f37"
+        ],
+        "readRequiredFileCoverage": 1,
+        "searchDigests": [
+          "sha256:00a1d53fb03abe4b9571844b2f9ffd88af53c9e579e4511e988102326b625719",
+          "sha256:e4d29832bbb6eed443b9ad9e727347f3a7e95e256ac7b6de7d61a59ab5b77fe6"
+        ],
+        "searchRequiredFileCoverage": 2
+      },
+      "metrics": {
+        "compiledReadRequiredFileCoverage": 1,
+        "concepts": {
+          "driver_drops_unknown": false,
+          "evidence_carrier_gap": false,
+          "lifecycle_hardcodes_empty": true,
+          "prompt_forces_empty": false
+        },
+        "forbiddenBoundary": false,
+        "localizedFiles": 1,
+        "maxScore": 6,
+        "observations": 8,
+        "observedBytes": 16511,
+        "score": 2,
+        "seedRequiredFileCoverage": 2,
+        "success": false
+      },
+      "replicate": 2,
+      "submission": {
+        "abstain": false,
+        "causalMechanism": "HostAssignedDeepSeekHarnessTurnDriver is Security's P0-B wrapper owning the durable lifecycle around one Harness turn. On the terminal `candidate_completed` path, Security's Host-side completion record materializes the conclusion/resolution map with a hardcoded literal `\"unresolved_unknowns\": []` (host_assigned.py:688) alongside the accompanying validation contract at line 369 that asserts `unresolved_unknowns MUST be empty for candidate_completed`. This Security-owned representation contract structurally forbids carrying forward any non-empty unresolved uncertainty from the Harness delegate's conclusion, so the exact unresolved uncertainty is deterministically collapsed to an empty list at the Security boundary while the underlying Harness conclusion object itself is never modified. The loss is introduced purely by Security's Host completion serialization, not by Harness core semantics, which is exactly the narrow Security-owned representation path sought.",
+        "confidence": 0.62,
+        "files": [
+          "src/ordivon_security/actors/host_assigned.py"
+        ],
+        "hypothesis": "The Security-owned representation path that loses the uncertainty is the Host-assigned completion rendering at host_assigned.py:688, where `candidate_completed` status hardcodes `\"unresolved_unknowns\": []`. This is Security's actor code that composes the Host-side completion record for the Harness turn, and it forces the empty list regardless of the Harness delegate's actual unresolved uncertainty, thereby wiping the uncertainty the Security driver is obligated to preserve. The owner boundary holds: the fix stays inside Security's representation layer (host_assigned.py) and does not alter Harness core semantics.",
+        "nextFalsifier": "A falsifying test would exercise the HostAssignedDeepSeekHarnessTurnDriver.end_turn / completion path with a delegate whose Harness conclusion carries non-empty unresolved_unknowns, assert that the Host-assigned completion record preserves those values verbatim, and confirm that the Security code currently emits [] and that the line-369 validation enforces emptiness. Such a test passing before the fix would refute the localization; conversely the localization stands if the test demonstrates the empty-list collapse at host_assigned.py:688 tied to the candidate_completed validation at line 369.",
+        "parallelCallCountAtSubmit": 1
+      },
+      "treatment": "compiled_one_shot",
+      "usage": {
+        "elapsedMs": 10366,
+        "inputTokens": 6105,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 559,
+        "totalTokens": 6664,
+        "transportRetries": 0
+      }
+    },
+    {
+      "consumer": "S-UNKNOWN",
+      "evidencePlan": {
+        "observations": 8,
+        "observedBytes": 16511,
+        "rankedReadPaths": [
+          "src/ordivon_security/actors/host_assigned.py",
+          "src/ordivon_security/cli_cage4_deepseek.py",
+          "src/ordivon_security/integrations/__init__.py",
+          "tests/unit/test_surface.py",
+          "src/ordivon_security/actors/runtime_assigned.py",
+          "src/ordivon_security/actors/__init__.py"
+        ],
+        "readDigests": [
+          "sha256:0c195e54fca3b3a16c0ac38825ca4a542f67e1305d84f18f565e65967f1b5b0e",
+          "sha256:ddbfa32a4c8f32447ff437421b0a3b15af550463b70766a6880f8930cffd42a2",
+          "sha256:1a9b8b53a3b262adde8c48cf2bcce02e183fcbd83ad02d1722eeb9f86cdb2d59",
+          "sha256:4c81d4b2e01e4fd84dedc704c3d1d066683e1b1603f08abdf0567e6f4657e734",
+          "sha256:65c839c1a07eece1f7dfefdf8266a771fd24870f269141ebec83e877e1b5ce99",
+          "sha256:95a9af81d2942f40ef7781c17c61dd548fc6031601e600ca488d5d35354e3f37"
+        ],
+        "readRequiredFileCoverage": 1,
+        "searchDigests": [
+          "sha256:00a1d53fb03abe4b9571844b2f9ffd88af53c9e579e4511e988102326b625719",
+          "sha256:e4d29832bbb6eed443b9ad9e727347f3a7e95e256ac7b6de7d61a59ab5b77fe6"
+        ],
+        "searchRequiredFileCoverage": 2
+      },
+      "metrics": {
+        "compiledReadRequiredFileCoverage": 1,
+        "concepts": {
+          "driver_drops_unknown": false,
+          "evidence_carrier_gap": false,
+          "lifecycle_hardcodes_empty": true,
+          "prompt_forces_empty": false
+        },
+        "forbiddenBoundary": true,
+        "localizedFiles": 1,
+        "maxScore": 6,
+        "observations": 8,
+        "observedBytes": 16511,
+        "score": 0,
+        "seedRequiredFileCoverage": 2,
+        "success": false
+      },
+      "replicate": 3,
+      "submission": {
+        "abstain": false,
+        "causalMechanism": "At host_assigned.py:688, the completion record for candidate_completed is constructed as a literal dict containing \\\"unresolved_unknowns\\\": [] rather than derived from the delegate/source evidence. The literal empty array is baked into the Host's durable completion representation while the Harness core semantic rule (agent_stack.py:753) only constrains what an emitted candidate_completed may contain, and host_assigned.py:369 carries the same constraint message. The loss is therefore in the Host's hard-coded completion record construction path — the Host writes an empty list without reading, copying, or surfacing the delegate's real unresolved_unknowns, so any uncertainty the Harness produced for the completed turn is dropped at the Security/Host boundary. This is a narrow Representation-path defect: it does not change Harness core semantics (the candidate_completed constraint message and contract are left intact) but the Host's own durable record that should preserve and testify to the exact unresolved uncertainty instead substitutes an empty list.",
+        "confidence": 0.82,
+        "files": [
+          "src/ordivon_security/actors/host_assigned.py"
+        ],
+        "hypothesis": "The narrow Security-owned representation path that loses unresolved uncertainty is the HostAssignedDeepSeekHarnessTurnDriver's completion-recording block at src/ordivon_security/actors/host_assigned.py:688, where it Writes the completion dict with \\\"unresolved_unknowns\\\": [] unconditionally for candidate_completed, discarding the delegate's actual unresolved_unknowns list. This is the Host's durable representation of a completed turn, separate from the Harness core semantics (which require unresolved_unknowns to be an empty array in the candidate_completed direction per agent_stack.py:753). The Host owns the durable completion record and, in recording it, neither validates nor propagates the delegate's non-empty unresolved_unknowns, so the uncertainty is lost at the completion-record boundary even though Harness core semantics for what a candidate_completed must look like are preserved.",
+        "nextFalsifier": "A falsifying test should construct HostAssignedDeepSeekHarnessTurnDriver with a delegate whose candidate_completed evidence carries a non-empty unresolved_unknowns list (simulating a turn that completed with genuine unresolved world uncertainty), drive a turn, and then inspect the Host's durable completion record and any post-completion unresolved-unknown assertion. The test passes (falsifies this localization) if the Host record preserves or surfaces the delegate's non-empty unresolved_unknowns; it fails (confirms this localization) if the record again contains the literal empty list, proving the Host's completion-recording path at host_assigned.py:688 is where the uncertainty is nullified rather than the Harness core constraint.",
+        "parallelCallCountAtSubmit": 1
+      },
+      "treatment": "compiled_one_shot",
+      "usage": {
+        "elapsedMs": 8760,
+        "inputTokens": 6105,
+        "model": "deepseek-v4-flash",
+        "outputTokens": 665,
+        "totalTokens": 6770,
+        "transportRetries": 0
+      }
+    }
+  ]
+}

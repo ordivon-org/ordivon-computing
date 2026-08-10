@@ -25,6 +25,10 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 - [`semantic-core-v0/`](semantic-core-v0/) — closed reference experiment; accepts only regression fixes or newly demonstrated universal invariants.
 - [`wl0-semantic-law-falsification/`](wl0-semantic-law-falsification/) — completed deletion-style falsification of five compressed cross-project semantic laws; 740,000 randomized trials plus physical probes support narrower applicability-scoped formulations without forcing a new shared mechanism or Core rewrite.
 - [`tm0-research-taste-audit/`](tm0-research-taste-audit/) — retrospective cross-project audit of scientific research taste as probabilistic world-model priors over frontier selection and tractability; records candidate priors, anti-priors, question transformations, and the unresolved need for prospective calibration without promoting a new scheduler or scoring engine.
+- [`tm1-frontier-calibration/`](tm1-frontier-calibration/) — first prospective calibration; static taste-prior instructions did not improve the same Agent and materially worsened bounded causal discovery, while also exposing the need for durable per-replicate research evidence.
+- [`tm2-operator-selection/`](tm2-operator-selection/) — prospective Harness + Security holdout showing that deterministic owner-evidence operator selection improved combined causal localization from 3/6 to 5/6 without adding research-taste prose.
+- [`tm3-compiled-evidence/`](tm3-compiled-evidence/) — contraction test showing compiled one-shot evidence dominates iterative discovery for localized exact diagnostics but fails on distributed representation/dataflow, forcing topology-conditional operator selection.
+- [`tm4-research-frontier-model/`](tm4-research-frontier-model/) — research-only assimilation of TM0–TM3 into a conditional evidence-topology → operator-policy frontier model and calibration ledger; no scheduler, scalar tractability score, Core rewrite, or canonical-method mutation is promoted.
 
 ## Deferred experiment families
 

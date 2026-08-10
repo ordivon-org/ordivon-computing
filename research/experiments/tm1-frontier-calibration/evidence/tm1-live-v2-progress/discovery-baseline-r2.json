@@ -1,0 +1,258 @@
+{
+  "metrics": {
+    "concepts": {
+      "bind_run_state": false,
+      "conclusion_correction": false,
+      "no_tool": false,
+      "tool_identity_collision": false
+    },
+    "efficientSuccess": false,
+    "forbiddenFix": false,
+    "localizedFiles": 0,
+    "maxScore": 6,
+    "observations": 10,
+    "observedBytes": 54954,
+    "score": 0
+  },
+  "replicate": 2,
+  "submission": {
+    "abstain": true,
+    "causalMechanism": "",
+    "confidence": 0.0,
+    "files": [],
+    "forcedByBudget": true,
+    "hypothesis": "observation budget exhausted without a submitted causal target",
+    "nextFalsifier": "reformulate the discovery plan before spending more observations"
+  },
+  "trace": [
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "conclusion correction",
+            "why": "Find the conclusion correction control handling code referenced in the pressure question."
+          },
+          "id": "call_00_0VYXsaZwf7oStV6xbzH29898",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "query": "ToolBridge boundary",
+            "why": "Find the ToolBridge boundary where the run terminated."
+          },
+          "id": "call_01_Se46hVno6mbHvABYfhe07987",
+          "name": "search"
+        }
+      ],
+      "turn": 0
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "tool_bridge",
+            "why": "Find ToolBridge-related code across the catalog."
+          },
+          "id": "call_00_jBq7jYl3T5OQwSjEY1T44046",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "query": "conclusion correction",
+            "why": "Look for the broader conclusion correction handling in loop.py and elsewhere."
+          },
+          "id": "call_01_9ZeYMheU9z54C6Pi6KXl7933",
+          "name": "search"
+        }
+      ],
+      "turn": 1
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 2270,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 2050,
+            "why": "Read the conclusion correction handling and surrounding context in loop.py."
+          },
+          "id": "call_00_lRlloegfipsvw1BezBFV1683",
+          "name": "read"
+        }
+      ],
+      "turn": 2
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 220,
+            "path": "src/ordivon_harness/ordivon/tool_bridge.py",
+            "start": 1,
+            "why": "Read the ToolBridge class and its validate_conclusion method to understand the boundary."
+          },
+          "id": "call_00_t8isxAPlfebqOh0YfYyI5277",
+          "name": "read"
+        }
+      ],
+      "turn": 3
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 220,
+            "path": "src/ordivon_harness/agent_tool_observation.py",
+            "start": 1,
+            "why": "Read the agent_tool_observation module to understand ToolObservation."
+          },
+          "id": "call_00_xI94ybwg0jVQCp9D46y65167",
+          "name": "read"
+        }
+      ],
+      "turn": 4
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 180,
+            "path": "tests/test_conclusion_correction_separation.py",
+            "start": 1,
+            "why": "Read the conclusion correction separation test to understand what scenario is being tested."
+          },
+          "id": "call_00_iMyJ7cD90PvbmqJcDJxs6756",
+          "name": "read"
+        }
+      ],
+      "turn": 5
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 480,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 260,
+            "why": "Read the loop setup and run orchestration around tool bridge handling."
+          },
+          "id": "call_00_ae3sple6r6Rc5zGeaKp24147",
+          "name": "read"
+        }
+      ],
+      "turn": 6
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 700,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 480,
+            "why": "Continue reading the resume path and state restoration, specifically looking for conclusion correction state handling."
+          },
+          "id": "call_00_TeXqijqz8ZS0ZGU592V80060",
+          "name": "read"
+        }
+      ],
+      "turn": 7
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 920,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 700,
+            "why": "Continue reading loop.py to see the main loop iteration, focusing on no-tool and conclusion handling paths."
+          },
+          "id": "call_00_Irw4p9nbTpjUfEFHRzSH0256",
+          "name": "read"
+        }
+      ],
+      "turn": 8
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 920,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 700,
+            "why": "Reading the main loop iteration and no-tool structured-result path from line 700 onward."
+          },
+          "id": "call_00_7q358WfUlqHmfhFy3OEn1785",
+          "name": "read"
+        }
+      ],
+      "turn": 9
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 760,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 700,
+            "why": "Reading a smaller portion of the main loop iteration to stay within observation budget."
+          },
+          "id": "call_00_CXxhhREnnDm7LNFoPrmp2608",
+          "name": "read"
+        }
+      ],
+      "turn": 10
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 750,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 700,
+            "why": "Read the main loop iteration starting line 700 within the smaller observation budget."
+          },
+          "id": "call_00_S2bSXvB89uqqDrpx8f2g4977",
+          "name": "read"
+        }
+      ],
+      "turn": 11
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 740,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 700,
+            "why": "Read a minimal slice of the main loop."
+          },
+          "id": "call_00_A4IPu3F5xr9Su1p9CRw50557",
+          "name": "read"
+        }
+      ],
+      "turn": 12
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 710,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 700,
+            "why": "Try a tiny slice to see if it fits in the observation budget."
+          },
+          "id": "call_00_3TkRTvvutvkTcUPNRhvL9112",
+          "name": "read"
+        }
+      ],
+      "turn": 13
+    }
+  ],
+  "treatment": "baseline",
+  "usage": {
+    "elapsedMs": 80284,
+    "inputTokens": 162373,
+    "outputTokens": 1553,
+    "totalTokens": 163926
+  }
+}

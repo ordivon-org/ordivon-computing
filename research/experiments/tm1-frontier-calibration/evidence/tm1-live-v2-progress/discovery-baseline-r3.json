@@ -1,0 +1,212 @@
+{
+  "metrics": {
+    "concepts": {
+      "bind_run_state": true,
+      "conclusion_correction": true,
+      "no_tool": true,
+      "tool_identity_collision": false
+    },
+    "efficientSuccess": false,
+    "forbiddenFix": false,
+    "localizedFiles": 1,
+    "maxScore": 6,
+    "observations": 10,
+    "observedBytes": 20045,
+    "score": 4
+  },
+  "replicate": 3,
+  "submission": {
+    "abstain": false,
+    "causalMechanism": "The conclusion correction path in loop.py (lines 2132-2201) calls `bind_run_state()` at line 2188 after appending correction messages and incrementing `conclusion_corrections`. This `bind_run_state()` call persists state through the ToolBridge (via `self.tool_bridge.bind_run_state`). When the ToolBridge raises `ToolBridgeError` during this bind (line 2189), the run terminates with `RUNTIME_UNKNOWN` at the ToolBridge boundary. For a no-Tool structured-result run, the run has entered conclusion-correction/control handling, and the `bind_run_state()` call carries the correction state (including the appended messages and incremented budget counter) across the boundary — this is the causal Harness-owned control/state interaction. The exact control/state interaction is that the correction budget counter is part of `remaining_budget` and is persisted via `bind_run_state()`, so any bridge failure at that point kills the run mid-correction instead of allowing the correction to continue.",
+    "confidence": 0.45,
+    "files": [
+      "src/ordivon_harness/ordivon/loop.py",
+      "src/ordivon_harness/ordivon/tool_bridge.py",
+      "src/ordivon_harness/ordivon/sqlite_runtime_bridge.py"
+    ],
+    "hypothesis": "The causal interaction is in loop.py around lines 2132-2201: when a conclusion is produced and the conclusion validator on the ToolBridge rejects it as recoverable, the harness enters conclusion correction handling. It appends the assistant message and a correction prompt to `messages`, increments `conclusion_corrections`, and then calls `bind_run_state()`. The bind_run_state call persists `conclusion_corrections` into the remaining_budget via `self.budget.remaining(..., conclusion_corrections=conclusion_corrections, ...)`. The issue is that in the no-Tool structured-result path (projected no-tool), the run reaches the ToolBridge boundary through `bind_run_state()`, which raises a ToolBridgeError that surfaces as a RunStopCode.RUNTIME_UNKNOWN (line 2189-2193). The exact control/state interaction causal is the `bind_run_state()` call within the conclusion-correction branch persisting state through a ToolBridge that may not implement `bind_run_state` (the base `ToolBridge` protocol in tool_bridge.py only declares `definitions` and `execute`; `bind_run_state` is accessed via getattr and silently skipped if not present — but in the correction path, if the bridge does implement it and raises, the run terminates at the RUNTIME_UNKNOWN boundary). This is a conclusion-correction control state that gets persisted across the ToolBridge boundary without proper separation of the correction state from the bridge's own state.\n\nHowever, I need to be more precise: the key finding is at loop.py line 2175-2201. When a conclusion correction happens (recoverable rejection), the harness appends the model's assistant message plus the correction prompt to `messages`, records the rejection with correct `conclusion_corrections` count, then calls `bind_run_state()`. This persists state through the ToolBridge. The \"ToolBridge boundary\" termination happens because bind_run_state is invoked from within the conclusion-correction control path, and any ToolBridgeError there terminates the run as RUNTIME_UNKNOWN. The state being persisted includes the correction messages that were appended, but the harness correctly increments the correction counter before persisting. The causal issue is that `bind_run_state` is called at line 2188 before the `continue` on line 2201, which binds state that includes the correction-rejected messages — and for a no-Tool run, this goes through a ToolBridge implementation that may not support the conclusion-correction state path properly.\n\nThe most plausible smallest falsifier is: a run where the model produces a candidate conclusion that is rejected by the bridge's `validate_conclusion` as recoverable, triggering the conclusion correction path in loop.py, and then `bind_run_state()` at line 2188 fails with ToolBridgeError, causing the run to terminate with RUNTIME_UNKNOWN instead of continuing through the correction loop. For no-Tool runs, this means the harness state (including messages with the correction prompt) gets bound across the bridge boundary, but the correction state itself (the `conclusion_corrections` counter) is part of `remaining_budget`, which is then persisted — creating a subtle coupling between the harness's correction counter and the ToolBridge's persisted state such that a bridge error during this bind terminates the run at the boundary.",
+    "nextFalsifier": "Read src/ordivon_harness/projected_no_tool.py to see how the no-Tool structured-result path actually flows through the loop and whether `bind_run_state()` is actually expected to be implemented on the no-Tool bridge or is silently skipped. Also examine loop.py lines 680-700 more closely for how `conclusion_corrections` flows into `remaining_budget`.",
+    "parallelCallCountAtSubmit": 1
+  },
+  "trace": [
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "toolbridge boundary",
+            "why": "Find ToolBridge boundary handling in the codebase"
+          },
+          "id": "call_00_hsimK5nY12dVWvAKID9r2149",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "query": "conclusion correction",
+            "why": "Find conclusion correction/control handling"
+          },
+          "id": "call_01_QpDS08K850kIMGcwOJ4b5138",
+          "name": "search"
+        }
+      ],
+      "turn": 0
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 2200,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 2100,
+            "why": "Read the conclusion correction handling in loop.py"
+          },
+          "id": "call_00_CWK1MHuVLtVbX2iRzRP40134",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 220,
+            "path": "src/ordivon_harness/ordivon/tool_bridge.py",
+            "start": 1,
+            "why": "Understand ToolBridge boundary"
+          },
+          "id": "call_01_6SdZJNIet3nUKi7y3nl44107",
+          "name": "read"
+        }
+      ],
+      "turn": 1
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 2300,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 2200,
+            "why": "Continue reading after the conclusion correction handling"
+          },
+          "id": "call_00_XVLWOkE1SlxAoZWxtj9z3613",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "query": "bind_run_state",
+            "why": "Find bind_run_state definition and related state control"
+          },
+          "id": "call_01_IzeXaMBxqysSyh10Geyh1052",
+          "name": "search"
+        }
+      ],
+      "turn": 2
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 700,
+            "path": "src/ordivon_harness/ordivon/loop.py",
+            "start": 670,
+            "why": "Read bind_run_state definition in loop.py"
+          },
+          "id": "call_00_gXnD37imjQttJgB20LPo9376",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 220,
+            "path": "src/ordivon_harness/ordivon/sqlite_runtime_bridge.py",
+            "start": 140,
+            "why": "Read SQLiteHarnessRuntimeBridge.bind_run_state"
+          },
+          "id": "call_01_hYp4PZE0yfQRZNItMHf44440",
+          "name": "read"
+        }
+      ],
+      "turn": 3
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "projected_no_tool",
+            "why": "Understand the projected no-tool path"
+          },
+          "id": "call_00_BBqZxHuczxA9SubrHQxf6543",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "query": "no-tool structured-result",
+            "why": "Look for the no-tool structured-result path"
+          },
+          "id": "call_01_mjxeM7YScSuFdEnfnKbb0390",
+          "name": "search"
+        }
+      ],
+      "turn": 4
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "no_tool",
+            "why": "Find no_tool related code"
+          },
+          "id": "call_00_YcPC8brfUDXiilyb6DMS4464",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "end": 220,
+            "path": "src/ordivon_harness/projected_no_tool.py",
+            "start": 1,
+            "why": "Read the projected_no_tool module"
+          },
+          "id": "call_01_nyPvhgpGr1J7Mw77iU2g5869",
+          "name": "read"
+        }
+      ],
+      "turn": 5
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "no_tool",
+            "why": "Find no_tool handling in the loop"
+          },
+          "id": "call_00_N0KeG40nLM7HVnCefGQC3167",
+          "name": "search"
+        }
+      ],
+      "turn": 6
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "abstain": false,
+            "causalMechanism": "The conclusion correction path in loop.py (lines 2132-2201) calls `bind_run_state()` at line 2188 after appending correction messages and incrementing `conclusion_corrections`. This `bind_run_state()` call persists state through the ToolBridge (via `self.tool_bridge.bind_run_state`). When the ToolBridge raises `ToolBridgeError` during this bind (line 2189), the run terminates with `RUNTIME_UNKNOWN` at the ToolBridge boundary. For a no-Tool structured-result run, the run has entered conclusion-correction/control handling, and the `bind_run_state()` call carries the correction state (including the appended messages and incremented budget counter) across the boundary — this is the causal Harness-owned control/state interaction. The exact control/state interaction is that the correction budget counter is part of `remaining_budget` and is persisted via `bind_run_state()`, so any bridge failure at that point kills the run mid-correction instead of allowing the correction to continue.",
+            "confidence": 0.45,
+            "files": [
+              "src/ordivon_harness/ordivon/loop.py",
+              "src/ordivon_harness/ordivon/tool_bridge.py",
+              "src/ordivon_harness/ordivon/sqlite_runtime_bridge.py"
+            ],
+            "hypothesis": "The causal interaction is in loop.py around lines 2132-2201: when a conclusion is produced and the conclusion validator on the ToolBridge rejects it as recoverable, the harness enters conclusion correction handling. It appends the assistant message and a correction prompt to `messages`, increments `conclusion_corrections`, and then calls `bind_run_state()`. The bind_run_state call persists `conclusion_corrections` into the remaining_budget via `self.budget.remaining(..., conclusion_corrections=conclusion_corrections, ...)`. The issue is that in the no-Tool structured-result path (projected no-tool), the run reaches the ToolBridge boundary through `bind_run_state()`, which raises a ToolBridgeError that surfaces as a RunStopCode.RUNTIME_UNKNOWN (line 2189-2193). The exact control/state interaction causal is the `bind_run_state()` call within the conclusion-correction branch persisting state through a ToolBridge that may not implement `bind_run_state` (the base `ToolBridge` protocol in tool_bridge.py only declares `definitions` and `execute`; `bind_run_state` is accessed via getattr and silently skipped if not present — but in the correction path, if the bridge does implement it and raises, the run terminates at the RUNTIME_UNKNOWN boundary). This is a conclusion-correction control state that gets persisted across the ToolBridge boundary without proper separation of the correction state from the bridge's own state.\n\nHowever, I need to be more precise: the key finding is at loop.py line 2175-2201. When a conclusion correction happens (recoverable rejection), the harness appends the model's assistant message plus the correction prompt to `messages`, records the rejection with correct `conclusion_corrections` count, then calls `bind_run_state()`. This persists state through the ToolBridge. The \"ToolBridge boundary\" termination happens because bind_run_state is invoked from within the conclusion-correction control path, and any ToolBridgeError there terminates the run as RUNTIME_UNKNOWN. The state being persisted includes the correction messages that were appended, but the harness correctly increments the correction counter before persisting. The causal issue is that `bind_run_state` is called at line 2188 before the `continue` on line 2201, which binds state that includes the correction-rejected messages — and for a no-Tool run, this goes through a ToolBridge implementation that may not support the conclusion-correction state path properly.\n\nThe most plausible smallest falsifier is: a run where the model produces a candidate conclusion that is rejected by the bridge's `validate_conclusion` as recoverable, triggering the conclusion correction path in loop.py, and then `bind_run_state()` at line 2188 fails with ToolBridgeError, causing the run to terminate with RUNTIME_UNKNOWN instead of continuing through the correction loop. For no-Tool runs, this means the harness state (including messages with the correction prompt) gets bound across the bridge boundary, but the correction state itself (the `conclusion_corrections` counter) is part of `remaining_budget`, which is then persisted — creating a subtle coupling between the harness's correction counter and the ToolBridge's persisted state such that a bridge error during this bind terminates the run at the boundary.",
+            "nextFalsifier": "Read src/ordivon_harness/projected_no_tool.py to see how the no-Tool structured-result path actually flows through the loop and whether `bind_run_state()` is actually expected to be implemented on the no-Tool bridge or is silently skipped. Also examine loop.py lines 680-700 more closely for how `conclusion_corrections` flows into `remaining_budget`."
+          },
+          "id": "call_00_z34PNlwwXthP2rSfU8W55209",
+          "name": "submit"
+        }
+      ],
+      "turn": 7
+    }
+  ],
+  "treatment": "baseline",
+  "usage": {
+    "elapsedMs": 49994,
+    "inputTokens": 49105,
+    "outputTokens": 2176,
+    "totalTokens": 51281
+  }
+}

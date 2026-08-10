@@ -1,0 +1,225 @@
+{
+  "consumer": "H-NOTOOL",
+  "metrics": {
+    "concepts": {
+      "bounded_falsifier": false,
+      "conclusion_correction": false,
+      "no_tool_boundary": false,
+      "state_binding": false
+    },
+    "forbiddenBoundary": false,
+    "localizedFiles": 0,
+    "maxScore": 6,
+    "observations": 8,
+    "observedBytes": 25262,
+    "score": 0,
+    "seedRequiredFileCoverage": 0,
+    "success": false
+  },
+  "replicate": 2,
+  "submission": {
+    "abstain": true,
+    "causalMechanism": "",
+    "confidence": 0.0,
+    "files": [],
+    "forcedByBudget": true,
+    "hypothesis": "observation budget exhausted without a submitted causal target",
+    "nextFalsifier": "reformulate the observation plan before spending more evidence budget"
+  },
+  "trace": [
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "cannot bind Tool observations or Tool Call identities",
+            "why": "Find the exact error message location"
+          },
+          "id": "call_00_UjaS9aa40eTebKIejJOU3468",
+          "name": "search"
+        },
+        {
+          "arguments": {
+            "query": "ToolBridgeError",
+            "why": "Find where ToolBridgeError is raised"
+          },
+          "id": "call_01_O8bRWUuaIMpdZyxfe1MN7389",
+          "name": "search"
+        }
+      ],
+      "turn": 0
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 160,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 80,
+            "why": "Read the context around the exact error message at line 122"
+          },
+          "id": "call_00_23ZeyIrr8nEvRs3kqisf6178",
+          "name": "read"
+        },
+        {
+          "arguments": {
+            "end": 80,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 1,
+            "why": "Read the beginning of sqlite_agent_bridge.py"
+          },
+          "id": "call_01_iQkyFYGd17oBxIDuyHBN4446",
+          "name": "read"
+        }
+      ],
+      "turn": 1
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 400,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 156,
+            "why": "Read the rest of sqlite_agent_bridge.py to understand the full class and callers"
+          },
+          "id": "call_00_cFIG9SnEEn3vMYDgei8g8649",
+          "name": "read"
+        }
+      ],
+      "turn": 2
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 450,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 376,
+            "why": "Read the end of the file"
+          },
+          "id": "call_00_F652v4PfQSZbYsvGGX4F6293",
+          "name": "read"
+        }
+      ],
+      "turn": 3
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 450,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 376,
+            "why": "Read the end of the file"
+          },
+          "id": "call_00_6QM6c3Bsbxfv7ejgwHSR8098",
+          "name": "read"
+        }
+      ],
+      "turn": 4
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 400,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 376,
+            "why": "Read the final part of sqlite_agent_bridge.py"
+          },
+          "id": "call_00_WJkOzjXCRQH3hcVStMg03604",
+          "name": "read"
+        }
+      ],
+      "turn": 5
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "end": 430,
+            "path": "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+            "start": 398,
+            "why": "Check if there is more after line 400"
+          },
+          "id": "call_00_VgkXPqll9QhklFpzXYXt9318",
+          "name": "read"
+        }
+      ],
+      "turn": 6
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "bind_run_state",
+            "why": "Find all callers of bind_run_state to understand who invokes it with observations or tool call ids"
+          },
+          "id": "call_00_CUSYHpTRKjpor5N3SIdC1729",
+          "name": "search"
+        }
+      ],
+      "turn": 7
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "seen_tool_call_ids",
+            "why": "Find where seen_tool_call_ids is passed to bind_run_state"
+          },
+          "id": "call_00_qDoEACEJ21ylIlHPqLSf1475",
+          "name": "search"
+        }
+      ],
+      "turn": 8
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "bind_run_state",
+            "why": "Find where bind_run_state is called"
+          },
+          "id": "call_00_y0XMggmoXAcsWemstAcY8853",
+          "name": "search"
+        }
+      ],
+      "turn": 9
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "bind_run_state(",
+            "why": "Find callers of bind_run_state to trace the causal path"
+          },
+          "id": "call_00_d3Vd87WHqsP6TmEcEvyi6932",
+          "name": "search"
+        }
+      ],
+      "turn": 10
+    },
+    {
+      "batch": [
+        {
+          "arguments": {
+            "query": "bind_run_state",
+            "why": "Find callers"
+          },
+          "id": "call_00_smu7x79JayTJzdizOIoP7455",
+          "name": "search"
+        }
+      ],
+      "turn": 11
+    }
+  ],
+  "treatment": "open",
+  "usage": {
+    "elapsedMs": 70167,
+    "inputTokens": 106956,
+    "outputTokens": 1210,
+    "totalTokens": 108166,
+    "transportRetries": 1
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.tm2-operator-selection-frontier",
+  "status": "frozen_before_live_provider_trials",
+  "consumers": [
+    {
+      "id": "H-NOTOOL",
+      "repo": "/root/projects/ordivon-harness",
+      "revision": "999d7535242b14c432cd14527ec109f2c6749969",
+      "pressure": "A real no-Tool structured-result Run entered conclusion correction/control handling and failed with `ToolBridgeError: no-Tool Agent Run cannot bind Tool observations or Tool Call identities`. Identify the exact Harness-owned causal interaction without weakening the no-Tool capability boundary.",
+      "anchors": [
+        "no-Tool Agent Run cannot bind Tool observations or Tool Call identities",
+        "conclusion correction"
+      ],
+      "hiddenOracle": {
+        "requiredFiles": [
+          "src/ordivon_harness/ordivon/sqlite_agent_bridge.py",
+          "src/ordivon_harness/ordivon/loop.py"
+        ],
+        "concepts": [
+          "bind_run_state rejects Tool observations or Tool Call identities on the no-Tool bridge",
+          "recoverable conclusion correction re-binds run state after appending correction messages",
+          "the no-Tool authority boundary must remain intact",
+          "the next falsifier should reproduce the correction/state-binding interaction rather than enable Tools"
+        ],
+        "forbidden": [
+          "enable arbitrary Tools for no-Tool Runs",
+          "move World-specific semantics into Harness"
+        ]
+      }
+    },
+    {
+      "id": "S-UNKNOWN",
+      "repo": "/root/projects/ordivon-security",
+      "revision": "f109cb8cc548479e852c8a4dbc914bd7d3e22ce0",
+      "pressure": "The Security CAGE HostAssignedDeepSeekHarnessTurnDriver must preserve exact Harness unresolved uncertainty, but current owner evidence shows candidate_completed forces unresolved_unknowns empty and Host-assigned completion records an empty list. Identify the narrow Security-owned representation path that loses the uncertainty without changing Harness core semantics.",
+      "anchors": [
+        "HostAssignedDeepSeekHarnessTurnDriver",
+        "unresolved_unknowns"
+      ],
+      "hiddenOracle": {
+        "requiredFiles": [
+          "src/ordivon_security/actors/agent_stack.py",
+          "src/ordivon_security/actors/host_assigned.py"
+        ],
+        "concepts": [
+          "AgentTurnEvidence has no field carrying unresolved Harness unknowns",
+          "the Host-assigned prompt forces candidate_completed unresolved_unknowns to an empty array",
+          "the driver converts Harness conclusion to rationale/stop evidence without preserving unresolved_unknowns",
+          "Host lifecycle recording hardcodes unresolved_unknowns to an empty list"
+        ],
+        "forbidden": [
+          "change Harness core semantics",
+          "create a generic observation-integrity platform"
+        ]
+      }
+    }
+  ],
+  "treatments": {
+    "open": "No precomputed observations; Agent chooses all observations.",
+    "evidence_first": "Execute the two frozen literal-search anchors first, count both against the same total observation budget, then give their outputs to the same Agent."
+  },
+  "replicatesPerConsumerTreatment": 3,
+  "totalObservationBudget": 8,
+  "successThreshold": 5,
+  "scoring": "2 required-file points + 4 causal-concept points - forbidden-boundary penalties; patch correctness is not claimed.",
+  "primaryMeasures": [
+    "causal_submission_rate",
+    "localization_score",
+    "total_observations_including_seed_searches",
+    "observed_bytes",
+    "provider_tokens",
+    "forced_budget_abstention",
+    "seed_required_file_coverage"
+  ]
+}
