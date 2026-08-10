@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.crosscut-p5-owner-temporal-contract-matrix",
+  "owners": [
+    {
+      "owner":"ordivon-host",
+      "revision":"6495822162c69179e8ad4f8a0d79cc42902ff599",
+      "contractClass":["action-time-revision-fenced","exact-replay"],
+      "mechanisms":["expectedRevision","locked transition","frontier fence","response-loss replay convergence"],
+      "focusedAcceptance":{"passed":25,"failed":0,"jobId":"job-019febde-7c03-7312-8a05-cc00ce0c7ca0","terminalEvidenceDigest":"sha256:f5e7d71030dd4133d4050bdeff4e1a1bdbfe1e315f46ebd371222ef5bd44cf68"},
+      "liveStaleFence":{"taskId":"task:ordivon:crosscut-rsi-foundations-20260810","currentRevision":7,"staleExpectedRevision":6,"result":"REVISION_CONFLICT","commitState":"not_committed"},
+      "genericTemporalAdapterRequired":false
+    },
+    {
+      "owner":"workstation",
+      "revision":"b787c0e261f38a1a4b008e1e5a9e4b93af8f51aa",
+      "contractClass":["owner-bounded-dynamic","identity-bound","action-time-revalidated"],
+      "mechanisms":["observation max age","package/version digest binding","path digest","effect-time reprobe"],
+      "focusedAcceptance":{"passed":24,"failed":0,"jobId":"job-019febde-f5e2-7901-9388-d38c3da09df5","terminalEvidenceDigest":"sha256:2061bd760433dd5274f2a5df710e1728c1cea94596f2f9657e2b539052f9f44b"},
+      "genericTemporalAdapterRequired":false
+    },
+    {
+      "owner":"ordivon-world",
+      "revision":"8ddbb6a646a77a9180f4d988a23ccbf314aef044",
+      "contractClass":["observation-availability","owner-journal-reconciliation"],
+      "mechanisms":["availableAt distinct from provider completion time","first availability/revision preserved on reconciliation","historical observation not promoted to currentness"],
+      "focusedAcceptance":{"passed":4,"failed":0,"jobId":"job-019febe4-5e47-79d2-8e52-bd632ce3166b","terminalEvidenceDigest":"sha256:0acc932f681046d43d297fb53faeb71da8b8bfe3316557eb645d9309a497747b"},
+      "ownerSurvivalAcceptance":{"pythonTests":121,"schemas":25,"status":"passed","evidenceFile":"evidence/acceptance/hp6-hp8-survival-20260810.json","evidenceDigest":"sha256:98919b02190fbbcf95a638b90a5ad774316e850198173b2d6afda0608bb7785e"},
+      "deletedP4EraCarriers":["foreign-egress-capability","foreign-egress-capability-reference","effect-path-query","src/ordivon_world/foreign_egress.py","src/ordivon_world/effect_paths.py","tests/test_foreign_egress.py","tests/test_effect_paths.py"],
+      "historicalComputingReferenceIsProductionConsumer":false,
+      "genericTemporalAdapterRequired":false
+    },
+    {
+      "owner":"ordivon-runtime",
+      "revision":"693caddea92a7cb64aa2b32f3f1a2763fb37f040",
+      "contractClass":["identity-bound","structured-effect-lifecycle","action-time-path-image-witness"],
+      "mechanisms":["exact source/deployment revision","structured release result status","Host Dependency path/topology witness","Runner actual-image evidence"],
+      "ownerAcceptance":{"status":"passed","path":"/var/lib/ordivon/runtime/acceptance/runtime-rsi-p3-693caddea92a.json","fileDigest":"sha256:4eb5b8acf8bf3064f9d10229236ea6461b945822a4d0bb6d6750d0526322b1b5"},
+      "releaseWindow":{
+        "sourceRevision":"693caddea92a7cb64aa2b32f3f1a2763fb37f040",
+        "previousActive":"8aa036b859a4ce66946d6f2557944d8e4cc799f3",
+        "firstEffect":{"effectId":"81056c8eb5bd76f189ecdf2b66763b65f1b293465b88aa96614f22683b7cc870","status":"not_committed","finishedAtMs":1786368423132,"reason":"deployment drain timed out with an active Job","serviceWasStopped":false,"resultDigest":"sha256:d237cc298a1ae5b37d0c6c23825250ecf1c769a7ad4daead18f1bf517dcda832"},
+        "observedAfterFirstEffect":{"sourceRevision":"693caddea92a7cb64aa2b32f3f1a2763fb37f040","activeRevision":"8aa036b859a4ce66946d6f2557944d8e4cc799f3","sourceObservationJob":"job-019febdb-76e2-7b90-a98c-fd5687bdd443","activeObservationJob":"job-019febdb-a66b-78f2-a202-e1ef740036be"},
+        "secondEffect":{"effectId":"1682f92f1d454dacd091184c176ad25310870fd23b46b0b1e774f6fd0855c54f","status":"deployed","finishedAtMs":1786368762934,"resultDigest":"sha256:3550dc29118edc704f2893e5d19ca73a231f92ccf97c0000e62a2fc781dae1fc"},
+        "finalSourceActive":"693caddea92a7cb64aa2b32f3f1a2763fb37f040"
+      },
+      "genericTemporalAdapterRequired":false
+    },
+    {
+      "owner":"ordivon-computing",
+      "revision":"bb4c56e4d5c7d86471330f1ec413ed0f73c92e03",
+      "contractClass":["git-currentness-assessed","evidence-scope-law"],
+      "mechanisms":["exact Git revisions/relations","historical observation validity separated from currentness","projection remains non-authoritative"],
+      "baselineConformance":{"status":"passed","receipt":"/tmp/crosscut-p5-baseline-conformance.json","receiptElapsedMs":16494,"toolElapsedMs":22976},
+      "existenceGauntlet":{"passed":28,"failed":0,"jobId":"job-019febd9-51ba-76f1-b722-53982a12b8db","terminalEvidenceDigest":"sha256:77320d74f5be1421e88c015332c9e6c7f2e68698cb9588b4be248571470ac7d5"},
+      "genericTemporalAdapterRequired":false
+    }
+  ],
+  "sharedLaw":"current consequence requires currently applicable owner evidence; choose the owner's own revision/generation/digest/freshness/revalidation identity rather than a universal temporal representation",
+  "universalAdapterEarned":false
+}
