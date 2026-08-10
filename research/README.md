@@ -43,9 +43,9 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 - [`COMPUTER-RESPONSIBILITY-REVIEW.md`](COMPUTER-RESPONSIBILITY-REVIEW.md) — human projection of the responsibility map;
 - [`AGENT-FIRST-RESEARCH-METHOD.md`](AGENT-FIRST-RESEARCH-METHOD.md) — human-readable projection of that method;
 - [`portfolio.json`](portfolio.json) — authoritative research status, maturity, blockers, next falsifiers, and WIP lines;
-- [`P0-P1-CONSUMER-FALSIFICATION-DESIGN.md`](P0-P1-CONSUMER-FALSIFICATION-DESIGN.md) — current execution design for Harness retain/shrink/delete, deliberation-before-authority falsification, ordinary Web production, and Agent-visible MCP contract freshness;
-- [`experiments/p0-consumer-falsification-v0/`](experiments/p0-consumer-falsification-v0/) — deterministic P0-A0 one-shot/Harness comparator and P0-B0 direct/late-authority apparatus; live Provider claims remain separately gated;
-- [`experiments/p1b-mcp-contract-freshness-v0/`](experiments/p1b-mcp-contract-freshness-v0/) — owner-native live MCP catalog probe and Agent-loaded snapshot drift experiment for Runtime/Host client contract freshness;
+- [`P0-P1-CONSUMER-FALSIFICATION-DESIGN.md`](P0-P1-CONSUMER-FALSIFICATION-DESIGN.md) — P0 closeout plus remaining P1 and conditional owner-native follow-up boundaries for Harness retention, authority timing, ordinary Web production, and MCP contract freshness;
+- [`experiments/p0-consumer-falsification-v0/`](experiments/p0-consumer-falsification-v0/) — deterministic apparatus plus retained live Provider evidence: five one-shot/Harness pairs and three ACT/HOLD authority-timing pairs per treatment under exact revision-bound contracts;
+- [`experiments/p1b-mcp-contract-freshness-v0/`](experiments/p1b-mcp-contract-freshness-v0/) — historical pre-refresh MCP catalog/snapshot drift evidence; refreshed Runtime/Host connector functionality is now closed and referenced by the P0 live closeout;
 - [`PORTFOLIO.md`](PORTFOLIO.md) — generated human-readable portfolio and Ready Frontier;
 - [`map.yaml`](map.yaml) — stable typed relations among construction tracks and research questions;
 - [`questions/`](questions/) — one durable page per file-backed question, including historical questions;

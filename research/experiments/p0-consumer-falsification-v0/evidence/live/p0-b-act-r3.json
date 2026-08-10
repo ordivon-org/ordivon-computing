@@ -1,0 +1,151 @@
+{
+  "cells": [
+    {
+      "candidateCompleted": true,
+      "contextDigest": "sha256:09321376c98b74086eade976e9a16ae729c53a86448e597a1a124fc0dbb159bb",
+      "effectIntentCount": 1,
+      "finalIntent": "act",
+      "firstAuthoritativeToolVisiblePosition": 1,
+      "fixtureId": "margin-window-a",
+      "metrics": {
+        "modelCalls": 2,
+        "toolCalls": 1,
+        "totalTokens": 2124
+      },
+      "oracleConsistent": true,
+      "oracleIntent": "act",
+      "phaseADeliberationDigest": null,
+      "replicate": 3,
+      "requestToolCounts": [
+        1,
+        0
+      ],
+      "semanticAccepted": true,
+      "stopCode": "candidate_completed",
+      "treatment": "direct",
+      "trialValid": true
+    },
+    {
+      "candidateCompleted": true,
+      "contextDigest": "sha256:09321376c98b74086eade976e9a16ae729c53a86448e597a1a124fc0dbb159bb",
+      "effectIntentCount": 1,
+      "finalIntent": "act",
+      "firstAuthoritativeToolVisiblePosition": 2,
+      "fixtureId": "margin-window-a",
+      "metrics": {
+        "modelCalls": 3,
+        "toolCalls": 1,
+        "totalTokens": 4212
+      },
+      "oracleConsistent": true,
+      "oracleIntent": "act",
+      "phaseADeliberationDigest": "sha256:a4182d482f6e4810a72621e14cadccaed71c725cfaab26f63c0764b3cace7ea5",
+      "replicate": 3,
+      "requestToolCounts": [
+        0,
+        1,
+        0
+      ],
+      "semanticAccepted": true,
+      "stopCode": "candidate_completed",
+      "treatment": "late-authority",
+      "trialValid": true
+    }
+  ],
+  "comparability": {
+    "directExposesToolInitially": true,
+    "lateExposesToolLater": true,
+    "lateHidesToolInitially": true,
+    "sameAggregateBudget": true,
+    "sameContext": true,
+    "sameEffectSchema": true,
+    "sameProviderModel": true
+  },
+  "configuration": {
+    "aggregateBudget": {
+      "maxConclusionCorrections": 1,
+      "maxModelCalls": 3,
+      "maxModelObservationBytes": 32768,
+      "maxModelRetries": 1,
+      "maxNoProgressTurns": 1,
+      "maxObservationBytes": 32768,
+      "maxObservationOnlyTurns": 0,
+      "maxToolCalls": 1,
+      "maxToolCorrections": 1,
+      "maxTotalTokens": 32768,
+      "maxWallTimeMs": 180000
+    },
+    "effectBridgeExternalEffect": false,
+    "treatmentVariable": "initial_visibility_of_consequence_tool_before_one_non_authoritative_deliberation"
+  },
+  "createdAt": "2026-08-10T06:22:45Z",
+  "fixture": {
+    "context": {
+      "effect": {
+        "effectId": "rebalance:feed-a",
+        "irreversible": true,
+        "requiresRouteVerified": true,
+        "requiresSpareCapacityAtLeast": 15,
+        "reserveCost": 12,
+        "serviceMarginGainWhenApplicable": 18,
+        "serviceMarginGainWhenInapplicable": 0
+      },
+      "objective": {
+        "requiredServiceMargin": 20,
+        "secondary": "avoid irreversible reserve burn when it does not improve objective attainment"
+      },
+      "state": {
+        "forecastServiceMarginWithoutEffect": 7,
+        "reserveTokens": 44,
+        "routeVerified": true,
+        "spareCapacity": 21
+      }
+    },
+    "fixtureId": "margin-window-a",
+    "oracleExplanation": "The effect is applicable and raises margin from 7 to 25; holding misses the required margin.",
+    "oracleIntent": "act"
+  },
+  "generalizationAuthorized": false,
+  "integrity": {
+    "algorithm": "sha256",
+    "payloadDigest": "sha256:d478f91506359a496e22697d546e4d067b81ed37db5a9026bea701760ca0731c"
+  },
+  "kind": "ordivon.p0-b-live-paired-trial",
+  "oracleOutcome": {
+    "direct": "correct",
+    "late-authority": "correct"
+  },
+  "ownerVector": {
+    "ordivon-computing": {
+      "dirty": false,
+      "dirtyPathCount": 0,
+      "head": "9b9906e9a6fe3f601f28dabec1652ba2cf6f8cf8"
+    },
+    "ordivon-harness": {
+      "dirty": false,
+      "dirtyPathCount": 0,
+      "head": "5a42afdf5e01a6f5ad2b12738c52a249edb91dda"
+    },
+    "ordivon-host": {
+      "dirty": false,
+      "dirtyPathCount": 0,
+      "head": "95cd5479e71281baed5a1d1c34cbfaadffe2a22f"
+    },
+    "ordivon-runtime": {
+      "dirty": false,
+      "dirtyPathCount": 0,
+      "head": "5dd206c74a2b9151fb0a87579ba2200aaf892633"
+    }
+  },
+  "provider": {
+    "adapterId": "deepseek.chat-completions.non-thinking.v1",
+    "baseUrl": "https://api.deepseek.com",
+    "credentialScopeId": "credential-scope:deepseek:flash:0",
+    "maxOutputTokens": 8192,
+    "model": "deepseek-v4-flash",
+    "timeoutSeconds": 90.0
+  },
+  "replicate": 3,
+  "schemaVersion": 1,
+  "trialValidPair": true
+}

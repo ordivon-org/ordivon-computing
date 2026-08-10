@@ -1,6 +1,6 @@
 # P0–P1 Consumer Falsification Design
 
-Status: executing. P0-A0/P0-B0 deterministic apparatus is implemented, validated, and frozen in exact-revision receipts; no live Provider comparison is claimed yet. No new shared infrastructure is authorized by this document.
+Status: Computer-owned P0 closed; P1-A remains owner-native Web work and conditional P0-B1 remains an owner-native second-domain follow-up. P0-A0/P0-B0 deterministic apparatus and the bounded live Provider groups are retained in exact-revision receipts. No new shared infrastructure is authorized by this document.
 
 This design started from the reconciled 2026-08-10 Ready Frontier and was first landed at Computing `32014ceea7590e172407c309e411c899109c8bde`. P0 execution must bind fresh exact owner revisions rather than treating that design revision as deployment truth. It operationalizes the transition from infrastructure construction to ordinary consumer falsification. Product and domain repositories retain their own authority. Computing owns only experiment design, cross-project comparison, and interpretation.
 
@@ -49,7 +49,7 @@ The former Harness H4 acceptance blocker is retired by current Harness owner evi
 
 #### Cell S — strong simple one-shot
 
-An evaluation-local direct Provider adapter receives exactly the visible Task material and acceptance/output contract in one bounded model request. It returns candidate `allocation.py` content plus the same structured completion payload expected from the iterative path. Computing applies the candidate through Runtime and sends it through the same independent visible/hidden verifier and semantic admission path.
+An evaluation-local direct Provider adapter receives exactly the visible Task material and acceptance/output contract in one bounded model request. It returns candidate `allocation.py` content. The live evaluation apparatus places those exact bytes into a fresh isolated copy of the frozen fixture, mechanically derives the same completion Artifact rule used by the iterative path, and sends the candidate through the same independent visible/hidden verifier and semantic admission path. Runtime remains the outer experiment execution/evidence boundary rather than a causal difference between S and H.
 
 This adapter is experiment apparatus only. It must not become a product-side one-shot Harness.
 
@@ -76,7 +76,7 @@ Cell S and Cell H must bind the same:
 - visible source information and protected-file boundary;
 - output/completion contract;
 - total wall-time and token ceilings at the configuration level;
-- Runtime source materialization and verifier environment;
+- fresh isolated fixture materialization and verifier environment;
 - evidence/privacy rules.
 
 They are allowed to differ in Tool interaction count, intermediate observations, durable cognition and recovery because those are Harness mechanisms being measured.
@@ -113,6 +113,8 @@ The A1 pair counts toward this group only when its exact System Manifest matches
 #### A3 — architecture-decision expansion, conditional
 
 Do not automatically scale. Expand toward five to ten valid Trials per cell only if the three-trial group leaves a real retain/shrink/delete ambiguity whose expected decision value exceeds Provider cost.
+
+**Executed result.** The three-Trial group left a real cost-versus-correctness ambiguity, so P0 expanded only to five exact pairs and stopped. Under the corrected common configuration, S was accepted 0/5 and produced 0/5 verifier-passing candidates at 1,868 average Provider tokens; H was accepted 3/5 and produced 4/5 verifier-passing candidate bytes at 14,810 average tokens. The scoped disposition is **retain and localize** the current public `DomainToolLoopRunner` for bounded bare-model Tool cognition while retaining one-shot as the lower-cost baseline. The result does not authorize expanding `HarnessAgentRun` or claim universal Harness superiority. Exact evidence is summarized by `experiments/p0-consumer-falsification-v0/evidence/p0-live-closeout.json`.
 
 ### Measurements
 
@@ -241,6 +243,8 @@ The non-authoritative deliberation record is cognition evidence, not effect auth
 4. Review every disagreement, not just aggregate correctness.
 
 A single positive replicate does not generalize the mechanism.
+
+**Executed result.** Three valid live pairs per fixture reproduced the treatment distinction with one exact `deepseek-v4-flash` configuration. ACT was 3/3 oracle-correct under both Direct and Late Authority. HOLD was 0/3 under Direct—three false effect intents—and 3/3 under Late Authority with zero effect intents. The Harness-native timing effect is therefore repeatable in this bounded apparatus and is no longer only a Security observation. It still does not authorize public H2 promotion; the next promotion-relevant evidence must remain an owner-native second-domain confirmation.
 
 ### B1 — second-domain confirmation, conditional
 
@@ -374,6 +378,8 @@ After the schema is actually fresh:
 
 The test succeeds only through the same Agent-facing tools normal work will use. Raw MCP probes remain diagnostic evidence and do not substitute for B2.
 
+**B1/B2 closure.** A fresh ChatGPT conversation loaded the refreshed Runtime and Host contracts, then exercised the ordinary connector. Runtime Job `job-019fe9e8-ad34-73f0-a2e5-423f035100fb` is owner-native mechanically converged `succeeded` with one dispatch, zero duplicate dispatches and retained Windows-start evidence. Host continuity Task `task:computing:p1-b2-host-connector-smoke-20260810` is completed at revision 3 after the refreshed `continuityDisposition` path. P1-B is therefore closed as ordinary lifecycle friction and is not a blocker for P0 or later Computing work.
+
 ### Failure classification
 
 - **server mismatch** — live `tools/list` itself lacks expected fields: owner/server problem;
@@ -415,6 +421,8 @@ P0 exits when:
 
 - Harness has a scoped retain/shrink/localize/delete disposition from valid comparative evidence; and
 - authority timing either reproduces beyond Security or is explicitly localized.
+
+**P0 is closed on the Computer side.** The current public domain Tool loop is retained/localized for the tested bare-model workload rather than deleted or expanded into a broader high-level API, and authority timing reproduced beyond Security in the controlled Harness-native ablation. Conditional owner-native Game confirmation remains promotion evidence, not unfinished Computer P0 implementation.
 
 P1 exits when:
 
