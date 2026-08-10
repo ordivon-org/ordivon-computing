@@ -13,7 +13,7 @@ audience:
   - researcher
   - builder
   - agent
-updated: 2026-08-07
+updated: 2026-08-10
 summary: Human-readable projection of the Agent-first responsibility map used to re-derive Ordivon Computer for stronger future Agents.
 evidence_status: observed
 readiness: READY
@@ -81,6 +81,12 @@ The most important existing results are already sufficient to remove several ass
 - B5 DeepSeek Trials exposed model/tool-interface friction, but the separate V2 semantic edit surface has only scripted-Provider + real-Runtime acceptance, so semantic lowering is an experiment rather than a Core claim;
 - Observation B3 proved cross-owner reconstruction while preserving owner-native truth.
 
+## Later falsification evidence
+
+P0–P4 sharpened the responsibility map beyond its original C3 snapshot. A bounded Harness Tool loop beat a one-shot repository-repair baseline on correctness at much higher token cost, while late consequence authority eliminated false HOLD actions in the authority-timing ablation. The file/Git experiment loop then demonstrated held-out self-change, rollback, a second-generation policy change, and a third cross-evidence-family freshness change. Those results justify bounded recursive self-reform evidence, not an RSI service.
+
+Two attractive architecture categories then failed to earn default-layer status. The first compiled recovery procedure Skill lost to explicit Tool-contract facts after evaluator repair and was not promoted. Independent Multi participants showed development gain and complementary holdout errors, but did not strictly beat a sequential-reflection baseline on frozen holdout; ordinary Host Goal/Task/object/Verification composition also expressed the full minimum branch/join pattern. These results make the next frontier a selection problem—finding real pressure in owner practice—not a request to try the next architecture noun.
+
 ## New Computer shape
 
 The emerging architecture is therefore not a ladder of Agent-specific subsystems. It is three bands:
@@ -106,12 +112,15 @@ The middle band should remain thin. Each responsibility chooses the lowest exist
 
 ## Reform frontier
 
-The responsibility reform has completed its first three work packages. To avoid collision with other local A/C-series plans, this document refers to them as `ACR-C*` (Agent-first Computer Responsibility reform):
+The responsibility reform has now passed through the first five work packages. To avoid collision with other local A/C-series plans, this document refers to them as `ACR-C*` (Agent-first Computer Responsibility reform):
 
 - `ACR-C1` — **completed**: Core was rewritten around the three-band responsibility model;
 - `ACR-C2` — **completed**: completed derivations without live falsifiers were compressed to Knowledge, portfolio dispositions, and Git history;
 - `ACR-C3` — **completed**: Host, Harness, Runtime, and Observation packaging was re-audited against current consumers and recovery boundaries;
-- `ACR-C4` — **next**: test Agent-facing semantic actions, inspect projections, and minimal operational working state before Prime/TCG/multi-Agent construction;
-- `ACR-C5` — later: apply the same method to the rest of Ordivon under each domain's own authority.
+- `ACR-C4` — **completed**: P0–P4 tested bounded Tool cognition, authority timing, recursive self-change, text-Skill compilation, and independent branch/join. P3 rejected the first Skill candidate and P4 rejected generic Multi superiority while proving existing Host coordination sufficient for the minimum branch/Artifact/Verification pattern;
+- `ACR-C5` — **completed**: current Harness, Runtime, World, Game, and Finance owner-native work independently re-tested the responsibility model. Their recent results primarily strengthened exact identity, owner admission, recomputable pre-consequence planning, post-consequence reconciliation, and thin classical composition rather than forcing a new shared layer;
+- `ACR-C6` — **next**: test whether an Agent can discover and rank shared world-model pressure from exact current owner deltas, selectively inspect owner-native evidence, reject churn and architecture-name bait, and propose the smallest owner-bound falsifier without a human choosing Skill, Multi, Graph, Memory, or another category first.
 
-`ACR-C4` is an experiment frontier, not authorization for a new platform. Existing product repositories remain authoritative, and each candidate must still pass the Agent-first admission and deletion gates.
+The machine map now binds selected conditional responsibilities to current portfolio-question state by semantic digest. If a question changes after a later experiment but this active reform input is not recompiled, `check_computer_responsibility_map.py` must fail rather than letting structurally valid but semantically superseded guidance remain green.
+
+`ACR-C6` remains a bounded research frontier, not authorization for a pressure-discovery daemon, central owner-state registry, automatic evaluator, or product promoter. Existing product repositories remain authoritative, and candidate pressure must still be checked against owner-native truth and the Agent-first admission/deletion gates.

@@ -11,6 +11,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 MAP_PATH = ROOT / "research" / "computer-responsibility-map-v1.json"
+PORTFOLIO_PATH = ROOT / "research" / "portfolio.json"
 
 
 def canonical_digest(document: dict[str, Any]) -> str:
@@ -55,6 +56,51 @@ def check() -> list[str]:
             issues,
         )
         require(integrity.get("payloadDigest") == canonical_digest(document), "responsibility map payload digest differs", issues)
+
+    # Active reform authority is compiled against selected current portfolio questions.
+    # Structural validity is insufficient: if a question changes after a closeout, the
+    # map must fail until it is deliberately recompiled.
+    try:
+        portfolio = json.loads(PORTFOLIO_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        issues.append(f"research portfolio cannot be loaded for responsibility-map freshness: {error}")
+        portfolio = {}
+    questions = {
+        item.get("id"): item
+        for item in portfolio.get("questions", [])
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    }
+    bindings = document.get("portfolioBindings")
+    require(isinstance(bindings, list) and bool(bindings), "responsibility map portfolio bindings are missing", issues)
+    bound_responsibilities: set[str] = set()
+    expected_binding_questions = {"ANC-COMPILER-002", "ANC-MULTI-001", "ANC-ADAPT-001", "ANC-ORG-001"}
+    observed_binding_questions: set[str] = set()
+    if isinstance(bindings, list):
+        for binding in bindings:
+            require(isinstance(binding, dict), "responsibility map portfolio binding is not an object", issues)
+            if not isinstance(binding, dict):
+                continue
+            qid = binding.get("questionId")
+            ids = binding.get("responsibilityIds")
+            require(isinstance(qid, str) and qid in questions, f"responsibility map binding has unknown question: {qid}", issues)
+            require(isinstance(ids, list) and bool(ids) and all(isinstance(value, str) for value in ids), f"responsibility map binding has invalid responsibility ids: {qid}", issues)
+            if isinstance(qid, str):
+                observed_binding_questions.add(qid)
+            if isinstance(ids, list):
+                for value in ids:
+                    if isinstance(value, str):
+                        require(value not in bound_responsibilities, f"responsibility is bound to multiple portfolio questions: {value}", issues)
+                        bound_responsibilities.add(value)
+            question = questions.get(qid) if isinstance(qid, str) else None
+            if isinstance(question, dict):
+                state = {
+                    key: question.get(key)
+                    for key in ("id", "status", "maturity", "priority", "owner", "blockedBy", "nextFalsifier", "nextAction", "disposition", "evidence")
+                }
+                expected_digest = canonical_digest(state)
+                require(binding.get("questionStateDigest") == expected_digest, f"responsibility map portfolio binding is semantically stale: {qid}", issues)
+    require(observed_binding_questions == expected_binding_questions, "responsibility map portfolio question binding set differs", issues)
+    require(bound_responsibilities == {"CR-14", "CR-15", "CR-16", "CR-17", "CR-18"}, "responsibility map portfolio-bound responsibility set differs", issues)
 
     source_revision = document.get("sourceRevision")
     require(isinstance(source_revision, str) and len(source_revision) == 40, "responsibility map source revision is invalid", issues)
@@ -140,15 +186,22 @@ def check() -> list[str]:
     frontier = document.get("reformFrontier")
     require(isinstance(frontier, list), "reform frontier is missing", issues)
     if isinstance(frontier, list):
-        require([item.get("step") for item in frontier if isinstance(item, dict)] == ["C1", "C2", "C3", "C4", "C5"], "reform frontier order differs", issues)
+        require([item.get("step") for item in frontier if isinstance(item, dict)] == ["C1", "C2", "C3", "C4", "C5", "C6"], "reform frontier order differs", issues)
         by_step = {item.get("step"): item for item in frontier if isinstance(item, dict)}
+        for step in ("C1", "C2", "C3", "C4", "C5"):
+            require(by_step.get(step, {}).get("status") == "completed", f"{step} reform work is not complete", issues)
         require(by_step.get("C3", {}).get("status") == "completed", "C3 product-boundary review is not complete", issues)
         require(
             by_step.get("C3", {}).get("record") == "research/computer-product-boundary-review-v1.json",
             "C3 product-boundary record binding differs",
             issues,
         )
-        require(by_step.get("C4", {}).get("status") == "next", "C4 is not the next reform frontier", issues)
+        require(by_step.get("C6", {}).get("status") == "next", "C6 owner-pressure selection is not the next reform frontier", issues)
+        c4_records = by_step.get("C4", {}).get("records", [])
+        require(isinstance(c4_records, list) and bool(c4_records), "C4 closeout records are missing", issues)
+        if isinstance(c4_records, list):
+            for relative in c4_records:
+                require(isinstance(relative, str) and (ROOT / relative).is_file(), f"C4 closeout record is missing: {relative}", issues)
 
     review_path = ROOT / "research" / "computer-product-boundary-review-v1.json"
     require(review_path.is_file(), "C3 product-boundary review is missing", issues)
