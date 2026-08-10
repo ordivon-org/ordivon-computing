@@ -63,10 +63,13 @@ def check() -> list[str]:
 
     method_ref = receipt.get("researchMethodRef")
     conclusion_ref = receipt.get("durableConclusionRef")
-    for label, relative in (("research method", method_ref), ("durable conclusion", conclusion_ref)):
-        require(isinstance(relative, str) and bool(relative), f"{label} ref is invalid", issues)
-        if isinstance(relative, str):
-            require((ROOT / relative).is_file(), f"{label} ref is missing: {relative}", issues)
+    require(isinstance(method_ref, str) and bool(method_ref), "historical research method ref is invalid", issues)
+    if isinstance(method_ref, str) and isinstance(source_revision, str):
+        method = git("show", f"{source_revision}:{method_ref}")
+        require(method.returncode == 0, f"historical research method is not Git-recoverable: {method_ref}", issues)
+    require(isinstance(conclusion_ref, str) and bool(conclusion_ref), "durable conclusion ref is invalid", issues)
+    if isinstance(conclusion_ref, str):
+        require((ROOT / conclusion_ref).is_file(), f"durable conclusion ref is missing: {conclusion_ref}", issues)
 
     removed = receipt.get("removedStudies")
     require(isinstance(removed, list) and bool(removed), "removed study set is empty", issues)
@@ -157,6 +160,136 @@ def check() -> list[str]:
         "cannot_be_recovered_more_cheaply_from_git_or_owner_native_evidence",
     }:
         require(required in retention_test, f"compression retention test is missing: {required}", issues)
+
+    # Computer contraction C1 archives completed executable experiment apparatus
+    # from the active tree while preserving exact Git recoverability.
+    archive_path = ROOT / "research" / "evidence" / "computer-contraction-c1-active-tree-archive.json"
+    if archive_path.is_file():
+        try:
+            archive = json.loads(archive_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            issues.append(f"active-tree archive manifest cannot be loaded: {error}")
+        else:
+            require(archive.get("schemaVersion") == 1, "active-tree archive schema differs", issues)
+            require(archive.get("kind") == "ordivon.computer-active-tree-archive-manifest", "active-tree archive kind differs", issues)
+            require(archive.get("archiveId") == "COMPUTER-CONTRACTION-C1", "active-tree archive identity differs", issues)
+            require(archive.get("integrity", {}).get("payloadDigest") == canonical_digest(archive), "active-tree archive digest differs", issues)
+            revision = archive.get("sourceRevision")
+            require(isinstance(revision, str) and git("cat-file", "-e", f"{revision}^{{commit}}").returncode == 0, "active-tree archive source revision is unreachable", issues)
+            rows = archive.get("files")
+            require(isinstance(rows, list) and bool(rows), "active-tree archive file set is empty", issues)
+            if isinstance(rows, list) and isinstance(revision, str):
+                seen: set[str] = set()
+                for item in rows:
+                    if not isinstance(item, dict):
+                        issues.append("active-tree archive entry is not an object")
+                        continue
+                    relative = item.get("path")
+                    require(isinstance(relative, str) and relative.startswith("research/experiments/"), "active-tree archive path is invalid", issues)
+                    if not isinstance(relative, str):
+                        continue
+                    require(relative not in seen, f"duplicate active-tree archive path: {relative}", issues)
+                    seen.add(relative)
+                    require(not (ROOT / relative).exists(), f"archived apparatus returned to active tree: {relative}", issues)
+                    historical = git("show", f"{revision}:{relative}")
+                    require(historical.returncode == 0, f"archived apparatus is not Git-recoverable: {relative}", issues)
+                    if historical.returncode == 0:
+                        content = historical.stdout.encode("utf-8")
+                        digest = "sha256:" + hashlib.sha256(content).hexdigest()
+                        require(digest == item.get("sha256"), f"archived apparatus digest differs: {relative}", issues)
+                require(len(seen) == archive.get("removedFiles"), "active-tree archive file count differs", issues)
+            utility = archive.get("extractedLiveUtility", {})
+            current_utility = ROOT / str(utility.get("currentPath", ""))
+            require(current_utility.is_file(), "extracted freshness utility is missing", issues)
+            if current_utility.is_file():
+                digest = "sha256:" + hashlib.sha256(current_utility.read_bytes()).hexdigest()
+                require(digest == utility.get("sha256"), "extracted freshness utility digest differs", issues)
+
+    # C5 removes every remaining closed experiment executable/test/fixture from
+    # the active tree. Plans, closeouts and evidence remain readable; exact
+    # executables remain Git-recoverable at the archive source revision.
+    c5_path = ROOT / "research" / "evidence" / "computer-contraction-c5-final-apparatus-archive.json"
+    if c5_path.is_file():
+        try:
+            c5 = json.loads(c5_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            issues.append(f"C5 archive manifest cannot be loaded: {error}")
+        else:
+            require(c5.get("schemaVersion") == 1, "C5 archive schema differs", issues)
+            require(c5.get("kind") == "ordivon.computer-active-tree-archive-manifest", "C5 archive kind differs", issues)
+            require(c5.get("archiveId") == "COMPUTER-CONTRACTION-C5", "C5 archive identity differs", issues)
+            require(c5.get("integrity", {}).get("payloadDigest") == canonical_digest(c5), "C5 archive digest differs", issues)
+            revision = c5.get("sourceRevision")
+            require(isinstance(revision, str) and git("cat-file", "-e", f"{revision}^{{commit}}").returncode == 0, "C5 archive source revision is unreachable", issues)
+            rows = c5.get("files")
+            require(isinstance(rows, list) and bool(rows), "C5 archive file set is empty", issues)
+            seen: set[str] = set()
+            if isinstance(rows, list) and isinstance(revision, str):
+                for item in rows:
+                    if not isinstance(item, dict):
+                        issues.append("C5 archive entry is not an object")
+                        continue
+                    relative = item.get("path")
+                    require(isinstance(relative, str) and relative.startswith("research/experiments/"), "C5 archive path is invalid", issues)
+                    if not isinstance(relative, str):
+                        continue
+                    require(relative not in seen, f"duplicate C5 archive path: {relative}", issues)
+                    seen.add(relative)
+                    require(not (ROOT / relative).exists(), f"C5 archived apparatus returned to active tree: {relative}", issues)
+                    historical = git("show", f"{revision}:{relative}")
+                    require(historical.returncode == 0, f"C5 apparatus is not Git-recoverable: {relative}", issues)
+                    if historical.returncode == 0:
+                        digest = "sha256:" + hashlib.sha256(historical.stdout.encode("utf-8")).hexdigest()
+                        require(digest == item.get("sha256"), f"C5 apparatus digest differs: {relative}", issues)
+                require(len(seen) == c5.get("removedFiles"), "C5 archive file count differs", issues)
+
+            # With no active/ready portfolio research, no executable research
+            # apparatus has current admission.
+            portfolio = json.loads((ROOT / "research" / "portfolio.json").read_text(encoding="utf-8"))
+            active = [q for q in portfolio.get("questions", []) if isinstance(q, dict) and q.get("status") in {"active", "ready"}]
+            if not active:
+                executable = []
+                for path in (ROOT / "research" / "experiments").rglob("*"):
+                    if not path.is_file():
+                        continue
+                    if path.suffix in {".py", ".sh", ".rs", ".ts"} or any(part in {"tests", "scripts", "src", "integration", "fixtures", "benchmarks"} for part in path.parts):
+                        executable.append(path.relative_to(ROOT).as_posix())
+                require(not executable, "closed research executable apparatus remains active: " + ", ".join(executable[:5]), issues)
+
+    concurrent_path = ROOT / "research" / "evidence" / "computer-contraction-concurrent-apparatus-archive.json"
+    if concurrent_path.is_file():
+        try:
+            concurrent = json.loads(concurrent_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            issues.append(f"concurrent contraction archive cannot be loaded: {error}")
+        else:
+            require(concurrent.get("schemaVersion") == 1, "concurrent archive schema differs", issues)
+            require(concurrent.get("kind") == "ordivon.computer-active-tree-archive-manifest", "concurrent archive kind differs", issues)
+            require(concurrent.get("archiveId") == "COMPUTER-CONTRACTION-CONCURRENT-ASSIMILATION", "concurrent archive identity differs", issues)
+            require(concurrent.get("integrity", {}).get("payloadDigest") == canonical_digest(concurrent), "concurrent archive digest differs", issues)
+            revision = concurrent.get("sourceRevision")
+            require(isinstance(revision, str) and git("cat-file", "-e", f"{revision}^{{commit}}").returncode == 0, "concurrent archive source revision is unreachable", issues)
+            rows = concurrent.get("files")
+            require(isinstance(rows, list) and bool(rows), "concurrent archive file set is empty", issues)
+            if isinstance(rows, list) and isinstance(revision, str):
+                seen: set[str] = set()
+                for item in rows:
+                    if not isinstance(item, dict):
+                        issues.append("concurrent archive entry is not an object")
+                        continue
+                    relative = item.get("path")
+                    require(isinstance(relative, str) and relative.startswith("research/experiments/"), "concurrent archive path is invalid", issues)
+                    if not isinstance(relative, str):
+                        continue
+                    require(relative not in seen, f"duplicate concurrent archive path: {relative}", issues)
+                    seen.add(relative)
+                    require(not (ROOT / relative).exists(), f"concurrent archived apparatus returned to active tree: {relative}", issues)
+                    historical = git("show", f"{revision}:{relative}")
+                    require(historical.returncode == 0, f"concurrent apparatus is not Git-recoverable: {relative}", issues)
+                    if historical.returncode == 0:
+                        actual = "sha256:" + hashlib.sha256(historical.stdout.encode("utf-8")).hexdigest()
+                        require(actual == item.get("sha256"), f"concurrent apparatus digest differs: {relative}", issues)
+                require(len(seen) == concurrent.get("removedFiles"), "concurrent archive file count differs", issues)
 
     return sorted(set(issues))
 

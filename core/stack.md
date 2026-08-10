@@ -33,7 +33,7 @@ Ordivon Computer does not define a permanent stack of Agent-specific subsystems.
 
 A subsystem name is not an architectural invariant. Host, Harness, Runtime, Observation, Memory, World, Prime, Graph, and similar names remain implementation or research choices unless deleting them leaves an unowned non-bypassable responsibility.
 
-The current machine disposition is [`../research/computer-responsibility-map-v1.json`](../research/computer-responsibility-map-v1.json). This Core page preserves only the compact architecture that survived that review.
+The current machine disposition is [`../research/computer-responsibility-map-v2.json`](../research/computer-responsibility-map-v2.json). This Core page preserves only the compact architecture that survived that review.
 
 ## Boundaries
 
@@ -161,6 +161,10 @@ Their absence from Core does not prohibit experiments. It prevents temporary mod
 7. **Recovery** — current work and unresolved external effects can be reconstructed without requiring an old model Session or hidden reasoning state.
 8. **Replacement** — models, Providers, Harnesses, adapters, and derived views may be replaced without changing the authoritative meaning of ongoing work.
 
+## 7.1 Core authority boundary
+
+Core is a **compressed prior and navigation surface**, not current-state authority. A direct 2026-08-10 ablation found that the compressed Core used about 48% of the Provider tokens of a larger raw control set, but scored 15/24 versus 18/24 on exact current responsibility decisions. Therefore current owner-native evidence, the canonical research portfolio, exact closeouts, and source revisions override Core whenever they differ. Core should remain small rather than absorb every current detail.
+
 ## 8. Admission and deletion test
 
 A proposed durable structure must answer:
@@ -180,6 +184,6 @@ Unanswered proposals remain outside Core. Existing structures receive no presump
 
 ## 9. Research path
 
-The governing research method is [`../research/research-method-v1.json`](../research/research-method-v1.json). The evidence-backed Computer disposition is [`../research/computer-responsibility-map-v1.json`](../research/computer-responsibility-map-v1.json), with a human projection in [`../research/COMPUTER-RESPONSIBILITY-REVIEW.md`](../research/COMPUTER-RESPONSIBILITY-REVIEW.md).
+The reusable research discipline is the narrow [`../research/experiment-contract-v1.json`](../research/experiment-contract-v1.json) declaration template. Each experiment freezes its own exact evidence, evaluator, authority, stop/deletion, and rollback contract; the template is not semantic authority. The evidence-backed Computer disposition is [`../research/computer-responsibility-map-v2.json`](../research/computer-responsibility-map-v2.json), with a human projection in [`../research/COMPUTER-RESPONSIBILITY-REVIEW.md`](../research/COMPUTER-RESPONSIBILITY-REVIEW.md).
 
 Reusable reasoning lives in [`../knowledge/agents/capability-externalization-and-responsibility-placement.md`](../knowledge/agents/capability-externalization-and-responsibility-placement.md). Historical derivations remain recoverable from Git rather than occupying the active architecture path.

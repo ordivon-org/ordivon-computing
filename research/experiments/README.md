@@ -1,17 +1,19 @@
+> **Current execution state:** no executable research apparatus is currently admitted; see the canonical portfolio and C1/C5 contraction evidence.
+
 # Research Experiments
 
 Experiments connect falsifiable Ordivon Computing questions to executable artifacts and observable results. They are not production components by default, and this page does not own mutable portfolio status. Current WIP, blockers, and next actions live only in [`../portfolio.json`](../portfolio.json); [`../PORTFOLIO.md`](../PORTFOLIO.md) is its generated review projection.
 
-## Current executable research
+## Historical executable research
 
-- [`content-identity-v0/`](content-identity-v0/) — A1 deletion-style audit of exact-byte identity across Runtime, Finance, Security, Studio, and World. The current candidate is only `{digest, byteLength}`; shared storage and protocol promotion remain evidence-gated.
-- [`cognitive-reform-v0/`](cognitive-reform-v0/) — bounded Level A–D execution program; only Level A is active, and future cognition layers remain evidence-gated.
-- [`harness-evaluation-v0/`](harness-evaluation-v0/) — the active Track R evidence contract and R3 fixed-Campaign Trial surface. Product-owned frozen workloads and real Harness runs remain in their owning repositories.
+- [`content-identity-v0/`](content-identity-v0/) — A1 deletion-style audit of exact-byte identity across Runtime, Finance, Security, Studio, and World. The retained candidate was only `{digest, byteLength}`; shared storage and protocol promotion remain evidence-gated.
+- [`cognitive-reform-v0/`](cognitive-reform-v0/) — historical bounded Level A–D execution program; Level A evidence is retained, and future cognition layers remain evidence-gated.
+- [`harness-evaluation-v0/`](harness-evaluation-v0/) — the historical Track R evidence contract and R3 fixed-Campaign Trial surface. Product-owned frozen workloads and real Harness runs remain in their owning repositories.
 
-## Designed execution dependencies and successors
+## Historical designed successors (not current admissions)
 
 - [`observation-plane-v0/`](observation-plane-v0/) — owner-native Observation Minimum Core. Host/Harness/Runtime run-once exporters, B3 reconstruction, B4 formal deterministic use, and fresh A0 O1 dogfood are accepted; production Observation authority remains inactive.
-- [`experiment-loop-v0/`](experiment-loop-v0/) — CEL-R4 bounded multi-round experiment selection, blocked until P1 Core and the R3 repeated native baseline pass.
+- [`experiment-loop-v0/`](experiment-loop-v0/) — historical CEL-R4 bounded experiment-selection work. Its executable apparatus is archived; current adaptation pressure is governed only by the canonical portfolio and the experiment-local contract.
 
 ## Frozen, completed, or promoted evidence
 

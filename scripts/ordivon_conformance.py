@@ -111,8 +111,10 @@ def _unique_strings(value: Any, label: str) -> tuple[str, ...]:
 
 def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT) -> ConformanceManifest:
     document = tomllib.loads(path.read_text())
+    required_top_level = {"schema_version", "registry", "protocol", "projects"}
     require(
-        set(document) == {"schema_version", "registry", "protocol", "projects"},
+        set(document) >= required_top_level
+        and set(document) <= required_top_level | {"protocol_candidate"},
         "conformance manifest top-level fields are invalid",
     )
     require(document["schema_version"] == 1, "unsupported conformance schema")
@@ -192,7 +194,20 @@ def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT
     require(package_manifest.is_file(), "protocol package manifest is missing")
     package_document = tomllib.loads(package_manifest.read_text())
     require(package_document["project"]["name"] == protocol.package, "protocol package name differs")
-    require(package_document["project"]["version"] == protocol.version, "protocol package version differs")
+    package_version = package_document["project"]["version"]
+    candidate = document.get("protocol_candidate")
+    if candidate is None:
+        require(package_version == protocol.version, "protocol package version differs")
+    else:
+        require(isinstance(candidate, dict), "protocol candidate declaration must be an object")
+        require(
+            set(candidate) == {"package", "version", "status", "base_release", "manifest", "required_owner_admission"},
+            "protocol candidate declaration fields are invalid",
+        )
+        require(candidate["package"] == protocol.package, "protocol candidate package differs")
+        require(candidate["status"] == "unreleased", "protocol candidate must be unreleased")
+        require(candidate["base_release"] == protocol.version, "protocol candidate base release differs")
+        require(package_version == candidate["version"], "protocol package version differs from declared candidate")
     require((repository_root / protocol.release).is_file(), "protocol release manifest is missing")
 
     registry_ids = tuple(
@@ -476,230 +491,66 @@ def _managed_markdown_paths() -> list[str]:
 def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     python = sys.executable
     ruff = shutil.which("ruff")
-    rustc = shutil.which("rustc")
     vale = shutil.which("vale")
     markdownlint = shutil.which("markdownlint-cli2")
     cspell = shutil.which("cspell")
     lychee = shutil.which("lychee")
     require(ruff is not None, "ruff is required for the conformance gate")
-    require(rustc is not None, "rustc is required for the conformance gate")
     require(vale is not None, "vale is required for the content gate; run mise install")
     require(markdownlint is not None, "markdownlint-cli2 is required for the content gate; run mise install")
     require(cspell is not None, "cspell is required for the content gate; run mise install")
     require(lychee is not None, "lychee is required for the content gate; run mise install")
-    content_tool_paths = sorted(
-        {
-            *_managed_markdown_paths(),
-            "packages/content-contract/README.md",
-            "packages/content-cli/README.md",
-            *[
-                path.relative_to(ROOT).as_posix()
-                for path in sorted((ROOT / "packages" / "content-templates").rglob("*.md"))
-            ],
-            *[
-                path.relative_to(ROOT).as_posix()
-                for path in sorted((ROOT / "packages" / "content-fixtures" / "valid").rglob("*.md"))
-            ],
-            "research/evidence/content-engineering-p0-baseline.md",
-        }
-    )
-    static_paths = [
+    content_tool_paths = _managed_markdown_paths()
+    compile_paths = [
         "packages/ordivon-protocol/src",
         "packages/ordivon-protocol/tests",
         "packages/content-cli/src",
         "packages/content-cli/tests",
-        "research/experiments/external-semantic-contract-v0/integration",
-        "research/experiments/external-semantic-contract-v0/tests",
-        "research/experiments/external-semantic-contract-v0/scripts",
-        "research/experiments/semantic-core-v0/src",
-        "research/experiments/semantic-core-v0/tests",
-        "research/experiments/semantic-core-v0/scripts",
-        "research/experiments/crosscut-maintenance-p5-v0",
-        "research/experiments/task-continuation-v0/src",
-        "research/experiments/task-continuation-v0/tests",
-        "research/experiments/task-continuation-v0/scripts",
-        "research/experiments/harness-evaluation-v0/validate_evaluation_evidence.py",
-        "research/experiments/harness-evaluation-v0/validate_p0_artifacts.py",
-        "research/experiments/harness-evaluation-v0/summarize_evaluation.py",
-        "research/experiments/harness-evaluation-v0/tests",
-        "research/evidence",
+        "research/evidence/tests",
+        "scripts",
+    ]
+    ruff_paths = [
+        "packages/ordivon-protocol/src",
+        "packages/ordivon-protocol/tests",
+        "packages/content-cli/src",
+        "packages/content-cli/tests",
+        "scripts/run_conformance_gate.py",
+        "scripts/ordivon_conformance.py",
+        "scripts/ordivon_content.py",
+        "scripts/assess_world_model_freshness.py",
+        "scripts/frontier_freshness.py",
         "scripts/check_foundational_docs.py",
         "scripts/check_world_model_loop.py",
-        "scripts/check_agent_research_method.py",
+        "scripts/check_experiment_contract.py",
         "scripts/check_computer_responsibility_map.py",
         "scripts/check_historical_research_compression.py",
         "scripts/check_research_portfolio.py",
         "scripts/render_research_portfolio.py",
         "scripts/check_protocol_release.py",
+        "scripts/check_protocol_candidate.py",
         "scripts/check_protocol_consumers.py",
-        "scripts/ordivon_content.py",
-        "scripts/ordivon_conformance.py",
     ]
-    commands: list[tuple[str, list[str], Path, dict[str, str]]] = [
-        ("compileall", [python, "-m", "compileall", "-q", *static_paths], ROOT, {}),
-        ("ruff", [ruff, "check", *static_paths], ROOT, {}),
-        (
-            "content-cli-tests",
-            [python, "-m", "unittest", "discover", "-s", "packages/content-cli/tests"],
-            ROOT,
-            {"PYTHONPATH": "packages/content-cli/src"},
-        ),
-        (
-            "content-managed-paths",
-            [
-                python,
-                "scripts/ordivon_content.py",
-                "check",
-                "--root",
-                ".",
-                "--mode",
-                "strict",
-                "--receipt",
-                "/tmp/ordivon-content-check.json",
-            ],
-            ROOT,
-            {},
-        ),
+    return [
+        ("compileall", [python, "-m", "compileall", "-q", *compile_paths], ROOT, {}),
+        ("ruff", [ruff, "check", *ruff_paths], ROOT, {}),
+        ("content-cli-tests", [python, "-m", "unittest", "discover", "-s", "packages/content-cli/tests"], ROOT, {"PYTHONPATH": "packages/content-cli/src"}),
+        ("content-managed-paths", [python, "scripts/ordivon_content.py", "check", "--root", ".", "--mode", "strict", "--receipt", "/tmp/ordivon-content-check.json"], ROOT, {}),
         ("content-vale", [vale, *content_tool_paths], ROOT, {}),
         ("content-markdownlint", [markdownlint, *content_tool_paths], ROOT, {}),
-        (
-            "content-spelling",
-            [cspell, "lint", "--no-progress", "--no-summary", *content_tool_paths],
-            ROOT,
-            {},
-        ),
-        (
-            "content-links",
-            [lychee, "--config", "lychee.toml", *content_tool_paths],
-            ROOT,
-            {},
-        ),
-        (
-            "foundational-docs",
-            [python, "scripts/check_foundational_docs.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "world-model-loop",
-            [python, "scripts/check_world_model_loop.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "agent-research-method",
-            [python, "scripts/check_agent_research_method.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "computer-responsibility-map",
-            [python, "scripts/check_computer_responsibility_map.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "historical-research-compression",
-            [python, "scripts/check_historical_research_compression.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "research-portfolio",
-            [python, "scripts/check_research_portfolio.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "research-portfolio-view",
-            [python, "scripts/render_research_portfolio.py", "--check"],
-            ROOT,
-            {},
-        ),
-        (
-            "protocol-release",
-            [python, "scripts/check_protocol_release.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "protocol",
-            [python, "-m", "unittest", "discover", "-s", "tests"],
-            ROOT / "packages" / "ordivon-protocol",
-            {"PYTHONPATH": "src"},
-        ),
-        (
-            "external-contract",
-            [python, "-m", "unittest", "discover", "-s", "tests"],
-            ROOT / "research" / "experiments" / "external-semantic-contract-v0",
-            {"PYTHONPATH": "../../../packages/ordivon-protocol/src:../semantic-core-v0/src:."},
-        ),
-        (
-            "semantic-core",
-            [python, "-m", "unittest", "discover", "-s", "tests"],
-            ROOT / "research" / "experiments" / "semantic-core-v0",
-            {"PYTHONPATH": "../../../packages/ordivon-protocol/src:src"},
-        ),
-        (
-            "task-continuation",
-            [python, "-m", "unittest", "discover", "-s", "tests"],
-            ROOT / "research" / "experiments" / "task-continuation-v0",
-            {
-                "PYTHONPATH": "../../../packages/ordivon-protocol/src:src:../external-semantic-contract-v0:../semantic-core-v0/src",
-                "TMPDIR": "/tmp",
-            },
-        ),
-        (
-            "track-r-evaluation",
-            [
-                python,
-                "-m",
-                "unittest",
-                "discover",
-                "-s",
-                "research/experiments/harness-evaluation-v0/tests",
-                "-p",
-                "test_*.py",
-            ],
-            ROOT,
-            {"PYTHONPATH": "."},
-        ),
-        (
-            "evidence-and-conformance",
-            [python, "-m", "unittest", "discover", "-s", "research/evidence/tests"],
-            ROOT,
-            {"PYTHONPATH": "."},
-        ),
-        (
-            "crosscut-maintenance-p5",
-            [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p5-v0/tests", "-p", "test_*.py"],
-            ROOT,
-            {"PYTHONPATH": "research/experiments/crosscut-maintenance-p5-v0"},
-        ),
-        (
-            "rust-canonical-build",
-            [
-                rustc,
-                "--edition=2021",
-                "research/experiments/external-semantic-contract-v0/rust/canonical-verifier/main.rs",
-                "-o",
-                "/tmp/ordivon-canonical-verifier",
-            ],
-            ROOT,
-            {},
-        ),
-        (
-            "rust-canonical-vectors",
-            [
-                "/tmp/ordivon-canonical-verifier",
-                "packages/ordivon-protocol/src/ordivon_protocol/vectors/canonical-vectors.tsv",
-            ],
-            ROOT,
-            {},
-        ),
+        ("content-spelling", [cspell, "lint", "--no-progress", "--no-summary", *content_tool_paths], ROOT, {}),
+        ("content-links", [lychee, "--offline", "--config", "lychee.toml", *content_tool_paths], ROOT, {}),
+        ("foundational-docs", [python, "scripts/check_foundational_docs.py"], ROOT, {}),
+        ("world-model-loop", [python, "scripts/check_world_model_loop.py"], ROOT, {}),
+        ("experiment-contract", [python, "scripts/check_experiment_contract.py"], ROOT, {}),
+        ("computer-responsibility-map", [python, "scripts/check_computer_responsibility_map.py"], ROOT, {}),
+        ("historical-research-compression", [python, "scripts/check_historical_research_compression.py"], ROOT, {}),
+        ("research-portfolio", [python, "scripts/check_research_portfolio.py"], ROOT, {}),
+        ("research-portfolio-view", [python, "scripts/render_research_portfolio.py", "--check"], ROOT, {}),
+        ("protocol-release", [python, "scripts/check_protocol_release.py"], ROOT, {}),
+        ("protocol-candidate", [python, "scripts/check_protocol_candidate.py"], ROOT, {}),
+        ("protocol", [python, "-m", "unittest", "discover", "-s", "tests"], ROOT / "packages" / "ordivon-protocol", {"PYTHONPATH": "src"}),
+        ("evidence-and-conformance", [python, "-m", "unittest", "discover", "-s", "research/evidence/tests"], ROOT, {"PYTHONPATH": "."}),
     ]
-    return commands
-
 
 def run_gate(receipt_path: Path | None) -> int:
     manifest = load_manifest()

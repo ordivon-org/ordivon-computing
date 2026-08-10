@@ -24,117 +24,75 @@ related:
   - computing.content-engineering.closeout-baseline
   - computing.content-engineering.closeout
 ---
-# Ordivon Content Engineering P0
+# Ordivon managed-document metadata boundary
 
 ## Purpose
 
-Content Engineering gives Ordivon repositories a shared way to identify, validate, navigate, and project research and engineering documents. It does not become a second owner of project facts.
+Computing retains one narrow documentation-specific invariant: a repository may explicitly mark a small set of documents as `managed_paths`, and those documents must carry stable identity, lifecycle, source-role, ownership, and canonical-role metadata. This exists because a real managed-frontmatter deletion was caught by the Ordivon validator while markdownlint-cli2, Vale, and CSpell all passed it.
 
-The P0 contract separates four concerns:
-
-```text
-project repository owns facts and evidence
-→ content metadata declares document identity and lifecycle
-→ deterministic checks expose structural failure and migration debt
-→ Web, Agents, and tools consume bounded projections
-```
+The broader P0 Content Engineering apparatus is historical. Templates, fixtures, schema/profile packages, cross-repository baseline generation, word/link metrics, and phase-path warning counts did not earn current existence. Their exact history remains recoverable from Git and the retained content-engineering evidence.
 
 ## Boundaries
 
-P0 does not require immediate metadata migration for the existing document corpus. Each repository declares `managed_paths`; strict requirements apply only after a path is explicitly admitted.
+The current validator may:
 
-The content layer may validate:
+- validate `.ordivon/project.yaml` documentation roots, managed paths, and enforcement mode;
+- require metadata only for documents explicitly inside managed paths;
+- validate document id, lifecycle, source role, owner/audience shape, and basic metadata fields;
+- reject duplicate managed document identities and duplicate managed canonical identities;
+- emit a deterministic receipt and fail closed in strict mode.
 
-- document identity, type, lifecycle, source role, and visibility;
-- required sections for an admitted document type;
-- relative links, duplicate identifiers, navigation signals, and oversized paragraphs;
-- project manifests and machine-readable check receipts.
+It may not:
 
-It may not decide whether a research claim is true, whether a project is authorized to act, whether a prototype is production-ready, or whether an old document should be deleted.
+- judge whether a claim is true, current, useful, or authorized;
+- make unmanaged legacy documentation a governance backlog;
+- replace Vale, markdownlint-cli2, CSpell, or Lychee;
+- generate quality scores from word/link/warning counts;
+- create templates or repository-wide migration pressure.
 
 ## Components
 
-- `packages/content-contract/` owns schemas, profiles, terminology, and shared tool configuration.
-- `packages/content-cli/` owns only Ordivon-specific metadata, lifecycle, source-role, relationship, receipt, and baseline checks.
-- Vale, markdownlint-cli2, CSpell, and Lychee own prose rules, Markdown structure, spelling, and link integrity. Their versions are pinned in `mise.toml`, and the Computing gate derives their document inputs from `.ordivon/project.yaml` `managed_paths` rather than a duplicated path list.
-- `packages/content-templates/` provides starting structures; templates are not canonical facts.
-- `packages/content-fixtures/` provides valid and invalid cases for regression tests.
-- `.ordivon/project.yaml` declares one repository's content boundary and adoption mode.
+- `.ordivon/project.yaml` — owner-local declaration of documentation roots and managed paths.
+- `packages/content-cli/` — compatibility package containing the small metadata validator.
+- `scripts/ordivon_content.py` — stable source-tree entry used by Computing and optional external consumers such as Human.
+- `.vale/styles/Ordivon/` — two bounded prose suggestions used by Vale; these are generic lint configuration, not a content contract package.
+- Vale, markdownlint-cli2, CSpell, and Lychee — mature tooling for prose, Markdown, spelling, and links.
 
 ## Data flow
 
 ```text
-Markdown or MDX + .ordivon/project.yaml
-→ front-matter and project-manifest parsing
-→ contract and relationship checks
-→ issue set
+.ordivon/project.yaml
++ Git-visible Markdown/MDX
+→ select only managed paths
+→ parse front matter
+→ validate identity/lifecycle/source role
+→ detect duplicate managed identities
 → BLOCKED | DEGRADED | READY
-→ JSON receipt and optional baseline report
 ```
 
-`READY` means that the configured content checks found no current issue. It does not grant authority, prove claims, or authorize publication.
+`READY` means only that this narrow metadata contract found no current violation. It does not prove document semantics.
 
 ## Failure modes
 
-The principal P0 failure modes are:
-
-- treating warning counts as quality targets;
-- enabling strict mode over a legacy corpus before ownership and source roles are known;
-- using automatic prose revision to change claims, numbers, limitations, or authorization;
-- creating duplicated canonical facts in Web or generated indexes;
-- adding metadata that merely restates filenames without improving lifecycle or navigation.
-
-The response is bounded adoption: advisory inventory first, strict enforcement only for admitted paths, and deletion of checks that do not expose a named failure. The current Computing authority set is recorded in [`../authority.md`](../authority.md); shared schemas and profiles are documented in [`../../packages/content-contract/README.md`](../../packages/content-contract/README.md).
+The validator should be deleted or narrowed again if generic tooling gains the same managed-metadata capability, if repositories stop consuming the shared source-tree entry, or if the metadata fields cease to protect a repeated failure. It must not regrow corpus inventory, template generation, semantic freshness checking, or baseline scoring without new evidence.
 
 ## Verification
 
-Install the pinned external tools, then run the local package tests and repository checks:
-
 ```bash
-mise install
 PYTHONPATH=packages/content-cli/src python -m unittest discover -s packages/content-cli/tests
 python scripts/ordivon_content.py project --root .
-python scripts/ordivon_content.py check --root . --mode advisory --receipt /tmp/ordivon-content.json
-vale docs/content-engineering/README.md
-markdownlint-cli2 docs/content-engineering/README.md
-cspell lint --no-progress --no-summary docs/content-engineering/README.md
-lychee --config lychee.toml docs/content-engineering/README.md
+python scripts/ordivon_content.py check --root . --mode strict
 ```
 
-Generate a cross-repository baseline only when all local repositories are available:
+General document checks remain separate:
 
 ```bash
-python scripts/ordivon_content.py baseline \
-  --repository-parent /root/projects \
-  --json-output /tmp/ordivon-content-baseline.json \
-  --markdown-output /tmp/ordivon-content-baseline.md
+vale <managed-docs>
+markdownlint-cli2 <managed-docs>
+cspell lint --no-progress --no-summary <managed-docs>
+lychee --config lychee.toml <managed-docs>
 ```
 
-## Maintenance rules
+## Historical evidence
 
-The documentation system stays lightweight when ordinary changes follow six rules:
-
-1. **Declare the role of a new core document.** A new entry, architecture, operations, current-answer, or authority document declares metadata, names the fact it owns, links from the existing entry path, and identifies any source it replaces.
-2. **Update the owning summary when a boundary changes.** A change to architecture or operations updates the canonical owner, the repository README summary, and Ordivon Web only when the public role, maturity, or next destination changes.
-3. **Reassess old documents when editing them materially.** A substantive change to a phase report, closeout, proposal, or historical design requires an explicit lifecycle and source-role decision; editing does not silently make it current.
-4. **Keep history out of the default path.** Historical material may remain valuable evidence, but confident language, a recent edit date, or a broken old link cannot restore it as a default entry or alternate architecture.
-5. **Connect before creating.** A new document should extend the existing README, authority map, research registry, operations route, or evidence index. If no existing route should link it, the document is probably not yet admitted.
-6. **Use baselines diagnostically.** Document, word, link, length, metadata, and warning counts reveal review pressure. They are not quality scores and are never targets to drive to zero without a named reader or maintenance failure.
-
-## When to reopen concentrated governance
-
-Start another cross-repository documentation round only when at least one system-level condition appears:
-
-- two canonical sources claim the same current fact or responsibility;
-- a repository extraction, merge, retirement, or product registration changes project ownership;
-- the public Web map materially disagrees with repository authority;
-- repeated changes create unlinked current documents or ambiguous default entry paths;
-- required checks cannot determine which documents are authoritative inputs;
-- a promoted shared contract changes the responsibility boundary of multiple repositories; or
-- accumulated local fixes require the same policy decision in several repositories.
-
-Ordinary stale links, isolated wording defects, one new research report, or advisory warning growth should be handled locally rather than triggering a governance program.
-
-## Governance record
-
-The initial inventory is preserved in [`../../research/evidence/content-engineering-p0-baseline.md`](../../research/evidence/content-engineering-p0-baseline.md). The post-governance comparison is [`../../research/evidence/content-engineering-closeout-baseline.md`](../../research/evidence/content-engineering-closeout-baseline.md), and [`FINAL-CLOSEOUT.md`](FINAL-CLOSEOUT.md) records the completed cross-repository review, remaining debt, and restart conditions.
+The original inventory and closeout baselines remain under `research/evidence/` as historical diagnostic evidence. The Existence Gauntlet records why only the managed-metadata invariant survived the 2026-08-10 removal-first attack. Git preserves the removed Content packages exactly.

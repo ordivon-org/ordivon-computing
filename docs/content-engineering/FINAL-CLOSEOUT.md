@@ -29,6 +29,8 @@ related:
 <!-- cspell:words Clippy -->
 # Cross-Repository Documentation Governance Closeout
 
+> **Historical closeout.** This document records the governance round as completed at the time. A later removal-first Computer contraction kept the managed-document metadata invariant but retired the shared content-contract package, templates, fixtures, and baseline generator. Current Content architecture is defined by [`README.md`](README.md), not by the implementation inventory below.
+
 ## Final judgment
 
 The nine Ordivon repositories now form one navigable documentation system without becoming one shared truth store.

@@ -186,7 +186,7 @@ The following remain Research candidates rather than Core primitives:
 - universal organization/governance object model;
 - continual self-modification or automatic training/promotion loop.
 
-Their next admission conditions live in [`../research/computer-responsibility-map-v1.json`](../research/computer-responsibility-map-v1.json).
+Their next admission conditions live in [`../research/computer-responsibility-map-v2.json`](../research/computer-responsibility-map-v2.json).
 
 ## 10. Current repository mapping
 

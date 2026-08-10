@@ -36,8 +36,8 @@ REQUIRED_PATHS = (
     "research/WORLD-MODEL-LOOP.md",
     "research/world-model-assimilation-round-001.json",
     "research/WORLD-MODEL-ASSIMILATION-001.md",
-    "research/research-method-v1.json",
-    "research/computer-responsibility-map-v1.json",
+    "research/experiment-contract-v1.json",
+    "research/computer-responsibility-map-v2.json",
     "research/COMPUTER-RESPONSIBILITY-REVIEW.md",
     "research/evidence/agent-first-historical-research-compression-f95d721.json",
     "research/portfolio.json",
@@ -264,22 +264,19 @@ def architecture_issues(root: Path) -> list[str]:
             issues.append(f"core primitives lost Agent-first boundary: {fragment}")
 
     responsibility_map = json.loads(
-        (root / "research" / "computer-responsibility-map-v1.json").read_text(encoding="utf-8")
+        (root / "research" / "computer-responsibility-map-v2.json").read_text(encoding="utf-8")
     )
     responsibilities = {
         item.get("id"): item for item in responsibility_map.get("responsibilities", [])
         if isinstance(item, dict)
     }
+    expected_current = {"CR-01", "CR-02", "CR-03", "CR-04", "CR-05", "CR-06", "CR-07", "CR-09", "CR-12", "CR-17"}
+    if set(responsibilities) != expected_current:
+        issues.append("current Computer responsibility prior contains retired or missing responsibility slots")
     for item_id in ("CR-02", "CR-03", "CR-04", "CR-05", "CR-06", "CR-07", "CR-09"):
         item = responsibilities.get(item_id, {})
         if item.get("futureModelRobustness") != "strong":
             issues.append(f"future-model-robust Core responsibility lost strong status: {item_id}")
-    for item_id in ("CR-11", "CR-13"):
-        if responsibilities.get(item_id, {}).get("disposition") != "do_not_build_shared_layer":
-            issues.append(f"unproven shared layer returned to active architecture: {item_id}")
-    for item_id in ("CR-14", "CR-15", "CR-16"):
-        if responsibilities.get(item_id, {}).get("disposition") != "defer_until_strong_baseline_fails":
-            issues.append(f"conditional cognition candidate bypassed strong baseline: {item_id}")
 
     research_map = (root / "research" / "map.yaml").read_text(encoding="utf-8")
     required = (

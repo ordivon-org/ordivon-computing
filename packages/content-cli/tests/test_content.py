@@ -7,7 +7,6 @@ from pathlib import Path
 from ordivon_content.check import check_repository
 from ordivon_content.yaml_subset import loads
 
-
 PROJECT = """schema_version: 1
 id: ordivon-fixture
 name: Ordivon Fixture
@@ -23,7 +22,6 @@ enforcement: advisory
 maintainers:
   - fixture
 """
-
 VALID = """---
 schema_version: 1
 id: fixture.architecture
@@ -40,30 +38,6 @@ audience:
 updated: 2026-08-03
 ---
 # Fixture Architecture
-
-## Purpose
-
-Test the strict content path.
-
-## Boundaries
-
-No external effects.
-
-## Components
-
-One fixture.
-
-## Data flow
-
-Input to output.
-
-## Failure modes
-
-A missing section fails.
-
-## Verification
-
-The check returns READY.
 """
 
 
@@ -84,14 +58,14 @@ class RepositoryCheckTests(unittest.TestCase):
         (root / ".ordivon").mkdir()
         (root / ".ordivon" / "project.yaml").write_text(PROJECT, encoding="utf-8")
         (root / "docs" / "managed").mkdir(parents=True)
+        (root / "docs" / "legacy.md").write_text("# Legacy\n\nNo metadata and not managed.\n", encoding="utf-8")
         return root
 
-    def test_advisory_legacy_document_is_degraded(self) -> None:
+    def test_unmanaged_document_is_outside_custom_governance(self) -> None:
         root = self.make_root()
-        (root / "docs" / "legacy.md").write_text("# Legacy\n\nNo metadata yet.\n", encoding="utf-8")
-        receipt = check_repository(root, mode="advisory")
-        self.assertEqual(receipt["contentState"], "DEGRADED")
-        self.assertEqual(receipt["blockingFailures"], 0)
+        receipt = check_repository(root, mode="strict")
+        self.assertEqual(receipt["checkedDocuments"], 0)
+        self.assertEqual(receipt["contentState"], "READY")
 
     def test_strict_managed_document_requires_metadata(self) -> None:
         root = self.make_root()
@@ -105,8 +79,16 @@ class RepositoryCheckTests(unittest.TestCase):
         (root / "docs" / "managed" / "valid.md").write_text(VALID, encoding="utf-8")
         receipt = check_repository(root, mode="strict")
         self.assertEqual(receipt["contentState"], "READY")
+        self.assertEqual(receipt["checkedDocuments"], 1)
+        self.assertEqual(receipt["metadataDocuments"], 1)
 
-
+    def test_duplicate_managed_identity_is_blocked(self) -> None:
+        root = self.make_root()
+        (root / "docs" / "managed" / "one.md").write_text(VALID, encoding="utf-8")
+        (root / "docs" / "managed" / "two.md").write_text(VALID, encoding="utf-8")
+        receipt = check_repository(root, mode="strict")
+        self.assertEqual(receipt["contentState"], "BLOCKED")
+        self.assertIn("DOC004", {issue["code"] for issue in receipt["issues"]})
 
 
 if __name__ == "__main__":

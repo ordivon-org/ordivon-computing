@@ -37,11 +37,10 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 - [`experiments/world-model-a10-world-presence-v0/`](experiments/world-model-a10-world-presence-v0/) — second-domain A10 re-test using World Presence; confirms the shared semantic distinction while rejecting a shared temporal relation-index mechanism in the bounded workload;
 - [`experiments/structured-commitment-consistency-v0/`](experiments/structured-commitment-consistency-v0/) — conclusion-boundary falsifier separating schema validity, semantic consistency, owner truth admission, and downstream commitment authority while testing the existing Harness correction gate;
 - [`experiments/finance-conclusion-admission-dogfood-v0/`](experiments/finance-conclusion-admission-dogfood-v0/) — real-domain Finance dogfood showing schema-valid execution intent can fail owner admission and that owner feedback can correct a live Agent; the two Harness correction-mechanics pressures and the later NO_PROGRESS conclusion-ownership pressure were returned to Harness, deterministically resolved, and retained as cross-project evidence rather than Finance semantics;
-- [`research-method-v1.json`](research-method-v1.json) — specialized Agent-first method for burden discovery, responsibility placement, externalization admission, and consequence-gated escalation;
-- [`computer-responsibility-map-v1.json`](computer-responsibility-map-v1.json) — machine authority for the current future-model-robust Ordivon Computer re-derivation;
+- [`experiment-contract-v1.json`](experiment-contract-v1.json) — compact reusable declaration template for bounded experiments; every experiment freezes its own evidence, baseline, oracle, authority, stop/deletion, and rollback rules;
+- [`computer-responsibility-map-v2.json`](computer-responsibility-map-v2.json) — machine authority for the current contracted Computer responsibility prior;
 - [`computer-product-boundary-review-v1.json`](computer-product-boundary-review-v1.json) — C3 closeout for Host, Harness, Runtime and Observation packaging against real consumers and recovery boundaries;
 - [`COMPUTER-RESPONSIBILITY-REVIEW.md`](COMPUTER-RESPONSIBILITY-REVIEW.md) — human projection of the responsibility map;
-- [`AGENT-FIRST-RESEARCH-METHOD.md`](AGENT-FIRST-RESEARCH-METHOD.md) — human-readable projection of that method;
 - [`portfolio.json`](portfolio.json) — authoritative research status, maturity, blockers, next falsifiers, and WIP lines;
 - [`P0-P1-CONSUMER-FALSIFICATION-DESIGN.md`](P0-P1-CONSUMER-FALSIFICATION-DESIGN.md) — P0 closeout plus remaining P1 and conditional owner-native follow-up boundaries for Harness retention, authority timing, ordinary Web production, and MCP contract freshness;
 - [`experiments/p0-consumer-falsification-v0/`](experiments/p0-consumer-falsification-v0/) — deterministic apparatus plus retained live Provider evidence: five one-shot/Harness pairs and three ACT/HOLD authority-timing pairs per treatment under exact revision-bound contracts;
@@ -68,8 +67,8 @@ Research may contain alternatives, failed experiments, changing terminology, and
 ## Start here
 
 - [`world-model-loop-v2.json`](world-model-loop-v2.json) defines how owner-native project evidence can challenge and revise the shared world model while separating historical observation validity from currentness.
-- [`research-method-v1.json`](research-method-v1.json) defines how an Agent turns one specific class of observed work burden into a falsifiable externalization experiment. It is a method consumed by the broader world-model loop, not the universal research method.
-- [`computer-responsibility-map-v1.json`](computer-responsibility-map-v1.json) is the current reform input for Ordivon Computer; it classifies durable responsibilities, classical owners, product-specific packaging, and conditional cognition candidates without changing product authority.
+- [`experiment-contract-v1.json`](experiment-contract-v1.json) defines only the declarations every bounded experiment must freeze. It does not choose the hypothesis, evaluator truth, or correct answer, and it carries no product authority.
+- [`computer-responsibility-map-v2.json`](computer-responsibility-map-v2.json) is the current responsibility prior for Ordivon Computer; retired architecture categories live in historical evidence rather than permanent active slots.
 - [`portfolio.json`](portfolio.json) is the mutable source of truth for line status, maturity, blockers, falsifiers, and disposition.
 - [`PORTFOLIO.md`](PORTFOLIO.md) is its generated review projection.
 - [`questions/`](questions/) owns durable question pages, including completed and superseded questions; only `portfolio.json` determines which are active.
@@ -92,7 +91,7 @@ The canonical current view is [`PORTFOLIO.md`](PORTFOLIO.md), generated from [`p
 
 Short stage labels are local to their program; they are not global Ordivon identifiers. Cross-program discussion should use qualified names:
 
-- `ACR-C1` … `ACR-C5` — the Agent-first Computer Responsibility reform recorded in the responsibility map and review;
+- `ACR-C1` … `ACR-C6` — historical labels from the completed v1 Computer Responsibility reform; they remain Git-recoverable but do not form the current v2 phase ladder;
 - `XINF-A0` … `XINF-A8` — the cross-cutting infrastructure audit sequence; `XINF-A0` and `XINF-A1` are closed reference work, while later labels remain plan-local until recorded by an owning artifact;
 - `OCR-V0:A1` … `OCR-V0:D4` — work packages inside [`experiments/cognitive-reform-v0/program-v1.json`](experiments/cognitive-reform-v0/program-v1.json).
 
@@ -104,11 +103,11 @@ A shared suffix such as `A1` or `C4` implies no dependency, status, or shared au
 - `ANC-SECURITY-002` remains completed Phase 0 substrate evidence and is superseded by the unified World and strategic-Security programs;
 - Semantic Core, Effect IR, Task continuation, Host boundary, and original Game/Host convergence are completed or frozen evidence, not open construction promises.
 
-Research-method and portfolio maintenance commands:
+Experiment-contract and portfolio maintenance commands:
 
 ```bash
 python3 scripts/check_world_model_loop.py
-python3 scripts/check_agent_research_method.py
+python3 scripts/check_experiment_contract.py
 python3 scripts/check_computer_responsibility_map.py
 python3 scripts/check_historical_research_compression.py
 python3 scripts/check_research_portfolio.py
@@ -124,3 +123,7 @@ The execution-entity, lineage, propagation, organization, control, resilience, a
 The expanded Game thesis, comparative source set, experience/infrastructure admission split, and bounded post-alpha falsification program live in [`../studies/2026-agent-native-game-worlds/`](../studies/2026-agent-native-game-worlds/). `ANC-GAME-001` remains the completed Host/Game ownership question; `ANC-GAME-002` is the deferred product-and-world question and must not displace the current Ready Frontier.
 
 The one-time [`HISTORICAL-DOCUMENT-AUDIT.md`](HISTORICAL-DOCUMENT-AUDIT.md) records the retain, merge, historical, archive, delete, and rewrite-summary decisions applied to high-impact historical documents. It is audit evidence and does not own portfolio status or architecture.
+
+## Computer contraction implementation
+
+The removal-first implementation is closed in [`evidence/computer-contraction-implementation-closeout.json`](evidence/computer-contraction-implementation-closeout.json). Current Computer has no active/ready research line and no executable experiment apparatus in the active tree. Historical executables remain exact Git objects; current responsibility authority is the ten-item [`computer-responsibility-map-v2.json`](computer-responsibility-map-v2.json).

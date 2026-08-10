@@ -1,12 +1,14 @@
-# Ordivon content CLI
+# Ordivon managed metadata validator
 
-`ordivon-content` validates Ordivon project manifests and document metadata, lifecycle, source roles, required sections, and canonical identities. It emits machine-readable receipts and advisory cross-repository baselines. General Markdown, prose, spelling, and link checks are delegated to markdownlint-cli2, Vale, CSpell, and Lychee.
+`ordivon-content` is a small dependency-free validator for documents a repository has explicitly admitted through `.ordivon/project.yaml` `managed_paths`. It validates project boundaries, front-matter identity, lifecycle, source role, required metadata shape, and duplicate managed/canonical identifiers.
 
-From the Computing source tree:
+It deliberately does **not** inventory the whole documentation corpus, score warning counts, generate cross-repository baselines, own templates, or judge claim truth. Markdown structure, prose, spelling, and links belong to markdownlint-cli2, Vale, CSpell, and Lychee.
+
+Source-tree compatibility entry:
 
 ```bash
-python scripts/ordivon_content.py check --root .
-python scripts/ordivon_content.py baseline --repository-parent /root/projects
+python scripts/ordivon_content.py project --root .
+python scripts/ordivon_content.py check --root . --mode strict
 ```
 
-`advisory` reports migration debt without blocking. `strict` blocks only failures in paths explicitly listed under `managed_paths`.
+`strict` blocks malformed or missing metadata only inside explicitly managed paths. Unmanaged historical/ordinary documentation is outside this custom governance surface.
