@@ -1,0 +1,197 @@
+{
+  "baselineChecks": {
+    "foundational": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"checkedMarkdownFiles\": 56,\n  \"issues\": [],\n  \"kind\": \"ordivon-foundational-docs-check\",\n  \"ok\": true,\n  \"schemaVersion\": 1\n}\n"
+    },
+    "portfolio": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"issues\": [],\n  \"kind\": \"ordivon-research-portfolio-check\",\n  \"ok\": true,\n  \"schemaVersion\": 1\n}\n"
+    },
+    "researchMethod": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"issues\": [],\n  \"kind\": \"ordivon-agent-first-research-method-check\",\n  \"ok\": true,\n  \"schemaVersion\": 1\n}\n"
+    },
+    "responsibility": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"issues\": [],\n  \"kind\": \"ordivon-computer-responsibility-map-check\",\n  \"ok\": true,\n  \"schemaVersion\": 1\n}\n"
+    },
+    "worldModel": {
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "World-model loop and assimilation frontier: OK\n"
+    }
+  },
+  "claimBoundary": "A surviving mutant proves only that the named checker does not enforce that independent oracle relation; it does not prove the artifact is wholly useless.",
+  "currentStateFaults": [
+    {
+      "details": {
+        "active": 0,
+        "ready": 0
+      },
+      "faultId": "CTRL-F01",
+      "oracleViolated": true
+    },
+    {
+      "faultId": "CTRL-F02",
+      "oracleViolated": true
+    },
+    {
+      "faultId": "CTRL-F03",
+      "oracleViolated": true
+    },
+    {
+      "faultId": "CTRL-F04",
+      "oracleViolated": true,
+      "patterns": [
+        ".github/workflows/deterministic-contracts.yml",
+        "README.md",
+        "core/**",
+        "knowledge/**",
+        "studies/**",
+        "packages/ordivon-protocol/**",
+        "packages/content-contract/**",
+        "packages/content-cli/**",
+        "packages/content-templates/**",
+        "packages/content-fixtures/**",
+        "docs/content-engineering/**",
+        ".ordivon/**",
+        ".vale.ini",
+        ".markdownlint-cli2.yaml",
+        ".cspell.json",
+        "lychee.toml",
+        "mise.toml",
+        "projects/conformance.toml",
+        "projects/registry.yaml",
+        "research/README.md",
+        "research/portfolio.json",
+        "research/PORTFOLIO.md",
+        "research/charters/**",
+        "research/map.yaml",
+        "research/questions/**",
+        "research/evidence/**",
+        "research/experiments/harness-evaluation-v0/**",
+        "scripts/check_foundational_docs.py",
+        "scripts/check_research_portfolio.py",
+        "scripts/render_research_portfolio.py",
+        "scripts/check_protocol_release.py",
+        "scripts/check_protocol_consumers.py",
+        "scripts/ordivon_content.py",
+        "scripts/ordivon_conformance.py",
+        "TESTING.md",
+        "projects/README.md",
+        "research/experiments/README.md",
+        "research/COMPUTER-P0-P1-A-SERIES-AUDIT.md",
+        "research/experiments/external-semantic-contract-v0/pyproject.toml",
+        "research/experiments/external-semantic-contract-v0/integration/**",
+        "research/experiments/external-semantic-contract-v0/tests/**",
+        "research/experiments/external-semantic-contract-v0/fixtures/**",
+        "research/experiments/external-semantic-contract-v0/rust/**",
+        "research/experiments/external-semantic-contract-v0/scripts/**",
+        "research/experiments/semantic-core-v0/pyproject.toml",
+        "research/experiments/semantic-core-v0/src/**",
+        "research/experiments/semantic-core-v0/tests/**",
+        "research/experiments/semantic-core-v0/scripts/**",
+        "research/experiments/task-continuation-v0/pyproject.toml",
+        "research/experiments/task-continuation-v0/src/**",
+        "research/experiments/task-continuation-v0/tests/**",
+        "research/experiments/task-continuation-v0/scripts/**",
+        "research/experiments/task-continuation-v0/fixtures/**"
+      ],
+      "untriggered": [
+        "research/research-method-v1.json",
+        "research/world-model-loop-v2.json",
+        "research/computer-responsibility-map-v1.json",
+        "scripts/check_agent_research_method.py",
+        "scripts/check_world_model_loop.py",
+        "scripts/check_computer_responsibility_map.py",
+        "research/experiments/owner-pressure-discovery-v0/README.md",
+        "research/experiments/crosscut-maintenance-p3-v0/README.md"
+      ]
+    }
+  ],
+  "kind": "ordivon.computer-control-plane-mutation-gauntlet",
+  "mutants": [
+    {
+      "caseId": "M01-portfolio-binding-positive-control",
+      "checker": "python3 scripts/check_computer_responsibility_map.py",
+      "expectation": "must_kill",
+      "mutantKilled": true,
+      "result": {
+        "returncode": 1,
+        "stderr": "",
+        "stdout": "{\n  \"issues\": [\n    \"responsibility map portfolio binding is semantically stale: ANC-MULTI-001\"\n  ],\n  \"kind\": \"ordivon-computer-responsibility-map-check\",\n  \"ok\": false,\n  \"schemaVersion\": 1\n}\n"
+      }
+    },
+    {
+      "caseId": "M02-wml-authority-inversion",
+      "checker": "python3 scripts/check_world_model_loop.py",
+      "expectation": "must_kill",
+      "mutantKilled": false,
+      "result": {
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "World-model loop and assimilation frontier: OK\n"
+      }
+    },
+    {
+      "caseId": "M03-research-method-product-authority",
+      "checker": "python3 scripts/check_agent_research_method.py",
+      "expectation": "must_kill",
+      "mutantKilled": false,
+      "result": {
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\n  \"issues\": [],\n  \"kind\": \"ordivon-agent-first-research-method-check\",\n  \"ok\": true,\n  \"schemaVersion\": 1\n}\n"
+      }
+    },
+    {
+      "caseId": "M04-responsibility-retention-inversion",
+      "checker": "python3 scripts/check_computer_responsibility_map.py",
+      "expectation": "must_kill",
+      "mutantKilled": false,
+      "result": {
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\n  \"issues\": [],\n  \"kind\": \"ordivon-computer-responsibility-map-check\",\n  \"ok\": true,\n  \"schemaVersion\": 1\n}\n"
+      }
+    },
+    {
+      "caseId": "M05-portfolio-mechanical-judgment",
+      "checker": "python3 scripts/check_research_portfolio.py",
+      "expectation": "must_kill",
+      "mutantKilled": false,
+      "result": {
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\n  \"issues\": [],\n  \"kind\": \"ordivon-research-portfolio-check\",\n  \"ok\": true,\n  \"schemaVersion\": 1\n}\n"
+      }
+    },
+    {
+      "caseId": "M06-map-self-dependency",
+      "checker": "python3 scripts/check_research_portfolio.py",
+      "expectation": "must_kill",
+      "mutantKilled": false,
+      "result": {
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\n  \"issues\": [],\n  \"kind\": \"ordivon-research-portfolio-check\",\n  \"ok\": true,\n  \"schemaVersion\": 1\n}\n"
+      }
+    }
+  ],
+  "schemaVersion": 1,
+  "sourceRevision": "8f9fccc9d6c0b8361c27138b053c1cc0b5d6e37c",
+  "summary": {
+    "killRate": 0.16666666666666666,
+    "killed": 1,
+    "positiveControlKilled": true,
+    "semanticKillRate": 0.0,
+    "semanticKilled": 0,
+    "semanticMutants": 5,
+    "totalMutants": 6
+  }
+}
