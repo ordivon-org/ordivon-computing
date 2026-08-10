@@ -1,3 +1,3 @@
-"""Ordivon content engineering P0."""
+"""Ordivon managed-document metadata validation."""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

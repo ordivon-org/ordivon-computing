@@ -485,7 +485,7 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     require(markdownlint is not None, "markdownlint-cli2 is required for the content gate; run mise install")
     require(cspell is not None, "cspell is required for the content gate; run mise install")
     require(lychee is not None, "lychee is required for the content gate; run mise install")
-    content_tool_paths = sorted({*_managed_markdown_paths(), "research/evidence/content-engineering-p0-baseline.md"})
+    content_tool_paths = _managed_markdown_paths()
     compile_paths = [
         "packages/ordivon-protocol/src",
         "packages/ordivon-protocol/tests",
