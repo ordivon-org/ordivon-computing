@@ -517,6 +517,7 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "research/experiments/crosscut-maintenance-p0-v0",
         "research/experiments/crosscut-maintenance-p1-v0",
         "research/experiments/crosscut-maintenance-p2-v0",
+        "research/experiments/crosscut-maintenance-p3-v0",
         "research/experiments/task-continuation-v0/src",
         "research/experiments/task-continuation-v0/tests",
         "research/experiments/task-continuation-v0/scripts",
@@ -689,6 +690,12 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
             [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p2-v0/tests", "-p", "test_*.py"],
             ROOT,
             {"PYTHONPATH": "research/experiments/crosscut-maintenance-p2-v0"},
+        ),
+        (
+            "crosscut-maintenance-p3",
+            [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p3-v0/tests", "-p", "test_*.py"],
+            ROOT,
+            {"PYTHONPATH": "research/experiments/crosscut-maintenance-p3-v0"},
         ),
         (
             "rust-canonical-build",
