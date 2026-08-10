@@ -47,7 +47,7 @@ Receipt digest:
 
 `sha256:232385508a6b8f934911c211c0ff71129ff0bd29361393fac8af4a1b1d705c3b`
 
-The corresponding per-replicate records are under `evidence/tm1-live-v2-progress/`.
+Per-replicate progress records were used during live recovery and are preserved exactly in Git apparatus snapshot `f6ff7738bd685d8dd5432a6a18eb9cac18525608`; after terminal receipt convergence they are removed from the active tree to avoid duplicate current evidence authority.
 
 ### Stage A — frontier selection
 
