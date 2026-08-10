@@ -24,6 +24,7 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 - [`external-semantic-contract-v0/`](external-semantic-contract-v0/) — completed experiment whose smallest surviving wire objects were promoted into `ordivon-protocol`.
 - [`semantic-core-v0/`](semantic-core-v0/) — closed reference experiment; accepts only regression fixes or newly demonstrated universal invariants.
 - [`wl0-semantic-law-falsification/`](wl0-semantic-law-falsification/) — completed deletion-style falsification of five compressed cross-project semantic laws; 740,000 randomized trials plus physical probes support narrower applicability-scoped formulations without forcing a new shared mechanism or Core rewrite.
+- [`tm0-research-taste-audit/`](tm0-research-taste-audit/) — retrospective cross-project audit of scientific research taste as probabilistic world-model priors over frontier selection and tractability; records candidate priors, anti-priors, question transformations, and the unresolved need for prospective calibration without promoting a new scheduler or scoring engine.
 
 ## Deferred experiment families
 

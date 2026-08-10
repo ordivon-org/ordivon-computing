@@ -124,6 +124,10 @@ The expanded Game thesis, comparative source set, experience/infrastructure admi
 
 The one-time [`HISTORICAL-DOCUMENT-AUDIT.md`](HISTORICAL-DOCUMENT-AUDIT.md) records the retain, merge, historical, archive, delete, and rewrite-summary decisions applied to high-impact historical documents. It is audit evidence and does not own portfolio status or architecture.
 
+## Retrospective research-taste evidence
+
+[`experiments/tm0-research-taste-audit/`](experiments/tm0-research-taste-audit/) records retrospective candidate priors for high-information research selection. It does not create a scheduler, score, or active phase; the canonical portfolio remains the only admission surface, and prospective calibration is still required before any reusable selection mechanism can graduate.
+
 ## Computer contraction implementation
 
 The removal-first implementation is closed in [`evidence/computer-contraction-implementation-closeout.json`](evidence/computer-contraction-implementation-closeout.json). Current Computer has no active/ready research line and no executable experiment apparatus in the active tree. Historical executables remain exact Git objects; current responsibility authority is the ten-item [`computer-responsibility-map-v2.json`](computer-responsibility-map-v2.json).
