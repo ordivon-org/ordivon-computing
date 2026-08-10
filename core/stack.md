@@ -161,6 +161,10 @@ Their absence from Core does not prohibit experiments. It prevents temporary mod
 7. **Recovery** — current work and unresolved external effects can be reconstructed without requiring an old model Session or hidden reasoning state.
 8. **Replacement** — models, Providers, Harnesses, adapters, and derived views may be replaced without changing the authoritative meaning of ongoing work.
 
+## 7.1 Core authority boundary
+
+Core is a **compressed prior and navigation surface**, not current-state authority. A direct 2026-08-10 ablation found that the compressed Core used about 48% of the Provider tokens of a larger raw control set, but scored 15/24 versus 18/24 on exact current responsibility decisions. Therefore current owner-native evidence, the canonical research portfolio, exact closeouts, and source revisions override Core whenever they differ. Core should remain small rather than absorb every current detail.
+
 ## 8. Admission and deletion test
 
 A proposed durable structure must answer:

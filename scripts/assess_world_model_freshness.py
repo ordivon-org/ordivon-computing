@@ -13,15 +13,11 @@ import json
 from pathlib import Path
 import re
 import subprocess
-import sys
 from typing import Any
 
-ROOT = Path(__file__).resolve().parents[1]
-EXPERIMENT = ROOT / "research/experiments/experiment-loop-v0"
-if str(EXPERIMENT) not in sys.path:
-    sys.path.insert(0, str(EXPERIMENT))
-
 from frontier_freshness import classify_revision_relation
+
+ROOT = Path(__file__).resolve().parents[1]
 
 REGISTRY = ROOT / "projects/registry.yaml"
 FRONTIER = ROOT / "research/world-model-frontier.json"

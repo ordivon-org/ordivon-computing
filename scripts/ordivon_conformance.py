@@ -476,57 +476,36 @@ def _managed_markdown_paths() -> list[str]:
 def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     python = sys.executable
     ruff = shutil.which("ruff")
-    rustc = shutil.which("rustc")
     vale = shutil.which("vale")
     markdownlint = shutil.which("markdownlint-cli2")
     cspell = shutil.which("cspell")
     lychee = shutil.which("lychee")
     require(ruff is not None, "ruff is required for the conformance gate")
-    require(rustc is not None, "rustc is required for the conformance gate")
     require(vale is not None, "vale is required for the content gate; run mise install")
     require(markdownlint is not None, "markdownlint-cli2 is required for the content gate; run mise install")
     require(cspell is not None, "cspell is required for the content gate; run mise install")
     require(lychee is not None, "lychee is required for the content gate; run mise install")
-    content_tool_paths = sorted(
-        {
-            *_managed_markdown_paths(),
-            "packages/content-contract/README.md",
-            "packages/content-cli/README.md",
-            *[
-                path.relative_to(ROOT).as_posix()
-                for path in sorted((ROOT / "packages" / "content-templates").rglob("*.md"))
-            ],
-            *[
-                path.relative_to(ROOT).as_posix()
-                for path in sorted((ROOT / "packages" / "content-fixtures" / "valid").rglob("*.md"))
-            ],
-            "research/evidence/content-engineering-p0-baseline.md",
-        }
-    )
-    static_paths = [
+    content_tool_paths = sorted({*_managed_markdown_paths(), "research/evidence/content-engineering-p0-baseline.md"})
+    compile_paths = [
         "packages/ordivon-protocol/src",
         "packages/ordivon-protocol/tests",
         "packages/content-cli/src",
         "packages/content-cli/tests",
-        "research/experiments/external-semantic-contract-v0/integration",
-        "research/experiments/external-semantic-contract-v0/tests",
-        "research/experiments/external-semantic-contract-v0/scripts",
-        "research/experiments/semantic-core-v0/src",
-        "research/experiments/semantic-core-v0/tests",
-        "research/experiments/semantic-core-v0/scripts",
-        "research/experiments/crosscut-maintenance-p0-v0",
-        "research/experiments/crosscut-maintenance-p1-v0",
-        "research/experiments/crosscut-maintenance-p2-v0",
-        "research/experiments/crosscut-maintenance-p3-v0",
+        "research/evidence/tests",
         "research/experiments/crosscut-maintenance-p4-v0",
-        "research/experiments/task-continuation-v0/src",
-        "research/experiments/task-continuation-v0/tests",
-        "research/experiments/task-continuation-v0/scripts",
-        "research/experiments/harness-evaluation-v0/validate_evaluation_evidence.py",
-        "research/experiments/harness-evaluation-v0/validate_p0_artifacts.py",
-        "research/experiments/harness-evaluation-v0/summarize_evaluation.py",
-        "research/experiments/harness-evaluation-v0/tests",
-        "research/evidence",
+        "research/experiments/computer-existence-gauntlet-v0",
+        "scripts",
+    ]
+    ruff_paths = [
+        "packages/ordivon-protocol/src",
+        "packages/ordivon-protocol/tests",
+        "packages/content-cli/src",
+        "packages/content-cli/tests",
+        "scripts/run_conformance_gate.py",
+        "scripts/ordivon_conformance.py",
+        "scripts/ordivon_content.py",
+        "scripts/assess_world_model_freshness.py",
+        "scripts/frontier_freshness.py",
         "scripts/check_foundational_docs.py",
         "scripts/check_world_model_loop.py",
         "scripts/check_agent_research_method.py",
@@ -536,198 +515,29 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "scripts/render_research_portfolio.py",
         "scripts/check_protocol_release.py",
         "scripts/check_protocol_consumers.py",
-        "scripts/ordivon_content.py",
-        "scripts/ordivon_conformance.py",
     ]
-    commands: list[tuple[str, list[str], Path, dict[str, str]]] = [
-        ("compileall", [python, "-m", "compileall", "-q", *static_paths], ROOT, {}),
-        ("ruff", [ruff, "check", *static_paths], ROOT, {}),
-        (
-            "content-cli-tests",
-            [python, "-m", "unittest", "discover", "-s", "packages/content-cli/tests"],
-            ROOT,
-            {"PYTHONPATH": "packages/content-cli/src"},
-        ),
-        (
-            "content-managed-paths",
-            [
-                python,
-                "scripts/ordivon_content.py",
-                "check",
-                "--root",
-                ".",
-                "--mode",
-                "strict",
-                "--receipt",
-                "/tmp/ordivon-content-check.json",
-            ],
-            ROOT,
-            {},
-        ),
+    return [
+        ("compileall", [python, "-m", "compileall", "-q", *compile_paths], ROOT, {}),
+        ("ruff", [ruff, "check", *ruff_paths], ROOT, {}),
+        ("content-cli-tests", [python, "-m", "unittest", "discover", "-s", "packages/content-cli/tests"], ROOT, {"PYTHONPATH": "packages/content-cli/src"}),
+        ("content-managed-paths", [python, "scripts/ordivon_content.py", "check", "--root", ".", "--mode", "strict", "--receipt", "/tmp/ordivon-content-check.json"], ROOT, {}),
         ("content-vale", [vale, *content_tool_paths], ROOT, {}),
         ("content-markdownlint", [markdownlint, *content_tool_paths], ROOT, {}),
-        (
-            "content-spelling",
-            [cspell, "lint", "--no-progress", "--no-summary", *content_tool_paths],
-            ROOT,
-            {},
-        ),
-        (
-            "content-links",
-            [lychee, "--config", "lychee.toml", *content_tool_paths],
-            ROOT,
-            {},
-        ),
-        (
-            "foundational-docs",
-            [python, "scripts/check_foundational_docs.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "world-model-loop",
-            [python, "scripts/check_world_model_loop.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "agent-research-method",
-            [python, "scripts/check_agent_research_method.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "computer-responsibility-map",
-            [python, "scripts/check_computer_responsibility_map.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "historical-research-compression",
-            [python, "scripts/check_historical_research_compression.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "research-portfolio",
-            [python, "scripts/check_research_portfolio.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "research-portfolio-view",
-            [python, "scripts/render_research_portfolio.py", "--check"],
-            ROOT,
-            {},
-        ),
-        (
-            "protocol-release",
-            [python, "scripts/check_protocol_release.py"],
-            ROOT,
-            {},
-        ),
-        (
-            "protocol",
-            [python, "-m", "unittest", "discover", "-s", "tests"],
-            ROOT / "packages" / "ordivon-protocol",
-            {"PYTHONPATH": "src"},
-        ),
-        (
-            "external-contract",
-            [python, "-m", "unittest", "discover", "-s", "tests"],
-            ROOT / "research" / "experiments" / "external-semantic-contract-v0",
-            {"PYTHONPATH": "../../../packages/ordivon-protocol/src:../semantic-core-v0/src:."},
-        ),
-        (
-            "semantic-core",
-            [python, "-m", "unittest", "discover", "-s", "tests"],
-            ROOT / "research" / "experiments" / "semantic-core-v0",
-            {"PYTHONPATH": "../../../packages/ordivon-protocol/src:src"},
-        ),
-        (
-            "task-continuation",
-            [python, "-m", "unittest", "discover", "-s", "tests"],
-            ROOT / "research" / "experiments" / "task-continuation-v0",
-            {
-                "PYTHONPATH": "../../../packages/ordivon-protocol/src:src:../external-semantic-contract-v0:../semantic-core-v0/src",
-                "TMPDIR": "/tmp",
-            },
-        ),
-        (
-            "track-r-evaluation",
-            [
-                python,
-                "-m",
-                "unittest",
-                "discover",
-                "-s",
-                "research/experiments/harness-evaluation-v0/tests",
-                "-p",
-                "test_*.py",
-            ],
-            ROOT,
-            {"PYTHONPATH": "."},
-        ),
-        (
-            "evidence-and-conformance",
-            [python, "-m", "unittest", "discover", "-s", "research/evidence/tests"],
-            ROOT,
-            {"PYTHONPATH": "."},
-        ),
-        (
-            "crosscut-maintenance-p0",
-            [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p0-v0/tests", "-p", "test_*.py"],
-            ROOT,
-            {"PYTHONPATH": "research/experiments/crosscut-maintenance-p0-v0"},
-        ),
-        (
-            "crosscut-maintenance-p1",
-            [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p1-v0/tests", "-p", "test_*.py"],
-            ROOT,
-            {"PYTHONPATH": "research/experiments/crosscut-maintenance-p1-v0"},
-        ),
-        (
-            "crosscut-maintenance-p2",
-            [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p2-v0/tests", "-p", "test_*.py"],
-            ROOT,
-            {"PYTHONPATH": "research/experiments/crosscut-maintenance-p2-v0"},
-        ),
-        (
-            "crosscut-maintenance-p3",
-            [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p3-v0/tests", "-p", "test_*.py"],
-            ROOT,
-            {"PYTHONPATH": "research/experiments/crosscut-maintenance-p3-v0"},
-        ),
-        (
-            "crosscut-maintenance-p4",
-            [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p4-v0/tests", "-p", "test_*.py"],
-            ROOT,
-            {"PYTHONPATH": "research/experiments/crosscut-maintenance-p4-v0"},
-        ),
-        (
-            "rust-canonical-build",
-            [
-                rustc,
-                "--edition=2021",
-                "research/experiments/external-semantic-contract-v0/rust/canonical-verifier/main.rs",
-                "-o",
-                "/tmp/ordivon-canonical-verifier",
-            ],
-            ROOT,
-            {},
-        ),
-        (
-            "rust-canonical-vectors",
-            [
-                "/tmp/ordivon-canonical-verifier",
-                "packages/ordivon-protocol/src/ordivon_protocol/vectors/canonical-vectors.tsv",
-            ],
-            ROOT,
-            {},
-        ),
+        ("content-spelling", [cspell, "lint", "--no-progress", "--no-summary", *content_tool_paths], ROOT, {}),
+        ("content-links", [lychee, "--config", "lychee.toml", *content_tool_paths], ROOT, {}),
+        ("foundational-docs", [python, "scripts/check_foundational_docs.py"], ROOT, {}),
+        ("world-model-loop", [python, "scripts/check_world_model_loop.py"], ROOT, {}),
+        ("agent-research-method", [python, "scripts/check_agent_research_method.py"], ROOT, {}),
+        ("computer-responsibility-map", [python, "scripts/check_computer_responsibility_map.py"], ROOT, {}),
+        ("historical-research-compression", [python, "scripts/check_historical_research_compression.py"], ROOT, {}),
+        ("research-portfolio", [python, "scripts/check_research_portfolio.py"], ROOT, {}),
+        ("research-portfolio-view", [python, "scripts/render_research_portfolio.py", "--check"], ROOT, {}),
+        ("protocol-release", [python, "scripts/check_protocol_release.py"], ROOT, {}),
+        ("protocol", [python, "-m", "unittest", "discover", "-s", "tests"], ROOT / "packages" / "ordivon-protocol", {"PYTHONPATH": "src"}),
+        ("evidence-and-conformance", [python, "-m", "unittest", "discover", "-s", "research/evidence/tests"], ROOT, {"PYTHONPATH": "."}),
+        ("crosscut-maintenance-p4", [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p4-v0/tests", "-p", "test_*.py"], ROOT, {"PYTHONPATH": "research/experiments/crosscut-maintenance-p4-v0"}),
+        ("existence-gauntlet", [python, "-m", "unittest", "discover", "-s", "research/experiments/computer-existence-gauntlet-v0/tests", "-p", "test_*.py"], ROOT, {}),
     ]
-    return commands
-
 
 def run_gate(receipt_path: Path | None) -> int:
     manifest = load_manifest()

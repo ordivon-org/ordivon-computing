@@ -91,7 +91,7 @@ The canonical current view is [`PORTFOLIO.md`](PORTFOLIO.md), generated from [`p
 
 Short stage labels are local to their program; they are not global Ordivon identifiers. Cross-program discussion should use qualified names:
 
-- `ACR-C1` … `ACR-C5` — the Agent-first Computer Responsibility reform recorded in the responsibility map and review;
+- `ACR-C1` … `ACR-C6` — the Agent-first Computer Responsibility reform recorded in the responsibility map and review;
 - `XINF-A0` … `XINF-A8` — the cross-cutting infrastructure audit sequence; `XINF-A0` and `XINF-A1` are closed reference work, while later labels remain plan-local until recorded by an owning artifact;
 - `OCR-V0:A1` … `OCR-V0:D4` — work packages inside [`experiments/cognitive-reform-v0/program-v1.json`](experiments/cognitive-reform-v0/program-v1.json).
 

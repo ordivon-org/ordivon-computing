@@ -2,11 +2,11 @@
 
 Experiments connect falsifiable Ordivon Computing questions to executable artifacts and observable results. They are not production components by default, and this page does not own mutable portfolio status. Current WIP, blockers, and next actions live only in [`../portfolio.json`](../portfolio.json); [`../PORTFOLIO.md`](../PORTFOLIO.md) is its generated review projection.
 
-## Current executable research
+## Historical executable research
 
-- [`content-identity-v0/`](content-identity-v0/) — A1 deletion-style audit of exact-byte identity across Runtime, Finance, Security, Studio, and World. The current candidate is only `{digest, byteLength}`; shared storage and protocol promotion remain evidence-gated.
-- [`cognitive-reform-v0/`](cognitive-reform-v0/) — bounded Level A–D execution program; only Level A is active, and future cognition layers remain evidence-gated.
-- [`harness-evaluation-v0/`](harness-evaluation-v0/) — the active Track R evidence contract and R3 fixed-Campaign Trial surface. Product-owned frozen workloads and real Harness runs remain in their owning repositories.
+- [`content-identity-v0/`](content-identity-v0/) — A1 deletion-style audit of exact-byte identity across Runtime, Finance, Security, Studio, and World. The retained candidate was only `{digest, byteLength}`; shared storage and protocol promotion remain evidence-gated.
+- [`cognitive-reform-v0/`](cognitive-reform-v0/) — historical bounded Level A–D execution program; Level A evidence is retained, and future cognition layers remain evidence-gated.
+- [`harness-evaluation-v0/`](harness-evaluation-v0/) — the historical Track R evidence contract and R3 fixed-Campaign Trial surface. Product-owned frozen workloads and real Harness runs remain in their owning repositories.
 
 ## Designed execution dependencies and successors
 
