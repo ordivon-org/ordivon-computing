@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.skill-discovery-incidents",
+  "incidentSetId": "P3-SKILL-DISCOVERY-001",
+  "actualRuntimeEvidence": [
+    {
+      "incidentId": "p2-promotion-unknown",
+      "operationClass": "durable_exec_plan",
+      "clientRequestId": "computer-p2-promote-freshness-method-20260810",
+      "observedResponse": "transport_unknown",
+      "recoveryObservation": "task.list returned no admitted Job before replay",
+      "semanticLesson": "UNKNOWN response is not execution failure; query durable admission identity before redispatch"
+    },
+    {
+      "incidentId": "p2-closeout-unknown",
+      "operationClass": "durable_exec_plan",
+      "clientRequestId": "computer-p2-write-closeout-artifacts-20260810",
+      "observedResponse": "transport_unknown",
+      "recoveryObservation": "task.list returned no admitted Job before replay",
+      "semanticLesson": "absence in durable Job registry can distinguish no-admission from unknown delivery"
+    },
+    {
+      "incidentId": "p2-validation-unknown",
+      "operationClass": "durable_exec_plan",
+      "clientRequestId": "computer-p2-final-local-validation-20260810",
+      "observedResponse": "transport_unknown",
+      "recoveryObservation": "task.list returned no admitted Job before replay",
+      "semanticLesson": "read-side reconciliation precedes a new execution proposal"
+    },
+    {
+      "incidentId": "p2-mutate-unknown",
+      "operationClass": "nonreplayable_mutation",
+      "clientRequestId": null,
+      "observedResponse": "transport_unknown",
+      "recoveryObservation": "workspace.read showed target files absent before retry",
+      "semanticLesson": "a mutation without replay receipt requires exact physical state inspection before retry"
+    }
+  ],
+  "currentContractBranches": [
+    {
+      "operationClass": "durable_exec",
+      "recovery": "task.list(clientRequestId) -> task.get/observe existing Job; only if absent may same request be newly admitted",
+      "redispatchRule": "never infer process/domain failure from response loss"
+    },
+    {
+      "operationClass": "workspace_open",
+      "recovery": "workspace.get(explicit workspaceId)",
+      "redispatchRule": "do not repeat workspace.open after unknown response"
+    },
+    {
+      "operationClass": "workspace_patch",
+      "recovery": "workspace.patch.get(clientRequestId)",
+      "redispatchRule": "reconcile durable patch receipt before another patch"
+    },
+    {
+      "operationClass": "workspace_mutate",
+      "recovery": "workspace.get/read/changes exact target state",
+      "redispatchRule": "no replay receipt; retry only after proving intended bytes were not applied"
+    },
+    {
+      "operationClass": "host_checkpoint",
+      "recovery": "replay identical checkpoint with original expectedRevision",
+      "redispatchRule": "different or stale semantic claim fails closed"
+    },
+    {
+      "operationClass": "external_effect_inside_exec",
+      "recovery": "reconcile Runtime Job, then observe external authority before any new dispatch",
+      "redispatchRule": "Runtime execution idempotency does not imply external-effect idempotency"
+    }
+  ],
+  "negativeOwnershipControl": {
+    "candidate": "source-landing-publication",
+    "observedPattern": [
+      "source fence",
+      "Git ancestry check",
+      "git merge --ff-only",
+      "post-land validation",
+      "git push",
+      "remote verification"
+    ],
+    "expectedAdmission": "reject_as_skill",
+    "reason": "deterministic Git/Runtime mechanics plus explicit publication consequence; a Skill must not become a second execution or publication authority"
+  }
+}
