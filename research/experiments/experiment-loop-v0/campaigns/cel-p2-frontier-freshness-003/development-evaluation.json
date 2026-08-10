@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.cel-frontier-freshness-evaluation",
+  "campaignDigest": "sha256:92e1b41be25fbd89a1c673748456f0a3398699a2257653b9a800ad477ea57d36",
+  "split": "development",
+  "evaluations": [
+    {
+      "policyId": "syntactic_revision_v1",
+      "split": "development",
+      "total": 7,
+      "correctCurrent": 1,
+      "correctState": 1,
+      "falseCurrent": 6,
+      "falseStale": 0,
+      "stateMismatch": 6,
+      "rows": [
+        {
+          "projectId": "ordivon-finance",
+          "expectedCurrent": false,
+          "actualCurrent": true,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "exact",
+          "matchesCurrent": false,
+          "matchesState": false
+        },
+        {
+          "projectId": "ordivon-game",
+          "expectedCurrent": false,
+          "actualCurrent": true,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "exact",
+          "matchesCurrent": false,
+          "matchesState": false
+        },
+        {
+          "projectId": "ordivon-host",
+          "expectedCurrent": false,
+          "actualCurrent": true,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "exact",
+          "matchesCurrent": false,
+          "matchesState": false
+        },
+        {
+          "projectId": "ordivon-human",
+          "expectedCurrent": true,
+          "actualCurrent": true,
+          "expectedFreshnessState": "exact",
+          "actualFreshnessState": "exact",
+          "matchesCurrent": true,
+          "matchesState": true
+        },
+        {
+          "projectId": "ordivon-runtime",
+          "expectedCurrent": false,
+          "actualCurrent": true,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "exact",
+          "matchesCurrent": false,
+          "matchesState": false
+        },
+        {
+          "projectId": "ordivon-security",
+          "expectedCurrent": false,
+          "actualCurrent": true,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "exact",
+          "matchesCurrent": false,
+          "matchesState": false
+        },
+        {
+          "projectId": "ordivon-world",
+          "expectedCurrent": false,
+          "actualCurrent": true,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "exact",
+          "matchesCurrent": false,
+          "matchesState": false
+        }
+      ]
+    },
+    {
+      "policyId": "git_relation_freshness_v2",
+      "split": "development",
+      "total": 7,
+      "correctCurrent": 7,
+      "correctState": 7,
+      "falseCurrent": 0,
+      "falseStale": 0,
+      "stateMismatch": 0,
+      "rows": [
+        {
+          "projectId": "ordivon-finance",
+          "expectedCurrent": false,
+          "actualCurrent": false,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "owner_advanced",
+          "matchesCurrent": true,
+          "matchesState": true
+        },
+        {
+          "projectId": "ordivon-game",
+          "expectedCurrent": false,
+          "actualCurrent": false,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "owner_advanced",
+          "matchesCurrent": true,
+          "matchesState": true
+        },
+        {
+          "projectId": "ordivon-host",
+          "expectedCurrent": false,
+          "actualCurrent": false,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "owner_advanced",
+          "matchesCurrent": true,
+          "matchesState": true
+        },
+        {
+          "projectId": "ordivon-human",
+          "expectedCurrent": true,
+          "actualCurrent": true,
+          "expectedFreshnessState": "exact",
+          "actualFreshnessState": "exact",
+          "matchesCurrent": true,
+          "matchesState": true
+        },
+        {
+          "projectId": "ordivon-runtime",
+          "expectedCurrent": false,
+          "actualCurrent": false,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "owner_advanced",
+          "matchesCurrent": true,
+          "matchesState": true
+        },
+        {
+          "projectId": "ordivon-security",
+          "expectedCurrent": false,
+          "actualCurrent": false,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "owner_advanced",
+          "matchesCurrent": true,
+          "matchesState": true
+        },
+        {
+          "projectId": "ordivon-world",
+          "expectedCurrent": false,
+          "actualCurrent": false,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "owner_advanced",
+          "matchesCurrent": true,
+          "matchesState": true
+        }
+      ]
+    }
+  ],
+  "decision": {
+    "winnerPolicyId": "git_relation_freshness_v2",
+    "reason": "zero false-current/false-stale hard gate, then exact revision-relation state match"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:e4434375efbc54d0d4310fb1df7178da49c5244b9a301b53806798163598510b"
+  }
+}

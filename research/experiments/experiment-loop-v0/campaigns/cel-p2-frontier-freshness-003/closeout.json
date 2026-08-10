@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.cel-campaign-closeout",
+  "campaignId": "CEL-P2-FRONTIER-FRESHNESS-003",
+  "generation": 3,
+  "developmentDecision": {
+    "winnerPolicyId": "git_relation_freshness_v2",
+    "reason": "zero false-current/false-stale hard gate, then exact revision-relation state match"
+  },
+  "holdoutEvaluations": [
+    {
+      "policyId": "git_relation_freshness_v2",
+      "split": "holdout",
+      "total": 3,
+      "correctCurrent": 3,
+      "correctState": 3,
+      "falseCurrent": 0,
+      "falseStale": 0,
+      "stateMismatch": 0,
+      "rows": [
+        {
+          "projectId": "ordivon-harness",
+          "expectedCurrent": false,
+          "actualCurrent": false,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "owner_advanced",
+          "matchesCurrent": true,
+          "matchesState": true
+        },
+        {
+          "projectId": "ordivon-studio",
+          "expectedCurrent": false,
+          "actualCurrent": false,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "owner_advanced",
+          "matchesCurrent": true,
+          "matchesState": true
+        },
+        {
+          "projectId": "ordivon-web",
+          "expectedCurrent": false,
+          "actualCurrent": false,
+          "expectedFreshnessState": "owner_advanced",
+          "actualFreshnessState": "owner_advanced",
+          "matchesCurrent": true,
+          "matchesState": true
+        }
+      ]
+    }
+  ],
+  "disposition": "promote_third_generation_research_policy",
+  "researchPolicyWinner": "git_relation_freshness_v2",
+  "crossWorkloadTransfer": true,
+  "evidenceFamily": "owner-native cross-project Git revision freshness rather than P0 Provider/Trial evidence",
+  "automaticWorldModelRevision": false,
+  "automaticProductPromotion": false,
+  "meaning": "Revision movement creates review pressure and freshness state; it does not itself create a shared world-model claim.",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:447eef92c95b0a25a85ab1b36fb8aca4fc1cf4d909f9b40fc37efa6019cb6644"
+  }
+}

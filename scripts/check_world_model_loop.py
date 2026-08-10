@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-LOOP = ROOT / "research" / "world-model-loop-v1.json"
+LOOP = ROOT / "research" / "world-model-loop-v2.json"
 FRONTIER = ROOT / "research" / "world-model-frontier.json"
 ROUND = ROOT / "research" / "world-model-assimilation-round-001.json"
 REGISTRY = ROOT / "projects" / "registry.yaml"
@@ -33,7 +33,12 @@ def check() -> list[str]:
             issues.append(msg)
     req(loop.get("schemaVersion") == 1, "world-model loop schema differs")
     req(loop.get("kind") == "ordivon.world-model-loop", "world-model loop kind differs")
-    req(loop.get("loopId") == "WML-1-001", "world-model loop id differs")
+    req(loop.get("loopId") == "WML-2-001", "world-model loop id differs")
+    req(loop.get("supersedes") == "research/world-model-loop-v1.json#WML-1-001", "world-model loop v2 predecessor differs")
+    fs = loop.get("frontierSemantics", {})
+    req(fs.get("recordRole") == "historical_observation_frontier", "frontier role differs")
+    req(fs.get("freshnessPolicy") == "git_relation_freshness_v2", "freshness policy differs")
+    req(fs.get("assessorRef") == "scripts/assess_world_model_freshness.py", "freshness assessor differs")
     req(loop.get("integrity", {}).get("payloadDigest") == digest(loop), "world-model loop digest differs")
     expected_stages = ["OBSERVE_PROJECT_DELTAS","EXTRACT_MODEL_PRESSURE","COMPARE_ACROSS_WORLDS","REVISE_OR_RETAIN","PROPAGATE_AS_QUESTIONS","PROJECT_RETEST","REASSIMILATE"]
     req([s.get("stage") for s in loop.get("stages", [])] == expected_stages, "world-model loop stages differ")
@@ -44,7 +49,7 @@ def check() -> list[str]:
     req(frontier.get("observedByRound") == "research/world-model-assimilation-round-001.json", "world-model frontier is not bound to accepted round 001")
     req(frontier.get("schemaVersion") == 1, "world-model frontier schema differs")
     req(frontier.get("kind") == "ordivon.world-model-assimilation-frontier", "world-model frontier kind differs")
-    req(frontier.get("loopRef") == "research/world-model-loop-v1.json", "world-model frontier loop binding differs")
+    req(frontier.get("loopRef") == "research/world-model-loop-v1.json", "historical world-model frontier loop binding differs")
     req(frontier.get("ownerFactsCopied") is False, "world-model frontier may not copy owner facts")
     req(frontier.get("integrity", {}).get("payloadDigest") == digest(frontier), "world-model frontier digest differs")
     registry_ids = [m.group(1) for line in REGISTRY.read_text(encoding="utf-8").splitlines() if (m := re.fullmatch(r"  - id: (ordivon-[a-z0-9-]+)", line))]
