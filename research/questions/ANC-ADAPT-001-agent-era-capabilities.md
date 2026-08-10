@@ -108,6 +108,14 @@ It does not satisfy the whole umbrella question. Skill compilation, multi-partic
 
 The current machine closeout is [`../experiments/experiment-loop-v0/p1-bounded-rsi-closeout.json`](../experiments/experiment-loop-v0/p1-bounded-rsi-closeout.json), with current plan [`../experiments/experiment-loop-v0/plan-v5.json`](../experiments/experiment-loop-v0/plan-v5.json).
 
+## P2 cross-evidence-family update
+
+P2 tested whether the improved self-research loop transferred beyond the P0 Trial/Provider evidence family. The falsifier came from Computing's own world-model observation method: the retained Round 001 frontier still contained structurally valid Git revisions, but 9 of 10 owner repositories had advanced while the structural checker could still report `OK`.
+
+`git_relation_freshness_v2` separates historical observation validity from currentness and classifies `exact`, `owner_advanced`, `checkout_behind_observation`, `diverged`, and `observed_unavailable`. Revision movement creates review pressure only; it does not automatically revise the shared world model. Against 7 development owners, the old syntax-only rule produced 6 false-current decisions while the new policy was 7/7 with no false-current or false-stale decisions. The frozen Harness/Studio/Web holdout was 3/3. The promotion was then reverted in an independent Runtime Workspace and the preceding 26 CEL tests plus the world-model checker passed.
+
+This raises the self-evolution slice to **M5**: the improved loop survived a materially different cross-project evidence family and a third reversible self-change. It still does not complete `ANC-ADAPT-001`; Skill compilation, multi-participant adaptation, and open-ended recursive capability growth remain unproven.
+
 ## Evidence required for progress
 
 - learning improves a repeated workload without merely adding more context or model budget;

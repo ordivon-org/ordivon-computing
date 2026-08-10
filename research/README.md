@@ -28,8 +28,8 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 
 ## Purpose
 
-- [`world-model-loop-v1.json`](world-model-loop-v1.json) — machine-readable closed loop for project-evidence assimilation, cross-project comparison, shared world-model revision, and project re-test;
-- [`world-model-frontier.json`](world-model-frontier.json) — Computing-owned assimilation state binding exact observed project revisions without copying product maturity or domain state;
+- [`world-model-loop-v2.json`](world-model-loop-v2.json) — current machine-readable closed loop with explicit historical-observation/currentness separation for project-evidence assimilation, cross-project comparison, shared world-model revision, and project re-test;
+- [`world-model-frontier.json`](world-model-frontier.json) — historical Round-001 assimilation frontier; currentness is assessed separately by [`world-model-freshness-p2.json`](world-model-freshness-p2.json) and `scripts/assess_world_model_freshness.py`;
 - [`WORLD-MODEL-LOOP.md`](WORLD-MODEL-LOOP.md) — human-readable projection of the world-model loop;
 - [`world-model-assimilation-round-001.json`](world-model-assimilation-round-001.json) and [`WORLD-MODEL-ASSIMILATION-001.md`](WORLD-MODEL-ASSIMILATION-001.md) — first accepted return pass from current project practice into shared Core claims;
 - [`experiments/world-model-a6-cross-domain-v0/`](experiments/world-model-a6-cross-domain-v0/) — first lower-half world-model re-test: Finance evidence tests Agent-owned source selection against full and caller-preselected views, including scale and campaign-recovery pressure;
@@ -45,7 +45,7 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 - [`portfolio.json`](portfolio.json) — authoritative research status, maturity, blockers, next falsifiers, and WIP lines;
 - [`P0-P1-CONSUMER-FALSIFICATION-DESIGN.md`](P0-P1-CONSUMER-FALSIFICATION-DESIGN.md) — P0 closeout plus remaining P1 and conditional owner-native follow-up boundaries for Harness retention, authority timing, ordinary Web production, and MCP contract freshness;
 - [`experiments/p0-consumer-falsification-v0/`](experiments/p0-consumer-falsification-v0/) — deterministic apparatus plus retained live Provider evidence: five one-shot/Harness pairs and three ACT/HOLD authority-timing pairs per treatment under exact revision-bound contracts;
-- [`experiments/experiment-loop-v0/`](experiments/experiment-loop-v0/) — P1 file/Git Continuous Experiment Loop closeout: stale prerequisite recompilation, a 25-trajectory first self-change with frozen holdout and rollback, and a second-generation self-change driven by the improved loop; claim is bounded recursive self-improvement evidence, not open-ended RSI;
+- [`experiments/experiment-loop-v0/`](experiments/experiment-loop-v0/) — P2 file/Git Continuous Experiment Loop closeout: two P1 self-changes plus a third cross-evidence-family world-model freshness change with frozen holdout and physical rollback; claim remains bounded recursive self-improvement with transfer, not open-ended RSI;
 - [`experiments/p1b-mcp-contract-freshness-v0/`](experiments/p1b-mcp-contract-freshness-v0/) — historical pre-refresh MCP catalog/snapshot drift evidence; refreshed Runtime/Host connector functionality is now closed and referenced by the P0 live closeout;
 - [`PORTFOLIO.md`](PORTFOLIO.md) — generated human-readable portfolio and Ready Frontier;
 - [`map.yaml`](map.yaml) — stable typed relations among construction tracks and research questions;
@@ -62,7 +62,7 @@ Research may contain alternatives, failed experiments, changing terminology, and
 
 ## Start here
 
-- [`world-model-loop-v1.json`](world-model-loop-v1.json) defines how owner-native project evidence can challenge and revise the shared world model without centralizing project facts.
+- [`world-model-loop-v2.json`](world-model-loop-v2.json) defines how owner-native project evidence can challenge and revise the shared world model while separating historical observation validity from currentness.
 - [`research-method-v1.json`](research-method-v1.json) defines how an Agent turns one specific class of observed work burden into a falsifiable externalization experiment. It is a method consumed by the broader world-model loop, not the universal research method.
 - [`computer-responsibility-map-v1.json`](computer-responsibility-map-v1.json) is the current reform input for Ordivon Computer; it classifies durable responsibilities, classical owners, product-specific packaging, and conditional cognition candidates without changing product authority.
 - [`portfolio.json`](portfolio.json) is the mutable source of truth for line status, maturity, blockers, falsifiers, and disposition.

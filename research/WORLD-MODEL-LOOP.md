@@ -13,7 +13,7 @@ audience:
   - researcher
   - builder
   - agent
-updated: 2026-08-09
+updated: 2026-08-10
 summary: Canonical human projection of how project evidence revises Ordivon's shared world model and returns falsifiable implications to independent project owners.
 evidence_status: not_applicable
 readiness: READY
@@ -25,7 +25,7 @@ related:
 ---
 # World Model Loop
 
-The machine authority is [`world-model-loop-v1.json`](world-model-loop-v1.json). The current assimilation state is [`world-model-frontier.json`](world-model-frontier.json).
+The current machine authority is [`world-model-loop-v2.json`](world-model-loop-v2.json). [`world-model-frontier.json`](world-model-frontier.json) remains the accepted Round-001 historical observation frontier; [`world-model-freshness-p2.json`](world-model-freshness-p2.json) is a later freshness assessment, not a replacement owner-state registry.
 
 ## World model
 
@@ -64,6 +64,13 @@ independent project re-test
 ```
 
 The return edge is mandatory. A reform is incomplete when Computing sends a new principle into projects but never re-observes what the projects discovered after using it.
+
+
+## Historical observation is not currentness
+
+P2 exposed a method failure: an exact observed Git revision can remain valid historical evidence after its owner repository has advanced. A structural checker that only validates SHA syntax can therefore produce a false sense of currentness. WML v2 requires current cross-project claims to classify the relation between the retained observation and the selected owner source: `exact`, `owner_advanced`, `checkout_behind_observation`, `diverged`, or `observed_unavailable`.
+
+This classification is sensing only. `owner_advanced` means Computing should review new owner evidence before asserting current state; it does **not** mean the shared world model changed, and it does not authorize copying owner-native mutable facts.
 
 ## What returns to Computing
 

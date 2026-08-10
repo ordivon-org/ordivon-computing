@@ -26,7 +26,7 @@
 
 | ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
-| ANC-ADAPT-001 | M4 | P1 | ordivon-computing | — | — | — | P1 is closed for the bounded self-evolution slice. Retain CEL-R4-005 as the minimum file/Git research loop; do not add a daemon, database, generic World-Model driver, or unrestricted recursion. The next admissible work is a materially different self-change or owner-native confirmation that tests transfer beyond the P0-family corpus. Keep distribution authority as a separate P2 question. | A materially different self-change or owner-native workload fails held-out evaluation, rollback, or transfer under the promoted campaign-declared evidence and capability-evidence policies; or the improved loop cannot drive another verified change without adding duplicated authority. |
+| ANC-ADAPT-001 | M5 | P1 | ordivon-computing | — | — | — | P2 closes the cross-evidence-family self-evolution slice at M5: retain campaign-declared evidence, capability-evidence prerequisites, and git-relation freshness. Next test Skill compilation or multi-participant adaptation; do not widen to open-ended RSI or add a generic self-modification platform. | A third materially different adaptation class fails: dynamic Skill compilation does not improve repeated work after contract/rollback costs, multi-participant adaptation cannot improve coordination without duplicate Effects or ambiguous responsibility, or the cross-evidence freshness policy fails on a later non-Git owner evidence carrier. |
 
 ### Blocked
 

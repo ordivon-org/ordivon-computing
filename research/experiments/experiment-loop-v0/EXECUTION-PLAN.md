@@ -1,8 +1,8 @@
 # Continuous Experiment Loop v0 Execution Plan
 
-Status: historical v1 design retained; P1 implementation and bounded recursive self-reform closeout completed in `CEL-R4-005`.
+Status: historical v1 design retained; P2 bounded recursive self-reform with cross-evidence-family transfer is closed in `CEL-R4-007`.
 
-Historical plan: `CEL-R4-001`. Current plan: `CEL-R4-005` in `plan-v5.json`.
+Historical plan: `CEL-R4-001`. Current plan: `CEL-R4-007` in `plan-v7.json`.
 
 Research method: [`../../research-method-v1.json`](../../research-method-v1.json) (`AFR-M1-001`). CEL-R4 is the first bounded consumer of the Agent-first burden-to-externalization method; it does not own the method or portfolio status.
 

@@ -1,8 +1,8 @@
 # Experiment Loop v0
 
-Status: P1 bounded self-reform closeout complete.
+Status: P2 bounded cross-evidence-family self-reform closeout complete.
 
-Current plan: `CEL-R4-005` in [`plan-v5.json`](plan-v5.json). Historical `plan-v1.json` remains the original B5-era design; v2–v5 retain the evidence-backed reform sequence rather than rewriting that history.
+Current plan: `CEL-R4-007` in [`plan-v7.json`](plan-v7.json). Historical `plan-v1.json` remains the original B5-era design; v2–v7 retain the evidence-backed reform sequence rather than rewriting that history.
 
 This Track R experiment now implements the smallest file/Git-backed Agent-led loop needed to test changes to Ordivon Computing's own research policy without creating a second Host, scheduler, model router, database, deployment authority, or self-modification service.
 
@@ -43,6 +43,13 @@ Baseline `named_phase_status_v1` incorrectly blocked the current capability-comp
 
 The second-generation policy was promoted in `plan-v4.json`, then independently reverted in a fresh Runtime Workspace. The first-generation state's 17 CEL tests and `git diff --check` passed after rollback. `plan-v5.json` records both generations and both rollback proofs.
 
+
+## Third-generation cross-evidence-family self-change
+
+P2 moved away from the P0 Provider/Trial corpus. Campaign [`campaigns/cel-p2-frontier-freshness-003/`](campaigns/cel-p2-frontier-freshness-003/) tested Computing's own world-model observation freshness across ten owner repositories. The syntax-only baseline marked six stale development observations current; `git_relation_freshness_v2` was 7/7 development and 3/3 frozen holdout with zero false-current/false-stale decisions. An independent rollback Workspace reverted the promotion and passed the preceding 26 CEL tests and world-model checker.
+
+The resulting method is [`../../world-model-loop-v2.json`](../../world-model-loop-v2.json): historical observation validity and currentness are distinct, and owner revision movement creates review pressure rather than automatic shared-model change. This establishes transfer to a materially different evidence family, not open-ended RSI.
+
 ## Claim boundary
 
 P1 establishes **bounded recursive self-improvement evidence** in Computer research policy:
@@ -68,7 +75,9 @@ The proposed generic World-Model return-edge driver is rejected for now. The cur
 - [`plan-v2.json`](plan-v2.json) — capability-evidence prerequisite recompilation and minimal self-customer frontier;
 - [`plan-v3.json`](plan-v3.json) — first-generation selection policy promotion;
 - [`plan-v4.json`](plan-v4.json) — second-generation prerequisite-policy promotion before rollback proof;
-- [`plan-v5.json`](plan-v5.json) — current P1 closeout plan with both rollback proofs;
+- [`plan-v5.json`](plan-v5.json) — P1 closeout plan with both P1 rollback proofs;
+- [`plan-v7.json`](plan-v7.json) — current P2 plan with third-generation cross-evidence transfer and rollback;
+- [`p2-bounded-rsi-closeout.json`](p2-bounded-rsi-closeout.json) — machine-readable P2 claim boundary;
 - [`recompile-receipt-v2.json`](recompile-receipt-v2.json) — exact old→new prerequisite decision;
 - [`p1-bounded-rsi-closeout.json`](p1-bounded-rsi-closeout.json) — machine-readable P1 claim boundary and evidence index;
 - [`cel.py`](cel.py) — minimal file-backed record, eligibility, evaluation, and deterministic selection logic;
