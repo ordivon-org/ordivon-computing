@@ -63,10 +63,13 @@ def check() -> list[str]:
 
     method_ref = receipt.get("researchMethodRef")
     conclusion_ref = receipt.get("durableConclusionRef")
-    for label, relative in (("research method", method_ref), ("durable conclusion", conclusion_ref)):
-        require(isinstance(relative, str) and bool(relative), f"{label} ref is invalid", issues)
-        if isinstance(relative, str):
-            require((ROOT / relative).is_file(), f"{label} ref is missing: {relative}", issues)
+    require(isinstance(method_ref, str) and bool(method_ref), "historical research method ref is invalid", issues)
+    if isinstance(method_ref, str) and isinstance(source_revision, str):
+        method = git("show", f"{source_revision}:{method_ref}")
+        require(method.returncode == 0, f"historical research method is not Git-recoverable: {method_ref}", issues)
+    require(isinstance(conclusion_ref, str) and bool(conclusion_ref), "durable conclusion ref is invalid", issues)
+    if isinstance(conclusion_ref, str):
+        require((ROOT / conclusion_ref).is_file(), f"durable conclusion ref is missing: {conclusion_ref}", issues)
 
     removed = receipt.get("removedStudies")
     require(isinstance(removed, list) and bool(removed), "removed study set is empty", issues)

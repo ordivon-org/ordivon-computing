@@ -184,6 +184,6 @@ Unanswered proposals remain outside Core. Existing structures receive no presump
 
 ## 9. Research path
 
-The governing research method is [`../research/research-method-v1.json`](../research/research-method-v1.json). The evidence-backed Computer disposition is [`../research/computer-responsibility-map-v1.json`](../research/computer-responsibility-map-v1.json), with a human projection in [`../research/COMPUTER-RESPONSIBILITY-REVIEW.md`](../research/COMPUTER-RESPONSIBILITY-REVIEW.md).
+The reusable research discipline is the narrow [`../research/experiment-contract-v1.json`](../research/experiment-contract-v1.json) declaration template. Each experiment freezes its own exact evidence, evaluator, authority, stop/deletion, and rollback contract; the template is not semantic authority. The evidence-backed Computer disposition is [`../research/computer-responsibility-map-v1.json`](../research/computer-responsibility-map-v1.json), with a human projection in [`../research/COMPUTER-RESPONSIBILITY-REVIEW.md`](../research/COMPUTER-RESPONSIBILITY-REVIEW.md).
 
 Reusable reasoning lives in [`../knowledge/agents/capability-externalization-and-responsibility-placement.md`](../knowledge/agents/capability-externalization-and-responsibility-placement.md). Historical derivations remain recoverable from Git rather than occupying the active architecture path.

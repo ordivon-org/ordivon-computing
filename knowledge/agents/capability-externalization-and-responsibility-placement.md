@@ -132,7 +132,7 @@ Knowledge contains reusable conclusions. Core contains only compact responsibili
 
 ## Research loop
 
-The operational method is [`../../research/research-method-v1.json`](../../research/research-method-v1.json):
+The operational method is [`../../research/experiment-contract-v1.json`](../../research/experiment-contract-v1.json):
 
 ```text
 observe Agent burden

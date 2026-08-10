@@ -42,8 +42,8 @@ def check() -> list[str]:
     require(document.get("kind") == "ordivon.computer-responsibility-map", "responsibility map kind differs", issues)
     require(document.get("mapId") == "ACR-M1-001", "responsibility map identity differs", issues)
     require(document.get("status") == "active_reform_input", "responsibility map status differs", issues)
-    require(document.get("methodRef") == "research/research-method-v1.json", "responsibility map method binding differs", issues)
-    require((ROOT / "research" / "research-method-v1.json").is_file(), "Agent-first research method is missing", issues)
+    require(document.get("methodRef") == "research/experiment-contract-v1.json", "responsibility map experiment-contract binding differs", issues)
+    require((ROOT / "research" / "experiment-contract-v1.json").is_file(), "current experiment-local contract template is missing", issues)
     require((ROOT / "research" / "COMPUTER-RESPONSIBILITY-REVIEW.md").is_file(), "human responsibility review is missing", issues)
 
     integrity = document.get("integrity")

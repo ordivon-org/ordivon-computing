@@ -36,7 +36,7 @@ REQUIRED_PATHS = (
     "research/WORLD-MODEL-LOOP.md",
     "research/world-model-assimilation-round-001.json",
     "research/WORLD-MODEL-ASSIMILATION-001.md",
-    "research/research-method-v1.json",
+    "research/experiment-contract-v1.json",
     "research/computer-responsibility-map-v1.json",
     "research/COMPUTER-RESPONSIBILITY-REVIEW.md",
     "research/evidence/agent-first-historical-research-compression-f95d721.json",
