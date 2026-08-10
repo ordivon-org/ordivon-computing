@@ -1,12 +1,12 @@
 # Continuous Experiment Loop v0 Execution Plan
 
-Status: execution designed; implementation not started.
+Status: historical v1 design retained; P1 implementation and bounded recursive self-reform closeout completed in `CEL-R4-005`.
 
-Plan: `CEL-R4-001`.
+Historical plan: `CEL-R4-001`. Current plan: `CEL-R4-005` in `plan-v5.json`.
 
 Research method: [`../../research-method-v1.json`](../../research-method-v1.json) (`AFR-M1-001`). CEL-R4 is the first bounded consumer of the Agent-first burden-to-externalization method; it does not own the method or portfolio status.
 
-Questions: primary `ANC-VERIFY-001`; downstream consumer `ANC-ADAPT-001` remains blocked until repeated trajectory and promotion evidence exists.
+Questions: the historical design was downstream of `ANC-VERIFY-001`; P1 now supplies live evidence to `ANC-ADAPT-001`. The v1 dependency sequence below is retained as historical design evidence, not current readiness authority.
 
 ## 1. Decision
 
@@ -756,19 +756,32 @@ Stop and redesign if:
 
 Delete or narrow CEL-R4 if its only result is orchestration overhead around scripts and receipts that are already easy to operate directly.
 
-## 16. Ready Frontier
+## 16. P1 execution return
 
-CEL-R4 implementation does not begin now.
+The original Ready Frontier above was falsified as a current dependency graph: it treated historical phase-name status as authority even after current P0 supplied the actual evidence capabilities required by CEL. P1 preserved v1 unchanged as history and created successive plan revisions instead of marking old B5 work complete by fiat.
 
-The immediate sequence is:
+The executed sequence was:
 
 ```text
-finish HHO-P0 closeout
-→ implement and accept HHO-P1 Core
-→ execute HHR-R3 deterministic smoke and repeated native baseline
-→ freeze TrialDisposition and ObservationSelectionManifest from real evidence
-→ implement CEL-R4 E0 shadow records
-→ run E1 Observation Gateway self-optimization
+P0 retained evidence
+→ recompile named phase prerequisites into capability evidence (`plan-v2.json`)
+→ implement the minimum file/Git CEL executor
+→ freeze 25 P0-family trajectories (20 development / 5 holdout)
+→ E1: trial-selection evidence policy self-change
+→ held-out pass
+→ isolated rollback rehearsal
+→ E2: improved CEL changes its own prerequisite resolver
+→ leave-one-capability-out controls + held-out pass
+→ isolated second-generation rollback rehearsal
+→ `plan-v5.json` / P1 closeout
 ```
 
-Before that point, current P0 and P1 engineering may use CEL terminology as design guidance, but must not claim an automated discovery loop.
+E1 replaced the false universal law `Observation completeness is required for every Trial` with `the exact Campaign declares the evidence claims required for selection`. The old policy false-excluded 18/20 development cases; the new policy was 20/20 on development and 5/5 on frozen holdout with zero false inclusions.
+
+E2 used the improved loop to replace `historical phase status owns readiness` with `exact required capability evidence owns readiness`. The old policy false-blocked the positive development case; the new policy was 5/5 on development and 2/2 on holdout, including a fail-closed missing-capability control.
+
+Both promoted research changes were reverted in fresh isolated Runtime Workspaces and the preceding CEL test state passed after rollback. No owner state was modified by either rehearsal.
+
+The current Ready Frontier is therefore not more CEL construction. `CEL-R4-005` is sufficient for the proven bounded workload. Reopen construction only when a materially different self-change or world-model assimilation cycle exposes a failure that these file-backed records cannot express. A generic World-Model return-edge driver, daemon, database, scheduler, automatic merge/deploy path, and unrestricted recursion remain rejected absent such evidence.
+
+This P1 result is **bounded recursive self-improvement evidence in Computer research policy**, not evidence of open-ended RSI or general autonomous capability growth.

@@ -22,11 +22,16 @@
 | ANC-STACK-001 | M5 | reference | ordivon-computing | — | — | — | Use as the admission test; reopen only on contradictory evidence. | A cross-workload failure reveals a necessary responsibility absent from the current substrate/overlay split. |
 | ANC-HARNESS-002 | M5 | reference | ordivon-harness | — | 5a42afdf5e01 | — | Retain and localize the current public DomainToolLoopRunner as an evidence-backed bounded bare-model Tool-cognition surface. In the corrected P0 live group H was accepted 3/5 and produced 4/5 verifier-passing candidates versus S at 0/5 and 0/5, at about 7.93x the average Provider-token cost. Do not expand HarnessAgentRun for this benchmark; keep H2 advanced/internal and reopen broader composition only for a natural independent consumer. | A materially different workload or strong Provider-native Harness matches the bounded repository-repair and current independent-consumer needs with equal correctness, recovery and evidence quality at materially lower recurring cost, eliminating the remaining reason to retain the public bare-model Tool loop. |
 
+### Ready
+
+| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-ADAPT-001 | M4 | P1 | ordivon-computing | — | — | — | P1 is closed for the bounded self-evolution slice. Retain CEL-R4-005 as the minimum file/Git research loop; do not add a daemon, database, generic World-Model driver, or unrestricted recursion. The next admissible work is a materially different self-change or owner-native confirmation that tests transfer beyond the P0-family corpus. Keep distribution authority as a separate P2 question. | A materially different self-change or owner-native workload fails held-out evaluation, rollback, or transfer under the promoted campaign-declared evidence and capability-evidence policies; or the improved loop cannot drive another verified change without adding duplicated authority. |
+
 ### Blocked
 
 | ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
-| ANC-ADAPT-001 | M1 | P3 | ordivon-computing | — | — | 20-50-homogeneous-task-trajectories, CEL-R4-current-prerequisite-recompile | P0 evaluation is no longer a blocker. Remain blocked until the next Computer phase recompiles CEL-R4 against current P0/Trial evidence instead of the retired B5 prerequisite chain, then collect 20–50 homogeneous trajectories before changing one Skill, Context policy, stopping policy, or system configuration through shadow, canary and rollback. | A versioned Skill or Context-policy change fails held-out Tasks or cannot beat a fixed baseline after rollback costs. |
 | ANC-SECURITY-005 | M0 | P3 | ordivon-security | — | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-MULTI-001 | No implementation until single-actor strategic and opponent-model hypotheses survive. | Ordinary Host delegation and branch/join plus domain-local trust fields explain the first compromise scenario. |
 | ANC-SECURITY-006 | M0 | P3 | ordivon-security | — | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-SECURITY-005, ANC-VERIFY-001, ordivon-security#20 | No platform or training loop until the unit of strategic evaluation is proven. | Held-out static-opponent evaluation predicts the same architecture decisions as coevolution with lower cost. |
 

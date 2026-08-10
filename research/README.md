@@ -45,6 +45,7 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 - [`portfolio.json`](portfolio.json) — authoritative research status, maturity, blockers, next falsifiers, and WIP lines;
 - [`P0-P1-CONSUMER-FALSIFICATION-DESIGN.md`](P0-P1-CONSUMER-FALSIFICATION-DESIGN.md) — P0 closeout plus remaining P1 and conditional owner-native follow-up boundaries for Harness retention, authority timing, ordinary Web production, and MCP contract freshness;
 - [`experiments/p0-consumer-falsification-v0/`](experiments/p0-consumer-falsification-v0/) — deterministic apparatus plus retained live Provider evidence: five one-shot/Harness pairs and three ACT/HOLD authority-timing pairs per treatment under exact revision-bound contracts;
+- [`experiments/experiment-loop-v0/`](experiments/experiment-loop-v0/) — P1 file/Git Continuous Experiment Loop closeout: stale prerequisite recompilation, a 25-trajectory first self-change with frozen holdout and rollback, and a second-generation self-change driven by the improved loop; claim is bounded recursive self-improvement evidence, not open-ended RSI;
 - [`experiments/p1b-mcp-contract-freshness-v0/`](experiments/p1b-mcp-contract-freshness-v0/) — historical pre-refresh MCP catalog/snapshot drift evidence; refreshed Runtime/Host connector functionality is now closed and referenced by the P0 live closeout;
 - [`PORTFOLIO.md`](PORTFOLIO.md) — generated human-readable portfolio and Ready Frontier;
 - [`map.yaml`](map.yaml) — stable typed relations among construction tracks and research questions;

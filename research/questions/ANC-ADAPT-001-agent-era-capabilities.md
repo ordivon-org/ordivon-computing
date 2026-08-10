@@ -95,6 +95,19 @@ Use Ordivon Game and Ordivon Security as two deliberately different workload fam
 
 The program may be split into smaller experiments. The capabilities should remain connected by shared identities and evidence rather than becoming unrelated frameworks.
 
+## P1 evidence update
+
+The first admitted self-evolution evidence did not require waiting for Game/Security or constructing a shared adaptation platform. Computer P1 used current P0 evidence as its own bounded self-customer and changed two research-local policies under independent held-out evaluation and rollback:
+
+1. `campaign_declared_evidence_v2` replaced the false universal requirement that every Trial must have Observation-plane completeness. On 20 development trajectories it removed 18 false exclusions with zero false inclusions, then passed all 5 frozen holdout trajectories. The promoted revision was independently reverted in a fresh Runtime Workspace and the preceding CEL test state passed.
+2. The improved loop then selected `capability_evidence_v1` to replace historical phase-name readiness with exact capability evidence. It passed all 5 development cases and both frozen holdout cases, including leave-one-capability-out fail-closed controls. That second-generation revision was also independently reverted and the first-generation test state passed.
+
+This satisfies the **self-evolution** slice of this question at bounded M4 evidence: Ordivon Computing changed its own research-selection and prerequisite policies through versioned evidence, isolated execution, independent evaluation, promotion, and rollback, then used the improved loop to drive another change to itself.
+
+It does not satisfy the whole umbrella question. Skill compilation, multi-participant adaptation, materially different workload transfer, and open-ended recursive improvement remain unproven. The next falsifier should therefore come from a materially different self-change or owner-native workload, not from adding more infrastructure to the same P0 corpus.
+
+The current machine closeout is [`../experiments/experiment-loop-v0/p1-bounded-rsi-closeout.json`](../experiments/experiment-loop-v0/p1-bounded-rsi-closeout.json), with current plan [`../experiments/experiment-loop-v0/plan-v5.json`](../experiments/experiment-loop-v0/plan-v5.json).
+
 ## Evidence required for progress
 
 - learning improves a repeated workload without merely adding more context or model budget;
@@ -130,5 +143,5 @@ This question does not justify:
 - [`../../knowledge/agents/goal-task-effect.md`](../../knowledge/agents/goal-task-effect.md)
 - [`../../knowledge/institutions/plural-intelligence-organization.md`](../../knowledge/institutions/plural-intelligence-organization.md)
 - [`../../studies/2026-adaptive-acceleration/README.md`](../../studies/2026-adaptive-acceleration/README.md)
-- [`../experiments/experiment-loop-v0/`](../experiments/experiment-loop-v0/) — bounded pre-adaptation Campaign plan; does not unblock this question by design alone.
+- [`../experiments/experiment-loop-v0/`](../experiments/experiment-loop-v0/) — bounded file/Git CEL with P1 first- and second-generation self-change evidence; supports only the self-evolution slice and does not imply open-ended RSI.
 - `ordivon-host`, `ordivon-runtime`, `ordivon-game`, `ordivon-security`, and `ordivon-world`
