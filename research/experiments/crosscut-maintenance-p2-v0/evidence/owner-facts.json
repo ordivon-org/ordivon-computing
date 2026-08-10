@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.crosscut-p2-owner-facts",
+  "delivery": {
+    "runtime": {
+      "schemaVersion": 1,
+      "kind": "ordivon.crosscut-delivery-projection",
+      "truthRole": "rebuildable-read-only-projection",
+      "owner": "ordivon-runtime",
+      "deployable": true,
+      "observations": {
+        "source": {
+          "revision": "053adf74de851ad569963d7826b29599ebfc468b",
+          "known": true
+        },
+        "published": {
+          "revision": "6b0966d7127b5c936ab6172d1715a6500b1f47d5",
+          "known": true,
+          "authority": "git-remote:origin/main"
+        },
+        "active": {
+          "revision": "053adf74de851ad569963d7826b29599ebfc468b",
+          "known": true,
+          "authority": "ordivon-runtime deployment receipt"
+        }
+      },
+      "state": "active_source_not_published",
+      "gaps": [
+        "source_vs_published",
+        "published_vs_active"
+      ],
+      "truthBoundary": {
+        "sourceAuthorityRemainsGitOwner": true,
+        "publicationAuthorityRemainsRemoteOwner": true,
+        "activationAuthorityRemainsRuntimeOwner": true,
+        "projectionMayNotDeployOrPublish": true,
+        "revisionEqualityDoesNotClaimAncestry": true
+      }
+    },
+    "computing": {
+      "schemaVersion": 1,
+      "kind": "ordivon.crosscut-delivery-projection",
+      "truthRole": "rebuildable-read-only-projection",
+      "owner": "ordivon-computing",
+      "deployable": false,
+      "observations": {
+        "source": {
+          "revision": "2b6d172c36ce6f88dfb062a3778e701aa5707b3e",
+          "known": true
+        },
+        "published": {
+          "revision": "2b6d172c36ce6f88dfb062a3778e701aa5707b3e",
+          "known": true,
+          "authority": "git-remote:origin/main"
+        },
+        "active": {
+          "revision": null,
+          "known": false,
+          "authority": null
+        }
+      },
+      "state": "source_published",
+      "gaps": [],
+      "truthBoundary": {
+        "sourceAuthorityRemainsGitOwner": true,
+        "publicationAuthorityRemainsRemoteOwner": true,
+        "activationAuthorityRemainsRuntimeOwner": true,
+        "projectionMayNotDeployOrPublish": true,
+        "revisionEqualityDoesNotClaimAncestry": true
+      }
+    },
+    "world": {
+      "schemaVersion": 1,
+      "kind": "ordivon.crosscut-delivery-projection",
+      "truthRole": "rebuildable-read-only-projection",
+      "owner": "ordivon-world",
+      "deployable": false,
+      "observations": {
+        "source": {
+          "revision": "c0483e93b9b7386cc14df5e4860625136250c4ce",
+          "known": true
+        },
+        "published": {
+          "revision": "c0483e93b9b7386cc14df5e4860625136250c4ce",
+          "known": true,
+          "authority": "git-remote:origin/main"
+        },
+        "active": {
+          "revision": null,
+          "known": false,
+          "authority": null
+        }
+      },
+      "state": "source_published",
+      "gaps": [],
+      "truthBoundary": {
+        "sourceAuthorityRemainsGitOwner": true,
+        "publicationAuthorityRemainsRemoteOwner": true,
+        "activationAuthorityRemainsRuntimeOwner": true,
+        "projectionMayNotDeployOrPublish": true,
+        "revisionEqualityDoesNotClaimAncestry": true
+      }
+    }
+  },
+  "runtimeHealth": {
+    "status": "healthy",
+    "toolCount": 22,
+    "recoveryRequired": 0
+  },
+  "workstation": {
+    "doctorStatus": "fail",
+    "doctorSummary": {
+      "checks": 281,
+      "errors": 2,
+      "warnings": 1
+    },
+    "msitools": {
+      "detail": null,
+      "expected": "not installed, unless covered by an exact active temporary-equipment lease",
+      "name": "package-forbidden:msitools",
+      "observed": {
+        "package": "msitools 0.106-3",
+        "temporaryLease": {
+          "active": false,
+          "installedVersion": "0.106-3",
+          "package": "msitools",
+          "provider": "pacman",
+          "state": "absent"
+        }
+      },
+      "ok": false,
+      "severity": "error"
+    },
+    "temporaryEquipment": {
+      "active": false,
+      "installedVersion": "0.106-3",
+      "package": "msitools",
+      "provider": "pacman",
+      "state": "absent"
+    },
+    "networkProfileB": {
+      "detail": null,
+      "expected": {
+        "nativeDevice": "gateway-backed current candidate",
+        "preference": 10202,
+        "table": 202,
+        "user": "cloudflared-direct-b"
+      },
+      "name": "network:direct-profile:B",
+      "observed": {
+        "candidateDevices": [
+          "eth3",
+          "eth4"
+        ],
+        "device": "eth0",
+        "routeGet": "198.41.192.57 dev eth0 src 10.14.0.2 uid 950 \n    cache",
+        "routeReport": null,
+        "routes": "",
+        "rulePresent": true,
+        "uid": 950
+      },
+      "ok": false,
+      "severity": "error"
+    }
+  },
+  "eventPlans": {
+    "runtime.release.result": {
+      "eventKind": "runtime.release.result",
+      "targetedSignals": [
+        "source-delivery",
+        "runtime-health"
+      ],
+      "reconcile": true,
+      "fullGlobalScanRequired": false,
+      "decision": "targeted_reobserve",
+      "centralEffectAuthorized": false
+    },
+    "git.publish.result": {
+      "eventKind": "git.publish.result",
+      "targetedSignals": [
+        "source-delivery"
+      ],
+      "reconcile": true,
+      "fullGlobalScanRequired": false,
+      "decision": "targeted_reobserve",
+      "centralEffectAuthorized": false
+    },
+    "workstation.temporary-equipment.acquire": {
+      "eventKind": "workstation.temporary-equipment.acquire",
+      "targetedSignals": [
+        "temporary-equipment",
+        "workstation-package-policy"
+      ],
+      "reconcile": true,
+      "fullGlobalScanRequired": false,
+      "decision": "targeted_reobserve",
+      "centralEffectAuthorized": false
+    },
+    "workstation.temporary-equipment.release": {
+      "eventKind": "workstation.temporary-equipment.release",
+      "targetedSignals": [
+        "temporary-equipment",
+        "workstation-package-policy"
+      ],
+      "reconcile": true,
+      "fullGlobalScanRequired": false,
+      "decision": "targeted_reobserve",
+      "centralEffectAuthorized": false
+    },
+    "runtime.workspace.closed": {
+      "eventKind": "runtime.workspace.closed",
+      "targetedSignals": [
+        "workspace-lifecycle"
+      ],
+      "reconcile": true,
+      "fullGlobalScanRequired": false,
+      "decision": "targeted_reobserve",
+      "centralEffectAuthorized": false
+    },
+    "some.unowned.event": {
+      "eventKind": "some.unowned.event",
+      "targetedSignals": [],
+      "reconcile": false,
+      "fullGlobalScanRequired": false,
+      "decision": "no_maintenance_trigger",
+      "centralEffectAuthorized": false
+    }
+  },
+  "factsDigest": "sha256:cc0f370357adfaf38e0d062b3309d9fd0b21190e9f3502dc0e48bb796305214a"
+}
