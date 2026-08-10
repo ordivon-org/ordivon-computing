@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.crosscut-maintenance-p4-acceptance",
+  "truthRole": "rebuildable-read-only-acceptance",
+  "realNoOpPublish": {
+    "p3UnnecessaryReobservations": 4,
+    "p4UnnecessaryReobservations": 0,
+    "p3WorkloadFalsePositiveRate": 0.6666666666666666,
+    "p4WorkloadFalsePositiveRate": 0.0
+  },
+  "ownerScope": {
+    "p3FalsePositiveReobservations": 3,
+    "p4FalsePositiveReobservations": 0,
+    "p3FalsePositiveShareOfInvalidations": 0.75,
+    "p4FalsePositiveShareOfInvalidations": 0.0
+  },
+  "sparseEvents": {
+    "schemaVersion": 1,
+    "kind": "ordivon.crosscut-p4-sparse-event-falsifiers",
+    "noHint": {
+      "state": "fresh",
+      "actionable": true,
+      "absenceProvesNoChange": false,
+      "staleExposureMs": 49000
+    },
+    "delayedHintBeforeArrival": {
+      "state": "fresh",
+      "notYetAvailable": 1,
+      "staleExposureMs": 13000
+    },
+    "delayedHintAfterArrival": {
+      "state": "invalidated",
+      "deduplicatedReplays": 1,
+      "matchedInvalidations": 1
+    },
+    "immediateHint": {
+      "state": "invalidated",
+      "staleExposureMs": 1
+    },
+    "outOfOrderOldHintAfterNewObservation": {
+      "state": "fresh",
+      "olderThanSnapshot": 1,
+      "matchedInvalidations": 0
+    },
+    "noHintNoOwnerBound": {
+      "state": "freshness_unbounded",
+      "actionable": false
+    },
+    "conclusion": {
+      "eventsEliminateStaleness": false,
+      "eventsAccelerateInvalidation": true,
+      "ownerFreshnessBoundStillNeededWhenActionableWithoutEvent": true,
+      "unboundedWithoutHintIsActionable": false
+    }
+  },
+  "reobservationBenchmark": {
+    "schemaVersion": 1,
+    "kind": "ordivon.crosscut-p4-source-delivery-reobservation-benchmark",
+    "samplesMs": {
+      "ordivon-computing": [
+        6491.360298008658,
+        6984.608971004491,
+        5502.197623005486
+      ],
+      "ordivon-runtime": [
+        3819.4018669892102,
+        8725.627332009026,
+        4873.975764989154
+      ],
+      "ordivon-world": [
+        6782.1521860023495,
+        3462.5092030037194,
+        6258.146395004587
+      ],
+      "ordivon-host": [
+        2857.4024959962117,
+        3335.3689849900547,
+        4679.499288002262
+      ]
+    },
+    "p50Ms": {
+      "ordivon-computing": 6491.360298008658,
+      "ordivon-runtime": 4873.975764989154,
+      "ordivon-world": 6258.146395004587,
+      "ordivon-host": 3335.3689849900547
+    },
+    "finalFacts": {
+      "ordivon-computing": {
+        "sourceRevision": "8f9fccc9d6c0b8361c27138b053c1cc0b5d6e37c",
+        "publishedRevision": "8f9fccc9d6c0b8361c27138b053c1cc0b5d6e37c"
+      },
+      "ordivon-runtime": {
+        "sourceRevision": "8aa036b859a4ce66946d6f2557944d8e4cc799f3",
+        "publishedRevision": "6b0966d7127b5c936ab6172d1715a6500b1f47d5"
+      },
+      "ordivon-world": {
+        "sourceRevision": "eb4ec52fdf774671a2bdec2f3a72f3e27dc4baed",
+        "publishedRevision": "eb4ec52fdf774671a2bdec2f3a72f3e27dc4baed"
+      },
+      "ordivon-host": {
+        "sourceRevision": "6495822162c69179e8ad4f8a0d79cc42902ff599",
+        "publishedRevision": "6495822162c69179e8ad4f8a0d79cc42902ff599"
+      }
+    },
+    "counterfactualCosts": {
+      "p3KeyOnlyNoOpPublishMs": 20958.851442992454,
+      "p4OwnerScopedNoChangePublishMs": 0.0,
+      "p3KeyOnlyChangedComputingPublishMs": 20958.851442992454,
+      "p4OwnerScopedChangedComputingPublishMs": 6491.360298008658,
+      "p4ChangedPublishAvoidedMs": 14467.491144983796
+    },
+    "note": "Reobservation latency includes real git ls-remote origin/main network observation. These timings measure current operator cost, not a universal SLA."
+  },
+  "runtime": {
+    "sourceRevision": "8aa036b859a4ce66946d6f2557944d8e4cc799f3",
+    "activeRevision": "8aa036b859a4ce66946d6f2557944d8e4cc799f3",
+    "publishedRevisionAtInitialCapture": "6b0966d7127b5c936ab6172d1715a6500b1f47d5",
+    "stableBuildEvidenceState": "binding_changed",
+    "releaseCommit": "8aa036b859a4ce66946d6f2557944d8e4cc799f3",
+    "releaseResultDigest": "sha256:4085c8cfe9863fcafaef9ed9015a49a022bdce295b6ba0099e74233271d9e8e1"
+  },
+  "worldSecondConsumer": {
+    "revision": "eb4ec52fdf774671a2bdec2f3a72f3e27dc4baed",
+    "currentRevision": "eb4ec52fdf774671a2bdec2f3a72f3e27dc4baed",
+    "focusedTestsPassed": 22,
+    "sharedSemanticInvariantSupported": true,
+    "exactSharedCodeContractEarned": false
+  },
+  "msitoolsLeaseState": "absent",
+  "promotionDecision": {
+    "sharedTemporalSemanticLaw": true,
+    "sharedTemporalPackage": false,
+    "centralEventBroker": false,
+    "globalFreshnessTtl": false,
+    "invalidationIdentity": "owner+key",
+    "eventOccurrenceAndAvailabilitySeparated": true,
+    "eventsAreAccelerationNotCompleteness": true,
+    "noChangeResultInvalidates": false,
+    "exactReplayCreatesNewInvalidation": false,
+    "crossClockOrderingAssumed": false
+  },
+  "acceptanceDigest": "sha256:899107e1a1c4fb38ef55ece3222cc0cd1fab600c565bb727b4af9d1c947698bf"
+}
