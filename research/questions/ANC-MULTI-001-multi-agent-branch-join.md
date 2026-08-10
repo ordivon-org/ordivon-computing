@@ -2,7 +2,7 @@
 
 ## Status
 
-Ready at M1 after Computer P3. P3 closed the first Skill-compilation candidate negatively, so the next materially different adaptation falsifier moves from procedure reuse to independent cognitive participants. No Multi-Agent framework is admitted by readiness alone.
+Deferred at **M4** after Computer P4 live evidence. The minimum two-participant branch/Artifact/Verification/Join workload is mechanically expressible with current Host primitives, while a strong two-call independent-participant treatment did not achieve the pre-registered strict holdout win over sequential single-participant reflection. No Multi-Agent framework is admitted. Reopen only for a materially different workload or concrete consumer that exposes a repeated missing responsibility.
 
 ## Question
 
@@ -78,3 +78,19 @@ If falsified:
 - [`../experiments/skill-compilation-v0/p3-skill-closeout.json`](../experiments/skill-compilation-v0/p3-skill-closeout.json) — P3 negative Skill result selecting a different adaptation class as the next falsifier.
 - [`ANC-ADAPT-001`](ANC-ADAPT-001-agent-era-capabilities.md) — umbrella adaptation question.
 - [`ANC-COMPILER-002`](ANC-COMPILER-002-temporal-cognitive-graph.md) — remains deferred; a Child Run or graph is not admitted before this simpler branch/join test.
+
+## P4 live evidence
+
+P4 froze nine pure-Python repair Goals (six development, three holdout), with hidden evaluator cases outside Agent-visible context. Each treatment had two semantic candidate slots and the same DeepSeek model, independent verifier, source gate, and deterministic Join. `single-reflect` used one participant across two calls, with visible-only feedback before the second candidate. `multi-independent` used two fresh participant identities with one call each and no communication. Neither branch could perform Effects.
+
+The first campaign was invalidated rather than scored because the baseline runner violated the Provider history contract and a few Provider presentations failed. V2 changed only that presentation boundary. All 36 V2 candidate slots completed on their first Provider attempt. Development favored Multi **6/6 Goals versus 4/6**, while frozen holdout tied **2/3 versus 2/3**. Combined Goal acceptance was 8/9 versus 6/9, but candidate-level authoritative case coverage was actually 76/84 versus 78/84, showing higher diversity rather than uniform correctness. The holdout errors were complementary: Multi rescued one Goal that sequential reflection missed, and sequential reflection rescued another that Multi missed. Multi used about 88.6% of baseline Provider tokens, but the pre-registered rule required strict superiority on both splits, so generic Multi advantage was rejected.
+
+Mechanically, current `GoalCoordinatorHost` was sufficient. Across 18 treatment Goals there were zero branch Effect intents, zero responsibility ambiguities, no recovery failures, and no rejected-verification advancement. All 14 accepted treatment Goals invalidated stale snapshots correctly. A separate deterministic smoke bound two digest-addressed candidate Artifacts to their respective Task revisions, reopened Host storage between result applications, and completed without any new coordination primitive.
+
+Therefore the first falsifier is satisfied on this workload in the conservative direction: **do not build a generic Multi-Agent framework.** The useful retained pattern is optional independent branching behind explicit participant identity, Artifact provenance, independent Verification, and deterministic Join. What remains unproven is a cross-workload policy for when branching should be selected.
+
+Evidence:
+
+- [`../experiments/multi-participant-adaptation-v0/p4-multi-closeout.json`](../experiments/multi-participant-adaptation-v0/p4-multi-closeout.json)
+- [`../experiments/multi-participant-adaptation-v0/evidence/live-v2/closeout.json`](../experiments/multi-participant-adaptation-v0/evidence/live-v2/closeout.json)
+- [`../experiments/multi-participant-adaptation-v0/evidence/artifact-binding-smoke.json`](../experiments/multi-participant-adaptation-v0/evidence/artifact-binding-smoke.json)

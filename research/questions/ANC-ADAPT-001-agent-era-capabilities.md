@@ -126,6 +126,14 @@ The Skill candidate is therefore **rejected, not promoted**. This does not show 
 
 `ANC-ADAPT-001` remains at **M5** because P2's cross-evidence self-reform evidence still stands, but dynamic Skill compilation remains unproven. The next adaptation falsifier is `ANC-MULTI-001`.
 
+## P4 Multi-participant falsification
+
+P4 tested independent cognitive branching against a strong sequential-reflection baseline without constructing a Multi-Agent platform. Nine frozen repair Goals used equal two-slot semantic candidate budgets, the same Provider family, the same hidden verifier, and the same deterministic Join. The valid V2 campaign gave Multi a **6/6 versus 4/6** development advantage but only a **2/3 versus 2/3** holdout tie. The two approaches rescued different holdout failures, so independence produced real error decorrelation but not a stable generic superiority rule. Multi also used fewer Provider tokens, yet the pre-registered promotion rule still failed because holdout superiority was required.
+
+The coordination substrate did not fail. Existing Host Goal/Task revision fences, digest-addressed referenced objects, Verification receipts, and partial-result recovery expressed the minimum two-participant pattern with zero duplicate Effects or responsibility ambiguity. Consequently P4 rejects a generic Multi-Agent layer on this evidence. `ANC-MULTI-001` moves to M4 and deferred; `ANC-ADAPT-001` stays M5 because P2's bounded recursive self-reform evidence remains the strongest adaptation result.
+
+P3 and P4 together sharpen the admission rule: do not accumulate named Agent-era layers because they are fashionable categories. A new Skill, Multi, graph, organization, or compiler object must begin from a repeated owner-native failure and beat the strongest existing composition on a frozen workload.
+
 ## Evidence required for progress
 
 - learning improves a repeated workload without merely adding more context or model budget;

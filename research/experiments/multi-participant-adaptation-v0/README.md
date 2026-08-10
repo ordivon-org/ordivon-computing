@@ -1,0 +1,13 @@
+# Multi-Participant Adaptation v0
+
+Status: **P4 complete — minimum branch/join mechanics work on existing Host primitives; generic Multi-Agent advantage is not proven.**
+
+P4 compared a strong two-call `single-reflect` baseline against two fresh `multi-independent` participants. Both treatments received the same frozen visible repair Task, the same Provider family, two semantic candidate slots, the same independent hidden verifier, and the same deterministic Join. Branches had no Effect authority.
+
+The first live campaign is retained but scientifically invalid because the baseline runner fabricated plain assistant history that the current DeepSeek adapter correctly rejected, plus a few Provider presentation/transport failures. No competitive win is taken from that campaign. V2 preserved the corpus, hidden cases, reference implementations, source gate, verifier, Join, Host coordination logic, and promotion threshold byte-for-byte; it only moved prior-candidate feedback into evaluator-owned user context and allowed one symmetric presentation retry. In the valid V2 run every one of the 36 semantic candidate slots succeeded on its first Provider attempt, so no correction was actually used.
+
+Development favored independent branches 6/6 accepted Goals versus 4/6 for sequential reflection, but the frozen holdout was 2/3 versus 2/3. The holdout failures were complementary: Multi rescued `select-latest`, while single-reflect rescued `normalize-tags`. Multi used about 88.6% of the baseline Provider tokens, but the pre-registered rule required a strict win on both development and holdout. It therefore failed promotion.
+
+The infrastructure result is stronger. Existing `GoalCoordinatorHost`, Task revision fences, digest-addressed Host objects, Verification receipts, and deterministic Join expressed the complete minimum workload with zero branch Effect intents and zero responsibility ambiguity. Accepted Goal snapshots failed closed when stale, partial result application survived Host reopen, rejected verification could not advance a Task, and a separate mechanical smoke bound each branch candidate Artifact to its Task revision and replayed the joint result without introducing a scheduler, DAG, message bus, participant registry, organization layer, Agent VM, or new repository.
+
+The retained world-model update is narrow: independent cognitive branches can decorrelate errors, but 'more Agents' is not a generally superior policy. The current missing problem is selection—knowing when independence is worth using—not coordination infrastructure. Reopen Multi only on a materially different workload or concrete consumer that demonstrates a repeated unmet responsibility.
