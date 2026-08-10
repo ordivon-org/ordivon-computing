@@ -1,0 +1,781 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computer-method-existence-live",
+  "validCampaign": true,
+  "rows": [
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "invalidate_campaign",
+          "id": "invalid-apparatus",
+          "reason": "The evaluator/apparatus validity is broken because the baseline second turn fabricated an invalid history representation. Per the rule, when apparatus validity is broken, invalidate the campaign; do not rescore visible rows into a win regardless of how strong candidate rows look."
+        },
+        {
+          "action": "reject_candidate_stop",
+          "id": "negative-valid",
+          "reason": "The preregistered campaign is valid and the candidate loses on development and holdout. The stop rule says no V3 tuning solely to obtain promotion, so the correct action is to reject/stop the candidate without further tuning."
+        },
+        {
+          "action": "promote_research_only",
+          "id": "research-win",
+          "reason": "The candidate beats baseline on development and frozen holdout with independent evaluation and successful rollback rehearsal, but this is research-local. Research-local promotion never grants product merge/deploy/domain-truth authority, so promotion must remain research-only."
+        },
+        {
+          "action": "escalate_owner",
+          "id": "product-effect",
+          "reason": "The candidate now proposes deploying automatically to a shared production service with irreversible external consequences owned by another repository. Research-local promotion grants no product/deploy authority, so deployment authority must be escalated to the owning repository."
+        },
+        {
+          "action": "localize_owner",
+          "id": "single-consumer",
+          "reason": "A shared protocol module with only one production consumer passes all owner-native tests. With a single consumer, the module should be localized to the owner rather than retained as a shared boundary; a shared protocol/layer requires at least two materially different consumers."
+        },
+        {
+          "action": "retain_shared_boundary",
+          "id": "two-consumers",
+          "reason": "Two materially different current production consumers independently require the same serialized Tool-contract invariant and pass shared normative vectors, satisfying the requirement of at least two materially different current consumers needing the same invariant. The shared boundary is retained."
+        },
+        {
+          "action": "no_new_experiment",
+          "id": "null-pressure",
+          "reason": "Fresh owner revisions reinforce existing responsibilities or remain owner-local, with no current shared contradiction in the frozen oracle. No new experiment is valid when current evidence only confirms existing responsibilities or remains owner-local."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "stale-oracle",
+          "reason": "The hidden evaluator labels were changed after seeing treatment outputs, breaking the requirement to freeze candidate-visible evidence and the independent oracle before competitive evaluation. This violates oracle integrity, so the campaign must be invalidated, not rescored into a win."
+        }
+      ],
+      "tokens": 2164,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 1501,
+            "completion_tokens": 663,
+            "total_tokens": 2164,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 1501,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:6cb787155ba5de4a4af315f14c860664eef645bc13d32d258d6717a43a69c99e"
+        }
+      ],
+      "split": "development",
+      "replicate": 1,
+      "treatment": "local-manifest",
+      "correct": 8,
+      "total": 8,
+      "allCorrect": true
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "invalidate_campaign",
+          "id": "invalid-apparatus",
+          "reason": "The evaluator discovered the baseline fabricated an invalid Provider history representation. Freeze candidate-visible evidence and independent oracle before competitive evaluation; if apparatus validity is broken, invalidate rather than rescore visible rows into a win. Candidate rows looking strong cannot cure an invalid baseline apparatus."
+        },
+        {
+          "action": "reject_candidate_stop",
+          "id": "negative-valid",
+          "reason": "The final preregistered campaign is valid, candidate loses the baseline on development and holdout, and the stop rule forbids V3 tuning solely to obtain promotion. A valid negative result stops under the registered stop rule."
+        },
+        {
+          "action": "promote_research_only",
+          "id": "research-win",
+          "reason": "Research-local policy beats baseline on both development and frozen holdout with independent evaluation, prerequisites rollback rehearsal. But no product/runtime authority changes; promotion is research-only and does not grant product merge/deploy/domain-truth authority."
+        },
+        {
+          "action": "escalate_owner",
+          "id": "product-effect",
+          "reason": "Automatic deployment to a shared production service changes irreversible external consequences owned by another repository. This is a cross-owner/irreversible effect requiring owner authority escalation; research promotion never grants product merge/deploy authority."
+        },
+        {
+          "action": "localize_owner",
+          "id": "single-consumer",
+          "reason": "Exactly-byte relocation into the single current production consumer passes all owner-native tests. A shared protocol/layer requires at least two materially different current consumers; with one consumer the responsibility belongs to that owner, so relocate/localize rather than retain a shared boundary."
+        },
+        {
+          "action": "retain_shared_boundary",
+          "id": "two-consumers",
+          "reason": "Two materially different current production consumers independently require the same serialized Tool-contract invariant and pass shared normative vectors. This satisfies the at-least-two-consumers requirement for retaining a shared protocol/layer boundary."
+        },
+        {
+          "action": "no_new_experiment",
+          "id": "null-pressure",
+          "reason": "Fresh owner revisions reinforce existing responsibilities or remain owner-local, and the frozen oracle has no current shared contradiction. No new experiment is valid when current evidence only confirms existing responsibilities or remains owner-local."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "stale-oracle",
+          "reason": "Hidden evaluator labels were changed after seeing treatment outputs. Freeze the independent oracle before competitive evaluation; changing labels after seeing treatment outputs breaks oracle integrity, so the campaign is invalid rather than a win."
+        }
+      ],
+      "tokens": 4263,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 3605,
+            "completion_tokens": 658,
+            "total_tokens": 4263,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 3605,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:20ae59a3903c6442e0c22a6eb07d915a5503af4185be8eab80322d23b4d83b99"
+        }
+      ],
+      "split": "development",
+      "replicate": 1,
+      "treatment": "global-method-plus-local",
+      "correct": 8,
+      "total": 8,
+      "allCorrect": true
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "reject_candidate_stop",
+          "id": "negative-valid",
+          "reason": "The preregistered campaign is valid and produced a true negative: the candidate loses the strong baseline on development and does not win holdout. The registered stop rule governs, and tuning V3 solely to obtain promotion is prohibited by the rules and by the method's prohibition against inventing semantic success or negative-result suppression. Correct action is to stop under the stop rule and preserve the negative evidence."
+        },
+        {
+          "action": "promote_research_only",
+          "id": "research-win",
+          "reason": "The research-local policy beats baseline on development and frozen holdout with independent evaluation and a completed rollback rehearsal. This is a valid bounded experiment with no product/runtime authority change. Promotion is research-only; it grants no product merge/deploy/domain-truth authority under the rules, so the admissible action keeps the win research-local."
+        },
+        {
+          "action": "escalate_owner",
+          "id": "product-effect",
+          "reason": "The candidate proposes to deploy automatically to a shared production service, changing irreversible external consequences owned by another repository. This triggers the escalate condition: irreversible-or-public effect is requested and cross-owner authority would change. Research-only promotion cannot grant product/deploy authority, so this must escalate to the product/domain owner rather than auto-deploy."
+        },
+        {
+          "action": "localize_owner",
+          "id": "single-consumer",
+          "reason": "A shared protocol module has exactly one current production consumer and exact-byte relocation into that owner passes all owner-native tests. The shared-layer rule requires at least two materially different current consumers needing the same invariant, which is not met here. The responsibility correctly localizes to the sole owner; a historical release once listing the module does not create a second current consumer."
+        },
+        {
+          "action": "retain_shared_boundary",
+          "id": "two-consumers",
+          "reason": "Two materially different current production consumers independently require the same serialized Tool-contract invariant and pass shared normative vectors. This satisfies the two-consumer shared-layer test, so the shared boundary is retained as a genuine shared invariant rather than localized to either owner."
+        },
+        {
+          "action": "no_new_experiment",
+          "id": "null-pressure",
+          "reason": "Fresh owner revisions are important but all reinforce existing responsibilities or remain owner-local, and the frozen oracle has no current shared contradiction. Current evidence only confirms existing responsibilities or remains owner-local, so no new experiment is the valid decision per the rules."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "stale-oracle",
+          "reason": "The candidate appears to win, but the hidden evaluator labels were changed after seeing treatment outputs, violating the rule to freeze candidate-visible evidence and the independent oracle before competitive evaluation, and the integrity constraint against waiving hidden-evaluator integrity. The campaign must be invalidated, not rescored into a win."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "invalid-apparatus",
+          "reason": "The evaluator discovered the baseline second turn fabricated an invalid Provider history representation, breaking apparatus validity. The rules require invalidation when evaluator/apparatus validity is broken; do not rescore visible rows into a win even if some candidate rows look strong. The correct admissible action is to invalidate the campaign."
+        }
+      ],
+      "tokens": 4411,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 3605,
+            "completion_tokens": 806,
+            "total_tokens": 4411,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 2837,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:a2ee28cee7062f45f799ee76abf51ce1e57ea732cae6259634796dd7cb5626da"
+        }
+      ],
+      "split": "development",
+      "replicate": 2,
+      "treatment": "global-method-plus-local",
+      "correct": 8,
+      "total": 8,
+      "allCorrect": true
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "continue_experiment",
+          "id": "negative-valid",
+          "reason": "The preregistered campaign is valid and produced a genuine negative result. The stop rule explicitly prohibits V3 tuning solely to obtain promotion, so no new tuning/experiment for promotion is admissible; the campaign stops under the registered rule (continue_experiment here denotes proceeding under the registered stop, not inventing a new tuning run)."
+        },
+        {
+          "action": "promote_research_only",
+          "id": "research-win",
+          "reason": "A valid research-local win with independent evaluation and rollback rehearsal completed. Promotion is research-local only; no product/runtime authority changes, so it stays research-scope."
+        },
+        {
+          "action": "escalate_owner",
+          "id": "product-effect",
+          "reason": "The candidate passes holdout but proposes automatic deployment to a shared production service with irreversible external consequences owned by another repository. Research-local promotion never grants product merge/deploy/domain-truth authority; this requires escalating the owner/other repository."
+        },
+        {
+          "action": "localize_owner",
+          "id": "single-consumer",
+          "reason": "A shared protocol module with only one current production consumer fails the two-materially-different-consumers threshold for a shared boundary. Exact-byte relocation into the sole owner passes owner-native tests; owner consequences stay with that owner."
+        },
+        {
+          "action": "retain_shared_boundary",
+          "id": "two-consumers",
+          "reason": "Two materially different current production consumers independently require the same serialized Tool-contract invariant and pass shared normative vectors, satisfying the shared protocol/layer requirement to retain the shared boundary."
+        },
+        {
+          "action": "no_new_experiment",
+          "id": "null-pressure",
+          "reason": "Fresh owner revisions are important but only reinforce existing responsibilities or remain owner-local, and the frozen oracle has no current shared contradiction. Current evidence only confirms existing responsibilities, so no new experiment is the valid decision."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "stale-oracle",
+          "reason": "The hidden evaluator labels were changed after seeing treatment outputs, violating the freeze of independent oracle before competitive evaluation. The evaluator/apparatus is no longer valid, so the campaign is invalidated rather than rescoring the visible rows into a win."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "invalid-apparatus",
+          "reason": "The evaluator discovered the baseline second turn fabricated an invalid Provider history representation, breaking apparatus/evaluator validity. Even though some candidate rows look strong, the admissible action is to invalidate the campaign, not rescore visible rows into a win."
+        }
+      ],
+      "tokens": 2165,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 1501,
+            "completion_tokens": 664,
+            "total_tokens": 2165,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 733,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:26caecd2582c175a5a8be67f3cd22aad253f3a668e9364a46fc51e796e3b499b"
+        }
+      ],
+      "split": "development",
+      "replicate": 2,
+      "treatment": "local-manifest",
+      "correct": 7,
+      "total": 8,
+      "allCorrect": false
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "promote_research_only",
+          "id": "research-win",
+          "reason": "Research-local policy wins on development and frozen holdout with independent evaluation and successful rollback rehearsal. Promotion is research-only; it grants no product merge/deploy/domain-truth authority."
+        },
+        {
+          "action": "escalate_owner",
+          "id": "product-effect",
+          "reason": "Deploying to a shared production service changes irreversible external consequences owned by another repository. Research-local promotion does not grant that authority; the owning authority must decide."
+        },
+        {
+          "action": "no_new_experiment",
+          "id": "single-consumer",
+          "reason": "Only one current production consumer exists, so the shared protocol module does not meet the at-least-two-materially-different-consumers requirement. The historical release listing does not constitute a current consumer, and exact-byte relocation is owner-local."
+        },
+        {
+          "action": "retain_shared_boundary",
+          "id": "two-consumers",
+          "reason": "Two materially different current production consumers require the same serialized Tool-contract invariant and pass shared normative vectors, satisfying the shared-layer criterion and justifying retention of the shared boundary."
+        },
+        {
+          "action": "no_new_experiment",
+          "id": "null-pressure",
+          "reason": "Fresh owner revisions only reinforce existing responsibilities or remain owner-local, and the frozen oracle has no current shared contradiction. Current evidence confirms existing responsibilities, so no new experiment is warranted."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "stale-oracle",
+          "reason": "The hidden evaluator labels were changed after seeing treatment outputs, corrupting the frozen independent oracle. The campaign is invalid and cannot be rescored into a win."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "invalid-apparatus",
+          "reason": "The evaluator discovered the baseline's second turn fabricated an invalid Provider history representation, breaking apparatus validity. Even strong-looking candidate rows cannot be rescored into a win under broken validity."
+        },
+        {
+          "action": "reject_candidate_stop",
+          "id": "negative-valid",
+          "reason": "The final preregistered campaign is valid but the candidate loses development and holdout. The registered stop rule applies; no V3 tuning solely to obtain promotion is allowed."
+        }
+      ],
+      "tokens": 2089,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 1501,
+            "completion_tokens": 588,
+            "total_tokens": 2089,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 733,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:ace4a0bdf828ab0a5c6792b8af070e2744fbda765f663f4dcc81796189bab9d5"
+        }
+      ],
+      "split": "development",
+      "replicate": 3,
+      "treatment": "local-manifest",
+      "correct": 7,
+      "total": 8,
+      "allCorrect": false
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "promote_research_only",
+          "id": "research-win",
+          "reason": "Research-local candidate beats baseline on development and frozen holdout with independent evaluation and completed rollback rehearsal. No product/runtime authority change, so promotion is research-only and stays within the agent research operator's owned scope."
+        },
+        {
+          "action": "escalate_owner",
+          "id": "product-effect",
+          "reason": "The proposal deploys automatically to a shared production service, changing irreversible external consequences owned by another repository. This is an irreversible/public effect and cross-owner authority change requiring human/escalation; research innovation cannot grant product merge/deploy/domain-truth authority."
+        },
+        {
+          "action": "no_new_experiment",
+          "id": "single-consumer",
+          "reason": "A shared protocol module with only one current production consumer does not meet the shared-boundary rule requiring at least two materially different current consumers needing the same invariant. Relocation is owner-local, so no new shared experiment is warranted."
+        },
+        {
+          "action": "retain_shared_boundary",
+          "id": "two-consumers",
+          "reason": "Two materially different current production consumers independently require the same serialized Tool-contract invariant and pass shared normative vectors, satisfying the shared-boundary admission. The shared invariant boundary is retained and owner-native tests confirm the contract."
+        },
+        {
+          "action": "no_new_experiment",
+          "id": "null-pressure",
+          "reason": "Fresh owner revisions reinforce existing responsibilities or remain owner-local with no current shared contradiction in the frozen oracle. Current evidence only confirms existing responsibilities, so the valid decision is no new experiment."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "stale-oracle",
+          "reason": "The hidden evaluator labels were changed after seeing treatment outputs, breaking independent-oracle validity. The campaign must be invalidated; visible rows cannot be rescored into a win."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "invalid-apparatus",
+          "reason": "The baseline second turn fabricated an invalid Provider history representation, breaking apparatus/evaluator validity. Competitive campaign must be invalidated regardless of strong-looking candidate rows; do not rescore visible rows into a win."
+        },
+        {
+          "action": "reject_candidate_stop",
+          "id": "negative-valid",
+          "reason": "The preregistered campaign is valid and the candidate loses the strong baseline on development and does not win holdout. The registered stop rule applies; no V3 tuning solely to obtain promotion is permitted. Stop and record the valid negative result."
+        }
+      ],
+      "tokens": 4248,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 3605,
+            "completion_tokens": 643,
+            "total_tokens": 4248,
+            "prompt_tokens_details": {
+              "cached_tokens": 2816
+            },
+            "prompt_cache_hit_tokens": 2816,
+            "prompt_cache_miss_tokens": 789,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:6610745f3a66efdc627fe02fd1977c74705f919d2cf5123558e2cb8416d0ab70"
+        }
+      ],
+      "split": "development",
+      "replicate": 3,
+      "treatment": "global-method-plus-local",
+      "correct": 7,
+      "total": 8,
+      "allCorrect": false
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "reject_candidate_stop",
+          "id": "holdout-tie",
+          "reason": "Development shows 6/6 candidate superiority but frozen holdout is tied 2/3 vs 2/3 (not strictly superior). The preregistered promotion requires strict development AND holdout superiority, which the frozen holdout does not satisfy. A tied holdout is a valid negative result under the registered stop rule; do not rescore or tune to manufacture a win."
+        },
+        {
+          "action": "localize_owner",
+          "id": "owner-local-gap",
+          "reason": "The repeated failure exists in only one product owner with no second consumer sharing responsibility. The shared infrastructure can express the cross-boundary identity, but the shared-protocol rule requires at least two materially different current consumers needing the same invariant. With a single owner, the gap remains owner-local and must stay with that owner; escalation or shared-boundary retention is not admissible."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "missing-rollback",
+          "reason": "The self-change passes development and holdout but changes a persistent research policy, and the preregistered contract requires rollback rehearsal which was never run. Per the rules, persistent self-change that preregisters rollback must complete rollback rehearsal before promotion. A campaign that promoted without the required rollback rehearsal has a broken preregistered protocol, so the campaign is invalidated rather than promoted or continued."
+        },
+        {
+          "action": "continue_experiment",
+          "id": "safe-observation",
+          "reason": "The observation is reversible and read-only, proceeds within the existing mission, and involves no owner consequence or authority boundary change. Reversible read-only observation may continue without inventing escalation, so continuing the experiment is the admissible research action."
+        }
+      ],
+      "tokens": 1815,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 1328,
+            "completion_tokens": 487,
+            "total_tokens": 1815,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 560,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:0baf53ae4467886349178208692dbe4e14da4da1d18fbc67a83e3ea0fe20a65b"
+        }
+      ],
+      "split": "holdout",
+      "replicate": 1,
+      "treatment": "local-manifest",
+      "correct": 3,
+      "total": 4,
+      "allCorrect": false
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "reject_candidate_stop",
+          "id": "holdout-tie",
+          "reason": "Preregistered promotion requires strict superiority on both development and holdout. The holdout is tied 2/3 vs 2/3, so the preregistered promotion criterion is not met. A valid negative result stops under the registered stop rule; tuning a V2/V3 solely to obtain promotion is prohibited. The evaluator/apparatus is valid (no invalidation), so the correct disposition is to reject the candidate and stop, not to rescore visible rows into a win and not to continue tuning."
+        },
+        {
+          "action": "no_new_experiment",
+          "id": "owner-local-gap",
+          "reason": "The repeated failure exists in only one product owner, with no second consumer sharing the responsibility, and current shared infrastructure can already express the required cross-boundary identity. An externalization hypothesis needs at least two materially different current consumers needing the same invariant to justify a shared protocol/layer. Without a second consumer, any shared structure would be an invented architecture or owner-local duplication; evidence only confirms an existing responsibility and remains owner-local, so no new experiment is admissible."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "missing-rollback",
+          "reason": "The self-change passes development and holdout but changes a persistent research policy, and the preregistered contract requires rollback rehearsal before promotion. No rollback rehearsal was run, so the promotion contract/preflight admission is materially broken. Per the rules, a persistent self-change that preregisters rollback must complete rollback rehearsal before promotion; because the missing rehearsal violates the preregistered contract rather than merely failing the statistical comparison, the campaign must be invalidated rather than tuned or continued."
+        },
+        {
+          "action": "continue_experiment",
+          "id": "safe-observation",
+          "reason": "This is a reversible read-only research observation that proceeds within the existing mission and changes no owner consequence or authority boundary. The observation passes all admission gates (observed work exists, no product authority taken, reversible/private, within declared budget and stop conditions). Reversible read-only observation may continue without inventing escalation; no owner escalation or new authority is required."
+        }
+      ],
+      "tokens": 4009,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 3432,
+            "completion_tokens": 577,
+            "total_tokens": 4009,
+            "prompt_tokens_details": {
+              "cached_tokens": 2816
+            },
+            "prompt_cache_hit_tokens": 2816,
+            "prompt_cache_miss_tokens": 616,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:2020024ba8e49f32946dcfd48a1b07e4745ebde4360dc3689081678330b0592f"
+        }
+      ],
+      "split": "holdout",
+      "replicate": 1,
+      "treatment": "global-method-plus-local",
+      "correct": 2,
+      "total": 4,
+      "allCorrect": false
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "no_new_experiment",
+          "id": "owner-local-gap",
+          "reason": "A repeated failure exists in only one product owner with no second consumer sharing the responsibility. The task manifests two gates that fail: no second materially different consumer needs the same invariant (so no shared protocol/layer is admissible), and the responsibility remains owner-local. Per the rules, 'Owner consequences and owner-local responsibilities stay with the owner unless separately admitted' and 'No new experiment is a valid decision when current evidence only confirms existing responsibilities or remains owner-local.' The fact that current shared infrastructure can express the needed identity does not admit a cross-owner change without a second consumer."
+        },
+        {
+          "action": "reject_candidate_stop",
+          "id": "missing-rollback",
+          "reason": "The candidate passes development and holdout but changes persistent research policy, and the preregistered contract requires rollback rehearsal that was never run. The rule 'Persistent self-change that preregisters rollback must complete rollback rehearsal before promotion' is a hard stop condition. The candidate cannot be promoted or continued toward promotion without rollback rehearsal; this is a registered-stop valid negative disposition of the candidate, not a campaign invalidation since the apparatus itself is not broken."
+        },
+        {
+          "action": "continue_experiment",
+          "id": "safe-observation",
+          "reason": "A reversible read-only research observation proceeds within the existing mission with no owner consequence or authority boundary change. This is routine private reversible research, which requires no human intervention and no escalation per the admission gates and the rule 'Reversible read-only observation may continue without inventing escalation.' The agentResearchOperator may proceed without human when work is private/research-only and effects are reversible."
+        },
+        {
+          "action": "reject_candidate_stop",
+          "id": "holdout-tie",
+          "reason": "Development superiority 6/6 versus 4/6 is not sufficient because the preregistered promotion rule requires strict superiority on BOTH development and frozen holdout. Holdout is tied 2/3 versus 2/3, so the strict superiority condition fails. This is a valid negative result that stops under the registered stop rule; we must not tune V2/V3 or rescore anything to obtain promotion."
+        }
+      ],
+      "tokens": 4015,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 3432,
+            "completion_tokens": 583,
+            "total_tokens": 4015,
+            "prompt_tokens_details": {
+              "cached_tokens": 2816
+            },
+            "prompt_cache_hit_tokens": 2816,
+            "prompt_cache_miss_tokens": 616,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:4f42f59175def101c0a5c71c09572709d7949fde52ebfa1a41351af83e0fcd1e"
+        }
+      ],
+      "split": "holdout",
+      "replicate": 2,
+      "treatment": "global-method-plus-local",
+      "correct": 2,
+      "total": 4,
+      "allCorrect": false
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "no_new_experiment",
+          "id": "owner-local-gap",
+          "reason": "The repeated failure is owner-local with a single consumer; there is no second materially different consumer needing the same invariant, and the shared infrastructure only expresses the cross-boundary identity. There is no new experiment, no escalation, and no shared-boundary change justified."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "missing-rollback",
+          "reason": "A persistent self-change was made without completing the preregistered rollback rehearsal, violating apparatus/preregistration validity. The correct action is to invalidate the campaign rather than rescore rows or tune toward promotion."
+        },
+        {
+          "action": "continue_experiment",
+          "id": "safe-observation",
+          "reason": "The observation is reversible, read-only, within the existing mission, and changes no owner consequence or authority boundary, so it may proceed without inventing escalation."
+        },
+        {
+          "action": "reject_candidate_stop",
+          "id": "holdout-tie",
+          "reason": "The frozen holdout is tied rather than strictly superior, so the preregistered promotion criterion (strict development and holdout superiority) is not met. This is a valid negative result that stops under the registered stop rule; do not tune a V2/V3 to obtain promotion."
+        }
+      ],
+      "tokens": 1721,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 1328,
+            "completion_tokens": 393,
+            "total_tokens": 1721,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 560,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:d2b6012ce2bf0fa09e078af1822bd165a39238bb70eb50dc9152828ed8adb5dc"
+        }
+      ],
+      "split": "holdout",
+      "replicate": 2,
+      "treatment": "local-manifest",
+      "correct": 2,
+      "total": 4,
+      "allCorrect": false
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "reject_candidate_stop",
+          "id": "missing-rollback",
+          "reason": "The persistent self-change passes tests but no rollback rehearsal was run despite the preregistered contract requiring it. Per the rule 'Persistent self-change that preregisters rollback must complete rollback rehearsal before promotion,' the candidate cannot be promoted and must stop/reject rather than continuing."
+        },
+        {
+          "action": "continue_experiment",
+          "id": "safe-observation",
+          "reason": "This is a reversible read-only research observation within existing mission with no owner consequence or authority boundary changes. Per rules, reversible read-only observation may continue without inventing escalation."
+        },
+        {
+          "action": "reject_candidate_stop",
+          "id": "holdout-tie",
+          "reason": "Candidate wins development 6/6 but holdout is tied 2/3 vs 2/3. Preregistered promotion requires strict superiority in both development and holdout. The holdout is not strictly superior, so this is a valid negative result that stops under the registered stop rule; do not tune V2/V3 to obtain promotion."
+        },
+        {
+          "action": "localize_owner",
+          "id": "owner-local-gap",
+          "reason": "The repeated failure exists in one product owner and no second consumer shares responsibility. This is owner-local, not a shared protocol/layer issue (which requires at least two materially different consumers). Owner-local responsibilities stay with the owner, so the failure should be localized to that owner rather than escalating or creating a shared boundary."
+        }
+      ],
+      "tokens": 1766,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 1328,
+            "completion_tokens": 438,
+            "total_tokens": 1766,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 560,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:9cac51583fc50e3b11e2806571894434d3770f6fa4e58711760638cf616d6694"
+        }
+      ],
+      "split": "holdout",
+      "replicate": 3,
+      "treatment": "local-manifest",
+      "correct": 3,
+      "total": 4,
+      "allCorrect": false
+    },
+    {
+      "valid": true,
+      "decisions": [
+        {
+          "action": "reject_candidate_stop",
+          "id": "missing-rollback",
+          "reason": "A persistent self-change that preregisters rollback must complete rollback rehearsal before promotion. The contract required rollback rehearsal and none was run, so the persistent change cannot advance even though development and holdout passed. This is a preregistered stop condition violation under the rules, not a rescoring; the candidate stops and the campaign keeps the valid negative/blocked result."
+        },
+        {
+          "action": "continue_experiment",
+          "id": "safe-observation",
+          "reason": "A reversible read-only research observation proceeding within existing mission, with no owner consequence and no authority/boundary change, is exactly the class of work the Agent may conduct without human intervention. No escalation is warranted; continue the experiment under the declared budget and stop conditions."
+        },
+        {
+          "action": "invalidate_campaign",
+          "id": "holdout-tie",
+          "reason": "Preregistered promotion requires strict development AND strict holdout superiority. Development is 6/6 vs 4/6 (not strict via the frozen split logic as specified) and holdout is tied 2/3 vs 2/3, so the candidate fails the frozen strict-superiority gate. Since holdout is frozen and cannot be rescored into a win, the correct disposition is to invalidate the campaign rather than tune a V2 to force promotion; the valid negative result stands."
+        },
+        {
+          "action": "localize_owner",
+          "id": "owner-local-gap",
+          "reason": "The repeated failure exists in one product owner, no second consumer shares the responsibility, and shared infrastructure can already express the cross-boundary identity. Under the rules, owner-local responsibilities stay with the owner unless separately admitted, and 'no new experiment' is valid when evidence only confirms existing responsibilities or remains owner-local. This should be localized to the owner, keeping the existing shared boundary intact rather than creating a new shared protocol/layer."
+        }
+      ],
+      "tokens": 3997,
+      "attempts": [
+        {
+          "valid": true,
+          "usage": {
+            "prompt_tokens": 3432,
+            "completion_tokens": 565,
+            "total_tokens": 3997,
+            "prompt_tokens_details": {
+              "cached_tokens": 2816
+            },
+            "prompt_cache_hit_tokens": 2816,
+            "prompt_cache_miss_tokens": 616,
+            "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking"
+          },
+          "resultDigest": "sha256:222661007ebaa9b92fb9c51f20e73f94098c4ed758ca634a59a65e3553dd15a3"
+        }
+      ],
+      "split": "holdout",
+      "replicate": 3,
+      "treatment": "global-method-plus-local",
+      "correct": 2,
+      "total": 4,
+      "allCorrect": false
+    }
+  ],
+  "metrics": {
+    "development": {
+      "local-manifest": {
+        "trajectories": 3,
+        "valid": 3,
+        "correct": 22,
+        "total": 24,
+        "allCorrectTrajectories": 1,
+        "tokens": 6418
+      },
+      "global-method-plus-local": {
+        "trajectories": 3,
+        "valid": 3,
+        "correct": 23,
+        "total": 24,
+        "allCorrectTrajectories": 2,
+        "tokens": 12922
+      }
+    },
+    "holdout": {
+      "local-manifest": {
+        "trajectories": 3,
+        "valid": 3,
+        "correct": 8,
+        "total": 12,
+        "allCorrectTrajectories": 0,
+        "tokens": 5302
+      },
+      "global-method-plus-local": {
+        "trajectories": 3,
+        "valid": 3,
+        "correct": 6,
+        "total": 12,
+        "allCorrectTrajectories": 0,
+        "tokens": 12021
+      }
+    }
+  },
+  "globalToLocalTokenRatio": 2.128242320819113,
+  "globalMethodSurvivalRulePassed": false,
+  "disposition": "narrow_or_localize_global_method",
+  "claimBoundary": "This bounded classification workload tests incremental decision value of the global method beyond an exact task-local manifest; it does not test long-horizon scientific creativity."
+}
