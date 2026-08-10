@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.p4-repair-corpus",
+  "developmentCount": 6,
+  "holdoutCount": 3,
+  "scenarios": [
+    {
+      "scenarioId": "stable-top-k",
+      "split": "development",
+      "functionName": "stable_top_k",
+      "spec": "Implement stable_top_k(items, k). items is a list of dictionaries with string id and integer score. Return at most k ids ordered by descending score. Equal scores preserve original input order exactly. k==0 returns []; k<0 raises ValueError; k greater than the input length returns all items. Do not mutate items.",
+      "buggySource": "def stable_top_k(items, k):\n    if k == 0:\n        return []\n    ranked = sorted(items, key=lambda item: (-item[\"score\"], item[\"id\"]))\n    return [item[\"id\"] for item in ranked[:k]]\n",
+      "visibleCases": [
+        {
+          "args": [
+            [
+              {
+                "id": "a",
+                "score": 1
+              },
+              {
+                "id": "b",
+                "score": 3
+              },
+              {
+                "id": "c",
+                "score": 2
+              }
+            ],
+            2
+          ],
+          "expected": [
+            "b",
+            "c"
+          ]
+        },
+        {
+          "args": [
+            [],
+            0
+          ],
+          "expected": []
+        }
+      ]
+    },
+    {
+      "scenarioId": "merge-intervals",
+      "split": "development",
+      "functionName": "merge_intervals",
+      "spec": "Implement merge_intervals(intervals). Each interval is [start,end] with integers and start<=end. Raise ValueError for any invalid interval. Sort by start then end and merge intervals that overlap, including sharing an endpoint (for example [1,2] and [2,4] merge). Merely adjacent integer ranges such as [1,2] and [3,4] do not merge. Return new lists and do not mutate the input.",
+      "buggySource": "def merge_intervals(intervals):\n    if not intervals:\n        return []\n    values = sorted(intervals)\n    out = [values[0][:]]\n    for start, end in values[1:]:\n        if start <= out[-1][1] + 1:\n            out[-1][1] = max(out[-1][1], end)\n        else:\n            out.append([start, end])\n    return out\n",
+      "visibleCases": [
+        {
+          "args": [
+            [
+              [
+                1,
+                4
+              ],
+              [
+                3,
+                5
+              ],
+              [
+                8,
+                9
+              ]
+            ]
+          ],
+          "expected": [
+            [
+              1,
+              5
+            ],
+            [
+              8,
+              9
+            ]
+          ]
+        },
+        {
+          "args": [
+            []
+          ],
+          "expected": []
+        }
+      ]
+    },
+    {
+      "scenarioId": "largest-remainder",
+      "split": "development",
+      "functionName": "largest_remainder",
+      "spec": "Implement largest_remainder(total, weights). total is a non-negative integer and weights is a list of non-negative integers. Return integer allocations with the same length and exact sum total, proportional by the largest-remainder method. Compute floors exactly, then distribute remaining units by descending fractional remainder; ties go to the lower original index. If total==0 return zeros even when all weights are zero. If total>0 and all weights are zero raise ValueError. Negative inputs raise ValueError. Do not mutate weights.",
+      "buggySource": "def largest_remainder(total, weights):\n    if total < 0 or any(w < 0 for w in weights):\n        raise ValueError(\"negative\")\n    s = sum(weights)\n    if not s:\n        raise ValueError(\"zero\")\n    raw = [total * w / s for w in weights]\n    result = [round(x) for x in raw]\n    while sum(result) < total:\n        result[result.index(min(result))] += 1\n    while sum(result) > total:\n        result[result.index(max(result))] -= 1\n    return result\n",
+      "visibleCases": [
+        {
+          "args": [
+            4,
+            [
+              1,
+              1,
+              1
+            ]
+          ],
+          "expected": [
+            2,
+            1,
+            1
+          ]
+        },
+        {
+          "args": [
+            10,
+            [
+              1,
+              3
+            ]
+          ],
+          "expected": [
+            3,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioId": "dedupe-events",
+      "split": "development",
+      "functionName": "dedupe_events",
+      "spec": "Implement dedupe_events(events). Each event is a dict with string id, integer seq, and arbitrary JSON-like payload. Keep exactly one event per id: the event with greatest seq; if the same id occurs multiple times with the same greatest seq, keep the last input occurrence. Return new event dictionaries sorted by seq ascending; when selected events have equal seq, preserve the order of their selected input occurrences. Do not mutate events.",
+      "buggySource": "def dedupe_events(events):\n    chosen = {}\n    for event in events:\n        if event[\"id\"] not in chosen or event[\"seq\"] > chosen[event[\"id\"]][\"seq\"]:\n            chosen[event[\"id\"]] = event\n    return [dict(event) for event in chosen.values()]\n",
+      "visibleCases": [
+        {
+          "args": [
+            [
+              {
+                "id": "a",
+                "seq": 1,
+                "payload": 0
+              },
+              {
+                "id": "a",
+                "seq": 2,
+                "payload": 1
+              },
+              {
+                "id": "b",
+                "seq": 3,
+                "payload": 2
+              }
+            ]
+          ],
+          "expected": [
+            {
+              "id": "a",
+              "seq": 2,
+              "payload": 1
+            },
+            {
+              "id": "b",
+              "seq": 3,
+              "payload": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioId": "apply-edits",
+      "split": "development",
+      "functionName": "apply_edits",
+      "spec": "Implement apply_edits(text, edits). Each edit is a dict with integer start, integer end, and string replacement. Coordinates refer to the original text and use half-open [start,end). Validate 0<=start<=end<=len(text). Edits may be supplied in any order. They must not overlap; adjacent edits are allowed. Apply all edits simultaneously relative to the original text and return the new string. Raise ValueError for invalid or overlapping edits. Do not mutate edits.",
+      "buggySource": "def apply_edits(text, edits):\n    value = text\n    for edit in edits:\n        start, end = edit[\"start\"], edit[\"end\"]\n        value = value[:start] + edit[\"replacement\"] + value[end:]\n    return value\n",
+      "visibleCases": [
+        {
+          "args": [
+            "abcdef",
+            [
+              {
+                "start": 1,
+                "end": 3,
+                "replacement": "X"
+              }
+            ]
+          ],
+          "expected": "aXdef"
+        },
+        {
+          "args": [
+            "abc",
+            []
+          ],
+          "expected": "abc"
+        }
+      ]
+    },
+    {
+      "scenarioId": "quorum-decision",
+      "split": "development",
+      "functionName": "quorum_decision",
+      "spec": "Implement quorum_decision(votes, quorum). votes contains only \"yes\", \"no\", or \"abstain\". quorum must be a positive integer. Participation counts only yes+no; abstentions do not count toward quorum. If participation is below quorum return \"no-quorum\". Otherwise return \"yes\" when yes>no, \"no\" when no>yes, and \"tie\" when equal. Invalid votes or non-positive quorum raise ValueError. Do not mutate votes.",
+      "buggySource": "def quorum_decision(votes, quorum):\n    if quorum <= 0:\n        raise ValueError(\"quorum\")\n    if len(votes) < quorum:\n        return \"no-quorum\"\n    yes = votes.count(\"yes\")\n    no = votes.count(\"no\")\n    return \"yes\" if yes > no else \"no\"\n",
+      "visibleCases": [
+        {
+          "args": [
+            [
+              "yes",
+              "yes",
+              "no"
+            ],
+            2
+          ],
+          "expected": "yes"
+        },
+        {
+          "args": [
+            [
+              "no",
+              "no",
+              "yes"
+            ],
+            2
+          ],
+          "expected": "no"
+        }
+      ]
+    },
+    {
+      "scenarioId": "chunk-windows",
+      "split": "holdout",
+      "functionName": "chunk_windows",
+      "spec": "Implement chunk_windows(items, size, overlap). size must be positive and overlap must satisfy 0<=overlap<size. Windows start every size-overlap elements. Include the final shorter window whenever its start is still inside items. Empty items returns []. Return new lists and do not mutate items.",
+      "buggySource": "def chunk_windows(items, size, overlap):\n    if size <= 0 or overlap < 0:\n        raise ValueError(\"invalid\")\n    step = size - overlap\n    return [items[i:i+size] for i in range(0, len(items)-size+1, step)]\n",
+      "visibleCases": [
+        {
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4
+            ],
+            2,
+            0
+          ],
+          "expected": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioId": "select-latest",
+      "split": "holdout",
+      "functionName": "select_latest",
+      "spec": "Implement select_latest(records). Each record is a dict with string key, non-negative integer revision, non-negative integer observed, and arbitrary value. Keep one record per key: greatest revision, then greatest observed, then the last input occurrence if both tie. Return new dictionaries sorted by key lexicographically. Invalid negative revision/observed raises ValueError. Do not mutate records.",
+      "buggySource": "def select_latest(records):\n    out = {}\n    for record in records:\n        key = record[\"key\"]\n        if key not in out or record[\"revision\"] > out[key][\"revision\"]:\n            out[key] = record\n    return [dict(out[key]) for key in sorted(out)]\n",
+      "visibleCases": [
+        {
+          "args": [
+            [
+              {
+                "key": "b",
+                "revision": 1,
+                "observed": 1,
+                "value": 0
+              },
+              {
+                "key": "a",
+                "revision": 2,
+                "observed": 1,
+                "value": 1
+              }
+            ]
+          ],
+          "expected": [
+            {
+              "key": "a",
+              "revision": 2,
+              "observed": 1,
+              "value": 1
+            },
+            {
+              "key": "b",
+              "revision": 1,
+              "observed": 1,
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioId": "normalize-tags",
+      "split": "holdout",
+      "functionName": "normalize_tags",
+      "spec": "Implement normalize_tags(tags). Every item must be a string. Trim leading/trailing whitespace. Reject any item that becomes empty with ValueError. Deduplicate case-insensitively using Unicode casefold, preserving the trimmed spelling of the first occurrence and preserving first-occurrence order. Return a new list. Do not mutate tags.",
+      "buggySource": "def normalize_tags(tags):\n    return sorted(set(tag.strip().lower() for tag in tags if tag.strip()))\n",
+      "visibleCases": [
+        {
+          "args": [
+            [
+              " Alpha ",
+              "beta",
+              "ALPHA"
+            ]
+          ],
+          "expected": [
+            "Alpha",
+            "beta"
+          ]
+        }
+      ]
+    }
+  ]
+}

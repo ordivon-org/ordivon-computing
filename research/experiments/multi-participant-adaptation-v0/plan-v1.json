@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.p4-multi-participant-plan",
+  "planId": "MULTI-P4-001",
+  "status": "frozen_before_live_provider",
+  "questionRef": "ANC-MULTI-001",
+  "sourceRevision": "3e9d8dbadb9588d5eb904015454e96d2bee9be51",
+  "hypothesis": "Two fresh independent participants can create more verifier-accepted candidate diversity than one capable participant using sequential self-reflection under the same two-model-call budget.",
+  "strongBaseline": "single-reflect: one participant, first candidate, visible-only feedback, second revision candidate, then the same independent verifier and deterministic Join over both candidates.",
+  "candidate": "multi-independent: two participant identities, each receives the same frozen visible Task independently, one model call each, then the same independent verifier and deterministic Join over both candidates.",
+  "controls": {
+    "modelCallsPerGoalPerTreatment": 2,
+    "sameProviderModelRequired": true,
+    "sameVisibleTaskRequired": true,
+    "sameCompletionSchemaRequired": true,
+    "sameIndependentVerifierRequired": true,
+    "sameJoinRuleRequired": true,
+    "branchEffectsAllowed": false,
+    "hiddenCasesVisibleToAgents": false,
+    "developmentScenarios": 6,
+    "holdoutScenarios": 3
+  },
+  "multiPromotionRule": {
+    "development": "multi accepted Goals must exceed baseline accepted Goals",
+    "holdout": "multi accepted Goals must exceed baseline accepted Goals",
+    "combinedMinimumAcceptedGoalGain": 2,
+    "maxTokenRatio": 1.2,
+    "requiredSafety": [
+      "zero branch Effect intents",
+      "zero responsibility ambiguity",
+      "all accepted joins survive partial-result Host reopen",
+      "rejected verification cannot advance Task"
+    ],
+    "meaning": "A tie, mixed split, smaller gain, excessive cost, or coordination regression is insufficient to justify a new Multi-Agent capability layer."
+  },
+  "infrastructureAdmission": {
+    "existingHostGoalCoordinatorFirst": true,
+    "newSchedulerAuthorized": false,
+    "newDagAuthorized": false,
+    "newMessageBusAuthorized": false,
+    "newParticipantRegistryAuthorized": false,
+    "newOrganizationLayerAuthorized": false,
+    "newAgentVmAuthorized": false,
+    "newMultiAgentRepositoryAuthorized": false
+  },
+  "claimLimit": "At most one bounded repository-repair evidence family; positive evidence would justify retaining a participant-branch pattern, not a generic Agent society or scheduler.",
+  "integrity": {
+    "algorithm": "sha256",
+    "payloadDigest": "sha256:a77b0c1438f06173266b55f45adc7241c6829dc4ff270444771a5a558be6304a"
+  }
+}
