@@ -116,6 +116,16 @@ P2 tested whether the improved self-research loop transferred beyond the P0 Tria
 
 This raises the self-evolution slice to **M5**: the improved loop survived a materially different cross-project evidence family and a third reversible self-change. It still does not complete `ANC-ADAPT-001`; Skill compilation, multi-participant adaptation, and open-ended recursive capability growth remain unproven.
 
+## P3 Skill-compilation falsification
+
+P3 tested the first natural dynamic-capability candidate rather than constructing a generic Skill system. Runtime history exposed repeated response-loss/`UNKNOWN` reconciliation across durable execution, Workspace open/patch/mutate, Host checkpoints, and external effects. A deterministic compiler therefore produced `skill:reconcile-before-redispatch:v1`, while a negative ownership control correctly rejected source landing/publication as Git/Runtime mechanics plus explicit consequence authority rather than a Skill.
+
+The first 25 live DeepSeek trajectories suggested that the compiled procedure could alter behavior, but its evaluator contained synonymous action labels and an ambiguous redispatch boolean. That entire selection was invalidated and frozen rather than rescored. The Skill bytes were left unchanged. A second evaluator exposed the same operation-specific Tool contract facts to both treatments, removed the ambiguous boolean, froze five new holdout cases, and ran another 25 Provider trajectories. The strong baseline scored **8/10** development at 11,852 tokens; the Skill scored **6/10** at 14,618 tokens, about 23% more. Both had zero dangerous blind retries. Baseline then passed only **3/5** frozen holdout cases, so neither treatment established a stable recovery capability.
+
+The Skill candidate is therefore **rejected, not promoted**. This does not show that capability compilation is generally useless. It falsifies a narrower and important hypothesis: repeated procedure text plus real incident provenance is not enough to become a Skill when current Tool contracts already expose the decisive facts. A useful Skill must add stable decision value beyond those contracts without duplicating Tool/Runtime/Host authority. No Skill repository, runtime, marketplace, registry, or new execution surface is authorized.
+
+`ANC-ADAPT-001` remains at **M5** because P2's cross-evidence self-reform evidence still stands, but dynamic Skill compilation remains unproven. The next adaptation falsifier is `ANC-MULTI-001`.
+
 ## Evidence required for progress
 
 - learning improves a repeated workload without merely adding more context or model budget;
