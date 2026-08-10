@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.p3-skill-evaluator-diagnosis",
+  "campaign": "live-ablation-v1",
+  "runtimeJobId": "job-019feb04-56f5-7c52-8872-245cf8021658",
+  "rawTrajectoryCount": 25,
+  "originalResult": {
+    "baselineAcceptedDevelopment": 4,
+    "skillAcceptedDevelopment": 8,
+    "developmentWinner": "skill",
+    "holdoutPassed": false,
+    "disposition": "no_promotion"
+  },
+  "diagnosis": [
+    {
+      "defect": "synonymous_action_labels",
+      "evidence": [
+        "retry_same_client_request_after_absence",
+        "retry_after_state_proves_absence"
+      ],
+      "reason": "both encode retry only after exact evidence proves absence; exact-label scoring invents a distinction not present in Tool semantics"
+    },
+    {
+      "defect": "redispatch_boolean_temporal_ambiguity",
+      "reason": "redispatchAllowed does not specify immediate-next-action permission versus eventual permission after reconciliation; action/summary can correctly require reconciliation while boolean true is scored false"
+    },
+    {
+      "defect": "overlapping_applied_state_labels",
+      "evidence": [
+        "accept_existing_workspace",
+        "accept_observed_applied_state"
+      ],
+      "reason": "after workspace.get already returns the exact healthy Workspace, both labels can denote acceptance of the same observed state"
+    }
+  ],
+  "scientificDisposition": "invalidate_selection_evaluator_contract",
+  "rawProviderEvidenceRetained": true,
+  "retrospectiveRescoreAuthorized": false,
+  "skillPromotionAuthorized": false,
+  "requiredRepair": [
+    "one semantic action per recovery state",
+    "remove redundant redispatch boolean",
+    "freeze new development and unseen holdout cases before rerun"
+  ],
+  "meaning": "The first live campaign shows mechanism pressure but cannot decide Skill promotion because evaluator vocabulary, not owner Tool semantics, created avoidable disagreement.",
+  "integrity": {
+    "algorithm": "sha256",
+    "payloadDigest": "sha256:fd222460872ce26ae80b278feaec44b43e0b06b7e5feffb456f689637e7078c5"
+  }
+}

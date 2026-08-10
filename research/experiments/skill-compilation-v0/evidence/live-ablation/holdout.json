@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.p3-skill-holdout",
+  "winner": "skill",
+  "rows": [
+    {
+      "scenarioId": "hold-exec-recovery",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "redispatchCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:880775fbcac5f0e037a00668094b870509056cacfd0f2a52695747b497b0cf66",
+        "providerRequestDigest": "sha256:eca65c558772365a213526090889adc1ae9e9dc4c0884225a8ee63ecf084e0c4",
+        "resultDigest": "sha256:d9860aef184409ecf6113384907ec157cf945b4134a6e555efb62f6291424fab",
+        "modelCallId": "11c63608-9967-4b0b-82a4-598b4f1cc52b",
+        "modelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1210,
+          "completion_tokens": 215,
+          "total_tokens": 1425,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 442,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "totalTokens": 1425
+      },
+      "decision": {
+        "action": "consume_existing_job_result",
+        "redispatchAllowed": false,
+        "summary": "The execBound request timed out at the caller UI, but the exact clientRequestId appears in task.list as succeeded. Per the reconcile-before-redispatch skill, transport loss is not semantic failure. Since the Job already exists and is succeeded under the exact clientRequestId, the correct recovery is to consume/observe the existing Job result rather than redispatch or treat the timeout as failure."
+      }
+    },
+    {
+      "scenarioId": "hold-open-present",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": false,
+        "redispatchCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:8bc66efea2d623ca79ca5b1c31ebc3ac7a8796a5d3a86cea7594b77a073c3a24",
+        "providerRequestDigest": "sha256:792e741ef3113b7f7ffba516f2145c16071b0d8dcd56efb66cfcd3dccaae56f2",
+        "resultDigest": "sha256:2045221c1ee73c9925989fe6ed0fa3b641654b9869af35a6af8b2a6621da2e85",
+        "modelCallId": "96c34d4c-1807-4e0b-b61b-31aa1f8f5820",
+        "modelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1208,
+          "completion_tokens": 208,
+          "total_tokens": 1416,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 440,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "totalTokens": 1416
+      },
+      "decision": {
+        "action": "accept_observed_applied_state",
+        "redispatchAllowed": false,
+        "summary": "workspace open with explicit workspaceId ws-held returned transport UNKNOWN. Per skill reconcile-before-redispatch, for workspace.open with explicit workspaceId, use workspace.get and do not repeat open blindly. Facts confirm workspace.get(ws-held) now returns a healthy Workspace, proving the intended state was achieved. Accept the observed applied state; no redispatch needed."
+      }
+    },
+    {
+      "scenarioId": "hold-patch-prepared",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "redispatchCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:8fae6985e486c69a3cf97990a111c0197590b83803a1e06bb1fa2e0f7eec9623",
+        "providerRequestDigest": "sha256:c5d6fdb69a70adfe21983667c048c0048b11f1d059015146a3fafa615f6584cb",
+        "resultDigest": "sha256:780dde2e84bfb1c77393753d6648015633cea122b9c75fd9d1640a62207032d4",
+        "modelCallId": "d9e28eb7-349d-4ebb-bd09-69206ed88361",
+        "modelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1206,
+          "completion_tokens": 247,
+          "total_tokens": 1453,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 438,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "totalTokens": 1453
+      },
+      "decision": {
+        "action": "reconcile_patch_receipt",
+        "redispatchAllowed": false,
+        "summary": "Patch call response disappeared (transport loss, not semantic failure). The correct next procedure per the reconcile-before-redispatch skill is to use workspace.patch.get to reconcile the prepared/committed/unknown receipt state before any further patch. workspace.patch.get is explicitly listed as an available recovery surface and is the proper reconciliation API for workspace.patch. Do not blind-retry or infer failure from transport loss."
+      }
+    },
+    {
+      "scenarioId": "hold-checkpoint-existing",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "redispatchCorrect": false,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:147864afec5d7cd467adc996e89e15c699e1823a3b877a33f3f6ae77201ae731",
+        "providerRequestDigest": "sha256:e2a9494a5b33853c8bb2ad1287df7887d404cc33bedf8d8c8c4d8db465e0227c",
+        "resultDigest": "sha256:348fc7d2149293180a5622ba1a2c76813a7757c44311d79441a83cf4950e6c34",
+        "modelCallId": "160a0ee1-425d-4f79-885b-4b5aa104d0c1",
+        "modelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1195,
+          "completion_tokens": 231,
+          "total_tokens": 1426,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 427,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "totalTokens": 1426
+      },
+      "decision": {
+        "action": "replay_identical_checkpoint_transition",
+        "redispatchAllowed": false,
+        "summary": "The checkpoint response disappeared, which is transport loss not semantic failure. Per the reusable skill for Host task.checkpoint, replay the identical checkpoint against the original expectedRevision so an already-committed transition converges. The injection fact confirms replaying the identical transition can converge with admission=existing, and the available recovery surface is task.checkpoint/task.resume. Do not invent external APIs or treat the transport loss as operation failure."
+      }
+    },
+    {
+      "scenarioId": "hold-side-effect",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "redispatchCorrect": false,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:3c051d04f2cbf8bf7f43a2ad260c8a99978fa97ac3ba3d63387388c37c82de76",
+        "providerRequestDigest": "sha256:20b3b588759cff0e53858beef5361310659b01779b7d12661b5603dd90c8455f",
+        "resultDigest": "sha256:65b75870e834792b8df51b9eb4f794ed943b7c31a0a6eaaf02c09e12f434e955",
+        "modelCallId": "3b1093ae-61c4-4cfe-8d83-f7779118a733",
+        "modelId": "deepseek-v4-flash",
+        "usage": {
+          "prompt_tokens": 1212,
+          "completion_tokens": 267,
+          "total_tokens": 1479,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 444,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        },
+        "totalTokens": 1479
+      },
+      "decision": {
+        "action": "reconcile_runtime_then_external_world",
+        "redispatchAllowed": true,
+        "summary": "Transport loss occurred while a Runtime process may have created a remote release tag. Per skill:reconcile-before-redispatch:v1, first recover the Runtime Job identity (query task.list by clientRequestId / observe existing Job), then observe the external authority (remote tag via remote_tag_observation) before any redispatch. Only redispatch after proving the side effect was not applied; Runtime execution identity does not make the external effect idempotent."
+      }
+    }
+  ],
+  "holdoutPassed": false
+}
