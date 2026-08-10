@@ -62,6 +62,7 @@ class ResearchPortfolioTests(unittest.TestCase):
             (root / "research" / "questions").mkdir(parents=True)
             document = json.loads((ROOT / "research" / "portfolio.json").read_text())
             harness = next(item for item in document["questions"] if item["id"] == "ANC-HARNESS-002")
+            harness["status"] = "active"
             evidence_rel = harness["externalObservation"]["evidence"][0]
             evidence_path = root / evidence_rel
             evidence_path.parent.mkdir(parents=True)
@@ -81,11 +82,24 @@ class ResearchPortfolioTests(unittest.TestCase):
             source = ROOT / "research" / "portfolio.json"
             document = json.loads(source.read_text())
             document["policy"]["activeLineLimit"] = 1
-            overflow = dict(document["activeLines"][0])
-            overflow["id"] = "TEST-OVERFLOW-LINE"
-            overflow["questions"] = []
-            overflow["issues"] = ["test#overflow"]
-            document["activeLines"].append(overflow)
+            document["activeLines"] = [
+                {
+                    "id": "TEST-LINE-A",
+                    "title": "Fixture line A",
+                    "priority": "P0",
+                    "questions": ["ANC-VERIFY-001"],
+                    "issues": ["test#line-a"],
+                    "exitCriteria": "fixture",
+                },
+                {
+                    "id": "TEST-LINE-B",
+                    "title": "Fixture line B",
+                    "priority": "P1",
+                    "questions": ["ANC-VERIFY-002"],
+                    "issues": ["test#line-b"],
+                    "exitCriteria": "fixture",
+                },
+            ]
             path = root / "research" / "portfolio.json"
             path.write_text(json.dumps(document), encoding="utf-8")
             issues = CHECK.check_portfolio(root, path)

@@ -14,10 +14,10 @@ ROOT = HERE.parents[2]
 sys.path.insert(0, str(ROOT / "packages" / "content-cli" / "src"))
 sys.path.insert(0, str(HERE))
 
-from compatibility import summarize
-from dirty_aging import classify_dirty_workspaces
-from maintenance import build_projection, canonical_digest
-from ordivon_content.baseline import build_baseline
+from compatibility import summarize  # noqa: E402 - local experiment bootstrap
+from dirty_aging import classify_dirty_workspaces  # noqa: E402 - local experiment bootstrap
+from maintenance import build_projection, canonical_digest  # noqa: E402 - local experiment bootstrap
+from ordivon_content.baseline import build_baseline  # noqa: E402 - content-cli source bootstrap
 
 RUNTIME_LIFECYCLE = Path("/usr/local/libexec/ordivon/ordivon-runtime-lifecycle")
 RUNTIME_CACHE = Path("/usr/local/libexec/ordivon/ordivon-runtime-cache")

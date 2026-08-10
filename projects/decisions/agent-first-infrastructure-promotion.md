@@ -25,6 +25,14 @@ related:
 ---
 # Agent-first Infrastructure Promotion Rule
 
+## Status
+
+Accepted. This decision is the current promotion rule for cross-cutting Ordivon infrastructure.
+
+## Context
+
+Cross-project usefulness is not enough to justify another durable abstraction or repository. Agent-first infrastructure should inherit mature mechanisms where possible, add only the smallest owner-local friction reduction when direct use remains mechanically unsafe, and promote new Ordivon-owned semantics only after repeated real workloads demonstrate a responsibility that existing owners cannot express cleanly.
+
 ## Decision
 
 Cross-cutting infrastructure follows a three-layer promotion rule:
@@ -88,6 +96,10 @@ Until that threshold is met:
 - do not create `ordivon-*` projects for capability collection, naming symmetry, or architectural completeness.
 
 When the threshold appears to be met, the Agent should present the evidence, proposed responsibility, alternatives, and extraction cost for human review before creating or admitting the independent Ordivon repository.
+
+## Consequences
+
+This rule deliberately biases Ordivon toward fewer authorities and fewer permanent compatibility surfaces. Useful code may remain local or experimental for longer, while promotion decisions require explicit consumer, lifecycle, recovery, and deletion evidence. The cost is that some cross-project conveniences are duplicated temporarily; the benefit is that temporary mechanics do not harden into global architecture before their semantic responsibility is proven.
 
 ## Current application
 

@@ -160,9 +160,9 @@ The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](researc
 - [**Ordivon Game**](https://github.com/zycxfyh/ordivon-game) — playable interactive Worlds, Station Zero, player intervention, replay, and Agent participation;
 - [**Ordivon World**](https://github.com/zycxfyh/ordivon-world) — provider-native external adapters and cross-World Resource, Message, and Entity trajectories without a global World or Presence authority;
 - [**Ordivon Security**](https://github.com/zycxfyh/ordivon-security) — authorized adversarial-autonomy research, independent truth, consequence verification, recovery, and evaluator-integrity experiments;
-- [**Ordivon Finance**](https://github.com/zycxfyh/ordivon-finance) — local Agent-first capital and financial research laboratory with owner-native market, portfolio, belief, execution, reconciliation, and experiment state;
+- **Ordivon Finance** — local Agent-first capital and financial research laboratory with owner-native market, portfolio, belief, execution, reconciliation, and experiment state;
 - [**Ordivon Human**](https://github.com/zycxfyh/ordivon-human) — problem-driven human research, practical paths, methods, evidence limits, ethics, and privacy boundaries;
-- [**Ordivon Studio**](https://github.com/zycxfyh/ordivon-studio) — Art & Expression research plus multi-medium production from project-owned facts and evidence;
+- **Ordivon Studio** — Art & Expression research plus multi-medium production from project-owned facts and evidence;
 - [**Ordivon Web**](https://github.com/zycxfyh/ordivon-web) — public orientation, publication, project navigation, and dated editorial projections rather than copied live system state.
 
 The linked authority and public-orientation map is [`projects/README.md`](projects/README.md); stable machine declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each owning repository.
