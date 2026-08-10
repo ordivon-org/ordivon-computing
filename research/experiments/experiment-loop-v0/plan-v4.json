@@ -1,0 +1,458 @@
+{
+  "acceptanceGates": [
+    "records_bind_immutable_owner_refs",
+    "deleting_cel_cannot_change_owner_or_r3_evidence",
+    "roles_are_distinguishable",
+    "valid_negative_invalid_infrastructure_evaluator_and_incomplete_cases_distinct",
+    "only_valid_complete_trials_enter_pareto_comparison",
+    "baseline_retained_every_round",
+    "same_diff_candidates_deduplicated",
+    "winner_replication_uses_fresh_process_state_root_and_workspace",
+    "round_decision_reproducible_from_frozen_inputs",
+    "candidate_cannot_modify_grader_workload_metric_or_observation_mapping",
+    "no_automatic_merge_or_deployment",
+    "e1_has_baseline_plus_two_materially_distinct_candidates",
+    "three_valid_trials_per_compared_candidate",
+    "campaign_retains_useful_negative_or_null_result",
+    "independent_post_campaign_regression_gate_passes",
+    "ordinary_private_reversible_research_requires_no_human_intervention",
+    "human_attention_triggered_by_consequence_not_routine_step_count",
+    "research_candidate_promotion_does_not_equal_product_promotion"
+  ],
+  "antiGaming": [
+    "candidate_path_allowlist_and_denylist",
+    "hidden_grader_and_holdout_not_model_visible",
+    "benchmark_inputs_timeouts_samples_and_metrics_frozen",
+    "observation_mapping_changes_forbidden",
+    "candidate_patch_digest_frozen_before_trials",
+    "fresh_workspace_per_replicate",
+    "same_model_self_score_not_sufficient",
+    "evaluator_disagreement_blocks_promotion"
+  ],
+  "authority": [
+    {
+      "facts": [
+        "task",
+        "verification",
+        "task_outcome"
+      ],
+      "owner": "ordivon-host"
+    },
+    {
+      "facts": [
+        "harness_run",
+        "provider_call",
+        "tool_step",
+        "completion_proposal"
+      ],
+      "owner": "ordivon-harness"
+    },
+    {
+      "facts": [
+        "workspace",
+        "runtime_job",
+        "runtime_attempt",
+        "artifact",
+        "terminal_evidence"
+      ],
+      "owner": "ordivon-runtime"
+    },
+    {
+      "facts": [
+        "world_state",
+        "domain_outcome"
+      ],
+      "owner": "domain_project"
+    },
+    {
+      "authoritative": false,
+      "facts": [
+        "query_projection",
+        "source_completeness",
+        "correlation_index"
+      ],
+      "owner": "hho_p1_observation"
+    },
+    {
+      "facts": [
+        "trial_manifest",
+        "trial_validity",
+        "trial_result",
+        "failure_record"
+      ],
+      "owner": "hhr_r3_formal_trial"
+    },
+    {
+      "facts": [
+        "campaign_manifest",
+        "hypothesis",
+        "candidate",
+        "round_decision",
+        "learning_update",
+        "campaign_receipt"
+      ],
+      "owner": "cel_r4_experiment_loop"
+    }
+  ],
+  "decisions": {
+    "agentOwnsBoundedResearchProgression": true,
+    "automaticDatasetAdmission": false,
+    "automaticDeploymentAuthorized": false,
+    "automaticMergeAuthorized": false,
+    "campaignRecordsAreResearchOnly": true,
+    "daemonAuthorized": false,
+    "databaseAuthorized": false,
+    "formalTrialOwnsValidity": false,
+    "humanAttentionIsConsequenceBounded": true,
+    "negativeResultsRetained": true,
+    "newRepositoryAuthorized": false,
+    "observationIsSensingOnly": true,
+    "productPromotionOwnedByProductAuthority": true,
+    "rawPrivateReasoningRequired": false,
+    "schedulerAuthorized": false,
+    "independentEvaluatorOwnsValidity": true,
+    "campaignDeclaresEvidenceCompleteness": true
+  },
+  "downstreamQuestionRef": "ANC-ADAPT-001",
+  "executionPlanRef": "research/experiments/experiment-loop-v0/EXECUTION-PLAN.md",
+  "firstEvidenceProgram": [
+    {
+      "phaseId": "E0",
+      "title": "P0 live retrospective shadow encoding",
+      "status": "ready",
+      "claimLimit": "record_and_controller_validation_only",
+      "evidenceRef": "research/experiments/p0-consumer-falsification-v0/evidence/p0-live-closeout.json"
+    },
+    {
+      "phaseId": "E1",
+      "title": "CEL selection-eligibility self-customer",
+      "status": "completed_holdout_passed",
+      "changeSurface": [
+        "trial_selection_policy.required_evidence_claims"
+      ],
+      "baseline": "observation_always_required_v1",
+      "candidate": "campaign_declared_evidence_v2",
+      "holdout": "p0_live_cells_and_excluded_diagnostics",
+      "promotionBoundary": "research_policy_commit_only"
+    },
+    {
+      "phaseId": "E2",
+      "title": "Second-generation CEL prerequisite-resolution self-change",
+      "status": "completed_holdout_passed",
+      "changeSurface": [
+        "prerequisite_policy"
+      ],
+      "baseline": "named_phase_status_v1",
+      "candidate": "capability_evidence_v1",
+      "promotionBoundary": "research_policy_commit_only"
+    },
+    {
+      "phaseId": "E3",
+      "title": "Owner-native external confirmation",
+      "status": "conditional",
+      "promotionBoundary": "owner_native_only"
+    }
+  ],
+  "kind": "ordivon.continuous-experiment-loop-plan",
+  "methodRef": "research/research-method-v1.json",
+  "outputs": [
+    "cel-contract-v2.json",
+    "recompile-receipt-v2.json",
+    "campaigns/<campaign-id>/campaign.json",
+    "campaigns/<campaign-id>/candidates/*.json",
+    "campaigns/<campaign-id>/trials/*.json",
+    "campaigns/<campaign-id>/decision.json",
+    "campaigns/<campaign-id>/closeout.json",
+    "cel-r4-v2-closeout.json"
+  ],
+  "planId": "CEL-R4-004",
+  "prerequisites": [
+    {
+      "capabilityId": "rebuildable_evidence_selection",
+      "required": true,
+      "satisfied": true,
+      "evidenceRefs": [
+        "research/experiments/observation-plane-v0/evidence/b3-owner-native-e9bc8b4/observation-selection.json",
+        "research/experiments/p0-consumer-falsification-v0/evidence/p0-live-closeout.json"
+      ],
+      "reason": "Campaign inputs must bind exact rebuildable evidence appropriate to the question; a universal ObservationSelectionManifest is not required when the campaign has an independent exact evidence contract."
+    },
+    {
+      "capabilityId": "independent_trial_validity",
+      "required": true,
+      "satisfied": true,
+      "evidenceRefs": [
+        "research/experiments/harness-evaluation-v0/evidence/b4-smoke-78de3a6/closeout.json",
+        "research/experiments/p0-consumer-falsification-v0/evidence/p0-live-closeout.json",
+        "research/experiments/p0-consumer-falsification-v0/tests/test_live_evidence.py"
+      ],
+      "reason": "The Campaign controller must consume validity owned by an independent evaluator path and must not infer validity from semantic success or Runtime exit."
+    },
+    {
+      "capabilityId": "repeated_comparable_trials",
+      "required": true,
+      "satisfied": true,
+      "evidenceRefs": [
+        "research/experiments/p0-consumer-falsification-v0/evidence/p0-live-closeout.json"
+      ],
+      "reason": "At least one current bounded workload already has repeated exact-configuration valid comparative Trials with retained negative outcomes; historical B5 phase completion is not required."
+    },
+    {
+      "capabilityId": "negative_result_retention",
+      "required": true,
+      "satisfied": true,
+      "evidenceRefs": [
+        "research/experiments/p0-consumer-falsification-v0/evidence/p0-live-closeout.json"
+      ],
+      "reason": "Negative and diagnostic outcomes are retained separately from valid accepted outcomes."
+    },
+    {
+      "capabilityId": "isolated_reversible_candidate_execution",
+      "required": true,
+      "satisfied": true,
+      "evidenceRefs": [
+        "research/experiments/p0-consumer-falsification-v0/evidence/p0-live-closeout.json"
+      ],
+      "reason": "Current Runtime Workspace execution and Git history provide a reversible research candidate boundary; CEL needs no scheduler or new execution authority."
+    }
+  ],
+  "questionRef": "ANC-ADAPT-001",
+  "readyFrontier": [
+    "rehearse_second_generation_rollback",
+    "close_p1_bounded_recursive_self_improvement_evidence",
+    "seek_materially_different_future_self_change_before_any_open_ended_rsi_claim"
+  ],
+  "records": [
+    "CampaignManifest",
+    "CandidateManifest",
+    "TrialRecord",
+    "EvaluationRecord",
+    "RoundDecision",
+    "CampaignCloseout"
+  ],
+  "roles": [
+    {
+      "forbidden": [
+        "modify_hidden_grader",
+        "mark_trial_valid",
+        "promote_to_production"
+      ],
+      "may": [
+        "propose_hypothesis",
+        "propose_candidate",
+        "predict_observable_change",
+        "identify_burden",
+        "map_responsibility_carrier",
+        "propose_externalization_candidate"
+      ],
+      "roleId": "proposer"
+    },
+    {
+      "forbidden": [
+        "change_candidate_after_trial_start",
+        "edit_forbidden_paths",
+        "reuse_contaminated_workspace"
+      ],
+      "may": [
+        "implement_frozen_candidate_in_isolated_workspace"
+      ],
+      "roleId": "implementer"
+    },
+    {
+      "forbidden": [
+        "repair_candidate_before_scoring",
+        "infer_semantic_success_from_runtime_success",
+        "invent_missing_measurements"
+      ],
+      "may": [
+        "run_frozen_grader_bundle",
+        "issue_trial_disposition"
+      ],
+      "roleId": "evaluator"
+    },
+    {
+      "forbidden": [
+        "dispatch_product_effect_directly",
+        "override_invalidity",
+        "promote_to_production",
+        "change_research_mission"
+      ],
+      "may": [
+        "compare_selection_eligible_groups",
+        "request_replication",
+        "allocate_bounded_next_round",
+        "stop_campaign",
+        "promote_research_candidate_within_campaign",
+        "propose_portfolio_update"
+      ],
+      "roleId": "search_controller"
+    },
+    {
+      "forbidden": [
+        "mark_trial_valid",
+        "override_invalidity",
+        "suppress_negative_result",
+        "perform_product_merge_by_research_score"
+      ],
+      "may": [
+        "change_research_mission",
+        "authorize_irreversible_or_public_commitment",
+        "authorize_cross_owner_authority_transfer",
+        "expand_campaign_budget_ceiling",
+        "expand_access_scope"
+      ],
+      "roleId": "consequence_authority"
+    }
+  ],
+  "schemaVersion": 1,
+  "searchPolicy": {
+    "baselineRetainedEveryRound": true,
+    "controller": "deterministic_pareto_and_replication_v2",
+    "freshReplicationForProvisionalWinner": 1,
+    "hardGatesDominatePerformance": true,
+    "maxCandidatesPerRoundIncludingBaseline": 4,
+    "maxRounds": 3,
+    "nextRoundComposition": [
+      "verified_pareto_leader",
+      "mechanism_diversity_candidate",
+      "failure_derived_candidate",
+      "unchanged_baseline"
+    ],
+    "noGlobalScoreRequired": true,
+    "parallelismRequiresDistinctStateRootsAndContaminationTest": true,
+    "sequentialByDefault": true,
+    "validTrialsPerCandidateForDevelopment": 3,
+    "minimumTrajectoryEvidenceForSelfChange": 20,
+    "trajectoryThresholdScope": "model_or_policy_changes_with_stochastic_or_historical_variance; deterministic exhaustive conformance may use complete finite fixture sets",
+    "selectionEligibilityPolicy": "campaign_declared_evidence_v2"
+  },
+  "stateMachine": {
+    "normal": [
+      "DRAFT",
+      "PREFLIGHTED",
+      "ROUND_OPEN",
+      "CANDIDATES_FROZEN",
+      "TRIALS_RUNNING",
+      "EVALUATING",
+      "ROUND_DECIDED",
+      "NEXT_ROUND",
+      "REPLICATION",
+      "CLOSEOUT_PENDING",
+      "CLOSED"
+    ],
+    "terminalExceptional": [
+      "STOPPED_INVALID_QUESTION",
+      "STOPPED_EVALUATOR_UNSTABLE",
+      "STOPPED_INFRASTRUCTURE_UNSTABLE",
+      "STOPPED_PRIVACY",
+      "STOPPED_BUDGET",
+      "STOPPED_CONSEQUENCE_AUTHORITY",
+      "ABANDONED"
+    ]
+  },
+  "status": "second_generation_self_change_holdout_passed",
+  "stopConditions": [
+    "candidate_generation_not_separable_from_evaluator_authority",
+    "trial_instability_prevents_selection",
+    "infrastructure_failures_dominate_rounds",
+    "owner_databases_or_full_transcripts_must_be_copied",
+    "controller_requires_product_dispatch_or_deployment_authority",
+    "universal_scalar_score_required",
+    "fixed_nonadaptive_candidate_set_matches_decisions_at_materially_lower_cost",
+    "benchmark_gain_does_not_survive_replication",
+    "operational_overhead_exceeds_information_value"
+  ],
+  "trialDisposition": {
+    "comparativeOutcome": [
+      "improved",
+      "equivalent",
+      "regressed",
+      "inconclusive",
+      "not_applicable",
+      "unknown"
+    ],
+    "failureAttribution": [
+      "none",
+      "candidate",
+      "infrastructure",
+      "evaluator",
+      "environment",
+      "policy",
+      "multiple",
+      "unknown"
+    ],
+    "selectionEligibleWhen": [
+      "validity_is_valid",
+      "campaign_required_evidence_complete",
+      "configuration_identity_exact",
+      "required_graders_completed",
+      "no_forbidden_candidate_mutation",
+      "no_unresolved_duplicate_dispatch_false_completion_privacy_or_contamination"
+    ],
+    "semanticOutcome": [
+      "accepted",
+      "rejected",
+      "not_reached",
+      "not_applicable",
+      "unknown"
+    ],
+    "validity": [
+      "valid",
+      "invalid",
+      "unknown"
+    ]
+  },
+  "supersedes": "research/experiments/experiment-loop-v0/plan-v3.json#CEL-R4-003",
+  "legacyDesignQuestionRef": "ANC-VERIFY-001",
+  "prerequisitePolicy": {
+    "mode": "capability_evidence_v1",
+    "phaseNameStatusIsAuthority": false,
+    "historicalBlockedPlansRemainHistorical": true,
+    "universalObservationSelectionRequired": false,
+    "campaignDeclaresRequiredEvidenceClaims": true,
+    "promotedEvidenceRef": "research/experiments/experiment-loop-v0/campaigns/cel-p1-prerequisite-002/closeout.json"
+  },
+  "promotedResearchPolicies": [
+    {
+      "policyId": "campaign_declared_evidence_v2",
+      "surface": "trial_selection_policy.required_evidence_claims",
+      "evidenceRef": "research/experiments/experiment-loop-v0/campaigns/cel-p1-selection-001/closeout.json",
+      "developmentCases": 20,
+      "holdoutCases": 5,
+      "falseInclusions": 0,
+      "falseExclusions": 0,
+      "rollbackRequired": true
+    },
+    {
+      "policyId": "capability_evidence_v1",
+      "generation": 2,
+      "surface": "prerequisite_policy",
+      "parentSelfChangeRef": "research/experiments/experiment-loop-v0/campaigns/cel-p1-selection-001/closeout.json",
+      "evidenceRef": "research/experiments/experiment-loop-v0/campaigns/cel-p1-prerequisite-002/closeout.json",
+      "developmentCases": 5,
+      "holdoutCases": 2,
+      "falseReady": 0,
+      "falseBlock": 0,
+      "rollbackRequired": true
+    }
+  ],
+  "boundedRSIEvidence": {
+    "firstGeneration": {
+      "change": "campaign_declared_evidence_v2",
+      "heldOutPassed": true,
+      "rollbackRehearsed": true
+    },
+    "secondGeneration": {
+      "change": "capability_evidence_v1",
+      "drivenByImprovedLoop": true,
+      "heldOutPassed": true,
+      "rollbackRehearsed": false
+    },
+    "claimLimit": "bounded_recursive_self_improvement_evidence_not_open_ended_RSI"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:15b1a9d0c27c43ffcee22d7c59f0a35c5ea95c266a6c14655b87b02dd6a88064"
+  }
+}
