@@ -13,6 +13,7 @@ if str(ROOT) not in sys.path:
 
 from build_frontier_freshness_corpus import build
 from frontier_freshness import classify_revision_relation
+from run_frontier_freshness_self_change import resolve_fixture_dir
 
 
 def git(repository: Path, *args: str) -> str:
@@ -67,6 +68,11 @@ class FrontierFreshnessTests(unittest.TestCase):
             {x["projectId"] for x in entries if x["split"] == "holdout"},
             {"ordivon-harness", "ordivon-studio", "ordivon-web"},
         )
+
+    def test_runner_resolves_relative_fixture_under_repository_root(self) -> None:
+        resolved = resolve_fixture_dir(Path("research/experiments/experiment-loop-v0/fixtures/frontier-freshness-v1"))
+        self.assertTrue(resolved.is_absolute())
+        self.assertEqual(resolved, ROOT.parents[2] / "research/experiments/experiment-loop-v0/fixtures/frontier-freshness-v1")
 
     def test_frozen_fixture_labels_are_separate_from_candidate_visible_corpus(self) -> None:
         fixture = ROOT / "fixtures/frontier-freshness-v1"

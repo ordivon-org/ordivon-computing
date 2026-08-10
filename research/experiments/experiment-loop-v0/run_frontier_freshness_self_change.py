@@ -18,6 +18,10 @@ from frontier_freshness import baseline_syntax_only, candidate_git_relation
 P1_CLOSEOUT = ROOT / "research/experiments/experiment-loop-v0/p1-bounded-rsi-closeout.json"
 PLAN_V5 = ROOT / "research/experiments/experiment-loop-v0/plan-v5.json"
 
+def resolve_fixture_dir(value: Path) -> Path:
+    return value if value.is_absolute() else ROOT / value
+
+
 POLICIES: tuple[tuple[str, Callable[[dict], dict]], ...] = (
     ("syntactic_revision_v1", baseline_syntax_only),
     ("git_relation_freshness_v2", candidate_git_relation),
@@ -89,8 +93,9 @@ def main() -> int:
     if not {"campaign_declared_evidence_v2", "capability_evidence_v1"} <= promoted:
         raise RuntimeError("P2 requires both P1 promoted research policies")
 
-    corpus = load_record(args.fixture_dir / "corpus.json", expected_kind="ordivon.world-model-frontier-freshness-corpus")
-    labels = load_record(args.fixture_dir / "evaluator-labels.json", expected_kind="ordivon.world-model-frontier-freshness-labels")
+    fixture_dir = resolve_fixture_dir(args.fixture_dir)
+    corpus = load_record(fixture_dir / "corpus.json", expected_kind="ordivon.world-model-frontier-freshness-corpus")
+    labels = load_record(fixture_dir / "evaluator-labels.json", expected_kind="ordivon.world-model-frontier-freshness-labels")
     if corpus["splitCounts"] != {"development": 7, "holdout": 3}:
         raise RuntimeError("P2 freshness split differs")
 
@@ -106,8 +111,8 @@ def main() -> int:
             "changeSurface": ["world_model_frontier_freshness_policy"],
             "forbiddenSurface": ["owner_facts", "owner_product_state", "shared_world_model_claims", "product_merge_or_deploy"],
             "policies": [item[0] for item in POLICIES],
-            "corpusRef": str((args.fixture_dir / "corpus.json").relative_to(ROOT)),
-            "evaluatorRef": str((args.fixture_dir / "evaluator-labels.json").relative_to(ROOT)),
+            "corpusRef": str((fixture_dir / "corpus.json").relative_to(ROOT)),
+            "evaluatorRef": str((fixture_dir / "evaluator-labels.json").relative_to(ROOT)),
             "developmentCount": 7,
             "holdoutCount": 3,
             "promotionBoundary": "computing_world_model_observation_method_only",
