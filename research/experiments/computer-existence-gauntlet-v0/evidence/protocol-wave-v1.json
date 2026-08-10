@@ -1,0 +1,60 @@
+{
+  "ablations": [
+    {
+      "attack": "delete ordivon_semantics from protocol source",
+      "featureId": "PROTO-06",
+      "gameTests": "7/7",
+      "harnessTests": "220/220",
+      "hostTests": "99/99",
+      "result": "no current target behavior loss observed"
+    },
+    {
+      "attack": "remove anc_effect_ir from shared protocol path and provide identical Host-local module",
+      "featureId": "PROTO-02",
+      "hostTests": "99/99",
+      "result": "shared ownership not required by current Host workload"
+    },
+    {
+      "attack": "remove anc_effect_binding from shared protocol path and provide identical Host-local module",
+      "featureId": "PROTO-03",
+      "hostTests": "99/99",
+      "result": "shared ownership not required by current Host workload"
+    }
+  ],
+  "claimBoundary": [
+    "Exact-byte Host-local shim proves location/ownership can be localized without behavior change; it does not prove Effect/Binding semantics are useless.",
+    "Current-target tests do not erase immutable 0.3.0 release compatibility facts.",
+    "Two current independent consumers justify continued shared-candidate status but do not exempt interface size from later narrowing."
+  ],
+  "currentConsumerBaseline": {
+    "allPassed": true,
+    "fullConsumerGateExcludedReason": "current Host clone gate lacked mcp dependency in its temporary environment; release-frozen Host/Game pin/vector steps passed before that unrelated environment failure.",
+    "gameHostContractTests": 7,
+    "harnessProtocolTargetTests": 220,
+    "hostProtocolTargetTests": 99
+  },
+  "currentSourceConsumers": {
+    "anc_canonical": [
+      "ordivon-host",
+      "ordivon-harness"
+    ],
+    "anc_effect_binding": [
+      "ordivon-host"
+    ],
+    "anc_effect_ir": [
+      "ordivon-host"
+    ],
+    "anc_tool_contract": [
+      "ordivon-host",
+      "ordivon-harness"
+    ],
+    "host_workload": [
+      "ordivon-host",
+      "ordivon-game TypeScript wire implementation"
+    ],
+    "ordivon_semantics": []
+  },
+  "kind": "ordivon.computer-protocol-existence-evidence",
+  "schemaVersion": 1,
+  "sourceRevision": "8f9fccc9d6c0b8361c27138b053c1cc0b5d6e37c"
+}
