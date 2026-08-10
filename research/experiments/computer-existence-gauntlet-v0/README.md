@@ -30,3 +30,11 @@ Every applicable subject is attacked by: deletion/bypass, strongest simpler repl
 7. **COMPOSED** — adversarial mixed run with concurrent owner movement, stale docs, Tool drift, UNKNOWN recovery, contradictory evidence and a correct null-action outcome. No component earns survival merely from isolated tests.
 
 No wave authorizes a new daemon, scheduler, registry, ontology, automatic promoter, product merge, or open-ended RSI service.
+
+## V1 closeout
+
+The first full existence gauntlet attacked 47 Computer features. The strongest result is contraction, not expansion: a composed shadow removed 317 current-tree files / 2.246 MB / 54,979 lines plus the 248-line research relation graph, extracted one 143-line live freshness utility, and still passed current Host/Harness/Game consumers, retained protocol contracts, current research authority checks, mixed UNKNOWN/Tool-drift/null-action invariants, CI path coverage, and exact Git recovery.
+
+The global research method also failed its incremental survival rule: it gained one development decision, lost two holdout decisions, and used 2.128x tokens versus a concise frozen task-local manifest. Five independent semantic control-plane mutants survived existing checkers even though the semantic-binding positive control was killed.
+
+The audit therefore does not authorize a new Computer layer. It produces a contraction mainline. Historical evidence stays; historical executable apparatus does not automatically stay. Shared protocol is treated molecule-by-molecule; owner-local responsibilities move only with owner admission. See `existence-gauntlet-v1-closeout.json`.
