@@ -134,6 +134,18 @@ The coordination substrate did not fail. Existing Host Goal/Task revision fences
 
 P3 and P4 together sharpen the admission rule: do not accumulate named Agent-era layers because they are fashionable categories. A new Skill, Multi, graph, organization, or compiler object must begin from a repeated owner-native failure and beat the strongest existing composition on a frozen workload.
 
+## C6 owner-pressure selection falsification
+
+C6 moved upstream from “how to modify” to “why modify this next.” It froze ten exact owner-revision evidence cards across Harness, Runtime, World, Game, Host, Security, Finance, Studio, Web, and Human. The full-evidence baseline received every card in one model Context. The selective candidate received only revision/title/change metadata and could inspect at most three development or two holdout cards before submitting the same hidden-oracle assessment.
+
+The first live campaign was invalidated because the selective inspection ceiling was not stated in Agent-visible instructions and the full-evidence structured result lacked one deterministic cross-field correction path. Those raw trajectories were retained without rescore. V2 repaired only presentation while binding the exact same cards, hidden oracle, evaluator, and promotion rule by digest.
+
+V2 did not graduate either representation. The selective path produced only one valid development and one valid holdout trajectory. Its valid development run used all three inspections on Game, Runtime, and World, missed the actual Harness shared-method pressure, and concluded that no new Computer experiment was needed. A separate diagnostic trace showed the Agent reach the explicit three-card ceiling and then propose three additional inspections—including Harness—instead of submitting; Harness correctly failed closed on Tool budget. The valid holdout selective run did correctly inspect Finance/Studio and stop with no new experiment, showing useful restraint but not reliable pressure selection.
+
+The full-evidence one-shot path was also not a winner: every valid development replicate missed the Harness pressure, one development trajectory remained invalid after its allowed correction, and one holdout replicate falsely promoted Finance. C6 therefore rejects the current selective pressure-triage candidate without claiming that exhaustive Context is superior.
+
+`ANC-ADAPT-001` remains **M5** because P2's bounded recursive cross-evidence self-reform evidence is unchanged, but it moves from `ready` to `deferred`. Autonomous problem selection, evaluator-law discovery, and open-ended RSI remain unproven. There is intentionally no C7 architecture category. Reopen only from materially different owner-native selection evidence rather than tuning this corpus.
+
 ## Evidence required for progress
 
 - learning improves a repeated workload without merely adding more context or model budget;

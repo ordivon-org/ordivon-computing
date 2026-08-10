@@ -41,10 +41,12 @@ class P4CloseoutTests(unittest.TestCase):
         self.assertTrue(p["initialSnapshotStaleAfterArtifactBinding"]); self.assertTrue(p["candidateBoundSnapshotStaleAfterFirstResult"])
         self.assertTrue(p["partialApplyReopenPassed"]); self.assertTrue(p["allFinalRevisionsAdvanced"]); self.assertTrue(p["taskEventsCarryVerification"])
         self.assertFalse(p["newCoordinationPrimitiveUsed"])
-    def test_portfolio_moves_multi_to_deferred_m4_without_advancing_adapt(self):
-        p=json.loads((RESEARCH/"portfolio.json").read_text()); multi=next(q for q in p["questions"] if q["id"]=="ANC-MULTI-001"); adapt=next(q for q in p["questions"] if q["id"]=="ANC-ADAPT-001")
-        self.assertEqual((multi["status"],multi["maturity"],multi["priority"]),("deferred","M4","P2"))
-        self.assertEqual(adapt["maturity"],"M5"); self.assertIn("category-driven",adapt["nextAction"])
+    def test_p4_closeout_records_multi_deferred_without_advancing_adapt(self):
+        p=json.loads((HERE/"p4-multi-closeout.json").read_text()); disposition=p["portfolioDisposition"]
+        self.assertIn("deferred_M4",disposition["ANC-MULTI-001"])
+        self.assertIn("remain_M5",disposition["ANC-ADAPT-001"])
+        # Historical P4 evidence must not freeze mutable future portfolio wording;
+        # current-state freshness is owned by the portfolio and responsibility-map checkers.
     def test_no_rollback_is_required_without_promotion(self):
         p=json.loads((HERE/"p4-multi-closeout.json").read_text())
         self.assertFalse(p["rollback"]["required"]); self.assertFalse(p["claims"]["newMultiAgentFrameworkAuthorized"])

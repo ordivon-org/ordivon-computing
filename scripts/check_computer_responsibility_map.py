@@ -188,7 +188,7 @@ def check() -> list[str]:
     if isinstance(frontier, list):
         require([item.get("step") for item in frontier if isinstance(item, dict)] == ["C1", "C2", "C3", "C4", "C5", "C6"], "reform frontier order differs", issues)
         by_step = {item.get("step"): item for item in frontier if isinstance(item, dict)}
-        for step in ("C1", "C2", "C3", "C4", "C5"):
+        for step in ("C1", "C2", "C3", "C4", "C5", "C6"):
             require(by_step.get(step, {}).get("status") == "completed", f"{step} reform work is not complete", issues)
         require(by_step.get("C3", {}).get("status") == "completed", "C3 product-boundary review is not complete", issues)
         require(
@@ -196,7 +196,10 @@ def check() -> list[str]:
             "C3 product-boundary record binding differs",
             issues,
         )
-        require(by_step.get("C6", {}).get("status") == "next", "C6 owner-pressure selection is not the next reform frontier", issues)
+        require(document.get("reformDisposition") == "stopped_waiting_for_new_owner_pressure", "reform disposition differs after C6 closeout", issues)
+        c6_record = by_step.get("C6", {}).get("record")
+        require(isinstance(c6_record, str) and (ROOT / c6_record).is_file(), "C6 pressure-selection closeout record is missing", issues)
+        require(not any(item.get("status") == "next" for item in frontier if isinstance(item, dict)), "closed C1-C6 reform frontier still contains a next phase", issues)
         c4_records = by_step.get("C4", {}).get("records", [])
         require(isinstance(c4_records, list) and bool(c4_records), "C4 closeout records are missing", issues)
         if isinstance(c4_records, list):
