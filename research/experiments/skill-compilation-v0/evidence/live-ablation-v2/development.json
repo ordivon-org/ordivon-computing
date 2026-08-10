@@ -1,0 +1,721 @@
+{
+  "schemaVersion": 2,
+  "kind": "ordivon.p3-skill-development",
+  "rows": [
+    {
+      "scenarioId": "v2-dev-exec-running",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "observe_runtime_job",
+        "summary": "task.list for the exact clientRequestId returns one running Job, confirming the durable exec was already admitted. The workspace.execPlan response was lost, but transport loss is not semantic failure. The next justified action is to observe the existing running Job (task.observe) rather than creating a new Job or re-mutating."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:367dbd91e6eb3ebef64a2aad67376a2661ed57e2c25c7e6c2f843bbc2f146367",
+        "providerRequestDigest": "sha256:eb29b305c476badb1059becbacc3ba3f58fe7f00a2fe4f609e5625f0a60d0266",
+        "resultDigest": "sha256:a4fe6fc2df0c4245df1bf29964bbbc1337fc69dd1ad989e259296f8b6e7e30f1",
+        "modelCallId": "5717e31a-b7de-4ae3-8fc2-ed64766c2caa",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1165,
+        "usage": {
+          "prompt_tokens": 971,
+          "completion_tokens": 194,
+          "total_tokens": 1165,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 971,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-exec-running",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "observe_runtime_job",
+        "summary": "The workspace.execPlan response was lost, but task.list for the exact clientRequestId returns one running Job. Per the reconcile-before-redispatch skill, the next justified action is to observe/consume that existing Job via task.observe (or task.get on the recovered Job) before any redispatch. Since the Job exists and is running, the request is already admitted, so no new execution authority should be created; observe the running Job's result to recover the lost execPlan response."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:721b50c9ea816205856a8200ea9baa59a930141daf15dfdd6738845f0bc268a7",
+        "providerRequestDigest": "sha256:f41f110019442d1c6e85c65ed34ccba2b277c45baeafbb2ff20f8500b6850fee",
+        "resultDigest": "sha256:5e0b7d4a4955b549801cfbb56d256907dbafb3c63d972022cc4e9e81c5865a94",
+        "modelCallId": "ff77ac8d-263b-4477-ac08-20603137cbcc",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1469,
+        "usage": {
+          "prompt_tokens": 1241,
+          "completion_tokens": 228,
+          "total_tokens": 1469,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 1241,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-exec-no-admission",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": false,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "decision": {
+        "action": "observe_runtime_job",
+        "summary": "task.list for the exact clientRequestId returns no Job, which fact states means there is no admitted Job under that clientRequestId. Per the durable-exec procedure, after transport loss the first step is to recover the exact durable identity via task.list; that observation is complete and shows no admission."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:4e0ee25c499f349b5ad18c7e7bcd548f6f4ed306ff5e5c66aa5be554699236a2",
+        "providerRequestDigest": "sha256:d9a9076b1b6a133553b7a5f99e742af406f21db9a162b561e66055a119d4eda0",
+        "resultDigest": "sha256:964eca6dd979a65eedd7f3a9276c69d46b99df3784bca07c670f54b82bb0f543",
+        "modelCallId": "62071cc9-3c0d-42cc-83fd-50397ea997f7",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1438,
+        "usage": {
+          "prompt_tokens": 1231,
+          "completion_tokens": 207,
+          "total_tokens": 1438,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 1231,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-exec-no-admission",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "readmit_runtime_request_after_no_job",
+        "summary": "task.list for exact clientRequestId returns no Job, and the contract fact states exact task.list absence means there is no admitted Job under that clientRequestId. The workspace.exec response was lost, but a durable exec Job only exists after admission; with no admitted Job confirmed, the correct recovery is to readmit the runtime request (re-issue) rather than reconcile or observe. This is justified now from the available evidence; no conditional observation is required first."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:cd82c6592f22c8845d6e0c5144e65c7f3291ff6c27ba1007f89501c952d575f2",
+        "providerRequestDigest": "sha256:dda625720e8d23ebe7c299933cdf84016175f74d8b60c918f83168332e6fca73",
+        "resultDigest": "sha256:12857d8af58f5b371b916048cbff9af6210704fc3b912cd5149a27da967490da",
+        "modelCallId": "9abf2abd-eed0-4f62-9e3e-88072a2514b6",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1204,
+        "usage": {
+          "prompt_tokens": 961,
+          "completion_tokens": 243,
+          "total_tokens": 1204,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 193,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-open-unresolved",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": false,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "decision": {
+        "action": "observe_runtime_job",
+        "summary": "workspace.open returned an uncertain response (response lost) with explicit workspaceId ws-v2-open, and no workspace.get observation has been made. Per the tool contract fact, workspace.open is not an idempotent replay; after an uncertain response with explicit workspaceId, workspace.get is the recovery read. Since transport loss is not semantic failure, the open may have succeeded, and the correct next action is to observe via workspace.get (the recovery read) on the known workspaceId rather than re-attempt the open or take any other action."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:f5478679a25b9515b3ddb3e6850547640185da21625b1c43f573aa8ee1dcf1ae",
+        "providerRequestDigest": "sha256:de3f8762769c5888d0fc07f2cf68c8fed72ce21bf57d27f09f4201782a223bda",
+        "resultDigest": "sha256:9dd47f82ddebb5ee5ed46e5e4023f32f7941611cb03719f37e6ce69c4b54abe9",
+        "modelCallId": "e19dfc58-5228-472c-8b8c-ee0370ae5686",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1233,
+        "usage": {
+          "prompt_tokens": 972,
+          "completion_tokens": 261,
+          "total_tokens": 1233,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 204,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-open-unresolved",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": false,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "decision": {
+        "action": "observe_runtime_job",
+        "summary": "After workspace.open with explicit workspaceId ws-v2-open had a lost response, the recovered next action is workspace.get (the recovery read per currentToolContractFact). No workspace.get observation has yet been made, and the reusable skill explicitly forbids blind redispatch and requires recovering exact durable identity with workspace.get (not re-running open blindly)."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:0853913acc487942c4752129df02ba94d881e215d6603520df5868a1ecd0c421",
+        "providerRequestDigest": "sha256:404ae1910396defa991c83f81d6fd602fd59b26f7da55085e608c5774f4e543e",
+        "resultDigest": "sha256:5df41d0cd39594d8297a5d91af1d48df6e977bdcc487482f21849def33b873cb",
+        "modelCallId": "b1bc416d-d097-4e57-86e4-7c164e8beb11",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1468,
+        "usage": {
+          "prompt_tokens": 1242,
+          "completion_tokens": 226,
+          "total_tokens": 1468,
+          "prompt_tokens_details": {
+            "cached_tokens": 896
+          },
+          "prompt_cache_hit_tokens": 896,
+          "prompt_cache_miss_tokens": 346,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-patch-receipt",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "reconcile_patch_receipt",
+        "summary": "workspace.patch used clientRequestId patch-v2-1 and the response was lost, so receipt state is unknown. workspace.patch.get reconciles that exact durable receipt without applying an uncommitted patch, per the currentToolContractFact and the reusable procedure for workspace.patch. This is the single justifiable next action; no blind redispatch should occur."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:87d06249a7a00a2b197b4777428f667c164d548e9b5c569995e3944518f3f1e4",
+        "providerRequestDigest": "sha256:3e9e6bd581d9e24aab09bb652c7f2b664ac5593d4feadcbb4b9b57c6f004c531",
+        "resultDigest": "sha256:c3390099d86dc318c0007d12e3940ea8e611cd58c7294308c5c3ed98e081ffae",
+        "modelCallId": "03636f84-3aa0-4311-a2eb-bad3b8c5e658",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1479,
+        "usage": {
+          "prompt_tokens": 1253,
+          "completion_tokens": 226,
+          "total_tokens": 1479,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 485,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-patch-receipt",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "reconcile_patch_receipt",
+        "summary": "workspace.patch was called with clientRequestId patch-v2-1 but the response was lost. The correct next action is to reconcile the patch receipt via workspace.patch.get (available surface), which uses the durable clientRequestId to check whether the patch was committed without reapplying it. This is the immediate justified action; reapply/unsafe retry would only be conditionally allowed after the receipt check shows the patch is absent."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:cc3eb10f23c4262c3483a99648c435378427c3333630cce127c2d9d7fddfa66c",
+        "providerRequestDigest": "sha256:9c1468006c9d719dfa648c163f3edfd65d080003ac2eda179e932e3d600d72a1",
+        "resultDigest": "sha256:f59a1613f4e0aad0162491afbc232a1f465444e9395e3d0bf5f0015d2ab7a5ff",
+        "modelCallId": "e4c54b59-f0e8-4a4f-bf48-35c01ae13751",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1232,
+        "usage": {
+          "prompt_tokens": 983,
+          "completion_tokens": 249,
+          "total_tokens": 1232,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 215,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-mutate-present",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "accept_exact_mutation_state",
+        "summary": "The workspace.mutate response was lost, but an exact read now confirms the complete intended target bytes are present. Since the mutation demonstrably succeeded (state matches the intended target exactly), the correct recovery action is to accept the exact mutation state rather than reapply the mutation. Transport loss is not semantic failure, and re-mutating would be an unsafe blind retry given the state is already correct."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:cd71ac93761e9a8935a1604f8582fd892392c7d00d423b367fdbf871a70c73ea",
+        "providerRequestDigest": "sha256:c3a823488bb09a7eab96b64236cfa09aad5bf04390e9d4de212850ad3c4a100e",
+        "resultDigest": "sha256:bf4c005a71f73e458052d7c6e0840093f0c34686b728ebe84f6f0187bdc6bcba",
+        "modelCallId": "900e4687-9f75-4c94-8b26-8bf5ee53d13e",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1180,
+        "usage": {
+          "prompt_tokens": 970,
+          "completion_tokens": 210,
+          "total_tokens": 1180,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 202,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-mutate-present",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "accept_exact_mutation_state",
+        "summary": "workspace.mutate response was lost, but an exact read now shows the complete intended target bytes are present. Per the reconcile-before-redispatch skill, for workspace.mutate (no durable replay receipt), read/get/changes the exact target and retry only after proving the intended mutation was NOT applied. Since the exact read proves the intended mutation WAS applied, no retry is needed. The correct next action is to accept the exact mutation state — the transport loss was not semantic failure, and the workspace already reflects the intended bytes."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:1b18e99c3f81b747e537389c471492fa51050743504d54df92a1975be3fac0c5",
+        "providerRequestDigest": "sha256:b1eb513a013df988bf8d7f3722f60d4a2bb484ea2df3218d77cf54fcf875e8f9",
+        "resultDigest": "sha256:cab7a39a98fd65957fd58a27bc682a634f587cc1c9cd490c4fe680906be9a36d",
+        "modelCallId": "25421fc7-c082-44cd-8f3c-53e9c037291e",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1486,
+        "usage": {
+          "prompt_tokens": 1240,
+          "completion_tokens": 246,
+          "total_tokens": 1486,
+          "prompt_tokens_details": {
+            "cached_tokens": 896
+          },
+          "prompt_cache_hit_tokens": 896,
+          "prompt_cache_miss_tokens": 344,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-mutate-missing",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": false,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "decision": {
+        "action": "reconcile_patch_receipt",
+        "summary": "For workspace.mutate with a lost response and no replay receipt, the proven pre-mutation bytes confirm the mutation was not applied; therefore the justified next action is to re-apply the same mutation, not blind retry."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:09ce9822f2ed42bb737d65ab16ff599ded86087d447e7fd6d1c712d53bc0fdfe",
+        "providerRequestDigest": "sha256:4043e4631d090adaeb9ec1f6ef1e2479b303be813c4f8c61821323d8d13c9913",
+        "resultDigest": "sha256:a4445b1f4c8a20f762464075e5ee31580555ff8e14a9ae47d034a71ea35ff172",
+        "modelCallId": "06fb95a1-03a7-42b3-a866-30c70eeb57cf",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1437,
+        "usage": {
+          "prompt_tokens": 1241,
+          "completion_tokens": 196,
+          "total_tokens": 1437,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 473,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-mutate-missing",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "reapply_mutation_after_exact_absence",
+        "summary": "An exact read proves the target still has the pre-mutation bytes, so the mutation was not applied. The missing mutate response is transport loss, not semantic failure, so the next justified action is to reapply the mutation after establishing exact absence."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:247fbd82f3f8875485037c44317f8e4b1cdeb2512d99c83425fdcd5c69c731b7",
+        "providerRequestDigest": "sha256:b14e32a9df1ca8f675f5f3d15b3ae8a30440a3d0e7436a9a6918b50cfb35c33b",
+        "resultDigest": "sha256:3a529a4ab2705a4b90ff6cf56a18d5e659490a51c7b5aa55a4e511dc0fe6a5b5",
+        "modelCallId": "58b57e7c-550f-421a-a7ba-0b3108e6e2a5",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1152,
+        "usage": {
+          "prompt_tokens": 971,
+          "completion_tokens": 181,
+          "total_tokens": 1152,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 203,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-checkpoint",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "replay_identical_host_checkpoint",
+        "summary": "The host checkpoint response was lost (transport loss, not semantic failure). The exact original checkpoint payload and original expectedRevision are retained, so the next recovery action is to replay the identical host checkpoint operation with the exact payload and expectedRevision. The current tool contract fact confirms that an identical revision-bound exact replay converges to admission=existing when already committed, and different/stale claims fail closed. This is the pre-justified single next action."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:61c8ecd48270fa1781ca8533c9fa3a269d78030e0e4337c39ee26e26dad0ad7d",
+        "providerRequestDigest": "sha256:bab081164b653575e1f124975834afecaed3a7dcdda4dc7c7af60e79e7eaea90",
+        "resultDigest": "sha256:2aca264c4533badf086e90275d4c24ed00f058e188fed7c346abb56ed2744ae0",
+        "modelCallId": "374b9f48-6b85-4a47-8438-bb472eb2b9e8",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1180,
+        "usage": {
+          "prompt_tokens": 963,
+          "completion_tokens": 217,
+          "total_tokens": 1180,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 195,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-checkpoint",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "replay_identical_host_checkpoint",
+        "summary": "Per skill:reconcile-before-redispatch:v1, when a Host task.checkpoint response is lost, replay the identical checkpoint against the original expectedRevision so an already-committed transition converges. The exact original checkpoint payload and expectedRevision are retained, and transport loss is not semantic failure — the checkpoint may already be admitted. This is the single next recovery action justified now."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:a49a0c4147e4d730acce2b053a2d92baa21fe86ac5985125bac3d292bbe0ed70",
+        "providerRequestDigest": "sha256:8f82c73f03c339fadd6e2434b06f8232eac050dd40d4be12b2f7b108ecb62fd7",
+        "resultDigest": "sha256:23c42ed69f1904577d53b891df7abfafedebf54426215fa5a830fefbe9793ec8",
+        "modelCallId": "f6d88d7e-bc5f-4bb3-931e-234ebf400a1f",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1448,
+        "usage": {
+          "prompt_tokens": 1233,
+          "completion_tokens": 215,
+          "total_tokens": 1448,
+          "prompt_tokens_details": {
+            "cached_tokens": 896
+          },
+          "prompt_cache_hit_tokens": 896,
+          "prompt_cache_miss_tokens": 337,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-external-push",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": false,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "decision": {
+        "action": "observe_runtime_job",
+        "summary": "The immediate next action is to observe the Runtime Job to establish whether it executed git push before the response was lost. This is justified by the fact that the remote branch state has not yet been observed, and the procedure requires: after Runtime process may have performed an external effect, first reconcile the Runtime Job, then observe the external authority (git remote) before any redispatch. Since transport loss is not semantic failure, we must first determine actual Runtime Job outcome before any conditional external observation or effect dispatch."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:03f0dbf64629ccf02eaf23aef5458b82c73562b05064eb506354367d00653930",
+        "providerRequestDigest": "sha256:70df7d976f4421ada9415ba48e91a5fbf30f018889cb24d0819d087165d73345",
+        "resultDigest": "sha256:5035be5ceaca5c906250b5d313a5963bb20787b1f631942401f7eb7f5c0e4e6c",
+        "modelCallId": "22c85db5-2983-48e5-92bb-12d6f9adba91",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1495,
+        "usage": {
+          "prompt_tokens": 1252,
+          "completion_tokens": 243,
+          "total_tokens": 1495,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 484,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-external-push",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": false,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "decision": {
+        "action": "git_remote_observation",
+        "summary": "The Runtime Job may have executed git push before MCP response loss, and the remote branch state has not yet been observed. Per the contract, external Git publication has its own authority and must be observed before any new effect dispatch. Transport loss is not semantic failure, so we cannot assume the push failed or succeeded. The only action already justified now is to observe the remote branch state directly (git_remote_observation) to determine the actual external publication state before considering any re-dispatch or other effect."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:cfe6392b394d405052e2ab81a23da22359a4f805b240d7d9c0152c9d0f6f113a",
+        "providerRequestDigest": "sha256:e3caa93c57f89a38410391ad56934a8a4476ab819672d254ee0981438b52a765",
+        "resultDigest": "sha256:e5de64f46e7f875af969abb034ae7e3722182e145630ff6b3a085d5e0e9aea3e",
+        "modelCallId": "08946345-451e-4deb-a928-1e105ed0c045",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1225,
+        "usage": {
+          "prompt_tokens": 982,
+          "completion_tokens": 243,
+          "total_tokens": 1225,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 214,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-exec-result",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "consume_runtime_job_result",
+        "summary": "The terminal Runtime Job has resultAvailable=true and task.get confirms it succeeded. Transport loss is not semantic failure, so the job's retained result/artifacts are the authoritative outcome and should be consumed without re-execution."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:ae5997cb58085c5c19652b5a3b7b0d492ca561b224d56ec9ff308a9ba38829de",
+        "providerRequestDigest": "sha256:3f696a8c401b6d1e391652483c4d26be841871eb7e7785654fa33549dc338d12",
+        "resultDigest": "sha256:0fb49a7123074c7b3bed58ef5de8ad62892caa77cba3da4fd23a86f88b1e5f74",
+        "modelCallId": "58ebcbb3-29ce-4215-9f76-17eef031d313",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1132,
+        "usage": {
+          "prompt_tokens": 958,
+          "completion_tokens": 174,
+          "total_tokens": 1132,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 190,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-exec-result",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "consume_runtime_job_result",
+        "summary": "The terminal Runtime Job has resultAvailable=true and task.get reports succeeded. The correct next recovery action is to consume/observe the existing job's retained result using task.get (runtime job result consumption), which does not create another execution. No redispatch or blind retry is justified."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:29e00aa15448ce99ad7b5d1ecbb5cdebeb0e765e57a256c174dd3ef95e54332c",
+        "providerRequestDigest": "sha256:23f1760c60ddac5b98fbedd3862c034a6fe4d33d0a3445b9b3487c87abc71e38",
+        "resultDigest": "sha256:05a5c138346a8faf604fc0a120c72a1008599e84ee41c05dca9887a7afebfed8",
+        "modelCallId": "030a429a-e423-4f79-9b9e-1f419bf676dc",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1414,
+        "usage": {
+          "prompt_tokens": 1228,
+          "completion_tokens": 186,
+          "total_tokens": 1414,
+          "prompt_tokens_details": {
+            "cached_tokens": 896
+          },
+          "prompt_cache_hit_tokens": 896,
+          "prompt_cache_miss_tokens": 332,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-close",
+      "treatment": "skill",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "replay_digest_fenced_close",
+        "summary": "workspace.close used expectedSourceStateDigest (digest-fenced), so the close is replayable and converges. The response was lost; the correct next action is to replay the identical digest-fenced close against the same expectedSourceStateDigest. The surface is workspace.close which is replayable through the closed tombstone and returns an already-closed disposition when appropriate. Transport loss is not semantic failure, so the close must be replayed rather than treated as failed or blindly re-invoked differently."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:83d0f285881702340c6a0545186b64f1bd5d3e9be07ebc4ac4e1242686d13efe",
+        "providerRequestDigest": "sha256:dfea27e7fab10b33c9446902d84c34746f77a57c5c594cb709d7eaa94f5cba06",
+        "resultDigest": "sha256:e34edd352ed2c9c2c7ffe291b9a447ae8fadeb5816f843bb0e55c571abcfd72c",
+        "modelCallId": "2645844c-064c-4233-b1cd-1b69868498b3",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1484,
+        "usage": {
+          "prompt_tokens": 1224,
+          "completion_tokens": 260,
+          "total_tokens": 1484,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 456,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-dev-close",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "replay_digest_fenced_close",
+        "summary": "The response for a digest-fenced workspace.close was lost, which is a transport loss and not a semantic failure. Per the contract fact, the digest-fenced workspace.close is replayable through the closed tombstone and returns an already-closed disposition. The correct next action is to replay the same digest-fenced close operation."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:282bdf399333abb193d632c4341217013c8d6bb114517b636014dd6f713588e4",
+        "providerRequestDigest": "sha256:bd20990926631bdcca5690a3b1fd648843dbbfed3cc6f6bb542ec94827b87491",
+        "resultDigest": "sha256:58951336f1c46d2993fe6b3a508f570aae51e1b7e5abea2fe01828f5726ef615",
+        "modelCallId": "1805eaad-0059-49ba-83dd-20e7524a803a",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1149,
+        "usage": {
+          "prompt_tokens": 954,
+          "completion_tokens": 195,
+          "total_tokens": 1149,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 186,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    }
+  ],
+  "metrics": {
+    "baseline": {
+      "valid": 10,
+      "accepted": 8,
+      "dangerousBlindRetry": 0,
+      "tokens": 11852
+    },
+    "skill": {
+      "valid": 10,
+      "accepted": 6,
+      "dangerousBlindRetry": 0,
+      "tokens": 14618
+    }
+  },
+  "winner": "baseline"
+}

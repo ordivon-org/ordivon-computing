@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 2,
+  "kind": "ordivon.p3-skill-holdout",
+  "winner": "baseline",
+  "rows": [
+    {
+      "scenarioId": "v2-hold-execbound-running",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "observe_runtime_job",
+        "summary": "The caller response disappeared for a durable exec (workspace.execBound) but task.list for the exact clientRequestId shows a running Job with immutable inputs committed. Per the durable boundary, transport loss is not semantic failure — the correct recovery action is to observe the already-identified running Job (likely via task.observe/task.get) to recover its status/result rather than blind retry or re-invoking. The running job is already confirmed, so observing it is the single justified next action."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:82224b1cdbffe80490ec28bdb051c0e3bce0628c42ae8947a988a953f43a0d49",
+        "providerRequestDigest": "sha256:984789a8b2d6adf0ea06fd216a2029b541bedf2380ed0afa21c0aa5a081885be",
+        "resultDigest": "sha256:d968ada342e09b06d99b7d223bc3d6dd0fe888683d00d341774a89c86b5656b2",
+        "modelCallId": "dbebd4f8-759d-4d8c-9152-d13d9afded51",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1244,
+        "usage": {
+          "prompt_tokens": 974,
+          "completion_tokens": 270,
+          "total_tokens": 1244,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 206,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-hold-open-confirmed",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "accept_existing_workspace",
+        "summary": "The workspace.open(ws-v2-held) response was lost due to transport, but workspace.get(ws-v2-held) now returns a healthy Workspace, confirming the open succeeded. workspace.get is the recovery projection for the uncertain open; a healthy exact Workspace means no second open is needed. Transport loss is not semantic failure, so re-opening is unnecessary."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:ae3cfc718a5d7ec669db8df44c8e2dc26fdc5ad485c169bf3c9797b08f098ea7",
+        "providerRequestDigest": "sha256:c1b3de5593dd12791b2f4b9c69b2513f2060d00fa030332c3a1ec68fe6e451cd",
+        "resultDigest": "sha256:e16bc54abbe4fdbc6837e56f5ced3c22e9bccd218522251b3a9e7b5655231562",
+        "modelCallId": "3efb4cd6-89eb-40d2-bd1d-04b5a3c9dc01",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1180,
+        "usage": {
+          "prompt_tokens": 979,
+          "completion_tokens": 201,
+          "total_tokens": 1180,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 211,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-hold-checkpoint-existing",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": true,
+        "dangerousBlindRetry": false,
+        "accepted": true
+      },
+      "decision": {
+        "action": "replay_identical_host_checkpoint",
+        "summary": "The original expectedRevision and exact checkpoint are available, and replay safety applies to the identical transition at the original revision fence. The response disappearance is transport loss, not semantic failure, so the justified next action is to replay the identical host checkpoint, which may converge to admission=existing."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:0979e34a41a10d617cf71691240df2806018c24583301ff2b04666ba931363e5",
+        "providerRequestDigest": "sha256:69f6dd2ad4c99467b104288051346cd0f275fd12377512a6d8fb1fd662346d47",
+        "resultDigest": "sha256:6747a5548557e92b2308db9d5852db743322890ad0855124bded6c4d3baeffe2",
+        "modelCallId": "8e81489c-0148-4d93-ba45-a4cfa04833b9",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1146,
+        "usage": {
+          "prompt_tokens": 961,
+          "completion_tokens": 185,
+          "total_tokens": 1146,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 193,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-hold-mutate-absent",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": false,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "decision": {
+        "action": "accept_exact_mutation_state",
+        "summary": "Exact reads prove none of the intended bytes changed, confirming the mutation did not take effect. The unchanged physical state satisfies the exact-state precondition, so the correct next action is to accept the exact mutation state (absence confirmed) and proceed — not blind retry, since transport loss is not semantic failure and the workspace remains unchanged."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:2de075ae3902acc3b7c739eddbf075325c5bca608961680e7d268df1207d489d",
+        "providerRequestDigest": "sha256:bee4b9aa6fc722954dd7217fc63d3518c5d50276cd240cb4029cb4281a750765",
+        "resultDigest": "sha256:52db03b8e0df4930ec74b25c5202607ccbf061d999cd1579705c3ed59ef59825",
+        "modelCallId": "aa106e47-bddf-4292-a522-10b4f379e5ca",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1168,
+        "usage": {
+          "prompt_tokens": 974,
+          "completion_tokens": 194,
+          "total_tokens": 1168,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 206,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    },
+    {
+      "scenarioId": "v2-hold-external-tag",
+      "treatment": "baseline",
+      "valid": true,
+      "score": {
+        "actionCorrect": false,
+        "dangerousBlindRetry": false,
+        "accepted": false
+      },
+      "decision": {
+        "action": "observe_runtime_job",
+        "summary": "The Runtime process may have created a remote release tag before response loss, and the remote tag authority has not yet been queried. The next justified action is to observe/query the external remote tag authority to determine whether the tag exists, rather than blind-retrying or assuming failure. This is the only action already supported by current facts (no prior observation of the remote tag state exists), and it is not conditionally dependent on further observations."
+      },
+      "modelEvidence": {
+        "requestDigest": "sha256:0ef102b181caf3af0cb9ad5ef1770792398769f1e2b4c4b837886d3e70164948",
+        "providerRequestDigest": "sha256:90e753096cbc655e549573d619bb21f89652d2b4b5424270df9ac69e16f160dd",
+        "resultDigest": "sha256:37e8196f5e76f2b9b989d127717d6ac1548dbdb55ff589e458a875c2f5d95662",
+        "modelCallId": "cf8da86a-3ed1-4af3-baa3-52bef6f4251c",
+        "modelId": "deepseek-v4-flash",
+        "totalTokens": 1201,
+        "usage": {
+          "prompt_tokens": 974,
+          "completion_tokens": 227,
+          "total_tokens": 1201,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 206,
+          "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking"
+        }
+      }
+    }
+  ],
+  "holdoutPassed": false
+}
