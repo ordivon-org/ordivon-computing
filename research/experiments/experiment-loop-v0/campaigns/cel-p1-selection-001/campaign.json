@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.cel-campaign-manifest",
+  "campaignId": "CEL-P1-SELECTION-ELIGIBILITY-001",
+  "question": "Should CEL require Observation completeness for every Trial, or require only the evidence claims declared by the exact Campaign?",
+  "baseRevision": "db4d4c0f183ebd38816c7518eb824ad964c72474",
+  "planRef": "research/experiments/experiment-loop-v0/plan-v2.json#CEL-R4-002",
+  "corpusRef": "research/experiments/experiment-loop-v0/fixtures/p0-policy-v1/trajectory-corpus-v1.json",
+  "evaluatorRef": "research/experiments/experiment-loop-v0/fixtures/p0-policy-v1/evaluator-labels-v1.json",
+  "changeSurface": [
+    "trial_selection_policy.required_evidence_claims"
+  ],
+  "forbiddenSurface": [
+    "trajectory_validity_labels",
+    "evaluator_labels",
+    "P0_verifier_outcomes",
+    "owner_authority",
+    "product_state"
+  ],
+  "policies": [
+    {
+      "policyId": "observation_always_required_v1",
+      "mode": "observation_always_required_v1",
+      "requiredClaims": [
+        "observation_complete",
+        "configuration_exact",
+        "independent_grader_complete",
+        "no_unresolved_effect",
+        "candidate_mutation_frozen"
+      ]
+    },
+    {
+      "policyId": "campaign_declared_evidence_v2",
+      "mode": "campaign_declared_evidence_v2"
+    }
+  ],
+  "developmentCount": 20,
+  "holdoutCount": 5,
+  "promotionBoundary": "research_policy_only",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:5be77775db650e4c89fefaac8b56b123473891847d6b1bc7ef2f36a77edb2fa4"
+  }
+}
