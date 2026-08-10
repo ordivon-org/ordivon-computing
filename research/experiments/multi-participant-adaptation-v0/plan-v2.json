@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.p4-multi-participant-plan",
+  "planId": "MULTI-P4-002",
+  "status": "frozen_v2_after_presentation_repair",
+  "questionRef": "ANC-MULTI-001",
+  "sourceRevision": "3e9d8dbadb9588d5eb904015454e96d2bee9be51",
+  "hypothesis": "Two fresh independent participants can create more verifier-accepted candidate diversity than one capable participant using sequential self-reflection under the same two-model-call budget.",
+  "strongBaseline": "single-reflect: one participant, first candidate, visible-only feedback, second revision candidate, then the same independent verifier and deterministic Join over both candidates.",
+  "candidate": "multi-independent: two participant identities, each receives the same frozen visible Task independently, one model call each, then the same independent verifier and deterministic Join over both candidates.",
+  "controls": {
+    "modelCallsPerGoalPerTreatment": 2,
+    "sameProviderModelRequired": true,
+    "sameVisibleTaskRequired": true,
+    "sameCompletionSchemaRequired": true,
+    "sameIndependentVerifierRequired": true,
+    "sameJoinRuleRequired": true,
+    "branchEffectsAllowed": false,
+    "hiddenCasesVisibleToAgents": false,
+    "developmentScenarios": 6,
+    "holdoutScenarios": 3,
+    "semanticCandidateSlotsPerGoalPerTreatment": 2,
+    "maxProviderAttemptsPerCandidateSlot": 2,
+    "providerPresentationRetryCountsTowardTokens": true,
+    "providerPresentationRetryCountsTowardSemanticCandidateSlots": false
+  },
+  "multiPromotionRule": {
+    "development": "multi accepted Goals must exceed baseline accepted Goals",
+    "holdout": "multi accepted Goals must exceed baseline accepted Goals",
+    "combinedMinimumAcceptedGoalGain": 2,
+    "maxTokenRatio": 1.2,
+    "requiredSafety": [
+      "zero branch Effect intents",
+      "zero responsibility ambiguity",
+      "all accepted joins survive partial-result Host reopen",
+      "rejected verification cannot advance Task"
+    ],
+    "meaning": "A tie, mixed split, smaller gain, excessive cost, or coordination regression is insufficient to justify a new Multi-Agent capability layer."
+  },
+  "infrastructureAdmission": {
+    "existingHostGoalCoordinatorFirst": true,
+    "newSchedulerAuthorized": false,
+    "newDagAuthorized": false,
+    "newMessageBusAuthorized": false,
+    "newParticipantRegistryAuthorized": false,
+    "newOrganizationLayerAuthorized": false,
+    "newAgentVmAuthorized": false,
+    "newMultiAgentRepositoryAuthorized": false
+  },
+  "claimLimit": "At most one bounded repository-repair evidence family; positive evidence would justify retaining a participant-branch pattern, not a generic Agent society or scheduler.",
+  "supersedes": "MULTI-P4-001",
+  "presentationRepair": {
+    "v1DiagnosisRef": "evidence/live/evaluator-diagnosis.json",
+    "baselineHistoryRepair": "Second single-reflect request contains the frozen Task, prior candidate, and visible verifier feedback inside evaluator-owned user context; it does not fabricate assistant history.",
+    "providerRetryPolicy": "Each semantic candidate slot permits at most one symmetric presentation retry after AgentTurnAdapterError or a returned turn with no structured conclusion. Retry uses the same task/participant semantics plus a formatting-only user reminder. All successful-attempt tokens and all attempt counts are retained.",
+    "candidateSemanticsUnchanged": true,
+    "comparisonOutcomeFromV1Authorized": false
+  },
+  "frozenArtifactDigests": {
+    "fixtures/corpus.json": "sha256:7fb2b45e1b2e524234ff30ea7d58e3bb796259eccaecb8da6883448dd138b3f9",
+    "fixtures/evaluator-cases.json": "sha256:b65ace74b5e3248e638a0e35f6f9b177b51ccb0e5926598764de635e4cf1bdd9",
+    "fixtures/reference-sources.json": "sha256:41dca13374e4c41a73c1fa3936bbb60babbfdad61fb43ac29e1a1b5648aaf30b",
+    "evaluator.py": "sha256:68785f9af679203fe3b4d6b0e789b5b4593f68b0a796d52b8bf4ebcaa85a42c4",
+    "host_coordination.py": "sha256:36e586a0b3a4fe287c77b84d0703f2a7f29a0c6198ab3a42bed372bd0c648996"
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "payloadDigest": "sha256:ac9314abc4e4da786e5d46d3e1f397e4ef5a91ecf1c7575062d43544b6cfc862"
+  }
+}
