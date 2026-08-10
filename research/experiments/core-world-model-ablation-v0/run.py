@@ -20,13 +20,18 @@ def rotate(xs,n):return xs[n%len(xs):]+xs[:n%len(xs)]
 def tokens(u):return int(u.get('totalTokens',u.get('total_tokens',0)) or 0)
 def invoke(settings,treatment,rep,cards):
  ctx=raw_context() if treatment=='raw-control' else core_context(); payload={'task':'For every exact evidence card, choose the narrowest justified architecture/responsibility conclusion. Null action is valid. Do not invent a shared layer.','cards':cards,'contextKind':treatment,'context':ctx}; prompt=json.dumps(payload,ensure_ascii=False,sort_keys=True)
- ad=DeepSeekTurnAdapter(settings,completion_contract=CONTRACT); req=AgentTurnRequest(harness_run_id=f'harness-run:core-ablation:{treatment}:r{rep}',turn_id=f'turn:core-ablation:{treatment}:r{rep}',sequence=1,assignment_id=f'assignment:core-ablation:{treatment}:r{rep}',context_digest=canonical_digest({'messages':[{'role':'user','content':prompt}]}),tool_catalog_digest=NO_TOOLS,messages=({'role':'system','content':'Use only supplied exact evidence/context. Prefer owner-local or no-new-layer conclusions unless the evidence proves a shared invariant.'},{'role':'user','content':prompt}),tools=(),remaining_budget={'modelCalls':1,'toolCalls':0,'totalTokens':65536,'wallTimeMs':120000})
- try:r=ad.invoke(req)
- except AgentTurnAdapterError as e:return {'valid':False,'error':str(e),'tokens':0}
- if r.conclusion is None:return {'valid':False,'error':'missing structured conclusion','tokens':tokens(r.usage)}
- d=json.loads(r.conclusion.summary); ids=[x['id'] for x in d['decisions']]; expected=[x['id'] for x in cards]
- if len(ids)!=8 or len(set(ids))!=8 or set(ids)!=set(expected):return {'valid':False,'error':'id set mismatch','tokens':tokens(r.usage),'decisions':d.get('decisions')}
- return {'valid':True,'tokens':tokens(r.usage),'decisions':d['decisions'],'resultDigest':r.digest}
+ total_tokens=0; failures=[]
+ for attempt in (1,2):
+  ad=DeepSeekTurnAdapter(settings,completion_contract=CONTRACT); req=AgentTurnRequest(harness_run_id=f'harness-run:core-ablation:{treatment}:r{rep}',turn_id=f'turn:core-ablation:{treatment}:r{rep}:a{attempt}',sequence=1,assignment_id=f'assignment:core-ablation:{treatment}:r{rep}',context_digest=canonical_digest({'messages':[{'role':'user','content':prompt}]}),tool_catalog_digest=NO_TOOLS,messages=({'role':'system','content':'Use only supplied exact evidence/context. Prefer owner-local or no-new-layer conclusions unless the evidence proves a shared invariant.'},{'role':'user','content':prompt}),tools=(),remaining_budget={'modelCalls':1,'toolCalls':0,'totalTokens':65536,'wallTimeMs':120000})
+  try:r=ad.invoke(req)
+  except AgentTurnAdapterError as e:
+   failures.append(str(e)); continue
+  total_tokens+=tokens(r.usage)
+  if r.conclusion is None:return {'valid':False,'error':'missing structured conclusion','tokens':total_tokens,'transportFailures':failures}
+  d=json.loads(r.conclusion.summary); ids=[x['id'] for x in d['decisions']]; expected=[x['id'] for x in cards]
+  if len(ids)!=8 or len(set(ids))!=8 or set(ids)!=set(expected):return {'valid':False,'error':'id set mismatch','tokens':total_tokens,'decisions':d.get('decisions'),'transportFailures':failures}
+  return {'valid':True,'tokens':total_tokens,'decisions':d['decisions'],'resultDigest':r.digest,'transportFailures':failures}
+ return {'valid':False,'error':failures[-1] if failures else 'adapter failure','tokens':total_tokens,'transportFailures':failures}
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path,required=True);a=ap.parse_args(); cards=json.loads((HERE/'fixtures/cards.json').read_text())['cards']; oracle=json.loads((HERE/'fixtures/oracle.json').read_text())['labels']; settings=DeepSeekSettings.from_secret_file(SECRET,max_output_tokens=5000,timeout_seconds=120); rows=[]
  for rep in range(1,4):
