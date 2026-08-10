@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.owner-pressure-discovery-plan",
+  "planId": "PRESSURE-C6-001",
+  "status": "frozen_before_live_provider",
+  "treatments": {
+    "full-evidence-baseline": "one structured Provider call with all frozen evidence cards",
+    "selective-inspection": "same Provider/model receives metadata inventory and may inspect at most 3 development or 2 holdout evidence cards before submit"
+  },
+  "replicates": {"development": 5, "holdout": 3},
+  "promotionRule": {
+    "allTrajectoriesValid": true,
+    "candidateDevelopmentDecisionMinimum": 4,
+    "candidateHoldoutDecisionMinimum": 2,
+    "candidateDecisionMustMatchOrBeatBaselineBySplit": true,
+    "candidateFalsePromotionsNoGreaterThanBaseline": true,
+    "candidateClassificationAccuracyWithinBaseline": 0.10,
+    "maxCandidateToBaselineTokenRatio": 1.50,
+    "maxAverageDevelopmentInspections": 3.0,
+    "maxAverageHoldoutInspections": 2.0
+  },
+  "authority": {
+    "ownerFacts": "frozen exact-revision evidence only",
+    "candidateMay": ["inspect bounded evidence", "classify pressure", "propose research falsifier"],
+    "candidateMayNot": ["change owner truth", "promote Core", "merge product source", "deploy", "define its own oracle"],
+    "evaluator": "hidden deterministic owner-bound oracle"
+  },
+  "forbiddenInfrastructure": ["pressure daemon", "central owner-state registry", "automatic research scheduler", "automatic evaluator service", "automatic promoter", "Skill/Multi/Graph/Organization layer by category"],
+  "stopCondition": "One valid development plus frozen holdout campaign decides this representation. Do not tune a v2 evaluator merely to obtain promotion."
+}
