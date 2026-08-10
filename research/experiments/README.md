@@ -21,6 +21,7 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 - [`task-continuation-v0/`](task-continuation-v0/) — completed continuation evidence and bounded TaskCapsule ablations.
 - [`external-semantic-contract-v0/`](external-semantic-contract-v0/) — completed experiment whose smallest surviving wire objects were promoted into `ordivon-protocol`.
 - [`semantic-core-v0/`](semantic-core-v0/) — closed reference experiment; accepts only regression fixes or newly demonstrated universal invariants.
+- [`wl0-semantic-law-falsification/`](wl0-semantic-law-falsification/) — completed deletion-style falsification of five compressed cross-project semantic laws; 740,000 randomized trials plus physical probes support narrower applicability-scoped formulations without forcing a new shared mechanism or Core rewrite.
 
 ## Deferred experiment families
 

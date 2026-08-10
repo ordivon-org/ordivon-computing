@@ -1,0 +1,187 @@
+{
+  "acceptance": {
+    "allGuardsEliminateHazardErrors": true,
+    "allGuardsPermitBenignSuccess": true,
+    "everyLawHasCounterexample": true,
+    "everyNaiveViolationProducesObservedError": true
+  },
+  "kind": "ordivon.computing.wl0-semantic-law-falsification",
+  "physicalProbes": {
+    "L1": {
+      "demonstrates": "an omitted property exists in reality while the projection looks ready",
+      "naiveSafe": true,
+      "projection": {
+        "service": "ready"
+      },
+      "reality": {
+        "latent_compromised": true,
+        "service": "ready"
+      }
+    },
+    "L2": {
+      "demonstrates": "content equality does not collapse owner/entity identity",
+      "leftDigest": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b",
+      "leftIdentity": "runtime.state",
+      "rightDigest": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b",
+      "rightIdentity": "finance.state",
+      "sameContentDigest": true
+    },
+    "L3": {
+      "cachedObservation": "revision-1",
+      "currentReality": "revision-2",
+      "eventTransport": "none",
+      "staleWithoutEvent": true
+    },
+    "L4": {
+      "demonstrates": "mechanical reachability alone carries no semantic owner authority",
+      "mechanicallyWritable": {
+        "finance": true,
+        "runtime": true
+      }
+    },
+    "L5": {
+      "mechanicalSuccessWithoutSemanticSuccess": true,
+      "processExitCode": 0,
+      "semanticGoal": "after",
+      "semanticStateAfter": "before"
+    }
+  },
+  "receiptDigest": "sha256:e9349c7e2397ec90d605f05c436449dac175ac767917be08b71185e44899a14a",
+  "results": [
+    {
+      "abstentions": 9005,
+      "benign_trials": 15562,
+      "counterexample": {
+        "failure": "omitted reality was collapsed into False",
+        "guardedConclusion": "unknown",
+        "naiveConclusion": "safe",
+        "reality": {
+          "latent_compromised": true
+        },
+        "representation": {
+          "service": "ready"
+        },
+        "trial": 0
+      },
+      "guardedBenignSuccessRate": 0.7065287238144198,
+      "guardedHazardErrorRate": 0.0,
+      "guarded_benign_successes": 10995,
+      "guarded_errors": 0,
+      "hazard_trials": 4438,
+      "law_id": "L1",
+      "naiveHazardErrorRate": 1.0,
+      "naive_benign_successes": 15562,
+      "naive_errors": 4438,
+      "title": "Reality\u2013Representation Separation",
+      "trials": 20000
+    },
+    {
+      "abstentions": 8974,
+      "benign_trials": 15557,
+      "counterexample": {
+        "currentBinding": [
+          "finance",
+          2
+        ],
+        "currentReality": false,
+        "evidenceBinding": [
+          "finance",
+          1
+        ],
+        "evidenceValue": true,
+        "failure": "historical/foreign evidence was promoted outside its binding",
+        "guardedConclusion": "revalidate",
+        "naiveConclusion": true,
+        "trial": 11
+      },
+      "guardedBenignSuccessRate": 0.7087484733560455,
+      "guardedHazardErrorRate": 0.0,
+      "guarded_benign_successes": 11026,
+      "guarded_errors": 0,
+      "hazard_trials": 4443,
+      "law_id": "L2",
+      "naiveHazardErrorRate": 1.0,
+      "naive_benign_successes": 15557,
+      "naive_errors": 4443,
+      "title": "Binding Law",
+      "trials": 20000
+    },
+    {
+      "abstentions": 0,
+      "benign_trials": 14015,
+      "counterexample": {
+        "currentReality": 8621,
+        "eventVisible": false,
+        "failure": "no event was interpreted as no change",
+        "guardedConclusion": 8621,
+        "naiveConclusion": 8577,
+        "observedInitial": 8577,
+        "trial": 0
+      },
+      "guardedBenignSuccessRate": 1.0,
+      "guardedHazardErrorRate": 0.0,
+      "guarded_benign_successes": 14015,
+      "guarded_errors": 0,
+      "hazard_trials": 5985,
+      "law_id": "L3",
+      "naiveHazardErrorRate": 1.0,
+      "naive_benign_successes": 14015,
+      "naive_errors": 5985,
+      "title": "Partial Observation",
+      "trials": 20000
+    },
+    {
+      "abstentions": 13398,
+      "benign_trials": 6602,
+      "counterexample": {
+        "authorityOwner": "world",
+        "failure": "selection was treated as authority and crossed an owner boundary",
+        "guardedPerformed": false,
+        "naivePerformed": true,
+        "selectedTargetOwner": "runtime",
+        "trial": 0
+      },
+      "guardedBenignSuccessRate": 1.0,
+      "guardedHazardErrorRate": 0.0,
+      "guarded_benign_successes": 6602,
+      "guarded_errors": 0,
+      "hazard_trials": 13398,
+      "law_id": "L4",
+      "naiveHazardErrorRate": 1.0,
+      "naive_benign_successes": 6602,
+      "naive_errors": 13398,
+      "title": "Scoped Authority",
+      "trials": 20000
+    },
+    {
+      "abstentions": 0,
+      "benign_trials": 11049,
+      "counterexample": {
+        "admitted": true,
+        "attempted": true,
+        "capability": true,
+        "failure": "mechanical success was collapsed into semantic consequence",
+        "guardedConclusion": "not complete",
+        "mechanicalSuccess": true,
+        "naiveConclusion": "complete",
+        "selected": true,
+        "semanticGoalSatisfied": false,
+        "transitionHappened": false,
+        "trial": 4
+      },
+      "guardedBenignSuccessRate": 1.0,
+      "guardedHazardErrorRate": 0.0,
+      "guarded_benign_successes": 11049,
+      "guarded_errors": 0,
+      "hazard_trials": 8951,
+      "law_id": "L5",
+      "naiveHazardErrorRate": 1.0,
+      "naive_benign_successes": 11049,
+      "naive_errors": 8951,
+      "title": "Causal Non-Collapse",
+      "trials": 20000
+    }
+  ],
+  "schemaVersion": 1,
+  "trialsPerLaw": 20000
+}
