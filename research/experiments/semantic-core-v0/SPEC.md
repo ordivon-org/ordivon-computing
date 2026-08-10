@@ -63,7 +63,7 @@ VerificationView
 FactView
 ```
 
-`AuthorizedKernel` implements these Views according to its issued grants. `ReferenceReducer` and `JournalReducer` are raw reduction mechanisms below that boundary. The historical `ReferenceKernel` and `JournalKernel` names remain compatibility aliases for experiments and tests, not package-root public capabilities.
+`AuthorizedKernel` implements these Views according to its issued grants. `ReferenceReducer` and `JournalReducer` are raw reduction mechanisms below that boundary. Historical raw-reducer source aliases are not retained merely for experiment/test convenience; current code uses `ReferenceReducer` and `JournalReducer` directly.
 
 Ordivon Adapters accept only `ExecutionView`. Knowledge admission accepts separate `VerificationView` and `FactView` handles.
 

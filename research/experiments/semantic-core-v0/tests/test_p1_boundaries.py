@@ -7,16 +7,20 @@ from pathlib import Path
 from typing import get_type_hints
 
 from anc_semantic_core.authority import AuthorityRole
-from anc_semantic_core.conformance import _successful_verified_effect, sample_effect, sid
+from anc_semantic_core.conformance import (
+    _successful_verified_effect,
+    sample_effect,
+    sid,
+)
 from anc_semantic_core.identity import IdKind
 from anc_semantic_core.interfaces import (
     ExecutionView,
     FactView,
     VerificationView,
 )
-from anc_semantic_core.journal import JournalKernel, JournalReducer
+from anc_semantic_core.journal import JournalReducer
+from anc_semantic_core.kernel import ReferenceReducer
 from anc_semantic_core.model import KernelEffectProjection
-from anc_semantic_core.kernel import ReferenceKernel, ReferenceReducer
 from anc_semantic_core.ordivon import OrdivonSemanticAdapter
 from anc_semantic_core.ordivon_io import OrdivonIoAdapter
 from anc_semantic_core.provenance import (
@@ -58,9 +62,12 @@ class P1BoundaryTests(unittest.TestCase):
             projection.capability.operation.startswith("workspace.")
         )  # legacy sample remains decodable through the internal projection
 
-    def test_raw_reducer_compatibility_names_are_aliases(self) -> None:
-        self.assertIs(ReferenceKernel, ReferenceReducer)
-        self.assertIs(JournalKernel, JournalReducer)
+    def test_raw_reducer_source_aliases_are_removed(self) -> None:
+        import anc_semantic_core.journal as journal_module
+        import anc_semantic_core.kernel as kernel_module
+
+        self.assertFalse(hasattr(kernel_module, "ReferenceKernel"))
+        self.assertFalse(hasattr(journal_module, "JournalKernel"))
         policy = test_authority_policy()
         reference = ReferenceReducer(policy)
         self.assertEqual(reference.journal_entry_count, 0)

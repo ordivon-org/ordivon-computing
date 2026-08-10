@@ -1,0 +1,987 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.crosscut-maintenance-p0-acceptance",
+  "capturedAtMs": 1786351884401,
+  "computingRevision": "5bf8662b6750ab2b7a15fce05730550e60c2dc18",
+  "hostStatusDigest": "sha256:9c45a18755e45c1ec1ba83b66891c1738385574a010df592d4c8ef17d9b882d1",
+  "runtimeStatusDigest": "sha256:40b55ab58f3417f7765cce293c9255b4db400b21e4870e43ad31db7ffbd63b82",
+  "runtimeLifecycleDigest": "sha256:8f1c4e1736f5d68921da9122d9677ce2513d5833119ce8af8f2c5f1f0af8703c",
+  "runtimeCacheDigest": "sha256:4c3f38a18b251d82548132495e206b935535fe67d8fc556360b4e2883d851ff8",
+  "contentBaselineDigest": "sha256:63232d30480fc3e12b034e8ff95c9bb1ffecb8cda6131cca3ef1442e1016b87f",
+  "conformanceStatus": {
+    "passed": false,
+    "exitCode": 2,
+    "blockedBy": "vale_missing",
+    "stderrTail": "error: vale is required for the content gate; run mise install"
+  },
+  "ownerDoctors": [
+    {
+      "owner": "ordivon-world",
+      "sourceKind": "ordivon.world-doctor-report",
+      "status": "ok",
+      "checks": 10,
+      "failedChecks": [],
+      "skippedChecks": 8
+    },
+    {
+      "owner": "workstation-lab",
+      "sourceKind": "agent-workstation-doctor",
+      "status": "fail",
+      "checks": 280,
+      "failedChecks": [
+        {
+          "name": "path:canonical-human",
+          "severity": "error"
+        },
+        {
+          "name": "path:user-local-allowlist",
+          "severity": "error"
+        },
+        {
+          "name": "package-forbidden:msitools",
+          "severity": "error"
+        },
+        {
+          "name": "windows-live:ambient-interop-privilege",
+          "severity": "warning"
+        },
+        {
+          "name": "network:direct-profile:B",
+          "severity": "error"
+        }
+      ],
+      "skippedChecks": 0
+    }
+  ],
+  "cadenceExperiment": {
+    "fastRunsMs": [
+      3168.949207989499,
+      1704.8379640036728,
+      1700.0741429947084
+    ],
+    "fastMedianMs": 1704.8379640036728,
+    "byteMeasuredRunMs": 6180.1215809973655,
+    "byteMeasurementSlowdown": 3.625049248952583,
+    "runtimeHealthMs": 279.71571900707204,
+    "cacheInspectMs": 930.4641990020173,
+    "ownerDoctorMs": 4240.881945006549,
+    "decision": "split_fast_classification_from_byte_measurement",
+    "recommendedFastClassificationCadence": "hourly",
+    "recommendedByteMeasurementCadence": "daily",
+    "mutationAuthorized": false
+  },
+  "compatibility": {
+    "entries": 2,
+    "removed": 1,
+    "retained": 1,
+    "removableCandidates": 0,
+    "unsupportedDebt": 0,
+    "evaluated": [
+      {
+        "id": "compat:semantic-core:raw-reducer-source-aliases",
+        "owner": "ordivon-computing",
+        "path": "research/experiments/semantic-core-v0/{kernel.py,journal.py}",
+        "disposition": "removed",
+        "blockers": {
+          "currentConsumers": [],
+          "protectedState": [],
+          "recoveryRequirements": [],
+          "externalContracts": []
+        }
+      },
+      {
+        "id": "compat:semantic-core:effectspec-journal-decode",
+        "owner": "ordivon-computing",
+        "path": "research/experiments/semantic-core-v0/src/anc_semantic_core/{model.py,journal.py}",
+        "disposition": "retain_narrowest_compatible_form",
+        "blockers": {
+          "currentConsumers": [],
+          "protectedState": [
+            "retained schema-v2/v3 Journal histories"
+          ],
+          "recoveryRequirements": [
+            "genesis replay of accepted historical evidence"
+          ],
+          "externalContracts": []
+        }
+      }
+    ]
+  },
+  "compatibilityErasure": {
+    "removed": [
+      "ReferenceKernel",
+      "JournalKernel"
+    ],
+    "retained": [
+      "EffectSpec historical Journal decode"
+    ]
+  },
+  "dirtyAging": {
+    "dirtyWorkspaces": 34,
+    "actionable": 20,
+    "counts": {
+      "checkpoint_or_export": 12,
+      "owner_review": 8,
+      "recent_dirty": 14
+    },
+    "queue": [
+      {
+        "workspaceId": "finance-f3-economic-research-20260807",
+        "sourceRepo": "/root/projects/ordivon-finance",
+        "sourceRevision": "2b74a76b73591eff1ef5c396e9dbbd766843025b",
+        "recordDigest": "sha256:7c0b65608c23461b0267e6ebfabb30f513497cbb402193ebfffa56afd4f839d9",
+        "estimatedBytes": 279720965,
+        "dirtyPaths": [
+          "kernel/economic_research.py",
+          "research/economic/spy-economic-case-v0.json",
+          "schemas/economic-research-case.schema.json"
+        ],
+        "ageHours": 69.22608138888889,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "host-w0-crosscut-audit-20260808",
+        "sourceRepo": "/root/projects/ordivon-host",
+        "sourceRevision": "0c5b817ad485c756861cb00a6b09a98a62280cb3",
+        "recordDigest": "sha256:be2e0533c29e56178a23abfc8ee935903c1b98615946dd1affded4e79fe573a8",
+        "estimatedBytes": 2115835,
+        "dirtyPaths": [
+          "uv.lock"
+        ],
+        "ageHours": 55.73898,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "runtime-budget-h1-20260808",
+        "sourceRepo": "/root/projects/ordivon-runtime",
+        "sourceRevision": "d2cbfc9aa88a4c2022b73e9d8ece96ffff942499",
+        "recordDigest": "sha256:3aaa5cc711ee7b4b5c6325f6d386679f7717a489fb091465431709e67a098898",
+        "estimatedBytes": 1879235,
+        "dirtyPaths": [
+          "crates/ordivon-runtime-core/src/lib.rs",
+          "crates/ordivon-runtime-core/src/runtime/engine.rs",
+          "crates/ordivon-runtime-core/src/runtime/mod.rs",
+          "crates/ordivon-runtime-core/src/runtime/registry.rs",
+          "crates/ordivon-runtime-core/src/runtime/tests.rs",
+          "crates/ordivon-runtime-core/src/runtime/types.rs",
+          "crates/ordivon-runtime-core/src/universal/tests.rs",
+          "crates/ordivon-runtime-mcp/src/server/mod.rs",
+          "crates/ordivon-runtime-mcp/src/server/tests.rs",
+          "crates/ordivon-runtime-mcp/src/server/tools.rs"
+        ],
+        "ageHours": 50.36570638888889,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "world-w4-integration-candidate-20260808",
+        "sourceRepo": "/root/projects/ordivon-world",
+        "sourceRevision": "549cbe1df2a5cd5f8c5ec8ecd4254b4adf95a0bc",
+        "recordDigest": "sha256:7fb2e2d6e433e620cd6d7d8665a418cc79d1cf56b7815c93225798fd83890e56",
+        "estimatedBytes": 251867668,
+        "dirtyPaths": [
+          "scripts/check_dependencies.py",
+          "scripts/check_wheel.py"
+        ],
+        "ageHours": 46.4569525,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "security-malware-r6-generic-clean-20260808",
+        "sourceRepo": "/root/projects/ordivon-security",
+        "sourceRevision": "e352e86228b99669035a5d05593adc4a10a8d5f5",
+        "recordDigest": "sha256:737a6d970692c2ce94b40f52cab938499ec41299b4285b5d270b7d449c30416c",
+        "estimatedBytes": 4330922,
+        "dirtyPaths": [
+          "src/ordivon_security/cli_windows_kvm_p1_derive_base.py",
+          "src/ordivon_security/evaluation/windows_kvm_p1_derived_base.py",
+          "tests/unit/test_windows_kvm_p1_derived_base.py"
+        ],
+        "ageHours": 45.54051166666667,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "security-entity-prebody-20260808",
+        "sourceRepo": "/root/projects/ordivon-security",
+        "sourceRevision": "91d54653fabe86abbc6fd904cde64f007485e88a",
+        "recordDigest": "sha256:f02460e46f88c6b3c22098d9d8c9dfba5df56d410b3d141c5664256050f97a43",
+        "estimatedBytes": 5292451,
+        "dirtyPaths": [
+          "evidence/acceptance/world-entity-prebody-ambiguous-70e7d52.json",
+          "evidence/acceptance/world-entity-prebody-staged-2b1ba61.json",
+          "evidence/acceptance/world-entity-prebody-swtpm-2b1ba61.json"
+        ],
+        "ageHours": 44.83155472222222,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "security-entity-source-auth-audit-20260808",
+        "sourceRepo": "/root/projects/ordivon-security",
+        "sourceRevision": "3a11f813ae620c6227d94facb9c51b856ede1aff",
+        "recordDigest": "sha256:ad7b741be74813b203a1a3007b4bf7393be79958c4b4b4d3880777538b67a073",
+        "estimatedBytes": 3515673,
+        "dirtyPaths": [
+          "target/source_auth_probe.py"
+        ],
+        "ageHours": 44.619393333333335,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "game-entity-source-auth-audit-20260808",
+        "sourceRepo": "/root/projects/ordivon-game",
+        "sourceRevision": "f34b66ef0319ca37456fd91be03aa75ea6bf2cd3",
+        "recordDigest": "sha256:79cc1bf4139842878d01892e2076380a3dd6767c7d85d1e7d8dfeb2cf9a69e16",
+        "estimatedBytes": 1668984,
+        "dirtyPaths": [
+          "target/source-auth-producer-audit.json"
+        ],
+        "ageHours": 44.60499305555555,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "world-w5a-a4p1-current-relation-20260808",
+        "sourceRepo": "/root/projects/ordivon-world",
+        "sourceRevision": "5fe1a4f6e41083e50fc7dbdb2192777ebbb5178d",
+        "recordDigest": "sha256:c946c9399287e40aa3936a64e9a7174159b80f019337f0ccebdeaf99d86e9486",
+        "estimatedBytes": 252072233,
+        "dirtyPaths": [
+          "docs/w5-agent-embodiment.md",
+          "evidence/acceptance/w5a-a4p1-current-relation-8e980cd.json"
+        ],
+        "ageHours": 40.61649333333333,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "finance-runner-self-tamper-probe-20260809",
+        "sourceRepo": "/root/projects/ordivon-finance",
+        "sourceRevision": "7866368c5a1c23150ad305570af8715582aa0f38",
+        "recordDigest": "sha256:29ea0aa9c5f00b492d9bb91d9b8546d3f91ff938f1be9a2b3289c74817b4c326",
+        "estimatedBytes": 285160539,
+        "dirtyPaths": [
+          "scripts/lab-run.py"
+        ],
+        "ageHours": 29.807391388888888,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "finance-q2-domain-bridge-v4-20260809",
+        "sourceRepo": "/root/projects/ordivon-finance",
+        "sourceRevision": "ef3739d774037298af66a325f6a3314b92aefa8b",
+        "recordDigest": "sha256:b66064e6690bc30190f208053edce382e26b3ed1b8544c90003136c46b7085ed",
+        "estimatedBytes": 286259712,
+        "dirtyPaths": [
+          "adapters/research_domain_bridge.py",
+          "design/LABORATORY-GRADUATION.md",
+          "design/QUANT-LABORATORY.md",
+          "tests/test_research_domain_bridge.py"
+        ],
+        "ageHours": 29.391180833333333,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "xhigh-audit-computing-20260809",
+        "sourceRepo": "/root/projects/ordivon-computing",
+        "sourceRevision": "cadc0154a2fee54504b8fe680cc6751107c9ae57",
+        "recordDigest": "sha256:49a6a1e49323c3b4dfd8bcb3be357103959b436bd370970d1dfbb84d9081514d",
+        "estimatedBytes": 5407857,
+        "dirtyPaths": [
+          "packages/ordivon-protocol/uv.lock"
+        ],
+        "ageHours": 26.2198225,
+        "action": "checkpoint_or_export",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "ws-019fc8d5-14f6-7a12-848f-06ff90e6cbe5",
+        "sourceRepo": "/root/projects/ordivon-web",
+        "sourceRevision": "1cca89d32abd9830ec86dde91e5815cd9e88a622",
+        "recordDigest": "sha256:eda46808240ea88d558f7f0c04e5692342b4a00ad7a18457395221ec07353b9f",
+        "estimatedBytes": 564509408,
+        "dirtyPaths": [
+          "README.md",
+          "app/about/page.tsx",
+          "app/layout.tsx",
+          "app/now/page.tsx",
+          "app/page.tsx",
+          "app/projects/[slug]/page.tsx",
+          "app/projects/page.tsx",
+          "app/system/page.tsx",
+          "components/project-mechanism.tsx",
+          "components/site-footer.tsx",
+          "components/site-header.tsx",
+          "components/system-map.tsx",
+          "content/editorial/README.md",
+          "content/editorial/authority.md",
+          "content/editorial/positioning.md",
+          "content/editorial/vocabulary.md",
+          "content/model.ts",
+          "lib/model/types.ts",
+          "lib/projects.ts",
+          "lib/system-views.ts",
+          "…"
+        ],
+        "ageHours": 158.21257138888888,
+        "action": "owner_review",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "ws-019fcc42-d68d-7a50-bff8-6e37a8ad7507",
+        "sourceRepo": "/root/projects/ordivon-security",
+        "sourceRevision": "334c4e7f69b2d3ff353580043229c259e79e77b9",
+        "recordDigest": "sha256:87c3eb6b87fb3886feb2f1565324d9062a1cbb64496123cb198f022b43246e15",
+        "estimatedBytes": 628590,
+        "dirtyPaths": [
+          "pyproject.toml",
+          "src/ordivon_security/__init__.py",
+          "src/ordivon_security/actors/__init__.py",
+          "src/ordivon_security/actors/protocol.py",
+          "src/ordivon_security/api.py",
+          "src/ordivon_security/cli.py",
+          "src/ordivon_security/cli_cage4.py",
+          "src/ordivon_security/contest/__init__.py",
+          "src/ordivon_security/contest/model.py",
+          "src/ordivon_security/contest/runner.py",
+          "src/ordivon_security/evidence/__init__.py",
+          "src/ordivon_security/evidence/events.py",
+          "src/ordivon_security/evidence/recorder.py",
+          "src/ordivon_security/ranges/cage4.py",
+          "src/ordivon_security/ranges/micro.py",
+          "src/ordivon_security/ranges/protocol.py",
+          "tests/integration/test_cage4_range.py",
+          "tests/unit/test_contest.py",
+          "uv.lock",
+          "src/ordivon_security/domain_tools.py",
+          "…"
+        ],
+        "ageHours": 141.16760555555555,
+        "action": "owner_review",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "ws-019fcc43-01b9-78e2-ba82-e3ef9d3eb1ec",
+        "sourceRepo": "/root/projects/ordivon-harness",
+        "sourceRevision": "be75959018344c9aa2e1122692a1ae2de223b461",
+        "recordDigest": "sha256:be022d02f06315dc7eb642e9b2c1a26464d47246d0b92ddef2639691672c4297",
+        "estimatedBytes": 4724957,
+        "dirtyPaths": [
+          "tests/test_domain_tool_bridge.py"
+        ],
+        "ageHours": 141.02912833333335,
+        "action": "owner_review",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "ws-019fcefa-3919-78e1-bee4-c0089a842931",
+        "sourceRepo": "/root/projects/ordivon-security",
+        "sourceRevision": "48b69c912da105a3bdfbf6f4ae232dce21c8fe7f",
+        "recordDigest": "sha256:d7090016144143901bcabd24e3e783007a409a73ecb9c014633049b5ff96cd2d",
+        "estimatedBytes": 3705015601,
+        "dirtyPaths": [
+          "analysis/pcappstore-20260805/agent-evidence.json",
+          "analysis/pcappstore-20260805/agents-v2/agent-1-acquisition.json",
+          "analysis/pcappstore-20260805/agents-v2/agent-2-persistence.json",
+          "analysis/pcappstore-20260805/agents-v2/agent-3-network.json",
+          "analysis/pcappstore-20260805/agents-v2/agent-4-installation-integrity.json",
+          "analysis/pcappstore-20260805/agents-v2/agent-5-remediation.json",
+          "analysis/pcappstore-20260805/agents-v2/agent-6-skeptical-review.json",
+          "analysis/pcappstore-20260805/agents-v2/manifest.json",
+          "analysis/pcappstore-20260805/agents/agent-1-acquisition.json",
+          "analysis/pcappstore-20260805/agents/agent-2-persistence.json",
+          "analysis/pcappstore-20260805/agents/agent-3-network.json",
+          "analysis/pcappstore-20260805/agents/agent-4-installation-integrity.json",
+          "analysis/pcappstore-20260805/agents/agent-5-remediation.json",
+          "analysis/pcappstore-20260805/agents/agent-6-skeptical-review.json",
+          "analysis/pcappstore-20260805/agents/manifest.json",
+          "analysis/pcappstore-20260805/analyze_pe.py",
+          "analysis/pcappstore-20260805/decoded-config-summary.json",
+          "analysis/pcappstore-20260805/download-chain.json",
+          "analysis/pcappstore-20260805/run_six_agents.py",
+          "analysis/pcappstore-20260805/static-evidence.json",
+          "…"
+        ],
+        "ageHours": 129.00248166666665,
+        "action": "owner_review",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "ws-019fd06a-5f62-7671-854b-74317fcb0ce6",
+        "sourceRepo": "/root/projects/ordivon-security",
+        "sourceRevision": "57b5706c91892ca8e91dc7df03746ea4d02e832a",
+        "recordDigest": "sha256:db01950576f0d6c5d8c5d8e9201d41db3e63d5e1228151020ca95e600e1fd281",
+        "estimatedBytes": 137852926,
+        "dirtyPaths": [
+          "src/ordivon_security/evaluation/windows_kvm.py",
+          "src/ordivon_security/evaluation/windows_kvm_build.py"
+        ],
+        "ageHours": 121.70990611111111,
+        "action": "owner_review",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "ordivon-hho-p0-closeout-20260805",
+        "sourceRepo": "/root/projects/ordivon-harness",
+        "sourceRevision": "f39943e4bc4e5e9e0478994a68a05f69d480406f",
+        "recordDigest": "sha256:e3f0c111d7f6923f35fbd06ac687babd85963d2db74242039472fe8754ff86d2",
+        "estimatedBytes": 6661722,
+        "dirtyPaths": [
+          "src/ordivon_harness/host_external_adapter.py",
+          "tests/test_p0_host_external_adapter.py"
+        ],
+        "ageHours": 114.97964333333333,
+        "action": "owner_review",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "ws-019fd5dd-5349-7761-ade2-399487d311ea",
+        "sourceRepo": "/root/projects/ordivon-computing",
+        "sourceRevision": "4f7cb44f94697e4784e606ee1366dc75ce02fcd7",
+        "recordDigest": "sha256:bf0666d0e5b5fa5551b6d3413970bc1e93509afcd6d528a6b37bc2c5dca32ef3",
+        "estimatedBytes": 5478581,
+        "dirtyPaths": [
+          "target/acceptance/a4-staging-rehearsal-f6173b2.json",
+          "target/acceptance/a4-staging-rehearsal.json"
+        ],
+        "ageHours": 97.76710472222223,
+        "action": "owner_review",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "security-w2-build-cb77ab0",
+        "sourceRepo": "/root/projects/ordivon-security",
+        "sourceRevision": "cb77ab0a431a74091bacc6fc94d56ce7f772ee65",
+        "recordDigest": "sha256:acc9465e90eddda597459196cc4438e62e750acacc0f2ae80b59140136276e4c",
+        "estimatedBytes": 104664444,
+        "dirtyPaths": [
+          "Binary/Binary.DPInst",
+          "Binary/Binary.FINDREPLACE",
+          "Binary/Binary.New",
+          "Binary/Binary.PowerShellScriptLauncher.dll",
+          "Binary/Binary.Prereq.dll",
+          "Binary/Binary.SoftwareDetector.dll",
+          "Binary/Binary.Up",
+          "Binary/Binary.WixCA",
+          "Binary/Binary.WixUIWixca",
+          "Binary/Binary.WixUI_Bmp_Banner",
+          "Binary/Binary.WixUI_Bmp_Dialog",
+          "Binary/Binary.WixUI_Bmp_New",
+          "Binary/Binary.WixUI_Bmp_Up",
+          "Binary/Binary.WixUI_Ico_Exclam",
+          "Binary/Binary.WixUI_Ico_Info",
+          "Binary/Binary.aicustact.dll",
+          "Binary/Binary.banner.jpg",
+          "Binary/Binary.banner.scale125.jpg",
+          "Binary/Binary.banner.scale150.jpg",
+          "Binary/Binary.banner.scale200.jpg",
+          "…"
+        ],
+        "ageHours": 93.16852472222222,
+        "action": "owner_review",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "harness-global-secondary-strategy-20260809",
+        "sourceRepo": "/root/projects/ordivon-harness",
+        "sourceRevision": "1b27e7a7087f3e45f08ee6ec03a651632d6760dd",
+        "recordDigest": "sha256:72cf96d10ca80495e57edbf9798e890d6889a61f4076e9a27b1b3e9827c4143c",
+        "estimatedBytes": 3368600,
+        "dirtyPaths": [
+          "evidence/index.json",
+          "evidence/harness-global-secondary-replan-1b27e7a.json"
+        ],
+        "ageHours": 23.972115277777778,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "harness-w5-promotion-readiness-20260809",
+        "sourceRepo": "/root/projects/ordivon-harness",
+        "sourceRevision": "49a388238ed5df9d50be182f06bb86e3e2ff2e5b",
+        "recordDigest": "sha256:5a8411654679353feb7e0bd4b3e714ddba1482a9a0c08182618d2676cc8ab43b",
+        "estimatedBytes": 3535938,
+        "dirtyPaths": [
+          "src/ordivon_harness/experimental_owner_inspection.py",
+          "tests/test_experimental_owner_inspection.py"
+        ],
+        "ageHours": 22.222392777777777,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "ws-runtime-path-authority-race-20260809",
+        "sourceRepo": "/root/projects/ordivon-runtime",
+        "sourceRevision": "b96c5566e55df5175a9f9a93bd3dc9ea52109810",
+        "recordDigest": "sha256:378df9baf2f3c8ba7efea8beb2026de072b6b36619b65a07f0521bdba0fd8a66",
+        "estimatedBytes": 2676872,
+        "dirtyPaths": [
+          "README.md",
+          "crates/ordivon-runtime-core/src/universal/tests.rs",
+          "crates/ordivon-runtime-core/src/universal/workspace.rs",
+          "docs/agent-ux.md",
+          "docs/runtime.md"
+        ],
+        "ageHours": 21.41165527777778,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "world-w5f-f2-independent-composition-20260809",
+        "sourceRepo": "/root/projects/ordivon-world",
+        "sourceRevision": "51d0e8b42ec7a0e218cf6f98984e139a915fb62c",
+        "recordDigest": "sha256:911dfba79ec92be8743915d3e9dbe5856434578e6acd7a5cd9765182c07e4def",
+        "estimatedBytes": 5633771,
+        "dirtyPaths": [
+          ".research-state/w5f-f2/entity-destination-state.json",
+          ".research-state/w5f-f2/fixture.json",
+          ".research-state/w5f-f2/forensic-history.json",
+          ".research-state/w5f-f2/forensic-stdout-1.json",
+          ".research-state/w5f-f2/forensic-stdout-2.json",
+          ".research-state/w5f-f2/host/host.sqlite3",
+          ".research-state/w5f-f2/host/objects/030dd783b687b0a2b5daa9837a02677e6967c41aa6b4ba770f0cdcbf00bd9b4b.json",
+          ".research-state/w5f-f2/host/objects/05ae7dbd75d01ee07bcc1a404dda357aeaa483d3d7a025caf276f67aa0fabea0.json",
+          ".research-state/w5f-f2/host/objects/0658860b88da1dd5d3eeca1d0ec16cb1325e38e60ee1692bb80be47d0f68272e.json",
+          ".research-state/w5f-f2/host/objects/1f8275149e4484503502217390c8f433b140653300235e86b02ea43aacedbe82.json",
+          ".research-state/w5f-f2/host/objects/25395cc7768e80e1956b4fedb5f37b3bb33477597e6dfb2370699ed740dd04bc.json",
+          ".research-state/w5f-f2/host/objects/26516beb8c606d0292581a163d0be0b446eac0953731fd3c7ce9353860aa39e6.json",
+          ".research-state/w5f-f2/host/objects/26c7c6bedc3c7dc026aa3c31d2c8cfb92551e3e328c942881fe8964d59f47d55.json",
+          ".research-state/w5f-f2/host/objects/2f79b735e6c1e96dab06a6a7e9b2a936a341c121e104666824b5bd6e342eafce.json",
+          ".research-state/w5f-f2/host/objects/37408b7b127ec8786d4c795124c8f4d0f75b0ebf642464e4a5147889936050f6.json",
+          ".research-state/w5f-f2/host/objects/3cf19f4f79ce31add77e5339d2c2c627ee3f64ff07e008fa06a742df14fdc534.json",
+          ".research-state/w5f-f2/host/objects/3e27dccf4070f00e5219955d4fc4a5ef7f2089b61ced018d7e35dd2c2826e62c.json",
+          ".research-state/w5f-f2/host/objects/7cc1cb7a7019f22f23916ed14a3dd14d29106d4ddab086aa7eb50ac20fd1c6a7.json",
+          ".research-state/w5f-f2/host/objects/89d9a2109659fb4d75f1b7e318e8955ff20398cd8e922eb627606c0265256956.json",
+          ".research-state/w5f-f2/host/objects/8a5616f3e064313ca81d37cf3ac84b3e93f67e4b74a1dbb2168b6c387d8360b2.json",
+          "…"
+        ],
+        "ageHours": 20.7860825,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "security-e2b1-loader-provenance-repair-20260809",
+        "sourceRepo": "/root/projects/ordivon-security",
+        "sourceRevision": "be27e7ccdc725a0da0356f0f0258c919670d78d9",
+        "recordDigest": "sha256:234b8c1614af8f56f011e7a941de3638fe79effb5137d75cd4982e729c5c8425",
+        "estimatedBytes": 4992004,
+        "dirtyPaths": [
+          "src/ordivon_security/evaluation/models.py",
+          "src/ordivon_security/evaluation/windows_kvm.py",
+          "src/ordivon_security/providers/windows_kvm.py",
+          "tests/unit/test_evaluation_semantic_core.py",
+          "tests/unit/test_windows_kvm.py"
+        ],
+        "ageHours": 19.51986527777778,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "host-live-evidence-rebase-b2191ed-20260809",
+        "sourceRepo": "/root/projects/ordivon-host",
+        "sourceRevision": "b2191edc5a0e0dba5006cff20c9e75e57652eb59",
+        "recordDigest": "sha256:548dfe64a1725145116f20f2184ffb0ab0d58aecaf0d337c1464a3f61d5667ea",
+        "estimatedBytes": 3355834,
+        "dirtyPaths": [
+          "evidence/acceptance/host-prepare-authority-purity-021a135.json",
+          "evidence/acceptance/host-schema5-live-deployment-a7d20b9.json"
+        ],
+        "ageHours": 18.53675972222222,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "runtime-windows-native-rw1-20260809",
+        "sourceRepo": "/root/projects/ordivon-runtime",
+        "sourceRevision": "66b87a90d1701c5f04aa42b327024e6aeecc8fb3",
+        "recordDigest": "sha256:f79f14028fea80c22bd83c552096a2fef238da275a2c67ada8bf211dfbdfba06",
+        "estimatedBytes": 2241604,
+        "dirtyPaths": [
+          ".rw1-unc-marker.txt"
+        ],
+        "ageHours": 18.332609166666668,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "runtime-windows-target-rw3-converge-20260809",
+        "sourceRepo": "/root/projects/ordivon-runtime",
+        "sourceRevision": "f3d6840fba644c66524bb4dd0236fc765c2eba79",
+        "recordDigest": "sha256:9414ab50558c4f61ad352db08426f19c080d46bb5cd75d5449d7317964fdb714",
+        "estimatedBytes": 2375400,
+        "dirtyPaths": [
+          "crates/ordivon-runtime-core/src/runtime/engine.rs",
+          "crates/ordivon-runtime-core/src/runtime/types.rs",
+          "crates/ordivon-runtime-core/src/runtime/windows.rs",
+          "crates/ordivon-runtime-mcp/src/server/mod.rs",
+          "platform/windows/Ordivon.WindowsJobLauncher.cs"
+        ],
+        "ageHours": 16.675606666666667,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "smoke-runtime-surface-20260810-1354b",
+        "sourceRepo": "/root/projects/ordivon-runtime",
+        "sourceRevision": "480ef703d1d28a5a5b6ac7d7111a7764a22574d7",
+        "recordDigest": "sha256:e7541eececff4e95145297698349cb3291f427173fc05b40a1c0036765a99ad2",
+        "estimatedBytes": 2456840,
+        "dirtyPaths": [
+          "smoke-mcp.txt"
+        ],
+        "ageHours": 2.8919313888888887,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "smoke-runtime-surface-20260810-1349",
+        "sourceRepo": "/root/projects/ordivon-runtime",
+        "sourceRevision": "480ef703d1d28a5a5b6ac7d7111a7764a22574d7",
+        "recordDigest": "sha256:97b5cb96242e6acbef0309ef926a357e079d8ced80d6c4ac4315a08a4b63705a",
+        "estimatedBytes": 2456915,
+        "dirtyPaths": [
+          "SMOKE_PIXEL.png",
+          "SMOKE_RUNTIME_SURFACE.txt"
+        ],
+        "ageHours": 2.888539722222222,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "runtime-p0-20260810",
+        "sourceRepo": "/root/projects/ordivon-runtime",
+        "sourceRevision": "480ef703d1d28a5a5b6ac7d7111a7764a22574d7",
+        "recordDigest": "sha256:ca05daa5460eec52d0596baeee3a85ca5a4f0ebdd03a4a130ce4988182d9f58e",
+        "estimatedBytes": 2458995,
+        "dirtyPaths": [
+          "crates/ordivon-runtime-core/tests/transactional_runtime.rs"
+        ],
+        "ageHours": 0.5449897222222222,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "world-p3-w5e-phase2-20260810b",
+        "sourceRepo": "/root/projects/ordivon-world",
+        "sourceRevision": "1d62ba48e2184e0b5e08636c31bdb0e96e519f36",
+        "recordDigest": "sha256:0cc2b234c1ee33fdd07f876e2febc2a67d99b8ec4d20ce3b80ae98354b12a00b",
+        "estimatedBytes": 5969262,
+        "dirtyPaths": [
+          "target-p3-capability.json",
+          "target-p3-status.json"
+        ],
+        "ageHours": 0.27101583333333334,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "ws-studio-p2-rsi-20260810",
+        "sourceRepo": "/root/projects/ordivon-studio",
+        "sourceRevision": "ad31521c1b4f679008fffd5e17b1134509424e77",
+        "recordDigest": "sha256:b333db69dea80bd7ababf0747bc1c0c5756754dbb7c7ec0395f1bf5933a38a16",
+        "estimatedBytes": 426218218,
+        "dirtyPaths": [
+          "README.md",
+          "apps/motion-remotion/src/runtime-introduction-master-composition.tsx",
+          "docs/storage-layout.md",
+          "productions/runtime-introduction/README.md",
+          "productions/runtime-introduction/assets.json",
+          "productions/runtime-introduction/cognition.md",
+          "productions/runtime-introduction/plan.md",
+          "productions/runtime-introduction/production.json",
+          "productions/runtime-introduction/script/narration.en.md",
+          "productions/runtime-introduction/timed-text/narration.en.json",
+          "src/ordivon_studio/assets.py",
+          "src/ordivon_studio/cli.py",
+          "tests/test_assets.py",
+          "productions/runtime-introduction/evidence/narration-sapi.receipt.json",
+          "productions/runtime-introduction/timeline/assembly.v2.otio",
+          "scripts/build_sapi_narration.py",
+          "scripts/synthesize-sapi-cues.ps1"
+        ],
+        "ageHours": 0.07660666666666667,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      },
+      {
+        "workspaceId": "finance-p1-c2-20260810",
+        "sourceRepo": "/root/projects/ordivon-finance",
+        "sourceRevision": "3d479315be9def11ec5ba77ba4fc95a59cf14caa",
+        "recordDigest": "sha256:29f4e6be69a51bac2faa234ecc2fa29fab5ee2cc5f4397f0aba7896145c39921",
+        "estimatedBytes": 281171965,
+        "dirtyPaths": [
+          "deploy/executor/README.md",
+          "deploy/systemd/ordivon-finance-executor.service",
+          "deploy/systemd/trust-policy.example.json",
+          "design/C2-AUTHORITY-REFORM.md",
+          "design/F6-EXTERNAL-EXECUTOR-BOUNDARY.md",
+          "design/FOUNDATION-CONSTITUTION.md",
+          "policy/external-effect-admission-v1.json",
+          "policy/external-executor-boundary-v0.json",
+          "schemas/schema-manifest.json",
+          "scripts/build-executor-bundle.py",
+          "scripts/executor-boundary-status.py",
+          "scripts/external-effect-admission-status.py",
+          "tests/test_f6_executor_boundary.py",
+          "executor/remote-admission-v2.mjs",
+          "executor/server-v2.mjs",
+          "executor/service-v2.mjs",
+          "schemas/executor-authority-grant-v2.schema.json",
+          "schemas/executor-effect-admission-v1.schema.json",
+          "schemas/executor-grant-revocation-v2.schema.json",
+          "schemas/executor-submission-package-v2.schema.json",
+          "…"
+        ],
+        "ageHours": 0.006536944444444444,
+        "action": "recent_dirty",
+        "automaticDeletionAllowed": false
+      }
+    ],
+    "policy": {
+      "checkpointAfterHours": 24.0,
+      "reviewAfterHours": 72.0,
+      "quarantineReviewAfterHours": 168.0,
+      "automaticDeletionAllowed": false
+    }
+  },
+  "maintenanceProjection": {
+    "schemaVersion": 1,
+    "kind": "ordivon.crosscut-maintenance-projection",
+    "truthRole": "rebuildable-read-only-projection",
+    "inputDigests": {
+      "host": "sha256:9c45a18755e45c1ec1ba83b66891c1738385574a010df592d4c8ef17d9b882d1",
+      "runtimeStatus": "sha256:40b55ab58f3417f7765cce293c9255b4db400b21e4870e43ad31db7ffbd63b82",
+      "runtimeLifecycle": "sha256:8f1c4e1736f5d68921da9122d9677ce2513d5833119ce8af8f2c5f1f0af8703c",
+      "runtimeCache": "sha256:4c3f38a18b251d82548132495e206b935535fe67d8fc556360b4e2883d851ff8",
+      "contentBaseline": "sha256:63232d30480fc3e12b034e8ff95c9bb1ffecb8cda6131cca3ef1442e1016b87f",
+      "conformanceStatus": "sha256:2d02c26875b980487d67be7afed4dde3a69b3450f4e55ba7a95ed32c283c2371",
+      "ownerDoctors": "sha256:5d14b36c82efe0b78987c943affef47c347278a32c067eb3717068c48e900426",
+      "compatibility": "sha256:38e26324e34e4d780230517c7a699eb08cb0643545216971bc63d5d1fe076105",
+      "dirtyAging": "sha256:6bef30d6e037b8f6da95aaec9637b0c72df657d703cff29867e32cca906522e8"
+    },
+    "lifecycleVocabulary": [
+      "authoritative",
+      "evidence",
+      "rebuildable",
+      "ephemeral",
+      "cache",
+      "compatibility",
+      "quarantine",
+      "unknown"
+    ],
+    "signals": [
+      {
+        "owner": "ordivon-host",
+        "area": "authority-integrity",
+        "state": "healthy",
+        "facts": {
+          "journalSchema": 5,
+          "events": 250,
+          "tasks": 45,
+          "leases": 0,
+          "failingChecks": []
+        }
+      },
+      {
+        "owner": "ordivon-runtime",
+        "area": "runtime-health-and-deployment",
+        "state": "healthy",
+        "facts": {
+          "deployedCommit": "44d5ebc01ad38a5fffbbc9ab8958bf0192d6345f",
+          "toolCount": 20,
+          "serviceState": "active",
+          "restarts": 0,
+          "jobsActive": 4,
+          "recoveryRequired": 0,
+          "artifactMismatches": []
+        }
+      },
+      {
+        "owner": "ordivon-runtime",
+        "area": "workspace-lifecycle",
+        "state": "attention",
+        "facts": {
+          "counts": {
+            "blocked_active": 4,
+            "blocked_dirty": 34,
+            "closable": 179
+          },
+          "policyEligible": 92,
+          "policyEligibleEstimatedBytes": 4717169549
+        }
+      },
+      {
+        "owner": "ordivon-runtime",
+        "area": "execution-cache",
+        "state": "attention",
+        "facts": {
+          "legacyBytes": 34990803873,
+          "issues": 0,
+          "sourceGroups": 11
+        }
+      },
+      {
+        "owner": "ordivon-computing",
+        "area": "content-lifecycle",
+        "state": "attention",
+        "facts": {
+          "repositories": 11,
+          "documents": 460,
+          "metadataDocuments": 171,
+          "blockedProjects": [
+            "ordivon-computing",
+            "ordivon-game",
+            "ordivon-harness",
+            "ordivon-host",
+            "ordivon-security",
+            "ordivon-web",
+            "ordivon-world"
+          ],
+          "degradedProjects": [
+            "ordivon-finance",
+            "ordivon-human",
+            "ordivon-runtime",
+            "ordivon-studio"
+          ]
+        }
+      },
+      {
+        "owner": "ordivon-computing",
+        "area": "cross-project-conformance",
+        "state": "attention",
+        "facts": {
+          "passed": false,
+          "exitCode": 2,
+          "blockedBy": "vale_missing"
+        }
+      },
+      {
+        "owner": "ordivon-world",
+        "area": "owner-doctor",
+        "state": "healthy",
+        "facts": {
+          "sourceKind": "ordivon.world-doctor-report",
+          "status": "ok",
+          "checks": 10,
+          "failedChecks": [],
+          "skippedChecks": 8
+        }
+      },
+      {
+        "owner": "workstation-lab",
+        "area": "owner-doctor",
+        "state": "attention",
+        "facts": {
+          "sourceKind": "agent-workstation-doctor",
+          "status": "fail",
+          "checks": 280,
+          "failedChecks": [
+            {
+              "name": "path:canonical-human",
+              "severity": "error"
+            },
+            {
+              "name": "path:user-local-allowlist",
+              "severity": "error"
+            },
+            {
+              "name": "package-forbidden:msitools",
+              "severity": "error"
+            },
+            {
+              "name": "windows-live:ambient-interop-privilege",
+              "severity": "warning"
+            },
+            {
+              "name": "network:direct-profile:B",
+              "severity": "error"
+            }
+          ],
+          "skippedChecks": 0
+        }
+      },
+      {
+        "owner": "crosscut-projection",
+        "area": "compatibility-debt",
+        "state": "healthy",
+        "facts": {
+          "entries": 2,
+          "removed": 1,
+          "retained": 1,
+          "removableCandidates": 0,
+          "unsupportedDebt": 0,
+          "evaluated": [
+            {
+              "id": "compat:semantic-core:raw-reducer-source-aliases",
+              "owner": "ordivon-computing",
+              "path": "research/experiments/semantic-core-v0/{kernel.py,journal.py}",
+              "disposition": "removed",
+              "blockers": {
+                "currentConsumers": [],
+                "protectedState": [],
+                "recoveryRequirements": [],
+                "externalContracts": []
+              }
+            },
+            {
+              "id": "compat:semantic-core:effectspec-journal-decode",
+              "owner": "ordivon-computing",
+              "path": "research/experiments/semantic-core-v0/src/anc_semantic_core/{model.py,journal.py}",
+              "disposition": "retain_narrowest_compatible_form",
+              "blockers": {
+                "currentConsumers": [],
+                "protectedState": [
+                  "retained schema-v2/v3 Journal histories"
+                ],
+                "recoveryRequirements": [
+                  "genesis replay of accepted historical evidence"
+                ],
+                "externalContracts": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "owner": "ordivon-runtime",
+        "area": "dirty-workspace-aging",
+        "state": "attention",
+        "facts": {
+          "dirtyWorkspaces": 34,
+          "actionable": 20,
+          "counts": {
+            "checkpoint_or_export": 12,
+            "owner_review": 8,
+            "recent_dirty": 14
+          },
+          "policy": {
+            "checkpointAfterHours": 24.0,
+            "reviewAfterHours": 72.0,
+            "quarantineReviewAfterHours": 168.0,
+            "automaticDeletionAllowed": false
+          }
+        }
+      }
+    ],
+    "summary": {
+      "attentionSignals": 6,
+      "healthySignals": 4
+    },
+    "truthBoundary": {
+      "projectionAuthoritative": false,
+      "ownerNativeFactsRemainAuthoritative": true,
+      "cleanupAuthorityDelegatedToOwner": true,
+      "unknownNeverAutoDeleted": true,
+      "dirtyNeverAutoDeleted": true
+    },
+    "projectionDigest": "sha256:bb91f09c1429cf77d9eb095bf7491bd2d0b03704dd70580ef7dc747831c17696"
+  },
+  "acceptanceDigest": "sha256:2fc4c1c7bdf7e01db63de11c81b13b7f776035947d805c3e62eafb221534b427"
+}

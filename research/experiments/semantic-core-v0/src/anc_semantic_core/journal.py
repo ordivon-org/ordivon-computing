@@ -884,6 +884,3 @@ class JournalReducer:
     def __exit__(self, exc_type: Any, exc: Any, traceback: Any) -> None:
         self.close()
 
-
-# Backward-compatible internal name for existing tests and experiments.
-JournalKernel = JournalReducer

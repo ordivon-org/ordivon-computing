@@ -18,8 +18,12 @@ from anc_semantic_core.authorized import AuthorityRoot, AuthorizedKernel
 from anc_semantic_core.bootstrap import authorized_reference_views
 from anc_semantic_core.conformance import sample_effect, sid
 from anc_semantic_core.identity import IdKind, SemanticId
-from anc_semantic_core.journal import JournalCorruption, JournalKernel, JournalSchemaError
-from anc_semantic_core.kernel import NotFound, ReferenceKernel
+from anc_semantic_core.journal import (
+    JournalCorruption,
+    JournalReducer,
+    JournalSchemaError,
+)
+from anc_semantic_core.kernel import NotFound, ReferenceReducer
 from anc_semantic_core.model import (
     Artifact,
     Claim,
@@ -30,12 +34,12 @@ from anc_semantic_core.model import (
     Verification,
     VerificationDecision,
 )
+from anc_semantic_core.state import EffectState
 from anc_semantic_core.testing import (
     authorize_reducer,
     reference_kernel,
     test_authority_policy,
 )
-from anc_semantic_core.state import EffectState
 
 
 def issue_view(
@@ -110,7 +114,7 @@ class AuthorityBoundaryTests(unittest.TestCase):
 
     def test_effect_role_cannot_cross_dispatch_boundary(self) -> None:
         policy = test_authority_policy()
-        reducer = ReferenceKernel(policy)
+        reducer = ReferenceReducer(policy)
         effect_view = issue_view(reducer, policy, AuthorityRole.EFFECT, namespace="effect-only")
         spec = sample_effect("effect-only")
         effect_view.admit_effect(
@@ -137,7 +141,7 @@ class AuthorityBoundaryTests(unittest.TestCase):
 
     def test_role_specific_signer_cannot_escalate_to_another_role(self) -> None:
         policy = test_authority_policy()
-        reducer = ReferenceKernel(policy)
+        reducer = ReferenceReducer(policy)
         effect_view = issue_view(reducer, policy, AuthorityRole.EFFECT, namespace="no-escalation")
         spec = sample_effect("no-escalation")
         effect_view.admit_effect(
@@ -181,7 +185,7 @@ class AuthorityBoundaryTests(unittest.TestCase):
 
     def test_dispatch_role_cannot_attest_observation(self) -> None:
         policy = test_authority_policy()
-        reducer = ReferenceKernel(policy)
+        reducer = ReferenceReducer(policy)
         effect_view = issue_view(reducer, policy, AuthorityRole.EFFECT, namespace="dispatch-split")
         dispatch_view = issue_view(
             reducer, policy, AuthorityRole.DISPATCH, namespace="dispatch-split"
@@ -212,7 +216,7 @@ class AuthorityBoundaryTests(unittest.TestCase):
 
     def test_views_from_different_roots_cannot_be_combined(self) -> None:
         policy = test_authority_policy()
-        reducer = ReferenceKernel(policy)
+        reducer = ReferenceReducer(policy)
         first_root = AuthorityRoot(reducer, policy)
         second_root = AuthorityRoot(reducer, policy)
         effect = first_root.issue(
@@ -293,7 +297,7 @@ class AuthorityBoundaryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "authority.sqlite3"
             first = authorize_reducer(
-                JournalKernel(path, policy),
+                JournalReducer(path, policy),
                 policy,
                 namespace="journal-authority",
             )
@@ -312,7 +316,7 @@ class AuthorityBoundaryTests(unittest.TestCase):
             first.close()
 
             reopened = authorize_reducer(
-                JournalKernel(path, policy),
+                JournalReducer(path, policy),
                 policy,
                 namespace="journal-authority",
             )
@@ -334,7 +338,7 @@ class AuthorityBoundaryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "wrong-secret.sqlite3"
             first = authorize_reducer(
-                JournalKernel(path, policy), policy, namespace="wrong-secret"
+                JournalReducer(path, policy), policy, namespace="wrong-secret"
             )
             spec = sample_effect("wrong-secret")
             first.admit_effect(
@@ -350,14 +354,14 @@ class AuthorityBoundaryTests(unittest.TestCase):
                 secret=b"a-different-authority-secret-material-which-is-long-enough",
             )
             with self.assertRaises(JournalCorruption):
-                JournalKernel(path, wrong)
+                JournalReducer(path, wrong)
 
     def test_policy_fingerprint_change_is_rejected_before_replay(self) -> None:
         policy = test_authority_policy()
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "policy-version.sqlite3"
             first = authorize_reducer(
-                JournalKernel(path, policy), policy, namespace="policy-version"
+                JournalReducer(path, policy), policy, namespace="policy-version"
             )
             spec = sample_effect("policy-version")
             first.admit_effect(
@@ -373,7 +377,7 @@ class AuthorityBoundaryTests(unittest.TestCase):
                 secret=b"agent-native-computing-semantic-core-authority-v2-secret",
             )
             with self.assertRaises(JournalSchemaError):
-                JournalKernel(path, changed)
+                JournalReducer(path, changed)
 
     def test_fact_records_verification_and_acceptance_authorities(self) -> None:
         kernel = reference_kernel(namespace="fact-authority")

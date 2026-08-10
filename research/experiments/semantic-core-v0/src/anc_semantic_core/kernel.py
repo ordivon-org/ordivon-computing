@@ -22,8 +22,6 @@ from .interfaces import (
 )
 from .reducer import ReferenceReducer
 
-ReferenceKernel = ReferenceReducer
-
 __all__ = [
     "EffectView",
     "ExecutionView",
@@ -33,7 +31,6 @@ __all__ = [
     "InvariantViolation",
     "KernelReadView",
     "NotFound",
-    "ReferenceKernel",
     "ReferenceReducer",
     "RevisionConflict",
     "RootBoundView",
