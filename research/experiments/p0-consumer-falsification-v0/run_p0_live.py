@@ -352,7 +352,12 @@ def run_a_cell_s(*, settings: DeepSeekSettings, replicate: int) -> dict[str, Any
             "completionArtifactDigest": text_digest(artifact.read_text(encoding="utf-8")),
             "candidateSummary": value["summary"],
             "verifier": verifier,
-            "valid": bool(verifier["visiblePassed"] and verifier["hiddenPassed"] and verifier["protectedFilesUnchanged"]),
+            "trialValid": True,
+            "semanticAccepted": bool(
+                verifier["visiblePassed"]
+                and verifier["hiddenPassed"]
+                and verifier["protectedFilesUnchanged"]
+            ),
             "metrics": {
                 "modelCalls": 1,
                 "toolCalls": 0,
@@ -408,7 +413,8 @@ def run_a_cell_h(*, settings: DeepSeekSettings, replicate: int) -> dict[str, Any
             "verifier": verifier,
             "candidateCompleted": result.candidate_completed,
             "stopCode": result.stop_code.value,
-            "valid": bool(
+            "trialValid": True,
+            "semanticAccepted": bool(
                 result.candidate_completed
                 and verifier["visiblePassed"]
                 and verifier["hiddenPassed"]
@@ -434,7 +440,9 @@ def run_a_pair(*, settings: DeepSeekSettings, replicate: int, order: str) -> dic
     cells = [runners[cell](settings=settings, replicate=replicate) for cell in order]
     by_id = {cell["cellId"]: cell for cell in cells}
     same_task = by_id["S"]["visibleTaskDigest"] == by_id["H"]["visibleTaskDigest"]
-    valid_pair = bool(same_task and by_id["S"]["valid"] and by_id["H"]["valid"])
+    trial_valid_pair = bool(
+        same_task and by_id["S"]["trialValid"] and by_id["H"]["trialValid"]
+    )
     return {
         "schemaVersion": 1,
         "kind": "ordivon.p0-a-live-paired-trial",
@@ -459,7 +467,11 @@ def run_a_pair(*, settings: DeepSeekSettings, replicate: int, order: str) -> dic
             "sameConfigurationTokenCeiling": True,
             "sameConfigurationWallCeiling": True,
         },
-        "validPair": valid_pair,
+        "trialValidPair": trial_valid_pair,
+        "semanticOutcome": {
+            "S": "accepted" if by_id["S"]["semanticAccepted"] else "rejected",
+            "H": "accepted" if by_id["H"]["semanticAccepted"] else "rejected",
+        },
         "architectureDecisionAuthorized": False,
     }
 
@@ -607,7 +619,8 @@ def run_b_cell(
             "toolCalls": tool_calls,
             "totalTokens": total_tokens,
         },
-        "valid": bool(candidate_completed and final_intent == oracle),
+        "trialValid": True,
+        "semanticAccepted": bool(candidate_completed),
     }
 
 
@@ -622,13 +635,13 @@ def run_b_pair(*, settings: DeepSeekSettings, fixture: dict[str, Any], replicate
     direct_initial = bool(direct["requestToolCounts"] and direct["requestToolCounts"][0] == 1)
     late_initial_hidden = bool(late["requestToolCounts"] and late["requestToolCounts"][0] == 0)
     late_later_visible = any(count == 1 for count in late["requestToolCounts"][1:])
-    valid_pair = bool(
+    trial_valid_pair = bool(
         same_context
         and direct_initial
         and late_initial_hidden
         and late_later_visible
-        and direct["valid"]
-        and late["valid"]
+        and direct["trialValid"]
+        and late["trialValid"]
     )
     return {
         "schemaVersion": 1,
@@ -653,7 +666,11 @@ def run_b_pair(*, settings: DeepSeekSettings, fixture: dict[str, Any], replicate
             "lateHidesToolInitially": late_initial_hidden,
             "lateExposesToolLater": late_later_visible,
         },
-        "validPair": valid_pair,
+        "trialValidPair": trial_valid_pair,
+        "oracleOutcome": {
+            "direct": "correct" if direct["oracleConsistent"] else "incorrect",
+            "late-authority": "correct" if late["oracleConsistent"] else "incorrect",
+        },
         "generalizationAuthorized": False,
     }
 
@@ -681,7 +698,7 @@ def main() -> int:
     if args.receipt is not None:
         write_json(args.receipt, receipt)
     print(json.dumps(receipt, ensure_ascii=False, sort_keys=True))
-    return 0 if receipt.get("validPair") else 2
+    return 0 if receipt.get("trialValidPair") else 2
 
 
 if __name__ == "__main__":
