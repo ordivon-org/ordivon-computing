@@ -507,8 +507,6 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "packages/content-cli/src",
         "packages/content-cli/tests",
         "research/evidence/tests",
-        "research/experiments/crosscut-maintenance-p4-v0",
-        "research/experiments/computer-existence-gauntlet-v0",
         "scripts",
     ]
     ruff_paths = [
@@ -552,8 +550,6 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         ("protocol-candidate", [python, "scripts/check_protocol_candidate.py"], ROOT, {}),
         ("protocol", [python, "-m", "unittest", "discover", "-s", "tests"], ROOT / "packages" / "ordivon-protocol", {"PYTHONPATH": "src"}),
         ("evidence-and-conformance", [python, "-m", "unittest", "discover", "-s", "research/evidence/tests"], ROOT, {"PYTHONPATH": "."}),
-        ("crosscut-maintenance-p4", [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p4-v0/tests", "-p", "test_*.py"], ROOT, {"PYTHONPATH": "research/experiments/crosscut-maintenance-p4-v0"}),
-        ("existence-gauntlet", [python, "-m", "unittest", "discover", "-s", "research/experiments/computer-existence-gauntlet-v0/tests", "-p", "test_*.py"], ROOT, {}),
     ]
 
 def run_gate(receipt_path: Path | None) -> int:

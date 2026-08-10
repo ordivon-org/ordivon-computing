@@ -33,7 +33,7 @@ Ordivon Computer does not define a permanent stack of Agent-specific subsystems.
 
 A subsystem name is not an architectural invariant. Host, Harness, Runtime, Observation, Memory, World, Prime, Graph, and similar names remain implementation or research choices unless deleting them leaves an unowned non-bypassable responsibility.
 
-The current machine disposition is [`../research/computer-responsibility-map-v1.json`](../research/computer-responsibility-map-v1.json). This Core page preserves only the compact architecture that survived that review.
+The current machine disposition is [`../research/computer-responsibility-map-v2.json`](../research/computer-responsibility-map-v2.json). This Core page preserves only the compact architecture that survived that review.
 
 ## Boundaries
 
@@ -184,6 +184,6 @@ Unanswered proposals remain outside Core. Existing structures receive no presump
 
 ## 9. Research path
 
-The reusable research discipline is the narrow [`../research/experiment-contract-v1.json`](../research/experiment-contract-v1.json) declaration template. Each experiment freezes its own exact evidence, evaluator, authority, stop/deletion, and rollback contract; the template is not semantic authority. The evidence-backed Computer disposition is [`../research/computer-responsibility-map-v1.json`](../research/computer-responsibility-map-v1.json), with a human projection in [`../research/COMPUTER-RESPONSIBILITY-REVIEW.md`](../research/COMPUTER-RESPONSIBILITY-REVIEW.md).
+The reusable research discipline is the narrow [`../research/experiment-contract-v1.json`](../research/experiment-contract-v1.json) declaration template. Each experiment freezes its own exact evidence, evaluator, authority, stop/deletion, and rollback contract; the template is not semantic authority. The evidence-backed Computer disposition is [`../research/computer-responsibility-map-v2.json`](../research/computer-responsibility-map-v2.json), with a human projection in [`../research/COMPUTER-RESPONSIBILITY-REVIEW.md`](../research/COMPUTER-RESPONSIBILITY-REVIEW.md).
 
 Reusable reasoning lives in [`../knowledge/agents/capability-externalization-and-responsibility-placement.md`](../knowledge/agents/capability-externalization-and-responsibility-placement.md). Historical derivations remain recoverable from Git rather than occupying the active architecture path.

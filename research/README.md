@@ -38,7 +38,7 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 - [`experiments/structured-commitment-consistency-v0/`](experiments/structured-commitment-consistency-v0/) — conclusion-boundary falsifier separating schema validity, semantic consistency, owner truth admission, and downstream commitment authority while testing the existing Harness correction gate;
 - [`experiments/finance-conclusion-admission-dogfood-v0/`](experiments/finance-conclusion-admission-dogfood-v0/) — real-domain Finance dogfood showing schema-valid execution intent can fail owner admission and that owner feedback can correct a live Agent; the two Harness correction-mechanics pressures and the later NO_PROGRESS conclusion-ownership pressure were returned to Harness, deterministically resolved, and retained as cross-project evidence rather than Finance semantics;
 - [`experiment-contract-v1.json`](experiment-contract-v1.json) — compact reusable declaration template for bounded experiments; every experiment freezes its own evidence, baseline, oracle, authority, stop/deletion, and rollback rules;
-- [`computer-responsibility-map-v1.json`](computer-responsibility-map-v1.json) — machine authority for the current future-model-robust Ordivon Computer re-derivation;
+- [`computer-responsibility-map-v2.json`](computer-responsibility-map-v2.json) — machine authority for the current contracted Computer responsibility prior;
 - [`computer-product-boundary-review-v1.json`](computer-product-boundary-review-v1.json) — C3 closeout for Host, Harness, Runtime and Observation packaging against real consumers and recovery boundaries;
 - [`COMPUTER-RESPONSIBILITY-REVIEW.md`](COMPUTER-RESPONSIBILITY-REVIEW.md) — human projection of the responsibility map;
 - [`portfolio.json`](portfolio.json) — authoritative research status, maturity, blockers, next falsifiers, and WIP lines;
@@ -67,7 +67,7 @@ Research may contain alternatives, failed experiments, changing terminology, and
 
 - [`world-model-loop-v2.json`](world-model-loop-v2.json) defines how owner-native project evidence can challenge and revise the shared world model while separating historical observation validity from currentness.
 - [`experiment-contract-v1.json`](experiment-contract-v1.json) defines only the declarations every bounded experiment must freeze. It does not choose the hypothesis, evaluator truth, or correct answer, and it carries no product authority.
-- [`computer-responsibility-map-v1.json`](computer-responsibility-map-v1.json) is the current reform input for Ordivon Computer; it classifies durable responsibilities, classical owners, product-specific packaging, and conditional cognition candidates without changing product authority.
+- [`computer-responsibility-map-v2.json`](computer-responsibility-map-v2.json) is the current responsibility prior for Ordivon Computer; retired architecture categories live in historical evidence rather than permanent active slots.
 - [`portfolio.json`](portfolio.json) is the mutable source of truth for line status, maturity, blockers, falsifiers, and disposition.
 - [`PORTFOLIO.md`](PORTFOLIO.md) is its generated review projection.
 - [`questions/`](questions/) owns durable question pages, including completed and superseded questions; only `portfolio.json` determines which are active.

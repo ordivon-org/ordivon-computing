@@ -1,3 +1,5 @@
+> **Current execution state:** no executable research apparatus is currently admitted; see the canonical portfolio and C1/C5 contraction evidence.
+
 # Research Experiments
 
 Experiments connect falsifiable Ordivon Computing questions to executable artifacts and observable results. They are not production components by default, and this page does not own mutable portfolio status. Current WIP, blockers, and next actions live only in [`../portfolio.json`](../portfolio.json); [`../PORTFOLIO.md`](../PORTFOLIO.md) is its generated review projection.

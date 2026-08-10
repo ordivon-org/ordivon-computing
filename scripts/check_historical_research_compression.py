@@ -205,6 +205,57 @@ def check() -> list[str]:
                 digest = "sha256:" + hashlib.sha256(current_utility.read_bytes()).hexdigest()
                 require(digest == utility.get("sha256"), "extracted freshness utility digest differs", issues)
 
+    # C5 removes every remaining closed experiment executable/test/fixture from
+    # the active tree. Plans, closeouts and evidence remain readable; exact
+    # executables remain Git-recoverable at the archive source revision.
+    c5_path = ROOT / "research" / "evidence" / "computer-contraction-c5-final-apparatus-archive.json"
+    if c5_path.is_file():
+        try:
+            c5 = json.loads(c5_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as error:
+            issues.append(f"C5 archive manifest cannot be loaded: {error}")
+        else:
+            require(c5.get("schemaVersion") == 1, "C5 archive schema differs", issues)
+            require(c5.get("kind") == "ordivon.computer-active-tree-archive-manifest", "C5 archive kind differs", issues)
+            require(c5.get("archiveId") == "COMPUTER-CONTRACTION-C5", "C5 archive identity differs", issues)
+            require(c5.get("integrity", {}).get("payloadDigest") == canonical_digest(c5), "C5 archive digest differs", issues)
+            revision = c5.get("sourceRevision")
+            require(isinstance(revision, str) and git("cat-file", "-e", f"{revision}^{{commit}}").returncode == 0, "C5 archive source revision is unreachable", issues)
+            rows = c5.get("files")
+            require(isinstance(rows, list) and bool(rows), "C5 archive file set is empty", issues)
+            seen: set[str] = set()
+            if isinstance(rows, list) and isinstance(revision, str):
+                for item in rows:
+                    if not isinstance(item, dict):
+                        issues.append("C5 archive entry is not an object")
+                        continue
+                    relative = item.get("path")
+                    require(isinstance(relative, str) and relative.startswith("research/experiments/"), "C5 archive path is invalid", issues)
+                    if not isinstance(relative, str):
+                        continue
+                    require(relative not in seen, f"duplicate C5 archive path: {relative}", issues)
+                    seen.add(relative)
+                    require(not (ROOT / relative).exists(), f"C5 archived apparatus returned to active tree: {relative}", issues)
+                    historical = git("show", f"{revision}:{relative}")
+                    require(historical.returncode == 0, f"C5 apparatus is not Git-recoverable: {relative}", issues)
+                    if historical.returncode == 0:
+                        digest = "sha256:" + hashlib.sha256(historical.stdout.encode("utf-8")).hexdigest()
+                        require(digest == item.get("sha256"), f"C5 apparatus digest differs: {relative}", issues)
+                require(len(seen) == c5.get("removedFiles"), "C5 archive file count differs", issues)
+
+            # With no active/ready portfolio research, no executable research
+            # apparatus has current admission.
+            portfolio = json.loads((ROOT / "research" / "portfolio.json").read_text(encoding="utf-8"))
+            active = [q for q in portfolio.get("questions", []) if isinstance(q, dict) and q.get("status") in {"active", "ready"}]
+            if not active:
+                executable = []
+                for path in (ROOT / "research" / "experiments").rglob("*"):
+                    if not path.is_file():
+                        continue
+                    if path.suffix in {".py", ".sh", ".rs", ".ts"} or any(part in {"tests", "scripts", "src", "integration", "fixtures", "benchmarks"} for part in path.parts):
+                        executable.append(path.relative_to(ROOT).as_posix())
+                require(not executable, "closed research executable apparatus remains active: " + ", ".join(executable[:5]), issues)
+
     return sorted(set(issues))
 
 
