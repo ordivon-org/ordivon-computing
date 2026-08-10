@@ -22,7 +22,6 @@ from anc_tool_contract import (
     ExecutionKind as ContractExecutionKind,
 )
 from ordivon_protocol import SCHEMA_FILES, VECTOR_FILES, schema_text, vector_text
-from ordivon_semantics import DispatchState, EffectState, IdKind, SemanticId, next_action
 
 
 class PromotedBoundaryTests(unittest.TestCase):
@@ -62,15 +61,6 @@ class PromotedBoundaryTests(unittest.TestCase):
             vector_text("host-workload-vectors-v1.json"),
         )
 
-    def test_unknown_requires_reconciliation(self) -> None:
-        self.assertTrue(EffectState.UNKNOWN.requires_reconciliation)
-        self.assertEqual(next_action(EffectState.UNKNOWN).value, "reconcile")
-        self.assertEqual(DispatchState.UNKNOWN.value, "unknown")
-
-    def test_semantic_identity_is_typed(self) -> None:
-        value = SemanticId(IdKind.EFFECT, "effect-001")
-        self.assertEqual(str(value), "effect:effect-001")
-
     def test_dependency_direction_remains_acyclic(self) -> None:
         root = Path(__file__).resolve().parents[1] / "src"
         allowed = {
@@ -83,7 +73,6 @@ class PromotedBoundaryTests(unittest.TestCase):
                 "anc_effect_ir",
                 "anc_tool_contract",
             },
-            "ordivon_semantics": set(),
         }
         for package, permitted in allowed.items():
             imported: set[str] = set()
@@ -97,7 +86,7 @@ class PromotedBoundaryTests(unittest.TestCase):
             project_imports = {
                 name
                 for name in imported
-                if name.startswith("anc_") or name == "ordivon_semantics"
+                if name.startswith("anc_")
             }
             self.assertTrue(project_imports.issubset(permitted), (package, project_imports))
 

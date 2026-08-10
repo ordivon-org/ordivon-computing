@@ -111,8 +111,10 @@ def _unique_strings(value: Any, label: str) -> tuple[str, ...]:
 
 def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT) -> ConformanceManifest:
     document = tomllib.loads(path.read_text())
+    required_top_level = {"schema_version", "registry", "protocol", "projects"}
     require(
-        set(document) == {"schema_version", "registry", "protocol", "projects"},
+        set(document) >= required_top_level
+        and set(document) <= required_top_level | {"protocol_candidate"},
         "conformance manifest top-level fields are invalid",
     )
     require(document["schema_version"] == 1, "unsupported conformance schema")
@@ -192,7 +194,20 @@ def load_manifest(path: Path = DEFAULT_MANIFEST, *, repository_root: Path = ROOT
     require(package_manifest.is_file(), "protocol package manifest is missing")
     package_document = tomllib.loads(package_manifest.read_text())
     require(package_document["project"]["name"] == protocol.package, "protocol package name differs")
-    require(package_document["project"]["version"] == protocol.version, "protocol package version differs")
+    package_version = package_document["project"]["version"]
+    candidate = document.get("protocol_candidate")
+    if candidate is None:
+        require(package_version == protocol.version, "protocol package version differs")
+    else:
+        require(isinstance(candidate, dict), "protocol candidate declaration must be an object")
+        require(
+            set(candidate) == {"package", "version", "status", "base_release", "manifest", "required_owner_admission"},
+            "protocol candidate declaration fields are invalid",
+        )
+        require(candidate["package"] == protocol.package, "protocol candidate package differs")
+        require(candidate["status"] == "unreleased", "protocol candidate must be unreleased")
+        require(candidate["base_release"] == protocol.version, "protocol candidate base release differs")
+        require(package_version == candidate["version"], "protocol package version differs from declared candidate")
     require((repository_root / protocol.release).is_file(), "protocol release manifest is missing")
 
     registry_ids = tuple(
@@ -514,6 +529,7 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         "scripts/check_research_portfolio.py",
         "scripts/render_research_portfolio.py",
         "scripts/check_protocol_release.py",
+        "scripts/check_protocol_candidate.py",
         "scripts/check_protocol_consumers.py",
     ]
     return [
@@ -533,6 +549,7 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         ("research-portfolio", [python, "scripts/check_research_portfolio.py"], ROOT, {}),
         ("research-portfolio-view", [python, "scripts/render_research_portfolio.py", "--check"], ROOT, {}),
         ("protocol-release", [python, "scripts/check_protocol_release.py"], ROOT, {}),
+        ("protocol-candidate", [python, "scripts/check_protocol_candidate.py"], ROOT, {}),
         ("protocol", [python, "-m", "unittest", "discover", "-s", "tests"], ROOT / "packages" / "ordivon-protocol", {"PYTHONPATH": "src"}),
         ("evidence-and-conformance", [python, "-m", "unittest", "discover", "-s", "research/evidence/tests"], ROOT, {"PYTHONPATH": "."}),
         ("crosscut-maintenance-p4", [python, "-m", "unittest", "discover", "-s", "research/experiments/crosscut-maintenance-p4-v0/tests", "-p", "test_*.py"], ROOT, {"PYTHONPATH": "research/experiments/crosscut-maintenance-p4-v0"}),
