@@ -1,0 +1,750 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.p4-holdout",
+  "ownerRevisions": {
+    "computing": "f0a733116c9e97a4d39f9e30f793533dbdf8b8a5",
+    "host": "6495822162c69179e8ad4f8a0d79cc42902ff599",
+    "harness": "5a390657bc0aaa2b89e02b0fc15b33158a03ec20",
+    "runtime": "6b0966d7127b5c936ab6172d1715a6500b1f47d5"
+  },
+  "provider": {
+    "adapterId": "deepseek.chat-completions.non-thinking.v1",
+    "model": "deepseek-v4-flash",
+    "credentialScopeId": "credential-scope:deepseek:flash:0"
+  },
+  "rows": [
+    {
+      "scenarioId": "chunk-windows",
+      "treatment": "single-reflect",
+      "valid": false,
+      "failure": "RuntimeError: Provider omitted structured conclusion"
+    },
+    {
+      "scenarioId": "chunk-windows",
+      "treatment": "multi-independent",
+      "valid": true,
+      "candidates": [
+        {
+          "candidateId": "chunk-windows:branch-a",
+          "participantRef": "participant:p4:branch-a",
+          "source": "def chunk_windows(items, size, overlap):\n    if size <= 0 or not (0 <= overlap < size):\n        raise ValueError(\"invalid\")\n    if not items:\n        return []\n    step = size - overlap\n    windows = []\n    i = 0\n    while i < len(items):\n        windows.append(items[i:i+size])\n        i += step\n    return windows",
+          "sourceDigest": "sha256:76c9c00a729a7a05f96d222218274e07ec3b21a22bc4f68c58110efb95847e3c",
+          "summary": "Repaired chunk_windows to match the spec: size must be positive, overlap in [0, size), windows start every size-overlap elements, final shorter window included when its start is still inside items, empty items returns [], returns new lists without mutating items.",
+          "artifactDigest": "sha256:a5acbbc559fa34bc6bf6369a78abd4547e502fc1fef614fc8bf2aa2d9519b9dd",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 11,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 3,
+              "allPassed": true
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 4,
+              "allPassed": true
+            }
+          },
+          "modelEvidence": {
+            "requestDigest": "sha256:2ae331dd724910cd7794d74651da07e8a20337113a7651b0204b9489d803569a",
+            "providerRequestDigest": "sha256:ab10f7ead7f18e3ff99cf712cc9f1fb2beab97ec006511ba40a8f5e658ccb9f1",
+            "resultDigest": "sha256:60e32933679320d1ec16f873710385b4abe59d58ab8239ee31312f976196650e",
+            "modelCallId": "481ca6f9-a228-4063-9ef9-587ee742dd99",
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash",
+            "usage": {
+              "prompt_tokens": 1009,
+              "completion_tokens": 272,
+              "total_tokens": 1281,
+              "prompt_tokens_details": {
+                "cached_tokens": 640
+              },
+              "prompt_cache_hit_tokens": 640,
+              "prompt_cache_miss_tokens": 369,
+              "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking"
+            },
+            "totalTokens": 1281,
+            "rawResponseDigest": "sha256:120d2aefb8e1e916124496a72329453d180a3b5934cc4a4a9fcc14970327c275"
+          }
+        },
+        {
+          "candidateId": "chunk-windows:branch-b",
+          "participantRef": "participant:p4:branch-b",
+          "source": "def chunk_windows(items, size, overlap):\n    if size <= 0 or overlap < 0 or overlap >= size:\n        raise ValueError(\"invalid\")\n    if not items:\n        return []\n    step = size - overlap\n    windows = []\n    i = 0\n    while i < len(items):\n        windows.append(items[i:i+size])\n        i += step\n    return windows",
+          "sourceDigest": "sha256:52dac4766e81ab4942e88fc3bb906ef6461082a9b9577843bfcd2e115a2a4529",
+          "summary": "Provided a repaired chunk_windows implementation matching the specification.",
+          "artifactDigest": "sha256:c54f9a213f7ff5135fb8db1400b468c128cf578a80f2d04037e19a1190425b81",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 11,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 3,
+              "allPassed": true
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 4,
+              "allPassed": true
+            }
+          },
+          "modelEvidence": {
+            "requestDigest": "sha256:5678818842697eabd4931a1e400c2b2fff8d9911d25d9925e3f54a7293456b00",
+            "providerRequestDigest": "sha256:a19fc1731f25f1ba7bb05cb4e0e37757a2c7251d786aea1a38c8ea9fde5b2d2e",
+            "resultDigest": "sha256:f0f825ea375263c701c787c474ae3f2318c2c8efe0040efd20440184ca7b9fcb",
+            "modelCallId": "8c3453f7-8972-4821-ab52-0afd2e5b8bfe",
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash",
+            "usage": {
+              "prompt_tokens": 1009,
+              "completion_tokens": 229,
+              "total_tokens": 1238,
+              "prompt_tokens_details": {
+                "cached_tokens": 768
+              },
+              "prompt_cache_hit_tokens": 768,
+              "prompt_cache_miss_tokens": 241,
+              "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking"
+            },
+            "totalTokens": 1238,
+            "rawResponseDigest": "sha256:e98b58bee2dd670ec7e6035d1ef90791e4f6e7a731fe40b318709ea1045db34d"
+          }
+        }
+      ],
+      "join": {
+        "accepted": true,
+        "selectedArtifactDigest": "sha256:a5acbbc559fa34bc6bf6369a78abd4547e502fc1fef614fc8bf2aa2d9519b9dd",
+        "selectedCandidateId": "chunk-windows:branch-a",
+        "acceptedCandidateCount": 2,
+        "candidateCount": 2,
+        "bestAuthoritativePassed": 4,
+        "authoritativeTotal": 4
+      },
+      "hostCoordination": {
+        "goalId": "goal:p4:chunk-windows:multi-independent",
+        "taskCount": 2,
+        "participantCount": 2,
+        "responsibilityAmbiguous": false,
+        "candidateArtifactCount": 2,
+        "branchEffectIntentCount": 0,
+        "verificationAccepted": true,
+        "appliedTaskIds": [
+          "task:p4:chunk-windows:branch-a",
+          "task:p4:chunk-windows:branch-b"
+        ],
+        "staleSnapshotBlocked": true,
+        "rejectedAdvanceBlocked": null,
+        "partialApplyRecoveryPassed": true,
+        "snapshotDigest": "sha256:5f284e7e5ff2dffd352ab558e9ffe5c5e907b212b069480e31ea36fa713db323",
+        "verificationDigest": "sha256:5a933b852f855dadbce527aa8ab13a218dadebd74475b74c4b9f02661b9b7a7a"
+      },
+      "tokens": 2519,
+      "acceptedCandidateCount": 2,
+      "authoritativeCasesPassed": 8,
+      "authoritativeCasesTotal": 8
+    },
+    {
+      "scenarioId": "select-latest",
+      "treatment": "multi-independent",
+      "valid": false,
+      "failure": "RuntimeError: Provider omitted structured conclusion"
+    },
+    {
+      "scenarioId": "select-latest",
+      "treatment": "single-reflect",
+      "valid": false,
+      "failure": "ValueError: DeepSeek assistant history must retain Tool Calls"
+    },
+    {
+      "scenarioId": "normalize-tags",
+      "treatment": "single-reflect",
+      "valid": false,
+      "failure": "ValueError: DeepSeek assistant history must retain Tool Calls"
+    },
+    {
+      "scenarioId": "normalize-tags",
+      "treatment": "multi-independent",
+      "valid": true,
+      "candidates": [
+        {
+          "candidateId": "normalize-tags:branch-a",
+          "participantRef": "participant:p4:branch-a",
+          "source": "def normalize_tags(tags):\n    seen = set()\n    result = []\n    for tag in tags:\n        trimmed = tag.strip()\n        if not trimmed:\n            raise ValueError(\"Empty tag\")\n        key = trimmed.casefold()\n        if key not in seen:\n            seen.add(key)\n            result.append(trimmed)\n    return result\n",
+          "sourceDigest": "sha256:1c2e8ce8314f1f5406e9904e227c06787ae0810de6f081d0b5e62c9a4d262719",
+          "summary": "Repaired normalize_tags to match the written specification: trim whitespace, raise ValueError if any item becomes empty, deduplicate case-insensitively using Unicode casefold preserving trimmed spelling of first occurrence and first-occurrence order, return a new list without mutating input.",
+          "artifactDigest": "sha256:cb667b8b2dbee354a95ede47bcd655c873fd0a6265916166769e0a35f337bb5d",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Alpha",
+                      "beta"
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 12,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "b",
+                      "A",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "raised": "AttributeError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 4,
+              "allPassed": false
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Alpha",
+                      "beta"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "b",
+                      "A",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "raised": "AttributeError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 5,
+              "allPassed": false
+            }
+          },
+          "modelEvidence": {
+            "requestDigest": "sha256:1bfd2069451ddf1a5b0f52377a9e8217d6977dcedaa037636cc98ccee0a10bec",
+            "providerRequestDigest": "sha256:f8889ac90d43308d4a3cb13e9db20029a6f84021933e6a8032811f6f525f147a",
+            "resultDigest": "sha256:fb0bdf0cdcb9a70b2f5df2bed0658f0ab6042153f914c1508b4c41b8aa2dc1b2",
+            "modelCallId": "77f931f1-cbe5-4967-bc0e-a3e01c017059",
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash",
+            "usage": {
+              "prompt_tokens": 964,
+              "completion_tokens": 264,
+              "total_tokens": 1228,
+              "prompt_tokens_details": {
+                "cached_tokens": 640
+              },
+              "prompt_cache_hit_tokens": 640,
+              "prompt_cache_miss_tokens": 324,
+              "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking"
+            },
+            "totalTokens": 1228,
+            "rawResponseDigest": "sha256:1fc4d52bf5b36bcec30f5f53b038083df2e3ee8e252c4561e94a6a100d74a7c4"
+          }
+        },
+        {
+          "candidateId": "normalize-tags:branch-b",
+          "participantRef": "participant:p4:branch-b",
+          "source": "def normalize_tags(tags):\n    result = []\n    seen = set()\n    for tag in tags:\n        trimmed = tag.strip()\n        if not trimmed:\n            raise ValueError(\"tag must not be empty after trimming\")\n        folded = trimmed.casefold()\n        if folded not in seen:\n            seen.add(folded)\n            result.append(trimmed)\n    return result\n",
+          "sourceDigest": "sha256:72a30b77b74f89734e8f34b2936760818ae5be5c7e1ed52b873a2976912e41ee",
+          "summary": "Implements normalize_tags per spec: every item a string, trim leading/trailing whitespace, raise ValueError if any trimmed item becomes empty, deduplicate case-insensitively using Unicode casefold while preserving the trimmed spelling and first-occurrence order of the first occurrence, return a new list without mutating tags.",
+          "artifactDigest": "sha256:87505f98047e157e6f48f6807e9cd1abe95294cf5788fe20d419b10f36052a35",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Alpha",
+                      "beta"
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 12,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "b",
+                      "A",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "raised": "AttributeError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 4,
+              "allPassed": false
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Alpha",
+                      "beta"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "b",
+                      "A",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "raised": "AttributeError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 5,
+              "allPassed": false
+            }
+          },
+          "modelEvidence": {
+            "requestDigest": "sha256:5e449785c02e3db731bd591d3f8d925f1471fda208b046306db340b88ee6919d",
+            "providerRequestDigest": "sha256:2fd08a470980a625a5c2e152adebdb17231b63b70a1422e238b71b02ffeb2088",
+            "resultDigest": "sha256:9bfb900147016f4ae4a93e828b91f1b7c77e56b60453d0d5afbbce1058dc9e74",
+            "modelCallId": "b5bfa1d2-4f76-4053-bc51-5f30aa576c45",
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash",
+            "usage": {
+              "prompt_tokens": 964,
+              "completion_tokens": 280,
+              "total_tokens": 1244,
+              "prompt_tokens_details": {
+                "cached_tokens": 768
+              },
+              "prompt_cache_hit_tokens": 768,
+              "prompt_cache_miss_tokens": 196,
+              "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking"
+            },
+            "totalTokens": 1244,
+            "rawResponseDigest": "sha256:047946df255e849a3a157d4ea20f652f893f28c51db8ac84e893f95327a232ac"
+          }
+        }
+      ],
+      "join": {
+        "accepted": false,
+        "selectedArtifactDigest": "sha256:87505f98047e157e6f48f6807e9cd1abe95294cf5788fe20d419b10f36052a35",
+        "selectedCandidateId": "normalize-tags:branch-b",
+        "acceptedCandidateCount": 0,
+        "candidateCount": 2,
+        "bestAuthoritativePassed": 4,
+        "authoritativeTotal": 5
+      },
+      "hostCoordination": {
+        "goalId": "goal:p4:normalize-tags:multi-independent",
+        "taskCount": 2,
+        "participantCount": 2,
+        "responsibilityAmbiguous": false,
+        "candidateArtifactCount": 2,
+        "branchEffectIntentCount": 0,
+        "verificationAccepted": false,
+        "appliedTaskIds": [],
+        "staleSnapshotBlocked": null,
+        "rejectedAdvanceBlocked": true,
+        "partialApplyRecoveryPassed": true,
+        "snapshotDigest": "sha256:ad22c453664ed7ae6bfc589e8291108978499cfcfe7d31034e0c4a0d39f6ed7b",
+        "verificationDigest": "sha256:f8bd845dfaf79812ea350234aaa860c4f04eaf6acfc60032cb94b8bd16c98e21"
+      },
+      "tokens": 2472,
+      "acceptedCandidateCount": 0,
+      "authoritativeCasesPassed": 8,
+      "authoritativeCasesTotal": 10
+    }
+  ],
+  "metrics": {
+    "single-reflect": {
+      "scenarios": 0,
+      "invalidScenarios": 3,
+      "acceptedGoals": 0,
+      "acceptedCandidates": 0,
+      "authoritativeCasesPassed": 0,
+      "authoritativeCasesTotal": 0,
+      "totalTokens": 0,
+      "branchEffectIntents": 0,
+      "responsibilityAmbiguities": 0,
+      "recoveryFailures": 0,
+      "rejectedAdvanceFailures": 0
+    },
+    "multi-independent": {
+      "scenarios": 2,
+      "invalidScenarios": 1,
+      "acceptedGoals": 1,
+      "acceptedCandidates": 2,
+      "authoritativeCasesPassed": 16,
+      "authoritativeCasesTotal": 18,
+      "totalTokens": 4991,
+      "branchEffectIntents": 0,
+      "responsibilityAmbiguities": 0,
+      "recoveryFailures": 0,
+      "rejectedAdvanceFailures": 0
+    }
+  }
+}

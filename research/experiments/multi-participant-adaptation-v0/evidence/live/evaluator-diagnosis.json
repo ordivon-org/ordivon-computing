@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.p4-invalid-campaign-diagnosis",
+  "campaign": "live-v1",
+  "runtimeJobId": "job-019feb32-6450-76a0-bcad-a53973e9682d",
+  "scientificDisposition": "invalidate_competitive_comparison",
+  "retrospectiveRescoreAuthorized": false,
+  "multiAdvantageClaimAuthorized": false,
+  "rawEvidenceRetained": true,
+  "diagnosis": [
+    {
+      "class": "apparatus-history-contract",
+      "scope": "single-reflect",
+      "evidence": "DeepSeek assistant history must retain Tool Calls",
+      "meaning": "The v1 runner fabricated a plain assistant history message from a structured result instead of presenting prior candidate/evaluator feedback as current user context. This mechanically invalidated nearly every baseline second turn."
+    },
+    {
+      "class": "provider-format-or-transport",
+      "scope": "both treatments",
+      "evidence": "Provider omitted structured conclusion / remote connection closed",
+      "meaning": "These trajectories are Provider-invalid and cannot count as candidate failure."
+    }
+  ],
+  "unchangedForV2": [
+    "visible corpus",
+    "hidden evaluator cases",
+    "reference sources",
+    "candidate source gate",
+    "independent verifier",
+    "deterministic Join",
+    "Host GoalCoordinator semantics",
+    "promotion threshold"
+  ],
+  "allowedV2Repairs": [
+    "present prior baseline candidate and visible verifier report as user feedback rather than fabricated assistant history",
+    "symmetric at-most-one structured-conclusion correction for format-only omission; correction attempts/tokens remain measured"
+  ],
+  "prohibited": [
+    "change hidden cases",
+    "change promotion rule",
+    "use v1 valid Multi rows as competitive wins",
+    "retrospectively score invalid baseline rows"
+  ],
+  "integrity": {
+    "algorithm": "sha256",
+    "payloadDigest": "sha256:9b378208cf3948099b2a7caa69240a301a3fa61f748cd5a326a6d093a62c6206"
+  }
+}
