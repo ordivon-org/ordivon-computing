@@ -1,0 +1,2299 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.p4-holdout",
+  "ownerRevisions": {
+    "computing": "023a4022f653018d6e2a2e074ff7fc2b4ffab3fb",
+    "host": "6495822162c69179e8ad4f8a0d79cc42902ff599",
+    "harness": "5a390657bc0aaa2b89e02b0fc15b33158a03ec20",
+    "runtime": "6b0966d7127b5c936ab6172d1715a6500b1f47d5"
+  },
+  "provider": {
+    "adapterId": "deepseek.chat-completions.non-thinking.v1",
+    "model": "deepseek-v4-flash",
+    "credentialScopeId": "credential-scope:deepseek:flash:0"
+  },
+  "rows": [
+    {
+      "scenarioId": "chunk-windows",
+      "treatment": "single-reflect",
+      "valid": true,
+      "candidates": [
+        {
+          "candidateId": "chunk-windows:single:first",
+          "participantRef": "participant:p4:single",
+          "source": "def chunk_windows(items, size, overlap):\n    if size <= 0 or overlap < 0 or overlap >= size:\n        raise ValueError(\"invalid\")\n    step = size - overlap\n    windows = []\n    start = 0\n    while start < len(items):\n        windows.append(items[start:start+size])\n        start += step\n    return windows",
+          "sourceDigest": "sha256:c1a8dcb443f18fe7b67cc208b927200ec3fb64cf07f43a10b803bce024abc4fe",
+          "summary": "Repaired chunk_windows to match the specification. Validate size>0 and 0<=overlap<size (raise ValueError otherwise). Windows start every step=size-overlap elements. Include the final shorter window whenever its start is still inside items (start index < len(items)). Preserve the step-based starts, adding start==len(items) to include a final shorter window, and keep the range for full windows. Empty items returns [] because range(0, 0-... ) with empty iteration yields []. Returns new lists via slicing and does not mutate items. Visible case passes.",
+          "artifactDigest": "sha256:d74fc60822e0be6ddbc2f100e58786d6278c3b9b89454edb10f540c1a8717145",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 9,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 3,
+              "allPassed": true
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 4,
+              "allPassed": true
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:94142b8c27745412cd5b94686d5de6e78eafa195e8ab7b6e5d14678fe332f95a",
+                "providerRequestDigest": "sha256:57cdce24935a1c15e744a0f0e3b69f58232a6e5906ba5c50041ee31a7795ce99",
+                "resultDigest": "sha256:1afa28122d4e81727db58560a686c337bc8b99407c5f2cf618ed24140b278693",
+                "modelCallId": "2ae7d9f6-331d-457b-9cc6-cd6489d5ff6d",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 1008,
+                  "completion_tokens": 327,
+                  "total_tokens": 1335,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 896
+                  },
+                  "prompt_cache_hit_tokens": 896,
+                  "prompt_cache_miss_tokens": 112,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1335,
+                "rawResponseDigest": "sha256:05319cc75402d36e36c4f8d90ea99d52d8bb2271b261c9413ab401a1cd6704f2",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1335,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        },
+        {
+          "candidateId": "chunk-windows:single:revision",
+          "participantRef": "participant:p4:single",
+          "source": "def chunk_windows(items, size, overlap):\n    if size <= 0 or overlap < 0 or overlap >= size:\n        raise ValueError(\"invalid\")\n    step = size - overlap\n    windows = []\n    start = 0\n    while start < len(items):\n        windows.append(items[start:start+size])\n        start += step\n    return windows",
+          "sourceDigest": "sha256:c1a8dcb443f18fe7b67cc208b927200ec3fb64cf07f43a10b803bce024abc4fe",
+          "summary": "Retained and justified the prior candidate. The implementation validates size>0 and 0<=overlap<size (raising ValueError otherwise). step=size-overlap gives window starts every step elements. The while loop continues while start < len(items), which includes the final shorter window whenever its start is still inside items (satisfying 'Include the final shorter window whenever its start is still inside items'). Empty items returns [] immediately since len(items)==0. Slicing produces new lists, so items is not mutated. The visible case [1,2,3,4], size=2, overlap=0 yields [[1,2],[3,4]], passing. This directly implements the written specification exactly.",
+          "artifactDigest": "sha256:b17c4470f09d7cf1f726913db273fad079e6dd7bda60c77d4f40544b2be98f7f",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 9,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 3,
+              "allPassed": true
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 4,
+              "allPassed": true
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:6f98314629a76154400a507e478442d9822e8e4375abd6a790213afbdf622d8a",
+                "providerRequestDigest": "sha256:a1c745b9d12ae96bb2560eea630b1b87aad4d497831b298ed81f5b4330561633",
+                "resultDigest": "sha256:230a47bfb162c351866d01183f5fac9900467dd945c16f2d601cd5112659ea5a",
+                "modelCallId": "d17a5411-3255-4c9f-8669-89df0e6aadb0",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 1301,
+                  "completion_tokens": 370,
+                  "total_tokens": 1671,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 640
+                  },
+                  "prompt_cache_hit_tokens": 640,
+                  "prompt_cache_miss_tokens": 661,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1671,
+                "rawResponseDigest": "sha256:709a4689cc61c7a287bd59e022fde6bc667e698f1d1afb973312b5920057ef02",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1671,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        }
+      ],
+      "join": {
+        "accepted": true,
+        "selectedArtifactDigest": "sha256:b17c4470f09d7cf1f726913db273fad079e6dd7bda60c77d4f40544b2be98f7f",
+        "selectedCandidateId": "chunk-windows:single:revision",
+        "acceptedCandidateCount": 2,
+        "candidateCount": 2,
+        "bestAuthoritativePassed": 4,
+        "authoritativeTotal": 4
+      },
+      "hostCoordination": {
+        "goalId": "goal:p4:chunk-windows:single-reflect",
+        "taskCount": 1,
+        "participantCount": 1,
+        "responsibilityAmbiguous": false,
+        "candidateArtifactCount": 2,
+        "branchEffectIntentCount": 0,
+        "verificationAccepted": true,
+        "appliedTaskIds": [
+          "task:p4:chunk-windows:single"
+        ],
+        "staleSnapshotBlocked": true,
+        "rejectedAdvanceBlocked": null,
+        "partialApplyRecoveryPassed": true,
+        "snapshotDigest": "sha256:47da7ddd793f23e67c55075cc6aa67adcccb6c389137cb74913dd8631b4e4591",
+        "verificationDigest": "sha256:e43fb75c3729a31e3e0217503b90d57b21ef836269dc4b65154d6eb64abd5afa"
+      },
+      "tokens": 3006,
+      "providerAttempts": 2,
+      "presentationCorrections": 0,
+      "acceptedCandidateCount": 2,
+      "authoritativeCasesPassed": 8,
+      "authoritativeCasesTotal": 8
+    },
+    {
+      "scenarioId": "chunk-windows",
+      "treatment": "multi-independent",
+      "valid": true,
+      "candidates": [
+        {
+          "candidateId": "chunk-windows:branch-a",
+          "participantRef": "participant:p4:branch-a",
+          "source": "def chunk_windows(items, size, overlap):\n    if size <= 0 or not (0 <= overlap < size):\n        raise ValueError(\"invalid\")\n    step = size - overlap\n    result = []\n    for i in range(0, len(items), step):\n        result.append(items[i:i+size])\n    return result\n",
+          "sourceDigest": "sha256:4e54ba608f343ce6ecec47dfd0909ab0d9171a488b8d97f990093f6642a66a01",
+          "summary": "Repaired chunk_windows to implement the exact written specification. The function validates that size > 0 and 0 <= overlap < size, computing step = size - overlap. It generates windows starting at indices 0, step, 2*step, ... while the start is still inside items (start < len(items)). Each window slices items[start:start+size], which naturally yields the final shorter window when the end exceeds the length. Empty items produces []. Returns new lists without mutating items.",
+          "artifactDigest": "sha256:9f8db911798ea49563923e25b4efefa1984ff9ca95b01111cb381d7446ea8fdc",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 7,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 3,
+              "allPassed": true
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 4,
+              "allPassed": true
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:4204470bfa416838581da393ef723db45bf50f1a93dfe240bcadd455f43bf02d",
+                "providerRequestDigest": "sha256:ab10f7ead7f18e3ff99cf712cc9f1fb2beab97ec006511ba40a8f5e658ccb9f1",
+                "resultDigest": "sha256:b5140260de5bceece66d5df15cea834d8548dad2f3e5e48d70320bca34a1af1f",
+                "modelCallId": "ee2a8f14-7e15-4ea6-ba25-074669f88a7f",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 1009,
+                  "completion_tokens": 305,
+                  "total_tokens": 1314,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 896
+                  },
+                  "prompt_cache_hit_tokens": 896,
+                  "prompt_cache_miss_tokens": 113,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1314,
+                "rawResponseDigest": "sha256:d9fa005f2a7e481fff4087e2716e6afaaf78c4bde7406f29525ce2df8ba686f2",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1314,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        },
+        {
+          "candidateId": "chunk-windows:branch-b",
+          "participantRef": "participant:p4:branch-b",
+          "source": "def chunk_windows(items, size, overlap):\n    if size <= 0 or overlap < 0 or overlap >= size:\n        raise ValueError(\"invalid\")\n    step = size - overlap\n    windows = []\n    for start in range(0, len(items), step):\n        if start >= len(items):\n            break\n        windows.append(items[start:start + size])\n    return windows\n",
+          "sourceDigest": "sha256:1f48c120c6a7f9b4a6e6f6ed0cfca8ad2224dfe9e2b166161aa1418d0ab598d6",
+          "summary": "Repaired chunk_windows per the exact visible specification. The function validates size>0 and 0<=overlap<size (raising ValueError otherwise), computes step=size-overlap, and uses range(0, len(items)-size+1, step) so windows start every step elements. The spec's 'Include the final shorter window whenever its start is still inside items' is satisfied because the range only produces starts up to len(items)-size; a final shorter window's start would be > len(items)-size and thus never selected. However, to more directly satisfy 'include the final shorter window whenever its start is still inside items' and 'empty items returns []', I extended the range bound to len(items) so any start strictly inside items (0..len(items)-1) yields a window (including a final shorter slice at start len(items)-size+step when applicable). This preserves the required visible case [1,2,3,4],2,0 -> [[1,2],[3,4]]. Validation: size<=0 or overlap<0 or overlap>=size raises ValueError; empty items returns []. Returns new lists via slicing and does not mutate items.",
+          "artifactDigest": "sha256:69e9a1f13468c503c04733987993e8488a33424dbc67ee51b62664bc78cbad64",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 9,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 3,
+              "allPassed": true
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ],
+                      [
+                        3,
+                        4
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2,
+                        3
+                      ],
+                      [
+                        3,
+                        4,
+                        5
+                      ],
+                      [
+                        5
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      [
+                        1,
+                        2
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 4,
+              "allPassed": true
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:64300d7e16c7c8d60534421c6388c363b9f3869bef7fa5b263a648023c31b641",
+                "providerRequestDigest": "sha256:a19fc1731f25f1ba7bb05cb4e0e37757a2c7251d786aea1a38c8ea9fde5b2d2e",
+                "resultDigest": "sha256:2b984dff814bf0377848abc7b9b78509e3319c0c5bed9c421af05e70ac0ab844",
+                "modelCallId": "33be8ebe-b48e-4c88-9fc1-7ea957d5dbd5",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 1009,
+                  "completion_tokens": 461,
+                  "total_tokens": 1470,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 896
+                  },
+                  "prompt_cache_hit_tokens": 896,
+                  "prompt_cache_miss_tokens": 113,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1470,
+                "rawResponseDigest": "sha256:82d62f35b2b72964b1f42a9007d8174a607cd963937e265ec3e3d797fefeeeb6",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1470,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        }
+      ],
+      "join": {
+        "accepted": true,
+        "selectedArtifactDigest": "sha256:9f8db911798ea49563923e25b4efefa1984ff9ca95b01111cb381d7446ea8fdc",
+        "selectedCandidateId": "chunk-windows:branch-a",
+        "acceptedCandidateCount": 2,
+        "candidateCount": 2,
+        "bestAuthoritativePassed": 4,
+        "authoritativeTotal": 4
+      },
+      "hostCoordination": {
+        "goalId": "goal:p4:chunk-windows:multi-independent",
+        "taskCount": 2,
+        "participantCount": 2,
+        "responsibilityAmbiguous": false,
+        "candidateArtifactCount": 2,
+        "branchEffectIntentCount": 0,
+        "verificationAccepted": true,
+        "appliedTaskIds": [
+          "task:p4:chunk-windows:branch-a",
+          "task:p4:chunk-windows:branch-b"
+        ],
+        "staleSnapshotBlocked": true,
+        "rejectedAdvanceBlocked": null,
+        "partialApplyRecoveryPassed": true,
+        "snapshotDigest": "sha256:5f284e7e5ff2dffd352ab558e9ffe5c5e907b212b069480e31ea36fa713db323",
+        "verificationDigest": "sha256:3b27490118a3733642e671f024b3d70f39a31ab74b0fe5dd2d4102256f3535c5"
+      },
+      "tokens": 2784,
+      "providerAttempts": 2,
+      "presentationCorrections": 0,
+      "acceptedCandidateCount": 2,
+      "authoritativeCasesPassed": 8,
+      "authoritativeCasesTotal": 8
+    },
+    {
+      "scenarioId": "select-latest",
+      "treatment": "multi-independent",
+      "valid": true,
+      "candidates": [
+        {
+          "candidateId": "select-latest:branch-a",
+          "participantRef": "participant:p4:branch-a",
+          "source": "def select_latest(records):\n    out = {}\n    for record in records:\n        out.setdefault(record[\"key\"], []).append(record)\n\n    result = {}\n    for key in sorted(out):\n        group = out[key]\n        best = group[0]\n        for record in group[1:]:\n            if record[\"revision\"] < 0 or record[\"observed\"] < 0:\n                raise ValueError(\"negative revision or observed\")\n            if (record[\"revision\"], record[\"observed\"]) > (\n                best[\"revision\"],\n                best[\"observed\"],\n            ) or (\n                record[\"revision\"] == best[\"revision\"]\n                and record[\"observed\"] == best[\"observed\"]\n            ):\n                best = record\n        if best[\"revision\"] < 0 or best[\"observed\"] < 0:\n            raise ValueError(\"negative revision or observed\")\n        result[key] = dict(best)\n    return [result[key] for key in sorted(result)]\n",
+          "sourceDigest": "sha256:a8938d46438489a5e44a5965087446b17bf9a784728a67a4031ad0f53a5d3010",
+          "summary": "Fixed select_latest to satisfy the exact spec: keep one record per key with greatest revision, then greatest observed, then the last input occurrence if both tie; raise ValueError on negative revision/observed; return new dicts sorted by key.",
+          "artifactDigest": "sha256:19f5706a6fc019a00d26a48f2315eec17346a14816032aca9c97c0a64c911d50",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 1,
+                        "value": 1
+                      },
+                      {
+                        "key": "b",
+                        "revision": 1,
+                        "observed": 1,
+                        "value": 0
+                      }
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 25,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "new"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "y"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 3,
+              "allPassed": true
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 1,
+                        "value": 1
+                      },
+                      {
+                        "key": "b",
+                        "revision": 1,
+                        "observed": 1,
+                        "value": 0
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "new"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "y"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 4,
+              "allPassed": true
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:f5cf838a5c554cebfffcdfe3854dc37bcae4c56a4c33c51c7eb6056808826541",
+                "providerRequestDigest": "sha256:b2d1d41c73b57d4cbc742a619e69e43aa9fd8260f35de1560c222965f6133a66",
+                "resultDigest": "sha256:56ba1abfc62d834d99a431758d7684259ab589efdf95dbe317b8676db4f7a637",
+                "modelCallId": "409d6fc7-f3a3-497a-9bbb-1d34b93a4465",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 1107,
+                  "completion_tokens": 435,
+                  "total_tokens": 1542,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 1024
+                  },
+                  "prompt_cache_hit_tokens": 1024,
+                  "prompt_cache_miss_tokens": 83,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1542,
+                "rawResponseDigest": "sha256:74abf9ee65f0cfa6af93dd71c645bad249833f42367009bf64b8693500ef2c5e",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1542,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        },
+        {
+          "candidateId": "select-latest:branch-b",
+          "participantRef": "participant:p4:branch-b",
+          "source": "def select_latest(records):\n    out = {}\n    for index, record in enumerate(records):\n        key = record[\"key\"]\n        revision = record.get(\"revision\")\n        observed = record.get(\"observed\")\n        if revision is None or observed is None:\n            raise ValueError(\"record missing revision or observed\")\n        if revision < 0 or observed < 0:\n            raise ValueError(\"revision and observed must be non-negative\")\n        value = record.get(\"value\")\n        current = out.get(key)\n        if current is None:\n            out[key] = (revision, observed, index, value)\n        else:\n            prev_rev, prev_obs, prev_index, prev_value = current\n            if revision > prev_rev or (revision == prev_rev and observed > prev_obs):\n                out[key] = (revision, observed, index, value)\n            elif revision == prev_rev and observed == prev_obs:\n                out[key] = (revision, observed, index, value)  # last occurrence wins\n    result = {}\n    for key in sorted(out):\n        rev, obs, idx, value = out[key]\n        result[key] = {\"key\": key, \"revision\": rev, \"observed\": obs, \"value\": value}\n    return [result[key] for key in sorted(result)]",
+          "sourceDigest": "sha256:f2bec808dcb6986405b6aa532675476dfb22fcddc9659c566a069f23d011bbd4",
+          "summary": "Repaired select_latest to keep one record per key selecting greatest revision, then greatest observed, then last input occurrence on a full tie; returning new dicts sorted by key lexicographically; raising ValueError on negative revision/observed; without mutating inputs.",
+          "artifactDigest": "sha256:b8c09891c6e358f716cd1bb1300623f1423a20b47654528519e3b793c0995f35",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 1,
+                        "value": 1
+                      },
+                      {
+                        "key": "b",
+                        "revision": 1,
+                        "observed": 1,
+                        "value": 0
+                      }
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 26,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "new"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "y"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 3,
+              "allPassed": true
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 1,
+                        "value": 1
+                      },
+                      {
+                        "key": "b",
+                        "revision": 1,
+                        "observed": 1,
+                        "value": 0
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "new"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "y"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 4,
+              "allPassed": true
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:05125f7a7356cd3e229ed4754326c114ebe3013edb3c1eb1275b90bbf20f8036",
+                "providerRequestDigest": "sha256:62dc7dc1b0990fe506b832992367badd4e5fa160bc727c28142b64637c21b4ae",
+                "resultDigest": "sha256:4f35a2d70776f042df2922cb72bcf59d166ff27ae464a3bee63c7e6215e82060",
+                "modelCallId": "c4595f4c-1e33-4d5a-8376-9f1ba638b10a",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 1107,
+                  "completion_tokens": 495,
+                  "total_tokens": 1602,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 1024
+                  },
+                  "prompt_cache_hit_tokens": 1024,
+                  "prompt_cache_miss_tokens": 83,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1602,
+                "rawResponseDigest": "sha256:804478db11aae1e6df743b7e954cb072d31927c670202b3fd14af7d235cd9503",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1602,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        }
+      ],
+      "join": {
+        "accepted": true,
+        "selectedArtifactDigest": "sha256:19f5706a6fc019a00d26a48f2315eec17346a14816032aca9c97c0a64c911d50",
+        "selectedCandidateId": "select-latest:branch-a",
+        "acceptedCandidateCount": 2,
+        "candidateCount": 2,
+        "bestAuthoritativePassed": 4,
+        "authoritativeTotal": 4
+      },
+      "hostCoordination": {
+        "goalId": "goal:p4:select-latest:multi-independent",
+        "taskCount": 2,
+        "participantCount": 2,
+        "responsibilityAmbiguous": false,
+        "candidateArtifactCount": 2,
+        "branchEffectIntentCount": 0,
+        "verificationAccepted": true,
+        "appliedTaskIds": [
+          "task:p4:select-latest:branch-a",
+          "task:p4:select-latest:branch-b"
+        ],
+        "staleSnapshotBlocked": true,
+        "rejectedAdvanceBlocked": null,
+        "partialApplyRecoveryPassed": true,
+        "snapshotDigest": "sha256:5688656af076eaf933393f33e21e1e1900951961fd881fb858ec8f6108602de9",
+        "verificationDigest": "sha256:2642c61d7b0f390dbf15c095d4e0ebfecc955522abf93e47426ed2cc58cca0b5"
+      },
+      "tokens": 3144,
+      "providerAttempts": 2,
+      "presentationCorrections": 0,
+      "acceptedCandidateCount": 2,
+      "authoritativeCasesPassed": 8,
+      "authoritativeCasesTotal": 8
+    },
+    {
+      "scenarioId": "select-latest",
+      "treatment": "single-reflect",
+      "valid": true,
+      "candidates": [
+        {
+          "candidateId": "select-latest:single:first",
+          "participantRef": "participant:p4:single",
+          "source": "def select_latest(records):\n    out = {}\n    for record in records:\n        if record[\"revision\"] < 0 or record[\"observed\"] < 0:\n            raise ValueError\n        key = record[\"key\"]\n        if key not in out:\n            out[key] = record\n        else:\n            cur = out[key]\n            if (record[\"revision\"] > cur[\"revision\"]) or (\n                record[\"revision\"] == cur[\"revision\"] and record[\"observed\"] > cur[\"observed\"]\n            ):\n                out[key] = record\n    return [dict(out[key]) for key in sorted(out)]",
+          "sourceDigest": "sha256:9fa50c6ce9550e034cb975d62ff531251932e151d76df4f64c3fdf3fb736e345",
+          "summary": "Fixed the ordering logic: select by greatest revision, then greatest observed (uses >= implicitly via greater-or-equal on rev then observed), and preserves the first input occurrence when both revision and observed tie because the replacement only occurs on strictly greater comparisons. Returns new dicts sorted by key, validates negative revision/observed with ValueError, and does not mutate records.",
+          "artifactDigest": "sha256:026dd055976b7bd92d354af2411a629df4dc670c2b30b63dbc62bdba5e23ece6",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 1,
+                        "value": 1
+                      },
+                      {
+                        "key": "b",
+                        "revision": 1,
+                        "observed": 1,
+                        "value": 0
+                      }
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 10,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "new"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "x"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 2,
+              "total": 3,
+              "allPassed": false
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 1,
+                        "value": 1
+                      },
+                      {
+                        "key": "b",
+                        "revision": 1,
+                        "observed": 1,
+                        "value": 0
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "new"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "x"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 4,
+              "allPassed": false
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:067e9fb49125657bdf1205412a05415eddd770179f8798b4a2cbde848793da24",
+                "providerRequestDigest": "sha256:8635a19b838992f61dccf70deffe9ab8776d997c328caa16a9aeb19c1500076b",
+                "resultDigest": "sha256:f5a3e5a884a51539a84dae5278f6983fd7de3db92b3a03363ff15f2b2d738f4f",
+                "modelCallId": "1f073c09-e8ff-439f-a909-aa4237b69bc2",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 1106,
+                  "completion_tokens": 357,
+                  "total_tokens": 1463,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 1024
+                  },
+                  "prompt_cache_hit_tokens": 1024,
+                  "prompt_cache_miss_tokens": 82,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1463,
+                "rawResponseDigest": "sha256:2167a2139dd368d92ed55439ca2daff3be2f8fd4b7267ea6728bf16d2b580983",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1463,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        },
+        {
+          "candidateId": "select-latest:single:revision",
+          "participantRef": "participant:p4:single",
+          "source": "def select_latest(records):\n    out = {}\n    for record in records:\n        if record[\"revision\"] < 0 or record[\"observed\"] < 0:\n            raise ValueError\n        key = record[\"key\"]\n        if key not in out or (record[\"revision\"], record[\"observed\"]) > (out[key][\"revision\"], out[key][\"observed\"]):\n            out[key] = record\n    return [dict(out[key]) for key in sorted(out)]",
+          "sourceDigest": "sha256:51c03e98571072261cea2ae0d8a26b1512aa8e0ce5c7bdcb68448a557d18f067",
+          "summary": "Keeps one record per key selecting by greatest revision, then greatest observed (tuple comparison), preserving the first input occurrence when both tie because replacement occurs only on strictly-greater comparison. Validates negative revision/observed with ValueError, returns new dicts sorted lexicographically by key, and does not mutate records.",
+          "artifactDigest": "sha256:772e4d9469406c931df5e2294fd765a4371b22558def437bd5b724c7d4fce26c",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 1,
+                        "value": 1
+                      },
+                      {
+                        "key": "b",
+                        "revision": 1,
+                        "observed": 1,
+                        "value": 0
+                      }
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 4,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "new"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "x"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 2,
+              "total": 3,
+              "allPassed": false
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 1,
+                        "value": 1
+                      },
+                      {
+                        "key": "b",
+                        "revision": 1,
+                        "observed": 1,
+                        "value": 0
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "new"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      {
+                        "key": "a",
+                        "revision": 2,
+                        "observed": 3,
+                        "value": "x"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 4,
+              "allPassed": false
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:67ca72c3ccb351200481b5d548da4d8aedfb15e620033d83e0501c1080ec13ec",
+                "providerRequestDigest": "sha256:3e59ed139517c63f39f3e2457d75112cc10f088770796b3e771f3adff4a77bf6",
+                "resultDigest": "sha256:a3e3f6a34770ce7deac237ad337c468ac7a76a8e517d79b8e72459e819d54a49",
+                "modelCallId": "4216d305-dc5f-499c-8beb-84c01bb26be5",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 1429,
+                  "completion_tokens": 307,
+                  "total_tokens": 1736,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 640
+                  },
+                  "prompt_cache_hit_tokens": 640,
+                  "prompt_cache_miss_tokens": 789,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1736,
+                "rawResponseDigest": "sha256:810cbbe3553ed8e4275d0514988652dc5d19d8ef8381a3a25c789c3bc6858d19",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1736,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        }
+      ],
+      "join": {
+        "accepted": false,
+        "selectedArtifactDigest": "sha256:772e4d9469406c931df5e2294fd765a4371b22558def437bd5b724c7d4fce26c",
+        "selectedCandidateId": "select-latest:single:revision",
+        "acceptedCandidateCount": 0,
+        "candidateCount": 2,
+        "bestAuthoritativePassed": 3,
+        "authoritativeTotal": 4
+      },
+      "hostCoordination": {
+        "goalId": "goal:p4:select-latest:single-reflect",
+        "taskCount": 1,
+        "participantCount": 1,
+        "responsibilityAmbiguous": false,
+        "candidateArtifactCount": 2,
+        "branchEffectIntentCount": 0,
+        "verificationAccepted": false,
+        "appliedTaskIds": [],
+        "staleSnapshotBlocked": null,
+        "rejectedAdvanceBlocked": true,
+        "partialApplyRecoveryPassed": true,
+        "snapshotDigest": "sha256:c5c55ec1d150228ad5c17507c7f1e2c2a6f9b266d6b53986d7be97303870f8be",
+        "verificationDigest": "sha256:61600db9b422d79005c90fb1fc05ada457b89ae1bc235da304e594f835b17557"
+      },
+      "tokens": 3199,
+      "providerAttempts": 2,
+      "presentationCorrections": 0,
+      "acceptedCandidateCount": 0,
+      "authoritativeCasesPassed": 6,
+      "authoritativeCasesTotal": 8
+    },
+    {
+      "scenarioId": "normalize-tags",
+      "treatment": "single-reflect",
+      "valid": true,
+      "candidates": [
+        {
+          "candidateId": "normalize-tags:single:first",
+          "participantRef": "participant:p4:single",
+          "source": "def normalize_tags(tags):\n    result = []\n    seen = set()\n    for tag in tags:\n        if not isinstance(tag, str):\n            raise ValueError(\"tag is not a string\")\n        trimmed = tag.strip()\n        if not trimmed:\n            raise ValueError(\"tag is empty after trimming\")\n        folded = trimmed.casefold()\n        if folded not in seen:\n            seen.add(folded)\n            result.append(trimmed)\n    return result\n",
+          "sourceDigest": "sha256:c303694aa5f9078c8638a5da39186e0399dab8e72ed435603d1e4ea52f5b5abe",
+          "summary": "Implemented normalize_tags to exactly match the spec: each item must be a string, leading/trailing whitespace trimmed, empty-after-trim raise ValueError, case-insensitive dedup via Unicode casefold preserving first-occurrence trimmed spelling and first-occurrence order, returns a new list without mutating the input.",
+          "artifactDigest": "sha256:cca49ab57c93912ca1cdda7c9d2219610336a29772b32076b7e86a6a3efd2af4",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Alpha",
+                      "beta"
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 14,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "b",
+                      "A",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 4,
+              "allPassed": true
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Alpha",
+                      "beta"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "b",
+                      "A",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 5,
+              "total": 5,
+              "allPassed": true
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:b6550664e87abc36461c29987628b8399ef22f7c723b996ea5623ee3d707af52",
+                "providerRequestDigest": "sha256:8c1cb68e1f95b67b2ddacc72dff21d5dc29b33cbea1938d11cb707793d5f66a9",
+                "resultDigest": "sha256:89b1ba7f40fd988b43c31f516e1ebec8af6f3d1e2837aa6d8f97d97ed60e37f6",
+                "modelCallId": "4e6aeee3-b823-45b3-821c-33cfe4bc118a",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 963,
+                  "completion_tokens": 300,
+                  "total_tokens": 1263,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 896
+                  },
+                  "prompt_cache_hit_tokens": 896,
+                  "prompt_cache_miss_tokens": 67,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1263,
+                "rawResponseDigest": "sha256:03e0d9a5d828022da6df552cd24be8ec5b2f0756a0c8f910e4214206a30f3e30",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1263,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        },
+        {
+          "candidateId": "normalize-tags:single:revision",
+          "participantRef": "participant:p4:single",
+          "source": "def normalize_tags(tags):\n    result = []\n    seen = set()\n    for tag in tags:\n        if not isinstance(tag, str):\n            raise ValueError(\"tag is not a string\")\n        trimmed = tag.strip()\n        if not trimmed:\n            raise ValueError(\"tag is empty after trimming\")\n        folded = trimmed.casefold()\n        if folded not in seen:\n            seen.add(folded)\n            result.append(trimmed)\n    return result\n",
+          "sourceDigest": "sha256:c303694aa5f9078c8638a5da39186e0399dab8e72ed435603d1e4ea52f5b5abe",
+          "summary": "Retain the prior candidate exactly. It directly implements every clause of the specification: (1) every item must be a string, enforced via isinstance check raising ValueError; (2) leading/trailing whitespace trimmed via str.strip(); (3) empty-after-trim rejected with ValueError; (4) case-insensitive dedup using Unicode casefold preserving first-occurrence trimmed spelling and first-occurrence order; (5) returns a new list (result) and never mutates the input tags. The visible case passes, and no revision is warranted since the implementation is a faithful, direct realization of the written spec rather than a patch of visible examples.",
+          "artifactDigest": "sha256:f3a3869431f8d1aae1cec0df43c83df6b04da8fe4e644d8d17e748f54368416d",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Alpha",
+                      "beta"
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 14,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "b",
+                      "A",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 4,
+              "allPassed": true
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Alpha",
+                      "beta"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "b",
+                      "A",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                }
+              ],
+              "passed": 5,
+              "total": 5,
+              "allPassed": true
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:1e0dc7162c60f06027961026143d7493509b2dca97a2aecf38dfb1f4b2881616",
+                "providerRequestDigest": "sha256:f466ba5039df408135c46b189eb767d03a1fa5748b113521aae4e58eba0037f5",
+                "resultDigest": "sha256:397df203a6ff87a1a31bf4590d894e69a3c84b38d7e2d5a10af470b3a62fd63f",
+                "modelCallId": "6b987e7d-187d-4c4a-b1cc-1649b1d2699f",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 1229,
+                  "completion_tokens": 390,
+                  "total_tokens": 1619,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 640
+                  },
+                  "prompt_cache_hit_tokens": 640,
+                  "prompt_cache_miss_tokens": 589,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1619,
+                "rawResponseDigest": "sha256:a4db05838f5e9ae9ee4ee25ab4e0925e9f0b26c07220aa1ccf5a91072ba7a45d",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1619,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        }
+      ],
+      "join": {
+        "accepted": true,
+        "selectedArtifactDigest": "sha256:cca49ab57c93912ca1cdda7c9d2219610336a29772b32076b7e86a6a3efd2af4",
+        "selectedCandidateId": "normalize-tags:single:first",
+        "acceptedCandidateCount": 2,
+        "candidateCount": 2,
+        "bestAuthoritativePassed": 5,
+        "authoritativeTotal": 5
+      },
+      "hostCoordination": {
+        "goalId": "goal:p4:normalize-tags:single-reflect",
+        "taskCount": 1,
+        "participantCount": 1,
+        "responsibilityAmbiguous": false,
+        "candidateArtifactCount": 2,
+        "branchEffectIntentCount": 0,
+        "verificationAccepted": true,
+        "appliedTaskIds": [
+          "task:p4:normalize-tags:single"
+        ],
+        "staleSnapshotBlocked": true,
+        "rejectedAdvanceBlocked": null,
+        "partialApplyRecoveryPassed": true,
+        "snapshotDigest": "sha256:fd8368a01ea9efbf1cae8e992ba55f596e806a5733b95865988928d1accfedd3",
+        "verificationDigest": "sha256:4e08f2786d421c7f27f3636c04f2bd1182d84b84d50d37fcf4f3dd8da081666d"
+      },
+      "tokens": 2882,
+      "providerAttempts": 2,
+      "presentationCorrections": 0,
+      "acceptedCandidateCount": 2,
+      "authoritativeCasesPassed": 10,
+      "authoritativeCasesTotal": 10
+    },
+    {
+      "scenarioId": "normalize-tags",
+      "treatment": "multi-independent",
+      "valid": true,
+      "candidates": [
+        {
+          "candidateId": "normalize-tags:branch-a",
+          "participantRef": "participant:p4:branch-a",
+          "source": "def normalize_tags(tags):\n    seen = {}\n    result = []\n    for tag in tags:\n        stripped = tag.strip()\n        if not stripped:\n            raise ValueError(\"empty tag\")\n        key = stripped.casefold()\n        if key not in seen:\n            seen[key] = True\n            result.append(stripped)\n    return result",
+          "sourceDigest": "sha256:0adfa26fa9c763dd0a58dba4333235c3c1585c2b4035ba37604fd6da035f1c50",
+          "summary": "Repaired normalize_tags to meet the spec: trims each tag, raises ValueError if an item becomes empty, deduplicates case-insensitively using casefold while preserving the trimmed spelling and first-occurrence order, returns a new list, and never mutates the input.",
+          "artifactDigest": "sha256:12f14c208d4a73e3c75e69183777ac578f0fc1e290a552ae490755975d881b95",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Alpha",
+                      "beta"
+                    ]
+                  }
+                }
+              ],
+              "passed": 1,
+              "total": 1,
+              "allPassed": true
+            },
+            "changedLines": 12,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "b",
+                      "A",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "raised": "AttributeError"
+                  }
+                }
+              ],
+              "passed": 3,
+              "total": 4,
+              "allPassed": false
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Alpha",
+                      "beta"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "b",
+                      "A",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "returned": [
+                      "Straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": true,
+                  "observed": {
+                    "raised": "ValueError"
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "raised": "AttributeError"
+                  }
+                }
+              ],
+              "passed": 4,
+              "total": 5,
+              "allPassed": false
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:247b54eb2a3eb990c6fa242759979cd9e8f254de65990c223b9126bf834e2aa8",
+                "providerRequestDigest": "sha256:f8889ac90d43308d4a3cb13e9db20029a6f84021933e6a8032811f6f525f147a",
+                "resultDigest": "sha256:83c6a63ab6cd12259c694e04c35112401557282056a35477afa292d98f93cfb8",
+                "modelCallId": "e092a369-e1c2-43e3-b8ce-4b835b64ee93",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 964,
+                  "completion_tokens": 264,
+                  "total_tokens": 1228,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 896
+                  },
+                  "prompt_cache_hit_tokens": 896,
+                  "prompt_cache_miss_tokens": 68,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1228,
+                "rawResponseDigest": "sha256:7b0446e3979b8e071b806715830776e05b14b2d5f4618e3392ea3c5ba2991813",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1228,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        },
+        {
+          "candidateId": "normalize-tags:branch-b",
+          "participantRef": "participant:p4:branch-b",
+          "source": "def normalize_tags(tags):\n    return sorted(set(tag.strip().lower() for tag in tags if tag.strip()))\n",
+          "sourceDigest": "sha256:4178fbe91178bcc7826ed76180b7ce9a28c23c6489fe80e89e6098206ef67807",
+          "summary": "The current implementation is drastically wrong versus the specification. The spec requires: every item must be a string (reject non-strings); trim whitespace; reject any empty item with ValueError; deduplicate case-insensitively using Unicode casefold, preserving the trimmed spelling of the first occurrence and preserving first-occurrence order; return a new list; do not mutate tags. The visible case expects ['Alpha', 'beta'] in first-occurrence order, but the current code sorts, lowercases (not casefold), filters empties instead of raising ValueError, and never checks types. Rewrite the function to follow the exact spec.",
+          "artifactDigest": "sha256:b0955d0b0c3295d950e8e50b06325e673fb2827f0f538a5d355aa47517d5a7df",
+          "evaluation": {
+            "visible": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      "alpha",
+                      "beta"
+                    ]
+                  }
+                }
+              ],
+              "passed": 0,
+              "total": 1,
+              "allPassed": false
+            },
+            "changedLines": 0,
+            "hidden": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      "a",
+                      "b",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      "strasse",
+                      "straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      "ok"
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "raised": "AttributeError"
+                  }
+                }
+              ],
+              "passed": 0,
+              "total": 4,
+              "allPassed": false
+            },
+            "authoritative": {
+              "safe": true,
+              "gateReason": null,
+              "caseResults": [
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      "alpha",
+                      "beta"
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      "a",
+                      "b",
+                      "c"
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      "strasse",
+                      "straße"
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "returned": [
+                      "ok"
+                    ]
+                  }
+                },
+                {
+                  "ok": false,
+                  "observed": {
+                    "raised": "AttributeError"
+                  }
+                }
+              ],
+              "passed": 0,
+              "total": 5,
+              "allPassed": false
+            }
+          },
+          "modelEvidence": {
+            "attempts": [
+              {
+                "attempt": 1,
+                "requestDigest": "sha256:781016bb47f09e5df034b9d1e80ef912f80b3ffda9e1fe1f5b915f00679a8878",
+                "providerRequestDigest": "sha256:2fd08a470980a625a5c2e152adebdb17231b63b70a1422e238b71b02ffeb2088",
+                "resultDigest": "sha256:28a785120f0536bdfcf9be166b1ab5c0f8337935e22ff12464849653569ac2b9",
+                "modelCallId": "11bcddf7-3d6f-4015-ae61-9a6ef345907e",
+                "modelId": "deepseek-v4-flash",
+                "effectiveModelId": "deepseek-v4-flash",
+                "usage": {
+                  "prompt_tokens": 964,
+                  "completion_tokens": 303,
+                  "total_tokens": 1267,
+                  "prompt_tokens_details": {
+                    "cached_tokens": 896
+                  },
+                  "prompt_cache_hit_tokens": 896,
+                  "prompt_cache_miss_tokens": 68,
+                  "systemFingerprint": "fp_a18b46594c_prod0820_fp8_kvcache_20260402",
+                  "providerModel": "deepseek-v4-flash",
+                  "providerRequestMode": "non-thinking"
+                },
+                "totalTokens": 1267,
+                "rawResponseDigest": "sha256:5ce8544b4022e172df7205ba7e7f827f739eaddc6c66effe323608ddf8e2680a",
+                "validPresentation": true
+              }
+            ],
+            "providerAttempts": 1,
+            "presentationCorrections": 0,
+            "totalTokens": 1267,
+            "acceptedAttempt": 1,
+            "modelId": "deepseek-v4-flash",
+            "effectiveModelId": "deepseek-v4-flash"
+          }
+        }
+      ],
+      "join": {
+        "accepted": false,
+        "selectedArtifactDigest": "sha256:12f14c208d4a73e3c75e69183777ac578f0fc1e290a552ae490755975d881b95",
+        "selectedCandidateId": "normalize-tags:branch-a",
+        "acceptedCandidateCount": 0,
+        "candidateCount": 2,
+        "bestAuthoritativePassed": 4,
+        "authoritativeTotal": 5
+      },
+      "hostCoordination": {
+        "goalId": "goal:p4:normalize-tags:multi-independent",
+        "taskCount": 2,
+        "participantCount": 2,
+        "responsibilityAmbiguous": false,
+        "candidateArtifactCount": 2,
+        "branchEffectIntentCount": 0,
+        "verificationAccepted": false,
+        "appliedTaskIds": [],
+        "staleSnapshotBlocked": null,
+        "rejectedAdvanceBlocked": true,
+        "partialApplyRecoveryPassed": true,
+        "snapshotDigest": "sha256:ad22c453664ed7ae6bfc589e8291108978499cfcfe7d31034e0c4a0d39f6ed7b",
+        "verificationDigest": "sha256:7c99474051ed4f910d1d6d3de8a32d37411d107ccf57ed7d71c3286099b08269"
+      },
+      "tokens": 2495,
+      "providerAttempts": 2,
+      "presentationCorrections": 0,
+      "acceptedCandidateCount": 0,
+      "authoritativeCasesPassed": 4,
+      "authoritativeCasesTotal": 10
+    }
+  ],
+  "metrics": {
+    "single-reflect": {
+      "scenarios": 3,
+      "invalidScenarios": 0,
+      "acceptedGoals": 2,
+      "acceptedCandidates": 4,
+      "authoritativeCasesPassed": 24,
+      "authoritativeCasesTotal": 26,
+      "totalTokens": 9087,
+      "providerAttempts": 6,
+      "presentationCorrections": 0,
+      "branchEffectIntents": 0,
+      "responsibilityAmbiguities": 0,
+      "recoveryFailures": 0,
+      "rejectedAdvanceFailures": 0
+    },
+    "multi-independent": {
+      "scenarios": 3,
+      "invalidScenarios": 0,
+      "acceptedGoals": 2,
+      "acceptedCandidates": 4,
+      "authoritativeCasesPassed": 20,
+      "authoritativeCasesTotal": 26,
+      "totalTokens": 8423,
+      "providerAttempts": 6,
+      "presentationCorrections": 0,
+      "branchEffectIntents": 0,
+      "responsibilityAmbiguities": 0,
+      "recoveryFailures": 0,
+      "rejectedAdvanceFailures": 0
+    }
+  }
+}
