@@ -46,9 +46,12 @@ from ordivon_harness.domain_tools import (  # noqa: E402
 
 DEFAULT_SECRET = Path("/root/.config/ordivon/secrets/deepseek.json")
 NO_TOOL_DIGEST = canonical_digest({"tools": []})
-A_TOTAL_TOKEN_CEILING = 32_768
+# The aggregate ceiling must admit the longest intended treatment path under
+# the Adapter's conservative per-call request upper bound.  Otherwise the
+# experiment measures preflight arithmetic rather than the cognitive mechanism.
+A_TOTAL_TOKEN_CEILING = 65_536
 A_WALL_MS = 180_000
-B_TOTAL_TOKEN_CEILING = 12_288
+B_TOTAL_TOKEN_CEILING = 32_768
 B_WALL_MS = 180_000
 
 ONE_SHOT_COMPLETION: dict[str, Any] = {
