@@ -64,3 +64,5 @@ Canonicalization therefore did not improve semantic accuracy. The earlier P9 ord
 ## Apparatus recovery
 
 The complete executable/raw campaign is Git-recoverable from snapshot `cc259ffdf046fcb8a4a17d563bd07ac4e7944a64` under `research/experiments/p10-p11-effect-phase-order-v0/apparatus/`. The current tree intentionally removes it; no P10/P11 runner becomes a long-lived research authority.
+
+`contraction-verify` proved the apparatus absent at `cdd7dcc9d435ea04d8883d2eb5d9d306f9d1c9c6`, Git-recoverable as tree object `ca95f66cb5c5079938b8261198f9cb2ad5108f23`, bound to a passing exact gate, with zero current experiment executable-like source. Receipt payload: `sha256:45f0ccc0e61de68f2788f04b973bf1872f64d140170a575645432f7d92f069d4`.
