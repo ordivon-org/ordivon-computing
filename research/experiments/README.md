@@ -39,6 +39,7 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 - [`fs0-shadow-portfolio/`](fs0-shadow-portfolio/) — prospective shadow problem-selection cohort over live Harness/Runtime/Game/Host pressures plus one blocked Finance control; raw selector freezes on Game AF003 while RFM-informed selector mostly chooses Runtime P5, creating a real future falsifier without controlling owner work.
 - [`lw0-rsi-literature-world-model/`](lw0-rsi-literature-world-model/) — claim-bound reconciliation of 23 primary RSI/agent research sources across 14 domain families; strengthens several existing Ordivon semantic laws, refines the convergence hypothesis into stable invariants plus stable anti-laws, and keeps problem selection/ignition/evaluator evolution as open research frontiers rather than new shared layers.
 - [`hd0-industrial-history-dogfood/`](hd0-industrial-history-dogfood/) — frozen design for a 320-trajectory historical OOD dogfood from the First Industrial Revolution to 2026: eight chronological waves, 12 domains, 96 deep Anchors, 32 de-identified prospective replays, winner/rival/failure controls, and source-native coding before LW0 theory mapping.
+- [`hd1-1760-1829/`](hd1-1760-1829/) — first historical wave: 105 candidate trajectories contracted to an exact 40-case roster; the first eight Deep Anchors are source-locked with evidence-lineage audit, while LW0 theory coding remains deliberately unopened.
 
 ## Deferred experiment families
 
