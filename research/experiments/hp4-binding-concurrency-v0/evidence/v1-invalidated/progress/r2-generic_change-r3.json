@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R2",
+  "owner": "Runtime Workspace",
+  "treatment": "generic_change",
+  "replicate": 3,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "Planning evidence included workspaceId, head, tree, and sourceStateDigest. The consequence boundary evidence reports ownerChanged=true, indicating the Workspace source identity advanced after planning. The owner contract requires the exact expectedSourceStateDigest for close to commit, and a mismatched digest fails not_committed. Since the source identity advanced, the planning-time digest is likely stale and cannot be used for a binding close.",
+    "predictedOwnerDisposition": "would_hold",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The owner contract states that workspace.close compares against one exact expectedSourceStateDigest, and a mismatched planning digest fails not_committed. The boundary evidence reports ownerChanged=true, meaning the source state has advanced since planning. Therefore the planning-time digest cannot be used to close successfully. The contract explicitly permits re-observation followed by close against the new exact current digest. REOBSERVE_THEN_DECIDE is the correct path: re-observe to obtain the current digest, then decide whether to close against it.",
+    "confidence": 0.95
+  },
+  "metrics": {
+    "semanticAccepted": false,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": true,
+    "progressCorrect": false,
+    "safeConflictOnly": true,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": false,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 884,
+    "outputTokens": 326,
+    "totalTokens": 1210,
+    "elapsedMs": 4022,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:76da6ddaf4c66f0f3ed4bded163db29fa698dea84969fbec891099c61c6d2d3c",
+  "secretSlot": "deepseek.json"
+}

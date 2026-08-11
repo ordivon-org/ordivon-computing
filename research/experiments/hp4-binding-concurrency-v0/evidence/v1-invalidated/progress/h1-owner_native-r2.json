@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H1",
+  "owner": "Host external-continuity Task",
+  "treatment": "owner_native",
+  "replicate": 2,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "Planning evidence at revision 2 planned checkpoint frontier=alpha-complete, but boundary evidence shows currentRevision=3 with frontier=beta-concurrent and a REVISION_CONFLICT/not_committed on the planning revision attempt. The owner contract states stale expectedRevision fails with retryClass=resume_task, and task.resume returns one revision-coherent current checkpoint. The intended consequence (checkpoint alpha as complete) is no longer coherent with the current frontier (beta-concurrent), and the semantic situation has changed meaningfully—another participant moved the frontier from alpha to beta. This exceeds a trivial overwrite; it requires re-observation to determine whether alpha completion is still meaningful within the beta-concurrent frontier before deciding to act, rebase, or hold.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The planning evidence at revision 2 is stale: the boundary evidence shows currentRevision=3, and another participant has changed the semantic frontier from alpha to beta. The planning revision attempt already failed with REVISION_CONFLICT/not_committed (retryClass=resume_task per contract). The intended consequence—checkpointing alpha as complete—may no longer be semantically valid given the frontier has moved to beta-concurrent and the next action changed. Acting unbound risks inventing semantics; replaying would not commit; holding risks infinite stall. The correct move is to resume/re-observe the current revision-coherent checkpoint to understand whether alpha-complete is still the right consequence within the beta-concurrent frontier, then decide between ACT, REBASE, or HOLD. This is not a trivial stale-revision case where we could simply rebase: the semantic meaning of the target consequence has been altered by another participant's frontier advancement.",
+    "confidence": 0.82
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 928,
+    "outputTokens": 480,
+    "totalTokens": 1408,
+    "elapsedMs": 5419,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:046307b86e5834043a60ee979968ca997c342f29188151bf5377e2af2de3ec1e",
+  "secretSlot": "deepseek3.json"
+}

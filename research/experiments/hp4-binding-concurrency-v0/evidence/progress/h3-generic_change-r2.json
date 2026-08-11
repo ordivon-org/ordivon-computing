@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H3",
+  "owner": "Host external-continuity Task",
+  "treatment": "generic_change",
+  "replicate": 2,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "The intended consequence is to converge the original semantic transition without issuing a different checkpoint or overwriting newer state. The owner action contract states that an exact retry of the same checkpoint with the same original expectedRevision is the only safe path, and if that exact transition already committed it returns admission=existing.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The original checkpoint request may have committed but the response was lost/ambiguous. The consequence boundary evidence says outcome is unknown and the Task revision advanced — consistent with the original checkpoint having committed. My intended consequence is to converge the original transition without creating a new/writing newer state. Per the owner action contract, the only consequence that does this is an exact retry: the same checkpoint with the same original expectedRevision. If it already committed, Host returns admission=existing (no new consequence). If it didn't commit, the exact retry brings it to exactly the intended revision. A different checkpoint or rebase at stale expectedRevision would conflict or overwrite. Therefore REPLAY_EXACT is the correct decision — it either converges to the already-committed exact state (replay existing) or completes the intended exact transition, and in no case creates a novel separate consequence.",
+    "confidence": 0.85
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 831,
+    "outputTokens": 366,
+    "totalTokens": 1197,
+    "elapsedMs": 4698,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:c6f4c9e52612b55e1b387638b84c256e4678a7cb525032bf7c210b92c8c1c0b2",
+  "secretSlot": "deepseek5.json"
+}

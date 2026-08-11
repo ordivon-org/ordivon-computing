@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.research-frontier-update",
+  "calibrationRound": "HP4",
+  "sourceModel": "../tm4-research-frontier-model/research-frontier-model-v1.json",
+  "acceptedEvidence": [
+    "physical-owner-probe-v1.json",
+    "evidence/hp4-live-v2.json",
+    "evidence/hp4-derived-analysis-v2.json",
+    "HP4-REPORT.md"
+  ],
+  "invalidatedEvidence": {
+    "receipt": "evidence/v1-invalidated/hp4-live-v1.json",
+    "payloadDigest": "sha256:fb43114b2b7d802331ffbd3f0b535d13b94aef25f8e9924997915a1da38642b3",
+    "reason": "R2/H2 owner_native context leaked post-consequence physical probe outcomes; all 72 v1 trials excluded rather than selectively rescored."
+  },
+  "acceptedBattlefield": {
+    "file": "battlefield-v2.json",
+    "fileDigest": "sha256:43e26aa38ab605dc1753044e875036a4c04e003bffcfac7f3d16ee40d9853387",
+    "canonicalDigest": "sha256:44c67773065d839715c1564e99ab03314c102e7cd8a43d354208a0f8b3533819"
+  },
+  "acceptedCampaign": {
+    "trials": 72,
+    "providerTokens": 89700,
+    "providerCalls": 72,
+    "staleEvidence": {"semanticAccepted": 9, "falseConsequences": 6, "unnecessaryHolds": 3},
+    "genericChange": {"semanticAccepted": 12, "falseConsequences": 0, "unnecessaryHolds": 11},
+    "ownerNative": {"semanticAccepted": 16, "falseConsequences": 1, "unnecessaryHolds": 7}
+  },
+  "updates": [
+    {
+      "id": "RFM-BINDING-HP4",
+      "claim": "A new consequence should be admitted only through the owner identity/currentness contract that justifies it when the decision depends on that state. Exact compare-and-swap/revision fences are supported as safety substrate, not semantic oracles.",
+      "status": "supported_as_owner_substrate"
+    },
+    {
+      "id": "RFM-APPLICABILITY-HP4",
+      "claim": "Planning truth, consequence binding and semantic applicability are distinct. Owner-native current evidence did not establish reliable applicability discrimination: Runtime identity-only drift remained 0/4 progress-correct under owner-native evidence; Host applicability-preserving drift improved only to 2/4; one Host material-drift trial incorrectly rebased and would create a false consequence.",
+      "status": "competence_not_established"
+    },
+    {
+      "id": "RFM-REPLAY-HP4",
+      "claim": "Exact replay/reconciliation of a previously admitted identity is distinct from proposing a new consequence and should resolve through the original owner identity before generic latest-state reasoning.",
+      "status": "supported_across_runtime_and_host_response_loss"
+    },
+    {
+      "id": "RFM-CHANGE-SIGNAL-HP4",
+      "claim": "A coarse owner-changed signal is an invalidation warning, not final decision evidence. It removed false consequences in the corrected campaign but created 11 unnecessary holds and degraded Runtime exact-replay choice from 4/4 under stale owner-contract evidence to 1/4.",
+      "status": "supported_as_warning_only"
+    },
+    {
+      "id": "RFM-ACTIVE-FENCE-HP4",
+      "claim": "When the owner guarantees mismatch => not_committed, attempting a consequence only through the exact planning binding can serve as a cheap active falsifier: conflict exposes drift without an unbound stale effect and creates concrete re-observation pressure.",
+      "status": "supported_by_runtime_and_host_physical_probes"
+    }
+  ],
+  "strongHypothesisDisposition": "falsified_and_narrowed: owner-native evidence improved progress/acceptance but failed to dominate the zero-false-consequence generic-change treatment on the frozen primary safety order.",
+  "nextCompetenceFrontier": "semantic applicability discrimination after a safe binding conflict: determine when a changed owner state invalidates the semantic decision, when it preserves applicability and permits rebase, and when the correct operation is exact replay rather than a new action.",
+  "rejected": [
+    "global freshness or revalidation service",
+    "generic temporal adapter/package",
+    "always reobserve before every operation",
+    "revision changed implies semantic invalidity",
+    "current owner evidence implies applicability competence",
+    "automatic rebase after revision conflict",
+    "treat exact replay as a fresh new effect"
+  ]
+}

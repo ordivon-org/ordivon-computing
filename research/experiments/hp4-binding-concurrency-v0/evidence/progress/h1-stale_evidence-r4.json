@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H1",
+  "owner": "Host external-continuity Task",
+  "treatment": "stale_evidence",
+  "replicate": 4,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "The planning evidence (revision 2, checkpointDigest ca2a79e5...) may be stale. The intended consequence requires checking out alpha as complete without overwriting another participant's newer semantic work, but the planned checkpoint (frontier=alpha-complete) differs from the current frontier (alpha-ready) in the planning evidence. The owner action contract requires expectedRevision matching for checkpoint, and stale expectedRevision fails with REVISION_CONFLICT/not_committed with retryClass=resume_task. Since the planned frontier (alpha-complete) differs from the observed frontier (alpha-ready), I cannot determine whether the planned revision is still current without reobserving the actual owner state.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The planning evidence shows revision 2 with frontier=alpha-ready, but the intended consequence is to checkpoint alpha as complete (frontier=alpha-complete). This mismatch between the observed frontier and the planned checkpoint means I need to reobserve the actual owner checkpoint state via task.resume (per the owner action contract) to determine the current revision-coherent checkpoint before deciding whether an ACT or REBASE is appropriate. Acting without reobservation risks either a REVISION_CONFLICT failure or overwriting a participant's newer work, which violates the intended consequence.",
+    "confidence": 0.85
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "stale_evidence"
+  },
+  "usage": {
+    "inputTokens": 811,
+    "outputTokens": 389,
+    "totalTokens": 1200,
+    "elapsedMs": 4961,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:e4993975d9d35fb6ea1f90bdbaf7abab9fc98646e20cc2bc5621c497f46f182f",
+  "secretSlot": "deepseek3.json"
+}

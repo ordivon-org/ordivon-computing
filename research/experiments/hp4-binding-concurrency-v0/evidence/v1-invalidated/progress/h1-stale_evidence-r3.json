@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H1",
+  "owner": "Host external-continuity Task",
+  "treatment": "stale_evidence",
+  "replicate": 3,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "Planning evidence shows revision 2 with frontier alpha-ready and planned checkpoint frontier=alpha-complete, but the intended consequence requires checking in alpha as complete \"without overwriting another participant's newer semantic work.\" The owner contract states that stale expectedRevision fails with REVISION_CONFLICT. Since the planning evidence is from a prior observation (revision 2) and we cannot confirm the current revision or whether another participant has since advanced the semantic frontier, acting directly risks either an unnecessary conflict or an unbound overwrite. Reobserving the current checkpoint via the owner contract is needed to establish a revision-coherent binding basis before choosing ACT_WITH_PLANNING_BINDING or REBASE_AND_ACT.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The intended consequence is conditional on not overwriting another participant's newer semantic work, and the owner contract makes checkpoint success dependent on expectedRevision being current. The planning-time evidence (revision 2, frontier alpha-ready) is not proof that the current revision is still 2 or that alpha-complete is still applicable. Acting with the planning binding could produce REVISION_CONFLICT (wasted attempt) or, if unbound, could risk overwriting newer semantic work (violating intent). HOLD would defer useful progress without gaining information. REOBSERVE is the only decision that first obtains a current, revision-coherent checkpoint from the owner contract, enabling a safe, intent-preserving follow-up action.",
+    "confidence": 0.82
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "stale_evidence"
+  },
+  "usage": {
+    "inputTokens": 811,
+    "outputTokens": 423,
+    "totalTokens": 1234,
+    "elapsedMs": 4920,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:e4993975d9d35fb6ea1f90bdbaf7abab9fc98646e20cc2bc5621c497f46f182f",
+  "secretSlot": "deepseek2.json"
+}

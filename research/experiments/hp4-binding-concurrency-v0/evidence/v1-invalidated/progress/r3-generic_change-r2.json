@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R3",
+  "owner": "Runtime Workspace",
+  "treatment": "generic_change",
+  "replicate": 2,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "The owner action contract states repeating the exact close request with the same expectedSourceStateDigest is replayable, and exact replay returned already_closed/removed=false in the live probe. The intended consequence is to converge the original close request without closing a different later world state. Since the exact request is replayable and already returned already_closed, replaying the exact close request with the same digest is the safe path that converges without inventing a second effect.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The planning evidence and owner action contract align: the exact close request is replayable and the probe confirmed already_closed/removed=false. The workspace is absent from inventory, consistent with the close having committed. Replaying the exact close request with the same expectedSourceStateDigest is idempotent per the contract, converges the original intent, and avoids rebasing against a possibly different world state (which could close a different workspace). No new consequence is created—this is the same consequence converging via exact replay.",
+    "confidence": 0.82
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 878,
+    "outputTokens": 328,
+    "totalTokens": 1206,
+    "elapsedMs": 4103,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:a46f4f2b8b9dca22ce99fa0adda9dcbba47dea5427ec5f2e591fe3d094f8acdf",
+  "secretSlot": "deepseek5.json"
+}

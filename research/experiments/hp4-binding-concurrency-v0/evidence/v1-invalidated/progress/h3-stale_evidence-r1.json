@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H3",
+  "owner": "Host external-continuity Task",
+  "treatment": "stale_evidence",
+  "replicate": 1,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "Host external-continuity Task contract: exact retry with same checkpoint and continuity disposition at expectedRevision=4. Transport observation indicates the checkpoint may have committed but response was lost/ambiguous. Replaying the exact transition is the correct convergence approach: if it already committed at revision 5, Host returns admission=existing; if not, it commits idempotently. A different checkpoint at stale expectedRevision=4 would conflict, and REBASE/ACT_WITH_PLANNING would issue new state rather than converge the original semantic transition.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The intended consequence is to converge the original semantic transition without issuing a different checkpoint or overwriting newer state. The transport observation explicitly states the checkpoint may have committed but the response was lost/ambiguous. The owner contract mandates that an exact retry (same checkpoint, same continuity disposition, same original expectedRevision=4) is the only safe action: if it already committed at revision 5, Host returns admission=existing; if not, it commits. A different checkpoint at stale expectedRevision=4 would conflict per the contract. REPLAY_EXACT is the only catalog decision that preserves the original transition and lets the owner deduplicate idempotently.",
+    "confidence": 0.96
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "stale_evidence"
+  },
+  "usage": {
+    "inputTokens": 788,
+    "outputTokens": 370,
+    "totalTokens": 1158,
+    "elapsedMs": 4411,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:faed601f9d39883c1d170c567aa3b2d80fc50671be7a72c4a6a4527182fb81c0",
+  "secretSlot": "deepseek.json"
+}

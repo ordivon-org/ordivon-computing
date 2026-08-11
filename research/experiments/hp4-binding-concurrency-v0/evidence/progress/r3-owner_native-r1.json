@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R3",
+  "owner": "Runtime Workspace",
+  "treatment": "owner_native",
+  "replicate": 1,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "Consequence boundary evidence confirms exact replay of the close request returns already_closed with removed=false, and the tombstone retains the exact expectedSourceStateDigest. The original close already committed; re-issuing the exact request is replayable and produces no new effect.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The consequence boundary evidence shows that an exact replay of the close request with the same expectedSourceStateDigest returns already_closed, removed=false, and the tombstone retains the exact source digest. This confirms the original close request already committed, and the intended consequence of converging the original close (without closing a different later world state or inventing a second effect) is already satisfied. Exact replay produces no new consequence and is the correct, safe decision.",
+    "confidence": 0.97
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 975,
+    "outputTokens": 275,
+    "totalTokens": 1250,
+    "elapsedMs": 3657,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:3a4bf20a2ad55e7431bf9ee41be700c64720d7f25830481ec54b1c0f15e0b707",
+  "secretSlot": "deepseek2.json"
+}

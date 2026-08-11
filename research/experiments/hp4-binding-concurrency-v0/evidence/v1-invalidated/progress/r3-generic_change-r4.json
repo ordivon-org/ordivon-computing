@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R3",
+  "owner": "Runtime Workspace",
+  "treatment": "generic_change",
+  "replicate": 4,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "The exact close request with the same expectedSourceStateDigest is replayable per the owner action contract, and exact replay returned already_closed/removed=false in the live probe, confirming idempotent convergence without inventing a second effect.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The intended consequence is to converge the original close request without closing a different later world state or inventing a second effect. The owner action contract explicitly states exact replay is replayable and the live probe confirmed the exact replay returned already_closed/removed=false, proving convergence without side effects. The consequence boundary evidence notes the Workspace is no longer in the open inventory, but the generic signal does not prove which close request caused it, and the owner contract's replayable-exact-close tombstone preserves the sourceStateDigest after physical removal. REPLAY_EXACT is the only choice that guarantees we act on the same expectedSourceStateDigest (not a different world state) and remains idempotent — it neither invents a second effect nor acts unbound on a potentially different state. The risk of the workspace already being closed is handled by the replay path returning already_closed/removed=false, which is a benign convergence.",
+    "confidence": 0.85
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 878,
+    "outputTokens": 371,
+    "totalTokens": 1249,
+    "elapsedMs": 4220,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:a46f4f2b8b9dca22ce99fa0adda9dcbba47dea5427ec5f2e591fe3d094f8acdf",
+  "secretSlot": "deepseek1.json"
+}

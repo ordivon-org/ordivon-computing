@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H3",
+  "owner": "Host external-continuity Task",
+  "treatment": "stale_evidence",
+  "replicate": 2,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "task:computing:hp4-binding-probe-20260811 at expectedRevision=4 with checkpoint frontier=beta-complete, nextActions=[] — exact retry preserving original semantic checkpoint and continuity disposition per owner contract.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The transport observation states the previous checkpoint request may have committed but the response was lost/ambiguous. The intended consequence is to converge the original semantic transition without issuing a different checkpoint or overwriting newer state. The owner action contract explicitly says an exact retry of the same checkpoint and continuity disposition with the same original expectedRevision returns admission=existing if the exact transition already committed at expectedRevision+1. Since the response to the prior attempt was lost, REPLAY_EXACT is the correct decision: it reissues the identical checkpoint, guaranteeing no conflict (a different checkpoint at the same stale expectedRevision would conflict) and no overwrite of newer state. There is no change to the intended consequence or checkpoint content, so no new consequence would be created.",
+    "confidence": 0.92
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "stale_evidence"
+  },
+  "usage": {
+    "inputTokens": 788,
+    "outputTokens": 326,
+    "totalTokens": 1114,
+    "elapsedMs": 4054,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:faed601f9d39883c1d170c567aa3b2d80fc50671be7a72c4a6a4527182fb81c0",
+  "secretSlot": "deepseek1.json"
+}

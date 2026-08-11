@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R1",
+  "owner": "Runtime Workspace",
+  "treatment": "generic_change",
+  "replicate": 2,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "Boundary evidence indicates the owner reports the Workspace source identity advanced after planning. The planning-time evidence (sourceStateDigest, reviewedState, head revision) is now stale for closing the workspace. Per the owner action contract, workspace.close may compare-and-close one exact expectedSourceStateDigest (mismatch → not_committed), so acting on the stale digest risks a failed close. REOBSERVE to obtain the current head revision and exact sourceStateDigest, then decide whether to close unbound, with updated digest, rebase, or replay.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The owner boundary evidence reports the Workspace source identity advanced after planning, meaning the planned close (with the original expectedSourceStateDigest) is no longer safe to execute as planned. Since workspace.close supports compare-and-close on an exact expectedSourceStateDigest with a not_committed failure mode on mismatch, attempting to close with the stale planning-time digest would risk failure. I cannot invent a new digest from an API not listed. The correct move is to reobserve the current state (workspace.get can project currentHeadRevision and exact sourceStateDigest) before choosing between unbound close, bound close with updated digest, or another consequence.",
+    "confidence": 0.92
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 900,
+    "outputTokens": 385,
+    "totalTokens": 1285,
+    "elapsedMs": 5845,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:b0d909c619f635d88d0a533d4c0037c00febe1bc16536aa8fbadd64b2d3784c1",
+  "secretSlot": "deepseek5.json"
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R2",
+  "owner": "Runtime Workspace",
+  "treatment": "generic_change",
+  "replicate": 4,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "The workspace.close contract compares against an exact expectedSourceStateDigest. The planning-time digest (sha256:e5d8008d...) no longer matches because the owner reports the Workspace source identity advanced after planning (ownerChanged=true). Acting with the stale planning binding would fail not_committed. The correct path per the contract is to re-observe the current exact digest and then close against that.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The owner action contract states: \"a mismatched planning digest fails not_committed\" and \"after re-observation a caller may close against the new exact current digest\". The consequence boundary evidence confirms ownerChanged=true — the source identity advanced after planning, meaning the planning-time digest is stale. The only reliable way to close is to re-observe the workspace to obtain the current exact digest, then close against that. Acting with the stale binding (ACT_WITH_PLANNING_BINDING) would fail not_committed. There is no REPLAY_EXACT available for a digest-based close, and acting unbound would violate the compare-and-close exactness requirement. Re-observation is required.",
+    "confidence": 0.95
+  },
+  "metrics": {
+    "semanticAccepted": false,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": true,
+    "progressCorrect": false,
+    "safeConflictOnly": true,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 884,
+    "outputTokens": 359,
+    "totalTokens": 1243,
+    "elapsedMs": 4219,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:76da6ddaf4c66f0f3ed4bded163db29fa698dea84969fbec891099c61c6d2d3c",
+  "secretSlot": "deepseek1.json"
+}

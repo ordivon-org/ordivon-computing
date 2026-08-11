@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R3",
+  "owner": "Runtime Workspace",
+  "treatment": "generic_change",
+  "replicate": 3,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "Owner action contract states the exact close request with the same expectedSourceStateDigest is replayable, and exact replay returned already_closed/removed=false in the live probe; however the consequenceBoundaryEvidence shows owner changed and the workspace is no longer in inventory, the generic signal does not prove which close request caused that state.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The planning-time evidence indicates the close may have committed but the caller never received a trustworthy response, and exact replay is known to be replayable (returning already_closed/removed=false) rather than a fresh commit. However, consequenceBoundaryEvidence reports outcomeUnknown=true and ownerChanged=true: the Workspace is no longer in open inventory, but the generic signal does not prove which close request caused that state. I must not invent an API or infer semantics from a revision alone. I cannot safely conclude the original close tombstone was already committed (which would favor REPLAY_EXACT as a no-op replay), nor can I safely conclude acting would create a new consequence. REOBSERVE_THEN_DECIDE allows re-reading the actual state through the owner's contract to determine whether the original sourceStateDigest tombstone is present (already_closed) before choosing between REPLAY_EXACT and HOLD/REBASE. This avoids both inventing a duplicate close effect and holding forever on uncertainty.",
+    "confidence": 0.8
+  },
+  "metrics": {
+    "semanticAccepted": false,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": true,
+    "progressCorrect": false,
+    "safeConflictOnly": true,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 878,
+    "outputTokens": 406,
+    "totalTokens": 1284,
+    "elapsedMs": 4903,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:a46f4f2b8b9dca22ce99fa0adda9dcbba47dea5427ec5f2e591fe3d094f8acdf",
+  "secretSlot": "deepseek.json"
+}

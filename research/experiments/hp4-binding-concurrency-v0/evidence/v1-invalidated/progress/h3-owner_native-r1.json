@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H3",
+  "owner": "Host external-continuity Task",
+  "treatment": "owner_native",
+  "replicate": 1,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "original semantic transition with expectedRevision=4; exact original replay is confirmed as admission=existing at revision 5, preserving the original continuity disposition without issuing a different checkpoint",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The consequence boundary evidence confirms the exact original replay already committed: ownerActionContract states \"if that exact transition already committed at expectedRevision+1 Host returns admission=existing,\" and the boundary evidence shows \"exactOriginalReplay: admission=existing at revision 5.\" currentRevision (5) equals expectedRevision+1 (4+1=5), and currentFrontier is beta-complete, matching the planning checkpoint. The intended consequence is to converge the original semantic transition without issuing a different checkpoint or overwriting newer state. REPLAY_EXACT issues the same checkpoint with the same expectedRevision, which the owner would recognize as already existing (would_replay_existing), creating no new consequence. A different checkpoint at expectedRevision=4 would conflict (as confirmed by \"differentClaimWithExpectedRevision4: REVISION_CONFLICT/not_committed\"), so that path is avoided. REPLAY_EXACT is the only decision that converges without conflict.",
+    "confidence": 0.97
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 902,
+    "outputTokens": 358,
+    "totalTokens": 1260,
+    "elapsedMs": 4188,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:3abc3bce6d682d571049440ae7e4395e4e6ac633db3fa1d20438435381578948",
+  "secretSlot": "deepseek2.json"
+}

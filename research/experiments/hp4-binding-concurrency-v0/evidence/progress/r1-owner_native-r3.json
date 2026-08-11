@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R1",
+  "owner": "Runtime Workspace",
+  "treatment": "owner_native",
+  "replicate": 3,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "The planning evidence snapshot (head 4e6ce637..., sourceStateDigest sha256:e5d8...) no longer matches the boundary evidence (head 050b3ffa..., sourceStateDigest sha256:9b29...). A new committed .hp4-probe/material.txt represents concurrent work not present in the reviewed planning state. The owner contract permits workspace.close with omitted expectedSourceStateDigest (unbound) or exact compare-and-close, but the current head has changed since planning, so we cannot determine whether the intended close consequence is still appropriate against the new materialization state without fresh observation of the workspace's closure-relevant status.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The boundary evidence shows a REVISION_MISMATCH/not_committed on the planning binding attempt — the concurrent new commit changed the head and sourceStateDigest. Planning-time evidence is stale. Acting unbound would close a workspace that now contains concurrent work not reviewed; acting with the stale planning binding would fail not_committed. We need to reobserve the current workspace state (e.g., via workspace.get to project currentHeadRevision and exact sourceStateDigest, plus determine whether the new material.txt is reviewed/committed) before deciding whether to close unbound, close with the new digest, or rebase-hold. This is the safest path that preserves the owner's intended close while accounting for the legitimate concurrent change.",
+    "confidence": 0.85
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 1035,
+    "outputTokens": 422,
+    "totalTokens": 1457,
+    "elapsedMs": 4929,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:298c49a928a23cb7d143a9c11415ff9de3094cd4f42dfbfade5816554fa123fa",
+  "secretSlot": "deepseek4.json"
+}

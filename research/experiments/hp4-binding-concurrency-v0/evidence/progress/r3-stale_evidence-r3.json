@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R3",
+  "owner": "Runtime Workspace",
+  "treatment": "stale_evidence",
+  "replicate": 3,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "Workspace close is idempotent/replayable per owner contract: repeating the exact close request with the same expectedSourceStateDigest is replayable, and the exact replay returned already_closed/removed=false in the live probe, confirming the tombstone is retained and no new consequence would be created.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The intended consequence is to converge the original close request without closing a different later world state or inventing a second effect. The owner contract explicitly states that repeating the exact close request with the same expectedSourceStateDigest is replayable, and the live probe confirmed exact replay returned already_closed/removed=false — meaning the close tombstone is retained and replay converges without creating a new effect. REPLAY_EXACT is the minimally invasive decision that satisfies the intended consequence: it re-issues the identical request, aligns with the planning binding (same request, same expected digest), does not create a new consequence, and avoids HOLD/REOBSERVE since the live probe already confirms the replay outcome.",
+    "confidence": 0.93
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "stale_evidence"
+  },
+  "usage": {
+    "inputTokens": 828,
+    "outputTokens": 336,
+    "totalTokens": 1164,
+    "elapsedMs": 4352,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:26b664c6425a31d0e065a4cf4ff53144568c4174377b2dbc4d38617a45367fee",
+  "secretSlot": "deepseek2.json"
+}

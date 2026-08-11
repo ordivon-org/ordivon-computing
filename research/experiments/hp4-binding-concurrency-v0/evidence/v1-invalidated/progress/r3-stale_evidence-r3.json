@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R3",
+  "owner": "Runtime Workspace",
+  "treatment": "stale_evidence",
+  "replicate": 3,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "Owner action contract states exact replay of the close request with the same expectedSourceStateDigest is replayable, and the live probe returned already_closed/removed=false, confirming the close is already committed and replayable.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The transport observation indicates the close request may have committed but the caller did not receive a trustworthy response. The owner action contract explicitly says: (1) an exact close tombstone retains sourceStateDigest after physical removal, (2) repeating the exact close request with the same expectedSourceStateDigest is replayable, and (3) exact replay returned already_closed/removed=false in the live probe. This confirms the close already committed and the exact replay is idempotent—it will not close a different world state or create a second effect. Replaying the exact request converges the original close without inventing a new consequence or risking a divergence from the committed state.",
+    "confidence": 0.92
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "stale_evidence"
+  },
+  "usage": {
+    "inputTokens": 828,
+    "outputTokens": 313,
+    "totalTokens": 1141,
+    "elapsedMs": 3700,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:26b664c6425a31d0e065a4cf4ff53144568c4174377b2dbc4d38617a45367fee",
+  "secretSlot": "deepseek2.json"
+}

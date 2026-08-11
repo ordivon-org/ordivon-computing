@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H1",
+  "owner": "Host external-continuity Task",
+  "treatment": "generic_change",
+  "replicate": 1,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "Boundary evidence indicates the Task revision advanced after planning (ownerChanged=true). The owner contract says stale expectedRevision fails REVISION_CONFLICT/not_committed with retryClass=resume_task. Since the revision advanced, the planning-time expectedRevision (revision 2) is likely stale, so acting on the planning binding would risk a conflict/overwrite. Reobserving via task.resume returns one revision-coherent current checkpoint to establish a fresh binding before acting.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The owner changed and the Task revision advanced after planning. The intended consequence is to checkpoint alpha as complete without overwriting another participant's newer semantic work. Since the boundary evidence shows the revision advanced, the planned expectedRevision is stale and acting with the planning binding risks a REVISION_CONFLICT or overwriting newer work. The owner contract provides task.resume to obtain a revision-coherent current checkpoint. Therefore reobserve (resume) to learn the current revision and checkpoint, then decide how to act on a fresh binding so we neither hold forever, lose progress, nor overwrite newer semantic work.",
+    "confidence": 0.88
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 835,
+    "outputTokens": 356,
+    "totalTokens": 1191,
+    "elapsedMs": 4440,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:6ce2d765d55119495441bb10a81c4058f3ba3dc2809ed338d64109540736f2bd",
+  "secretSlot": "deepseek4.json"
+}

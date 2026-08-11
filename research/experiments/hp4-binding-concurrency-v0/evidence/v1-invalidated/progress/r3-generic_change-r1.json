@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R3",
+  "owner": "Runtime Workspace",
+  "treatment": "generic_change",
+  "replicate": 1,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "The owner action contract explicitly declares that repeating the exact close request with the same expectedSourceStateDigest is replayable, and the live probe confirmed exact replay returns already_closed/removed=false. The consequence boundary evidence says outcomeUnknown and ownerChanged, but replaying the exact close request is idempotent and safe regardless of whether the original committed, because it targets the identical source state digest.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The intended consequence is to converge the original close request without closing a different later world state or inventing a second effect. The planning evidence and owner action contract establish that the exact close request with the exact expectedSourceStateDigest is replayable and safe. The boundary evidence indicates the workspace is no longer present in the current open inventory and outcome is unknown about which close caused that, but replaying the exact same request with the same expectedSourceStateDigest cannot target a different later world state (the digest is preserved in the tombstone) and cannot invent a second close effect because the exact replay is declared replayable/idempotent. This is the safest convergence choice: no rebase (which would target a different state), no act-unbound (which would risk creating a new close on an unrelated state), no hold (which would leave the close unknown forever). REPLAY_EXACT converges using the declared replay-safe path.",
+    "confidence": 0.92
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 878,
+    "outputTokens": 398,
+    "totalTokens": 1276,
+    "elapsedMs": 4670,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:a46f4f2b8b9dca22ce99fa0adda9dcbba47dea5427ec5f2e591fe3d094f8acdf",
+  "secretSlot": "deepseek4.json"
+}

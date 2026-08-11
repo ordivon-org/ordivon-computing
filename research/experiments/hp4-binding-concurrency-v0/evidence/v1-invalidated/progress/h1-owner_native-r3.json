@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H1",
+  "owner": "Host external-continuity Task",
+  "treatment": "owner_native",
+  "replicate": 3,
+  "submission": {
+    "decision": "REBASE_AND_ACT",
+    "bindingBasis": "The planning evidence referenced revision 2 / alpha-ready frontier, but the boundary now shows revision 3 / beta-concurrent. The owner contract says stale expectedRevision fails with REVISION_CONFLICT/not_committed and retryClass=resume_task. The evidence also shows a REVISION_CONFLICT/not_committed was already attempted at planning time. Rebasing onto the current revision (3, beta-concurrent) is required before checkpointing alpha-as-complete will succeed, and the intended consequence remains valid to attempt after rebase.",
+    "predictedOwnerDisposition": "uncertain",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The intended consequence is to checkpoint alpha as complete without overwriting another participant's newer semantic work. However, the boundary evidence shows currentRevision=3 and currentFrontier=beta-concurrent, meaning another participant advanced the work. Planning evidence assumed revision 2 with alpha-ready frontier, and the planning-time revision attempt already hit REVISION_CONFLICT/not_committed. Per the owner contract, stale expectedRevision fails and task.resume returns the current coherent checkpoint. Since the frontier changed from alpha to beta and the next action changed, acting directly against a stale revision is invalid. REBASE_AND_ACT is the decision that recovers the current coherent state (revision 3, beta-concurrent) before attempting the checkpoint, preserving the intent without overwriting another participant's semantic work. The predicted owner disposition is uncertain because whether the owner will commit depends on whether the rebased checkpoint aligns with the existing beta-concurrent semantics — but the contract's retryClass=resume_task signals the intended recovery path.",
+    "confidence": 0.78
+  },
+  "metrics": {
+    "semanticAccepted": false,
+    "falseConsequence": true,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": false,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": false,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": false,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 928,
+    "outputTokens": 450,
+    "totalTokens": 1378,
+    "elapsedMs": 5170,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:046307b86e5834043a60ee979968ca997c342f29188151bf5377e2af2de3ec1e",
+  "secretSlot": "deepseek4.json"
+}

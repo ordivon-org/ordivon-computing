@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H1",
+  "owner": "Host external-continuity Task",
+  "treatment": "stale_evidence",
+  "replicate": 3,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "planningEvidence.revision=2 is stale relative to the owner action contract's expectedRevision requirement; the intended consequence must not overwrite another participant's newer semantic work, so we need current revision state before acting.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The planning evidence has revision=2 with checkpointDigest sha256:ca2a..., while the owner action contract requires an exact expectedRevision for task.checkpoint, and stale expectedRevision fails with REVISION_CONFLICT/not_committed. The intended consequence explicitly requires not overwriting another participant's newer semantic work. We cannot determine whether the current revision still matches the planned checkpoint without reobserving. Acting with the stale planning binding risks an overwrite or a guaranteed REVISION_CONFLICT, and the contract does not authorize a blind rebase. Reobserve to obtain a revision-coherent current checkpoint via task.resume before choosing whether to ACT, REBASE, or HOLD.",
+    "confidence": 0.85
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "stale_evidence"
+  },
+  "usage": {
+    "inputTokens": 811,
+    "outputTokens": 320,
+    "totalTokens": 1131,
+    "elapsedMs": 4123,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:e4993975d9d35fb6ea1f90bdbaf7abab9fc98646e20cc2bc5621c497f46f182f",
+  "secretSlot": "deepseek2.json"
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H3",
+  "owner": "Host external-continuity Task",
+  "treatment": "owner_native",
+  "replicate": 2,
+  "submission": {
+    "decision": "HOLD",
+    "bindingBasis": "Consequence boundary evidence shows currentRevision=5, frontier=beta-complete, exact original replay yields admission=existing at revision 5, confirming the intended semantic transition already committed. A different claim with expectedRevision 4 yields REVISION_CONFLICT/not_committed. Replaying again risks nothing but also accomplishes nothing new; holding recognizes the original transition has already converged without issuing a new checkpoint or overwriting newer state.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The exact original replay already produced admission=existing at revision 5, and the owner contract states \"if that exact transition already committed at expectedRevision+1 Host returns admission=existing\". The checkpoint at revision 5 has achieved the original semantic transition (frontier=beta-complete). Replaying exact would return the same existing admission; REPLAY_EXACT is the closest conforming action but since the consequence is already fully converged, HOLD best matches the intent \"Converge the original semantic transition without issuing a different checkpoint or overwriting newer state\" — no new consequence is needed and none should be created. The system is already at steady state.",
+    "confidence": 0.85
+  },
+  "metrics": {
+    "semanticAccepted": false,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": true,
+    "progressCorrect": false,
+    "safeConflictOnly": true,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": false,
+    "predictedDispositionCorrect": false,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 902,
+    "outputTokens": 350,
+    "totalTokens": 1252,
+    "elapsedMs": 4366,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:3abc3bce6d682d571049440ae7e4395e4e6ac633db3fa1d20438435381578948",
+  "secretSlot": "deepseek3.json"
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R2",
+  "owner": "Runtime Workspace",
+  "treatment": "owner_native",
+  "replicate": 1,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "The planning-time source state digest (sha256:e5d8008d...) differs from the current source state digest (sha256:79bcb09f...). Although the tree bytes are reported identical and only an empty Git commit changed the head revision, the workspace.close contract requires matching the expectedSourceStateDigest exactly, and the planning-time digest will fail not_committed. The prior planning binding attempt already returned REVISION_MISMATCH/not_committed.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The owner action contract (workspace.close) is compare-and-close against an exact expectedSourceStateDigest. The planning-time digest (e5d8008d...) no longer matches the current digest (79bcb09f...), so any close attempted against the planning binding will return not_committed. The evidence notes that the only change was an empty Git commit with identical tree bytes, so the new digest reflects a revision change but not content change. However, per the contract, a caller must re-observe and close against the new exact current digest. The intended consequence (close the workspace) is still achievable, but it requires a re-observation step first to obtain and bind to the current digest. Acting with the planning binding would fail not_committed; acting unbound would risk closing against a fresh observation that the owner may or may not accept. The clean path is REOBSERVE_THEN_DECIDE: gather the current exact digest and then act with that binding.",
+    "confidence": 0.9
+  },
+  "metrics": {
+    "semanticAccepted": false,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": true,
+    "progressCorrect": false,
+    "safeConflictOnly": true,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 1042,
+    "outputTokens": 436,
+    "totalTokens": 1478,
+    "elapsedMs": 5116,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:9d53ba024fab45926203a98180ca3c0389350f2aefad257f93b583f29209494d",
+  "secretSlot": "deepseek2.json"
+}

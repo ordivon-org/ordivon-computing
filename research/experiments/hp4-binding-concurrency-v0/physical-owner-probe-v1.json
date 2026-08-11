@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-owner-binding-physical-probe",
+  "status": "frozen_before_agent_trials",
+  "computingBaseRevision": "4e6ce6372517d821336b75ccd1f43c90c983d59a",
+  "ownerSourceObservations": {
+    "runtime": {
+      "repository": "/root/projects/ordivon-runtime",
+      "revision": "68275eb1af61b9bb837f09a8058d49fc01b36080",
+      "relevantCurrentContracts": [
+        "workspace.get projects exact currentHeadRevision and sourceStateDigest without mutation",
+        "workspace.close may compare-and-close one exact expectedSourceStateDigest",
+        "exact close replay survives through a closed tombstone",
+        "Runtime request/effect replay is resolved by durable identity before current authority/world checks where the owner contract says so"
+      ]
+    },
+    "host": {
+      "repository": "/root/projects/ordivon-host",
+      "revision": "6495822162c69179e8ad4f8a0d79cc42902ff599",
+      "mcpSchemaDigest": "sha256:382abe793d2e41470d91f1efc00d76152ff1fdbae3cac53adcad511d8211780c",
+      "relevantCurrentContracts": [
+        "task.checkpoint requires expectedRevision",
+        "concurrent revision movement fails stale semantic mutation with REVISION_CONFLICT and commitState=not_committed",
+        "exact replay of the same checkpoint and continuity disposition at the original expectedRevision returns admission=existing after response loss",
+        "a different semantic claim at the same stale expectedRevision conflicts rather than overwriting current Task state"
+      ]
+    }
+  },
+  "runtimeLiveProbe": {
+    "initial": {
+      "head": "4e6ce6372517d821336b75ccd1f43c90c983d59a",
+      "tree": "4ade3056f881af653cf917443ba49a30fdd0e1b5",
+      "sourceStateDigest": "sha256:e5d8008d22495e6f0f4e5c66c0ffe9377b031ca7c3970d2391e8076a3e62ce64"
+    },
+    "materialChange": {
+      "head": "050b3ffa5c220f03d7c499c4b71af2280b43b1ba",
+      "tree": "1c06e41d24986dbf501cc4b35bdb271291c6ffe8",
+      "sourceStateDigest": "sha256:9b29fb713bc78da02934439c05ca1a71d6f237799071d681fecb364cc4828af4",
+      "change": "new committed .hp4-probe/material.txt representing unreviewed concurrent work",
+      "staleBoundClose": {
+        "expectedDigest": "sha256:e5d8008d22495e6f0f4e5c66c0ffe9377b031ca7c3970d2391e8076a3e62ce64",
+        "result": "REVISION_MISMATCH",
+        "commitState": "not_committed"
+      },
+      "currentBoundClose": {
+        "expectedDigest": "sha256:9b29fb713bc78da02934439c05ca1a71d6f237799071d681fecb364cc4828af4",
+        "result": "removed"
+      }
+    },
+    "identityOnlyChange": {
+      "head": "cc96f4346cfacb19008f564a4e4584e7e701985a",
+      "treeBefore": "4ade3056f881af653cf917443ba49a30fdd0e1b5",
+      "treeAfter": "4ade3056f881af653cf917443ba49a30fdd0e1b5",
+      "sourceStateDigest": "sha256:79bcb09fe7a38dcbb48696f02eb31b8847518cd7599a06f8fca4872e4b135127",
+      "change": "empty Git commit: revision/sourceStateDigest changed while tree bytes remained identical",
+      "staleBoundClose": {
+        "expectedDigest": "sha256:e5d8008d22495e6f0f4e5c66c0ffe9377b031ca7c3970d2391e8076a3e62ce64",
+        "result": "REVISION_MISMATCH",
+        "commitState": "not_committed"
+      },
+      "currentBoundClose": {
+        "expectedDigest": "sha256:79bcb09fe7a38dcbb48696f02eb31b8847518cd7599a06f8fca4872e4b135127",
+        "result": "removed"
+      },
+      "exactReplayAfterClose": {
+        "expectedDigest": "sha256:79bcb09fe7a38dcbb48696f02eb31b8847518cd7599a06f8fca4872e4b135127",
+        "result": "already_closed",
+        "removed": false
+      }
+    },
+    "unboundMaterialClose": {
+      "initialObservedDigest": "sha256:e5d8008d22495e6f0f4e5c66c0ffe9377b031ca7c3970d2391e8076a3e62ce64",
+      "concurrentHead": "bc5de110ecc021bc3195b8ac1ce69afb33d731ea",
+      "change": "new committed .hp4-probe/unbound.txt not observed by the stale caller",
+      "closeRequestIncludedExpectedDigest": false,
+      "result": "removed",
+      "removedStateDigest": "sha256:e34b892af48b9c02343935d9dca79528feca72452d2f21aa1ef5ce32ec6d1477",
+      "interpretation": "Runtime does not pretend optional binding was requested. A stale caller that omits expectedSourceStateDigest can close a clean Workspace whose source advanced after the caller's observation."
+    }
+  },
+  "hostLiveProbe": {
+    "taskId": "task:computing:hp4-binding-probe-20260811",
+    "initial": {
+      "revision": 2,
+      "frontier": "alpha-ready",
+      "checkpointDigest": "sha256:ca2a79e591ac85741f4824c33efc0c38d8093e996aac5f0297641bcab637fe8b"
+    },
+    "materialConcurrentChange": {
+      "revision": 3,
+      "frontier": "beta-concurrent",
+      "checkpointDigest": "sha256:797fa3dabd319e5db678b9ac7dd00c8acf2e7bab7e1bb8f1db3bcc3b769087f3",
+      "staleAlphaCompletionAtExpectedRevision2": {
+        "result": "REVISION_CONFLICT",
+        "retryClass": "resume_task",
+        "commitState": "not_committed"
+      }
+    },
+    "semanticallyEquivalentAdvance": {
+      "revision": 4,
+      "frontier": "beta-concurrent",
+      "nextActions": ["continue beta"],
+      "checkpointDigest": "sha256:5957de6b8db5713d15ff6455ffdd3b28d0ff44f2cfc3ffb3dded993253d09e27",
+      "differenceFromRevision3": "only an additional established evidence statement; decision frontier and next action remained unchanged",
+      "staleBetaCompletionAtExpectedRevision3": {
+        "result": "REVISION_CONFLICT",
+        "retryClass": "resume_task",
+        "commitState": "not_committed"
+      }
+    },
+    "rebasedCompletion": {
+      "expectedRevision": 4,
+      "resultRevision": 5,
+      "frontier": "beta-complete",
+      "checkpointDigest": "sha256:ec02e7a34ea2b8dad30a73850f15c6c390e5e6a4176b89da1ba51abb997c1bd5",
+      "firstAdmission": "created",
+      "exactResponseLossReplay": "existing",
+      "differentClaimAtExpectedRevision4": {
+        "result": "REVISION_CONFLICT",
+        "commitState": "not_committed"
+      }
+    }
+  },
+  "scope": "These probes validate current owner mechanisms only. They do not prove that an Agent will choose the right mechanism, do not authorize a shared temporal package, and do not turn exact identity movement into a universal semantic-change rule."
+}

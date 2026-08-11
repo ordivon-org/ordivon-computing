@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H2",
+  "owner": "Host external-continuity Task",
+  "treatment": "generic_change",
+  "replicate": 1,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "planningEvidence plannedCheckpoint frontier=beta-complete; task.checkpoint requires expectedRevision; consequenceBoundaryEvidence shows Task revision advanced after planning, so the plan's expectedRevision is stale and must be re-presented against the current revision.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The owner contract states task.checkpoint requires expectedRevision, and stale expectedRevision fails with REVISION_CONFLICT/not_committed. The boundary evidence confirms the Task revision advanced after planning, so the originally planned checkpoint action (frontier=beta-complete) is now using a stale revision. However, the contract also states \"after resume a semantically still-applicable checkpoint may be rebased onto the current revision.\" But since I have not re-observed the current Task state, I cannot confirm the semantic applicability on the new revision. REBASE_AND_ACT would require knowing the current revision to rebase onto. Given uncertainty about the exact current revision contents, REPLAY_EXACT re-presents the intended consequence (checkpoint beta as complete) against the owner at the boundary, letting the owner determine whether it still applies to the current revision — this avoids falsely claiming a new consequence while preserving the intended action. This maximizes lexicographic optimization: no false/duplicate consequence (not rebasing to a new revision blindly), preserves progress by presenting the checkpoint, and minimizes extra coordination.",
+    "confidence": 0.72
+  },
+  "metrics": {
+    "semanticAccepted": false,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": false,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 848,
+    "outputTokens": 401,
+    "totalTokens": 1249,
+    "elapsedMs": 5166,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:12df7372019a40c3af4997e670762983b83d9e4b255a04bc2e8279ce4f31bc81",
+  "secretSlot": "deepseek4.json"
+}

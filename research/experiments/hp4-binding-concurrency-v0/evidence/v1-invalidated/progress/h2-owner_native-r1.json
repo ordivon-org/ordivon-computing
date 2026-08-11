@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H2",
+  "owner": "Host external-continuity Task",
+  "treatment": "owner_native",
+  "replicate": 1,
+  "submission": {
+    "decision": "REBASE_AND_ACT",
+    "bindingBasis": "Owner contract explicitly states: \"after resume a semantically still-applicable checkpoint may be rebased onto the current revision.\" The planning-time evidence attempted at revision 3 (failed REVISION_CONFLICT/not_committed because current revision is 4). The evidence payload shows the rebased attempt at expectedRevision 4 was already created as revision 5 with frontier=beta-complete. The boundary evidence confirms the semantic state is unchanged (frontier=beta-concurrent and next actions identical), only an established evidence statement was appended. Therefore the checkpoint remains semantically applicable and should be rebased/acted upon per the owner contract.",
+    "predictedOwnerDisposition": "would_commit",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The owner contract permits rebasing a semantically still-applicable checkpoint after a stale expectedRevision conflict. The consequence boundary evidence confirms the current revision is 4 (planning evidence had revision 3), but frontier and next actions are identical — the only difference is an appended evidence statement, which does not change the semantic applicability of checking beta as complete. The planning evidence's intended consequence (checkpoint beta as complete) remains semantically supported. The rebased attempt (expectedRevision=4) has already been made and created revision 5 with frontier=beta-complete, so this trial's consequence is already realized. I choose REBASE_AND_ACT per the owner contract, which is the semantically-correct rebased checkpoint action. No new consequence is created since revision 5 already reflects this outcome.",
+    "confidence": 0.93
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 970,
+    "outputTokens": 419,
+    "totalTokens": 1389,
+    "elapsedMs": 5054,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:813c29c6e07602c7156e1ae00073664603eec9ed2f5d4d403b33098aa2b1bdfc",
+  "secretSlot": "deepseek2.json"
+}

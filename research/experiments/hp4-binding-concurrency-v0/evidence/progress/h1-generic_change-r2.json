@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H1",
+  "owner": "Host external-continuity Task",
+  "treatment": "generic_change",
+  "replicate": 2,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "Planning evidence revision=2 is stale: consequence boundary evidence indicates the Task revision advanced after planning (ownerChanged=true). The owner contract requires expectedRevision for task.checkpoint, and stale expectedRevision fails with REVISION_CONFLICT/not_committed with retryClass=resume_task.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The planning evidence is at revision 2, but consequenceBoundaryEvidence confirms the Task revision advanced after planning (ownerChanged=true). Under the owner action contract, task.checkpoint requires an expectedRevision, and a stale expectedRevision will fail with REVISION_CONFLICT/not_committed. The correct path per the contract is task.resume to obtain one revision-coherent current checkpoint, then re-decide. Acting unbound or with stale planning binding would risk overwriting another participant's newer semantic work, which violates the intended consequence. I should reobserve the current revision before deciding whether to checkpoint, hold, or rebase.",
+    "confidence": 0.9
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 835,
+    "outputTokens": 324,
+    "totalTokens": 1159,
+    "elapsedMs": 4203,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:6ce2d765d55119495441bb10a81c4058f3ba3dc2809ed338d64109540736f2bd",
+  "secretSlot": "deepseek5.json"
+}

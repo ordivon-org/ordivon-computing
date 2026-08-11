@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H3",
+  "owner": "Host external-continuity Task",
+  "treatment": "owner_native",
+  "replicate": 2,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "Owner contract states an exact retry of the same checkpoint with the same original expectedRevision returns admission=existing if already committed. ConsequenceBoundaryEvidence confirms exactOriginalReplay=admission=existing at revision 5, and the current frontier is beta-complete (unchanged), so replaying exactly converges the semantic transition without issuing a different checkpoint or overwriting newer state.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The intended consequence is to converge the original semantic transition without issuing a different checkpoint or overwriting newer state. The owner contract explicitly supports exact retry with the same checkpoint and same original expectedRevision. The boundary evidence shows exactOriginalReplay=admission=existing at revision 5, meaning the transition already committed on the owner side. A different claim with stale expectedRevision 4 yields REVISION_CONFLICT/not_committed, so REBASE_AND_ACT or a different checkpoint would conflict. Current revision is 5 (expectedRevision+1), matching the contract's \"already committed at expectedRevision+1 → admission=existing\" case. REBLAY_EXACT is the only decision that converges without issuing a different checkpoint or overwriting newer state, and it produces no new consequence (admission=existing is a replay confirmation, not a new checkpoint).",
+    "confidence": 0.96
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 902,
+    "outputTokens": 384,
+    "totalTokens": 1286,
+    "elapsedMs": 4779,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:3abc3bce6d682d571049440ae7e4395e4e6ac633db3fa1d20438435381578948",
+  "secretSlot": "deepseek3.json"
+}

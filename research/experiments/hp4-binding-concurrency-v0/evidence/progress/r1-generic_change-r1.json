@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R1",
+  "owner": "Runtime Workspace",
+  "treatment": "generic_change",
+  "replicate": 1,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "The owner reports ownerChanged=true and that Workspace source identity advanced after planning. The planning evidence (head, tree, sourceStateDigest) is now stale. The intended consequence (close workspace, release materialization) is a compare-and-close operation that depends on exact source state. Per the owner action contract, a mismatched expectedSourceStateDigest fails not_committed. Since the owner reports the source identity advanced, acting with the planning binding risks a failed comparison. I need to reobserve current state before deciding whether to close (ACT with current digest) or hold/rebase.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The owner explicitly reports that Workspace source identity advanced after planning (ownerChanged=true). The planned consequence is a compare-and-close that requires an exact expectedSourceStateDigest. Using the stale planning-time digest would cause not_committed. Before choosing ACT (unbound, or with a rebased/current binding), HOLD, or another path, I must first reobserve the current head/sourceStateDigest via workspace.get so the consequence can be applied against the correct, current state. Acting now with stale planning evidence risks a failed compare-and-close.",
+    "confidence": 0.88
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 900,
+    "outputTokens": 372,
+    "totalTokens": 1272,
+    "elapsedMs": 5953,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:b0d909c619f635d88d0a533d4c0037c00febe1bc16536aa8fbadd64b2d3784c1",
+  "secretSlot": "deepseek4.json"
+}

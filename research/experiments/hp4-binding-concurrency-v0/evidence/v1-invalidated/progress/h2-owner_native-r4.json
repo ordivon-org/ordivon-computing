@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H2",
+  "owner": "Host external-continuity Task",
+  "treatment": "owner_native",
+  "replicate": 4,
+  "submission": {
+    "decision": "REBASE_AND_ACT",
+    "bindingBasis": "Owner contract explicitly permits rebasing a semantically still-applicable checkpoint onto the current revision; the evidence confirms only an established evidence statement was appended (frontier and next actions unchanged), so the semantic transition to beta-complete remains applicable. The rebased attempt already created revision 5 with frontier=beta-complete.",
+    "predictedOwnerDisposition": "would_commit",
+    "wouldCreateNewConsequence": false,
+    "rationale": "Planning evidence targeted revision 3 but current revision is 4; the revision-conflict attempt already failed (not committed), and the rebased attempt with expectedRevision=4 already produced revision 5 with frontier=beta-complete. The difference between planning and current is only an appended evidence statement; frontier remains beta-concurrent and next actions remain \"continue beta\", so the semantic checkpoint transition is still applicable. The owner contract explicitly allows rebasing a still-applicable checkpoint. The consequence has already been created (revision 5 exists), so this is not a new consequence—the correct action is to rebase-and-act consistent with the existing rebased outcome.",
+    "confidence": 0.88
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 970,
+    "outputTokens": 327,
+    "totalTokens": 1297,
+    "elapsedMs": 4203,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:813c29c6e07602c7156e1ae00073664603eec9ed2f5d4d403b33098aa2b1bdfc",
+  "secretSlot": "deepseek5.json"
+}

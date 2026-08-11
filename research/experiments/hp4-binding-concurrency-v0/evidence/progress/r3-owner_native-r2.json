@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R3",
+  "owner": "Runtime Workspace",
+  "treatment": "owner_native",
+  "replicate": 2,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "Boundary evidence shows the exact replay request (workspaceId hp4-runtime-equivalent-probe-20260811 with expectedSourceStateDigest sha256:79bcb...127) returns already_closed / removed=false, and the tombstone retains the exact same sourceStateDigest, matching the owner contract's replayability condition. This converges the original close request without inventing a second effect.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The owner action contract states that (1) an exact close tombstone retains sourceStateDigest after physical removal, and (2) repeating the exact close request with the same expectedSourceStateDigest is replayable. The consequence boundary evidence confirms both: exact replay returned already_closed (removed=false) and the tombstone retains the same sourceStateDigest as the request. The intended consequence is to converge the original close request without closing a different later world state or inventing a second effect. Since the exact replay returns already_closed with the matching digest, the original request is already satisfied by the existing tombstone; replaying the exact close converges it idempotently and creates no new consequence. This is optimal lexicographically: it prevents a false/duplicate/overwrite consequence (no new effect), preserves useful progress (already-closed tombstone is confirmed), and minimizes extra coordination.",
+    "confidence": 0.97
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 975,
+    "outputTokens": 396,
+    "totalTokens": 1371,
+    "elapsedMs": 4310,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:3a4bf20a2ad55e7431bf9ee41be700c64720d7f25830481ec54b1c0f15e0b707",
+  "secretSlot": "deepseek3.json"
+}

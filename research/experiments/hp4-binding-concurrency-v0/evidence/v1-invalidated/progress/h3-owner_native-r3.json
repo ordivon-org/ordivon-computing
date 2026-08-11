@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H3",
+  "owner": "Host external-continuity Task",
+  "treatment": "owner_native",
+  "replicate": 3,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "The exact replay was already confirmed as admission=existing at revision 5, meaning the original checkpoint transition already committed. Current revision is 5, current frontier is beta-complete matching the intended consequence. A different checkpoint at expectedRevision 4 conflicts, so REPLAY_EXACT is the only way to converge without issuing a different checkpoint or overwriting newer state.",
+    "predictedOwnerDisposition": "would_replay_existing",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The consequence boundary evidence confirms that replaying the exact original checkpoint at expectedRevision 4 yields admission=existing at revision 5. The current frontier (beta-complete) already converges the original semantic transition. A different claim at expectedRevision 4 returns REVISION_CONFLICT/not_committed, and issuing anything other than the exact original checkpoint with the same expectedRevision would either conflict or create a new consequence. REPLAY_EXACT satisfies the owner contract: same checkpoint, same continuity disposition, same original expectedRevision, and converges without overwriting newer state at revision 5.",
+    "confidence": 0.97
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "owner_native"
+  },
+  "usage": {
+    "inputTokens": 902,
+    "outputTokens": 321,
+    "totalTokens": 1223,
+    "elapsedMs": 4177,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:3abc3bce6d682d571049440ae7e4395e4e6ac633db3fa1d20438435381578948",
+  "secretSlot": "deepseek4.json"
+}

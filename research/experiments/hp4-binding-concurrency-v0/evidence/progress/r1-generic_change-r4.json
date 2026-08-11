@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "R1",
+  "owner": "Runtime Workspace",
+  "treatment": "generic_change",
+  "replicate": 4,
+  "submission": {
+    "decision": "REOBSERVE_THEN_DECIDE",
+    "bindingBasis": "The owner reports ownerChanged: true and workspace source identity advanced after planning. The planning evidence sourceStateDigest may no longer match the current workspace state.",
+    "predictedOwnerDisposition": "requires_reobservation",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The boundary evidence explicitly indicates ownerChanged: true, meaning the Workspace source identity advanced after planning. The planning-time sourceStateDigest (sha256:e5d8008d...) is now stale and may no longer match the current workspace state. Since workspace.close may compare-and-close one exact expectedSourceStateDigest, and a mismatched digest would fail as not_committed, acting now risks a failed consequence. Reobserving (via workspace.get to project currentHeadRevision and exact sourceStateDigest) is required before we can safely decide whether to rebase, replay, or act unbound. Proceeding without reobservation could either waste effort on a stale binding or trigger a not_committed failure.",
+    "confidence": 0.88
+  },
+  "metrics": {
+    "semanticAccepted": true,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": false,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": true,
+    "treatment": "generic_change"
+  },
+  "usage": {
+    "inputTokens": 900,
+    "outputTokens": 312,
+    "totalTokens": 1212,
+    "elapsedMs": 4327,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:b0d909c619f635d88d0a533d4c0037c00febe1bc16536aa8fbadd64b2d3784c1",
+  "secretSlot": "deepseek1.json"
+}

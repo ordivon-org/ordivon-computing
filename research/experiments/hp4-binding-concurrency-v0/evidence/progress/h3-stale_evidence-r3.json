@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hp4-binding-concurrency-trial",
+  "scenario": "H3",
+  "owner": "Host external-continuity Task",
+  "treatment": "stale_evidence",
+  "replicate": 3,
+  "submission": {
+    "decision": "REPLAY_EXACT",
+    "bindingBasis": "Owner action contract: exact retry with same checkpoint and continuity disposition at original expectedRevision=4; transport observation indicates the checkpoint request may have committed but response lost/ambiguous, so replaying the exact transition is the correct convergence.",
+    "predictedOwnerDisposition": "would_commit",
+    "wouldCreateNewConsequence": false,
+    "rationale": "The task is to converge the original semantic transition without issuing a different checkpoint or overwriting newer state. The transport observation states the checkpoint request may have committed but the response is lost/ambiguous. The owner action contract explicitly supports \"exact retry\" with the same checkpoint and continuity disposition at the same original expectedRevision=4, and if it already committed at expectedRevision+1 the Host returns admission=existing. REPLAY_EXACT is the optimal choice: it avoids a false/duplicate/overwrite consequence (if already committed, host returns existing), preserves progress, and requires no extra coordination or reobservation.",
+    "confidence": 0.92
+  },
+  "metrics": {
+    "semanticAccepted": false,
+    "falseConsequence": false,
+    "duplicateOrOverwriteRisk": false,
+    "unnecessaryHold": false,
+    "progressCorrect": true,
+    "safeConflictOnly": false,
+    "exactReplayCorrect": true,
+    "authoritySafe": true,
+    "ownerBindingUsed": true,
+    "predictedDispositionCorrect": false,
+    "treatment": "stale_evidence"
+  },
+  "usage": {
+    "inputTokens": 788,
+    "outputTokens": 299,
+    "totalTokens": 1087,
+    "elapsedMs": 4220,
+    "transportRetries": 0,
+    "providerProtocolRetries": 0,
+    "providerCalls": 1
+  },
+  "visibleContextDigest": "sha256:faed601f9d39883c1d170c567aa3b2d80fc50671be7a72c4a6a4527182fb81c0",
+  "secretSlot": "deepseek2.json"
+}
