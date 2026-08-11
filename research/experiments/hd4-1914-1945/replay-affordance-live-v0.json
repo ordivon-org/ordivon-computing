@@ -1,0 +1,647 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd4-historical-replay-live",
+  "provider": "deepseek",
+  "treatment": "affordance",
+  "replicatesPerCase": 3,
+  "strictSchemaValidation": true,
+  "invalidTrialsPreservedWithoutResampling": true,
+  "records": [
+    {
+      "replayId": "HR4-A03",
+      "hiddenTrajectoryId": "HD4-A03",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Angular precision and timely end-to-end integration: long-wavelength stations detect aircraft at useful range but give coarse bearing/altitude, and the detection-to-plot-to-fighter loop is not yet wired into one network, so warning may arrive too late or be too coarse to change intercept decisions.",
+        "routes": [
+          {
+            "route": "Continue building fixed long-wavelength coastal stations with directional arrays, investing in bearing/altitude calibration and range repeatability trials.",
+            "decision": "continue",
+            "reason": "Evidence shows long-wavelength sets already detect large aircraft at useful distances; the gap is precision and integration, which are addressable with current hardware. Deployment is fast and the threat is near-term."
+          },
+          {
+            "route": "Push shorter-wavelength research as primary route to win angular resolution, accepting current low practical power.",
+            "decision": "defer",
+            "reason": "Better angular resolution is attractive, but available sources at short wavelengths are far less powerful; without a future high-power source (unavailable) this route cannot yet deliver useful detection range, so it should be kept as a laboratory track rather than the main fielding route."
+          },
+          {
+            "route": "Rely on visual/acoustic observers feeding a wired reporting network as the near-term warning backbone.",
+            "decision": "defer",
+            "reason": "Observers and reporting/plotting rooms exist and are cheap to integrate, but aircraft speed makes visual/acoustic warning alone increasingly late; this route complements rather than replaces radio detection."
+          },
+          {
+            "route": "Diversify into compact airborne/mobile detection systems.",
+            "decision": "abandon",
+            "reason": "Fixed coastal stations are explicitly easier to build quickly than airborne/mobile systems, and the threat is near-term; mobile hardware at this power/frequency stage would trade away the range already demonstrated by fixed stations."
+          }
+        ],
+        "topRoute": "Continue building fixed long-wavelength coastal stations with directional arrays, investing in bearing/altitude calibration and range repeatability trials.",
+        "nextDiscriminatingTest": "Run a controlled acceptance trial of two to three fixed long-wavelength coastal stations where the aircraft tracking target sequence (courses, speeds, altitudes) is scripted and blinded, measuring, per station and pair: detection range, bearing repeatability and angular error versus true track, altitude discrimination, false-alarm and missed-detection counts. Pass criteria are set against whether a reported bearing/altitude/range estimate can be handed to a plotting room early enough to change a fighter intercept vector, not merely against whether contact is detected.",
+        "requiredComplements": [
+          "telephone/wired reporting links from each coastal station into the existing plotting room and fighter-command organization",
+          "trained plotting-room staff and fighter direction procedure to translate bearing/range/altitude into an intercept vector",
+          "scripted aircraft tracking targets with known courses, speeds and altitudes for the acceptance trial",
+          "existing vacuum-tube transmitter/receiver and directional-antenna manufacturing capacity to build several stations"
+        ],
+        "mainFailureRisks": [
+          "Even integrated fixed stations may read bearing/altitude too coarsely to cue fighter intercepts, so detection never becomes an actionable early warning.",
+          "False alarms and missed detections at the detection threshold could swamp plotting rooms and erode confidence in the whole network.",
+          "Short-wavelength laboratory gains may be needed for true angular resolution but current low power cannot yet reach useful range, leaving a precision cliff between routes.",
+          "Manufacturing and commissioning several stations may be slowed by finite radio hardware capacity, delaying the near-term capability."
+        ],
+        "generalizationBoundary": "Success is defined as demonstrated early-enough actionable warning for interception decisions on large aircraft with fixed long-wavelength stations in a coastal context; it does not generalize to compact airborne/mobile systems, to single-passenger/isolation targets below the resolution of the current hardware, or to ranges/powers achievable only with future high-power microwave sources that are unavailable at this frontier.",
+        "unresolvedUnknowns": [
+          "whether fixed long-wavelength arrays can hold angular/altitude precision adequate for fighter cueing at the ranges where detection is reliable",
+          "what real false-alarm and missed-detection rates will obtain in coastal operating conditions, not just scripted trials",
+          "how quickly short-wavelength source power can be pushed within contemporary vacuum-tube capability and whether it can reach useful range before the near-term threat window closes"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only the supplied contemporary capabilities: constructing fixed long-wavelength transmitters/receivers and directional arrays; running aircraft-detection trials with existing radio hardware (scripted, blinded trials are ordinary trial procedure); building small numbers of stations with available manufacturing; and wiring them through existing telephone/radio links, plotting rooms, observers and fighter-command organizations. Frequency/power/antenna changes stay within contemporary vacuum-tube limits. Laboratory monitoring of higher-frequency sources is a continue-track observation only and explicitly assumes no high-power cavity magnetron or any later instrument; no post-reference capability is imported."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 1279,
+        "outputTokens": 1142,
+        "totalTokens": 2421,
+        "elapsedMs": 24993,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A03",
+      "hiddenTrajectoryId": "HD4-A03",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Converting radio detection of aircraft into an early-enough, integrated interception decision, given coarse angular/altitude precision of long-wavelength systems and finite radio manufacturing capacity.",
+        "routes": [
+          {
+            "route": "Fixed coastal long-wavelength chain plus wired/radio reporting integration into an existing plotting/fighter-command network",
+            "decision": "continue",
+            "reason": "Matches near-term threat, uses fixed stations that can be built quickly, and directly addresses the detection-to-action integration bottleneck rather than only improving raw precision."
+          },
+          {
+            "route": "Push shorter-wavelength experimentation to improve angular resolution before building out the network",
+            "decision": "defer",
+            "reason": "Better resolution is valuable but current low practical power at those wavelengths risks late, unreliable service within the deployment window; keep it as a complement rather than the near-term backbone."
+          },
+          {
+            "route": "Build many low-cost, low-precision visual/acoustic reporting posts first",
+            "decision": "defer",
+            "reason": "Cheap and fast but visual/acoustic warning is increasingly late against fast aircraft, so it cannot alone change interception outcomes."
+          }
+        ],
+        "topRoute": "Fixed coastal long-wavelength chain plus wired/radio reporting integration into an existing plotting/fighter-command network",
+        "nextDiscriminatingTest": "Conduct an end-to-end field trial: a fixed long-wavelength coastal station detecting a target aircraft at useful range and feeding bearing/range via wired link into a live plotting room with fighters scrambled, measuring the full detection-to-interception decision latency and whether placement/bearing repeatability is sufficient for a fighter vector.",
+        "requiredComplements": [
+          "short-wavelength lab research to preserve future resolution upside",
+          "redundant station siting with cross-bearings to reduce angular errors",
+          "procedures for call-sign and ambiguity handling to limit false alarms"
+        ],
+        "mainFailureRisks": [
+          "detection-based vectors too coarse to put fighters on target reliably",
+          "false alarms saturate scarce fighter resources",
+          "radio hardware manufacturing cannot reach needed coastal coverage in time",
+          "wired reporting links unavailable or too slow between stations and plotting rooms"
+        ],
+        "generalizationBoundary": "Success here demonstrates the value of integrated detection-to-action networks for air defense; it does not prove that long-wavelength radio can deliver precise enough track data to replace visual intercept or survive saturation, nor does it generalize to high-power microwave capability that does not yet exist.",
+        "unresolvedUnknowns": [
+          "whether a future high-power microwave source will become available and when",
+          "acceptable tolerance for angular/altitude error given fighter vectoring doctrine",
+          "sustainable false-alarm rate under operational air traffic and weather",
+          "how much long-wavelength transmitter power can be raised within existing vacuum-tube limits"
+        ],
+        "capabilityComplianceNote": "All actions stay within the manifest: they use fixed long-wavelength radio transmitters/receivers and directional arrays, contemporary vacuum-tube power/frequency adjustments, wired/radio reporting links, existing telephone/plotting/fighter organizations, and available trial measurement; no post-1942 reactor, magnetron, transistor, or stored-program computing capability is employed."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 1280,
+        "outputTokens": 766,
+        "totalTokens": 2046,
+        "elapsedMs": 23907,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A03",
+      "hiddenTrajectoryId": "HD4-A03",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Integration of detection, reporting, and decision into one timely network despite limited angular/altitude precision of long-wavelength radio.",
+        "routes": [
+          {
+            "route": "Fixed coastal long-wavelength radio stations with directional arrays feeding wired/telephone reporting into existing plotting rooms and fighter command",
+            "decision": "continue",
+            "reason": "Uses deployable near-term hardware, maximizes power and antenna size at fixed sites, and directly addresses the warning-to-decision chain that the case identifies as the true bottleneck."
+          },
+          {
+            "route": "Pursue shorter-wavelength higher-frequency sources for better angular resolution and smaller antennas at this decision frontier",
+            "decision": "defer",
+            "reason": "Promises better precision, but available sources at these wavelengths have much lower practical power and the case constrains that high-power microwave sources are not yet available; pursue in parallel laboratory research, not as the near-term deployment path."
+          },
+          {
+            "route": "Compact mobile or airborne radio detection systems",
+            "decision": "abandon",
+            "reason": "Fixed coastal stations are explicitly easier to build quickly, and near-term deployment time and manufacturing capacity are binding constraints; mobile/airborne precision relies on hardware that is not yet available."
+          }
+        ],
+        "topRoute": "Fixed coastal long-wavelength radio stations with directional arrays feeding wired/telephone reporting into existing plotting rooms and fighter command",
+        "nextDiscriminatingTest": "Run controlled trials that measure whether a fixed long-wavelength coastal station can (a) detect a large aircraft at sufficient range and (b) report a handoff to a plotting room fast enough to alter an interception decision, i.e., measure end-to-end detection-to-decision latency and repeatability (bearing accuracy, false/missed rates) under realistic operating conditions.",
+        "requiredComplements": [
+          "wired/telephone reporting links from coastal stations to a central plotting room",
+          "trained plotting-room staff and existing fighter-command organizations",
+          "directional antenna arrays at fixed sites",
+          "measurement protocol for range/bearing repeatability and false/missed detections"
+        ],
+        "mainFailureRisks": [
+          "Angular/altitude precision too coarse to discriminate true bomber tracks from noise, causing unacceptable false alarms",
+          "End-to-end reporting latency too slow to change interception decisions despite raw detection",
+          "Finite radio manufacturing capacity forcing a choice between coverage and precision",
+          "Dependence on currently low-power shorter-wavelength sources if long-wavelength precision proves inadequate"
+        ],
+        "generalizationBoundary": "Results from fixed-coastal, long-wavelength trials do not directly generalize to mobile/airborne systems or to shorter-wavelength sources; the decisive evidence is only the end-to-end detection-to-decision chain for stationary long-wavelength sites under the incumbent power and antenna envelope.",
+        "unresolvedUnknowns": [
+          "Whether available shorter-wavelength sources at this decision frontier can someday reach adequate practical power for warning use",
+          "Realistic bound on angular/altitude precision achievable from long-wavelength directional arrays that still yields useful early warning",
+          "Operator/plotting-room workload under real traffic and false-alarm conditions"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only the declared availableCapabilities: constructing fixed long-wavelength transmitters/receivers and directional arrays, running aircraft-detection trials, building wired/radio reporting links, leveraging existing telephone/plotting-room/fighter organizations, adjusting power/frequency/antenna geometry within vacuum-tube limits, and measuring range/bearing repeatability and false/missed rates. No use is made of the high-power cavity magnetron, post-1942 reactor knowledge, modern biotechnology, or transistor/IC/computing capabilities, all explicitlyUnavailable. The end-to-end detection-to-decision integration test is an ordinary contemporaneous operation implied by the listed capabilities and requires no later instrument."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 1280,
+        "outputTokens": 903,
+        "totalTokens": 2183,
+        "elapsedMs": 23066,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A05",
+      "hiddenTrajectoryId": "HD4-A05",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Neutron economy uncertainty: whether a natural uranium lattice can sustain a chain given moderator absorption, impurity levels, and isotope composition — the decisive unknown before any industrial-scale commitment.",
+        "routes": [
+          {
+            "route": "Graphite-moderated natural uranium exponential pile",
+            "decision": "continue",
+            "reason": "Available subcritical lattice experiments can measure effective multiplication directly; graphite is domestically producible at scale, making it the most testable route without committing to isotope separation."
+          },
+          {
+            "route": "Heavy-water-moderated natural uranium experiments",
+            "decision": "defer",
+            "reason": "Heavy water offers a strong neutron economy but supply is sharply limited; better to first quantify the graphite route, then decide whether heavy water's advantage justifies production of the moderator itself."
+          },
+          {
+            "route": "Isotope-separation of uranium (enriched fuel)",
+            "decision": "defer",
+            "reason": "Isotope separation is expensive and technically difficult; its value depends on whether natural uranium lattices fail on neutron economy, so it is kept alive but parallelized only after pile results speak."
+          },
+          {
+            "route": "Graphite + heavy-water hybrid/generalized lattice studies",
+            "decision": "continue",
+            "reason": "Systematic variation of moderator type, purity, and geometry in subcritical assemblies calibrates the neutron-loss accounting that every production route relies on."
+          }
+        ],
+        "topRoute": "Graphite-moderated natural uranium exponential pile",
+        "nextDiscriminatingTest": "Build a subcritical natural uranium / high-purity graphite exponential pile and measure effective multiplication factor k_eff across several lattice spacings and graphite purity levels using a calibrated neutron source, comparing measured neutron loss against computed absorption in moderator impurities and fission cross-sections — the first result that separates a viable natural-uranium chain from a dead end that would force enrichment.",
+        "requiredComplements": [
+          "Calibrated neutron-source/counter instrumentation for flux and multiplication measurement",
+          "High-purity graphite assay and production to a specified impurity ceiling",
+          "Contemporaneous neutron-transport/multiplication calculation methods for lattice parameter design",
+          "Lattice assembly apparatus with movable moderator/fuel geometry"
+        ],
+        "mainFailureRisks": [
+          "Trace boron/cadmium impurities in graphite absorb neutrons and may drive effective multiplication below unity even if the intrinsic geometry is sound",
+          "Natural uranium isotope composition may not allow a graphite chain at achievable purity, forcing a move to heavier investment in heavy water or enrichment",
+          "Flux/multiplication measurements with contemporary detectors may be too noisy to distinguish a marginal supercritical design from a subcritical one",
+          "Pile assembly can approach criticality dangerously, risking uncontrolled excursions before slow-control safeguards are proven"
+        ],
+        "generalizationBoundary": "The small exponential-pile results validate only the neutron-multiplication/neutron-economy decision for a low-power controlled chain in a specific moderator/fuel lattice; they carry no evidence about heat removal, radiation shielding, irradiation/chemical-separation of materials, or industrial production scale, so any later scale-up must be justified by separate evidence, not by extrapolation of the pile result.",
+        "unresolvedUnknowns": [
+          "Exact resonant/heavy-isotope contribution to neutron absorption and fast-fission enhancement in natural uranium",
+          "Achievable industrial purity of graphite/moderator and uranium beyond laboratory assay",
+          "Whether heavy-water production can be scaled if the graphite natural-uranium path fails on neutron economy",
+          "Instrument sensitivity to distinguish marginal supercriticality from subcriticality in the measurement window"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only the manifest capabilities: subcritical lattice/pile construction, neutron-source/fission experiments with contemporary counters and ionization apparatus, graphite/uranium assay and purification, and multiplication/loss measurement with contemporaneous nuclear methods. The discriminating test is strictly a subcritical (k_eff below critical) exponential experiment with calibrated source and instrumented safeguards; it does not build a full critical system, does not assume production-scale cooling, shielding, or chemical separation, and uses no post-1942 reactor knowledge, no later instruments, and no unavailable technology."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 1290,
+        "outputTokens": 967,
+        "totalTokens": 2257,
+        "elapsedMs": 30966,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A05",
+      "hiddenTrajectoryId": "HD4-A05",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Neutron economy uncertainty: multiplication and loss rates in unrefined uranium/graphite and heavy-water lattices cannot yet predict whether a self-sustaining chain is reachable at achievable purity and size.",
+        "routes": [
+          {
+            "route": "Graphite-moderated exponential/pile development with purification assay",
+            "decision": "continue",
+            "reason": "Available capabilities directly measure multiplication in subcritical graphite/uranium lattices and incremental pile construction; graphite is domestically available and purification is assayable, so this route can resolve the neutron-economy bottleneck at smallest cost before industrial commitment."
+          },
+          {
+            "route": "Heavy-water-moderated exponential development",
+            "decision": "continue",
+            "reason": "Heavy water is a strong alternative moderator with low absorption, but supply is limited and production uncertain; pursue in parallel with graphite to hedge moderator-purity and neutron-loss uncertainties without betting the whole program on one material."
+          },
+          {
+            "route": "Isotope-separation (enrichment) driven route",
+            "decision": "defer",
+            "reason": "Separation techniques are proven in principle but expensive and technically hard; engineering implications of isotope composition for the chain remain unsettled by the small-pile evidence, so defer industrial-scale enrichment commitment until lattice experiments reveal whether natural uranium alone can suffice."
+          },
+          {
+            "route": "Direct full-power industrial reactor commitment",
+            "decision": "abandon",
+            "reason": "Criticality could be dangerous even at small scale, and the evidence explicitly warns that post-criticality heat removal, shielding and chemical separation are outside the available evidence; premature industrial spend cannot be justified before the low-power controlled-chain test discriminates."
+          }
+        ],
+        "topRoute": "Graphite-moderated exponential/pile development with purification assay",
+        "nextDiscriminatingTest": "Construct a calibrated subcritical graphite/uranium exponential lattice and measure neutron multiplication as a function of uranium lattice spacing, graphite purity, and moderator-to-fuel ratio; compare measured multiplication factors against computed predictions to determine whether a critical size is achievable with available purified graphite, discriminating the graphite route from the heavy-water route and from the need for enrichment.",
+        "requiredComplements": [
+          "Heavy-water moderated subcritical lattice in parallel to hedge moderator-absorption uncertainty",
+          "Graphite and uranium purity assay/purification program",
+          "Neutron-source and counter calibration for accurate multiplication measurement",
+          "Incremental low-power pile construction with control and safety safeguards"
+        ],
+        "mainFailureRisks": [
+          "Trace impurities in graphite or uranium absorbing too many neutrons and pushing the multiplication factor below criticality at any achievable purity",
+          "Isotope composition of natural uranium making the chain impossible without enrichment, forcing a costly pivot",
+          "Limited heavy-water and high-purity graphite supply constraining the achievable lattice geomet",
+          "Multiplication measurement error causing a false positive criticality assessment and a dangerous premature build"
+        ],
+        "generalizationBoundary": "Evidence from low-power subcritical exponential and controlled pile experiments establishes only steady-state neutron multiplication, critical size, and moderator/fuel purity needs; it does NOT establish or license heat-removal, radiation-shielding, or chemical-separation solutions for production-scale facilities, nor does a successful chain reaction validate any specific production process.",
+        "unresolvedUnknowns": [
+          "Exact absorption cross-sections of the multiple uranium isotopes in the mixed lattice at achievable purity",
+          "Required heavy-water quantity and achievable concentration for a workable moderator",
+          "Whether natural uranium alone can reach criticality without isotope separation at available purity",
+          "Neutron leakage corrections at small experimental scale and their extrapolation to larger pile",
+          "Whether purification of graphite/uranium to needed levels is achievable with contemporary assay methods at scale"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only listed capabilities: subcritical uranium/moderator lattice and pile experiments, neutron-source/fission measurements with contemporary counters, graphite/uranium purification and assay, multiplication/loss calculations with contemporary nuclear methods, and incremental low-power pile construction with safeguards. No use is made of the high-power magnetron, post-1942 knowledge, or any later computing or biological capability. Planning-only acknowledgment of future production-scale cooling/shielding/separation keeps those fully within the stated 'plan but do not assume' boundary."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 1290,
+        "outputTokens": 987,
+        "totalTokens": 2277,
+        "elapsedMs": 29804,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A05",
+      "hiddenTrajectoryId": "HD4-A05",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Uncertain neutron economy: moderation/multiplication, material purity, and isotope composition determine whether a self-sustaining chain is feasible at all, and must be resolved before any large industrial commitment.",
+        "routes": [
+          {
+            "route": "Subcritical exponential graphite pile experiments with incremental uranium lattice loading",
+            "decision": "continue",
+            "reason": "Cheapest and least dangerous way to measure neutron multiplication and losses via contemporary counters, directly resolving whether a self-sustaining chain is possible in graphite without premature full criticality."
+          },
+          {
+            "route": "Heavy-water moderator experiments with small assemblies",
+            "decision": "continue",
+            "reason": "Provides a parallel, high-leverage alternative if graphite purity proves insufficient; kept alive because natural-uranium isotope roles are still uncertain."
+          },
+          {
+            "route": "Uranium purification and isotope-composition assay without full pile",
+            "decision": "continue",
+            "reason": "Material purity and isotope enrichment/cut are the largest controllable unknowns in neutron economy; assaying them is cheap insurance that bounds later pile design."
+          },
+          {
+            "route": "Full low-power controlled critical pile now",
+            "decision": "defer",
+            "reason": "A controlled chain does not yet establish heat removal, shielding, or material production, and rushing criticality risks dangerous accidents before neutron economy is measured; better to defer until subcritical and purity evidence validates the route."
+          },
+          {
+            "route": "Commit to full industrial production plants for isotope separation or heavy-water",
+            "decision": "defer",
+            "reason": "Enormous, irreversible cost that should not precede small-pile evidence; premature commitment risks a false positive given uncertain purity and isotope roles."
+          }
+        ],
+        "topRoute": "Subcritical exponential graphite pile experiments with incremental uranium lattice loading",
+        "nextDiscriminatingTest": "Build a subcritical graphite/uranium exponential lattice and, using contemporary neutron-source and ionization/counter apparatus, measure neutron multiplication as a function of lattice spacing, graphite purity, and incremental uranium loading; compare measured reproduction factor against subcritical predictions to determine whether effective multiplication factor exceeds unity before committing to a full critical assembly.",
+        "requiredComplements": [
+          "Neutron-source/fission experiments with contemporary counters and ionization apparatus",
+          "Assay/purify graphite and uranium and compare moderator/material configurations",
+          "Small exponential/pile experiments measuring neutron multiplication",
+          "Parallel design of alternative heavy-water moderation and isotope-enrichment experiments as hedge"
+        ],
+        "mainFailureRisks": [
+          "Graphite/uranium purity too poor to reach net positive multiplication, forcing reliance on heavier-water or enrichment routes",
+          "Trace impurity levels in graphite absorbing too many neutrons to be measured reliably at subcritical scale",
+          "Isotope composition of natural uranium insufficient, making a chain impossible without isotopic enrichment",
+          "Criticality error during subcritical-to-critical transition despite safeguards"
+        ],
+        "generalizationBoundary": "A measured self-sustaining (low-power critical) chain in a small graphite pile confirms neutron economy only for that specific moderator, purity, and lattice; it does NOT establish heat removal, radiation shielding, chemical separation, or industrial-scale material production, and it does not transfer automatically to heavy-water or enriched-uranium configurations.",
+        "unresolvedUnknowns": [
+          "Exact role and optimal concentration of each uranium isotope in neutron economy",
+          "Net absorption effects of trace impurities in the available graphite/uranium at real scale",
+          "Technical feasibility and cost of isotope separation at the scale required if natural uranium is inadequate",
+          "Feasibility of obtaining adequate heavy water in needed purity and quantity if graphite fails"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only the supplied contemporaneous capabilities: neutron-source/fission experiments with contemporary counters, subcritical uranium/moderator lattice and pile construction, graphite/uranium assay and purification with comparative moderator/material configurations, calculation and measurement of neutron multiplication/losses with contemporary methods, and incremental low-power controlled pile construction with safeguards. No explicitly unavailable capabilities (high-power magnetron, post-1942 production knowledge, computing/modern materials, etc.) are used, and no assumption is made about future cooling, shielding, or chemical separation solutions."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 1291,
+        "outputTokens": 963,
+        "totalTokens": 2254,
+        "elapsedMs": 30749,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A07",
+      "hiddenTrajectoryId": "HD4-A07",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Mass production: the substance shows therapeutic promise in mice but yields are so low that no human-scale trial or therapy is feasible without a scalable fermentation and recovery process, and no such process exists yet.",
+        "routes": [
+          {
+            "route": "Scale fermentation/process development in parallel with clinical use of scarce material",
+            "decision": "continue",
+            "reason": "Empirical screening of strains, media, aeration and recovery can raise yields using existing shallow-vessel fermentation practice; this is the only route to adequate material. Parallel pursuit is justified because wartime demand permits simultaneous clinical and process work, and a stalled process development blocks everything else."
+          },
+          {
+            "route": "Tightly monitored hospital use of scarce purified material while scaling up",
+            "decision": "continue",
+            "reason": "The scarce material has already shown systemic rescue in infected mice and appears relatively non-toxic; controlled human exposure on a few lethal cases could establish dosing/purity/tolerability and generate the efficacy signal needed to justify further investment, without waiting for mass production."
+          },
+          {
+            "route": "Stick with clinical sulfonamides as the therapy of choice",
+            "decision": "defer",
+            "reason": "Sulfonamides remain a strong simpler baseline for many infections. The new substance should be kept as a complementary or fallback line for cases sulfonamides fail, not replace them prematurely. Defer full abandonment until process feasibility and human effect are tested."
+          },
+          {
+            "route": "Fully commit to human therapy before any process scale-up",
+            "decision": "abandon",
+            "reason": "With yields so low, no realistic patient numbers can be reached; betting the program on a handful of doses without concurrently solving production would waste scarce material and delay the decisive feasibility test."
+          }
+        ],
+        "topRoute": "Scale fermentation/process development in parallel with clinical use of scarce material",
+        "nextDiscriminatingTest": "Consult pharmaceutical/fermentation manufacturers, then run controlled experiments comparing (a) growth under shallow-vessel surface culture at varied oxygen transfer, strain selection, and nutrient media, measured by a potency/yield bioassay, to see whether a 5-10x yield improvement is achievable within months; and (b) the assayed material's survival/recovery through alternative recovery chemistries to identify which step loses product. The result that changes the decision: if no strain/medium/aeration combination yields a practical fold improvement and recovery losses persist, the mass-production route should be deferred in favor of using scarce material narrowly and leaning on sulfonamides; if a yield improvement is shown, continue pressing scale-up and broaden clinical testing.",
+        "requiredComplements": [
+          "existing chemical/biological assays to compare potency/yield",
+          "screen available mold strains and vary nutrient media empirically",
+          "consult pharmaceutical/fermentation manufacturers about scalable vessels/aeration/recovery",
+          "grow the mold in shallow vessels with contemporary fermentation practice"
+        ],
+        "mainFailureRisks": [
+          "Chemical instability of the substance during recovery may make any process improvement worthless if the molecule degrades faster than it can be extracted",
+          "Strain/medium/aeration gains may plateau far below the threshold needed for even a small patient cohort",
+          "The substance may prove non-therapeutic or toxic in humans despite mouse rescue, wasting scarce material and investment",
+          "Industrial fermentation equipment, though existing, may not tolerate this organism's shallow-culture or oxygen demands at scale"
+        ],
+        "generalizationBoundary": "Findings apply only to this mold-derived substance and this production approach; a successful scale-up here does not establish that all mold antibacterial substances are fermentable or clinically useful, nor that process success implies human therapeutic success. Conversely, a failure here does not rule out the substance's value via alternative (e.g. chemical synthesis) routes not yet demonstrated.",
+        "unresolvedUnknowns": [
+          "Whether the substance can be chemically synthesized or stably formulated to bypass fermentation and recovery losses",
+          "Whether existing industrial fermentation vessels can meet the oxygen transfer and aeration the organism needs at scale",
+          "Human pharmacokinetics, safe dosing, and efficacy against specific sulfonamide-resistant infections, all unestablished",
+          "The identity and structure of the active substance, which would enable rational purification and stability work"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only the manifest capabilities: laboratory extraction/purification, animal infection/toxicity experiments, tightly monitored hospital use of scarce purified material, shallow-vessel fermentation, empirical strain/media screening, conventional potency/yield assays, consultation with pharmaceutical/fermentation manufacturers about scalable vessels/aeration/recovery, and continued use of clinically available sulfonamides. Nothing invokes recombinant methods, automated bioreactors, modern antibiotics, or any equipment/capability in the explicitlyUnavailable list; chemical synthesis remains an unresolvedUnknown rather than an assumed capability."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 1241,
+        "outputTokens": 1095,
+        "totalTokens": 2336,
+        "elapsedMs": 15007,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A07",
+      "hiddenTrajectoryId": "HD4-A07",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": false,
+      "bet": null,
+      "invalidRawArguments": "{\"dominantBottleneck\": \"There is no proven mass-production fermentation/recovery process for the mold substance; yields are so low that scaling to human dosing is the binding constraint before clinical value can be judged.\", \"routes\": [{\"route\": \"process-scale fermentation & recovery route\", \"decision\": \"continue\", \"reason\": \"Without a scalable production process, scarce purified material cannot support human therapy or meaningful trials; empirical strain/media/O2/recovery work is feasible with existing fermentation equipment and assays.\"}, {\"route\": \"human therapeutic route\", \"decision\": \"defer\", \"reason\": \"Only tiny scarce quantities exist and human dosing/effect are unestablished; exposing lethally ill patients should hinge on demonstrated potency/purity and minimal available material, better deferred until process work frees supply.\"}, {\"route\": \"sulfonamide-comparator route\", \"decision\": \"continue\", \"reason\": \"Keep clinically available sulfonamides active as a baseline and fallback for infections they cover; they do not substitute for the new substance where sulfonamides fail but frame the evidence comparison.\"}], \"topRoute\": \"process-scale fermentation & recovery route\", \"nextDiscriminatingTest\": \"Empirically screen the available mold strains across nutrient media and shallow-vessel aeration conditions, measuring potency and yield by the existing chemical/biological assays, to determine whether a practical mass-production fermentation and recovery path exists at all before committing scarce purified material to humans.\", \"requiredComplements\": [\"existing chemical/biological potency and yield assays\", \"laboratory extraction/purification as the source of assay-grade material\", \"consultation with pharmaceutical/fermentation manufacturers on scalable vessels, aeration and recovery\", \"sulfonamide comparator arm to measure added clinical value\"], \"mainFailureRisks\": [\"yield floors cannot be raised enough to supply even few patients within feasible fermentation volume\", \"recovery chemistry stays too lossy or the substance remains too unstable in process conditions\", \"process gains fail to translate to the same potency in the animal efficacy model\", \"fermentation and recovery work consumes effort while wartime demand favors moving scarce material directly to hospital use\"], \"generalizationBoundary\": \"Any promising result is specific to this mold strain, medium, oxygen transfer and recovery chemistry; success in shallow-vessel trials does not guarantee scaled performance across vessel geometry, aeration or downstream handling, and animal potency does not yet establish human dosing/effect.\", \"unresolvedUnknowns\": \"[\\\"Feasible upper bound of per-liter yield under contemporary fermentation practice\\\", \\\"Which strain/medium/oxygen/recovery combination (if any) gives a practical production process\\\", \\\"Stability of the substance through scaled recovery steps\\\", \\\"True human potency, toxicity and dosing window, still unknown\\\", \\\"Whether the substance retains activity against infections beyond the sulfonamide baseline\\\"]\", \"capabilityComplianceNote\": \"All actions stay within the manifest: empirical mold strain screening and media variation, shallow-vessel fermentation with contemporary practice, laboratory extraction/purification, existing chemical/biological assays, animal efficacy/toxicity testing, consultation with existing pharmaceutical/fermentation manufacturers, and continued clinical sulfonamide use as comparator. No modern biotechnology, recombinant methods, automated bioreactors, or later instrumentation are used.\"}",
+      "validationError": "unresolvedUnknowns_list",
+      "usage": {
+        "inputTokens": 1302,
+        "outputTokens": 785,
+        "totalTokens": 2087,
+        "elapsedMs": 27385,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A07",
+      "hiddenTrajectoryId": "HD4-A07",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": false,
+      "bet": null,
+      "invalidRawArguments": "{\"dominantBottleneck\": \"No proven mass-production fermentation/recovery process for the mold substance; yields are so low that even a small human trial cannot be supplied.\", \"routes\": [{\"route\": \"continue laboratory extraction/purification of the antibacterial substance\", \"decision\": \"continue\", \"reason\": \"It is the only proven route to any usable material; the mouse rescue effect is the strongest current evidence that the substance has real systemic therapeutic potential. Keeping the process alive is a prerequisite for every other route.\"}, {\"route\": \"grow mold in shallow vessels with contemporary fermentation practice, screening strains and media empirically\", \"decision\": \"continue\", \"reason\": \"This is the most direct path to scaling material for human testing. Existing industrial fermentation equipment and empirical strain/medium screening are available and can be pursued without new capability, though no scale process is yet proven.\"}, {\"route\": \"consult pharmaceutical/fermentation manufacturers about scalable vessels, aeration and recovery\", \"decision\": \"continue\", \"reason\": \"Wartime demand and existing industrial fermentation capacity justify parallel process engineering consultation to close the scale gap between mouse-level purification and human-level supply.\"}, {\"route\": \"use scarce purified material in tightly monitored hospital treatment\", \"decision\": \"defer\", \"reason\": \"Human dosing/effect are unestablished and systemic infection can be lethal. Material is scarce and unstable; commitment to human exposure should wait until yield improves and dose/safety evidence justifies exposing patients, unless a lethal untreatable case arises.\"}, {\"route\": \"perform animal infection/toxicity experiments with the scarce material\", \"decision\": \"continue\", \"reason\": \"Further animal work defines dosing window, toxicity margin, and potency needed to design any human trial, while using far less material and avoiding premature human exposure.\"}, {\"route\": \"continue using clinically available sulfonamides as a comparator/alternative\", \"decision\": \"continue\", \"reason\": \"Sulfonamides give a strong simple therapeutic baseline for some infections and provide an ethical and practical fallback while the mold substance's scale and human evidence remain unresolved.\"}], \"topRoute\": \"grow mold in shallow vessels with contemporary fermentation practice, screening strains and media empirically\", \"nextDiscriminatingTest\": \"Run a controlled shallow-vessel fermentation screen across the best available mold strains and a small matrix of nutrient media/aeration/recovery conditions, measuring potency (by existing biological assay) and yield per unit volume; compare against the current mouse-effective purification process to determine whether a scalable fermentation route can reach yields that would supply even a small human cohort within a reasonable time, versus whether yield stays stuck at current tiny levels.\", \"requiredComplements\": [\"animal infection/toxicity experiments to refine the dosing window\", \"consultation with pharmaceutical/fermentation manufacturers on scalable vessels, aeration and recovery\", \"existing chemical/biological assays to compare potency/yield across trials\", \"continued availability of sulfonamides as comparator/alternative\"], \"mainFailureRisks\": [\"yield remains too low to supply a human cohort even at scale\", \"substance instability defeats recovery/chemistry in larger vessels\", \"oxygen transfer or medium constraints prevent reproducible scaled fermentation\", \"human dose/effectiveness never established despite adequate supply\", \"parallel clinical and process development consumes scarce skilled manpower and material under wartime pressures\"], \"generalizationBoundary\": \"A reproducible scaled fermentation proving out in the multi-vessel pilot does not by itself prove human safety/effiracy, safe dosing, or production reliability at full industrial scale; and success with a specific strain/medium may not transfer to other strains or large vessels, so any process win must be re-validated at each scale-up step and against the lethal human-infection setting.\", \"unresolvedUnknowns\": \"[\\\"whether the active substance can survive scaled recovery/sterilization chemistry\\\", \\\"human dosing and therapeutic window\\\", \\\"which fermentation strain/medium maximizes yield without losing potency\\\", \\\"degree of oxygen transfer and aeration achievable in available industrial vessels for this organism\\\", \\\"whether wartime industrial priorities can free sufficient fermentation capacity and skilled operators\\\"]\", \"capabilityComplianceNote\": \"All proposed actions use only stated available capabilities: shallow-vessel mold culture with contemporary fermentation practice, empirical strain/medium screening, existing chemical/biological assays, and consultation with pharmaceutical/fermentation manufacturers. No modern biotechnology, recombinant methods, automated bioreactors, or later capabilities are introduced. Human treatment is deferred rather than employed, and sulfonamides remain an available comparator. The scale is limited to what 1940s-era industrial fermentation equipment can support, revalidated at each step.\"}",
+      "validationError": "unresolvedUnknowns_list",
+      "usage": {
+        "inputTokens": 1302,
+        "outputTokens": 1060,
+        "totalTokens": 2362,
+        "elapsedMs": 29904,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A09",
+      "hiddenTrajectoryId": "HD4-A09",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Repeated candidate-setting tests on a mechanized cipher run too slowly on relay/electromechanical switching for time-sensitive wartime workloads.",
+        "routes": [
+          {
+            "route": "Vacuum-tube logic/counter search machines with paper-tape input",
+            "decision": "continue",
+            "reason": "Tube circuits switch/count far faster than relay switching and photoelectric tape gives streaming input; matches the workload of testing many candidate settings quickly."
+          },
+          {
+            "route": "Relay/electromechanical special-purpose search machines",
+            "decision": "continue",
+            "reason": "Proven reliability and existing operations infrastructure; still a fallback though speed-limited for the time-critical workload."
+          },
+          {
+            "route": "Electronic arithmetic units for defined numerical table workloads",
+            "decision": "defer",
+            "reason": "Numerical table production is real but less time-critical than streaming cipher tests; also reconfigurability/cost are heavy."
+          },
+          {
+            "route": "Human-expert hypothesis/statistical search workflow without new machines",
+            "decision": "abandon",
+            "reason": "Human clerical capacity is already the stated limit for repetitive search/counting workloads; no machine increase leaves the bottleneck unresolved."
+          }
+        ],
+        "topRoute": "Vacuum-tube logic/counter search machines with paper-tape input",
+        "nextDiscriminatingTest": "Build one small vacuum-tube test-search circuit fed by high-speed photoelectric paper tape and measure its throughput, error rate and maintenance burden against the relay baseline on the actual candidate-setting search pattern, before scaling to a multi-tube system.",
+        "requiredComplements": [
+          "manually wire/switch/configure machine logic for a defined task",
+          "organize human analysts, operators and machine search as a coupled workflow",
+          "measure throughput/error/reliability/maintenance against human or electromechanical baselines"
+        ],
+        "mainFailureRisks": [
+          "vacuum-tube reliability and maintenance at large tube counts",
+          "manual plug/switch reconfiguration slowing hypothesis changes",
+          "paper-tape photoelectric reading errors undermining statistical counts",
+          "secrecy limiting independent verification of results"
+        ],
+        "generalizationBoundary": "The decision generalizes to any mechanized cipher reducible to candidate-setting constrained search and to repetitive counting workloads, but only as far as tube reliability, tape input accuracy and manual wiring hold; it does not generalize to general-purpose programmable computation or to new physics/capabilities absent here.",
+        "unresolvedUnknowns": [
+          "exact tube reliability/maintenance profile at deployment scale",
+          "paper-tape photoelectric tearing/error rates under continuous operation",
+          "how much of the search logic must stay in manual plug/switch setup",
+          "actual throughput gain of tube vs relay on the target candidate-setting pattern",
+          "whether streaming tape keeps up with fast tube switching"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only the declared capabilities: vacuum-tube logic/counter circuits from contemporary communications components, high-speed paper-tape/photoelectric reading, manual wiring/switching for defined tasks, and human analysts/operators as a coupled workflow. No transistors, no stored-program computers, no later instruments or knowledge are imported."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 1311,
+        "outputTokens": 764,
+        "totalTokens": 2075,
+        "elapsedMs": 44706,
+        "transportRetries": 1,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A09",
+      "hiddenTrajectoryId": "HD4-A09",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": false,
+      "bet": null,
+      "invalidRawArguments": "{\"dominantBottleneck\": \"Electromechanical switching speed limits throughput of repetitive candidate-setting searches against logical/statistical constraints.\", \"routes\": [{\"route\": \"Vacuum-tube electronic search/counting engine wired for the defined cipher constraint\", \"decision\": \"continue\", \"reason\": \"Tubes switch much faster than relays and are reliable in communications gear; the high input-candidate volume justifies tube count despite maintenance risk.\"}, {\"route\": \"High-speed paper-tape/photoelectric streaming into a faster relay engine\", \"decision\": \"defer\", \"reason\": \"I/O feeding is genuinely plausible and cheap, but it still hits the mechanical switching ceiling unless coupled to an electronic core.\"}, {\"route\": \"Electronic arithmetic unit generalized to numerical table production\", \"decision\": \"defer\", \"reason\": \"Numerical workloads are real but secondary to the time-critical cipher search; keep as reuse target rather than the first operational commitment.\"}], \"topRoute\": \"Vacuum-tube electronic search/counting engine wired for the defined cipher constraint\", \"nextDiscriminatingTest\": \"Build a small one-stage vacuum-tube logic/counter rig fed by paper tape at rated photoelectric speed and measure sustained settings-per-minute throughput, error rate and tube hours vs. the existing relay machine on a sample of real intercepted traffic.\", \"requiredComplements\": [\"high-speed paper-tape/photoelectric reader\", \"manual plug/switch configuration of the constraint logic\", \"human analysts to choose hypotheses/cribs and interpret outputs\", \"maintenance/organization for tube replacement\"], \"mainFailureRisks\": [\"Vacuum-tube failure cascades and maintenance downtime erode net gains\", \"Crib/hypothesis bottleneck in the human workflow, not the engine, caps useful throughput\", \"Paper-tape/photoelectric reader soaks or errors, becoming the new binding step\"], \"generalizationBoundary\": \"Speed gains proven on one wired cipher-search constraint do not automatically generalize to arbitrary reconfigurations or to arithmetic/numerical workloads; each new task needs re-wiring and re-measurement, and electronic success is a throughput result, not a durable general-purpose computing win.\", \"unresolvedUnknowns\": \"[\\\"Whether tube engine sustained reliability beats relay baselines over operational shift lengths\\\", \\\"Whether the human analysis workflow can supply hypotheses/cribs fast enough to keep the engine busy\\\", \\\"Whether plug/switch reconfiguration can keep up with frequent task changes\\\", \\\"Escalating tube count maintenance and power costs at full scale\\\"]\", \"capabilityComplianceNote\": \"All proposed actions use only available capabilities: assembling vacuum-tube logic/counter circuits from contemporary communications components, high-speed paper-tape/photoelectric reading, manual plug/switch machine configuration, human-analyst-coupled workflow, and throughput/error/reliability measurement against relay baselines. No stored-program computer, transistor, or later capability is relied upon.\"}",
+      "validationError": "unresolvedUnknowns_list",
+      "usage": {
+        "inputTokens": 1312,
+        "outputTokens": 718,
+        "totalTokens": 2030,
+        "elapsedMs": 24585,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR4-A09",
+      "hiddenTrajectoryId": "HD4-A09",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Electromechanical switching speed limits the throughput of repetitive candidate-setting checks; vacuum-tube counters can raise throughput but introduce maintenance/reliability risk for time-sensitive constrained-search workloads.",
+        "routes": [
+          {
+            "route": "Vacuum-tube special-purpose search machine with high-speed paper-tape/photoelectric input for streaming intercepted symbols",
+            "decision": "continue",
+            "reason": "Vacuum-tube circuits switch faster than relays and are already proven in communications equipment; photoelectric paper-tape input is technically plausible and directly addresses the repetitive-search bottleneck. Best candidate for time-sensitive constrained-search workloads."
+          },
+          {
+            "route": "Relay/electromechanical special-purpose search machine, incrementally speeded up",
+            "decision": "defer",
+            "reason": "Reliable and well understood, but mechanical switching is the stated limiting factor for time-sensitive workloads; useful as a fallback baseline rather than the leading path."
+          },
+          {
+            "route": "Electronic arithmetic unit for numerical table production, reconfigurable by plug/switch setup",
+            "decision": "defer",
+            "reason": "Plausible for large numerical workloads, but electronic reconfiguration and hardware cost are substantial; the immediate pressure is encrypted-message constrained search, not pure table production."
+          },
+          {
+            "route": "Maintain human-led workflow using existing machines, postponing new hardware",
+            "decision": "abandon",
+            "reason": "Human clerical capacity is explicitly exceeded for repetitive counting/search workloads and results lose value after operational decisions pass; waiting would forfeit the time window."
+          }
+        ],
+        "topRoute": "Vacuum-tube special-purpose search machine with high-speed paper-tape/photoelectric input for streaming intercepted symbols",
+        "nextDiscriminatingTest": "Build a breadboard vacuum-tube counter/search sub-circuit on one representative constrained-search setting and measure sustained throughput and error/failure rate per hour against the current relay machine on the same defined workload, including paper-tape feed jitter; pass a pre-defined throughput target while keeping a maintenance interval that allows a time-sensitive result to arrive before operational decision.",
+        "requiredComplements": [
+          "manually wire/switch/configure machine logic for the defined search task",
+          "organize human analysts, operators and machine search as a coupled workflow",
+          "measure throughput/error/reliability/maintenance against human or electromechanical baselines",
+          "use high-speed paper tape/photoelectric reading",
+          "construct vacuum-tube logic/counter circuits from contemporary communications components"
+        ],
+        "mainFailureRisks": [
+          "vacuum-tube reliability: thousands of tubes yielding excessive per-hour failure rates and down time that defeats the time window",
+          "paper-tape/photoelectric feed jitter or tearing corrupting symbol streams and invalidating candidate-setting checks",
+          "manual plug/switch reconfiguration being too slow or error-prone when changing search logic between runs",
+          "maintenance staffing and monitoring overhead consuming the runtime advantage over relays"
+        ],
+        "generalizationBoundary": "Throughput/reliability gains demonstrated on this defined class of constrained candidate-setting search should NOT be extrapolated to general stored-program computing, general-purpose programming, or numerical table production without their own separate validation; the design is a special-purpose search/counter machine, not a general electronic computer.",
+        "unresolvedUnknowns": [
+          "actual sustained per-hour failure rate of tube circuits under continuous duty and realistic vibration/heat",
+          "whether required search logic is expressible as fixed wired/plug-switch configuration without prohibitive reconfiguration delay",
+          "paper-tape/photoelectric reading error rate and feed jitter at the target streaming speed",
+          "maintenance and warm-up time relative to the operational decision deadline"
+        ],
+        "capabilityComplianceNote": "All proposed actions stay within the manifest: building vacuum-tube logic/counter circuits from contemporary communications components, use of high-speed paper tape/photoelectric reading, manual wiring/plug/switch configuration, and measuring throughput/error/reliability against human or electromechanical baselines are all listed availableCapabilities. No transistors, mature stored-program computers, modern languages, or later instruments are relied upon; purely mechanical/electromechanical and vacuum-tube contemporaneous techniques only."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 1312,
+        "outputTokens": 964,
+        "totalTokens": 2276,
+        "elapsedMs": 27551,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    }
+  ]
+}

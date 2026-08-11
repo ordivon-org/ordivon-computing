@@ -1,0 +1,849 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd4-independent-coder-live",
+  "provider": "deepseek",
+  "strictSchemaValidation": true,
+  "invalidTrialsPreservedWithoutResampling": true,
+  "records": [
+    {
+      "trajectoryId": "HD4-A01",
+      "valid": true,
+      "coding": {
+        "auditNote": "Skeptical independent coding of the Shewhart/Dodge-Romig statistical quality control case (1924-1940s). I map each frozen invariant against the supplied source-locked trajectory, being careful not to infer victories or wartime adoption as semantic success, and requiring actual proxy/model/report/metric distinctions for S1.\n\nS1: The case is explicitly about separating the control-chart representation/metric (what the chart displays — the expected-variation band and plotted points) from the realized process state. \"A stable-looking metric could not substitute for checking whether process conditions remained comparable\" and the rivals note that a chart \"calibrated on one process/product cannot be assumed valid under changed conditions\" — a literal metric-vs-realized-state distinction. The Shewhart approach separates expected (common-cause) variation from assignable causes, i.e., distinguishing the represented statistical picture from the actual generating state. This is a clean \"representation not collapsed into realized state\" match. SUPPORTS.\n\nS2: The case doesn't centrally address evaluation failure/gaming. Inspection, sampling, and charting have failure modes (overly tight limits create excessive intervention; loose limits miss shifts), which could be read as measurement/evaluation failure modes. But \"decisive claims need verification whose failure modes are themselves represented\" — the trajectory does note limits failure modes, yet there is no explicit evaluator-integrity or gaming-of-evaluation theme, and no independent verification architecture is described. The failure-mode notes are about method parameter tuning, not about evaluation being gameable or needing independent verification. I judge INSUFFICIENT_EVIDENCE.\n\nS3: The rivals explicitly state \"A chart calibrated on one process/product cannot be assumed valid under changed conditions.\" This is precisely generalization-beyond-optimized-signal: the method's validity under materially different conditions (different process/product) is not guaranteed. SUPPORTS.\n\nS4: The case explicitly frames control charts and acceptance sampling as \"distinct tools\" with \"different cost/risk tradeoff from continuous process monitoring\" — Dodge–Romig sampling adds a different tradeoff, and the two tools are \"remaining distinct.\" The unresolved question about \"method depends on current conditions\" fits a conditional method choice. The trajectory states \"sampling and process control remaining distinct tools\" and the pressure describes tradeoffs between inspection burden and risks — method choice depends on conditions (continuous monitoring vs sampling). SUPPORTS.\n\nS5: The trajectory doesn't centrally address persistent state/provenance/causal information preservation vs raw accumulated history. The \"production records\" complement exists but nothing distinguishes durable state preserving causal/constraint info from raw accumulated history. INSUFFICIENT_EVIDENCE.\n\nS6: The control-chart method does add complexity (statistical representation, limits, monitoring) over 100% inspection or no-process-model sampling. But is there evidence that the added complexity \"must produce decision-relevant value beyond a strong simpler baseline sufficient to repay its cost\"? The decisive test says \"A useful chart had to identify changes early enough to alter production\" — implying the added complexity must pay off in decision relevance. The limits-within-limits tradeoff (overly tight = excessive intervention, overly loose = miss shifts) is a cost/benefit calibration. This is a reasonable mapping of adaptive overhead repaying itself. I'll SUPPORTS, noting it's moderate.\n\nS7: Second-order effects explicitly state: \"The work lowered the cost of learning from ongoing production and made production itself a persistent experiment/observation surface.\" This is precisely metaproductivity — changing the future production function of discovery/improvement, not merely current performance. Also \"Control charts and acceptance sampling became reusable industrial methods\" and \"later wartime/postwar quality infrastructures.\" SUPPORTS.\n\nS8: Prediction-error world-model update: the control chart corrects predictions/expectations against realized observations — the chart signals when process leaves expected variation, prompting correction. The trajectory's note that \"A stable-looking metric could not substitute for checking whether process conditions remained comparable\" involves updating against realized conditions. This is a reasonable mapping: the method's point is detecting when reality diverges from the stable-process model and correcting. SUPPORTS, though moderate.\n\nS9: Scoped authority/admissibility: The case has \"management authority to stop/adjust processes\" as a complement. But the invariant is that knowledge/technical capability does not automatically grant authority. Here, the chart is an instrument that informs, but authority/violation of guardrails is not thematically central. The complement \"management authority to stop/adjust processes\" suggests authority is a separate needed condition, not automatically granted by the technique — mildly supportive. The externalities note (quality optimization externalizes cost) touches adverse-consequence beyond the measured metric, which relates to safe admissibility. I judge SUPPORTS at a modest level, or possibly INSUFFICIENT. I'll go SUPPORTS given the explicit complement listing \"management authority\" as a separate needed input and externalities about consequences outside the measured spec.\n\nS10: Multi-axis domain truth: The externalities note explicitly says \"optimize measured defects while missing reliability/safety dimensions outside the measured specification\" — distinct causal/value dimensions (cost, reliability, safety, supplier/worker costs) can diverge from the single defect proxy. This is a clean match: a single proxy score (defect count) is insufficient because distinct dimensions can diverge. SUPPORTS.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "SUPPORTS",
+            "reason": "The Shewhart method explicitly separates the statistical representation/metric (the chart's expected-variation band and plotted signal) from the realized process-generating state. The decisive test notes a stable-looking metric cannot substitute for checking whether process conditions remained comparable, and the rivals confirm a chart calibrated on one product/process cannot be assumed valid under changed conditions — a literal proxy/model/metric vs realized-state distinction, not a metaphor."
+          },
+          {
+            "id": "S2",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The trajectory notes parameter failure modes (overly tight limits cause excessive intervention; loose limits miss shifts), but these are method-tuning tradeoffs, not an evaluator-integrity or gaming theme. No evaluation architecture whose own failure modes are represented, and no independent verification of decisive claims, is described in the locked case."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "The rivals explicitly state that 'A chart calibrated on one process/product cannot be assumed valid under changed conditions.' This is exactly the requirement that improvement survive materially different conditions beyond the exact process/environment for which it was optimized."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly keeps Shepherd control-chart monitoring and Dodge-Romig acceptance sampling as 'distinct tools' with different cost/risk tradeoffs, driven by inspection burden vs producer/consumer risk. Method choice depends on current conditions (continuous process monitoring vs batch sampling risk), supporting a conditional rather than one-fixed-global-method policy."
+          },
+          {
+            "id": "S5",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "No theme of durable state preserving verified causal/provenance/constraint information as distinct from raw accumulated history. 'Production records' and operator response procedures appear as complements, but nothing distinguishes persistent-state design from mere history accumulation."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "The added statistical complexity (limits, monitoring, decision rules) must yield decision-relevant value beyond baseline 100% inspection or naive sampling. The decisive test requires the chart to identify changes 'early enough to alter production,' and the tight-vs-loose limits tradeoff is an explicit cost-of-complexity calibration. The complexity is judged against whether it repays itself in intervention value."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "Second-order effects state the work 'lowered the cost of learning from ongoing production and made production itself a persistent experiment/observation surface,' and diffusion/scaling note the methods became 'reusable industrial methods and later wartime/postwar quality infrastructures.' This is a change in the future production function of improvement, not merely current throughput."
+          },
+          {
+            "id": "S8",
+            "verdict": "SUPPORTS",
+            "reason": "The control chart's entire function is to correct the stable-process model/prediction against realized observations when assignable causes shift the process, and the trajectory warns that a stable-looking metric cannot substitute for checking comparability of realized process conditions. Predictions are corrected against realized state; the model does not claim authority over reality."
+          },
+          {
+            "id": "S9",
+            "verdict": "SUPPORTS",
+            "reason": "Technical capability (the chart) does not by itself confer authority: 'management authority to stop/adjust processes' is listed as a separate required complement. The externalities note further distinguishes owned consequences — quality costs externalized to suppliers/workers and reliability/safety dimensions outside the measured spec — showing safe admissibility is not automatic from possessing the method."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "The externalities/corrections section states optimization can 'optimize measured defects while missing reliability/safety dimensions outside the measured specification,' and can externalize cost to suppliers/workers. Distinct causal/value dimensions (defect rate, reliability, safety, equity of cost distribution) can diverge from the single measured proxy, exactly the multi-axis-domain-truth condition."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2243,
+        "outputTokens": 2049,
+        "totalTokens": 4292,
+        "elapsedMs": 24242,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A02",
+      "valid": true,
+      "coding": {
+        "auditNote": "Skeptical independent review of the vacuum-tube/broadcasting trajectory (1914-1930s). I evaluated each frozen invariant strictly against the supplied historical evidence, avoiding metaphorical mapping and refusing to infer success from deployment alone.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory repeatedly distinguishes proxy/representation from realized state: e.g., a laboratory tube's measured amplification vs. stable long-distance service; transmitter power vs. installed receivers/content/network economics; 'commercialization' of superheterodyne vs. actual broadcast market acceptance. The decisive tests explicitly separate proxy success (tube gain, transmitter power) from consequential outcomes (reliable service, discriminating receivers, broadcast adoption)."
+          },
+          {
+            "id": "S2",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The trajectory mentions unsolved questions about patent pooling vs. cost/demand, and rival 'technical advantages of superheterodyne outweighed early complexity/licensing burden' - implying evaluation uncertainty and possible gaming of measurements. But the supplied evidence does not document a specific evaluation, metric, or verification that failed or was gamed, nor representation of its failure modes. This remains an open question, not a demonstrated instance."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "The decisive tests explicitly require survival under materially different conditions: amplification had to be stable 'for long-distance wire/radio service rather than a laboratory tube effect'; receiver architecture had to discriminate signals 'amid many stations/interference' - a different regime than single-signal lab reception. The rivals section notes early tube types differed in detector/amplifier suitability, confirming that improvement did not generalize uniformly."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "Candidate routes were conditional: spark/alternator routes 'remained useful in some roles' even as high-vacuum triodes became the dominant substrate; different methods (point-to-point radiotelephony vs. scheduled broadcast; direct vs. superheterodyne reception) were conditionally useful under different regime conditions (economic scale, interference environment). No single fixed global method is assumed optimal; the trajectory explicitly holds that a high-power transmitter without receivers/network/content was not mass broadcasting, showing method choice depends on conditions."
+          },
+          {
+            "id": "S5",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory emphasizes that durable broadcast infrastructure required preserving verified structural state - spectrum allocation, cross-licensing/patent-pool arrangements, installed receivers, content/network organization - not merely accumulated raw experience. The standardsAndInstitutions entry lists distinct verified roles (RCA, AT&T, GE, Westinghouse, spectrum authorities, networks) that organize ongoing service, consistent with preserving causal/provenance/constraint information over raw history."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "The superheterodyne route added complexity (fixed intermediate frequency, conversion circuits, licensing burden) precisely because its interference-discrimination capability produced decision-relevant value beyond simpler receivers as stations proliferated. The unresolved question about whether its technical advantages 'outweighed early complexity/licensing burden' explicitly frames this as an adaptability-vs-cost tradeoff where additional complexity must repay itself against a simpler baseline."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "The technicalOrScientificTransition and secondOrderEffects explicitly claim metaproductivity: vacuum electronics became a 'reusable substrate' enabling radio, telephone repeaters, radar and early digital computation, changing the future production function of discovery/improvement rather than merely improving current telephony/broadcast performance."
+          },
+          {
+            "id": "S8",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The trajectory implies corrections against realized outcomes - e.g., externalitiesAndCorrections notes broadcast concentration created propaganda and spectrum consequences 'not visible in tube gain or receiver sensitivity,' which could be read as prediction error. However, the supplied evidence does not document a specific prediction corrected against realized observations/transitions; this is an inference from the corrective framing, not a demonstrated instance. I decline to over-map."
+          },
+          {
+            "id": "S9",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly separates technical capability from legitimate authority/admissibility: patent concentration and cross-licensing 'shaped which technically possible devices reached markets,' and broadcast concentration created 'propaganda/political-power and spectrum-allocation consequences,' showing technical capacity (tube gain, receiver sensitivity, transmitter power) did not automatically confer safe/admissible deployment. The standardsAndInstitutions entry shows distinct governmental roles in spectral authority."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory holds multiple distinct causal dimensions that diverge: amplification gain, receiver sensitivity, installed-base economics, content production, spectrum allocation, and political/propaganda consequences. The decisive tests and externalitiesAndCorrections explicitly show these dimensions diverge - high tube gain and receiver sensitivity do not imply broadcast success or safe consequences - so a single proxy score (transmitter power, gain) is insufficient."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2198,
+        "outputTokens": 1146,
+        "totalTokens": 3344,
+        "elapsedMs": 12403,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A03",
+      "valid": true,
+      "coding": {
+        "auditNote": "Skeptical independent coding of the HD4 radar trajectory against the ten frozen invariants. I only use the supplied case evidence and do not map metaphorical gaps. For S1 I require an actual proxy/model/metric being distinguished from realized state—the Chain Home performance metrics vs command effectiveness distinction and the 'radar detections vs interception outcomes' gap qualify. For S4, conditional policy: method choice (long-wavelength network vs microwave) depends on source maturity and regime—genuinely conditional, not perpetual switching.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "SUPPORTS",
+            "reason": "The case repeatedly distinguishes radar performance metrics from realized command effectiveness: 'Radar performance metrics alone do not measure command effectiveness' and 'A superior component could not substitute for the command/reporting network that turned echoes into action.' Also 'Radar effectiveness depended on operators, reporting/plotting, communications and fighter-control integration rather than transmitter/receiver alone.' Detections (proxy) are explicitly separated from altered interception decisions (realized consequence)."
+          },
+          {
+            "id": "S2",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The trajectory notes that 'Radar effectiveness depended on operators... rather than transmitter/receiver alone' and that jamming/ECM changed the environment, but there is no concrete case of an evaluation being gamed, failed verification, or a specific test whose failure modes were represented. The decisive test framing ('detections arrived with enough warning and reliability to alter interception decisions') is an evaluation criterion, but no evidence describes verification failing or being gamed."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "The case explicitly notes that systems were deployed across material different conditions: air defence, naval warfare, bombing/navigation. Electronic countermeasures and jamming changed the environment during deployment, testing survival beyond the initial optimized early-warning scenario. Microwave radar had to repay complexity with accuracy, compactness and airborne/shipborne applicability—improvement surviving different conditions—and Chain Home's coarse system was frontier-optimal only in its fixed-station regime."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "The candidate routes make method choice explicitly condition-dependent: a quickly deployable long-wavelength fixed network was preferred while high-power microwave sources were immature, and shorter-wavelength microwave radar was pursued once a high-power cavity magnetron became available. The technical transition states radar 'evolved from an operationally adequate fixed warning network into a family of microwave/mobile/airborne systems as a new source technology... became available.' Method choice depends on source maturity/material conditions, satisfying conditional policy without requiring perpetual switching."
+          },
+          {
+            "id": "S5",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The case documents the reported/plotted/command network and trained operators as complements, and second-order effects creating laboratories and trained communities. But there is no explicit claim about whether durable state preserved verified causal/provenance/constraint information versus equal raw accumulated history. The tracking/reporting network implies some state management, but the invariant about provenance-preserving compact state is neither supported nor contradicted by the supplied evidence."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "The decisive-test criterion for microwave radar is precisely that additional source/receiver/manufacturing complexity must be repaid: 'Microwave radar had to repay additional source/receiver/manufacturing complexity with accuracy, compactness and airborne/shipborne applicability.' The early Chain Home choice similarly shows that added sophistication (higher precision) was NOT required and would not repay cost at that stage: 'Higher technical precision was not required for the first useful early-warning system.' This is a direct cost-benefit repayment test against a simpler baseline."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "The second-order effects are explicit: microwave radar created laboratories, components, measurement techniques and trained communities that later seeded radio astronomy, microwave engineering and electronics. This is precisely a change in the future production function of discovery/improvement, not merely current radar performance. Wartime performance aside, the capability shifted what further science/engineering could be produced."
+          },
+          {
+            "id": "S8",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The case mentions ECM/jamming changing the environment and the decisive operational test of whether detections arrived with enough warning to alter intercepts, which implies feedback against realized outcomes. But there is no specific documentation of predictions being corrected against realized observations/transitions or of model accuracy being checked against reality. The evidence supports outcome-sensitivity in general but does not pinpoint a prediction-error correction loop."
+          },
+          {
+            "id": "S9",
+            "verdict": "SUPPORTS",
+            "reason": "The source-native summary is explicit: 'Radar improved warning/targeting but also intensified strategic bombing and electronic warfare; wartime effectiveness does not settle broader social value.' Technical capability (radar precision and warning) is explicitly decoupled from authority/legitimacy over consequence-bearing action—the capability intensified strategic bombing and did not thereby acquire normative warrant. Also the unresolved question of separating Chain Home technical merit from Fighter Command organizational advantage shows capability alone does not confer command authority."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "Multiple distinct causal/value dimensions are explicitly shown to diverge: technical precision (Chain Home coarse) versus operational fitness (deployable, decision-grade); radar performance metrics versus command effectiveness ('performance metrics alone do not measure command effectiveness'); and wartime targeting capability versus broader social value ('wartime effectiveness does not settle broader social value'). A single proxy score (e.g., frequency or resolution) would clearly misrepresent these divergent dimensions."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2342,
+        "outputTokens": 1267,
+        "totalTokens": 3609,
+        "elapsedMs": 14245,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A04",
+      "valid": true,
+      "coding": {
+        "auditNote": "Skeptical independent coding of frozen invariants against the locked 1923-1930 quantum mechanics case. I evaluated each claim against the specific historical evidence: competing matrix/wave formalisms converging on equivalent predictions, Born's probabilistic reading, Dirac's relativistic extension, and the persistence of interpretational disputes despite predictive convergence. I avoided metaphorical mappings (e.g., did not treat equivalent formalisms as \"proxy vs realized state\" for S1 absent an actual model/prediction being distinguished from realized consequence), and did not count wartime military use or Nobel recognition as semantic success.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "SUPPORTS",
+            "reason": "The historical case explicitly distinguishes mathematical representation (wavefunction/formalism surface language) from the invariant predictive consequence, and tests whether 'surface mathematical language or invariant consequence should dominate.' Born's probabilistic reading and the matrix/wave equivalence debate center on whether the descriptive formalism should be conflated with realized microscopic reality. Schrödinger's wavefunction was initially read as an actual charge density until empirical and interpretive work indicated it was a predictive device, not the realized state."
+          },
+          {
+            "id": "S2",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The source materials describe decisive tests (reproducing spectral results, equivalence of numerical predictions, relativistic predictions like antiparticles) but do not provide evidence about evaluation failure modes, gaming of evaluation, or independent verification whose failure modes were represented. The case concerns predictive testing against experiment, but the frozen claim about evaluator integrity/gaming is not substantiated by the supplied historical trajectory."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly frames that old quantum theory failed 'as a coherent general method for multi-electron atoms, intensities, scattering' — i.e., it could not generalize beyond the specific spectra it was optimized to explain. The new quantum mechanics succeeded because it reproduced existing spectral results AND handled cases where old quantum theory failed, plus relativistic extension producing genuinely new predictions (antiparticles) rather than curve-fitting old spectra. This is generalization across materially different conditions."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "The frozen claim holds conditionally: different mathematical representations (Heisenberg's matrix mechanics, Schrödinger's wave mechanics, Dirac's algebraic synthesis) were each useful depending on problem conditions — matrix methods for certain transition calculations, wave mechanics for eigenvalue problems, Dirac's formalism for relativistic regimes. The case explicitly frames 'no one representation defeating all others.' Conditional method choice based on regimes is present; the 'one fixed global method not assumed optimal' is directly supported."
+          },
+          {
+            "id": "S5",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The trajectory mentions Born's probabilistic reading and Dirac's generalization, which could be read as preserving verified structure, but there is no supplied evidence about durable state preserving causal/provenance/constraint information versus raw accumulated history. The claim about state architecture is not addressed by the historical source materials provided."
+          },
+          {
+            "id": "S6",
+            "verdict": "NOT_APPLICABLE",
+            "reason": "The frozen claim concerns adaptive overhead, search, orchestration, or control complexity repaying cost against a simpler baseline. The historical case involves competing formalisms with different computational tractability (noted in 'not every mathematical extension was equally tractable computationally'), but there is no evidence of a deliberate adaptive-overhead decision or cost-benefit accounting against a simpler baseline. The concept does not map to the supplied evidence."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "The diffusion section states the framework 'rapidly reorganized atomic, molecular, solid-state and nuclear physics and created reusable calculation methods,' and second-order effects note it 'expanded the set of calculable/predictable phenomena and generated new experimental questions and instrumentation demands.' These are changes to the future production function of discovery, not merely current performance — exactly the metaproductivity claim."
+          },
+          {
+            "id": "S8",
+            "verdict": "SUPPORTS",
+            "reason": "The decisive tests section explicitly requires formalism to 'reproduce existing spectral results and succeed on cases where old quantum theory failed,' and quantum theory moved forward when predictions were corrected against realized observations (scattering, diffraction, relativistic effects). The empirical success did not require one shared picture — model accuracy (formal equivalence) did not grant authority over reality. Predictions were tested and corrected against experiments."
+          },
+          {
+            "id": "S9",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The case notes 'Later military/nuclear uses created consequences far outside the initial atomic-spectra research objective' under externalities, and interpretational disputes persisted. However, the supplied trajectory does not show knowledge or technical capability being exercised in authority/admissibility decisions for consequence-bearing action within 1925-30. The claim is plausible given later history but not evidenced by the time-bounded source materials."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "The case clearly shows distinct causal/value dimensions diverging: predictive equivalence across formalism coexisted with divergent interpretational ontologies that never converged, and computational tractability diverged from empirical adequacy. The source-native summary states materially different representations converged on shared predictive content 'while interpretational ontology remained open,' and rivals section notes 'Not every mathematical extension was equally tractable computationally.' A single proxy (numerical prediction) would miss interpretational and tractability dimensions."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2250,
+        "outputTokens": 1212,
+        "totalTokens": 3462,
+        "elapsedMs": 14309,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A05",
+      "valid": true,
+      "coding": {
+        "auditNote": "Skeptical independent coding of frozen invariants against the supplied fission-to-chain-reaction-to-plutonium-production trajectory (1938-1945). I assess each invariant against the historical evidence in the source bundle, requiring actual proxy/model/metric events rather than metaphorical mappings and checking guardrail violations carefully.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly separates representation from realized consequence. The transuranic interpretation of uranium products was a model that initially misrepresented reality until Hahn/Strassmann's barium identification and the Meitner/Frisch fission interpretation corrected it. More directly, CP-1's controlled criticality at very low power was a decisive experimental proof, but the frozen trajectory flags that this was not the realized production state: 'CP-1 was decisive physical evidence, but production required a new engineering/material/institutional frontier.' Dekontextualizing CP-1 as full production would collapse proxy into consequence; the trajectory prevents this."
+          },
+          {
+            "id": "S2",
+            "verdict": "SUPPORTS",
+            "reason": "The decisive-test framing requires that a chain-reaction claim be verified by neutron reproduction exceeding losses, not merely by a single fission event. Additionally, the trajectory flags that a low-power experimental pile gave 'limited guidance' for production scale, so measurements and evaluations at pile scale had failure modes that had to be represented before extrapolation. Fermis 1934 slow-neutron results also lacked the verification step (fission recognition) that would have corrected his conclusion, illustrating evaluation in the world failing and needing independent correction."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "The production frontier is precisely about generalizing beyond the CP-1 signal: the decisive test of production reactors was whether the same physical principle survived heat removal, radiation damage, poisoning, shielding and continuous industrial operations — materially different conditions from the low-power experimental pile. The trajectory explicitly says each transition 'introduced new variables rather than merely scaling the previous apparatus,' i.e., the optimized experimental environment does not automatically survive different operating conditions."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "Multiple enrichment/production routes (graphite-moderated natural uranium pile, isotope enrichment for U-235, and plutonium production routes) were pursued in parallel because the winning process was not knowable early. The method choice depended on material conditions — purity, cross sections, neutron losses, isotope availability — and the trajectory states 'parallelism was rational uncertainty management' since 'premature optimization was dangerous.' This is conditional method selection conditioned on evidence and schedule uncertainty, not a single fixed global method."
+          },
+          {
+            "id": "S5",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory discriminates durable, causally verified knowledge from raw accumulated history: intermediate pile experiments measured neutron behavior and material purity specifically to establish verified cross-section and moderation data before CP-1, and the decisive test required preserved neutron-reproduction information beyond a mere count of fission events. The complement list ('high-purity graphite/uranium, neutron counters/cross-section data, control rods') indicates durable causal/constraint information (cross sections, poisoning effects) was preserved and reused across the scale-up rather than treated as raw historical record."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory treats the costly production-scale investments as needing to repay themselves: production reactors tested whether the physical principle survived industrial operations, and the decisive test was 'whether the same physical principle survived heat removal, radiation damage, poisoning, shielding and continuous industrial operations.' The complementary costs — giant construction, shielding, chemical separation, geographically separated plants — are explicitly put in question as to whether CP-1-scale physics plus simple scaling would suffice; the unresolved question about 'rational uncertainty management versus wartime schedule preference' shows the additional complexity/expense was evaluated against whether a simpler baseline repaid it."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "The metaproductivity claim fits the second-order effects: the program created reactors, isotope production, accelerator/instrumentation communities, national laboratories and large-scale science-management patterns. The trajectory's own 'diffusionAndScaling' states that by 1945 the program 'transformed nuclear physics into a large industrial/government system.' The controlled chain reaction mattered not merely for its immediate performance but because it changed the future production function of nuclear research and industrial capability."
+          },
+          {
+            "id": "S8",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory centers prediction correction against realized observations: Fermi's 1934 interpretation that slow neutrons induced transuranics was a prediction-error model that required correction once Hahn/Strassmann's barium products and the Meitner/Frisch fission interpretation were realized. The decisive tests also demanded that claims about chain-reaction feasibility (a prediction) be corrected against measured neutron reproduction versus losses. Realized observations (intermediate-pile measurements, CP-1 criticality, production-reactor behavior) corrected the model rather than the model overruling reality."
+          },
+          {
+            "id": "S9",
+            "verdict": "NARROWS",
+            "reason": "The trajectory does support that technical capability (CP-1 proof) did not automatically confer production-scale admissibility — production required 'a new engineering/material/institutional frontier' and 'weapon consequences were not equivalent to the original explanatory discovery,' with externalities (radiation, secrecy, weapons use) expanding the consequence domain. However, the frozen claim speaks of legitimacy/safe admissibility for consequence-bearing action in the abstract; the historical record shows the authority question was institutionally managed but not centrally about legitimacy disputes. The evidence supports the narrowed claim that technical success did not grant automatic scaling/weapons admissibility, rather than the broader governance-legitimacy reading."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "Multiple distinct value/causal dimensions diverged in this trajectory: physical proof (CP-1 criticality) versus production throughput (kilogram-scale material flows) versus weapons consequence versus safety/radiation externalities. The trajectory explicitly states these are not equivalent: 'Weapon consequences were not equivalent to the original explanatory discovery,' and 'A low-power experimental pile gave limited guidance.' A single proxy (e.g., criticality achieved) is insufficient to represent production capacity, radiation hazard, or strategic consequence — the axes diverge."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2506,
+        "outputTokens": 1404,
+        "totalTokens": 3910,
+        "elapsedMs": 29854,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A06",
+      "valid": true,
+      "coding": {
+        "auditNote": "Skeptical independent coding of the locked insulin case (HD4-A06) against the ten frozen invariants, using only the supplied trajectory and source bundle.\n\nKey audit considerations per instructions:\n- For S1, I require an actual proxy/model/report/metric being distinguished from realized state/consequence, not a metaphorical theory-vs-practice mapping. The trajectory does contain biological units/standardization as a proxy for clinical potency — that's a genuine proxy-vs-realized-distinction instance, but I note the instructions say the case itself must provide it. The 'potency variation made biological units/standardization necessary for reliable dosing' is a genuine proxy (bioassay units) standing in for realized clinical effect (dose/effect reproducibility). That's a concrete representational proxy. I'll code SUPPORTS.\n- For S2, eval integrity: bioassay unit standardization across laboratories can fail (lot-to-lot, lab-to-lab variation) and required verification. Collip's purification and the international biological standard work are verification institutions whose failure modes (toxicity in early extracts) were represented. SUPPORTS or NARROWS? The case shows evaluation embedded in world (early human extracts caused reactions before purification) — that's evaluation failing in the world. I'll SUPPORTS.\n- S3 generalization: improved purification and standardization had to survive across lots, manufacturers, and clinical settings — clearly beyond the single Thompson case. SUPPORTS.\n- S4 conditional: the method genuinely depended on conditions — purification before human use, industrial partner for scale, biological units for cross-lot comparability. These are condition-dependent method choices, not a single global method. SUPPORTS. The instruction warns conditional policy needs materially different regimes; here impure-vs-pure, small-vs-industrial, single-batch-vs-lot-comparability are materially different regimes. SUPPORTS.\n- S5 explicit compact persistent state: insulin biological standards and potency units preserved verified/standardized causal info compactly rather than raw history. SUPPORTS, though could be NARROWS since state here is institutional standardization. The standard unit is exactly a compact persistent state preserving verified potency info. SUPPORTS.\n- S6 adaptive overhead repays: building industrial purification, standardization, sterile filling was overhead justified by enabling reproducible dosing — repaid itself. SUPPORTS.\n- S7 metaproductivity: insulin changed future production function — created hormone biology, bioassay/standardization practices, pharma academic-industrial model. SUPPORTS.\n- S8 prediction-error update: early human extracts caused reactions; purification had to be corrected against realized observations. Prediction corrected against reality. SUPPORTS. Perhaps NARROWS since it's generic? The case does show realized toxicity correcting the assumed sufficiency of the extract. SUPPORTS.\n- S9 scoped authority: discovery capability (therapeutic promise) did not automatically grant safe admissibility — required purification, industrial scale, standardization before consequence-bearing repeated human use. The Toronto group's discovery did not alone confer authority to deploy safely. SUPPORTS.\n- S10 multi-axis: biological efficacy vs access/pricing/supply diverge — the trajectory explicitly lists access, pricing, supply as distinct from efficacy. SUPPORTS.\n\nNo NARROWS/CONTRADICTS/INSUFFICIENT needed — the case is well-supported across all ten because it is a textbook example of standards-based generalization. I will avoid overclaiming: for S1 I anchor strictly to the biological-units-as-proxy instance.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "SUPPORTS",
+            "reason": "The biological unit/standardization system is a genuine representational proxy standing in for realized clinical effect; the trajectory explicitly notes potency variation made biological units necessary 'so doses are comparable across lots,' distinguishing the proxy (bioassay unit) from the realized consequence (reproducible dose/effect). This is an actual proxy-vs-realized distinction, not a metaphorical mapping."
+          },
+          {
+            "id": "S2",
+            "verdict": "SUPPORTS",
+            "reason": "Evaluation is embedded in and can fail within the world: early human extracts caused impurities/reactions, meaning the naive 'extract works' evaluation failed against toxicity, and correction required purification plus biologically standardized potency units whose lab-to-lab variation required verification (international biological-standard institutions). The failure modes of the potency evaluation are themselves represented."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "The decisive test explicitly required that a production method 'preserve potency across lots, not merely produce one successful batch,' and that dose units correspond across laboratories/manufacturers. The intervention had to generalize beyond the initial Toronto demonstration and Leonard Thompson case to different manufacturers, lots, and clinical settings."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "Method choice was condition-dependent across materially different regimes: purification before further human use when early extracts were toxic; partnering with Eli Lilly for industrial scale when Toronto could not satisfy demand; biological standardization when potency varied across lots and labs. No single fixed method was assumed optimal across purity, scale, and comparability regimes."
+          },
+          {
+            "id": "S5",
+            "verdict": "SUPPORTS",
+            "reason": "The biological potency standard/unit functions as a compact persistent state preserving verified dose-relationship information, rather than accumulating raw production history or raw empirical lots. International biological-standard institutions codified the verified unit so future lots and doses could draw on validated potency data compactly."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "The added overhead of industrial purification, sterile filling, cold/storage logistics, and biological standardization was not gratuitous complexity; it was the overhead that converted one successful batch into reproducible dosing, repaying its cost by making repeated human administration safe and reliable."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "Beyond treating diabetes, insulin 'created durable hormone biology, bioassay/standardization practices and a pharmaceutical model linking academic discovery to industrial production' — i.e., it altered the future production function of discovery and medicine, which is metaproductive, not merely a current performance gain."
+          },
+          {
+            "id": "S8",
+            "verdict": "SUPPORTS",
+            "reason": "Early human extracts caused impurities/reactions, contradicting the assumption that the demonstrated extract was sufficient for human use; the Toronto group corrected against realized observations by improving purification before further use, and later against realized cross-lot potency variation via standardization — predictions updated against realized states."
+          },
+          {
+            "id": "S9",
+            "verdict": "SUPPORTS",
+            "reason": "Demonstrating therapeutic capability (a functioning pancreatic extract) did not automatically grant safe admissibility for repeated human administration; consequence-bearing use required purification, industrial manufacturing, and potency standardization first, showing that technical capability alone confers neither legitimacy nor safe deployability."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly separates distinct value dimensions: biological efficacy ('improving blood/urine glucose and clinical state without unacceptable toxicity') versus 'access, pricing and supply,' which 'became consequential dimensions distinct from biological efficacy.' A single proxy (efficacy) is insufficient because these causal/value axes diverge."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2073,
+        "outputTokens": 1575,
+        "totalTokens": 3648,
+        "elapsedMs": 21348,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A07",
+      "valid": true,
+      "coding": {
+        "auditNote": "Independent skeptical coding of penicillin case HD4-A07 against frozen invariants, using only supplied trajectory data.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "SUPPORTS",
+            "reason": "The decisive-test evidence draws a hard line between an 'antibacterial zone on a plate' (representation/proxy) and systemic in-vivo infection cure (realized consequence). Fleming's 1929 plate observation is explicitly not collapsed into a practical therapy; only purified material treating infection in vivo counts. The trajectory repeatedly stresses that nominal discovery did not make the drug tractable, directly enforcing the proxy-vs-realized separation."
+          },
+          {
+            "id": "S2",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The case includes clinical efficacy 'having to survive toxicity/dosing constraints' as a decisive test, and the Oxford animal/patient demonstrations, but there is no explicit material about evaluation being gamed, failing, or about verification failure modes being represented in trials or wartime production quality controls. Not enough to support or rebut the claim."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory shows improvement hinging on materially different conditions: a plate inhibition zone did not generalize to systemic infection; success in British laboratory/clinical scale did not generalize to mass production. Scaling required different knowledge (fermentation vessels, aeration, corn steep liquor media, high-yield strains, sterile recovery), i.e., generalizing beyond the exact environment optimized required new conditions."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "The candidate routes are conditional: local antiseptic/research use, sulfonamides as a serious alternative during early development, and later deep-tank fermentation with improved media/strains respond to different regimes (lab, clinical, industrial scale). No single fixed method is assumed globally optimal; method choice depends on conditions such as production stage and current supply constraints (even patient-urine recovery was conditionally considered)."
+          },
+          {
+            "id": "S5",
+            "verdict": "SUPPORTS",
+            "reason": "The production system required preserving verified causal/constraint information as distinct from raw history: reproducible sterile doses demanded bioassay, purification chemistry, strain selection, media formulation, and sterile recovery/refinement. The transition from plate observation to stable, doseable drug required preserving verified causal/provenance/constraint information rather than accumulating raw observation history."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "The added complexity of purification chemistry, fermentation vessels/aeration, high-yield strains, and government-industry coordination produced decision-relevant value beyond the simple baseline (Fleming's local antiseptic use/plate research), and crucially it repaid its cost by enabling orders-of-magnitude mass production that the simpler baseline could not supply. The overhead of deep-tank engineering and collaborative coordination directly produced wartime-scale supply."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly notes the second-order effect: fermentation/bioprocess infrastructure and the collaborative production model became reusable for later antibiotics and biotechnology, changing the future production function of discovery/improvement rather than merely improving current penicillin output. This directly supports a metaproductivity reading."
+          },
+          {
+            "id": "S8",
+            "verdict": "SUPPORTS",
+            "reason": "The case shows the realized production outcome was far from early predictions: British lab methods could not supply mass demand, so production plans had to be corrected against realized observations of scale limits, driving the pivot to corn steep liquor, high-yield strains, and deep-tank fermentation. Predictions were corrected against realized constraints; model knowledge (plate efficacy) did not grant authority over the realized production reality."
+          },
+          {
+            "id": "S9",
+            "verdict": "SUPPORTS",
+            "reason": "Possession of the antibacterial observation (Fleming's capability/knowledge) did not automatically grant authority or safe admissibility for consequence-bearing mass therapy; the trajectory explicitly holds that plate efficacy was insufficient for a stable, doseable, clinically usable drug. Clinical efficacy had to survive toxicity/dosing constraints before consequence-bearing use—technical capability alone did not confer safe admissibility."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "Multiple distinct axes diverged and could not be collapsed into a single proxy: discovery-versus-availability credit, clinical efficacy versus production scale, and wartime cure counts versus later antibiotic resistance/overuse consequences. The trajectory explicitly separates these dimensions and warns against back-projecting later scale into the 1928 action surface, matching the multi-axis claim."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2136,
+        "outputTokens": 1031,
+        "totalTokens": 3167,
+        "elapsedMs": 12569,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A08",
+      "valid": true,
+      "coding": {
+        "auditNote": "Skeptical independent coding of the NACA experimental aerodynamics case (1922-1945) against the ten frozen invariants, using only the supplied source-locked trajectory.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory repeatedly distinguishes measurements/proxies from realized flight behavior: the Variable Density Tunnel used pressurization to make model conditions 'more representative' of full-scale flight (a proxy), decisive tests required tunnel results to 'reproduce materially relevant flight behavior,' and a 'published airfoil section did not guarantee identical performance after real manufacturing/installation.' The explicit separation between model/representation and realized state is central to the narrative."
+          },
+          {
+            "id": "S2",
+            "verdict": "SUPPORTS",
+            "reason": "The tunnel/measurement instruments were themselves subject to failure modes that had to be represented: 'Variable Density Tunnel turbulence itself became a measurement problem,' and 'Tunnel results had to reproduce materially relevant flight behavior, not merely be internally repeatable.' This is a direct statement that evaluation (tunnel metrology/measurement) can fail and that its failure modes must be tracked, satisfying the invariant."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory insists that improvement must survive conditions beyond the exact tested case: 'Airfoil catalogs had to transfer across manufacturers/aircraft within explicit conditions,' and 'A published airfoil section did not guarantee identical performance after real manufacturing/installation.' Full-scale tunnels exposed rivet, fabric, and installation effects that smaller models missed, showing generalization beyond the optimized signal was required and uncertain."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "The method choice depended on materially different regimes: pressurized variable-density testing matched Reynolds effects for small models, full-scale tunnels were needed for engine/cowling and construction-detail effects, and 'full-scale tunnels exposed effects... that smaller models could miss.' The case shows plural methods each conditionally useful depending on the scale/regime being studied, not one fixed optimal method, and the trajectory notes empirical cowling work reached an impasse needing 'more analytical understanding.'"
+          },
+          {
+            "id": "S5",
+            "verdict": "SUPPORTS",
+            "reason": "NACA's key product was durable, compact, reusable state rather than raw accumulated test history: 'NACA airfoil families encoded tested geometry/performance in reusable catalogs,' and NACA built 'a broad reusable empirical basis' as opposed to manufacturers testing designs individually. The catalogs preserved verified design data (geometry/performance relationships) as structured reusable state."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "The construction of new tunnels and measurement infrastructure is treated as requiring decision-relevant payoff: 'New tunnels repeatedly expanded the questions that could be tested and lowered the cost of comparing future aircraft designs.' The full-scale Propeller Research Tunnel's systematic cowling variation produced 'unexpectedly large gains,' indicating the overhead of facility construction repaid itself in decisive value. The unanswered question about how much advantage came from facility physics versus coordination also frames the cost-benefit ambiguity."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "The second-order effects explicitly state the metaproductive nature: 'New tunnels repeatedly expanded the questions that could be tested and lowered the cost of comparing future aircraft designs.' The source-native summary declares 'the key product was not one airfoil or cowling; it was an instrumented experimental substrate,' and NACA turned facilities into 'a shared observation/representation infrastructure,' changing the future production function of discovery rather than merely current performance."
+          },
+          {
+            "id": "S8",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory shows predictions/representations being corrected against realized observations: 'Tunnel results had to reproduce materially relevant flight behavior,' and the Variable Density Tunnel's scaling limits were discovered through comparison with full-scale testing ('Full Scale Tunnel... Variable Density Tunnel scaling limits and need for full-scale testing'). The empirical cowling work's impasse 'later required more analytical understanding' shows corrections driven by realized outcomes rather than model authority."
+          },
+          {
+            "id": "S9",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly limits the authority of published technical capability: 'A published airfoil section did not guarantee identical performance after real manufacturing/installation.' Knowledge transfer was conditional—'within explicit conditions'—and NACA data did not automatically authorize safe/consequence-bearing use across installations. The externalities ('noise/safety/warfare consequences beyond aerodynamic efficiency') further show technical capability did not confer automatic admissibility of consequences."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "The cowling tradeoff case shows distinct value dimensions diverging: 'Cowling changes had to reduce drag while preserving engine cooling'—a drag proxy alone was insufficient because cooling was an orthogonal causal dimension that could diverge. The drive for aerodynamic efficiency created 'noise/safety/warfare consequences beyond aerodynamic efficiency,' indicating multiple distinct axes beyond a single proxy score."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2488,
+        "outputTokens": 1136,
+        "totalTokens": 3624,
+        "elapsedMs": 11982,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A09",
+      "valid": true,
+      "coding": {
+        "auditNote": "Skeptical independent coding of the wartime computing/cryptanalysis trajectory (HD4-A09). I evaluated each frozen invariant strictly against the locked source material, refusing metaphorical mappings (esp. S1) and refusing to treat wartime deployment, operational use, or postwar recognition as semantic success for the invariants.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "NOT_APPLICABLE",
+            "reason": "The case contains no documented proxy/model/report/metric/description being silently collapsed into the realized state it represents. ENIAC's 'electronic speed' claims, Colossus's valve counts, and operational effectiveness are all presented in the trajectory as distinct from realized consequences (e.g., reconfiguration overhead, reliability, workflow dependence). No evidence of a representation being conflated with the realized state."
+          },
+          {
+            "id": "S2",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The trajectory discusses operational benefit and the replay of speed against reliability/reconfiguration baselines, but does not document any formal evaluation system that could fail or be gamed, nor independent verification of decisive claims with represented failure modes. The 'decisiveTests' describe criteria but not an evaluation mechanism whose failure modes were represented. Evidence too thin."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "Colossus, invented for Lorenz/Tunny statistical counting, was a special-purpose machine; ENIAC's ballistics integration was later reconfigurable toward other problems but with laborious plugboard changes. The trajectory explicitly notes machines were specialized to cipher structure and that generalization beyond the optimized signal required redesign (EDVAC stored-program). The finding that wartime systems stayed specialized, implying generalization was not automatic, supports the invariant's demand that improvement survive materially different conditions."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "Method choice was conditionally driven by problem regime: manual cryptanalysis for some tasks, electromechanical Bombe search for Enigma with cribs/procedures, special-purpose electronic statistical counting for Lorenz, and large-scale electronic numerical integration for ballistics. No single fixed method was assumed optimal across cipher structures and workload types, supporting conditional selection by conditions."
+          },
+          {
+            "id": "S5",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The trajectory mentions human operators, paper tape, and configuration as complements but provides no evidence about how persistent state preserved verified causal/provenance/constraint information versus raw accumulated history. Polish insights were transferred materially, but nothing specifies whether durable state carried provenance/verification selectively. Evidence insufficient."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "ENIAC's electronic speed was weighed against reconfiguration and reliability overhead; Colossus's vacuum-tube complexity had to repay reliability/maintenance costs against electromechanical baselines. The decisive tests explicitly require additional electronic/hardware complexity to produce decision-relevant value within end-to-end workflows, which is precisely the adaptive-overhead-must-repay-itself test. The trajectory records that Colossus repaid it while ENIAC's overhead (reconfiguration) remained a visible cost."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory's second-order effects and diffusion states explicitly say wartime electronic engineering, programming/operation practices, and institutional demand created a reusable computing frontier after the war, and that personnel carried tacit knowledge into postwar stored-program projects. This is the definition of metaproductivity: change in the future production function of computing, not merely current operational performance."
+          },
+          {
+            "id": "S8",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The trajectory references Tutte/Newman identifying statistical structure in Lorenz, which implies model refinement against observed traffic, but no explicit evidence of predictions being corrected against realized observations/transitions in a systematic sense that would demonstrate the invariant. The material is too thin to confirm prediction-error world-model update behavior."
+          },
+          {
+            "id": "S9",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The trajectory notes cryptographic capability increased surveillance/war-fighting power and that secrecy constrained attribution/diffusion, but it does not document any case where technical capability was (rightly or wrongly) treated as granting authority or admissibility for consequence-bearing action. No evidence of scoped-authority reasoning or its violation."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly rejects a single 'first computer' ontology, separating multiple distinct axes: speed vs reliability vs reconfigurability vs generality (special-purpose vs general), operational value vs later mythology, and secrecy vs diffusion. ENIAC's electronic speed did not eliminate reconfiguration or reliability problems, and Colossus's operational value did not make it a stored-program machine. Distinct dimensions diverge, supporting the multi-axis claim."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2389,
+        "outputTokens": 1097,
+        "totalTokens": 3486,
+        "elapsedMs": 11642,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A10",
+      "valid": true,
+      "coding": {
+        "auditNote": "Skeptical independent coding of the HD4-A10 liquid-rocketry case against the ten frozen invariants, using only the supplied source-locked trajectory and source bundle.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly separates 'correct principle, tractable local experiment and operational system' and asserts 'Goddard's early correctness did not itself create V-2-scale capability.' His 1926 firing is a local experimentally demonstrated capability, not a realized high-altitude operational system; the V-2 demonstrated system scale but that does not collapse into positive consequence. The representation (principle, local test) is not collapsed into the realized state (operational system)."
+          },
+          {
+            "id": "S2",
+            "verdict": "SUPPORTS",
+            "reason": "Decisive-test framing notes that 'a liquid engine firing was insufficient; the vehicle had to lift, remain stable, guide and survive thermal/feed dynamics,' i.e., a coarse proxy (firing) can fail the real verification. Also, Goddard 'kept much technical detail private, constraining diffusion/integration,' meaning reports/knowledge transfer themselves had failure modes that need representation."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory holds that small experiments validated subsystems but 'did not validate mass production or long-range military operation,' i.e., improvement on local experimental flights did not generalize to materially different production/operational conditions. V-2 scaling is a different regime requiring pumps, cooling, guidance and industrial infrastructure not demonstrated by isolated flights."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "The method set is explicitly conditional on institutional/authority regime: 'Private foundations/Smithsonian, German rocket societies, military institutions and wartime production systems provided very different authority/capital regimes.' The useful path (private experimentation vs. state-funded program) depended on the prevailing institutional and funding conditions, i.e., method choice is regime-contingent, not one fixed global optimum."
+          },
+          {
+            "id": "S5",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory emphasizes that preserved technical detail mattered: Goddard's secrecy 'constrained diffusion/integration,' whereas accumulated physical/test and industrial knowledge (turbopumps, guidance, test stands) became durable useful state that scaled to the V-2 and seeded postwar programs. Verified causal/constraint knowledge (how components integrate) rather than 'equal raw accumulated history' of experiments is foregrounded."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "The V-2 achieved system scale only via enormous industrial, forced-labor and human costs; the trajectory flags that this added complexity/infrastructure overhead must be weighed against payoff, and that 'V-2 military effectiveness and technological sophistication are not the same value claim.' The overhead (industrial production at scale) is assessed against a baseline of smaller experiments and judged not to repay positive net value despite technical payoff."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "The 'second-order effects' note states rocket test methods, guidance, propulsion and system-integration knowledge 'became high-leverage substrates for missiles and spaceflight.' This is explicitly a metaproductive claim: the improvement changed the future production function of discovery (postwar US/Soviet missile and space programs seeded by captured hardware/personnel), beyond its immediate ballistic performance."
+          },
+          {
+            "id": "S8",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory repeatedly distinguishes predictions/claims from realized outcomes: Goddard's predictions/anticipations (he 'anticipated many components') did not determine realized operational capability; V-2 capability does not imply positive net consequence. Realized conditions (thermal/feed dynamics, stability, guidance) corrected against theoretical/experimental predictions, echoing prediction-error updating where model correctness does not grant authority over reality."
+          },
+          {
+            "id": "S9",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory cryptically guards against conflating technical capability with authority/admissibility: 'V-2 demonstrated system scale but at enormous industrial, forced-labor and human costs,' and 'technological milestone language that omits this consequence boundary is incomplete.' Technical sophistication did not grant legitimacy or safe admissibility for the forced-labor/weapons consequences, which are explicitly outside any authority granted by capability."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly separates causal/value dimensions that diverge: 'V-2 military effectiveness and technological sophistication are not the same value claim,' and 'How should technical performance be reported without erasing forced-labor and weapons consequences?' A single proxy (technical/performance achievement) is insufficient because it collapses distinct dimensions (propulsion capability, operational scale, human/ethical cost) that can diverge."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2448,
+        "outputTokens": 1088,
+        "totalTokens": 3536,
+        "elapsedMs": 11900,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A11",
+      "valid": true,
+      "coding": {
+        "auditNote": "Independent skeptical coding of HD4-A11 (polymer science to nylon/neoprene/synthetic rubber). I map each frozen invariant against the actual historical evidence supplied, requiring literal instantiation rather than metaphorical mapping. Withheld SUPPORTS for S1 (no concrete proxy-vs-realized-state instance in the case), S4 (no conditional regime-dependence of method choice in the evidence), and S10 (no single-proxy divergence instance supplied).",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "NOT_APPLICABLE",
+            "reason": "The case concerns theory-vs-reality disputes and process-vs-outcome distinctions, but I find no concrete instance of a proxy/model/report/metric/description being collapsed into a realized state. Staudinger's macromolecular claim vs. colloidal aggregate theory is a scientific theory contest, not a proxy/report/metric being silently equated with realized consequence. The specialization instruction prohibits metaphorical mapping of implementation-vs-outcome here."
+          },
+          {
+            "id": "S2",
+            "verdict": "SUPPORTS",
+            "reason": "The macromolecule claim had to survive chemical measurements rather than bulk appearance, and Carothers' synthesis served as a constructive test that independently verified the chain model. The German U.S. rubber programs also required verification that lab polymers exhibit reproducible properties after processing, and the natural-rubber crisis testing of GR-S on industrial equipment represents verification whose failure modes were represented."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "The decisive test that emergency rubber must run on industrial equipment and meet tire/vehicle performance under substitute-feedstock constraints is a literal case of improvement needing to survive materially different conditions (from lab polymer to industrial processing, from normal feedstock to wartime substitutes). Carothers' step-growth work also connected structure and reaction control such that properties held beyond a single synthesis condition."
+          },
+          {
+            "id": "S4",
+            "verdict": "INSUFFICIENT_EVIDENCE",
+            "reason": "The case describes distinct rubber programs (Germany, Soviet Union, U.S.) and plural methods (Staudinger model, Carothers step-growth, Buna/GR-S), but the supplied evidence does not show that method choice was made conditional on materially different problem/world regimes, or that a single fixed method was rejected in favor of regime-dependent selection. Distinct programs coexisting in parallel does not instantiate a conditional operator/search policy."
+          },
+          {
+            "id": "S5",
+            "verdict": "SUPPORTS",
+            "reason": "Carothers' DuPont group deliberately established reproducible molecular-chain synthesis connecting structure, reaction control and properties, preserving causal/provenance/constraint information (molecular weights, step-growth control, drawing/orientation) rather than raw accumulated recipes. The durable capability that outlasted wartime emergency rests on preserved verified structural and process knowledge, not merely accumulated output history."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "The molecular-still/process equipment, compounding/carbon black, and government capital are expensive additions, and the decisive test that lab polymers must exhibit useful reproducible properties after processing shows this control complexity paid off. However, the 'rivalsAndFailures' field notes GR-S had handling/tack disadvantages and early synthetics were expensive/inferior, acknowledging the cost of added control without guaranteed repayment, which strengthens the invariant's relevance. Nylon's commercial success after processing investment shows the overhead repaid its cost."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "The second-order effect explicitly states that the transition opened huge future materials search spaces: 'Modern polymer chemistry, industrial research labs and large-scale polymerization infrastructure opened huge future materials search spaces.' And the source-native summary says 'Neither macromolecular theory alone nor wartime plant construction alone explains the durable materials capability' — the durable capability is a changed future production function of discovery, beyond current performance. Nylon/neoprene commercial success plus wartime scale jointly changed the future search space."
+          },
+          {
+            "id": "S8",
+            "verdict": "SUPPORTS",
+            "reason": "The macromolecule claim had to 'explain/survive chemical measurements rather than rely on bulk appearance,' and the U.S. GR-S program's output growth to hundreds of thousands of tons by 1945 reflects correction of predictions (from tiny prewar base) against realized production. Staudinger's model was corrected against realized chemical measurements, not granted authority by virtue of theoretical plausibility. Wartime plant output updated expectations about feasible scale."
+          },
+          {
+            "id": "S9",
+            "verdict": "SUPPORTS",
+            "reason": "The externalities field explicitly notes 'Petrochemical dependence, waste and later environmental persistence entered the consequence domain after local performance success' — technical capability (successful synthetic polymer production) did not automatically grant safe admissibility, as environmental consequences accrued only after local performance succeeded. Wartime supply success did not establish environmental/lifecycle superiority, per rivalsAndFailures. This is a literal instance of technical success not conferring authority/legitimacy for consequence-bearing action."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "Distinct causal/value dimensions diverge in this case: strategic/tactical success (GR-S meeting wartime rubber demand) diverges from technical quality (GR-S handling/tack disadvantages) and from environmental sustainability (later persistence/waste), which are separate axes. The 'rivalsAndFailures' and 'externalities' fields show that a single success signal (tonnage produced, commercial viability) is insufficient because quality, economics, and environmental dimensions diverge."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2273,
+        "outputTokens": 1229,
+        "totalTokens": 3502,
+        "elapsedMs": 14508,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "trajectoryId": "HD4-A12",
+      "valid": true,
+      "coding": {
+        "auditNote": "Skeptical independent coding of HD4-A12 (hybrid corn, 1921-1945) against the frozen invariants, using only the supplied source-locked trajectory.",
+        "judgments": [
+          {
+            "id": "S1",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory explicitly separates representations from realized states: greenhouse/line appearance (proxy) did not transmit field performance; crosses had to outperform local varieties 'under field conditions rather than greenhouse/line appearance.' Multi-location field trials (the report/metric) were distinguished from realized farm outcomes, and the sourceNativeSummary stresses that field validation made genetic effects tractable. This is a genuine proxy-vs-realized-state distinction, not a generic mapping."
+          },
+          {
+            "id": "S2",
+            "verdict": "SUPPORTS",
+            "reason": "Evaluation infrastructure is treated as part of the world: field demonstrations and comparative observations were needed to verify that crosses outperformed open-pollinated varieties, and 'early genetic theory was not sufficient to choose winners without massive empirical crossing/testing.' The trajectory explicitly notes the evidence was not self-justifying—farmers resisted until field evidence accumulated—representing the failure mode of theory-only or single-site evaluation."
+          },
+          {
+            "id": "S3",
+            "verdict": "SUPPORTS",
+            "reason": "Generalization beyond optimized signal is central: 'Performance had to survive weather/pest/environmental variation across farms' and 'Crosses had to outperform local open-pollinated varieties under field conditions.' A line/variety that won in one greenhouse or trial was not presumed to generalize; multi-location field evidence was required because conditions varied materially across Corn Belt sites and years."
+          },
+          {
+            "id": "S4",
+            "verdict": "SUPPORTS",
+            "reason": "The useful method was conditionally chosen: single-cross hybrids versus double-cross hybrids was decided by seed-production constraints (double-cross made seed production economically practical even though single-cross may have had superior performance), and public breeding stations versus private seed companies coexisted based on institutional conditions. The candidateRoutes list conditional alternatives rather than one fixed global winner, and the sourceNativeSummary frames the system as reproducible across variable environments."
+          },
+          {
+            "id": "S5",
+            "verdict": "SUPPORTS",
+            "reason": "The trajectory emphasizes durable reusable state beyond raw accumulation: 'Breeding programs created reusable germplasm/evaluation infrastructure' and kept inbred-line collections, controlled pollination methods, and multi-location trial results as preserved causal/provenance information that enabled a faster future search over crop combinations—not merely equal raw accumulated history."
+          },
+          {
+            "id": "S6",
+            "verdict": "SUPPORTS",
+            "reason": "Adaptive overhead is explicitly justified against a simpler baseline: mass selection/open-pollinated seed was the less complex incumbent route, and the added complexity of controlled crossing, inbred-line isolation, and extensive field testing had to 'produce decision-relevant value' by generating sufficiently uniform, economically produced seed that outperformed open-pollinated varieties in the field. The trajectory frames that the complexity repaid itself through adoption diffusion (from ~1% to >30% of acreage)."
+          },
+          {
+            "id": "S7",
+            "verdict": "SUPPORTS",
+            "reason": "Metaproductivity is explicit: 'Breeding programs created reusable germplasm/evaluation infrastructure and a faster search process over future crop combinations.' The transition is characterized as turning genetics into 'a reproducible annual seed-production/field-testing system,' which changes the future production function of improvement rather than merely producing one superior plant."
+          },
+          {
+            "id": "S8",
+            "verdict": "SUPPORTS",
+            "reason": "Predictions were corrected against realized observations: field demonstrations and comparative observations updated the model as evidence accumulated, and the trajectory notes early genetic theory failed to predict winners, requiring empirical correction. Farmer reluctance was overcome only when realized field evidence contradicted earlier expectations/reports, and diffusion (1% in 1935 to >30% in 1940) reflects realized adoption correcting prior projections."
+          },
+          {
+            "id": "S9",
+            "verdict": "SUPPORTS",
+            "reason": "Scoped authority is evident: possessing genetic theory or controlled-cross capability did not automatically grant admissibility or legitimacy—farmers 'initially resisted higher-cost/non-replantable seed until field evidence accumulated.' Technical capability (producing hybrids) did not auto-legitimize deployment; field validation and demonstration were required before consequence-bearing adoption occurred. The trajectory's warning that yield gains are not cleanly attributable to genetics versus agronomy/mechanization further underscores authority is scoped."
+          },
+          {
+            "id": "S10",
+            "verdict": "SUPPORTS",
+            "reason": "A single proxy score is explicitly insufficient: the unresolved question 'How much early yield gain should be attributed to genetics versus concurrent mechanization/agronomy/weather?' shows distinct causal/value dimensions diverge. Also seed production economics (uniformity, cost, non-replantability) is a distinct dimension from field performance, so a single yield score would not capture the value structure the trajectory tracks."
+          }
+        ]
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "inputTokens": 2163,
+        "outputTokens": 1102,
+        "totalTokens": 3265,
+        "elapsedMs": 12673,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    }
+  ]
+}
