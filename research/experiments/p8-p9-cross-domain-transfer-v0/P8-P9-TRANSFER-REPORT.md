@@ -58,6 +58,7 @@ Do not promote a fixed checkpoint count, StoppingService, CriticService, or the 
 ## Apparatus recovery and contraction
 
 The complete Security/Finance executable and raw campaign is Git-recoverable from snapshot `9598bda3b902ba28c47416861bb0609ba9695948` under `research/experiments/p8-p9-cross-domain-transfer-v0/apparatus/`. The current tree intentionally removes that apparatus after the snapshot; no P8/P9 runner or frozen Parquet is a long-lived Computing authority.
+`contraction-verify` then proved the apparatus absent at `355acb4581283aa67dfc2a9629437672dea675c8`, recoverable as Git tree object `305dc55d0d95b52200483d1009059488abdc997c`, bound to an exact passing full gate, with zero current experiment executable-like source. Receipt payload: `sha256:0b7a4ff1ea4acf5fc466352e9829c8f74afc006030a88c326a5a0754c2b46439`.
 
 ## Cross-domain world-model update
 
