@@ -1,0 +1,77 @@
+{
+  "replicate": 4,
+  "result": {
+    "assessments": [
+      {
+        "closureRisk": "Low—owner next actions are concrete and unblocked; closure is a single experiment cycle.",
+        "dominantCost": "Designing genuinely distinct encounter variants that perturb the right axes without breaking boundedness.",
+        "id": "G-AF3",
+        "operatorPolicy": "Fund the construction of 2–3 materially different bounded encounter variants and re-run causal-episode probes across them.",
+        "predictedFrontierDelta": "prior-narrowing",
+        "topologyHypothesis": "AF002 priors are partly fixed-encounter overfit; perturbation will separate surviving generalization from brittle priors.",
+        "whyNotFirst": "It is first."
+      },
+      {
+        "closureRisk": "Low but the outcome is near-certain; marginal research value per unit is low.",
+        "dominantCost": "Physical/portable gate execution time; low research content.",
+        "id": "R-P5",
+        "operatorPolicy": "Run final portable/physical gates and commit if they pass.",
+        "predictedFrontierDelta": "no-op",
+        "topologyHypothesis": "Mechanism selection is complete; remaining work is mechanical acceptance and release.",
+        "whyNotFirst": "Mostly mechanical closeout; low expected frontier delta relative to G-AF3."
+      },
+      {
+        "closureRisk": "Medium—could resolve as a no-op if the packaging cost is not measurable.",
+        "dominantCost": "Dependency-graph audit and packaging candidate construction; may conclude no narrower surface is justified.",
+        "id": "HOST-PKG",
+        "operatorPolicy": "Audit Host import/dependency graph; build smallest packaging candidate only if measurable.",
+        "predictedFrontierDelta": "ambiguity-reduction",
+        "topologyHypothesis": "A narrower owner-native install surface may be justified, but only if the import graph cost is measurably large.",
+        "whyNotFirst": "Exploratory with a conditional build; lower expected value than G-AF3's direct generalization test."
+      },
+      {
+        "closureRisk": "High—blocked on external infrastructure recovery.",
+        "deferNow": true,
+        "dominantCost": "External DNS blocker; cannot execute now regardless of budget.",
+        "id": "H-P6",
+        "operatorPolicy": "Retry no-tool incremental after DNS recovery; run replay/batch controls.",
+        "predictedFrontierDelta": "defect-discovery",
+        "topologyHypothesis": "Control-path repair is admitted but live experiments are externally blocked on DNS recovery.",
+        "whyNotFirst": "Externally blocked; budget cannot unblock DNS recovery."
+      },
+      {
+        "closureRisk": "Very high—blocked on external host provisioning.",
+        "deferNow": true,
+        "dominantCost": "External infrastructure acquisition; not addressable by research budget.",
+        "id": "F-C2-BLOCKED",
+        "operatorPolicy": "Obtain independent host, verify immutable deployment kit, provision separated signers.",
+        "predictedFrontierDelta": "new-capability",
+        "topologyHypothesis": "Negative control; dominant blocker is absence of an independent Linux/systemd host.",
+        "whyNotFirst": "Explicitly a negative control with a dominant external admission blocker; deferred."
+      }
+    ],
+    "choiceRationale": "G-AF3 is the only candidate that is both unblocked and at a genuine decision frontier: AF002 is complete, the current fixed Genesis has almost no environment variation, and the next unit directly tests which AF002 priors survive perturbations—a high-value ambiguity-reduction/prior-narrowing step that is closable with the owner's own next actions. R-P5 is close to closure but is mostly mechanical (final gates, commit, self-release); low marginal research value per unit. HOST-PKG is exploratory but the packaging question is only justified \"if measurable\" and may be a no-op. H-P6 is externally blocked on DeepSeek DNS recovery despite an admitted control-path repair, so it cannot close now. F-C2-BLOCKED is explicitly a negative control with a dominant external blocker (no independent Linux/systemd host), so it is deferred.",
+    "deferNow": [
+      "F-C2-BLOCKED",
+      "H-P6"
+    ],
+    "nextBudgetChoice": "G-AF3",
+    "predictedDiscriminator": "Whether G-AF3's perturbation variants reveal that some AF002 priors are fixed-encounter overfit (prior-narrowing) versus survive across materially different encounters (prior-generalization).",
+    "ranking": [
+      "G-AF3",
+      "R-P5",
+      "HOST-PKG",
+      "H-P6",
+      "F-C2-BLOCKED"
+    ],
+    "selectionFalsifier": "If G-AF3's encounter variants are not actually materially different (i.e., the owner cannot construct 2–3 bounded variants that perturb topology/position/resource/target), the experiment degenerates to a no-op and the budget would have been better spent on R-P5's final closure or HOST-PKG's packaging audit."
+  },
+  "treatment": "raw",
+  "usage": {
+    "elapsedMs": 9435,
+    "inputTokens": 1945,
+    "outputTokens": 1125,
+    "totalTokens": 3070,
+    "transportRetries": 0
+  }
+}

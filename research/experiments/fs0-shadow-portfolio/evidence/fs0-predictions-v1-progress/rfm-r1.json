@@ -1,0 +1,77 @@
+{
+  "replicate": 1,
+  "result": {
+    "assessments": [
+      {
+        "closureRisk": "Low — all required authority and resources exist; only gate pass/fail remains.",
+        "dominantCost": "Final gate execution and release ceremony; low material cost, high attention cost.",
+        "id": "R-P5",
+        "operatorPolicy": "Run final portable and physical gates; on pass, commit exact source, fast-forward, and graduate via structured self-release.",
+        "predictedFrontierDelta": "owner-mechanism-change",
+        "topologyHypothesis": "Local closure: the remaining work is a finite set of acceptance gates and release steps within owner authority; no distributed or external dependency.",
+        "whyNotFirst": "It is first."
+      },
+      {
+        "closureRisk": "Medium — broad new surface may not converge within one budget unit; could reveal more overfit than generalization.",
+        "dominantCost": "Variant construction and multi-condition probe re-runs — high experimental surface area.",
+        "id": "G-AF3",
+        "operatorPolicy": "Create 2–3 materially different Scenario/Genesis variants and re-run causal-episode probes across them to separate surviving priors from fixed-encounter overfit.",
+        "predictedFrontierDelta": "prior-generalization",
+        "topologyHypothesis": "Distributed generalization surface: robustness claims span topology/position/resource/target perturbations; requires multiple variant constructions, not a single local fix.",
+        "whyNotFirst": "Higher cost and lower closability than R-P5; opens a new experimental frontier rather than closing a near-complete one."
+      },
+      {
+        "closureRisk": "Medium — the 'whether justified' question may resolve to 'no', yielding a no-op rather than a frontier change.",
+        "dominantCost": "Dependency-graph audit and packaging candidate construction; moderate.",
+        "id": "HOST-PKG",
+        "operatorPolicy": "Audit Host import/dependency graph; build smallest packaging candidate only if measurable; dogfood against World and another non-MCP consumer.",
+        "predictedFrontierDelta": "ambiguity-reduction",
+        "topologyHypothesis": "Local packaging/import-graph question: semantic compatibility already passed; unresolved piece is dependency-graph cost and whether a narrower surface is justified.",
+        "whyNotFirst": "Exploratory with an unresolved justification question; likely ambiguity-reduction at best, not a mechanism change."
+      },
+      {
+        "closureRisk": "High — blocked on external DNS recovery; cannot close now regardless of budget.",
+        "deferNow": true,
+        "dominantCost": "Live experiment compute and DNS-recovery wait time.",
+        "id": "H-P6",
+        "operatorPolicy": "Retry no-tool incremental after DNS recovery; run no-tool replay/batch and resolved-provider controls; compare utilization and decision quality.",
+        "predictedFrontierDelta": "defect-discovery",
+        "topologyHypothesis": "Externally blocked live experiments: control-path repair is causally admitted in source, but live runs require DeepSeek DNS recovery outside owner control.",
+        "whyNotFirst": "Externally blocked; budget cannot unblock it. Defer until DNS recovery."
+      },
+      {
+        "closureRisk": "Very high — dominant admission blocker (host) does not exist; cannot close regardless of budget.",
+        "deferNow": true,
+        "dominantCost": "External infrastructure acquisition — not available under current budget.",
+        "id": "F-C2-BLOCKED",
+        "operatorPolicy": "Obtain independent Linux/systemd host, verify immutable deployment kit, provision disabled-first, then separated signers and executor-only Trade credential.",
+        "predictedFrontierDelta": "no-op",
+        "topologyHypothesis": "Authority/resource admission blocker: no independently administered Linux/systemd host exists; WSL/Windows cannot satisfy high-assurance separation. Negative control.",
+        "whyNotFirst": "Negative control: required authority/resource does not exist, so it must be deferred per prior on current admission."
+      }
+    ],
+    "choiceRationale": "R-P5 is the only candidate that is both fully closable under current authority/resources and positioned to convert a near-complete mechanism into a graduated production outcome. Its remaining work is exact final portable/physical acceptance, source commit, fast-forward, and structured self-release — all within owner authority, no external blocker. This is a high-closure, frontier-moving unit: it turns \"mechanisms survived selected physical attacks\" into a committed, released foundation, which is a genuine owner-mechanism-change (graduation to production). G-AF3 is valuable (generalization claims not yet earned) but opens a broad new experimental surface with 2–3 variants and re-running causal probes — higher cost, lower closability in one budget unit. HOST-PKG is exploratory packaging work with an unresolved \"whether justified\" question, lower frontier delta. H-P6 is externally blocked on DeepSeek DNS recovery — defer. F-C2-BLOCKED is the negative control: its dominant admission blocker (no independent Linux/systemd host) does not exist, so it must be deferred regardless of importance.",
+    "deferNow": [
+      "F-C2-BLOCKED",
+      "H-P6"
+    ],
+    "nextBudgetChoice": "R-P5",
+    "predictedDiscriminator": "Whether R-P5's final portable/physical gates pass and the source is committed+fast-forwarded to graduate production, versus failing a gate and requiring another mechanism iteration.",
+    "ranking": [
+      "R-P5",
+      "G-AF3",
+      "HOST-PKG",
+      "H-P6",
+      "F-C2-BLOCKED"
+    ],
+    "selectionFalsifier": "If R-P5's final portable/physical gates fail on an unanticipated mechanism defect (not a test-harness issue), then the \"mechanism selection largely complete\" boundary was wrong and the closability premise collapses; G-AF3 would then be the better allocation."
+  },
+  "treatment": "rfm",
+  "usage": {
+    "elapsedMs": 11226,
+    "inputTokens": 2142,
+    "outputTokens": 1296,
+    "totalTokens": 3438,
+    "transportRetries": 0
+  }
+}

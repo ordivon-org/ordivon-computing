@@ -32,6 +32,7 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 - [`rf0-shadow-research-bet/`](rf0-shadow-research-bet/) — minimal shadow-only ResearchBet/ResearchOutcome calibration records; predictions are frozen before outcomes without entering Agent context, changing owner behavior, or creating a research service.
 - [`rf1-game-stopping/`](rf1-game-stopping/) — prospective Game stopping falsifier: serial Agent-controlled evidence acquisition consumed all 6/6 windows in 8/8 cases, agreed with unanimous full references only 6/8, and cost materially more than one-shot full inspection, exposing adaptive-selection overhead and path dependence.
 - [`hp0-hp2-operator-stopping-v0/`](hp0-hp2-operator-stopping-v0/) — fresh Host/Runtime high-pressure transfer and stopping campaign: strengthens localized compiled evidence, narrows distributed relation-following, falsifies serial per-observation marginal-value narration as stopping, and contracts all executable/progress apparatus into Git history.
+- [`fs0-shadow-portfolio/`](fs0-shadow-portfolio/) — prospective shadow problem-selection cohort over live Harness/Runtime/Game/Host pressures plus one blocked Finance control; raw selector freezes on Game AF003 while RFM-informed selector mostly chooses Runtime P5, creating a real future falsifier without controlling owner work.
 
 ## Deferred experiment families
 

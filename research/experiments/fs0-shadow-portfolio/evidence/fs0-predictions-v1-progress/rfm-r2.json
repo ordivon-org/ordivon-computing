@@ -1,0 +1,74 @@
+{
+  "replicate": 2,
+  "result": {
+    "assessments": [
+      {
+        "closureRisk": "Low — mechanisms already survived selected physical attacks; residual risk is a gate failure exposing a new defect.",
+        "dominantCost": "Final acceptance gate execution and release mechanics; low design cost.",
+        "id": "R-P5",
+        "operatorPolicy": "Run final portable and physical gates; commit exact P5 source if gates pass; graduate via structured self-release.",
+        "predictedFrontierDelta": "owner-mechanism-change",
+        "topologyHypothesis": "Local near-terminal closeout; mechanism selection complete, remaining work is final acceptance and release gates.",
+        "whyNotFirst": "This is the selected first choice."
+      },
+      {
+        "closureRisk": "Medium — variant design may not cleanly separate surviving priors from overfit; robustness claims not yet earned.",
+        "dominantCost": "Designing materially different variants and running causal-episode probes across them; high design cost.",
+        "id": "G-AF3",
+        "operatorPolicy": "Create 2-3 materially different Scenario/Genesis encounter variants; re-run causal-episode probes; separate surviving priors from fixed-encounter overfit.",
+        "predictedFrontierDelta": "prior-generalization",
+        "topologyHypothesis": "Open generalization frontier; AF002 priors may or may not survive topology/position/resource/target perturbations.",
+        "whyNotFirst": "High value but a new multi-variant experiment with substantial design cost and uncertain clean separation; R-P5 is a near-terminal closeout with lower cost and higher certainty."
+      },
+      {
+        "closureRisk": "Medium — the audit may conclude no narrower surface is justified, yielding a no-op.",
+        "dominantCost": "Import-graph audit and packaging candidate construction; value conditional on whether a narrower surface is justified.",
+        "id": "HOST-PKG",
+        "operatorPolicy": "Audit Host import/dependency graph; build smallest packaging candidate only if measurable; dogfood against World and another non-MCP consumer.",
+        "predictedFrontierDelta": "ambiguity-reduction",
+        "topologyHypothesis": "Packaging/import-graph cost is the open issue; semantic compatibility already passed 44 World tests.",
+        "whyNotFirst": "Value is conditional on whether a narrower surface is even justified; R-P5 has a guaranteed terminal outcome."
+      },
+      {
+        "closureRisk": "High — fully blocked on external infrastructure recovery; no closable experiment in current budget.",
+        "dominantCost": "Waiting on external DNS recovery; experiments cannot run now.",
+        "id": "H-P6",
+        "operatorPolicy": "Retry no-tool incremental after DNS recovery; run no-tool replay/batch and resolved-provider controls; compare utilization and decision quality.",
+        "predictedFrontierDelta": "defect-discovery",
+        "topologyHypothesis": "Externally blocked on DeepSeek DNS recovery; control-path repair causally admitted but live experiments cannot run.",
+        "whyNotFirst": "Externally blocked; cannot deliver a closable experiment within the current budget unit."
+      },
+      {
+        "closureRisk": "Very high — required authority/resource (independent host) does not exist; cannot be closed.",
+        "dominantCost": "Procuring external host infrastructure; not achievable within research budget.",
+        "id": "F-C2-BLOCKED",
+        "operatorPolicy": "Obtain independent Linux/systemd host; verify immutable deployment kit; provision separated signers and executor-only Trade credential.",
+        "predictedFrontierDelta": "no-op",
+        "topologyHypothesis": "Negative control; dominant external admission blocker is absence of an independently administered Linux/systemd host.",
+        "whyNotFirst": "Dominant external admission blocker; per prior on current admission, this deserves DEFER rather than immediate budget."
+      }
+    ],
+    "choiceRationale": "R-P5 is the most closable candidate: mechanism selection is largely complete, both mechanisms survived selected physical attacks, and the remaining work is final acceptance gates, commit, and structured self-release. This is a near-terminal closeout that converts an existing verified mechanism into a graduated production state — a concrete frontier delta (owner-mechanism-change) with minimal residual uncertainty. G-AF3 is high-value (generalization testing) but is the start of a new multi-variant experiment with substantial design cost and no guarantee of clean separation of surviving priors from overfit. HOST-PKG is a packaging/import-graph audit whose value is conditional on whether a narrower surface is even justified (ambiguity-reduction at best). H-P6 is externally blocked on DeepSeek DNS recovery — the control-path repair is causally admitted but live experiments cannot run now. F-C2-BLOCKED is a negative control with a dominant external admission blocker (no independent Linux/systemd host exists); it should be deferred, not funded.",
+    "deferNow": [
+      "F-C2-BLOCKED"
+    ],
+    "nextBudgetChoice": "R-P5",
+    "predictedDiscriminator": "Whether R-P5's final portable/physical gates pass cleanly, enabling the fast-forward and structured self-release to graduate production.",
+    "ranking": [
+      "R-P5",
+      "G-AF3",
+      "HOST-PKG",
+      "H-P6",
+      "F-C2-BLOCKED"
+    ],
+    "selectionFalsifier": "If R-P5's final portable or physical acceptance gates reveal a previously-unseen defect requiring mechanism re-selection (rather than a trivial fix), then the closeout was not as terminal as assumed and G-AF3's generalization experiment would have been the better marginal investment."
+  },
+  "treatment": "rfm",
+  "usage": {
+    "elapsedMs": 10048,
+    "inputTokens": 2142,
+    "outputTokens": 1231,
+    "totalTokens": 3373,
+    "transportRetries": 0
+  }
+}
