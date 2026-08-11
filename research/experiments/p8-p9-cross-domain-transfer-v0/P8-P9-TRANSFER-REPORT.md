@@ -55,6 +55,10 @@ with: evidence order/path remains an independent falsifier
 
 Do not promote a fixed checkpoint count, StoppingService, CriticService, or the claim that complete evidence is order-invariant.
 
+## Apparatus recovery and contraction
+
+The complete Security/Finance executable and raw campaign is Git-recoverable from snapshot `9598bda3b902ba28c47416861bb0609ba9695948` under `research/experiments/p8-p9-cross-domain-transfer-v0/apparatus/`. The current tree intentionally removes that apparatus after the snapshot; no P8/P9 runner or frozen Parquet is a long-lived Computing authority.
+
 ## Cross-domain world-model update
 
 1. Applicability basis now has independent cross-domain support: Runtime/Host consequence decisions and Security derived evidence converge on planning/derivation-time exact dependencies rather than generation/currentness.
