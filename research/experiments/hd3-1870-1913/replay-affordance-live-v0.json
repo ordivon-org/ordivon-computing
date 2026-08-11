@@ -1,0 +1,760 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd3-historical-replay-live",
+  "treatment": "affordance",
+  "replicatesPerCase": 3,
+  "durablePerTrial": true,
+  "records": [
+    {
+      "replayId": "HR3-A05",
+      "treatment": "affordance",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "The team treats published lift coefficients as authoritative for their specific wing shapes, yet their own gliders underperform these tables by a large margin and wing enlargement/curvature did not fix it. The core blocking issue is that lift prediction is wrong—not control or power—so the next action must directly measure how lift actually scales with their own wings.",
+        "routes": [
+          {
+            "route": "Build a whirling-arm or fan-driven measurement rig to measure actual lift of their own wing sections on a mechanical balance and compare against the published coefficients",
+            "decision": "continue",
+            "reason": "Discriminates directly between 'published tables wrong for these shapes' vs 'build/rig error', since their full gliders underpredict lift. Capability allows simple balances and a fan/wind apparatus. Cheap and low-risk compared to powered prototypes."
+          },
+          {
+            "route": "Conduct systematic small-model wing tests at varying sizes, curvatures and aspect ratios to map where the published coefficients diverge and calibrate their own correction factor",
+            "decision": "continue",
+            "reason": "Bounded within available small-model testing and directly tests the generalization boundary between small models and full-size, which the rival's success also hinges on. Produces a usable scale-correction rather than a one-off check."
+          },
+          {
+            "route": "Pursue powered full-size prototype scaling to close the gap with the rival institution",
+            "decision": "defer",
+            "reason": "Expensive and dangerous, and without resolving the lift-underprediction the powered prototype would fly no better than the gliders; it amplifies rather than diagnoses the bottleneck."
+          },
+          {
+            "route": "Modify control surfaces / wing-warping further to improve control",
+            "decision": "defer",
+            "reason": "Evidence says control already works in tests and enlarging wings introduced control problems; control is not the dominant bottleneck and should only be revisited for the new wing configuration after lift measurement."
+          }
+        ],
+        "topRoute": "Build a whirling-arm or fan-driven measurement rig to measure actual lift of their own wing sections on a mechanical balance and compare against the published coefficients",
+        "nextDiscriminatingTest": "Take one of the 1901 glider wings, mount it flat in a fan-driven airflow with a mechanical balance, measure lift at a few documented airspeeds, and compare to the published coefficient prediction at the same size/speed; also test a known-good standard section to check that the balance apparatus itself reads correctly.",
+        "requiredComplements": [
+          "A repeatable airflow source (fan tunnel or whirling arm) with a known airspeed so forces are comparable to the tables",
+          "A mechanical balance strict enough to resolve small force differences",
+          "A known reference wing section to validate the apparatus reads published values correctly"
+        ],
+        "mainFailureRisks": [
+          "The apparatus itself mis-measures, confusing a rig error with a wing error (mitigated by the reference-section check)",
+          "Scale/flow conditions in the small rig differ from full-size free flight, so measured lift still does not match the glider's observed shortfall (mitigated by testing the actual 1901 wing, not just a small model)",
+          "A speed/timing error in prior free-flight lift estimates, not the tables, explains the gap"
+        ],
+        "generalizationBoundary": "Rig results on specific wing sections establish lift relative to published tables only for those shapes and moderate airflow conditions; whether lower aspect ratio, curvature, or larger scale effects cause the shortfall must be checked separately, and calibrated corrections still need validation in actual glider flights at human scale before they underpin a powered design.",
+        "unresolvedUnknowns": "[\"Whether the mismatch is the published tables or the team's prior lift/lifting-area and speed measurements\", \"Whether the shortfall scales with area, curvature, aspect ratio individually or is a coupled effect\", \"Whether small-rig measured lift transfers to full-scale free g flight given Reynolds/flow differences\", \"How much of the shortfall is due to structural/rigidity issues of the full gliders rather than wing aerodynamics\"]",
+        "capabilityComplianceNote": "Only current capabilities used: simple gliders and small wing models, kite/glider free-flight tests, a small airflow tunnel/fan apparatus and mechanical balances, varying wing shape/area/curvature/aspect ratio, and relative lift/drag force measurement. No instruments, materials, or processes beyond these are imported."
+      },
+      "usage": {
+        "inputTokens": 1071,
+        "outputTokens": 1027,
+        "totalTokens": 2098,
+        "elapsedMs": 24617,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A05",
+      "treatment": "affordance",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "No reliable lift data for actual wing shapes/conditions; published tables are authoritative but mismatch empirically, so further scale-up is blind.",
+        "routes": [
+          {
+            "route": "Published-table-driven scale-up",
+            "decision": "abandon",
+            "reason": "Coefficients were measured on different wing shapes/conditions; two full-size gliders already contradict the tables, so continued reliance risks repeating the same lift shortfall at greater cost/risk."
+          },
+          {
+            "route": "Systematic small-model force-balance characterization",
+            "decision": "continue",
+            "reason": "Directly measure relative lift/drag for the team's own wing shapes, curvatures and aspect ratios in a small tunnel/fan with a mechanical balance, yielding empirical data consistent with their construction and conditions rather than borrowed tables."
+          },
+          {
+            "route": "Full-size glider flight-test iteration",
+            "decision": "defer",
+            "reason": "Human flight testing is dangerous and full-size prototypes are expensive; proceeding without resolving the lift mismatch multiplies risk and cost. Defer until force-balance data guides a redesigned wing."
+          },
+          {
+            "route": "Kite-anchored scale verification",
+            "decision": "continue",
+            "reason": "Fly instrumented small wings as kites at realistic speeds to check whether free-flight and balance data agree, bridging small-model/simple-apparatus results to the operating regime."
+          },
+          {
+            "route": "Direct scaling to powered full-scale machine",
+            "decision": "abandon",
+            "reason": "The rival's small powered models succeeded but structural/control requirements change with full scale and a human pilot; small-model results may not generalize, and expensive powered prototypes are not yet justified."
+          }
+        ],
+        "topRoute": "Systematic small-model force-balance characterization",
+        "nextDiscriminatingTest": "Build a fan-driven airflow apparatus with a mechanical balance and measure comparative lift vs. angle of attack across the team's own wing shapes (flat vs. curved, varied curvature and aspect ratio), scanning for a curvature/shape region that produces measurably higher lift per area than the current glider wings over a stable angle range, and cross-check the top candidate on an instrumented kite at free-flight speed.",
+        "requiredComplements": [
+          "Construct small airflow tunnel/fan apparatus and mechanical force balances",
+          "Vary wing shape, area, curvature and aspect ratio",
+          "Measure relative lift/drag forces with mechanical balances",
+          "Kite-anchored scale verification at free-flight speeds"
+        ],
+        "mainFailureRisks": [
+          "Small-model force-balance scans may not fully reproduce full-scale airflow, so gains could shrink at full scale",
+          "Optimal curvature solving lift may reintroduce the control problems seen when wing size/curvature was increased",
+          "Kite and tunnel measurements may disagree, leaving unresolved scale effects",
+          "Power/structural constraints at full scale may make the empirically best wing unbuildable"
+        ],
+        "generalizationBoundary": "Empirical gains are validated only for the team's own construction, wing shapes, and low Reynolds numbers/measurable conditions; extrapolation to full-scale piloted flight remains unverified until a redesigned glider confirms the lift improvement at scale.",
+        "unresolvedUnknowns": [
+          "Why published tables overpredict lift for these specific wing shapes/conditions (scale, aspect ratio, surface finish)",
+          "Which curvature/aspect-ratio combination maximizes lift while retaining control authority",
+          "Whether small-model aerodynamic gains persist when wings are scaled to full size",
+          "Drag behavior and required power for any redesigned wing at full scale"
+        ],
+        "capabilityComplianceNote": "All planned actions use only available capabilities: constructing simple wood/metal/fabric wing models and small gliders, building a small fan airflow tunnel with mechanical balances, varying wing shape/area/curvature/aspect ratio, measuring relative lift/drag with balances, kite/glider free-flight tests with timing/distance/control records, and controlling elevator/rudder/wing-warping linkages. No post-era instruments, engines beyond lightweight gasoline prototypes already in capability, or external authority are imported."
+      },
+      "usage": {
+        "inputTokens": 1044,
+        "outputTokens": 949,
+        "totalTokens": 1993,
+        "elapsedMs": 10678,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A05",
+      "treatment": "affordance",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "The authoritative published aerodynamic coefficients do not transfer to the team's wing shapes/conditions, so lift predictions are unreliable and the full-size glider design has no valid performance model.",
+        "routes": [
+          {
+            "route": "Wind-tunnel/balance measurement of own wing models",
+            "decision": "continue",
+            "reason": "Directly measures lift/drag on the team's own wing shapes with a mechanical balance, yielding coefficients valid for their geometry rather than published tables measured on different shapes. This is the most discriminating path to a true lift model."
+          },
+          {
+            "route": "Empirical glider flight testing with measured lift from tethered/hill launches",
+            "decision": "continue",
+            "reason": "Full-scale glider tests already proved controllable and are the only route that captures full-scale Reynolds-number effects; but they are slow, dangerous, and have so far only confirmed the mismatch."
+          },
+          {
+            "route": "Scaling study of small models to separate shape-coefficient error from scale effect",
+            "decision": "continue",
+            "reason": "Need to distinguish whether the lift shortfall is a wrong published coefficient (geometric transfer error) or a genuine small-vs-large scale effect; runs in parallel with the balance measurements."
+          },
+          {
+            "route": "Match rival's approach by scaling small powered models toward full size",
+            "decision": "defer",
+            "reason": "Expensive and the rival has not yet demonstrated full-scale success; small-model results are already flagged as not generalizing, so leapfrogging on this basis is premature."
+          },
+          {
+            "route": "Simply increase wing area/curvature further per published tables",
+            "decision": "abandon",
+            "reason": "Already tried; it did not fix lift and introduced control problems. Continues to assume the faulty authority rather than testing it."
+          }
+        ],
+        "topRoute": "Wind-tunnel/balance measurement of own wing models",
+        "nextDiscriminatingTest": "Build a balance apparatus and a small airflow tunnel/fan, then measure lift and drag on replicate wings of the same section/curvature at several angles of attack. Compare these measured coefficients to the published table values for the same shape to determine whether the published authority or the team's geometry is the source of the mismatch. Also run the same wings as small models in both the tunnel and free flight to check whether tunnel results track free-flight results.",
+        "requiredComplements": [
+          "Small airflow tunnel/fan apparatus and mechanical force balances",
+          "Modest workshop capability for custom experimental apparatus",
+          "Kite/glider free-flight tests and timing records",
+          "Small wing models varying shape, curvature, aspect ratio"
+        ],
+        "mainFailureRisks": [
+          "Tunnel airflow may be too weak/turbulent to reach representative Reynolds number, so measured coefficients still do not match full-scale flight",
+          "Mechanical balance precision may be too coarse to resolve the small lift forces at lower airspeeds",
+          "Scale effect (genuine Reynolds-number difference) may dominate, so panel-coefficient error and scale error cannot be cleanly separated",
+          "Human controlled glider tests remain the only true validation and are slow and hazardous"
+        ],
+        "generalizationBoundary": "The balance results validate coefficients only for the team's specific wing sections/curvatures and test airflow speeds; they do not necessarily transfer to full-scale Reynolds numbers, to the rival's design, or to performance under real atmospheric turbulence with a pilot on board.",
+        "unresolvedUnknowns": [
+          "Whether the lift shortfall stems mainly from wrong published coefficients or from a genuine small-to-large scale effect",
+          "Whether tunnel-measured coefficients at the achievable airflow speed track full-scale glider free-flight results",
+          "Optimal wing planform/curvature given the true coefficients (may differ from published optima)",
+          "Whether elevator/rudder/warping control authority is still adequate for any resized wing"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only the supplied capabilities: sewing wood/metal/fabric gliders and small models, fan/tunnel and mechanical balance construction, free-flight timing records, wing-shape variation, and control-linkage modification. No later instruments, processes, or materials are assumed."
+      },
+      "usage": {
+        "inputTokens": 1044,
+        "outputTokens": 976,
+        "totalTokens": 2020,
+        "elapsedMs": 11371,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A09",
+      "treatment": "affordance",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Distinguishing whether the null result reflects the absence of an ether reference frame, a cancellation with a compensating physical effect (material deformation or entrainment), or a breakdown of the assumed moving-frame kinematic transformation — the current null observation alone cannot separate these, and modern atomic clocks/lasers are unavailable to give independent kinematic handles.",
+        "routes": [
+          {
+            "route": "Null-ether / Lorentz-relativistic kinematics: reinterpret the moving-frame transformation so that the interferometer rest frame is physically equivalent to the ether, keeping Maxwellian electrodynamics intact.",
+            "decision": "continue",
+            "reason": "This route preserves the empirically powerful electrodynamic phenomena while reworking lengths/time consistently; the null is its natural prediction. However its full validation needs independent tests beyond the single rotating-null experiment, since one null cannot certify all features."
+          },
+          {
+            "route": "Compensating material deformation: invoke physical contraction/strain of the interferometer (FitzGerald-type) that exactly cancels the predicted optical path difference.",
+            "decision": "continue",
+            "reason": "Directly testable in principle since it predicts measurable mechanical/optical changes in other configurations (e.g., different materials or construction); currently unconstrained so deserves an independent discriminating probe rather than assumption."
+          },
+          {
+            "route": "Partial/complete ether entrainment by matter near Earth and its optical paths.",
+            "decision": "continue",
+            "reason": "Logically possible and would explain the null at Earth's surface, but is constrained by existing astronomical aberration observations and is hard to reconcile globally; needs a test that distinguishes local entrainment from universal ether rest."
+          },
+          {
+            "route": "Scaling/sensitivity interplay: accept a tiny residual far below current resolution and push sensitivity/apparatus reconfiguration to see whether any directional shift appears at larger effective optical path.",
+            "decision": "defer",
+            "reason": "Valuable as a confirming probe but low priority because the current apparatus already exceeds prior null sensitivity and the question is now theoretical discrimination, not mere magnitude resolution."
+          },
+          {
+            "route": "Seeking a decisive discriminator between contraction and kinematic relativity using a differently oriented/configured interferometer (e.g., asymmetrical arms) or a different physical observable sensitive to length changes but not frame kinematics.",
+            "decision": "continue",
+            "reason": "This is the most discriminating next step: a contraction hypothesis ties compensation to material properties and arm geometry, whereas relativistic kinematics predicts universality; testing with varied materials/arm configurations can separate them."
+          }
+        ],
+        "topRoute": "Seeking a decisive discriminator between contraction and kinematic relativity using a variedly built (material/geometry) interferometer plus comparing against astronomical aberration constraints on entrainment.",
+        "nextDiscriminatingTest": "Build null interferometers using two different arm geometries/materials (e.g., unequal arm lengths, differing support materials/stiffness) and see whether the null persists identically. Under a physical contraction-compensation hypothesis the compensation magnitude should vary with material/geometry; under kinematic Lorentz relativity it is universal and orientation-independent. Run each at multiple orientations and seasons (Earth velocity varies), and cross-check each against known astronomical aberration magnitudes to rule out partial-entrainment compensation.",
+        "requiredComplements": [
+          "rotating precision interferometer with reconfigurable arm lengths and interchangeable mirror-support material",
+          "astronomical aberration measurements from contemporary astronomy to bound any local entrainment",
+          "mathematical derivation of exact fringe-shift predictions under contraction vs Lorentz-relativistic vs entrainment models"
+        ],
+        "mainFailureRisks": [
+          "Material deformation compensation could coincidentally be universal in scale, mimicking the kinematic result and preventing discrimination",
+          "Experimental uncertainty could mask differences between the compensation and kinematic predictions",
+          "Local entrainment models could be tuned to match both aberration and the null, removing discriminative power"
+        ],
+        "generalizationBoundary": "Any conclusion drawn applies only within the measured regime: optical-path/interferometric scales near the apparatus with monochromatic lamp sources and mechanical isolation. It cannot by itself certify every feature of a replacement moving-frame theory, only whether the null is universal across material/geometry and consistent with aberration rather than a single apparatus-specific cancellation.",
+        "unresolvedUnknowns": [
+          "Whether any length/optical compensation scale is material- and geometry-dependent",
+          "Whether local ether entrainment or universal ether rest is consistent with full astronomical aberration data",
+          "The correct moving-frame kinematic transformation that simultaneously preserves Maxwellian electrodynamics and explains the null",
+          "Whether a residual directional shift exists below current sensitivity at even larger effective optical paths"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only pre-outcome capabilities: precision optical interferometry with monochromatic lamp sources and mechanical/mercury isolation, rotation at varied orientations/seasons, fringe measurement and calibration, derivation of Maxwellian/moving-frame consequences, physical deformation and entrainment hypothesis construction, comparison against existing astronomical observations, and contemporary length standards plus known Earth motion. No modern atomic clocks, lasers, or later instruments are imported."
+      },
+      "usage": {
+        "inputTokens": 1050,
+        "outputTokens": 1135,
+        "totalTokens": 2185,
+        "elapsedMs": 13781,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A09",
+      "treatment": "affordance",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "Distinguishing among three families of explanation for the second-order ether-drift null: (a) ether partially/fully entrained so Earth drags the medium locally, (b) material/geometric compensation through length contraction or deformation that restores the null while preserving moving-frame kinematics, and (c) breakdown of the reference-medium interpretation requiring a new kinematic framework (no accessible direct probe of the medium makes these hard to separate observationally).",
+        "routes": [
+          {
+            "route": "Seasonal/orbital variation study",
+            "decision": "continue",
+            "reason": "If a small residual ether-motion signal depends on Earth's orbital velocity component, its seasonal modulation distinguishes a genuine ether-drift residual from apparatus-constant systematic artifacts. This is the most direct discriminating extension of the current null result, and the constraints allow repeating observations at different seasons and orientations with known astronomical Earth-motion."
+          },
+          {
+            "route": "Fringe-width/length-contraction hypothesis test via asymmetric optical path",
+            "decision": "continue",
+            "reason": "A hypothesis family says the null arises from physical length contraction/deformation along the direction of motion. Reconfiguring the interferometer so the two arms have unequal rest lengths (or using a single long folded path) changes the predicted contraction compensation in a way a naive deformation model would fail, giving discriminating power between kinematic compensation and genuine ether absence."
+          },
+          {
+            "route": "Partial entrainment test with a moving-source/medium interface",
+            "decision": "defer",
+            "reason": "Proposing entrainment would require a mechanical model of how matter drags the ether; currently there is no coherent, testable drag coefficient and no apparatus action directly probes the medium-matter coupling. Defer until the seasonal-variation data bounds any residual signal that an entrainment model would need to reproduce."
+          },
+          {
+            "route": "Null compensation artifact search (deformation/thermal/birefringence)",
+            "decision": "continue",
+            "reason": "Because the interferometer resolves much smaller optical effects in other uses, the null is unlikely to be a trivial sensitivity failure. Still, checking whether the null depends on the lamp source position, thermal gradient, or mirror mounting is cheap and rules out a spurious compensation class before theoretical commitment."
+          },
+          {
+            "route": "Derive and compare moving-frame kinematics alternatives (Lorentz/emission/reference-free)",
+            "decision": "continue",
+            "reason": "The strongest route is to work out which minimal modification to moving-frame kinematics—ether-based contraction, a new coordinate transformation preserving Maxwell's equations, or an emission-based theory—remains consistent with both the null and existing electromagnetic observations. This theoretical derivation narrows which experimental discriminator to prioritize next."
+          }
+        ],
+        "topRoute": "Seasonal/orbital variation study combined with contracting-asymmetric-optical-path test",
+        "nextDiscriminatingTest": "Reprogram the interferometer into an asymmetric two-arm configuration (unequal rest lengths or a single long folded path), rotate it through the plane of the Earth's orbital motion, and observe fringe displacement across seasons. If the null is truly velocity-independent in magnitude and phase across orbital seasons, the ether-detection and naive deformation-compensation hypotheses are both eliminated, leaving only a fundamental kinematic revision. If a seasonal residual emerges consistent with the component of orbital motion, an ether/entrainment-scaled model gains standing and can be quantified.",
+        "requiredComplements": [
+          "Replicate the null with the asymmetric-optical-path arrangement (sensitivity already adequate) to confirm the result is not geometry-specific",
+          "Bound any systematic from the lamp source, thermal gradients, and mirror mounting by varying these across otherwise-unchanged runs",
+          "Use contemporary length standards and astronomical ephemeris data to predict the expected ether-drift signal magnitude and phase at each epoch"
+        ],
+        "mainFailureRisks": [
+          "A second-order null may be real yet leave the sign of the contraction-free velocity term ambiguous if fringe measurement noise is comparable to the small predicted shift",
+          "Mechanical isolation may not track rotation-induced deformation well enough at the sensitive scale, reintroducing a spurious compensation",
+          "No accessible direct probe of the medium exists, so even a clean seasonal null cannot by itself decide between a reference-free kinematic theory and a still-unobserved compensating ether mechanism",
+          "Expected-signal magnitude may be below the resolvable fringe threshold for part of the orbital year, weakening the seasonal discriminator"
+        ],
+        "generalizationBoundary": "The seasonal/asymmetric result can validate or reject the specific ether-representation plus contraction/entrainment compensation families, and can force a kinematic revision if the null persists with full orbital-phase coverage. It cannot by itself establish a full replacement theory of electrodynamics or moving-frame mechanics; that requires independent confirmation through other optical/electromagnetic phenomena already explained by Maxwellian theory.",
+        "unresolvedUnknowns": "[\"Whether any residual signal correlates with the orbital component or only with unknown local or daily components\", \"The exact mechanical deformation (if any) of the optical train under rotation at the apparatus's sensitivity scale\", \"Which minimal kinematic modification preserves all successful electrodynamic phenomena while removing the medium-relative velocity prediction\", \"Whether the reference medium is partially entrained to unobservably small degree by matter, and at what coupling strength\"]",
+        "capabilityComplianceNote": "The chosen route uses only precision optical interferometers, monochromatic lamp sources, mechanical/mercury vibration isolation, rotation and seasonal repetition, fringe measurement/calibration, mathematical derivation of Maxwellian consequences, physically specified deformation/entrainment hypotheses, and contemporary length standards and astronomical Earth-motion knowledge—all within availableCapabilities. No atomic clocks, lasers, direct ether access, or later instruments are required."
+      },
+      "usage": {
+        "inputTokens": 1050,
+        "outputTokens": 1287,
+        "totalTokens": 2337,
+        "elapsedMs": 16226,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A09",
+      "treatment": "affordance",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Discriminating between rival explanations of the null result when each candidate mechanism is currently unconstrained by evidence",
+        "routes": [
+          {
+            "route": "Lorentz-FitzGerald contraction hypothesis (material deformation of apparatus along motion)",
+            "decision": "continue",
+            "reason": "Viable explanation preserving Maxwellian electrodynamics; testable by varying arm material or comparing to a differently-composed/rotated interferometer. Directly addresses the unconstrained compensating-effect gap."
+          },
+          {
+            "route": "Ether-entrainment / drag refinement hypothesis",
+            "decision": "defer",
+            "reason": "Logically possible but requires abandoning well-checked stationary-ether boundary conditions; less discriminating than a dedicated deformation test and hard to constrain with current evidence."
+          },
+          {
+            "route": "Rethink moving-frame kinematics (e.g. postulating directional time/length transformation within EM theory)",
+            "decision": "continue",
+            "reason": "Addresses the deeper constraint that discarding the reference medium forces rethinking kinematics, not one optical parameter; matches the 'theory must preserve electrodynamics' requirement."
+          },
+          {
+            "route": "Physical isolation/fringe-bias artifact re-inspection",
+            "decision": "abandon",
+            "reason": "Apparatus sensitivity and null persistence are well established and it resolves smaller effects elsewhere; residual apparatus error is a much weaker route than scientific-hypothesis discrimination."
+          }
+        ],
+        "topRoute": "Lorentz-FitzGerald contraction hypothesis discriminated via a non-deformable (e.g. gas-filled or physically rigid) and composition-varied interferometer arm comparison",
+        "nextDiscriminatingTest": "Build and rotate a second interferometer whose arms are mechanically or thermally/compositionally constructed to resist contraction-type deformation (e.g. different material or gas-based light path), re-running orientation and seasonal observations to see if the null persists identically; a differential null rules in a physical contraction, a differing result rules it out.",
+        "requiredComplements": [
+          "derive exact fringe-displacement predictions under each hypothesis from the same Earth-motion input",
+          "repeat measurements at varied orientations, seasons, and times to cover Earth-motion direction changes",
+          "recalibrate interferometer sensitivity against known length effects to certify resolution threshold"
+        ],
+        "mainFailureRisks": [
+          "Material deformation may not scale as assumed, giving a false negative or uninterpretable result",
+          "Kinematic rethinking may overcommit to a specific transformation before deformation is excluded",
+          "Seasonal/orientation coverage may be incomplete, hiding a small residual signal",
+          "Contemporary length standards may be tied to assumptions the competing theory must revise"
+        ],
+        "generalizationBoundary": "The next test only discriminates whether a physical contraction explains the null; it does not validate a full replacement theory. Any conclusion about moving-frame kinematics generalizes only insofar as it reproduces all already-explained electrodynamic phenomena, and cannot be confirmed by one experimental outcome.",
+        "unresolvedUnknowns": [
+          "The exact functional form of any postulated contraction/drag effect across different materials and arm orientations",
+          "Whether compensating effects act on geometry, the propagation path, or the clock/time basis separately",
+          "The complete set of observational consequences a reconstruction of moving-frame kinematics must preserve"
+        ],
+        "capabilityComplianceNote": "All proposed actions lie within stated capabilities: building precision optical interferometers with monochromatic lamps, mechanical/mercury isolation, rotation, fringe measurement and calibration, mathematical electrodynamics derivation, and hypothesis comparison. No modern atomic clocks, lasers, or external ether access are relied upon."
+      },
+      "usage": {
+        "inputTokens": 1077,
+        "outputTokens": 838,
+        "totalTokens": 1915,
+        "elapsedMs": 24425,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A10",
+      "treatment": "affordance",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Scale-up survivability: hot pressurized hydrogen embrittlement of steel pressure vessels under continuous operation is the binding unknown, since catastrophic vessel failure terminates the entire project and cannot be inferred from short lab runs.",
+        "routes": [
+          {
+            "route": "Hydrogen-embrittlement engineering: design/progress vessels from steels tested under hot hydrogen and pilot continuous loops prioritizing structural survival over chemistry",
+            "decision": "continue",
+            "reason": "Evidence and constraints both center on continuous hot-H2 pressure-vessel integrity; this is the gating technical unknown and justifies prioritized material testing."
+          },
+          {
+            "route": "Catalyst-cost defense: shift effort to screening cheaper/far more abundant mineral preparations and their resistance to real-feed impurities",
+            "decision": "defer",
+            "reason": "Expensive/scarce catalyst is a real cost risk but only matters after pressure-vessel survival is proven; impurity poisoning can be staged once a survivable reactor exists."
+          },
+          {
+            "route": "Baseline-comparison economic route: spend effort modeling capital/energy versus existing electric-arc and cyanamide fixation to justify abandoning the process before heavy investment",
+            "decision": "defer",
+            "reason": "A strong industrial baseline exists, but using it to kill the effort prematurely risks rejecting a route whose economics hinge on scale unknowns best measured in pilot plants."
+          },
+          {
+            "route": "Feed-purification route: develop impurity-removal trains and recycle loops up front to guarantee catalyst life at scale",
+            "decision": "continue",
+            "reason": "Continuous operation exposes poison failure modes absent in short lab runs; designing condensation/recycle and feed purification in parallel to vessel work de-risks later pilot trials."
+          }
+        ],
+        "topRoute": "Hydrogen-embrittlement engineering",
+        "nextDiscriminatingTest": "Build bench and progressively larger high-pressure steel vessels/compressors/valves and run them under hot pressurized hydrogen continuously, inspecting for embrittlement-style leaks/cracks; the discriminating result is whether tested contemporaneous steels survive sustained hot-H2 service without catastrophic failure.",
+        "requiredComplements": [
+          "Feed-gas purification (impurity/poison control)",
+          "Recycle/condensation/heat-exchange loop design",
+          "Yield-versus-(T,P,flow) measurement on surviving vessels",
+          "Catalyst screening for abundant/low-cost preparations"
+        ],
+        "mainFailureRisks": [
+          "Hot hydrogen embrittles available steel classes faster than anticipated, making no material survivable at scale",
+          "Continuous operation reveals fatigue/corrosion failure modes absent in short lab runs",
+          "Scarce catalyst cannot be cost-effectively replaced by any screenable preparation at scale",
+          "Impurity poisoning defeats yield in continuous recycle, undermining economics against existing baseline"
+        ],
+        "generalizationBoundary": "Success at one reactor size/steel/hydrogen-feed condition does not imply survivability at larger vessels, hotter gases, or dirtier feeds; and pilot yield does not guarantee industrial economics versus electric-arc/cyanamide baseline.",
+        "unresolvedUnknowns": [
+          "Which contemporary steel/material construction survives sustained hot pressurized hydrogen at industrial scale",
+          "Whether any abundant cheap catalyst can approach lab-catalyst yield/rate and resist real-feed poisons in continuous service",
+          "True steady-state yield in continuous recycle loops (vs short lab batch) and impurity accumulation behavior",
+          "Capital+energy cost of full plant versus the existing nitrogen-fixation baseline"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only the listed available capabilities (bench/steel vessel construction, hot-hydrogen steel testing, contemporary catalyst screening, feed purification, heat-exchange/recycle loop design, staged pilot operation, and cost comparison with existing electric-arc/cyanamide fixation). No later instruments, materials, or authority are assumed."
+      },
+      "usage": {
+        "inputTokens": 1011,
+        "outputTokens": 886,
+        "totalTokens": 1897,
+        "elapsedMs": 10787,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A10",
+      "treatment": "affordance",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "Catalyst lifetime and cost under continuous hot hydrogen operation, coupled with pressure-equipment material failure at scale",
+        "routes": [
+          {
+            "route": "Catalyst development route",
+            "decision": "continue",
+            "reason": "Lab catalyst works but relies on expensive/scarce materials; screening many mineral/preparations is a ranked capability and a discriminating test of whether cheaper stable catalysts can survive continuous hydrogen at scale before committing to plant trials."
+          },
+          {
+            "route": "Pressure-vessel materials route",
+            "decision": "continue",
+            "reason": "Industrial-scale vessels/compartments must run continuously under hot hydrogen-rich gas; testing steel constructions under hot pressurized hydrogen is a direct, relatively cheap probe of catastrophic-failure risk before full plant investment."
+          },
+          {
+            "route": "Feed-purification route",
+            "decision": "continue",
+            "reason": "Real feed gases contain poisons; purifying N2/H2 by contemporary chemical operations is inexpensive and directly de-risks both catalyst lifetime and plant operability."
+          },
+          {
+            "route": "Process-engineering scale-up route",
+            "decision": "defer",
+            "reason": "Design of heat exchange, condensation, recycle and continuous-flow loops depends on knowing which catalyst/specifics matter and vessel material limits; committing to loop architecture now risks building on unvalidated assumptions."
+          },
+          {
+            "route": "Direct full-plant trial route",
+            "decision": "abandon",
+            "reason": "Full plant trials are extremely expensive and catastrophic failure is possible; proceeding without bench→pilot staged characterization of materials and catalyst decay is unwarranted."
+          }
+        ],
+        "topRoute": "Catalyst development route",
+        "nextDiscriminatingTest": "Screen several inexpensive mineral/catalyst preparations on the bench for sustained ammonia yield at elevated temperature/pressure over extended continuous runs (hours to days), measuring yield decay and any poisoning, to separate lab-stable catalysts from those that will survive industrial lifetimes.",
+        "requiredComplements": [
+          "pressure-vessel materials testing under hot pressurized hydrogen",
+          "feed-gas purification to control catalyst poisons",
+          "bench-scale continuous-flow recycle loop to expose decay/failure modes absent from short lab experiments"
+        ],
+        "mainFailureRisks": [
+          "No cheaper stable catalyst found, forcing reliance on scarce/expensive lab catalyst with prohibitive industrial cost",
+          "Hot hydrogen embrittlement or seal/valve failure undermines vessel integrity regardless of catalyst quality",
+          "Feed impurities/poisons degrade even a good catalyst over continuous hours-days, invalidating lab-scale short-run results",
+          "Staged pilot feedback arrives too slowly while existing electric-arc/cyanamide baseline keeps improving in cost/energy"
+        ],
+        "generalizationBoundary": "Evidence so far only certifies reproducible lab equilibrium/rate behavior at elevated temperature/pressure and a working catalyst on short runs; it does not certify catalyst lifetime, industrial-scale vessel integrity under hot H2, or continuous-loop operability. Results here generalize to industrial throughput only after staged pilot confirmation; the known baseline routes (electric-arc/cyanamide) remain viable alternatives whose costs bound any claimed advantage.",
+        "unresolvedUnknowns": [
+          "Are there inexpensive alternative catalyst compositions that give equal/better yield and survive continuous hot operation? (unknown cost/supply of lab catalyst materials)",
+          "Which contemporary steels/material constructions resist hot pressurized hydrogen at the operating temperature/pressure (embrittlement, decarbonization, seal integrity)?",
+          "What impurity regime (CO, CO2, S, etc.) must real feed gases be purified to before acceptable catalyst decay?",
+          "Will staged pilot plants expose leak/failure/catalyst-decay modes not seen in short lab experiments?"
+        ],
+        "capabilityComplianceNote": "All chosen actions use only the supplied capabilities: bench/progressive steel-vessel building, steel testing under hot pressurized H2, ammonia yield measurement, mineral/preparation catalyst screening with contemporary chemistry, feed purification, loop design, staged pilot operation and inspection, and cost/energy comparison against electric-arc/cyanamide. No later instruments/processes/materials/authority are assumed."
+      },
+      "usage": {
+        "inputTokens": 1011,
+        "outputTokens": 941,
+        "totalTokens": 1952,
+        "elapsedMs": 11914,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A10",
+      "treatment": "affordance",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Material durability of the high-pressure reactor loop under continuous hot hydrogen-rich gas, not the catalyst itself, since the lab catalyst works but industrial vessel/hydrogen-embrittlement failure is catastrophic and full-scale trials are prohibitive.",
+        "routes": [
+          {
+            "route": "Scale pressure-vessel mechanics first: design and test alternative steel/construction candidates under hot pressurized hydrogen in progressively larger vessels before any full catalyst loop.",
+            "decision": "continue",
+            "reason": "Directly addresses the catastrophic primary risk; steel-grading under hot H2 is a discriminating, testable bottleneck independent of catalyst choice, and bench-scale material coupons are cheap relative to a plant trial."
+          },
+          {
+            "route": "Optimize the lab catalyst composition/loading to reduce scarce-material cost and improve activity, then scale the loop around the settled chemistry.",
+            "decision": "defer",
+            "reason": "Catalyst works already, so economics matter but do not gate feasibility. Its optimization should follow confirmation that materials and continuous-loop engineering can survive, and is not the catastrophic failure mode."
+          },
+          {
+            "route": "Purify nitrogen/hydrogen feeds against catalyst poisons and design the recycle/condensation loop early in the pilot.",
+            "decision": "defer",
+            "reason": "Continuous-operation poison exposure is real but manageable at staged pilot scale, and feed-purification can be combined with later pilot stages rather than blocking the first feasibility decision."
+          },
+          {
+            "route": "Invest in heat-exchange and continuous-flow-loop design early to confirm recycle and condensation work at pilot scale.",
+            "decision": "defer",
+            "reason": "Needed for throughput but not the binding constraint; loop design risks are lower-consequence than vessel failure and can be iterated once a durable vessel is proven."
+          },
+          {
+            "route": "Benchmark the process economics against the existing electric-arc/cyanamide nitrogen-fixation baseline before scaling.",
+            "decision": "defer",
+            "reason": "The baseline already provides a fallback, but economic comparison is only decisive if the technical route can physically survive; premature cost ranking would not discriminate the catastrophic engineering risk."
+          }
+        ],
+        "topRoute": "Scale pressure-vessel mechanics first: design and test alternative steels/material constructions under hot pressurized hydrogen in progressively larger vessels.",
+        "nextDiscriminatingTest": "Expose candidate steel/vessel-material coupons (varied compositions and thicknesses) to the target hot hydrogen pressure window for sustained duration, monitoring hydrogen embrittlement, cracking, and seal degradation, to pick a construction that survives continuous operation before committing larger loop investment.",
+        "requiredComplements": [
+          "contemporary steel/material testing under hot pressurized hydrogen",
+          "progressively larger high-pressure vessel construction capability",
+          "continuous-op leak/failure inspection methods",
+          "feed purification chemistry for poison control (later pilot stage)"
+        ],
+        "mainFailureRisks": [
+          "No contemporary steel grade may resist hydrogen embrittlement at the required pressure-temperature window over continuous duty, forcing lower operating envelope",
+          "Staged vessel scaling may consume years/budget before any ammonia is made industrially",
+          "Catalyst scarce-material cost may remain prohibitive even if the vessel survives, undermining economics",
+          "Long-duration material tests still may not reveal all continuous-operation failure modes present in a full plant"
+        ],
+        "generalizationBoundary": "Evidence supports this only up to reproducible laboratory catalyst behavior and elevated pressure-temperature lab equilibrium. Material endurance at industrial scale, continuous-loop mass balance integrity, and cost-competitiveness versus established electric-arc/cyanamide routes remain unproven. Local material-pass findings do not generalize to full plant success.",
+        "unresolvedUnknowns": "[\"Which steel/alloy composition survives sustained hot hydrogen exposure at industrial scale and pressure\", \"Actual scarce-catalyst material quantity and cost at industrial throughput\", \"Specific feed-poison tolerance of the catalyst in continuous operation\", \"Whether recycle/heat-exchange loop sealing holds over long continuous campaigns\", \"The real energy/material cost gap versus electric-arc and cyanamide baselines at scale\"]",
+        "capabilityComplianceNote": "Only the available capabilities were recombined: building progressively larger high-pressure steel vessels, testing steel/material constructions under hot pressurized hydrogen, measuring yields, screening catalysts, purifying feeds, designing heat-exchange/recycle/condensation/continuous loops, staged pilot inspection, and economic comparison to electric-arc/cyanamide. No post-period instruments or materials were assumed."
+      },
+      "usage": {
+        "inputTokens": 1011,
+        "outputTokens": 1010,
+        "totalTokens": 2021,
+        "elapsedMs": 12179,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A12",
+      "treatment": "affordance",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Balancing uneven task times on a moving whole-chassis line while preserving needed rework flexibility",
+        "routes": [
+          {
+            "route": "Extend the moving-line principle to the full chassis in a single paced flow",
+            "decision": "defer",
+            "reason": "Whole chassis is much larger than the pilot subassembly and has highly uneven task times; a single paced line couples every station so one mismatch halts downstream flow, which the evidence says is the key risk."
+          },
+          {
+            "route": "Keep stationary flexible teams but add moving-flow only for high-volume subassemblies",
+            "decision": "continue",
+            "reason": "Retains flexible fitting/rework capability that the stationary system is proven to supply, while capturing the throughput gain the pilot demonstrated on the subassembly; lowers line-coupling risk for the whole chassis."
+          },
+          {
+            "route": "Adopt moving flow with deliberately unbalanced buffer/feeder stations between uneven tasks",
+            "decision": "continue",
+            "reason": "Directly attacks the dominant bottleneck: buffers decouple uneven task times so a mismatch at one station need not halt downstream flow, and powered conveyors/carts are already available."
+          },
+          {
+            "route": "Pursue only tighter part interchangeability before any line change",
+            "decision": "defer",
+            "reason": "Interchangeability is necessary but the evidence marks it imperfect; deferring all motion work until it is perfect forfeits the demonstrated throughput gain and the pilot already worked under the current tolerance regime."
+          },
+          {
+            "route": "Expand linear paced flow to full chassis with heavy reliance on narrow specialist workers",
+            "decision": "abandon",
+            "reason": "Narrow repetitive work raises turnover/dissatisfaction, and a paced full-chassis line forces every station's time to match the slowest, coupling the whole line; evidence rates these as distinct real risks with no offsetting benefit over buffered flow."
+          }
+        ],
+        "topRoute": "Adopt moving flow with deliberately unbalanced buffer/feeder stations between uneven tasks",
+        "nextDiscriminatingTest": "Run a pilot extending the moving subassembly trial to the full chassis with buffer stock at the stations whose task times are most unequal, and measure whether line stoppages fall while throughput and rework quality meet the stationary benchmark.",
+        "requiredComplements": [
+          "interchangeable-parts gauging/quality checks to keep mismatches from becoming stoppages",
+          "flexible repair/fitting teams retained for variable rework",
+          "separate tracking of absenteeism/turnover vs output and defects on the pilot"
+        ],
+        "mainFailureRisks": [
+          "buffer stock raises work-in-process carrying cost",
+          "unbalanced buffers cannot fully absorb the largest task-time outliers",
+          "worker dissatisfaction from narrowed tasks still rises on the moving line"
+        ],
+        "generalizationBoundary": "Success on the small subassembly or on a medium chassis pilot does not guarantee a full chassis line works, because scale, uneven task times, and WIP coupling change with line length; results are local to the specific station mix tested.",
+        "unresolvedUnknowns": [
+          "magnitude of task-time variance across full-chassis stations",
+          "buffer capacity needed to prevent line-wide coupling",
+          "wage/turnover cost of narrower tasks at full scale",
+          "cost of worsened interchanc-geability-induced mismatches on a moving line"
+        ],
+        "capabilityComplianceNote": "All planned actions use only available capabilities: time-and-motion measurement, layout rearrangement, division into specialized tasks, gravity slides/carts/chains/powered conveyors, interchangeable-part gauging, small moving-flow pilots, throughput/WIP/defect/stoppage measurement, retained flexible repair teams, and separate turnover tracking. No later instruments, materials, or authority are imported."
+      },
+      "usage": {
+        "inputTokens": 1086,
+        "outputTokens": 880,
+        "totalTokens": 1966,
+        "elapsedMs": 22375,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A12",
+      "treatment": "affordance",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "Line stoppage coupling: imperfect part interchangeability plus uneven task times means a mismatch at one station can halt the whole downstream moving-flow line, undermining the throughput gain shown in the subassembly pilot.",
+        "routes": [
+          {
+            "route": "Station-balancing with buffers/wip-in-transit and pacing via powered/gravity conveyance",
+            "decision": "continue",
+            "reason": "The subassembly trial already demonstrated the throughput win; the discriminating question is whether it survives chassis-scale uneven task times. Buffers between stations and paced conveyance let fast stations absorb slow ones, decoupling stoppages. This directly tests the dominant bottleneck with the available powered-conveyor capability."
+          },
+          {
+            "route": "Tolerance/gauging upgrade for full interchangeability before line expansion",
+            "decision": "defer",
+            "reason": "Interchangeability is a necessary enabler, but the subassembly trial succeeded with imperfect interchangeability, and the system already relies on flexible rework teams. Pursuing perfect gauging before proving the line is affordable is premature; the flexible-fee team route (below) can carry the residual mismatch risk."
+          },
+          {
+            "route": "Retain flexible local fitting/rework teams on a moving line (hybrid)",
+            "decision": "continue",
+            "reason": "This addresses worker rework variable work complements the line. Evidence says the stationary system is flexible for fitting/rework; keeping a small repair crew while moving the main flow preserves that advantage and absorbs the 'mismatch halts flow' risk without needing perfect tolerances. Cheaper and lower-risk than full re-gauging."
+          },
+          {
+            "route": "Job-enrichment / rotation to counter narrow-repetitive turnover",
+            "decision": "defer",
+            "reason": "Turnover is a real secondary objective, but it is a cost/experience effect that can be measured and tuned after the line proves out. Committing to rotation structure now would complicate station coupling and trade off the throughput that is the primary large-stable-demand goal."
+          },
+          {
+            "route": "Full chassis-scale moving-flow pilot before any further subassembly optimization",
+            "decision": "continue",
+            "reason": "The only validated evidence is subassembly-scale. Scale-up to a whole chassis is the decisive test of uneven task times and largest-size conveyance limits. A single pilot line on actual production volume is the fastest discriminating experiment."
+          }
+        ],
+        "topRoute": "Full chassis-scale moving-flow pilot with station buffers and retained rework crew",
+        "nextDiscriminatingTest": "Run a whole-chassis moving pilot on stable, limited production: lay out 3-4 balanced stations with small WIP buffers between them, move units by powered/gravity conveyance, keep a flexible rework/fitting team for mismatch handling, and measure per-station imbalance, WIP, line-stoppage frequency, and labor time per vehicle against the baseline stationary output.",
+        "requiredComplements": [
+          "retain flexible repair/fitting teams for variable work",
+          "measure throughput, work-in-process, defects/rework and line stoppages",
+          "move chassis using powered conveyors/gravity slides available in industry"
+        ],
+        "mainFailureRisks": [
+          "Chassis-scale uneven task times create persistent station imbalance that buffers cannot absorb at reasonable cost",
+          "Mismatch at one station still cascades/propagates despite buffers and halts whole flow",
+          "Powered conveyance for a full heavy chassis is not yet proven reliable enough at this scale for continuous large-volume operation",
+          "Narrow repetitive work drives turnover high enough to erode throughput gains"
+        ],
+        "generalizationBoundary": "Pilot success on the standardized chassis with tight-tolerance-limited interchangeability does not transfer to low-demand or highly variable products, nor to designs without pre-standardized parts; small subassembly trial results do not generalize by themselves to full-chassis flow, and a running pilot does not prove long-run worker retention.",
+        "unresolvedUnknowns": [
+          "Whether powered conveyance can reliably move a full chassis at production rate with acceptable jams/failures",
+          "Magnitude of per-station task-time variance at chassis scale and how many buffer slots eliminate most cascading stoppages",
+          "Whether imperfect interchangeability causes stoppage rates too frequent for buffers to smooth",
+          "Whether retained rework crew degrades the line-speed baseline that subassembly trial showed"
+        ],
+        "capabilityComplianceNote": "All decision actions are confined to listed capabilities: manual time study with clocks and production records, physical layout rearrangement, division of stable work into repeated tasks, gravity-slide/cart/rope/chain/powered conveyance already available in industry, gauges/interchangeable parts and fitting checks, small moving-flow pilots, measurement of throughput/WIP/defects/stoppages, and separate tracking of absenteeism/turnover from output. No later instruments, processes, materials, or authority are assumed."
+      },
+      "usage": {
+        "inputTokens": 1059,
+        "outputTokens": 1105,
+        "totalTokens": 2164,
+        "elapsedMs": 13470,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A12",
+      "treatment": "affordance",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Moving whole-chassis flow couples stations, so any part-interchangeability mismatch or uneven task time at one station halts downstream flow; the pilot succeeded only on a small subassembly where this coupling was manageable.",
+        "routes": [
+          {
+            "route": "Prototype whole-chassis moving line on a few production units with buffer/decoupling zones between coupled stations",
+            "decision": "continue",
+            "reason": "Directly scales the successful subassembly pilot while explicitly testing the dominant risk (mismatch/uneven-task coupling) at the realistic geometry, using buffers to contain stoppage propagation."
+          },
+          {
+            "route": "Retain stationary flexible teams but re-balance task assignment and tooling to raise flat-output rate",
+            "decision": "defer",
+            "reason": "Preserves flexibility that the evidence values, but does not address the 'demand exceeding output' pressure; better as a control/baseline than primary decision."
+          },
+          {
+            "route": "Confirm part interchangeability by pre-inspection/sorting so mismatch risk drops before full-line commitment",
+            "decision": "defer",
+            "reason": "Necessary complement to any moving line, but evidence shows imperfect interchangeability is a condition, not yet a proven fully-solvable blocker; run alongside, not as the lead decision."
+          },
+          {
+            "route": "Adopt full continuous moving assembly line across the entire chassis immediately",
+            "decision": "abandon",
+            "reason": "Evidence flags larger chassis geometry and uneven task times; skipping an intermediate scaled prototype leaves uncapped coupling risk and no measured mitigation before high-volume commitment."
+          },
+          {
+            "route": "Enrich/job-rotate narrow repetitive tasks to guard retention before throughput gains are locked in",
+            "decision": "defer",
+            "reason": "Turnover is a real distinct objective, but no evidence shows it is currently binding; track it in the pilot (already an available capability) rather than gate-line the line decision on it."
+          }
+        ],
+        "topRoute": "Prototype whole-chassis moving line on a few production units with buffer/decoupling zones between coupled stations",
+        "nextDiscriminatingTest": "Run a small moving-chassis pilot on a few production units with buffer space between coupled stations; measure line stoppages per unit and their propagation depth against the prior stationary baseline and the moving-subassembly pilot, and separately record worker absenteeism/turnover.",
+        "requiredComplements": [
+          "pre-inspection/gauging of parts to reduce mismatch at station entry",
+          "buffer/decoupling zones between coupled stations",
+          "retained flexible repair/fitting teams for variable and rework work",
+          "separate tracking of throughput vs turnover/absenteeism"
+        ],
+        "mainFailureRisks": [
+          "part-interchangeability mismatch at one station halts downstream flow despite buffers",
+          "uneven task times between stations cause idle/waiting and reduce realized throughput below pilot expectations",
+          "pilot throughput gains on a small subassembly do not transfer to full chassis geometry (size/weight/conveyance limits)",
+          "narrow repetitive work raises turnover, eroding line gains over time"
+        ],
+        "generalizationBoundary": "Success is established only in the moving-subassembly pilot and in other industries' sequential flow; it does not yet extend to a full automobile chassis, which is larger with uneven task times, and does not extend to retention/cost equilibria without separate measurement.",
+        "unresolvedUnknowns": [
+          "magnitude and location of interchangeability mismatches on whole-chassis flow",
+          "spread of per-station task times across a full chassis (how uneven)",
+          "actual turnover/absenteeism effect of narrow repetitive work in this workforce",
+          "cost per unit of decoupling buffers and pre-inspection relative to throughput gain"
+        ],
+        "capabilityComplianceNote": "All routes use only supplied capabilities: manual timing with clocks/stopwatches and production records, layout rearrangement, task division, slides/carts/chains/powered conveyors available in industry, gauges/fitting checks, small moving-flow pilots on one subassembly before wider rollout, measurement of throughput/WIP/defects/line stoppages, retained flexible repair teams, and separate tracking of absenteeism/turnover and output. No later instruments, processes, materials, or authority are imported."
+      },
+      "usage": {
+        "inputTokens": 1086,
+        "outputTokens": 989,
+        "totalTokens": 2075,
+        "elapsedMs": 23243,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    }
+  ]
+}

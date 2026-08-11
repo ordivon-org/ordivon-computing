@@ -1,0 +1,785 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd3-historical-replay-live",
+  "treatment": "curated",
+  "replicatesPerCase": 3,
+  "durablePerTrial": true,
+  "records": [
+    {
+      "replayId": "HR3-A05",
+      "treatment": "curated",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Lift prediction error: the team's published aerodynamic coefficients do not transfer to their wing shapes/conditions, so empirical measurement rather than more power or direct scaling is the binding constraint.",
+        "routes": [
+          {
+            "route": "build a wind tunnel/balance system and remeasure lift/drag across many wing shapes before another full-scale design",
+            "decision": "continue",
+            "reason": "Directly attacks the root cause: published coefficients were measured on different shapes/conditions. A purpose-built balance lets the team generate shape-specific data cheaply and safely before risking a full-scale build, and the constraints note they can build custom apparatus."
+          },
+          {
+            "route": "use one more full-size glider as an intermediate generalization test before adding power",
+            "decision": "defer",
+            "reason": "A full-size test is a poor first step because it repeats the same coefficient mismatch problem at full cost and with pilot danger; it should only follow once the lift model is corrected in the tunnel."
+          },
+          {
+            "route": "copy the successful rival model geometry and scale it directly",
+            "decision": "defer",
+            "reason": "Small-model performance does not generalize to full scale; the rival's structural/control requirements change with size and pilot, so blind geometric scaling would reproduce the same generalization error the team already experienced."
+          },
+          {
+            "route": "accept published coefficients and add more engine power",
+            "decision": "abandon",
+            "reason": "Adding power compensates only one symptom (lift shortfall) while the underlying aerodynamic model remains wrong, and it is the most expensive fix given powered full-scale prototypes are costly; the lift mismatch was not solved by size/curvature changes."
+          },
+          {
+            "route": "focus only on inherent stability and abandon active control",
+            "decision": "defer",
+            "reason": "Stability refinement does not address the measured lift deficit and would discard a control concept that already works in tests; it could be a complement later but not the next bottleneck."
+          },
+          {
+            "route": "abandon powered-flight research as the data conflict is too severe",
+            "decision": "abandon",
+            "reason": "The conflict is resolvable through measurement rather than fatal; the team has working control and sound airframes, and a custom balance addresses the specific discrepancy at low cost."
+          }
+        ],
+        "topRoute": "build a wind tunnel/balance system and remeasure lift/drag across many wing shapes before another full-scale design",
+        "nextDiscriminatingTest": "Construct a small balance/wind-tunnel apparatus, measure lift and drag across a matrix of camber, aspect ratio, and airfoil section candidates at relevant scales and Reynolds numbers, and check whether a corrected coefficient set reproduces observed full-size glider performance; this discriminates whether the published-table mismatch is shape/condition-specific (tunnel resolves it) versus a scale-dependent physics gap (tunnel exposes it).",
+        "requiredComplements": [
+          "simple lift/drag measuring balance with controllable airflow",
+          "matrix of test wings spanning the shape/curvature space the team used, so tunnel data maps onto the failed gliders",
+          "retrospective validation: apply remeasured coefficients to the 1900/1901 gliders to see if the model now closes"
+        ],
+        "mainFailureRisks": [
+          "Apparatus resolution may be too crude to detect the lift differences at model scale (measurement error comparable to the signal).",
+          "Reynolds-number dependence persists even with corrected tables, so small-model data might not generalize to full scale (forces another full-size validation).",
+          "The true discrepancy may be due to full-scale flow effects (e.g., aspect ratio, scale) that no small-tunnel measurement captures, in which case the tunnel pass adds cost without resolving the gap."
+        ],
+        "generalizationBoundary": "The wind-tunnel results establish coefficients for the test-wing shapes and conditions; they do not yet establish that powered full-scale flight with a human pilot will succeed, since the rival's small powered-model success is not proof at full scale and structural/control requirements change with size.",
+        "unresolvedUnknowns": [
+          "Whether the lift shortfall is a coefficient/shape mismatch or a scale-dependent (Reynolds/aspect-ratio) physics gap not visible in published tables or small models.",
+          "Whether the corrected coefficients, once measured, close the gap for the team's specific wing geometry on a full-scale airframe.",
+          "Whether any powered design derived from corrected measurements can be made structurally and controllably safe for a human pilot at full scale."
+        ],
+        "capabilityComplianceNote": "All selected and deferred routes stay within the supplied candidate set; no external/future technology is introduced. No names, dates, or rival identities are assumed beyond what the case states. The tunnel apparatus route is the cheapest empirical path that directly falsifies or confirms the coefficient-mismatch hypothesis before expensive, dangerous full-scale powered tests."
+      },
+      "usage": {
+        "inputTokens": 996,
+        "outputTokens": 1120,
+        "totalTokens": 2116,
+        "elapsedMs": 12335,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A05",
+      "treatment": "curated",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "The authoritative published lift coefficients do not transfer to the team's wing geometry/conditions, and the team cannot build a reliable full-scale machine until the aerodynamic data itself is corrected for their specific shapes.",
+        "routes": [
+          {
+            "route": "build a wind tunnel/balance system and remeasure lift/drag across many wing shapes before another full-scale design",
+            "decision": "continue",
+            "reason": "Discriminating evidence: the mismatch is between published coefficients and the team's actual conditions. A wind tunnel with balance lets them generate their own data on curving/curvature variations cheaply and quickly, avoiding expensive and dangerous full-scale redesign on bad inputs."
+          },
+          {
+            "route": "use one more full-size glider as an intermediate generalization test before adding power",
+            "decision": "defer",
+            "reason": "Potentially valuable as a validation of wind-tunnel predictions at scale, but without corrected coefficients a further full-size glider will likely repeat the lift shortfall and burn scarce budget/experimental risk."
+          },
+          {
+            "route": "accept published coefficients and add more engine power",
+            "decision": "abandon",
+            "reason": "The evidence already shows published coefficients overestimate lift for their wing shape/conditions; adding power compensates the symptom but not the flawed data, and powered prototypes are expensive and dangerous."
+          },
+          {
+            "route": "copy the successful rival model geometry and scale it directly",
+            "decision": "defer",
+            "reason": "The rival's structural/control requirements change at full scale and with a human pilot; direct geometric scaling risks repeating the generalization error. Worth monitoring only after own data is gathered."
+          },
+          {
+            "route": "focus only on inherent stability and abandon active control",
+            "decision": "abandon",
+            "reason": "The team's control concept already works in tests; abandoning it removes a demonstrated capability and does not address the lift-data mismatch, which is the actual bottleneck."
+          },
+          {
+            "route": "abandon powered-flight research as the data conflict is too severe",
+            "decision": "abandon",
+            "reason": "The conflict is in measurement data transfer, not a fundamental physical impossibility; a wind tunnel/balance is affordable given their workshop capability and resolves the conflict."
+          }
+        ],
+        "topRoute": "build a wind tunnel/balance system and remeasure lift/drag across many wing shapes before another full-scale design",
+        "nextDiscriminatingTest": "On the newly built tunnel/balance, measure lift and drag for the team's actual wing shape (and several curvature variants) at relevant Reynolds numbers/speeds, and check whether corrected coefficients recover the observed full-scale glider performance; refine until tunnel data predicts the 1900/1901 glider results within a defined tolerance before designing any new full-scale machine.",
+        "requiredComplements": [
+          "retain the working control system for later integration",
+          "run small-model powered tests to span scale effects after tunnel data is established",
+          "validate one full-size glider against tunnel predictions before committing to powered full-scale"
+        ],
+        "mainFailureRisks": [
+          "wind tunnel/balance measurements at small scale or low speed may still fail to capture full-scale Reynolds-number effects (generalization error persists)",
+          "tunnel apparatus may be inaccurate without proper calibration, reproducing bad coefficients",
+          "the rival may reach full-scale powered piloted flight first, compressing the team's timeline while they gather data"
+        ],
+        "generalizationBoundary": "Corrected tunnel data should generalize only across similar wing-shape families and moderate scale changes; it does not guarantee validity at full scale with a human pilot until confirmed by at least one full-size glider, and it does not transfer to structurally different or very different-speed configurations.",
+        "unresolvedUnknowns": [
+          "whether the team can calibrate the wind tunnel/balance to the accuracy needed to discriminate real aerodynamic differences",
+          "the precise scale/Reynolds-number correction required to move from tunnel to full-size glider",
+          "whether full-scale structural weight and control authority will still be adequate once lift is corrected"
+        ],
+        "capabilityComplianceNote": "This is an agent-of-record decision. The recommended path uses only the supplied liveRoutes and available evidence; the wind-tunnel/balance route is explicitly permitted by the team's modest-workshop capability to build custom measurement apparatus, and it is selected without claiming general/net success beyond the next evidence-gathering step."
+      },
+      "usage": {
+        "inputTokens": 996,
+        "outputTokens": 1009,
+        "totalTokens": 2005,
+        "elapsedMs": 10739,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A05",
+      "treatment": "curated",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "The authoritative published lift coefficients were measured on different wing shapes/conditions and do not transfer to the team's full-scale gliders, so the team lacks reliable aerodynamic data for design decisions. The core bottleneck is invalid empirical inputs rather than insufficient power or control.",
+        "routes": [
+          {
+            "route": "accept published coefficients and add more engine power",
+            "decision": "abandon",
+            "reason": "The evidence shows published coefficients were measured on different wing shapes/conditions and are already demonstrated unreliable at full scale; adding power based on wrong data propagates the same error and wastes expensive prototypes."
+          },
+          {
+            "route": "build a wind tunnel/balance system and remeasure lift/drag across many wing shapes before another full-scale design",
+            "decision": "continue",
+            "reason": "This directly attacks the dominant bottleneck: it replaces the poisoned published data with self-measured coefficients under relevant shapes/conditions, and the team has modest workshop capability suited to building a small balance and test apparatus. It de-risks both full-scale glider and powered design at low cost."
+          },
+          {
+            "route": "use one more full-size glider as an intermediate generalization test before adding power",
+            "decision": "defer",
+            "reason": "A single uncontrolled full-scale test is expensive, dangerous, and reuses the same doubtful data. It may be worthwhile later to validate wind-tunnel findings, but only after remeasured coefficients exist; doing it before the tunnel test reproduces the same lift mismatch."
+          },
+          {
+            "route": "copy the successful rival model geometry and scale it directly",
+            "decision": "defer",
+            "reason": "The rival's small powered models may not generalize to full scale with a human pilot; structural and control requirements change with scale. Without locally validated data, direct scaling risks the same mismatch, though the geometry is worth testing in the wind tunnel balance."
+          },
+          {
+            "route": "focus only on inherent stability and abandon active control",
+            "decision": "defer",
+            "reason": "The team's control concept already works in tests; the failure is lift, not control. Abandoning active control addresses a different problem and would surrender a demonstrated capability, but inherent-stability insights could complement the balance work."
+          },
+          {
+            "route": "abandon powered-flight research as the data conflict is too severe",
+            "decision": "abandon",
+            "reason": "The conflict is in empirical data, not physics; a wind-tunnel balance can resolve it. Abandoning on the basis of invalid published coefficients is premature and discards a working control concept and valid structural design."
+          }
+        ],
+        "topRoute": "build a wind tunnel/balance system and remeasure lift/drag across many wing shapes before another full-scale design",
+        "nextDiscriminatingTest": "Construct a simple wind tunnel with a balance, and test the 1901 glider's actual wing shape and curvature at relevant airspeeds/angles to see whether measured lift coefficients match the low observed full-scale lift or the higher published values. This discriminates whether the mismatch originates from wrong published data vs. a scale/condition effect that would also appear in the tunnel.",
+        "requiredComplements": [
+          "Remeasure lift/drag across the rival-style geometry in the tunnel to evaluate whether scaling the rival design is viable.",
+          "Test several wing shapes/curvatures in the tunnel to build a local coefficient table before any new full-scale design.",
+          "Use the extra full-size glider only as an afterward validation of tunnel-predicted lift, not as the primary discovery vehicle."
+        ],
+        "mainFailureRisks": [
+          "Small wind tunnel may not reproduce full-scale Reynolds numbers, so tunnel coefficients might still not transfer to full scale at full fidelity.",
+          "Building a reliable balance is hard; a poorly calibrated apparatus could yield misleading coefficients that replace one set of bad data with another.",
+          "The actual source of low lift may be construction/trueness (warpage, rigging) rather than the published coefficients, in which case the tunnel approach measures the wrong cause.",
+          "Time spent building the tunnel delays progress while the better-funded rival scales toward full-size powered flight."
+        ],
+        "generalizationBoundary": "The wind-tunnel result will generalize to full-scale design only if scale effects (Reynolds number), airspeed, and wing-shape conditions are matched or calibrated against the two existing full-size gliders. Tunnel-measured coefficients must be validated against the real 1900/1901 glider observations to claim any generalization beyond model-scale conditions.",
+        "unresolvedUnknowns": [
+          "Whether the lift mismatch stems from wrong published coefficients vs. construction-exactness (warpage, gaps, rigging) in the full-size gliders.",
+          "Whether tunnel-scale measurements at achievable airspeeds will match the full-scale Reynolds regime closely enough.",
+          "Whether aspect ratio, chord, and curvature corrections among test shapes will be captured accurately by the simple balance.",
+          "Whether the rival's model geometry, when tunnel-tested, will show similar lift behavior to the team's shapes or genuinely higher efficiency."
+        ],
+        "capabilityComplianceNote": "No future technology beyond the candidate routes is proposed; action is limited to building simple measurement apparatus within the stated modest workshop capability, refraining from unvalidated full-scale powered prototypes, and preserving a glider-based validation path."
+      },
+      "usage": {
+        "inputTokens": 996,
+        "outputTokens": 1204,
+        "totalTokens": 2200,
+        "elapsedMs": 12853,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A09",
+      "treatment": "curated",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "The core tension is between electromagnetic wave theory (strongly confirmed) and the absence of the predicted directional light-travel effect that follows from Earth's motion through the reference medium (ether). No access to the medium exists, so the bottleneck is deciding among: (a) treating the null as apparatus failure, (b) tightening the empirical bound, (c) patching ether theory with a material compensation, or (d) reconstructing moving-frame kinematics to preserve electrodynamics without a detectable privileged frame.",
+        "routes": [
+          {
+            "route": "declare the null an apparatus failure and stop using it",
+            "decision": "abandon",
+            "reason": "The new interferometer's sensitivity and long effective optical path substantially exceed the earlier null experiment, and it can resolve much smaller effects in other uses; discarding it as a failure has no supporting evidence and throws away the strongest tool for bounding residual drift."
+          },
+          {
+            "route": "repeat/rotate/seasonally vary the interferometer to bound residual ether drift more tightly",
+            "decision": "continue",
+            "reason": "Rotation and seasonal variation are decisive: the predicted signal depends on known Earth motion and orientation, so systematic rotation across seasons discriminates a genuine absence from a subtle orientation-dependent miss or compensation. This is low-cost, uses existing apparatus, and yields the tightest empirical bound available under current constraints."
+          },
+          {
+            "route": "retain ether and derive a concrete material/contraction mechanism with new predictions",
+            "decision": "defer",
+            "reason": "A concrete contraction/entrainment mechanism with testable new predictions is logically possible but currently unconstrained; it should not be pursued before the empirical bound is maximized, since unconstrained parameters fit anything and add no discrimination yet."
+          },
+          {
+            "route": "treat the null as a constraint on kinematics and search for a representation with no detectable privileged frame while preserving successful electrodynamics",
+            "decision": "continue",
+            "reason": "This is the theoretically serious route: it respects the null and preserves electrodynamics while rethinking moving-frame kinematics. It should proceed in parallel with continued empirical bounding, because one null experiment alone cannot validate a full replacement theory."
+          },
+          {
+            "route": "add arbitrary compensating parameters until the expected shift disappears",
+            "decision": "abandon",
+            "reason": "Adding arbitrary, unconstrained compensating parameters is unfalsifiable and explains the null without generating any new predictions; it has zero discriminating value against the kinematic reconstruction route."
+          },
+          {
+            "route": "ignore the null because the theory is too successful elsewhere",
+            "decision": "defer",
+            "reason": "Electrodynamics is powerful elsewhere, but the null directly challenges the specific moving-frame inference that motivated it; ignoring the null avoids genuine evidence and cannot be justified while the apparatus remains usable."
+          }
+        ],
+        "topRoute": "repeat/rotate/seasonally vary the interferometer to bound residual ether drift more tightly",
+        "nextDiscriminatingTest": "Rotate the interferometer through multiple orientations and repeat the null measurement across a full seasonal cycle, correlating any residual signal with the known projection of Earth's orbital motion onto the optical axis. A controlled-shift calibration (induced small optical path difference) should confirm the apparatus can still detect a signal of the predicted magnitude. This discriminates 'genuine absence of ether drift' from 'orientation-dependent compensation or unnoticed mechanical effect.'",
+        "requiredComplements": [
+          "kinematic reconstruction route seeking a representation with no detectable privileged frame while preserving electrodynamics",
+          "a calibration demonstrating the interferometer detects signals of the predicted magnitude in other uses"
+        ],
+        "mainFailureRisks": [
+          "Orientation- and season-dependent null could be explained by an unmodeled mechanical deformation of the apparatus correlated with rotation",
+          "A kinematic reconstruction that preserves electrodynamics may turn out to be insufficiently constrained by a single null experiment",
+          "Material contraction or entrainment mechanisms remain unconstrained and could fit any null result"
+        ],
+        "generalizationBoundary": "Evidence supports that the predicted orientation-dependent light-travel shift is absent to the experimental bound of this specific, higher-sensitivity apparatus, and that electrodynamics remains intact across known phenomena. It does not establish that no privileged frame exists at any precision, that a specific replacement kinematics is correct, or that all conceivable compensation mechanisms are ruled out.",
+        "unresolvedUnknowns": [
+          "Whether residual ether drift is exactly zero or merely below the current apparatus bound",
+          "Whether material deformation or partial ether entrainment masks a residual signal during rotation",
+          "Whether any consistent kinematics eliminates all detectable privileged-frame effects while reproducing every confirmed electrodynamic phenomenon",
+          "Whether the earlier null experiment and this one share a common systematic error"
+        ],
+        "capabilityComplianceNote": "Recommended actions use only the pre-outcome evidence supplied and the candidate liveRoutes; no post-outcome knowledge, names, or external technologies (e.g., atomic clocks/lasers) are assumed. The only speculative elements are restricted to explicitly flagged unresolved unknowns, not capabilities."
+      },
+      "usage": {
+        "inputTokens": 1013,
+        "outputTokens": 1125,
+        "totalTokens": 2138,
+        "elapsedMs": 12354,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A09",
+      "treatment": "curated",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "The null result contradicts a straightforward ether-motion expectation, but no direct probe of the ether exists and the discrimination between compensating physical mechanisms and a kinematics-level reformulation is not yet possible without further evidence.",
+        "routes": [
+          {
+            "route": "repeat/rotate/seasonally vary the interferometer to bound residual ether drift more tightly",
+            "decision": "continue",
+            "reason": "This is the cheapest discriminating step: it establishes whether the null is robust across orientations and orbital phases, constrains residual drift magnitude, and separates a genuine kinematic constraint from an orientation-specific artifact, all with existing apparatus."
+          },
+          {
+            "route": "treat the null as a constraint on kinematics and search for a representation with no detectable privileged frame while preserving successful electrodynamics",
+            "decision": "continue",
+            "reason": "The null is a hard constraint that motivates reformulating moving-frame kinematics. Should proceed in parallel, but can only be validated against further experimental bounds, so it is not the immediate next action."
+          },
+          {
+            "route": "retain ether and derive a concrete material/contraction mechanism with new predictions",
+            "decision": "continue",
+            "reason": "A concrete, falsifiable contraction/entrainment mechanism is logically possible and testable, but is currently unconstrained; continue in parallel rather than defaulting to it without evidence."
+          },
+          {
+            "route": "declare the null an apparatus failure and stop using it",
+            "decision": "abandon",
+            "reason": "The apparatus demonstrably resolves smaller optical/length effects in other uses, so dismissing the null as mere failure is not supported by the evidence."
+          },
+          {
+            "route": "add arbitrary compensating parameters until the expected shift disappears",
+            "decision": "abandon",
+            "reason": "Arbitrary parameter-fitting produces no new predictions and cannot be discriminated from kinematics reformulation; it is scientifically vacuous."
+          },
+          {
+            "route": "ignore the null because the theory is too successful elsewhere",
+            "decision": "abandon",
+            "reason": "The null is repeated and within a sensitive apparatus; ignoring a persistent contradiction because of past success is unjustified and avoids the needed discrimination."
+          }
+        ],
+        "topRoute": "repeat/rotate/seasonally vary the interferometer to bound residual ether drift more tightly",
+        "nextDiscriminatingTest": "Perform long-duration rotation and seasonal observations with the existing interferometer in multiple orientations and at several epochs of the year to quantify any residual drift amplitude versus the predicted Earth-motion shift; a persistent null across seasons would tighten the bound and shift weight from the compensating-mechanism family to the kinematics reformulation.",
+        "requiredComplements": [
+          "kinematics reformulation effort (search for a representation with no detectable privileged frame)",
+          "concrete contraction/entrainment mechanism with independently testable predictions"
+        ],
+        "mainFailureRisks": [
+          "Seasonal sampling cannot fully resolve orbital-phase dependence within a practical window",
+          "A still-small but nonzero residual could be ambiguous between incomplete entrainment, contraction, and kinematic effects",
+          "Apparatus systematic errors that scale with orientation could mimic a null",
+          "Kinematics reformulation may require altering moving-frame transformations in ways that conflict with other successful electrodynamic phenomena"
+        ],
+        "generalizationBoundary": "Evidence supports only the conclusion that optical two-way interferometry along rotating orientations shows no signal at the current sensitivity over the tested epochs; it does not by itself validate any specific replacement theory, constrain single-direction or one-way light propagation, or rule out compensating effects below the current detection threshold.",
+        "unresolvedUnknowns": [
+          "Residual ether-drift upper bound after extended rotation/seasonal sampling",
+          "Whether the null holds for one-way or different-geometry propagation using the same detector class",
+          "Size and sign of any compensating material contraction/entrainment term",
+          "Mathematical form of a kinematics reformulation that preserves all successful electrodynamic results"
+        ],
+        "capabilityComplianceNote": "All decisions are confined to the six supplied liveRoutes and existing pre-post-transform technology (precision interferometry without modern atomic clocks/lasers). No future innovation is invented; the recommended action uses the available apparatus. The kinematics-reformulation route is retained as an open complement, not assumed validated by the single null result."
+      },
+      "usage": {
+        "inputTokens": 1013,
+        "outputTokens": 973,
+        "totalTokens": 1986,
+        "elapsedMs": 11412,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A09",
+      "treatment": "curated",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Reconciling a repeated high-sensitivity null result with a well-validated electromagnetic wave theory that implies a directional ether-drift signal, given no direct ether access and no modern atomic clocks/lasers to independently fix frame kinematics.",
+        "routes": [
+          {
+            "route": "repeat/rotate/seasonally vary the interferometer to bound residual ether drift more tightly",
+            "decision": "continue",
+            "reason": "The evidence explicitly states the null persists and the instrument is highly sensitive; extending it to rotation/seasonal variation is the natural rigorous move to check for orientation- and time-dependent components and to establish the tightest achievable bound. This is the most disciminating next empirical step available and the apparatus is in hand."
+          },
+          {
+            "route": "treat the null as a constraint on kinematics and search for a representation with no detectable privileged frame while preserving successful electrodynamics",
+            "decision": "continue",
+            "reason": "The evidence says discarding the reference medium may require rethinking moving-frame kinematics, not merely one optical parameter. This is the theoretically productive parallel track: seek a formalism consistent with the null and with known electrodynamics, since one null alone cannot validate all features but it can constrain kinematics."
+          },
+          {
+            "route": "retain ether and derive a concrete material/contraction mechanism with new predictions",
+            "decision": "defer",
+            "reason": "Material deformation, incomplete entrainment, or contraction are logically possible but currently unconstrained. Until the rotation/seasonal bounds are tightened, the parameter space is too open to commit to one concrete mechanism; defer to see whether added bounds discriminate among candidates."
+          },
+          {
+            "route": "declare the null an apparatus failure and stop using it",
+            "decision": "abandon",
+            "reason": "The evidence states the null persists across many observations and the instrument resolves much smaller effects elsewhere; ignoring the null on grounds of failure contradicts the sensitivity evidence and discards the strongest available constraint."
+          },
+          {
+            "route": "add arbitrary compensating parameters until the expected shift disappears",
+            "decision": "abandon",
+            "reason": "This is curve-fitting that yields no new predictions and no discriminating tests; it is explicitly lower-value than deriving a concrete mechanism with content, and it cannot preserve the successful electrodynamics in a principled way."
+          },
+          {
+            "route": "ignore the null because the theory is too successful elsewhere",
+            "decision": "abandon",
+            "reason": "The null is a real repeatable empirical constraint from a high-sensitivity instrument; ignoring it because ether theory works elsewhere forecloses the possibility that the other successes are also compatible with a reformed kinematics. Productive routes engage the null rather than dismissing it."
+          }
+        ],
+        "topRoute": "repeat/rotate/seasonally vary the interferometer to bound residual ether drift more tightly",
+        "nextDiscriminatingTest": "Conduct continuous rotation of the interferometer across a full cycle while measuring phase at fine angular increments, and (where feasible) extend to seasonal observation across several months so that the projection of any assumed ether-drift vector onto the instrument plane changes over a full year; check both for a persistent orientation-dependent signal and for a seasonally modulated amplitude consistent with the vector-composition prediction.",
+        "requiredComplements": [
+          "a kinematic reformulation track that seeks a representation with no detectable privileged frame (pure Lorentz-type kinematics) while preserving electrodynamics",
+          "an explicit list of falsifiable consequences for any proposed material/contraction compensation mechanism so that future bounds can reject or support it",
+          "comparison of the current null bound against the predicted ether-drift magnitude to quantify how many orders of magnitude are closed"
+        ],
+        "mainFailureRisks": [
+          "the null could be orientation- and season-independent and yet still leave more than one kinematic formalism consistent with it, so the experiment alone may not single out the correct representation",
+          "the tightening bounds may remain far above the true residual because remaining systematic effects (thermal, mechanical, source stability) mimic a null, which could only be excluded with better instrumentation than this era permits",
+          "the kinematic reformulation may sacrifice some electrodynamic success or introduce new assumptions (e.g., length contraction/time dilation without atomic clock confirmation) that cannot be independently verified here"
+        ],
+        "generalizationBoundary": "The null result is high-sensitivity but single-instrument; it establishes a strong bound on a directional light-travel difference in the lab frame, not on every implication of a replacement kinematics. Findings generalize to the absence of a detectable privileged frame at that sensitivity for this Earth motion and its seasonal projection, but not automatically to all frequencies, densities, or to the deep principle-level status of the electromagnetic equations themselves.",
+        "unresolvedUnknowns": [
+          "whether orientation- and season-dependent residuals exist below current bound",
+          "whether a kinematics-only reformulation can be made that is both free of detectable privileged frame and reproduces all known electrodynamic phenomena",
+          "whether any material/contraction mechanism has discriminable new predictions or is merely a fitting parameter",
+          "the exact magnitude of the Earth-motion ether-drift projection under the assumed representation at this instrument's location and season"
+        ],
+        "capabilityComplianceNote": "All actions stay within the candidate route set and available instrumentation; the top route uses only rotation, seasonal variation, and null testing of the existing high-sensitivity interferometer, with the kinematic reformulation as a parallel theoretical track; no modern atomic clocks/lasers are assumed and no privileged-frame-validating ether access is claimed."
+      },
+      "usage": {
+        "inputTokens": 1013,
+        "outputTokens": 1226,
+        "totalTokens": 2239,
+        "elapsedMs": 13410,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A10",
+      "treatment": "curated",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Continuous industrial-scale operation under hot hydrogen-rich high pressure: the lab catalyst, feed purity, and apparatus assumptions may not survive, and pressure-vessel/equipment failure is catastrophic.",
+        "routes": [
+          {
+            "route": "geometrically enlarge the laboratory apparatus directly",
+            "decision": "abandon",
+            "reason": "Direct geometric scaling of a laboratory reactor ignores continuous-operation failure modes, hot-hydrogen material behavior at industrial scale, and feed-poisoning; it risks catastrophic pressure-equipment failure and offers no discriminating evidence."
+          },
+          {
+            "route": "build staged pilot units while separately testing pressure-vessel materials under hot hydrogen",
+            "decision": "continue",
+            "reason": "Addresses the dominant bottleneck: staged piloting surfaces continuous-operation failure modes while separate material testing under hot hydrogen directly interrogates the catastrophic pressure-integrity risk before committing to full scale."
+          },
+          {
+            "route": "run a broad catalyst search for cheaper abundant materials under realistic feed impurities",
+            "decision": "continue",
+            "reason": "Tackles the expensive/scarce material cost and feed-poisoning constraints; testing under realistic impurities is a discriminating test, though it must run in parallel rather than block the engineering scale-up."
+          },
+          {
+            "route": "develop gas-purification and continuous heat/recycle loops as explicit subsystems",
+            "decision": "continue",
+            "reason": "Continuous operation exposes impurity-accumulation and thermal/recycle failure modes absent in short lab runs; building these as explicit subsystems is a necessary complement to any scale-up."
+          },
+          {
+            "route": "abandon high pressure and scale the existing alternative nitrogen-fixation route",
+            "decision": "defer",
+            "reason": "The alternative baseline is strong industrially but has high energy/material costs, so abandoning the high-pressure route is not justified under current evidence; keep it as a fallback while pilot evidence accumulates."
+          },
+          {
+            "route": "treat scale-up as implementation and optimize only construction cost",
+            "decision": "abandon",
+            "reason": "Pre-supposes that lab assumptions survive scale, which is precisely the unproven claim under evaluation; cost optimization is premature and would mask catastrophic pressure-safety and continuous-operation risks."
+          }
+        ],
+        "topRoute": "build staged pilot units while separately testing pressure-vessel materials under hot hydrogen",
+        "nextDiscriminatingTest": "Run small continuous pilot units at intermediate scale for extended hot-hydrogen exposure while independently characterizing candidate pressure-vessel materials and the lab catalyst under realistic feed impurities, measuring degradation/poisoning rates versus time rather than short-run equilibrium.",
+        "requiredComplements": [
+          "develop gas-purification and continuous heat/recycle loops as explicit subsystems",
+          "run a broad catalyst search for cheaper abundant materials under realistic feed impurities"
+        ],
+        "mainFailureRisks": [
+          "Catastrophic pressure-vessel failure under hot hydrogen (material embrittlement/hydrogen attack) if material testing is too short or at non-representative conditions",
+          "Catalyst deactivation from feed impurities that did not appear in laboratory-purity runs",
+          "Continuous-operation failure modes (recycle loop contamination, thermal fatigue, seal degradation) not captured by any short lab experiment",
+          "Pilot scale still not representative of orders-of-magnitude throughput jump, leaving residual scale risk"
+        ],
+        "generalizationBoundary": "Evidence from reproducible lab equilibrium/rate behavior and a working laboratory catalyst generalizes only to short-duration, high-purity-feed, small-scale conditions; it does NOT establish continuous-operation durability, pressure-integrity at industrial scale under hot hydrogen, or cost-viability of the catalyst at industrial quantity. Local expert authority and first-success in the lab do not imply net industrial success.",
+        "unresolvedUnknowns": [
+          "Long-term hot-hydrogen performance of candidate pressure-vessel materials at industrial scale",
+          "Catalyst poisoning kinetics and achievable lifetime under real feed impurities",
+          "Whether continuous heat/recycle loops can sustain the required operating envelope without degradation",
+          "Whether cheaper abundant catalyst materials can match or approach laboratory catalyst performance under realistic conditions",
+          "True total cost (energy/material/apparatus) versus the existing alternative baseline at scale"
+        ],
+        "capabilityComplianceNote": "Ranking/selection limited strictly to the supplied liveRoutes; no future technology invented outside the candidate set. The staged-pilot + material-testing route is selected because it directly interrogates the dominant catastrophic and continuous-operation risks with discriminating evidence, while catalyst-cost and gas-purification/recycle work run as required complements and the alternative baseline is retained as a deferred fallback."
+      },
+      "usage": {
+        "inputTokens": 954,
+        "outputTokens": 1037,
+        "totalTokens": 1991,
+        "elapsedMs": 11178,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A10",
+      "treatment": "curated",
+      "replicate": 2,
+      "bet": {},
+      "usage": {
+        "inputTokens": 981,
+        "outputTokens": 23,
+        "totalTokens": 1004,
+        "elapsedMs": 14263,
+        "transportRetries": 0,
+        "schemaRetries": 1
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A10",
+      "treatment": "curated",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Pressure-vessel materials and continuous-operation reliability under hot hydrogen-rich gas, compounded by catalyst cost/scarcity and catalyst poisoning from real feed impurities.",
+        "routes": [
+          {
+            "route": "geometrically enlarge the laboratory apparatus directly",
+            "decision": "defer",
+            "reason": "Direct geometric enlargement without staged validation ignores that pressure-vessel materials, seals, and heat removal fail differently at scale under hot hydrogen-rich gas (hydrogen embrittlement, leak paths, thermal gradients). This is catastrophic-failure territory and should not be skipped, but jumping straight to full scale is premature before material and recycle behavior are characterized at intermediate scale."
+          },
+          {
+            "route": "build staged pilot units while separately testing pressure-vessel materials under hot hydrogen",
+            "decision": "continue",
+            "reason": "Directly addresses the dominant bottleneck (material survival under hot H2) and the continuous-operation failure modes. Staged pilots also expose heat/recycle, seal, and impurity effects before expensive full-plant trials. Strongly discriminating evidence vs. a route that only optimizes construction cost."
+          },
+          {
+            "route": "run a broad catalyst search for cheaper abundant materials under realistic feed impurities",
+            "decision": "continue",
+            "reason": "Catalyst scarcity/cost is a real industrial constraint and feed impurities poison catalysts. But this must run in parallel with materials/pilot work rather than gate it, since catalyst improvement alone does not resolve pressure-vessel or continuous-recycle risks."
+          },
+          {
+            "route": "develop gas-purification and continuous heat/recycle loops as explicit subsystems",
+            "decision": "continue",
+            "reason": "Addresses impurity poisoning and continuous-operation failures (thermal cycling, recycle loop dynamics) not visible in short lab experiments. Essential complement to pilot testing, but only a partial solution without materials validation."
+          },
+          {
+            "route": "abandon high pressure and scale the existing alternative nitrogen-fixation route",
+            "decision": "defer",
+            "reason": "The evidence notes the alternative baseline is strong but has high energy/material costs. Abandoning the high-pressure route entirely forgoes its demonstrated reproducible equilibrium/rate behavior and cedes the throughput advantage. Do not abandon until staged pilots and catalyst search show the high-pressure route is untenable at scale."
+          },
+          {
+            "route": "treat scale-up as implementation and optimize only construction cost",
+            "decision": "abandon",
+            "reason": "Cost-only optimization ignores catastrophic pressure-vessel failure, continuous-operation failure modes, catalyst scarcity, and poisoning. This collapses the discriminating evidence the other routes would generate and directly contradicts the constraints."
+          }
+        ],
+        "topRoute": "build staged pilot units while separately testing pressure-vessel materials under hot hydrogen",
+        "nextDiscriminatingTest": "Construct an intermediate pilot unit and run continuous hot-hydrogen loop tests on candidate pressure-vessel/valve/seal materials at target pressure-temperature, while simultaneously measuring catalyst activity decay under realistic impure feed in a small continuous reactor, to determine whether material/continuous-operation failures or catalyst poisoning limits scale feasibility first.",
+        "requiredComplements": [
+          "gas-purification and continuous heat/recycle loops as explicit subsystems",
+          "broad catalyst search for cheaper abundant materials under realistic feed impurities"
+        ],
+        "mainFailureRisks": [
+          "hot hydrogen embrittlement / stress-corrosion of pressure-vessel materials not captured in short lab runs",
+          "catalyst poisoning by feed impurities forces expensive purification that erodes cost advantage",
+          "catalyst scarcity/cost makes abundant-material alternatives economically mandatory but possibly lower-performance",
+          "staged pilot introduces scale-up time delay during which alternative nitrogen-fixation baseline improves",
+          "continuous-loop thermal/recycle instabilities cause mechanical fatigue in seals/valves"
+        ],
+        "generalizationBoundary": "Evidence of laboratory equilibrium/rate reproducibility and catalyst function does not generalize to continuous industrial throughput; both materials under hot hydrogen and long-duration impurity exposure must be validated at intermediate scale before claiming industrial viability. High throughput in lab flasks is not evidence of scaled success.",
+        "unresolvedUnknowns": [
+          "which candidate pressure-vessel alloys retain integrity under continuous hot-H2 operation at industrial pressure/temperature",
+          "whether affordable purification can reduce impurity poisoning to acceptable levels and at what energy/material cost",
+          "whether a cheap, abundant catalyst can match the scarce-material catalyst's rate/selectivity under realistic feeds",
+          "the maximum continuous runtime of seals and compressors before failure in hydrogen service",
+          "how recycle-loop thermal and mass balance behave across the intended operating envelope"
+        ],
+        "capabilityComplianceNote": "All recommendations stay within the supplied liveRoutes and evidence; the next test is discriminating rather than a claim of guaranteed net success. Direct geometric enlargement, cost-only optimization, and abandoning high pressure are deferred/rejected pending discriminating evidence."
+      },
+      "usage": {
+        "inputTokens": 954,
+        "outputTokens": 1076,
+        "totalTokens": 2030,
+        "elapsedMs": 13553,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A12",
+      "treatment": "curated",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Coupling risk between throughput gains from moving flow and the imperfect interchangeability that can halt downstream stations if a mismatch occurs.",
+        "routes": [
+          {
+            "route": "expand moving flow one subsystem at a time while measuring cycle time/bottlenecks/quality",
+            "decision": "continue",
+            "reason": "Discriminates the throughput benefit of moving flow (already shown on one subassembly) against the documented coupling hazard caused by imperfect interchangeability, and preserves the working, flexible stationary system as a fallback while learning cycle-time/fitting behavior."
+          },
+          {
+            "route": "build hybrid cells where variable/fitting work remains flexible and repetitive stable tasks flow",
+            "decision": "continue",
+            "reason": "Directly addresses the known uneven task times and local fitting/rework needs: keeps flexible work where flexibility is needed while capturing flow benefits only on stable repetitive tasks, and mitigates worker dissatisfaction from fully narrow tasks."
+          },
+          {
+            "route": "retain flexible stationary teams and simply add more parallel bays",
+            "decision": "defer",
+            "reason": "Preserves known working output and flexibility but ignores the demonstrated throughput gain from moving flow under high stable demand; acceptable as a fallback, not the lead action."
+          },
+          {
+            "route": "move the full chassis immediately through fixed specialized stations",
+            "decision": "defer",
+            "reason": "Largest throughput potential but highest coupling risk given imperfect interchangeability and uneven task times; a full-chassis leap ignores the subassembly evidence that mismatches can halt downstream flow and dismisses the demonstrated mixed-evidence base."
+          },
+          {
+            "route": "increase product variety to keep workers flexible",
+            "decision": "abandon",
+            "reason": "Directly contradicts the given large, stable standardized demand that rewards throughput; flexibility of workers is not the binding constraint at this stage."
+          },
+          {
+            "route": "reject specialization because a general worker/production system is more reusable",
+            "decision": "abandon",
+            "reason": "Ignores the documented sharp labor-time reduction from specialization/moving flow and treats reusability as the goal over the stated demand pressure for throughput."
+          }
+        ],
+        "topRoute": "expand moving flow one subsystem at a time while measuring cycle time/bottlenecks/quality",
+        "nextDiscriminatingTest": "On the next subsystem beyond the one already trialed, move the unit between a few repeated-task stations while instrumenting (a) cycle time per station, (b) the frequency and duration of downtime caused by a part mismatch, and (c) rework/quality counts versus the stationary parallel bays — comparing per-vehicle labor time and per-vehicle rework across the two modes before scaling further.",
+        "requiredComplements": [
+          "hybrid cells that keep fitting/rework local and flexible",
+          "tolerance/component-quality improvement to reduce mismatch-triggered stoppages before coupling more stations",
+          "workforce monitoring for dissatisfaction/turnover under narrowed tasks"
+        ],
+        "mainFailureRisks": [
+          "A mismatch on one station halts the entire downstream line, so per-station throughput gains could be outweighed by coupling losses.",
+          "Uneven task times make line balancing hard on a full chassis, so flow gains may not hold beyond simple subassemblies.",
+          "Narrow repetitive work raises turnover/dissatisfaction, eroding production-cost and experience objectives even if vehicle throughput rises."
+        ],
+        "generalizationBoundary": "The moving-flow throughput advantage is demonstrated on one simple subassembly with a few repeated tasks and near-interchangeable parts; it does not yet transfer to the full chassis, where task-time unevenness, larger unit handling, and imperfect interchangeability with cross-station coupling are qualitatively different.",
+        "unresolvedUnknowns": [
+          "How much of the subassembly trial's labor-time reduction comes from moving flow versus simply dividing work into repeated tasks (both changed at once).",
+          "The actual magnitude of mismatch-induced stoppage time when more stations are coupled on a larger chassis.",
+          "Whether the fitness/rework quality of the moving line matches the stationary flexible system at scale.",
+          "Labor turnover cost under prolonged narrow repetitive tasks — not yet measured on any moving line."
+        ],
+        "capabilityComplianceNote": "Action selected from the supplied liveRoutes only; no future technology outside the set is proposed. The choice avoids claiming general success from the single subassembly trial, keeps the working stationary system as a deferred fallback, and ties any scale-up decision to discriminating evidence on coupling, quality, and turnover."
+      },
+      "usage": {
+        "inputTokens": 986,
+        "outputTokens": 1029,
+        "totalTokens": 2015,
+        "elapsedMs": 12490,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A12",
+      "treatment": "curated",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "Throughput vs. flexibility/rework capability on a large, uneven-task chassis where imperfect part interchangeability can halt a coupled line.",
+        "routes": [
+          {
+            "route": "retain flexible stationary teams and simply add more parallel bays",
+            "decision": "defer",
+            "reason": "Addresses demand by parallel capacity but does not capture the demonstrated labor-time reduction from moving flow; scale-limited and ignores the throughput evidence."
+          },
+          {
+            "route": "expand moving flow one subsystem at a time while measuring cycle time/bottlenecks/quality",
+            "decision": "continue",
+            "reason": "Matches the trial evidence (moving subassembly reduced labor), preserves flexible handling of variable/fitting work, and lets imperfect interchangeability be tested at subsystem scale before coupling the whole chassis."
+          },
+          {
+            "route": "move the full chassis immediately through fixed specialized stations",
+            "decision": "defer",
+            "reason": "Maximum throughput potential but highest risk: uneven task times and station-coupling means one interchangeability mismatch halts the whole line; premature before subsystem evidence is gathered."
+          },
+          {
+            "route": "build hybrid cells where variable/fitting work remains flexible and repetitive stable tasks flow",
+            "decision": "continue",
+            "reason": "Discriminates which tasks are stable/repetitive vs. variable, directly addresses uneven task times and rework needs while still reaping moving-flow gains."
+          },
+          {
+            "route": "increase product variety to keep workers flexible",
+            "decision": "abandon",
+            "reason": "Contradicts the given demand profile (unusually standardized, high volume); variety undermines the standardization benefit that enables interchangeability and moving flow."
+          },
+          {
+            "route": "reject specialization because a general worker/production system is more reusable",
+            "decision": "abandon",
+            "reason": "Ignores the sharp demonstrated labor-time reduction from specialization/moving flow and the large stable demand that rewards throughput; generality has no current payoff here."
+          }
+        ],
+        "topRoute": "expand moving flow one subsystem at a time while measuring cycle time/bottlenecks/quality",
+        "nextDiscriminatingTest": "Instrument the next moving subassembly line (a different subsystem from the pilot) with per-station cycle-time and defect/rework data, and test whether enlarged batches of imperfectly interchangeable parts reliably clear stations without stoppage before deciding whether to extend flow to the full chassis.",
+        "requiredComplements": [
+          "hybrid cells: keep variable/fitting and rework tasks flexible",
+          "tighten part interchangeability at identified mismatch stations",
+          "buffer/decoupling between unequal-duration stations",
+          "monitoring of worker satisfaction/turnover under narrow tasks"
+        ],
+        "mainFailureRisks": [
+          "One interchangeability mismatch halting a coupled line amplifies with scale",
+          "Uneven task times cause starvation/blocking across stations without buffers",
+          "Narrow repetitive work raises dissatisfaction/turnover even as throughput rises",
+          "Subsystem measurements may not extrapolate to whole-chassis coupling"
+        ],
+        "generalizationBoundary": "Evidence is limited to one subassembly moving-flow trial under standardized, high-volume demand; it does not establish that full-chassis moving flow works, nor that moving-flow benefits replicate across other subassemblies or more variable product designs.",
+        "unresolvedUnknowns": [
+          "Whether observed labor-time reduction on the pilot subassembly generalizes to other/harder subsystems",
+          "Size of buffers needed given uneven task durations and imperfect interchangeability",
+          "Whether moving-flow throughput gains offset higher rework cost and worker dissatisfaction/turnover",
+          "Whether quality (defects/rework) decays under narrow repetitive work"
+        ],
+        "capabilityComplianceNote": "Ranking is based exclusively on supplied pre-outcome evidence; no specific inventor, date, or organization is asserted, and no future technology outside the liveRoutes set is introduced."
+      },
+      "usage": {
+        "inputTokens": 986,
+        "outputTokens": 894,
+        "totalTokens": 1880,
+        "elapsedMs": 10195,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR3-A12",
+      "treatment": "curated",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Standardized high-volume demand exceeds output, but the large/uneven chassis with imperfect parts interchangeability makes a rigid full-line approach risky; the key bottleneck is scaling throughput without cascading stoppages or destroying flexibility and worker stability.",
+        "routes": [
+          {
+            "route": "expand moving flow one subsystem at a time while measuring cycle time/bottlenecks/quality",
+            "decision": "continue",
+            "reason": "Directly scales the demonstrated subassembly win while isolating couplings; lets limited interchangeability and uneven task times be handled per station before commitment, and preserves flexibility where rework is needed."
+          },
+          {
+            "route": "build hybrid cells where variable/fitting work remains flexible and repetitive stable tasks flow",
+            "decision": "continue",
+            "reason": "Complements the incremental route: keeps skilled flexible capacity for fitting/rework and worker stability while capturing flow gains on repetitive tasks; addresses the worker-turnover and mismatch risks simultaneously."
+          },
+          {
+            "route": "move the full chassis immediately through fixed specialized stations",
+            "decision": "defer",
+            "reason": "A tight-tolerance full-line move is the highest-throughput end state, but imperfect interchangeability and uneven task times make a whole-chassis line prone to cascade stoppages; defer until subsystem evidence shows couplings are manageable."
+          },
+          {
+            "route": "retain flexible stationary teams and simply add more parallel bays",
+            "decision": "defer",
+            "reason": "Adds capacity in line with demonstrated working output but forgoes the large labor-time gain already proven in the subassembly trial; keep as fallback for flexible/rework work, not the primary scale path."
+          },
+          {
+            "route": "increase product variety to keep workers flexible",
+            "decision": "abandon",
+            "reason": "Runs directly against the standardized-product/high-volume premise and would raise variation just when flow benefits from standardization."
+          },
+          {
+            "route": "reject specialization because a general worker/production system is more reusable",
+            "decision": "abandon",
+            "reason": "Contradicts the demonstrated throughput gains from the moving subassembly trial; generality is valuable for rework but does not serve the dominant output bottleneck."
+          }
+        ],
+        "topRoute": "expand moving flow one subsystem at a time while measuring cycle time/bottlenecks/quality",
+        "nextDiscriminatingTest": "Apply the moving-line method to a second, larger subsystem (e.g., one of the uneven-task sections) and measure whether a single station mismatch halts downstream flow relative to the stationary baseline, and whether worker task breadth loss measurably affects quality or turnover; this distinguishes flow-scalability (full chassis) from coupling-robustness (hybrid) before committing to the full line.",
+        "requiredComplements": [
+          "buffer/decoupling between stations to absorb interchangeability mismatches",
+          "retained flexible teams for fitting/rework and worker rotation",
+          "cycle-time and bottleneck measurement per subsystem before expansion"
+        ],
+        "mainFailureRisks": [
+          "A single interchangeability mismatch cascades to halt the whole moving line despite buffers",
+          "Uneven task times cause starvation/blocking that erodes the labor-time gain as more subsystems join",
+          "Worker turnover from narrow repetitive tasks offsets production cost and throughput gains"
+        ],
+        "generalizationBoundary": "The throughput gain is demonstrated only on one subassembly with a few repeated tasks; it does not yet establish that a whole automobile chassis—larger, with uneven task times and imperfect part interchangeability—behaves the same. Local trial success should not be read as whole-line success until coupling/quality/staffing effects are measured at larger scale.",
+        "unresolvedUnknowns": [
+          "Whether imperfect interchangeability can be made adequate (or buffered) across the entire chassis without loss of output",
+          "Whether uneven task times can be rebalanced across progressively added subsystems without unbounded buffer requirements",
+          "Whether narrow repetitive work drives turnover that outweighs the labor-time savings"
+        ],
+        "capabilityComplianceNote": "Decision limited strictly to the six supplied routes; no future technology presumed. Full-line and flexible alternatives preserved in candidate set with only defer/abandon based on supplied evidence."
+      },
+      "usage": {
+        "inputTokens": 986,
+        "outputTokens": 959,
+        "totalTokens": 1945,
+        "elapsedMs": 10556,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    }
+  ]
+}
