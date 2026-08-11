@@ -1,0 +1,781 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd2-historical-replay-affordance-bounded-live",
+  "provider": "deepseek",
+  "replicatesPerCase": 3,
+  "postHocAblation": true,
+  "manifest": "replay-affordance-manifest-v0.json",
+  "records": [
+    {
+      "replayId": "HR2-A02",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Unknown failure mode dominating an ocean-scale signal degradation that short-cable success did not predict — whether the fault is material/chemical (insulation or conductor degradation under pressure and immersion), mechanical (armor or joint strain during payout and settling), or electrical/operational (current strength vs receiver sensitivity mismatch). Each implies a different costly next trial, so discriminating among them on recovered samples and partial trials is the cheapest gate before another full crossing.",
+        "proposedRoutes": [
+          {
+            "route": "Sample pathology route: recover and destructively test cable sections and joints from the failed line, looking for perforations, copper corrosion, gutta-percha/insulation softening or cracks, and armor wire fractures; correlate defect density with reported signal decay timeline.",
+            "decision": "continue",
+            "reason": "Recovered sections are the only direct physical evidence of what actually failed; distinguishing mechanical from chemical degradation at joints vs mid-span is cheap relative to a new crossing and sharply constrains the design fix."
+          },
+          {
+            "route": "Electrical diagnostics route: from the shore ends, run systematic resistance, insulation-leakage, and continuity measurements on the failed line as-is and when reconnected, mapping location of faults by resistance geometry and seeing whether faults are discrete (open/short) or distributed (gradual leakage).",
+            "decision": "continue",
+            "reason": "If the line shows a discrete fault pattern, the failure is likely joint/armor-localized (recoverable and reparable); if distributed leakage, it is bulk insulation failure, which demands a materials change rather than repair. This discriminates the two dominant hypotheses cheaply."
+          },
+          {
+            "route": "Accelerated aging route: laboratory-age insulation and armor samples under high hydrostatic pressure and temperature in saline water, in parallel with the better electrical tests, to test whether the insulation chemistry or insulation-conductor interface fails over weeks-to-months scale.",
+            "decision": "continue",
+            "reason": "Directly tests the hypothesis that short trials passed because failure needs long slow water penetration, which would explain why short-cable success did not predict ocean durability."
+          },
+          {
+            "route": "Partial deep-lay trial route: lay a short deep-water section on a known seabed slope/profile using the existing vessel, then retrieve and inspect it after weeks, testing whether payout tension, water depth pressures, and settling stresses (rather than chemistry) destroy the line.",
+            "decision": "defer",
+            "reason": "Costly compared to lab aging and recovered-sample inspection; should be held until sample and electrical diagnostics narrow the failure mode, otherwise it may re-test the wrong variable."
+          },
+          {
+            "route": "Operational rebalance route: persist with full-line operation, varying transmitter drive and receiver sensitivity against the weakened signal on the existing (failed) line rather than planning a new lay.",
+            "decision": "abandon",
+            "reason": "Pure electrical tuning cannot restore a physically degraded insulator/conductor; if the line has bulk distributed leakage or mechanical breaks it is beyond salvage, and spending operational effort there wastes the samples and lab test windows."
+          }
+        ],
+        "topRoute": "Sample pathology route paired with shore-end electrical diagnostics run in parallel",
+        "nextDiscriminatingTest": "From recovered sections and accessible ends of the failed line: destructively inspect samples for insulation perforation/cracks, copper corrosion, armor fracture and joint integrity; simultaneously run precision insulation-resistance and continuity surveys from shore ends to determine whether faults are discrete (reparable local failures) or distributed (bulk insulation failure). The result assigns the failure mode to mechanical vs material vs electrical causes.",
+        "requiredComplements": [
+          "Existing cable-laying vessel with grapple/recovery capability to land additional samples",
+          "Mirror-galvanometer weak-current instrumentation for the end-to-end electrical survey",
+          "Laboratory pressure/immersion apparatus for accelerated insulation aging",
+          "Contemporary manufacture records for joint, armor, and insulation variants to correlate"
+        ],
+        "mainFailureRisks": [
+          "Recovered samples may be non-representative if the failure is concentrated at mid-span sections that cannot be grappled",
+          "Resistance/leakage geometry may be ambiguous if the line has multiple simultaneous distributed and localized faults",
+          "Laboratory accelerated aging may not reproduce the true ocean pressure/temperature/chemical regime, giving a false negative on material cause",
+          "Repair/recovery at ocean depth is itself experimental and may destroy the very evidence needed"
+        ],
+        "generalizationBoundary": "Findings apply to cable performance under full-ocean immersion pressure and multi-week-to-month exposure; they generalize to materials and ocean-depth practices tested in the same regime, but should not be extrapolated to shallower short crossings whose failure-free history may reflect a different stress/temperature/chemistry envelope, nor to future cable chemistries or laying practices not yet tested.",
+        "unresolvedUnknowns": [
+          "Exact chemical composition and manufacturing batch condition of the insulation and conductor used in the failed line",
+          "Whether the signal decay correlates with a gradually growing distributed leak or with discrete joint failures",
+          "True bottom profile and local currents/chemistry along the 1000s-of-km route, which governs local mechanical stress and water penetration rate",
+          "Whether the prior years of failed construction attempts degraded tooling, machinery, or stock that contributed to this failure",
+          "Actual recovery capability for deep sections and the practical depth limit of grappling"
+        ],
+        "capabilityComplianceNote": "All routes are built strictly from the supplied capability manifest: recovered-sample inspection and destructive testing, shore-end galvanometer resistance/insulation-leakage measurement, mirror-galvanometer weak-current reception, controlled transmitter variation, mechanical flex/tension and water immersion ageing of samples, partial short submarine laying trials with the existing vessel, variant comparison across manufacture/joint/armor/insulation, and marine grapple/recovery. No later instruments, materials, data-analytic techniques, or authority are imported. The only broadly-future-friendly item recorded is a need for non-destructive inline inspection along an un-recovered ocean cable, which is deliberately noted only as an unresolved need, not used."
+      },
+      "usage": {
+        "inputTokens": 1034,
+        "outputTokens": 1360,
+        "totalTokens": 2394,
+        "elapsedMs": 17380,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A02",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "Diagnostic isolation: the ocean-scale cable is electrically and mechanically accessible only at its ends and at recovered samples, so we cannot distinguish among conductor degradation, insulation breakdown, joint failure, and insufficient received-signal strength without a discriminating test sequence that current short-sea success has failed to predict.",
+        "proposedRoutes": [
+          {
+            "route": "End-to-end electrical autopsies: use mirror-galvanometer weak-current reception and contemporary electrical apparatus to characterize attenuation, leakage resistance, and time-variation in the failing line's terminal signals, correlating degradation pattern (progressive vs abrupt, resistive vs leakage-dominated) against specific component classes.",
+            "decision": "continue",
+            "reason": "This is the cheapest route that still delivers discriminating data on the electrical failure mode before any expensive re-lay; the pattern of signal degradation measurable from the cable ends can separate conductor/joint (resistive) from insulation (leakage) failure even without mid-route inspection."
+          },
+          {
+            "route": "Recovery and destructive sampling: grapple/recover sections of the failed cable (using existing marine equipment) at strategic points—shallow approaches, deep-water runs, and near joints—then inspect and destructively test insulation, armor, and conductor samples under simulated service conditions.",
+            "decision": "continue",
+            "reason": "Direct physical evidence of the failure mode is the most decisive discriminator; even partial recovery gives samples that can be mechanically flexed, aged in water, and electrically tested to identify whether insulation, armor/handling damage, or joint construction is the root cause."
+          },
+          {
+            "route": "Laboratory variant screening: build and test manufacture/joint/armor/insulation variants at scale in the lab—flex/tension, water immersion and aging—to rank candidate improvements before any re-lay, using the recovered samples (if any) as validation anchors.",
+            "decision": "continue",
+            "reason": "Once the failure mode is (at least partially) identified, laboratory ranking of material/joint variants is far cheaper than another ocean trial and can narrow the design space to the few surviving candidates worth risking. This is a complement, not a substitute, for route 1/2 evidence."
+          },
+          {
+            "route": "Short/partial submarine laying trials with the existing vessel to test revised design or handling under real payout conditions but at limited scale and cost.",
+            "decision": "defer",
+            "reason": "The project has already been misled by short-cable success failing to predict ocean-scale durability; without first identifying the failure mode via routes 1–3, another geographically-limited trial risks repeating that error. Defer until electrical autopsies and/or samples point to a specific fix."
+          },
+          {
+            "route": "Instrument/transmitter armament race: commit to stronger transmitter drive or more sensitive receiver as the primary fix and immediately attempt a full re-lay.",
+            "decision": "abandon",
+            "reason": "Operators disagree on transmitter-vs-receiver emphasis while the true bottleneck appears to be durability, not signal level; the received currents are weak but the line failed outright within weeks, indicating a material/integrity problem a sensitivity/strength contest does not address. Full re-lay on this unresolved disagreement is too costly and too likely to fail identically."
+          }
+        ],
+        "topRoute": "End-to-end electrical autopsies",
+        "nextDiscriminatingTest": "From the accessible cable ends, continuously measure leakage resistance and received current under a stepped transmitter-drive protocol while monitoring for time-structure in degradation (abrupt step vs monotonic creep, correlation with payout/joint locations if recoverable): a leakage-dominated, progressively worsening signature points to insulation swelling/water ingress; a resistive abrupt signature points to joint/conductor failure. This single test discriminates the main competing failure families before any further capital expenditure.",
+        "requiredComplements": [
+          "mirror-galvanometer weak-current reception",
+          "contemporary galvanometer/electrical continuity and leakage apparatus",
+          "grapple/recovery and destructive sample inspection capabilities",
+          "laboratory flex/tension/water-aging of candidate material and joint variants"
+        ],
+        "mainFailureRisks": [
+          "Terminal-only measurements may be non-unique: multiple failure families could produce indistinguishable end-signal patterns, leaving the diagnosis ambiguous.",
+          "Recovery attempts may themselves damage or destroy the only remaining sample of the failing line, contaminating the evidence.",
+          "Degradation may have already plateaued in a terminal state, erasing the time-structure needed to discriminate failure dynamics.",
+          "Laboratory-aged variants may not reproduce the deep-ocean pressure/temperature/handling conditions that actually caused field failure.",
+          "A decisive diagnosis may still not yield an affordable fix within the enormous sunk-cost, one-more-attempt budget."
+        ],
+        "generalizationBoundary": "Findings generalize from ocean-scale continuous cable to other long continuous electrical conductors only where the failure is dominated by intrinsic material/construction properties rather than by scale-specific handling, pressure, or payout mechanics; short and partial submarine trials do NOT reliably extrapolate to full-ocean durability, as the case itself demonstrates.",
+        "unresolvedUnknowns": [
+          "whether the failure was progressive (material degradation/water ingress) or event-triggered (fracture, joint failure at a specific point)",
+          "whether the terminal-measured leakage is concentrated at identifiable locations (joints, armor breaches) or distributed uniformly",
+          "whether received-signal weakness is an independent contributor or merely a symptom of the integrity failure",
+          "whether any laboratory-aged variant can reproduce the field failure mode under realistic deep-water conditions",
+          "the exact sequence and timing of degradation relative to traffic (did the line work cleanly for a period, then fail, or never stabilize?)"
+        ],
+        "capabilityComplianceNote": "All proposed routes use only the supplied capabilities: end-to-end continuity/leakage measurement with contemporary galvanometers, mirror-galvanometer weak-current reception, transmitter-drive variation within safe limits, destructive testing/inspection of recovered samples, mechanical flexing/tension and water immersion/aging of insulation samples, comparison of manufacture/joint/armor/insulation variants, short or partial submarine laying trials with existing vessel and payout machinery, and grapple/recovery with existing marine equipment. No later instruments, processes, analytic techniques, materials, or authority are imported."
+      },
+      "usage": {
+        "inputTokens": 1034,
+        "outputTokens": 1410,
+        "totalTokens": 2444,
+        "elapsedMs": 20947,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A02",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Electrical signal integrity and insulation durability at ocean scale/depth—the line proves continuity is possible but fails within weeks, and the true cause (electrical insulation breakdown vs. mechanical strain vs. material aging under pressure/temperature) cannot be observed in situ.",
+        "proposedRoutes": [
+          {
+            "route": "Shore-end and recovered-section sample forensics: destructively test cable samples for insulation conductivity, permeability, and mechanical integrity under simulated deep-sea pressure and temperature aging.",
+            "decision": "continue",
+            "reason": "Directly isolates whether insulation/material failure or mechanical strain is primary; samples are cheap relative to a full relaying attempt and use only existing electrical/mechanical apparatus."
+          },
+          {
+            "route": "Long-term low-current endurance monitoring: connect accessible cable ends to sensitive mirror-galvanometer reception and track decay of received current against transmitter drive and leakage measurements over weeks.",
+            "decision": "continue",
+            "reason": "Distinguishes between weak-reception (instrument sensitivity) vs. true insulation-leakage failure; monitors the failure trajectory in situ without costly redeployment."
+          },
+          {
+            "route": "Short-length immersed aging trials: lay controlled partial segments in deep water with joints, armor, and insulation variants, and periodically test leakage/resistance from accessible ends.",
+            "decision": "continue",
+            "reason": "Tests the specific hypothesis that water ingress under pressure at joints or armor punctures drives degradation, at a fraction of full-ocean cost, using existing laying machinery."
+          },
+          {
+            "route": "Full re-lay with strengthened insulation/joint variants based on sample forensics results.",
+            "decision": "defer",
+            "reason": "Extremely expensive; should only proceed once diagnostics from cheap trials identify the material/cause of failure and a specific fix is validated on partial or shallow trials."
+          },
+          {
+            "route": "Abandon electrical fix and pursue only improved receiving-sensitivity compensation for whatever residual signal remains.",
+            "decision": "abandon",
+            "reason": "Evidence shows received currents are weak but the line became unusable within weeks, indicating progressive loss, not merely weak-but-stable signals; receiver-only fixes cannot restore a degrading insulation layer."
+          }
+        ],
+        "topRoute": "Shore-end and recovered-section sample forensics coupled with short-length immersed aging trials to isolate the degradation mechanism before any further full-ocean expenditure.",
+        "nextDiscriminatingTest": "Subject recovered cable samples (conductor, insulation, joints, armor) to simulated ocean-depth pressure and temperature with water immersion while measuring insulation leakage resistance over a compressed time period; simultaneously run a continuous low-current endurance trace on the dead line to determine whether failure is progressive loss (insulation) or abrupt disruption (mechanical break).",
+        "requiredComplements": [
+          "Contemporary galvanometer/electrical measurement apparatus for leakage-resistance quantification",
+          "Pressure/immersion aging facility for cable sections",
+          "Access to recovered cable ends and samples",
+          "Existing cable-laying vessel for controlled short/partial trials"
+        ],
+        "mainFailureRisks": [
+          "Samples may not be representative of the deeply submerged mid-span where failure appears concentrated",
+          "Compressed laboratory aging may not reproduce the true weeks-to-months degradation kinetics at seafloor pressure/temperature",
+          "Short partial-laying trials may not reproduce full-scale payout tension and abrasion dynamics that could cause gradual mechanical harm",
+          "Recovery/grappling may itself damage the very sections being forensically examined"
+        ],
+        "generalizationBoundary": "Findings from shallow, short, or laboratory-aged samples generalize only to the extent that degradation is dominated by pressure/temperature/water-chemistry effects on insulation and joints; they do not capture shipboard payout dynamics, cumulative fatigue, or gradual abrasion on the seafloor over long spans.",
+        "unresolvedUnknowns": [
+          "Whether failure is concentrated at mid-span, near joints, or near shore ends (non-inspectable along most of route)",
+          "Whether degradation is linear/progressive or has a threshold after which failure accelerates",
+          "Whether weak received currents reflect transmitter-drive limits, receiver sensitivity, or actual leakage loss in the line",
+          "Whether the copper conductor or the gutta-percha/insulating envelope is the primary failing element",
+          "Whether full-length payout tension and flex cycles during laying introduced latent mechanical defects absent from short trials"
+        ],
+        "capabilityComplianceNote": "All proposed routes rely exclusively on the supplied manifest: sample inspection/destructive testing, end-accessible galvanometer leakage and continuity measurement, mirror-galvanometer weak-current reception, safe transmitter-drive variation, mechanical flex/tension and water-immersion aging of samples, short/partial laying trials, manufacture/joint/armor/insulation variant comparison, and grapple/recovery with existing marine equipment. No later instruments, materials, or analytic techniques are imported."
+      },
+      "usage": {
+        "inputTokens": 1034,
+        "outputTokens": 1097,
+        "totalTokens": 2131,
+        "elapsedMs": 12580,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A04",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Achieving self-sustaining strong magnetic field generation without an external excitation source, since permanent magnets scale poorly and electromagnet generators need external power for their field coils.",
+        "proposedRoutes": [
+          {
+            "route": "Construct a machine with residual-iron electromagnet field coils in series with the armature, relying on residual magnetism to seed the field, then let the armature's own current reinforce the field through positive feedback (self-excitation).",
+            "decision": "continue",
+            "reason": "Residual magnetism exists in the iron, and routing generated current back through field coils is the most direct path to stronger self-reinforcing generation without an external source. This is the pre-eminent architecture under exploration."
+          },
+          {
+            "route": "Use a separate battery or magneto as an external excitation source to energize electromagnet field coils, accepting that the machine remains dependent on the external source for its field.",
+            "decision": "defer",
+            "reason": "This establishes whether the stronger-field architecture works at all and calibrates the field-strength/current relationship before decoupling the excitation. Valuable as a controlled baseline, but not the end goal because it still requires an external energy source for the field."
+          },
+          {
+            "route": "Pursue improved permanent-magnet machines, seeking better magnetic materials or geometries to strengthen their fields.",
+            "decision": "abandon",
+            "reason": "The evidence states permanent magnets scale field strength poorly; no available capability allows discovering stronger permanent-magnet materials. This route cannot meet the demand for substantially stronger continuous generation."
+          },
+          {
+            "route": "Combine shunt (parallel) field coils with series coils so that field strength is partly self-reinforcing and partly controlled, testing load-stability behavior of mixed excitation.",
+            "decision": "defer",
+            "reason": "This could improve output stability once the basic self-excitation mechanism is proven, but it adds complexity before the fundamental feedback loop is validated. Attempt it only after the series self-excitation route demonstrates starting and running."
+          }
+        ],
+        "topRoute": "Self-excited series-wound generator with residual-iron-starting field coils, iterating winding sense and connections until the machine starts and sustains output.",
+        "nextDiscriminatingTest": "Wind field coils in the series configuration with reserve residual magnetism in the iron, spin the armature at a fixed speed, and check whether the output voltage builds cumulatively above the initial residual-induced level — i.e., does the feedback start and is it stable. Vary winding direction (to determine the correct polarity for reinforcement) and record whether output collapses, saturates, or runs away.",
+        "requiredComplements": [
+          "A current-sensitive instrument able to detect small residual-induced starting current",
+          "Reverse-switching capability for field coil connections to permit polarity correction during the self-excitation test",
+          "A controlled rotation source to hold constant speed during the start-up build test"
+        ],
+        "mainFailureRisks": [
+          "Feedback fails to start because residual magnetism is too weak or the residual polarity opposes the reinforcement direction",
+          "Self-excitation runs away into unstable output oscillation or dangerous overcurrent until the field saturates",
+          "Commutator sparking and heating at the higher field strengths destabilize or damage the machine before the architecture can be validated"
+        ],
+        "generalizationBoundary": "Only valid for a specific winding arrangement, rotation speed, and iron-core residual state; does not yet establish whether the reinforcement is stable across load variation, speed changes, or different iron cores, and cannot be extrapolated to sizing or saturation limits until those are measured.",
+        "unresolvedUnknowns": [
+          "Whether the residual magnetism of the available iron is strong enough to reliably seed the self-excitation loop",
+          "The polarity relationship required between residual magnetization, armature winding direction, and field coil winding direction for reinforcement",
+          "How field strength scales with current as saturation is approached",
+          "Whether the load itself acts as a damping or destabilizing element on the self-excitation loop"
+        ],
+        "capabilityComplianceNote": "All proposed routes rely only on the supplied capabilities: constructing rotating armature machines with permanent or electromagnet fields, winding field coils and routing current through them, using observed residual magnetism, measuring with contemporary electrical instruments, varying rotation speed/winding/field connection/resistive load, using an external battery or magneto as excitation, and inspecting heating/sparking/commutation/stability. No later instruments, materials, analytic methods, or authoritative knowledge are imported. Where a future capability (e.g., soft magnetic material characterization) would help, it is recorded only as an unresolved need in the feedback-start uncertainty and not used in the routes."
+      },
+      "usage": {
+        "inputTokens": 976,
+        "outputTokens": 1069,
+        "totalTokens": 2045,
+        "elapsedMs": 13547,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A04",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "Self-excitation start and stability: a machine whose field is powered by its own generated current requires reliable build-up from residual magnetism, yet the small residual field, poorly characterized saturation, and feedback coupling make starting and controlled regulation the decisive limiting step.",
+        "proposedRoutes": [
+          {
+            "route": "Build a shunt-wound machine: field coils connected across the armature terminals, relying on residual iron magnetism to seed self-excitation, tuning shunt resistance and rotation speed to bring the machine up to stable operating field.",
+            "decision": "continue",
+            "reason": "Directly targets the demand for strong continuous output without an external source; residual magnetism is already observed and shunt self-excitation is a natural first architecture to test build-up and stability."
+          },
+          {
+            "route": "Series-wound self-excited machine: field coils in series with the armature and load, so field current scales with load current; test under load for sustained strong output and examine commutation and sparking limits.",
+            "decision": "defer",
+            "reason": "Series connection offers high load-field coupling but risks runaway and poor no-load behavior; the shunt route should first establish stable self-excitation fundamentals before series dynamics are explored."
+          },
+          {
+            "route": "Separately-excited generator using an external battery/magneto as field source, characterized across speed and load to map output, heating, and saturation before any self-excitation is attempted.",
+            "decision": "continue",
+            "reason": "Provides the cleanest characterization of field strength, saturation, and losses, giving the quantitative baseline needed to later judge whether residual-magnetism self-excitation can reach comparable output."
+          },
+          {
+            "route": "Compound winding combining shunt and series field coils to get both reliable starting and load-compensating field boost, once the separate shunt and series responses are individually characterized.",
+            "decision": "defer",
+            "reason": "Compounding presupposes an understanding of each component's build-up, stability, and saturation that we do not yet have; it is premature until shunt and series behavior are mapped."
+          },
+          {
+            "route": "Permanent-magnet machine pushed to higher field yield by optimizing geometry, air gap, and rotational speed, accepting the intrinsic ceiling of available magnet strength.",
+            "decision": "abandon",
+            "reason": "The demand explicitly requires substantially stronger generation than permanent-magnet scaling can deliver; further PM optimization cannot break the field-strength ceiling."
+          }
+        ],
+        "topRoute": "Shunt-wound self-excited machine seeded by residual iron magnetism, tuned against rotation speed and field-circuit resistance, cross-checked against a separately-excited baseline.",
+        "nextDiscriminatingTest": "On the shunt-wound machine, rotate at a fixed speed with the field circuit open, confirm the residual voltage; then close the field circuit through a variable series resistance and record whether terminal voltage rises, falls, or oscillates as field resistance is reduced stepwise across the critical build-up threshold.",
+        "requiredComplements": [
+          "A separately-excited (battery/magneto) field run at matched speed to serve as a quantitative output ceiling and calibration for the self-excited run",
+          "Fine variable resistance in the field circuit to locate the critical self-excitation trajectory and its stability margin",
+          "Repeated cold and warm runs to test whether residual magnetism, heating, and commutation disturb build-up repeatably",
+          "Winding-direction verification to ensure the residual field and shunt-field mmf reinforce rather than oppose"
+        ],
+        "mainFailureRisks": [
+          "Residual magnetism is too weak or drifts run-to-run so self-excitation never builds",
+          "Feedback loop diverges (field grows uncontrolled) or oscillates instead of settling",
+          "Shunt field voltage-feedback and armature reaction conspire to cap output below the strong-generation target",
+          "Commutation sparking under load destroys build-up or burns the commutator before stability is found"
+        ],
+        "generalizationBoundary": "Evidence supports that a rotating armature machine with an iron magnetic circuit can self-excite from residual magnetism and produce self-sustained output, but this is established only for the specific shunt topology, field-resistance window, and speed range tested here; it does not yet license series or compound architectures, load-burst transients, or any claim about economic field strength.",
+        "unresolvedUnknowns": [
+          "Actual magnitude and repeatability of residual magnetization in the available iron structures",
+          "Saturation knee and loss characteristics of the magnetic circuit under the achievable field strengths",
+          "The critical field-circuit resistance and speed window for stable build-up at practical load",
+          "Whether self-excited field strength can reach substantially stronger output than the permanent-magnet baseline without instability"
+        ],
+        "capabilityComplianceNote": "All proposed routes rely only on listed capabilities: constructing rotating armature/electromagnet machines, winding and routing field current, using observed residual iron magnetism, contemporary current/voltage and qualitative field measurement, varying speed/winding/field connection/resistive load, separate battery or magneto excitation, and inspecting heating, sparking, commutation and stability during repeated runs. No later instruments, analytic techniques, materials, or authority are imported. Self-excitation is achieved purely by routing generated current through field coils as the supplied capability allows."
+      },
+      "usage": {
+        "inputTokens": 976,
+        "outputTokens": 1185,
+        "totalTokens": 2161,
+        "elapsedMs": 17118,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A04",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Self-excitation: inducing a machine whose own output energizes its field (using residual magnetism) requires the feedback loop to build up rather than fail or destabilize, and field/armature losses and saturation must be understood well enough to sustain output.",
+        "proposedRoutes": [
+          {
+            "route": "Self-excited shunt generator: wind armature and field coils in parallel, start with residual magnetism, tune field resistance and rotation speed so output builds, and characterize stability/loading.",
+            "decision": "continue",
+            "reason": "This is the direct route to stronger continuous generation without an external field source; residual iron magnetism observed in evidence is the seed. Feasible with available capabilities (winding, measurement, residual magnetism, resistive load variation)."
+          },
+          {
+            "route": "Separately-excited dynamo using a magneto/battery for the field, then cross-check whether a self-excited version can replicate the same output.",
+            "decision": "continue",
+            "reason": "A known external excitation source gives a controlled baseline for field strength, commutation and load behavior, isolating the self-excitation problem from machine-construction problems before feedback is attempted."
+          },
+          {
+            "route": "Compound-series machine: series field winding so load current reinforces field, testing whether output can be sustained under load even if parallel self-excitation fails.",
+            "decision": "defer",
+            "reason": "Series connection risks runaway under load and poor no-load behavior; it is a refinement best tried after shunt self-excitation is understood, not the first discriminating experiment."
+          },
+          {
+            "route": "Pursue stronger permanent magnets (search higher-strength alloys/steels) and scale the permanent-magnet machine.",
+            "decision": "abandon",
+            "reason": "Evidence states permanent-magnet field strength scales poorly; the constraint is field strength itself, not magnet construction, and electromagnet feedback via residual magnetism addresses the bottleneck directly within available capabilities."
+          }
+        ],
+        "topRoute": "Self-excited shunt generator seeded by residual magnetism, with field resistance and speed tuned to achieve stable build-up, cross-validated against the separately-excited baseline.",
+        "nextDiscriminatingTest": "Build the armature and field in the shunt configuration, start from residual magnetism, and sweep field-circuit resistance vs. rotation speed to find whether output voltage builds and settles at a stable value—and whether a switch in field-winding direction reverses (inverts) the build-up, confirming the feedback mechanism. Compare with the separately-excited machine to separate feedback limitations from machine-construction limitations.",
+        "requiredComplements": [
+          "Contemporaneous electrical instruments for current/voltage and qualitative field measurement",
+          "Resistive load bank to vary loading in controlled steps",
+          "Means to vary rotation speed repeatably",
+          "Technique to demagnetize and re-seed residual magnetism reliably between trials"
+        ],
+        "mainFailureRisks": [
+          "Feedback fails to self-start or builds to instability/runaway due to saturation and loss mismatch",
+          "Residual magnetism too weak to seed the build-up reliably",
+          "Heating, sparking or commutation failure destroys output during repeated runs",
+          "Machine architecture (armature reaction, winding geometry) destabilizes output in ways not captured by a lab induction effect"
+        ],
+        "generalizationBoundary": "A climbing-voltage self-excitation on a bench-scale armature establishes the feedback principle and a stability criterion, but does not yet establish sustained high-power output, load regulation, or commutation quality at the scale demanded by emerging applications.",
+        "unresolvedUnknowns": [
+          "Exact saturation curve of the iron magnetic circuit and where the operating point lands",
+          "Magnitude and consistency of residual magnetism available to seed feedback",
+          "Quantitative loss split (copper, hysteresis, eddy, mechanical) and its effect on self-excitation threshold",
+          "How armature reaction and load interact with the self-excited field loop",
+          "Whether build-up repeats across runs or degrades with heating/demagnetization"
+        ],
+        "capabilityComplianceNote": "All routes use only the supplied contemporary capabilities: rotating armature/conductor construction with permanent or electromagnets, field-coil winding and routing of generated current, residual iron magnetism, contemporary measurement instruments, speed/winding/resistance/load variation, external battery/magneto excitation, and inspection of heating/sparking/commutation/stability. No later instruments, analytic techniques, or materials are imported. Missing capabilities (e.g., controlled demagnetization curves, quantitative flux metering, precise saturation measurement) are recorded only as unresolved needs."
+      },
+      "usage": {
+        "inputTokens": 976,
+        "outputTokens": 1049,
+        "totalTokens": 2025,
+        "elapsedMs": 13848,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A06",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Correlating feedstock compositional variables (especially phosphorus, sulfur, manganese, silicon) with final-metal brittleness/unusability across variable pig-iron sources, since spectacular carbon removal masks that other impurity chemistry determines reliability.",
+        "proposedRoutes": [
+          {
+            "route": "Segregate heats by feedstock provenance, record full major-element assays of chemistry (P, S, Mn, Si) before and after blow, and map brittleness outcomes to specific compositional ranges.",
+            "decision": "continue",
+            "reason": "Evidence already ties variability to pig-iron source; systematic provenance-composition-outcome tables are buildable with existing assay and test capabilities and will isolate which element governs the brittle failures."
+          },
+          {
+            "route": "Post-blow controlled additions of carbon- and manganese-bearing material, testing whether re-addition restores ductility/fracture performance across feedstock types.",
+            "decision": "continue",
+            "reason": "Manganese and recarburization are plausible correctives; controlled additions are explicitly available and can be tested against fracture criteria before customer deployment."
+          },
+          {
+            "route": "Comparative trials of pneumatic converter vs. crucible/puddled and emerging open-hearth routes on the same feedstock, measuring both speed and final fracture reliability per heat.",
+            "decision": "continue",
+            "reason": "Existing rails/weapons have high failure consequence and current expensive routes have controlled composition; direct head-to-head reliability data justifies their added cost if pneumatic metal proves unusable for such loads."
+          },
+          {
+            "route": "Explore blow practice variants (blow duration, endpoint or overblow) held constant across feedstocks to separate process-control effects from raw-material chemistry effects on brittleness.",
+            "decision": "defer",
+            "reason": "Controlled blow practice is available and cheap, but without the feedstock-composition segregation of Route 1, overblow effects will be confounded with chemistry; run after Route 1 builds the compositional categories."
+          },
+          {
+            "route": "Full-scale long-horizon customer trial on rails/guns to observe rolling/service failures before declaring the route viable.",
+            "decision": "abandon",
+            "reason": "Customer failures can occur only after rolling/service at high consequence; deploying unreliable material to prove failure empirically violates the high-consequence constraint and should be replaced by pre-deployment fracture/bend/roll testing."
+          }
+        ],
+        "topRoute": "Segregate heats by feedstock provenance with full before/after major-element assay, tabulated against pre-deployment roll/forge/bend/fracture outcomes, to isolate the governing impurity before scaling to customer loads.",
+        "nextDiscriminatingTest": "Run a designed set of small converter heats drawn from at least two sharply differing pig-iron sources, assaying P, S, Mn, Si and C before and after the blow with identical blow practice, and correlate final-metal fracture/bend behavior against each measured variable to identify which single compositional axis predicts brittleness.",
+        "requiredComplements": [
+          "controlled additions of manganese-bearing recarburizer after blow",
+          "systematic assay protocol for P, S, Mn, Si, C on both feedstock and final metal",
+          "pre-deployment mechanical test battery (roll/forge/bend/fracture) applied uniformly",
+          "provenance/heat-tracking ledger linking each heat to its ore/feedstock source"
+        ],
+        "mainFailureRisks": [
+          "Multiple chemistry variables change together across feedstocks, so simple correlations may be confounded and require the controlled-additions route to disambiguate",
+          "large industrial heats are expensive, limiting statistical sample size if scaled prematurely",
+          "spectacular blow behavior may be mistaken for final reliability, biasing interpretation toward the pneumatic route",
+          "overblow variability may be misassigned to feedstock chemistry if blow practice is not held constant"
+        ],
+        "generalizationBoundary": "Findings will generalize only to feedstock and furnace regimes within the compositional and blow-practice envelope tested; conclusions from small heats with controlled practice may not transfer unchanged to large industrial heats where thermal drawdown, slag behavior, and charge inhomogeneity differ, and results on rail/gun steel should not be assumed for other product classes without separate validation.",
+        "unresolvedUnknowns": [
+          "Whether phosphorus, sulfur, or manganese content is the dominant driver of brittleness in pneumatic-converted metal",
+          "whether post-blow recarburization plus manganese additions can restore service grade for all feedstock types or only some",
+          "whether blow-practice control (endpoint, overblow) can compensate for bad feedstock chemistry or only masks it",
+          "the acceptable compositional window for rail/gun service that current crucible/puddled routes achieve and pneumatic must match"
+        ],
+        "capabilityComplianceNote": "All proposed work uses only the supplied capability manifest: selecting pig-iron charges by source, contemporary major-element assays, controlled small/industrial converter blows with controlled practice, before/after sampling, post-blow carbon/manganese additions, mechanical roll/forge/bend/fracture testing, comparison against crucible/puddled/open-hearth practice, and heat/provenance failure tracking. No later instruments, analytic techniques (e.g., spectroscopy, microscopic metallography, slag control models), materials, or authorities are imported. Modern tools like systematic alloy design, thermodynamic phase-calculation models, and statistical experimental design are recorded only as unresolved needs."
+      },
+      "usage": {
+        "inputTokens": 1001,
+        "outputTokens": 1204,
+        "totalTokens": 2205,
+        "elapsedMs": 14224,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A06",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "Feedstock chemistry coupling: phosphorus, sulfur, silicon, manganese, and initial carbon covary across pig-iron sources, and the converter removes carbon rapidly but leaves variable levels of impurities that determine brittleness — but current assay + blow control cannot separate which impurity (likely phosphorus) causes brittle metal because multiple variables change together.",
+        "proposedRoutes": [
+          {
+            "route": "Feedstock-stratified blow trials with pre/post assays: run controlled heats from each distinct ore source with identical blow practice, assay C/P/S/Mn/Si before and after, and link final brittleness to impurity profile per provenance, cross-referenced to recorded in-service failures by heat provenance.",
+            "decision": "continue",
+            "reason": "Directly exploits the ability to select distinct charges and assay major composition; it maps impurity-to-outcome correlations across feedstocks where covariates differ most, providing the first discriminating evidence for which impurity drives brittleness."
+          },
+          {
+            "route": "Post-blow additive dosing experiment: keep blow practice fixed, then add controlled carbon- and/or manganese-bearing material and compare roll/forge/bend/fracture behavior against undosed heats to test whether brittleness is from over-removal of carbon (too low final C) or from manganese deficiency.",
+            "decision": "continue",
+            "reason": "Uses the available capability to add C and Mn after the blow; cheaply tests whether the converter leaves metal too soft/over-oxidized versus lacking Mn reversion, discriminating between two low-hanging mechanical causes before suspecting phosphorus."
+          },
+          {
+            "route": "Defer-and-observe customer failure surveillance: record rail/gun material failures by heat and feedstock provenance across existing deployments, without new heats, to accumulate high-consequence service data that static lab fracture tests may miss (rolling/service embrittlement).",
+            "decision": "defer",
+            "reason": "High consequence and directly available evidence type, but slow and confounded by service conditions; best run in parallel as a surveillance stream rather than as the immediate deciding test."
+          },
+          {
+            "route": "Compare pneumatic against crucible/puddled/open-hearth final composition: blow a set of heats and assay final metal vs. existing routes to quantify exactly what new-control deficit the converter adds beyond carbon removal.",
+            "decision": "continue",
+            "reason": "Benchmarks the converter's uncontrolled impurities against routes known to be reliable, clarifying which impurity the pneumatic process leaves high vs. low relative to proven-sound metal and which existing route's practice might be adopted."
+          },
+          {
+            "route": "Abandon converter scale-up for high-consequence rail/gun use pending identification of the brittle factor, restricting converter product to lower-consequence applications.",
+            "decision": "defer",
+            "reason": "Premature to abandon given rail/gun customers and spectacular process economics; but the high consequence of service failure justifies keeping this option open until a discriminating test resolves the impurity question."
+          }
+        ],
+        "topRoute": "Feedstock-stratified blow trials with pre/post assays linking final brittleness to impurity profile per provenance, cross-referenced against in-service failures.",
+        "nextDiscriminatingTest": "Run a small stratified panel from the extreme pig-iron sources (highest vs. lowest phosphorus and highest vs. lowest silicon/sulfur), identical blow practice, assay C/P/S/Mn/Si before/after, and perform roll/forge/bend/fracture tests on all; the impurity whose concentration predicts brittleness across both extremes, controlling for final carbon, is the discriminator.",
+        "requiredComplements": [
+          "ability to independently dose phosphorus compounds into otherwise low-phosphorus pig iron to test causality rather than correlation (not currently available)",
+          "a reliable quantitative phosphorus/sulfur assay at steelmaking concentration ranges (complement to contemporary assays)",
+          "control of blowing endpoint/metal temperature/oxygen to manage reversion of manganese and dephosphorization",
+          "statistical design separating covariates given only a handful of large expensive heats (complement tool)"
+        ],
+        "mainFailureRisks": [
+          "large heats are expensive and few replicates, so covariate confounding may stay statistically unresolvable from small panels",
+          "customer failures occur after rolling/service, far later than lab fracture tests, and may be time-delayed embrittlement not seen in fresh lab samples",
+          "multiple impurities (P, S, Mn, Si, over-oxidation) act together, and no single variable cleanly predicts brittleness",
+          "brittleness mechanism may be over-oxidation/too-little-final-carbon rather than any raw impurity, which additive dosing alone may not fully capture",
+          "public spectacular demos may pressure premature commercialization before discriminating tests complete"
+        ],
+        "generalizationBoundary": "Findings on which impurity causes brittleness can generalize only to converter product made within the supplied blow-practice envelope and assayed with contemporary methods; conclusions from one feedstock family (e.g., acid vs. basic pig iron) cannot be presumed to transfer to others, and laboratory fracture results may not predict rail/gun service embrittlement that emerges only after rolling or prolonged service.",
+        "unresolvedUnknowns": "[\"exact quantitative phosphorus/sulfur assay limits and inter-lab reproducibility under contemporary methods\", \"whether brittleness is caused by phosphorus embrittlement, sulfur, manganese under-reversion, or carbon over-removal (single vs. interacting cause)\", \"whether basic-lined converters or lime additions (beyond current capability) could remove phosphorus and are needed for rail/gun grades\", \"blowing endpoint temperature and its control, which affects final oxide/impurity state and which current capabilities do not explicitly instrument\", \"time-to-failure distribution in service and how laboratory fracture tests map to it\"]",
+        "capabilityComplianceNote": "All proposed routes are assembled strictly from the supplied capability manifest: selecting pig-iron charges from known sources, contemporary assays of major composition, controlled blow practice on small/industrial heats, pre/post sampling, post-blow C/Mn addition, roll/forge/bend/fracture testing, comparison with crucible/puddled/open-hearth routes, and recording customer/rail/gun failures by provenance. No later instruments, processes, analytic techniques, or authority have been imported. Two unresolved needs (independent phosphorus dosing for causal tests, and blowing endpoint temperature/oxygen control) are recorded strictly as complements rather than assumed capabilities."
+      },
+      "usage": {
+        "inputTokens": 1001,
+        "outputTokens": 1412,
+        "totalTokens": 2413,
+        "elapsedMs": 18738,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A06",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Correlating feedstock chemistry (phosphorus, sulfur, manganese, silicon, initial carbon) with final metal usability, when multiple variables co-vary and spectral behavior masks end-product reliability.",
+        "proposedRoutes": [
+          {
+            "route": "Systematic feedstock matrix: run controlled blow heats across a grid of known pig-iron charges differing in phosphorus, silicon, manganese and sulfur; assay before and after; roll/bend/fracture test each heat to map usable vs brittle outcomes against pre- and post-blow composition.",
+            "decision": "continue",
+            "reason": "Directly attacks the variance-by-feedstock problem and builds provenance-linked quality data at the scale affordable with small heats before committing to large industrial runs."
+          },
+          {
+            "route": "Post-blow recarburization experiments: blow heats to low carbon, then add measured carbon- and manganese-bearing additions at varying levels, testing whether controlled final composition restores ductility and reliability.",
+            "decision": "continue",
+            "reason": "Uses the existing ability to add carbon/manganese after blow and could isolate the brittleness mechanism if final-carbon control is the culprit rather than residual impurity."
+          },
+          {
+            "route": "Comparative furnace route trial: simultaneously produce comparable steel via existing crucible and emerging open-hearth paths from the same feedstocks, and side-by-side roll/test against pneumatic product, to establish a controlled quality baseline.",
+            "decision": "defer",
+            "reason": "Useful as a calibration standard, but the open-hearth practice is emerging and not yet standardized; deferring until the pneumatic failure pattern is better characterized avoids confounded comparisons."
+          },
+          {
+            "route": "Customer-failure provenance ledger: consolidate rail and gun service failures by heat and feedstock, cross-tabulating with assay records to identify which compositions precede in-service fracture.",
+            "decision": "continue",
+            "reason": "High-consequence customer failures are the decisive test of reliability; building the provenance correlation now gives the matrix route a service-validation target."
+          },
+          {
+            "route": "Process-variable isolation within one feedstock: hold feedstock constant and vary only blow time/air rate, testing whether brittle results track process parameters independent of pig-iron source.",
+            "decision": "abandon",
+            "reason": "Available evidence already shows results vary sharply between pig-iron sources with the 'same basic procedure,' implying feedstock chemistry dominates; limited industrial heat budget is better spent on the feedstock matrix than on an already-ruled-in-variance primary driver."
+          }
+        ],
+        "topRoute": "Systematic feedstock matrix with pre/post-blow assays and mechanical testing per heat.",
+        "nextDiscriminatingTest": "Run two small converter heats from deliberately contrasted pig-iron sources (one high-phosphorus, one low-phosphorus, matched approximately in silicon/manganese), blow to the same endpoint, assay final composition, and roll/bend/fracture test both; a sharp usable-vs-brittle split tied to phosphorus would indicate residual impurity embrittlement requiring an additional removal step, whereas a uniform outcome would point to process control.",
+        "requiredComplements": [
+          "Phosphorus-removal step (unresolved: whether the available blow practice can dephosphorize or only decarburize)",
+          "A standardized mechanical acceptance test acceptable to rail/weapon customers",
+          "Controlled carbon- and manganese-addition metallurgy used dependably at industrial heat scale"
+        ],
+        "mainFailureRisks": [
+          "Phosphorus enrichment or reversion during blow may resist assay control, masking the true culprit",
+          "Multiple feedstock variables co-varying make a two-heat test short of a full matrix potentially ambiguous",
+          "Industrial-scale heats behave differently from small trial heats due to thermal mass and mixing",
+          "Customer failures may surface long after deployment, delaying the decisive in-service validation"
+        ],
+        "generalizationBoundary": "Findings generalize across pig-iron feedstocks encountered in this region and era's ore mix, and across rail/gun plates and sections rolled from converter metal, provided the same assay and blow-practice procedures are observed; they do not extend to other converter designs, radically different ore chemistries, or service classes with distinct failure modes until separately tested.",
+        "unresolvedUnknowns": [
+          "Whether the blow can remove phosphorus at all, or whether phosphorus transfers from charge to metal during overblow",
+          "Identity and relative magnitude of the phosphorus threshold above which metal turns brittle",
+          "Interaction effects between phosphorus and manganese/sulfur on final ductility",
+          "Whether open-hearth practice will mature into a full competitor before the pneumatic route can be made reliable",
+          "True service-failure latency for rail and gun steel under typical loading"
+        ],
+        "capabilityComplianceNote": "All proposed routes rely only on the supplied capabilities: selecting charges from known sources, contemporary composition assays, small/industrial converter heats with controlled blow practice, before/after sampling, post-blow carbon/manganese additions, roll/forge/bend/fracture testing, comparison with crucible/puddled/open-hearth practice, and provenance-linked customer failure recording. No later instruments, statistical techniques beyond contemporary tabulation, or materials/authority are imported."
+      },
+      "usage": {
+        "inputTokens": 1001,
+        "outputTokens": 1167,
+        "totalTokens": 2168,
+        "elapsedMs": 16299,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A08",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "The inability to isolate a causal mechanism: multiple exposures (foul air, crowding, sanitation, water) covary, preventing attribution of excess mortality to any single factor using passive observation alone. The decisive scientific break requires a quasi-experimental contrast—identifying a population whose water source changes or differs while other exposures are comparable, or an intervention (pump removal) that changes only the water route.",
+        "proposedRoutes": [
+          {
+            "route": "Map every death/case with household street addresses and plot against known wells, water-supplier service areas, and sanitary conditions to establish spatial clustering beyond bad-air coincidence.",
+            "decision": "continue",
+            "reason": "This is the prerequisite cartographic and record baseline; before any intervention or inter-population comparison, one must know the numerator and the exposure map. It is cheap relative to engineering, requires only parish records and local survey, and is a necessary condition for every subsequent discriminating test."
+          },
+          {
+            "route": "Compare mortality rates across populations served by different private water suppliers who draw from sources of differing contamination risk, using contemporary tabulation of deaths per population served.",
+            "decision": "continue",
+            "reason": "This is the strongest available quasi-experiment without laboratory control: overlapping populations, same city, similar crowding and sanitation, but different water. If mortality tracks supplier/water contamination rather than odor or crowding, the water hypothesis gains decisive support. It uses only available arithmetic and supplier records."
+          },
+          {
+            "route": "Pursue drainage, sewerage and cleaner-water engineering citywide through public-health authorities as a broad benefit intervention.",
+            "decision": "defer",
+            "reason": "This is expensive, slow, affects many diseases/nuisances simultaneously, and cannot discriminate mechanism. It should proceed on sanitary grounds only after the supplier comparison and pump removal establish whether water is a principal vehicle; otherwise resources are misallocated early."
+          },
+          {
+            "route": "Conduct parish/local inquiries and testimony collection to identify localized outbreak narratives, pump visitation patterns, and household water-handling practices.",
+            "decision": "continue",
+            "reason": "Rapid qualitative evidence can expose which water sources were actually used (vs. mapped service areas), correct for private-supplier overlap, and identify households who switched sources—creating natural within-population contrasts that supplement the tabulation."
+          },
+          {
+            "route": "Track epidemic timing before/after interventions while explicitly discounting natural epidemic decline in the analysis.",
+            "decision": "continue",
+            "reason": "Because interventions may start after decline begins, naive before/after comparisons are confounded by natural course. This analytic discipline must be applied to both the supplier comparison and pump-removal results to avoid false attribution."
+          }
+        ],
+        "topRoute": "Remove/disable a suspect pump or switch its users to an alternate existing source, tracking case timing in that population versus a comparable population with a working pump—the only intervention that isolates water while holding other exposures constant, given no laboratory pathogen test exists.",
+        "nextDiscriminatingTest": "Within a single high-mortality district, identify the households actually drawing from a suspect local well/pump (via supply maps, testimony, and direct inspection). Disable or remove that pump, supply the same households from an existing alternate source of known lower contamination risk, and track deaths/cases daily in these households versus a matched neighboring street with comparable crowding, sanitation and air conditions who retain their pump. Interpret the divergence while explicitly modeling the natural epidemic decline. A rapid, sharply separated mortality drop in the switched group alone—with no simultaneous change in smells or drainage—would decisively favor the water hypothesis even without a biological mechanism.",
+        "requiredComplements": [
+          "household/street mortality and case records detailed enough for daily tracking around the intervention window",
+          "reliable identification of actual (not merely mapped) water sources used per household via testimony and inspection",
+          "a matched comparison population with comparable sanitation, crowding, and air conditions but an unremoved pump",
+          "authority to disable a local pump and divert users to an alternate existing source",
+          "contemporary arithmetic tabulation methods to compute rates per population served for both supplier comparison and intervention contrast"
+        ],
+        "mainFailureRisks": [
+          "households continue drawing from the suspect source despite pump removal (e.g., alternate source inconvenient or distrusted), contaminating the treatment group",
+          "the epidemic's natural decline coincidentally masks or mimics the intervention effect within the short observation window",
+          "unobserved covariation: the pump removal triggers drainage or sanitation changes that confound attribution, or the intervention draws focus away from other exposure routes",
+          "water-supplier service boundaries and actual consumption overlap so heavily that inter-supplier mortality comparison is statistically uninformative at available case counts",
+          "local government capacity shortfall prevents reliable daily case tracking or enforcement of the pump diversion"
+        ],
+        "generalizationBoundary": "The inference holds only for the specific local pump and population tested: a positive result establishes that a contaminated local water source can transmit the epidemic disease in that district, justifying expedited water-safety action there. It does not by itself establish that all transmission is waterborne, that other streets' outbreaks share the same vehicle, or that a general mechanism exists—those require replication across other districts/pumps and across the supplier-service-area comparison before citywide sewerage/drainage engineering is justified on this causal basis rather than on general sanitary grounds.",
+        "unresolvedUnknowns": [
+          "whether the suspect pump's contamination is continuous or intermittent, affecting observed dose-response in switched households",
+          "whether transmission also occurs person-to-person or via shared non-water fomites, making the pump removal appear only partially effective",
+          "actual per-household volumetric water consumption and any supplementary sources used that could reintroduce contaminated water",
+          "the identity of the specific causal agent in the water (agent is not identifiable—only association, timing, and differential prevention can be inferred)",
+          "whether mortality divergence after pump removal reflects a biological latency period longer than the tracking window"
+        ],
+        "capabilityComplianceNote": "All proposed routes are constructed strictly from the supplied capability manifest. No laboratory pathogen test is invoked; instead the discriminating power comes from an observational-quasi-experimental contrast—inter-population supplier comparison via contemporary arithmetic tabulation, spatial mapping of cases and sources, and a single local pump removal with a matched comparison group—all of which are explicitly listed available capabilities. The natural-decline confounder is handled analytically by concurrent comparison-group tracking rather than by any imported epidemiological method. Where a future capability (e.g., a controlled pathogen identification assay) would strengthen certainty, it is recorded only as an unresolved unknown and is not required for the next discriminating action."
+      },
+      "usage": {
+        "inputTokens": 1035,
+        "outputTokens": 1577,
+        "totalTokens": 2612,
+        "elapsedMs": 19412,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A08",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "Discriminating between the miasmatic (air/decay) and waterborne hypotheses despite covarying exposures, without a laboratory pathogen test, and before authorities will commit to expensive engineering works.",
+        "proposedRoutes": [
+          {
+            "route": "Natural-experiment comparison of households served by different private water companies within the same streets: tabulate mortality/case rates by supplier, controlling (via household matching) for street, crowding and sanitation, to isolate water supply as the discriminating exposure.",
+            "decision": "continue",
+            "reason": "Exploits the fact that overlapping water suppliers break the covariance between source and neighborhood; uses only contemporaneous arithmetic/tabulation and existing records, and yields the strongest discriminating evidence available without a lab test."
+          },
+          {
+            "route": "Parallel mapping of cases against both water source and smell/sanitation exposure, then tabulating which exposure better predicts mortality in matched street-segments where one varies and the other is held constant.",
+            "decision": "continue",
+            "reason": "Directly addresses the covariance problem by finding natural settings where the two hypotheses diverge, strengthening causal inference from purely observational data."
+          },
+          {
+            "route": "Pump-disabling experiment on a specific well whose service population shows excess mortality, comparing disease rates before/after removal against a comparison population on an unaffected source, acknowledging natural decline via a control area.",
+            "decision": "continue",
+            "reason": "Provides an interventionist test aligned with the available capability to disable a pump; the control comparison handles the declining-epidemic confound without needing full mechanistic understanding."
+          },
+          {
+            "route": "Engineer a broad drainage/sewerage/cleaner-water program on the theory that it will help under either mechanism, monitoring outcomes acceptably but not as a discriminating test.",
+            "decision": "defer",
+            "reason": "Useful as a pragmatic fallback that works under either hypothesis and addresses nuisance, but it cannot discriminate the mechanism and is premature before narrower discriminating evidence is gathered."
+          },
+          {
+            "route": "Focused sanitary inquiry collecting testimony and inspecting wells/cesspools only in the highest-mortality clusters, treating the result as case-study corroboration of whichever exposure (water vs air) dominates.",
+            "decision": "defer",
+            "reason": "Cheap and useful for building local authority support, but testimony and inspection alone cannot separate the hypotheses because poor smell and bad water coexist; it is supporting, not discriminating."
+          }
+        ],
+        "topRoute": "Natural-experiment comparison of households served by different private water companies within the same streets.",
+        "nextDiscriminatingTest": "Select streets where supplier catchment boundaries split households holding street/crowding/sanitation roughly constant, then tabulate case and mortality rates by supplier to see whether water source—rather than smell or sanitation—systematically tracks excess death.",
+        "requiredComplements": [
+          "Identification of private water suppliers and their source locations/service populations",
+          "Household/street mortality and case records",
+          "Contemporary arithmetic/tabulation of rates across supplier groups",
+          "Local public-health authority willing to act on a pump switch or source change",
+          "A control comparison area to discount natural epidemic decline"
+        ],
+        "mainFailureRisks": [
+          "Supplier catchments may covary with neighborhood conditions even within streets, leaving residual confounding",
+          "Water supply may transmit disease only intermittently, diluting a static supplier-mortality comparison",
+          "Record keeping may be incomplete or inconsistently attributed to households/suppliers",
+          "If water is not the dominant vector, the discriminating test miscredits water and defers useful sanitation/drainage action",
+          "Epidemic decline during observation may mask a true waterborne effect in the pump-disabling test"
+        ],
+        "generalizationBoundary": "Evidence would establish that, within this city and period, water-source membership predicts excess mortality better than co-located smell/sanitation. It would not establish the biological identity of the agent nor generalize to other cities, seasons, or non-epidemic disease mortality without separate replication under similar natural-variation conditions.",
+        "unresolvedUnknowns": "[\"Whether supplier assignment is effectively as-if random within matched street-segments\", \"Whether the waterborne agent acts acutely (short incubation) such that supplier-mortality mapping is detectable at household scale\", \"Whether mortality records capture the relevant cases with little under- or mis-attribution\", \"Whether another unmeasured covariate (income, occupation, diet) covaries with both supplier and mortality\"]",
+        "capabilityComplianceNote": "All routes use only supplied capabilities: household/street record collection, mapping of cases and wells, supplier identification and service-population comparison, contemporary arithmetic/tabulation, well/pump inspection, pump disabling or source switching, available drainage/sewerage authority, parish inquiries/testimony, and epidemic timing before/after interventions. No laboratory pathogen test, statistical method beyond contemporaneous tabulation, or later instrument/authority is imported. The only unavailable instrument that would materially help is a controlled laboratory pathogen test, recorded as an unresolved need."
+      },
+      "usage": {
+        "inputTokens": 1035,
+        "outputTokens": 1141,
+        "totalTokens": 2176,
+        "elapsedMs": 15374,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR2-A08",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Confounding of multiple covariates (smell, crowding, poor drainage, and water source all covary), making it impossible to isolate the contaminated-water mechanism without a controlled laboratory pathogen test; authorities need an actionable discrimination that does not wait for full biological mechanism.",
+        "proposedRoutes": [
+          {
+            "route": "Household/street mortality mapping overlaid on water-supplier service boundaries, using the natural experiment of overlapping private suppliers drawing from differently contaminated sources; compare mortality rates per supplier population with contemporary tabulation while stratifying by district/street crowding and drainage classes.",
+            "decision": "continue",
+            "reason": "This is the single most discriminating use of available records: it holds proximity/smell/crowding roughly constant where supplier boundaries interdigitate, and does not require a biological mechanism. The theory of contaminated water predicts a clean mortality step at supplier boundaries; poison-air theory predicts boundaries should be irrelevant once exposure to air is controlled."
+          },
+          {
+            "route": "Pump/well removal or switching trial on the highest-mortality suspect source among a defined population, with before/after and adjacent-comparison mortality tracking, acknowledging natural epidemic decline via comparison to a nearby population not served by that source.",
+            "decision": "continue",
+            "reason": "This is the strongest available intervention test and can be done with existing capabilities. Even given natural decline, the key contrast is the served-vs-unserved population differential rather than absolute decline, which discriminates the water hypothesis from general atmospheric poison."
+          },
+          {
+            "route": "Simultaneous broad drainage/sewerage and clean-water engineering via local authorities, treating several diseases/nuisances at once.",
+            "decision": "defer",
+            "reason": "Actions are expensive, slow, affect many things at once, and therefore cannot discriminate the water hypothesis from poison-air/sanitation theories; it should be pursued as a complement only after the supplier/pump comparisons narrow the mechanism, or where its multi-disease benefit makes it worthwhile regardless of mechanism."
+          },
+          {
+            "route": "Qualitative parish inquiry and testimony collecting accounts of exposure, use of particular wells, and diarrheal illness clusters.",
+            "decision": "continue",
+            "reason": "Cheap and fast, complements the maps by filling in who actually drank from which source, correcting misattribution where households used pumps outside their nearest supplier or shared multiple sources; strengthens the discrimination when overweighted mortality matches testimony of exclusive use of the suspect source."
+          },
+          {
+            "route": "Pursue limited central-authority action/rules under existing public-health law to compel the most at-risk supplier to switch to a safer existing source, treating it as an additional comparative experiment across overlapping populations.",
+            "decision": "continue",
+            "reason": "Uses the existing legal pathway to force the intervention without waiting for full mechanism, and derives another supplier-boundary mortality contrast; keeps authorities engaged given limited central capacity by targeting the single highest-risk supplier rather than diffuse public-works."
+          }
+        ],
+        "topRoute": "Household/street mortality mapping overlaid on water-supplier service boundaries comparing mortality across overlapping suppliers with differential source contamination risk, stratified by crowding/drainage; confirm with a targeted pump/source switch on the highest-mortality suspect source and compare served vs unserved adjacent populations over epidemic timing.",
+        "nextDiscriminatingTest": "On the district where two private suppliers with different source contamination risks serve interleaved street populations (comparable crowding, drainage, and proximity/smell), tabulate per-supplier household mortality by week before and after the higher-risk supplier's source is switched to a safer existing supply, and compare the served-vs-unserved mortality differential's trajectory to the poison-air prediction that supplier identity should be irrelevant. A sharper mortality cliff at supplier boundaries moved by the source switch, not by smell/drainage, discriminates the water-borne hypothesis.",
+        "requiredComplements": [
+          "Drainage/sewerage engineering pursued only as a multi-disease complement, clearly labeled as non-discriminating in isolation",
+          "Qualitative testimony on actual water use to correct for households drawing from non-nearest sources",
+          "Epidemic-timing tracking with adjacent unserved control population to handle natural decline",
+          "Map of wells/pumps/source locations and service populations as the geometric basis for supplier-boundary analysis"
+        ],
+        "mainFailureRisks": [
+          "Multiple exposures covary so strongly that even supplier boundaries correlate with smell/crowding, leaving residual confounding",
+          "Households use multiple sources or suppliers overlapping geographically, blurring clean supplier-boundary contrasts",
+          "Interventions start as epidemic naturally declines, so absolute before/after reductions misattribute cause",
+          "Local government capacity too weak to execute the source switch cleanly or to keep mortality records complete",
+          "Wrong mechanism (poison air) still motivates partially useful drainage action, so a mixed-action bundle risks masking the water effect"
+        ],
+        "generalizationBoundary": "Findings generalize only across populations with similar water-supply structures (multiple overlapping private suppliers with distinct contamination risk) and are most credible for acute epidemic disease with short incubation and water-borne transmission patterns; conclusions should not be extended to diseases whose principal route is not water, to settings without supplier-boundary structure, or to longer chronic/person-to-person routes without similar evidence.",
+        "unresolvedUnknowns": [
+          "Actual household water-source usage patterns (and degree of mixing across sources) not directly measured",
+          "Whether supplier-boundary co-variation with crowding/smell can be fully separated given overlapping geography",
+          "The duration of source contamination risk and whether switching pumps moves the hazard rather than removing it",
+          "Whether epidemic decline confounds the intervention comparison beyond the adjacent-unserved control",
+          "Scale of local record-keeping reliability across parishes/households"
+        ],
+        "capabilityComplianceNote": "All routes rely solely on supplied capabilities: household/street case-mortality records, mapping, supplier identification and source/service-population tables, contemporary arithmetic/tabulation for cross-supplier mortality comparison, well/pump inspection, pump removal or switching to an existing source, drainage/sewerage engineering via local authorities, parish inquiries/testimony, and epidemic timing before/after with acknowledgment of natural decline. No laboratory pathogen testing, no importation of instruments, no post-outcome knowledge, and no modern statistical methods beyond contemporary arithmetic/tabulation are used. The controlled experiment limitation is recorded as an unresolved constraint rather than circumvented."
+      },
+      "usage": {
+        "inputTokens": 1035,
+        "outputTokens": 1427,
+        "totalTokens": 2462,
+        "elapsedMs": 17558,
+        "transportRetries": 0,
+        "schemaRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    }
+  ]
+}

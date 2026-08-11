@@ -1,0 +1,34 @@
+{
+  "schemaVersion":1,
+  "kind":"ordivon.computing.hd2-apparatus-archive",
+  "status":"one_time_apparatus_contracted_after_evidence_capture",
+  "apparatus":[
+    {"path":"apparatus/run_historical_replay.py","digest":"sha256:007c9b9cfe1fe59fc4b5881eeffd39e7a5b2160d487da177f7f8f040a4cf2267","purpose":"primary curated-route historical replay with durable per-replicate progress and schema retry"},
+    {"path":"apparatus/run_independent_coder.py","digest":"sha256:4189683f0e46b072074aad3e9959b7bcf061cf7b3d34396ce8a4e7b19f1d7ee0","purpose":"fresh-context skeptical coding of 12 Deep Anchors against frozen S1-S10"},
+    {"path":"apparatus/run_unscaffolded_replay.py","digest":"sha256:d7365c6c572fb993abb953dfdb64b00322b1c610b2e84d7a0c271698a607c493","purpose":"post-hoc replay ablation removing curated liveRoutes"},
+    {"path":"apparatus/run_affordance_bounded_replay.py","digest":"sha256:5f9f394a6008ece30886d894babaf461f441c1f870d997fa8152af672c5535f5","purpose":"post-hoc replay ablation adding an exact historical availableCapabilities manifest without route scaffolding"}
+  ],
+  "retainedEvidence":[
+    {"path":"replay-live-v0.json","digest":"sha256:ba8fbefbdb42384fd5fdf1174c72222441e877c2ba79aa49522d36d358cc1bfb"},
+    {"path":"replay-unscaffolded-live-v0.json","digest":"sha256:94fa03ca6f35aca69c40bc970da7081dbdd6a319af0630ebe7e5c3b34779104b"},
+    {"path":"replay-affordance-live-v0.json","digest":"sha256:b31c5c457834ffdb95fe9e824452aa7a8f56b464d6a030d8712a9c5324f82d7c"},
+    {"path":"independent-coder-live-v0.json","digest":"sha256:06e44ba7096b8e537e985d0a82d52888c71d7c2255c35ff5ff64ab2d9609f48e"},
+    {"path":"pass-b-theory-coding-v0.json","digest":"sha256:41fa5f4cf3bf389fb757b64adc3d7f2691912d7e3769cbfda36eca6f1f2c8881"},
+    {"path":"confirmation-bias-audit-v0.json","digest":"sha256:72c759be989382c6fb8232b3620e7b51fff62c0049d38e149dbb04052a98e2c4"},
+    {"path":"residual-clusters-v0.json","digest":"sha256:a7e76dad2c4cff90ff9d9689ee3d38cc4c6ba723a9cf8cfbbbf9b4047ddbdc1b"}
+  ],
+  "runtimeEvidence":{
+    "primaryReplayFailedInitialJob":"job-019ff029-4dfb-7482-aecc-f4f25c5e4463",
+    "primaryReplayInitialFailure":"Provider returned malformed JSON function arguments after four successful but non-durably-persisted calls; entire incomplete run excluded.",
+    "primaryReplayFinalJob":"job-019ff02b-543a-7d73-8a79-92c76c2e4e6c",
+    "primaryReplayFinalDisposition":"succeeded from a fresh 12-call run with durable per-replicate evidence",
+    "independentCoderFailedInitialJob":"job-019ff02e-7f2e-7840-94b8-2bf1fa4b0514",
+    "independentCoderInitialFailure":"Provider malformed JSON on the next uncommitted case after A01-A04 had already been durably stored; A01-A04 were not resampled.",
+    "independentCoderResumeJob":"job-019ff031-f422-70c0-86a2-2ec674353163",
+    "independentCoderFinalDisposition":"succeeded using durable A01-A04 and fresh A05-A12 only",
+    "unscaffoldedReplayJob":"job-019ff035-7ab7-73f0-9007-e5a9febf907d",
+    "affordanceBoundedReplayJob":"job-019ff03b-8856-7881-8b98-c7179e803951"
+  },
+  "providerSchemaFinding":"Required function calling did not guarantee syntactically valid JSON. Durable per-trial evidence plus bounded schema repair prevented a malformed completion from erasing or silently resampling valid trials.",
+  "contractionRule":"These scripts and progress directories are experiment-specific apparatus, not reusable RSI Lab capability. After this receipt is written they are removed from the active tree."
+}
