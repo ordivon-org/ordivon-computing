@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.feynman-documentation.fd5-conservative-control",
+  "date": "2026-08-12",
+  "status": "preregistered-before-live-provider-call",
+  "purpose": "Test the conservative hypothesis that current Game and Human entry documentation already supports the frozen causal decisions and should not be rewritten merely for programme symmetry.",
+  "providerFamily": "DeepSeek credentials admitted under /root/.config/ordivon/secrets; exact slot/model recorded per trial",
+  "replicates": 3,
+  "subjectProtocol": {
+    "freshTurnPerTrial": true,
+    "conversationCarryover": false,
+    "temperature": 0,
+    "thinking": "disabled",
+    "instruction": "use only supplied exact-revision documents; do not import prior Ordivon knowledge"
+  },
+  "judgeProtocol": {
+    "separateProviderCall": true,
+    "armBlind": false,
+    "temperature": 0,
+    "thinking": "disabled",
+    "receives": [
+      "task prompt",
+      "frozen oracle",
+      "subject answer"
+    ]
+  },
+  "owners": {
+    "game": {
+      "repository": "/root/projects/ordivon-game",
+      "current": "1199e1747cf56ea65cae0f422d8ae44f81e64ca4",
+      "ownerCurrentBasis": "server/tracking main; local main is stale but clean"
+    },
+    "human": {
+      "repository": "/root/projects/ordivon-human",
+      "current": "8d55d31062d0e85e5b306ca94ea0165ebec314f7",
+      "ownerCurrentBasis": "clean local owner main; published server main is older"
+    }
+  },
+  "tasks": [
+    {
+      "id": "FD0-GAME-01",
+      "owner": "game",
+      "surface": "entry_only",
+      "prompt": "Station Zero v3 is implemented and tested but remains unregistered. What is the current product?",
+      "oracle": {
+        "decision": "The registered current product remains Station Zero v2; implemented/tested target status does not equal registration.",
+        "requiredPoints": [
+          "current Scenario/Ruleset and v3 target are separate",
+          "registration is the current-product authority"
+        ],
+        "criticalErrors": [
+          "newest implementation automatically replaces registered product",
+          "P3 acceptance implies current root product"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-GAME-02",
+      "owner": "game",
+      "surface": "entry_plus_product",
+      "prompt": "A model proposes an action that its specialist lacks capability or authority to perform. Can model output directly change the game world?",
+      "oracle": {
+        "decision": "No; model output is a proposal and Game World/domain admission decides legal consequences.",
+        "requiredPoints": [
+          "World/reducer is authoritative",
+          "capability and authority are separate",
+          "terminal outcome is not inferred from model prose"
+        ],
+        "criticalErrors": [
+          "model invents legal action/world state",
+          "provider output is authoritative result"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "docs/PRODUCT.md",
+        "docs/ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "FD0-HUMAN-01",
+      "owner": "human",
+      "surface": "entry_only",
+      "prompt": "Human builds a model of a person’s economic constraints. Does that model gain authority to prescribe the person’s financial, career, health, or legal choices?",
+      "oracle": {
+        "decision": "No; the framework is conditional research and modeling a person grants no authority over that person.",
+        "requiredPoints": [
+          "evidence scope and high-consequence boundaries remain explicit",
+          "individual decisions may require local current evidence"
+        ],
+        "criticalErrors": [
+          "framework output is individualized advice",
+          "research model owns person-level authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-HUMAN-02",
+      "owner": "human",
+      "surface": "entry_only",
+      "prompt": "Must a practitioner complete E0 through E9 in numerical order before acting?",
+      "oracle": {
+        "decision": "No; E0-E9 are stable identifiers/selectable modules chosen by the current bottleneck, with cross-cutting rails.",
+        "requiredPoints": [
+          "numbers are not a life ladder",
+          "diagnosis selects needed modules"
+        ],
+        "criticalErrors": [
+          "E0-E9 are mandatory sequential stages",
+          "completion of modules proves empirical effectiveness"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    }
+  ],
+  "primaryMetrics": [
+    "decisionCorrect",
+    "criticalOverinferenceCount",
+    "unsupportedAuthorityClaimCount"
+  ],
+  "secondaryMetrics": [
+    "requiredPointCoverage",
+    "inputDocumentBytes",
+    "providerTokens"
+  ],
+  "decisionRules": [
+    "If any frozen task is not majority-correct, the no-change hypothesis is falsified and a rewrite may be opened for that owner.",
+    "Any critical over-inference or unsupported authority claim is a blocker requiring owner review even when the central decision is correct.",
+    "If all tasks pass, no-change is the accepted treatment: do not edit Game/Human merely for stylistic consistency.",
+    "No task, oracle, source revision, or judge rubric may change after the first live Provider call.",
+    "Agent success remains preflight evidence only and does not establish human comprehension or preference."
+  ],
+  "expectedSubjectCalls": 12,
+  "expectedJudgeCalls": 12
+}

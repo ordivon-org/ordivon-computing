@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.feynman-documentation.fd6-expression-public-preflight",
+  "date": "2026-08-12",
+  "status": "preregistered-before-live-provider-call",
+  "purpose": "Paired fresh-Agent preflight for Studio expression-authority and Web public-encounter rewrites, using frozen FD0 causal tasks.",
+  "providerFamily": "DeepSeek credentials admitted under /root/.config/ordivon/secrets; exact slot/model recorded per trial",
+  "replicates": 3,
+  "subjectProtocol": {
+    "freshTurnPerTrial": true,
+    "conversationCarryover": false,
+    "temperature": 0,
+    "thinking": "disabled",
+    "instruction": "use only supplied exact-revision documents; do not import prior Ordivon knowledge"
+  },
+  "judgeProtocol": {
+    "separateProviderCall": true,
+    "armBlind": true,
+    "temperature": 0,
+    "thinking": "disabled",
+    "receives": [
+      "task prompt",
+      "frozen oracle",
+      "subject answer"
+    ],
+    "doesNotReceive": [
+      "baseline/treatment label",
+      "source revision"
+    ]
+  },
+  "arms": {
+    "studio": {
+      "repository": "/root/projects/ordivon-studio",
+      "baseline": "e13540d9a289b4f94e04eb5079b03a478a5273a4",
+      "treatment": "8d583cb3cbc62aa59c9e5b611a1db4424b58b356",
+      "publication": "local_candidate_no_remote"
+    },
+    "web": {
+      "repository": "/root/projects/ordivon-web",
+      "baseline": "c5cb6d35ce4233380b77dde7644b731699d352f8",
+      "treatment": "a270e226336cf0e2fe6d7bd9fc2fe94b7c8a9d07",
+      "publication": "candidate"
+    }
+  },
+  "tasks": [
+    {
+      "id": "FD0-STUDIO-01",
+      "owner": "studio",
+      "surface": "entry_plus_design",
+      "prompt": "Studio binds a Runtime fact at revision R and produces a video. Runtime later changes. Does Studio become the authority for the current Runtime fact?",
+      "oracle": {
+        "decision": "No; Studio keeps a revision-bound historical claim or explicitly rebases after review. Runtime remains fact owner.",
+        "requiredPoints": [
+          "expression source is bound to exact owner revision",
+          "production claim is not a second product authority"
+        ],
+        "criticalErrors": [
+          "published video overrides owner source",
+          "Studio silently floats claims to latest"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "STUDIO.md",
+        "docs/media-model.md"
+      ]
+    },
+    {
+      "id": "FD0-STUDIO-02",
+      "owner": "studio",
+      "surface": "entry_plus_research",
+      "prompt": "A vision-capable Agent observer understands a rendered artifact with very high accuracy. Does that establish human comprehension, preference, or trust?",
+      "oracle": {
+        "decision": "No; Agent-observer evidence does not establish human-response claims.",
+        "requiredPoints": [
+          "human-response claims require human evidence when material",
+          "mechanical/factual and human-experience claims are distinct"
+        ],
+        "criticalErrors": [
+          "Agent observer is a proxy for human preference",
+          "internal review approval proves audience understanding"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "research/expression/README.md"
+      ]
+    },
+    {
+      "id": "FD0-WEB-01",
+      "owner": "web",
+      "surface": "entry_plus_editorial",
+      "prompt": "An owner repository changes. Must Web publish a visible change?",
+      "oracle": {
+        "decision": "No; owner change creates a review obligation. Web may rebind/correct/update or make a public no-op depending on public consequence.",
+        "requiredPoints": [
+          "owner remains technical authority",
+          "public judgment is source-bound and may legitimately no-op"
+        ],
+        "criticalErrors": [
+          "every source commit forces website copy change",
+          "Web becomes implementation truth owner"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "content/editorial/agent-web-system.md",
+        "content/editorial/authority.md"
+      ]
+    },
+    {
+      "id": "FD0-WEB-02",
+      "owner": "web",
+      "surface": "entry_plus_editorial",
+      "prompt": "Chromium successfully renders a page and an exposure receipt proves facts were visible. Does that prove a human reader understood them?",
+      "oracle": {
+        "decision": "No; render/exposure evidence proves encounter mechanics, not comprehension or factual correctness.",
+        "requiredPoints": [
+          "human comprehension is a separate consequence claim",
+          "Web owns presentation/publication mechanics, not human-response truth"
+        ],
+        "criticalErrors": [
+          "successful browser test equals comprehension",
+          "exposure receipt makes Web owner of underlying project fact"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "content/editorial/information-architecture.md",
+        "content/editorial/authority.md"
+      ]
+    }
+  ],
+  "primaryMetrics": [
+    "decisionCorrect",
+    "criticalOverinferenceCount",
+    "unsupportedAuthorityClaimCount"
+  ],
+  "secondaryMetrics": [
+    "requiredPointCoverage",
+    "currentTargetHistoryConfusionCount",
+    "inputDocumentBytes",
+    "providerTokens"
+  ],
+  "decisionRules": [
+    "Any baseline-majority-correct to treatment-majority-wrong result rejects the affected treatment.",
+    "Any new treatment critical over-inference or unsupported authority claim rejects the affected treatment.",
+    "At equal correctness, material treatment burden increase without decision gain triggers contraction review.",
+    "Publication currentness remains independent of reader quality and must be revalidated after the preflight.",
+    "No task/oracle/judge rubric may change after the first live Provider call.",
+    "Neither Agent-observer nor browser evidence establishes human comprehension, preference, trust, recall, or response."
+  ],
+  "expectedSubjectCalls": 24,
+  "expectedJudgeCalls": 24
+}
