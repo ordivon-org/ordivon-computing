@@ -77,6 +77,7 @@ P9 also caught a Provider-wire failure: DeepSeek frequently emitted JSON Schema 
 ## Apparatus recovery and contraction
 
 The complete executable/raw campaign is Git-recoverable from snapshot `176c2c52223089a9847a850319b3419b98eba1b4` under `research/experiments/rsi-lab-p4-p9-v0/apparatus/`. The current tree intentionally removes that apparatus after the snapshot; compact accepted/invalidated evidence remains beside this report.
+The new `contraction-verify` command then verified this exact contraction at `6b961e95c45125d55639dcdf4bba02d114835a65`: the apparatus tree is absent now, its snapshot tree object is recoverable, the exact full gate passed, and current `research/experiments` contains zero tracked executable-like source. Receipt payload: `sha256:3fc550d18f5698560e8af14810990e1c8d227bd0c741e80776b4629d80b03dc9`.
 
 ## Final world-model update
 
