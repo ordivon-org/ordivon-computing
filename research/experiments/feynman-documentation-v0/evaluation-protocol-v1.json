@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.feynman-documentation.rewrite-evaluation-protocol",
+  "version": "1.0-preregistered-before-owner-rewrites",
+  "frozenTaskSource": "comprehension-baseline-v1.json",
+  "purpose": "Compare owner documentation before/after rewriting on causal/currentness decisions without allowing fact drift or oracle repair to masquerade as readability gain.",
+  "unit": "one frozen comprehension task × one exact document arm × one fresh Agent replicate",
+  "arms": {
+    "baseline": "Exact parent/source revision immediately before the documentation rewrite. FD0 source is retained as historical evidence; if owner semantics advanced, the paired rewrite baseline is the exact pre-rewrite parent, not a stale semantic state.",
+    "treatment": "Documentation-only child/rewrite revision over the same owner facts whenever possible. Arm labels are blinded/shuffled during evaluation."
+  },
+  "currentnessRules": [
+    "Revalidate owner-current and published revisions immediately before a rewrite.",
+    "If product/domain semantics changed, do not edit the frozen oracle. Mark the old task not-applicable-to-current-paired-comparison and create a separately versioned new task if needed.",
+    "Do not compare a stale old product state with a newer rewritten product state and attribute the difference to prose.",
+    "Generated/public summaries never replace owner-native source arms."
+  ],
+  "sourceModes": [
+    {
+      "id": "entry_only",
+      "meaning": "Give only the default entry surface plus links visible from it. A failure to orient is valid evidence."
+    },
+    {
+      "id": "bounded_navigation",
+      "meaning": "Allow a fixed small navigation budget into linked owner-native docs to test whether the path, not only the first page, is usable."
+    }
+  ],
+  "plannedReplicates": 3,
+  "randomization": "Shuffle task order and blind old/new arm labels. Use fresh Provider turns; no conversation carryover between trials.",
+  "primaryScoring": [
+    {
+      "metric": "decision_correct",
+      "type": "binary",
+      "meaning": "Does the answer choose the action/currentness/authority conclusion frozen by the task oracle?"
+    },
+    {
+      "metric": "critical_overinference",
+      "type": "count",
+      "meaning": "Does the answer assert a specifically forbidden stronger conclusion?"
+    },
+    {
+      "metric": "unsupported_authority_claim",
+      "type": "count",
+      "meaning": "Does the answer move fact/semantic authority to the wrong owner or projection?"
+    }
+  ],
+  "secondaryScoring": [
+    {
+      "metric": "required_point_coverage",
+      "type": "fraction"
+    },
+    {
+      "metric": "current_target_history_confusion",
+      "type": "count"
+    },
+    {
+      "metric": "navigation_hops",
+      "type": "count for bounded_navigation"
+    },
+    {
+      "metric": "input_tokens",
+      "type": "provider-reported when available"
+    },
+    {
+      "metric": "output_tokens",
+      "type": "provider-reported when available"
+    }
+  ],
+  "perTaskDecisionRule": [
+    "Any baseline-correct → treatment-wrong majority result is a regression requiring revision before publication.",
+    "Any new critical over-inference that appears in treatment and not baseline blocks the rewrite until resolved.",
+    "Treatment-correct → baseline-wrong is an improvement.",
+    "When both are correct, prefer the smaller/lower-hop source unless treatment materially reduces unsupported inference or improves required-boundary coverage."
+  ],
+  "programDecisionRule": "A rewrite is admissible only if it introduces no unresolved critical causal/currentness regression and its remaining added complexity earns a concrete reader consequence. Equal correctness with more default-path burden is not an improvement.",
+  "humanBoundary": "Agent preflight measures bounded reconstruction under the selected model/provider. Human comprehension, memory, preference, confidence, trust, and behavior require a separate human-response experiment.",
+  "noPostHoc": [
+    "Do not edit frozen task oracles after observing rewrite performance.",
+    "Do not inject deeper sources into the baseline arm to rescue an old entry failure.",
+    "Do not remove difficult tasks because a rewrite performs poorly.",
+    "Do not claim model-family or human generality from one Provider campaign."
+  ]
+}

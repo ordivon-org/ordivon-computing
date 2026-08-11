@@ -89,3 +89,9 @@ The task set is suitable for a later Agent preflight, but it is **not** human-co
 FD0 is complete when the freeze files validate, every curated explicit path exists at its frozen owner revision, Computing gates still pass, and the Working Set can be closed without touching owner repositories. No README or owner canonical document is modified in FD0.
 
 Next: FD1 should extract an editorial discipline from the strongest existing exemplars and use the frozen baseline to constrain, not dictate, later rewrites.
+
+## FD1 closeout
+
+FD1 is closed in [`FD1-REPORT.md`](FD1-REPORT.md). The external comparison and internal exemplar audit reject a universal Feynman template and retain a smaller rule: choose the reader job first, then apply causal explanation pressure only where understanding/orientation is the job. Exact reference may remain dry and structured; research/history remains evidence-rich but outside the default entry path.
+
+[`editorial-discipline-v1.json`](editorial-discipline-v1.json) is a research-only seven-discipline candidate, not a product schema. [`evaluation-protocol-v1.json`](evaluation-protocol-v1.json) freezes the paired before/after Agent preflight rules before any owner README is rewritten. Human comprehension remains untested.
