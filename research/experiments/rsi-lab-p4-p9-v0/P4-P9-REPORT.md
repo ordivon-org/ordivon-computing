@@ -74,6 +74,10 @@ The number `1` is workload-specific: one search observation can contain up to 60
 
 P9 also caught a Provider-wire failure: DeepSeek frequently emitted JSON Schema booleans as strings. Wire-invalid campaigns were excluded; the accepted v3+ runs use bounded fail-closed schema retry and record every correction.
 
+## Apparatus recovery and contraction
+
+The complete executable/raw campaign is Git-recoverable from snapshot `176c2c52223089a9847a850319b3419b98eba1b4` under `research/experiments/rsi-lab-p4-p9-v0/apparatus/`. The current tree intentionally removes that apparatus after the snapshot; compact accepted/invalidated evidence remains beside this report.
+
 ## Final world-model update
 
 1. Generic mechanical commonality is insufficient reason for a crosscut framework; shared semantics must also be exact.
