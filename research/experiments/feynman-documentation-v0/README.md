@@ -95,3 +95,9 @@ Next: FD1 should extract an editorial discipline from the strongest existing exe
 FD1 is closed in [`FD1-REPORT.md`](FD1-REPORT.md). The external comparison and internal exemplar audit reject a universal Feynman template and retain a smaller rule: choose the reader job first, then apply causal explanation pressure only where understanding/orientation is the job. Exact reference may remain dry and structured; research/history remains evidence-rich but outside the default entry path.
 
 [`editorial-discipline-v1.json`](editorial-discipline-v1.json) is a research-only seven-discipline candidate, not a product schema. [`evaluation-protocol-v1.json`](evaluation-protocol-v1.json) freezes the paired before/after Agent preflight rules before any owner README is rewritten. Human comprehension remains untested.
+
+## FD2–FD3 first rewrite tranche
+
+Finance, Harness, and Security have completed the first real rewrite dogfood. Harness and Security are published; Finance has an exact tested/evaluated candidate but its `main` update is intentionally fenced by a concurrent uncommitted owner contraction. See [`FD2-FD3-FIRST-TRANCHE.md`](FD2-FD3-FIRST-TRANCHE.md) and [`editorial-discipline-v2.json`](editorial-discipline-v2.json).
+
+The seven FD1 disciplines survive without an eighth rule. Currentness-before-publication, linked-authority currentness, and paired-oracle invariance are now stricter.
