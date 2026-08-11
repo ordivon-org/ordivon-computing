@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.research-outcome",
+  "betId": "RF1-GAME-STOPPING-001",
+  "status": "falsified",
+  "acceptedEvidence": [
+    "research/experiments/rf1-game-stopping/evidence/rf1-live-v1.json#sha256:33606f853939531b5704503f4f69817e03ae59884346b0381c7b5fb6e2243428",
+    "research/experiments/rf1-game-stopping/RF1-REPORT.md",
+    "research/experiments/rf1-game-stopping/input-manifest-v1.json"
+  ],
+  "actualClosedLoopCost": {
+    "cases": 8,
+    "semanticProviderCalls": 73,
+    "campaignProviderTokens": 1288342,
+    "fullReferenceTokens": 529070,
+    "progressiveTokens": 406388,
+    "progressiveRevealTokens": 176551,
+    "matchedOneShotTokens": 176333,
+    "progressiveProviderElapsedMs": 128402,
+    "matchedOneShotProviderElapsedMs": 45998,
+    "progressiveUniqueWindowFraction": 1.0,
+    "progressiveForcedEvidenceExhaustion": 8
+  },
+  "frontierDelta": "Reject serial Agent-controlled marginal-evidence stopping for small six-window Game trajectory packets. Preserve full one-shot as the strong baseline and make adaptive-selection overhead an explicit tractability variable before attempting another stopping mechanism.",
+  "predictionError": "The bet predicted mean unique-window consumption below 0.75 and progressive decision agreement at least as good as matched random. Actual unique-window fraction was 1.00 in all 8 cases; no autonomous early stop occurred; progressive agreed with unanimous full references 6/8 while matched full one-shot agreed 8/8. The predeclared false-early-stop prediction is untested rather than satisfied because there were zero early stops.",
+  "worldModelUpdate": "Research stopping competence is not obtained by repeatedly prompting an Agent to decide whether another observation matters. On small finite evidence universes, adaptive evidence-selection overhead and path-dependent deliberation can dominate evidence cost and can destabilize the final semantic conclusion even after all evidence is present.",
+  "operatorPriorUpdate": "Add a conditional prior: compare adaptive-selection overhead against full-inspection cost before admitting an evidence-selection loop. For small bounded evidence sets, one-shot full inspection may be the tractable operator. Retain the broader marginal-value/stopping problem as unresolved for evidence spaces where full inspection is materially expensive."
+}

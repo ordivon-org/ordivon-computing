@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.research-bet",
+  "betId": "RF1-GAME-STOPPING-001",
+  "status": "frozen-before-outcome",
+  "shadowOnly": true,
+  "question": "Can decision-relevant progressive observation stop materially earlier than full Game trajectory inspection without changing the eventual causal research target, and outperform a same-window-count naive/random baseline?",
+  "ownerEvidence": [
+    {
+      "owner": "game",
+      "identity": "git:269d8cf8362730e014c79ccdfa8f748c1b3e0bff..6bc74051affb78b3a6f4dd6c82fd31a2b9f7f25e",
+      "role": "paired pre/post AF Loop 001 Game variants sharing the same Experience World Model packet protocol; pretrial seed ablation proved nominal seed strings do not change trajectory bytes"
+    },
+    {
+      "owner": "game",
+      "identity": "task:game:station-zero-v3-playtest-validation-20260809@11",
+      "role": "owner continuity pressure: progressive causal-window selector is too broad and AF Loop 002 should reduce selected windows while preserving decision-relevant events"
+    }
+  ],
+  "evidenceTopologyHypothesis": "interactive temporal trajectory with sparse causally decisive windows embedded in a short sequence; aggregate overview can locate pressure but not establish the causal research target",
+  "chosenOperatorPolicy": "overview plus Agent-selected causal windows; after each evidence batch the Agent must name live alternatives and either request a window that could discriminate them or STOP with a bounded causal research target; no confidence threshold",
+  "alternativeOperatorPolicies": [
+    "full six-Turn trajectory supplied before one semantic decision",
+    "same number of unique causal windows as progressive stopping but selected by a frozen naive/random policy"
+  ],
+  "prediction": {
+    "frontierChange": "Progressive stopping should preserve the full-evidence causal research target on most unambiguous cases while reducing unique windows and Provider/context cost; its agreement should exceed or equal matched random selection, otherwise the stopping/operator prior should contract.",
+    "expectedSignals": {
+      "meanUniqueWindowsObservedFraction": "<0.75 of full trajectory",
+      "falseEarlyStopRate": "<=0.25 on cases with a stable full-evidence reference",
+      "agreementVsMatchedRandom": "progressive >= random on stable-reference cases",
+      "criticalEventCoverage": "progressive should retain the mechanically tagged event classes needed by its chosen causal claim rather than merely minimizing bytes"
+    }
+  },
+  "budget": {
+    "gameSourceRevisions": [
+      "269d8cf8362730e014c79ccdfa8f748c1b3e0bff",
+      "6bc74051affb78b3a6f4dd6c82fd31a2b9f7f25e"
+    ],
+    "gameVariants": ["pre-af-loop-001", "post-af-loop-001"],
+    "fixedTrajectorySeed": "rf1-fixed-seed / seed identity is provenance-only on this deterministic path",
+    "profilesPerVariant": 4,
+    "turnsPerProfile": 6,
+    "cases": 8,
+    "fullReferenceReplicatesPerCase": 3,
+    "maximumProgressiveUniqueWindows": 6,
+    "matchedRandomReplicatesPerCase": 1,
+    "provider": "deepseek-v4-flash"
+  },
+  "stopCondition": "STOP is admissible only when the Agent states a current causal research target, enumerates remaining live alternatives, and asserts that no currently available unobserved Turn window is expected to distinguish an alternative strongly enough to change that target; otherwise it must request a discriminating Turn. The experiment never stops on confidence alone.",
+  "falsifier": "The chosen policy is not supported if it usually consumes nearly the full trajectory, has false-early-stop rate above 0.25 on stable-reference cases, performs worse than matched random at the same unique-window count without compensating closed-loop savings, or systematically misses mechanically tagged decision-relevant event classes that change the full-evidence target."
+}

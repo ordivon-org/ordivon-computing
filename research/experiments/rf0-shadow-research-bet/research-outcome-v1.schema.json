@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/research/research-outcome-v1.schema.json",
+  "title": "Ordivon ResearchOutcome v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "betId",
+    "status",
+    "acceptedEvidence",
+    "actualClosedLoopCost",
+    "frontierDelta",
+    "predictionError",
+    "worldModelUpdate",
+    "operatorPriorUpdate"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "kind": {"const": "ordivon.computing.research-outcome"},
+    "betId": {"type": "string", "minLength": 1},
+    "status": {"enum": ["supported", "falsified", "mixed", "inconclusive"]},
+    "acceptedEvidence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "actualClosedLoopCost": {"type": "object", "minProperties": 1},
+    "frontierDelta": {"type": "string", "minLength": 1},
+    "predictionError": {"type": "string", "minLength": 1},
+    "worldModelUpdate": {"type": "string", "minLength": 1},
+    "operatorPriorUpdate": {"type": "string", "minLength": 1}
+  }
+}

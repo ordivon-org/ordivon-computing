@@ -1,0 +1,117 @@
+{
+  "eventClassCoverage": 1.0,
+  "eventClassesAvailable": [
+    "failure-spike",
+    "information-gain",
+    "reactor-threshold-crossing"
+  ],
+  "eventClassesObserved": [
+    "failure-spike",
+    "information-gain",
+    "reactor-threshold-crossing"
+  ],
+  "forcedByEvidenceExhaustion": true,
+  "initialContextBytes": 3495,
+  "observationBytes": 46562,
+  "observationRequests": 6,
+  "redundantObservationRequests": 0,
+  "result": {
+    "citedTurns": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "liveAlternatives": [
+      "repeated-low-information-failure",
+      "survival-spatial-pressure"
+    ],
+    "noFurtherDiscriminator": "All 6 turn windows have been observed. The pattern is unambiguous: the agent has the knowledge and the route available but repeatedly selects guard:command-deck (no_effect) instead of moving toward the hive. No unobserved turn remains that could change the bounded target.",
+    "parallelCallCountAtStop": 1,
+    "rationale": "Across all 6 turns, the rescue team has full knowledge of the map (command-center, maintenance, medical-bay, power-junction, reactor), has a known contact (swarm-drone-one at maintenance-entry), and has the intended aggressive objective (eliminate-hive-alpha). Yet from turn 2 onward, all three rescue actors (engineer-imani, medic-reyes, security-chen) repeatedly select guard:command-deck every single turn, producing only \"no_effect\" results because no hostile movement triggers in their zone. The hive-alpha and swarm drones are moving through other zones (life-entry, life-duct, maintenance-console) and are repeatedly contested by zone-capacity, but the rescue team never moves to intercept or engage them. The affordance to move toward the hive is clearly available and legible (they moved successfully in turns 0-1 to command-deck, and the map/contact info is known), yet the agent chooses to sit on guard at command-deck for 4 consecutive turns, never advancing toward the hive, civilians, or research core. This is not an information bottleneck (knowledge is already revealed), not a survival/spatial pressure block (all actors at full health, no hostile pressure in their zone, reactor heat is a passive drain but not blocking movement), and not a world-mechanic failure (movement works fine when attempted). The failure is the agent's repeated poor policy choice to hold guard at command-deck instead of exploiting the available aggressive route.",
+    "researchTarget": "local-policy-choice"
+  },
+  "trace": [
+    {
+      "calls": [
+        {
+          "arguments": {
+            "discriminates": "Initial information-gain turn to understand what the agent learns at the start and what actions are available.",
+            "turnSequence": 0
+          },
+          "id": "call_00_mrC2qLnZ9x2HSOxKgkY77108",
+          "name": "observe_turn"
+        },
+        {
+          "arguments": {
+            "discriminates": "First failure-spike turn to understand what goes wrong early.",
+            "turnSequence": 1
+          },
+          "id": "call_01_u4vixSjmD7Syl1GTsyeK8482",
+          "name": "observe_turn"
+        }
+      ],
+      "round": 0
+    },
+    {
+      "calls": [
+        {
+          "arguments": {
+            "discriminates": "Turn 2 has reactor-threshold-crossing and failure-spike. Need to see if the zone capacity contestation continues and whether reactor heat becomes a blocking factor.",
+            "turnSequence": 2
+          },
+          "id": "call_00_md0XYoUZsdMLUaJ5oezf5685",
+          "name": "observe_turn"
+        },
+        {
+          "arguments": {
+            "discriminates": "Turn 3 failure-spike to see if the pattern of contested moves continues or if the agent changes strategy.",
+            "turnSequence": 3
+          },
+          "id": "call_01_LjDFKK5sSD0HxfZm9Pud3243",
+          "name": "observe_turn"
+        }
+      ],
+      "round": 1
+    },
+    {
+      "calls": [
+        {
+          "arguments": {
+            "discriminates": "Turn 4 failure-spike to see if the agent continues guarding at command-deck while reactor heat approaches critical, or if it finally attempts to move/engage.",
+            "turnSequence": 4
+          },
+          "id": "call_00_1KqovWHgjb3H6PLu6AFg5998",
+          "name": "observe_turn"
+        },
+        {
+          "arguments": {
+            "discriminates": "Turn 5 final failure-spike to see the terminal state and whether the agent ever engages the hive or rescues civilians.",
+            "turnSequence": 5
+          },
+          "id": "call_01_HXJ3GI6GH4h90OL6Te8Z8729",
+          "name": "observe_turn"
+        }
+      ],
+      "round": 2
+    }
+  ],
+  "uniqueObservedCount": 6,
+  "uniqueObservedTurns": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "usage": {
+    "elapsedMs": 15373,
+    "inputTokens": 37273,
+    "outputTokens": 962,
+    "totalTokens": 38235,
+    "transportRetries": 0
+  }
+}

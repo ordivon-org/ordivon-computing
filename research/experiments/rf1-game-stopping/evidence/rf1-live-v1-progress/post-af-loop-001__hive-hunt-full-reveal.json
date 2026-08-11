@@ -1,0 +1,27 @@
+{
+  "contextBytes": 48842,
+  "result": {
+    "citedTurns": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "liveAlternatives": [
+      "repeated-low-information-failure",
+      "information-route-bottleneck"
+    ],
+    "parallelCallCount": 1,
+    "rationale": "The rescue team is pinned at command-deck for the entire trajectory. After turn 0, all three rescue actors (engineer-imani, medic-reyes, security-chen) remain in command-deck and repeatedly issue guard::command-deck intents (turns 2-5) that all resolve to no_effect (no_hostile_movement_triggered). Meanwhile, the intended aggressive objective (eliminate-hive-alpha) is never engaged: the only attack in the whole run is pirate-captain-veyra's scatter-blast, which is invalidated (target_out_of_range_after_movement). The rescue team's movement attempts to junction-cover in turn 1 are all contested (target_zone_capacity_lost), blocking the route toward the reactor/hive. Simultaneously, reactor-heat climbs monotonically 62→70→78→86→94→100 (hitting the 100 threshold at turn 4), oxygen drains 68→42, and battery drains 48→36, while no objective progresses (all at 0). The causal bottleneck is spatial/capacity pressure: the team cannot leave command-deck (capacity contestation) and cannot reach the hive, so hostile pressure and position block the useful affordance (engaging Hive Alpha) from becoming actionable.",
+    "researchTarget": "survival-spatial-pressure"
+  },
+  "usage": {
+    "elapsedMs": 5944,
+    "inputTokens": 15882,
+    "model": "deepseek-v4-flash",
+    "outputTokens": 393,
+    "totalTokens": 16275,
+    "transportRetries": 0
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/research/research-bet-v1.schema.json",
+  "title": "Ordivon ResearchBet v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "kind",
+    "betId",
+    "status",
+    "shadowOnly",
+    "question",
+    "ownerEvidence",
+    "evidenceTopologyHypothesis",
+    "chosenOperatorPolicy",
+    "alternativeOperatorPolicies",
+    "prediction",
+    "budget",
+    "stopCondition",
+    "falsifier"
+  ],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "kind": {"const": "ordivon.computing.research-bet"},
+    "betId": {"type": "string", "minLength": 1},
+    "status": {"const": "frozen-before-outcome"},
+    "shadowOnly": {"const": true},
+    "question": {"type": "string", "minLength": 1},
+    "ownerEvidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["owner", "identity", "role"],
+        "properties": {
+          "owner": {"type": "string"},
+          "identity": {"type": "string"},
+          "role": {"type": "string"}
+        }
+      }
+    },
+    "evidenceTopologyHypothesis": {"type": "string", "minLength": 1},
+    "chosenOperatorPolicy": {"type": "string", "minLength": 1},
+    "alternativeOperatorPolicies": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "prediction": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["frontierChange"],
+      "properties": {"frontierChange": {"type": "string", "minLength": 1}}
+    },
+    "budget": {"type": "object", "minProperties": 1},
+    "stopCondition": {"type": "string", "minLength": 1},
+    "falsifier": {"type": "string", "minLength": 1}
+  }
+}

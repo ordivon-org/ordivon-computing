@@ -1,0 +1,119 @@
+{
+  "eventClassCoverage": 1.0,
+  "eventClassesAvailable": [
+    "failure-spike",
+    "information-gain",
+    "non-capacity-failure",
+    "reactor-threshold-crossing"
+  ],
+  "eventClassesObserved": [
+    "failure-spike",
+    "information-gain",
+    "non-capacity-failure",
+    "reactor-threshold-crossing"
+  ],
+  "forcedByEvidenceExhaustion": true,
+  "initialContextBytes": 3464,
+  "observationBytes": 45738,
+  "observationRequests": 6,
+  "redundantObservationRequests": 0,
+  "result": {
+    "citedTurns": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "liveAlternatives": [
+      "local-policy-choice",
+      "information-route-bottleneck"
+    ],
+    "noFurtherDiscriminator": "All 6 turns have been observed. The pattern is consistent: the team is capacity-blocked at command-deck from turn 1 onward, never successfully moves again, and never engages the hive. No unobserved turn remains that could discriminate between the alternatives — the evidence is exhausted.",
+    "parallelCallCountAtStop": 1,
+    "rationale": "The rescue team is pinned at command-deck for all 6 turns. In turn 1, both engineer-imani and medic-reyes attempt to move to junction-cover but are contested with \"target_zone_capacity_lost\" — the zone they need to reach is capacity-blocked. After that, the team never attempts another move; all three actors repeatedly issue \"guard:command-deck\" (no_effect, no_hostile_movement_triggered) from turns 2-5. The hive-alpha moves freely (life-console, life-duct, life-entry) while the team is stuck. Meanwhile reactor-heat climbs 62→100, oxygen 68→42, battery 48→36 — a mounting survival/spatial pressure clock. The team's only attack attempt (pirate-captain-veyra's scatter-blast) was invalidated as target_out_of_range_after_movement, and the rescue team itself never attacks at all. The core bottleneck is that the actors cannot reach the zones where the hive/affordances are located because zone capacity blocks their movement, and the resulting spatial pressure (heat/oxygen drain) compounds. This is a survival-spatial-pressure pattern: hostile/zone-capacity pressure blocks the actor before the useful affordance (engaging hive-alpha, reaching junction-cover) becomes actionable.",
+    "researchTarget": "survival-spatial-pressure"
+  },
+  "trace": [
+    {
+      "calls": [
+        {
+          "arguments": {
+            "discriminates": "Initial information-gain turn - establishing what the agent learns at start",
+            "turnSequence": 0
+          },
+          "id": "call_00_sLrORZ1gxJYb6yG9UG0y0793",
+          "name": "observe_turn"
+        },
+        {
+          "arguments": {
+            "discriminates": "Failure-spike turn - what went wrong early",
+            "turnSequence": 1
+          },
+          "id": "call_01_zGQMF4oGxc4GmSuu4mNd8970",
+          "name": "observe_turn"
+        }
+      ],
+      "round": 0
+    },
+    {
+      "calls": [
+        {
+          "arguments": {
+            "discriminates": "Reactor threshold crossing - what happens as heat rises and whether it blocks action",
+            "turnSequence": 2
+          },
+          "id": "call_00_ilIfeUhLgyRWNgbM2XRD1011",
+          "name": "observe_turn"
+        },
+        {
+          "arguments": {
+            "discriminates": "Non-capacity failure - what kind of failure occurs beyond capacity contestation",
+            "turnSequence": 3
+          },
+          "id": "call_01_aCy76kSiqn1P4FJ9iQMx1579",
+          "name": "observe_turn"
+        }
+      ],
+      "round": 1
+    },
+    {
+      "calls": [
+        {
+          "arguments": {
+            "discriminates": "Whether the team continues to be stuck at command-deck and whether any new action becomes available",
+            "turnSequence": 4
+          },
+          "id": "call_00_IyjJL35Q2biMK26NmG4O2976",
+          "name": "observe_turn"
+        },
+        {
+          "arguments": {
+            "discriminates": "Final turn - whether the team ever breaks out of the guard loop or engages the hive",
+            "turnSequence": 5
+          },
+          "id": "call_01_S224Kmm63SocW5hRM40j0885",
+          "name": "observe_turn"
+        }
+      ],
+      "round": 2
+    }
+  ],
+  "uniqueObservedCount": 6,
+  "uniqueObservedTurns": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "usage": {
+    "elapsedMs": 14624,
+    "inputTokens": 36632,
+    "outputTokens": 878,
+    "totalTokens": 37510,
+    "transportRetries": 0
+  }
+}

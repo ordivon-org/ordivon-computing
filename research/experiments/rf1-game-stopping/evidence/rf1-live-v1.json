@@ -1,0 +1,2487 @@
+{
+  "aggregate": {
+    "ambiguousReferenceCases": 0,
+    "cases": 8,
+    "falseEarlyStopRate": 0.0,
+    "falseEarlyStops": 0,
+    "fullReferenceTokens": 529070,
+    "matchedRandomAgreement": 8,
+    "matchedRandomAgreementRate": 1.0,
+    "matchedRandomTokens": 176333,
+    "meanProgressiveEventCoverage": 1.0,
+    "meanProgressiveUniqueWindowFraction": 1.0,
+    "meanRandomEventCoverage": 1.0,
+    "progressiveAgreement": 6,
+    "progressiveAgreementRate": 0.75,
+    "progressiveForcedByEvidenceExhaustion": 8,
+    "progressiveRevealTokens": 176551,
+    "progressiveTokens": 406388,
+    "stableReferenceCases": 8
+  },
+  "cases": [
+    {
+      "caseId": "pre-af-loop-001:rescue-cautious",
+      "counterfactualFullReveal": {
+        "contextBytes": 77257,
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "local-policy-choice"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The rescue-cautious profile is blocked by survival and spatial pressure rather than information or policy. The team repeatedly loses health to hostile reactions (Raider Holt scatter-blast hits Medic Reyes -21 and Engineer Imani -29/-25) and to the reactor environment (reactor-heat climbs 62→100, dealing 10 damage/turn to anyone in reactor zones). Engineer Imani drops from 100 to 26 health by turn 6, and Security Chen from 110 to 80, while reactor-heat hits 100 (max). Critically, the medic escorts civilian-sato but is repeatedly contested on the extraction route: turn 4 medic-reyes move:junction-cover is contested with target_zone_capacity_lost, and the escort path toward rescue-airlock is blocked by pirate-captain-veyra and pirate-raider-holt occupying junction-cover. Meanwhile the team funnels through reactor-entry (capacity contested repeatedly, engineer-imani contested at turn 5 move:reactor-console) while taking environmental reactor damage. The core bottleneck is that the actors cannot reach/use the rescue affordance because hostile occupancy and zone capacity plus reactor environmental damage block the spatial route and drain health before extraction can complete. This is survival-spatial-pressure: health, position, capacity, and hostile pressure block the actor before the useful affordance (extracting the escorted civilian) becomes actionable.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "usage": {
+          "elapsedMs": 7314,
+          "inputTokens": 24757,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 408,
+          "totalTokens": 25165,
+          "transportRetries": 0
+        }
+      },
+      "fullReference": {
+        "referenceTarget": "survival-spatial-pressure",
+        "referenceVotes": 3,
+        "stable": true,
+        "targets": [
+          "survival-spatial-pressure",
+          "survival-spatial-pressure",
+          "survival-spatial-pressure"
+        ],
+        "trials": [
+          {
+            "contextBytes": 77197,
+            "result": {
+              "citedTurns": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "repeated-low-information-failure"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows the rescue team repeatedly funneling through the power-junction/reactor corridor where Raider Holt's scatter-blast and the reactor-instability hazard (10 dmg/turn at reactor zones) bleed the team. Engineer Imani is repeatedly attacked by Raider Holt (29 dmg turn 2, 25 dmg turn 3) and takes reactor environment damage (10 dmg turns 4, 5), dropping from 100 to 26 health. Security Chen and Imani both take reactor environment damage while positioned at reactor-entry. Meanwhile Medic Reyes successfully escorts civilian-sato but is blocked from reaching rescue-airlock by zone capacity (turn 4 contested target_zone_capacity_lost) and pirate blockers. The core bottleneck is that health/position/capacity pressure (reactor hazard, pirate overwatch, zone capacity) prevents the team from converting the recovered civilian into an extraction, and the reactor-heat climbs to 100 with cooling toggling off. This is a survival/spatial-pressure blockage rather than an information or local-policy problem.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5878,
+              "inputTokens": 24744,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 339,
+              "totalTokens": 25083,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 77197,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "repeated-low-information-failure",
+                "information-route-bottleneck"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows a clear pattern where the rescue team's specialists are repeatedly blocked and degraded by hostile and environmental pressure before they can reach the useful affordance (rescuing civilians). Engineer Imani is repeatedly attacked by Raider Holt's scatter-blast (turns 2 and 3, taking 29 and 25 damage), and both Imani and Security Chen take 10 damage per turn from the reactor environment once they enter reactor-entry/reactor-console zones (turns 2-5). Medic Reyes is also attacked by Raider Holt (turn 1, 21 damage) and then contested on target_zone_capacity_lost when trying to move with the escorted civilian Sato (turn 4). The reactor-heat climbs monotonically 62→100 and the reactor-instability hazard damages anyone in the reactor room, while the team's split formation leaves specialists exposed. The core bottleneck is that health/position/capacity/hostile pressure (Raider Holt's overwatch, reactor hazard, zone capacity) blocks the actors before the rescue affordance becomes actionable — Imani is at 26 health by turn 6, and the rescue objective remains at 0/2. This is survival-spatial-pressure rather than an information bottleneck (information was gained early via orbital-scan) or a local-policy-choice (the actors are attempting the correct rescue actions but are physically blocked).",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 6010,
+              "inputTokens": 24744,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 406,
+              "totalTokens": 25150,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 77197,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "repeated-low-information-failure"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows the rescue team repeatedly losing health and being blocked by hostile/environmental pressure before any rescue affordance becomes actionable. Engineer Imani is repeatedly attacked by Raider Holt's scatter-blast (turns 2, 3) dropping from 100→71→46, and then takes reactor environment damage (turns 4, 5) dropping to 36→26. Medic Reyes takes 21 damage from Raider Holt (turn 1). Security Chen takes repeated reactor environment damage (turns 2, 3, 4) dropping to 80. The reactor-heat climbs monotonically 62→70→78→86→94→100, crossing the threshold at turn 2 and saturating at 100 by turn 4, causing continuous environment:reactor damage to anyone in the reactor room. Meanwhile the rescue objective stays at 0/2: civilian-kade is never reached (stale contact since turn 0), and medic-reyes' escort of civilian-sato is contested at turn 4 (target_zone_capacity_lost) and the extraction route to rescue-airlock is blocked by pirates (pirate-captain-veyra, pirate-raider-holt listed as blockers). The team's health, zone capacity contestation, and hostile pressure (Raider Holt's overwatch/scatter-blast plus reactor environment hazard) block the actors before the rescue affordance becomes actionable. This is a survival/spatial-pressure bottleneck rather than an information problem (information is abundant by turn 2) or a local policy choice (the affordance is not locally actionable because of capacity/health pressure).",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 6340,
+              "inputTokens": 24744,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 461,
+              "totalTokens": 25205,
+              "transportRetries": 0
+            }
+          }
+        ],
+        "usage": {
+          "elapsedMs": 18228,
+          "inputTokens": 74232,
+          "outputTokens": 1206,
+          "totalTokens": 75438,
+          "transportRetries": 0
+        }
+      },
+      "gameRevision": "269d8cf8362730e014c79ccdfa8f748c1b3e0bff",
+      "matchedRandom": {
+        "contextBytes": 77196,
+        "eventClassCoverage": 1.0,
+        "eventClassesObserved": [
+          "failure-spike",
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "repeated-low-information-failure",
+            "information-route-bottleneck"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The trajectory shows the rescue team repeatedly losing health and being blocked by hostile/zone-capacity pressure before the rescue affordance becomes actionable. Engineer Imani is repeatedly attacked by Raider Holt (turns 2, 3) dropping from 100 to 46, then takes reactor environment damage (turns 4, 5) down to 26. Medic Reyes is attacked (turn 1, -21) and then contested on the escort route (turn 4, target_zone_capacity_lost). Security Chen takes reactor environment damage repeatedly (turns 2,3,4). The reactor-heat climbs 62→100 across turns, and reactor-entry/reactor-console zones deal 10 damage per turn to anyone present. The team's own movement repeatedly routes through the reactor corridor (engineer to reactor-entry, security to reactor-entry, engineer to reactor-console) which is a hostile environment, while the actual rescue objective (civilian-kade at life-console) remains unreached. The primary blocker is survival/spatial pressure: hostile scatter-blast attacks plus reactor environment damage plus zone-capacity contestation prevent the team from reaching and executing the rescue affordance. This is not a local-policy-choice (the affordance is not locally available/legible — the team is physically blocked and damaged), not an information bottleneck (knowledge is well-revealed), and not a world-mechanic affordance failure (the mechanics do expose the rescue affordance; the team just can't survive/reach it).",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "sampledTurnIndexes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 7056,
+          "inputTokens": 24742,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 437,
+          "totalTokens": 25179,
+          "transportRetries": 0
+        }
+      },
+      "metrics": {
+        "falseEarlyStop": false,
+        "progressiveAgreementWithReference": true,
+        "progressiveStableAfterFullReveal": true,
+        "progressiveUniqueWindowFraction": 1.0,
+        "progressiveWindowsSaved": 0,
+        "randomAgreementWithReference": true
+      },
+      "packetDigest": "sha256:39901464dcd8f2015744ac2160074bb3a277ce784a8c3aabde8c43fccd7ce65e",
+      "packetPath": "inputs/baseline-269d8cf.json",
+      "profileId": "rescue-cautious",
+      "progressive": {
+        "eventClassCoverage": 1.0,
+        "eventClassesAvailable": [
+          "failure-spike",
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "eventClassesObserved": [
+          "failure-spike",
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "forcedByEvidenceExhaustion": true,
+        "initialContextBytes": 3633,
+        "observationBytes": 73984,
+        "observationRequests": 6,
+        "redundantObservationRequests": 0,
+        "result": {
+          "citedTurns": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "local-policy-choice"
+          ],
+          "noFurtherDiscriminator": "All 6 turn windows have been observed; no unobserved turns remain to discriminate between alternatives. The evidence consistently shows hostile/environmental pressure (Raider Holt attacks, reactor heat damage, zone capacity contests) blocking the rescue route, which is the dominant causal bottleneck.",
+          "parallelCallCountAtStop": 1,
+          "rationale": "Across all 6 observed turns, the rescue team's core problem is that hostile actors (pirate Raider Holt and Captain Veyra) and the reactor hazard (reactor-instability, heat climbing 62→100) continuously block and damage the team before the rescue affordance becomes actionable. The team successfully located both civilians (Kade at life-console, Sato at med-ward) and even bound Sato to Medic Reyes (turn 3), but the extraction route to rescue-airlock is repeatedly contested: Medic Reyes' move to junction-cover was contested on turn 4 (target_zone_capacity_lost), and Engineer Imani's moves toward life-console were repeatedly contested (turn 5 reactor-console capacity lost). Meanwhile Engineer Imani took 29+25+10+10 damage from Raider Holt and reactor environment, dropping from 100 to 26 health, and reactor heat hit 100 (max) by turn 4. The team is being worn down by hostile pressure and environmental hazard before it can complete the rescue. This is not a knowledge/route bottleneck (routes and civilians are known), not a local-policy-choice (the team is actively attempting the correct rescue actions), and not a world-mechanic-affordance failure (the rescue mechanic works — Sato was successfully bound). The blocking factor is survival/spatial pressure: hostile actors and reactor hazard prevent the team from reaching and extracting the civilians.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "trace": [
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Initial state and information-gain context",
+                  "turnSequence": 0
+                },
+                "id": "call_00_4gOkS80apAhJb6TeH4BP3932",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Major health loss context",
+                  "turnSequence": 1
+                },
+                "id": "call_01_zFqd8eaApTrflG5Enkjq0430",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 0
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Major health loss and reactor threshold crossing",
+                  "turnSequence": 2
+                },
+                "id": "call_00_P80eNCAnDV587Ei0B3Zc2962",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Objective-relevant action and health loss",
+                  "turnSequence": 3
+                },
+                "id": "call_01_8XjVq11d9MVjoPKaNiYT2513",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 1
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Failure spike and non-capacity failure",
+                  "turnSequence": 4
+                },
+                "id": "call_00_R371JKKerbn9eOb0WHUY0367",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Final turn state",
+                  "turnSequence": 5
+                },
+                "id": "call_01_btYU4lLAnz2jpKD12Dwe1616",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 2
+          }
+        ],
+        "uniqueObservedCount": 6,
+        "uniqueObservedTurns": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 15171,
+          "inputTokens": 52719,
+          "outputTokens": 840,
+          "totalTokens": 53559,
+          "transportRetries": 0
+        }
+      },
+      "variant": "pre-af-loop-001"
+    },
+    {
+      "caseId": "pre-af-loop-001:rescue-balanced",
+      "counterfactualFullReveal": {
+        "contextBytes": 78761,
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "world-mechanic-affordance"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The rescue team is being progressively worn down by spatial/hostile pressure before any rescue affordance becomes actionable. Engineer Imani drops from 100→71→46→36→26→16 health across turns 1-5, repeatedly taking scatter-blast damage from Raider Holt (29, 25) and reactor-instability environmental damage (10/turn) while moving through the reactor corridor. Security Chen also bleeds health (110→100→90→80→55→45) from reactor environment and Raider Holt. Meanwhile the rescue objective stays at 0/2: civilian-kade at life-console is never reached (Imani keeps being routed through reactor instead), and medic-reyes escorts civilian-sato but is repeatedly contested on zone capacity (turn 4 medic-reyes contested target_zone_capacity_lost moving to junction-cover). The reactor-heat climbs 62→70→78→86→94→100, crossing the threshold at turn 4, and the team is pinned in the reactor area taking environmental damage each turn. The core blocker is that hostile spatial pressure (Raider Holt's scatter-blast reach, reactor-instability hazard, zone capacity contestation) prevents the actors from reaching and executing the rescue affordance before health is drained. This is a survival-spatial-pressure bottleneck rather than an information or policy problem: the routes and contacts are known (civilian-kade and civilian-sato both located), but the team cannot survive the spatial gauntlet to act on them.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "usage": {
+          "elapsedMs": 6423,
+          "inputTokens": 24890,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 434,
+          "totalTokens": 25324,
+          "transportRetries": 0
+        }
+      },
+      "fullReference": {
+        "referenceTarget": "survival-spatial-pressure",
+        "referenceVotes": 3,
+        "stable": true,
+        "targets": [
+          "survival-spatial-pressure",
+          "survival-spatial-pressure",
+          "survival-spatial-pressure"
+        ],
+        "trials": [
+          {
+            "contextBytes": 78701,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "local-policy-choice"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows the rescue team repeatedly failing to reach/act on the two civilians (Kade at life-console, Sato at med-ward) because of spatial and hostile pressure. Engineer Imani is repeatedly damaged by Raider Holt's scatter-blast (100→71→46) and by the reactor environment hazard (46→36→26→16), while reactor-heat climbs 62→70→78→86→94→100. Medic Reyes successfully escorts Sato at turn 3, but then at turn 4 his move to junction-cover is contested (target_zone_capacity_lost), blocking the extraction route. Security Chen is also drained by reactor environment damage (110→100→90→80→55→45). The core bottleneck is that hostile/environmental spatial pressure (Raider Holt's attacks, reactor-instability hazard, zone capacity contestation) prevents the actors from converting the available rescue affordances (both civilians located, Sato escorted) into extraction progress. This is a survival/spatial-pressure bottleneck rather than an information or policy problem: the civilians are known and reachable, but health, position, and capacity pressure block the useful action.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5946,
+              "inputTokens": 24877,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 360,
+              "totalTokens": 25237,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 78701,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "repeated-low-information-failure",
+                "world-mechanic-affordance"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The rescue objective (0/2 civilians) never progresses across all 6 turns despite the team repeatedly reaching relevant zones. The dominant causal blocker is survival/spatial pressure: Engineer Imani is repeatedly damaged by Raider Holt's scatter-blast (100→71→46) and by the reactor environment hazard (46→36→26→16), dropping to 16/100 health by turn 6. Reactor heat climbs monotonically 62→70→78→86→94→100, crossing the threshold and dealing 10 damage per turn to anyone in reactor zones (Imani, Chen, Veyra). Meanwhile the medic escorting Sato is repeatedly contested on zone capacity (turn 4 medic-reyes contested target_zone_capacity_lost), and the team's split formation leaves Imani exposed in the reactor corridor while Chen is pinned at reactor-entry. The useful affordance (rescuing civilians) is locally legible and repeatedly attempted (recover-civilian responsibilities on kade and sato every turn), but hostile spatial pressure and health attrition block the actors before the rescue can complete. This is not an information bottleneck (map is fully revealed by turn 2) nor a local-policy-choice failure (the agent consistently pursues the correct objective). The bottleneck is survival/spatial pressure: health, reactor hazard, and zone capacity prevent the rescue from becoming actionable.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 6856,
+              "inputTokens": 24877,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 405,
+              "totalTokens": 25282,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 78701,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "local-policy-choice"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows a persistent pattern where the rescue team's health and position are eroded by environmental reactor-heat damage and hostile pirate pressure before the civilian rescue affordance becomes actionable. Engineer Imani drops from 100 to 16 health across turns 1-5, taking repeated scatter-blast hits from Raider Holt (29, 25) plus reactor-environment damage (10 each turn in reactor zones). Security Chen also takes reactor damage and Raider Holt scatter-blast (25). Meanwhile, the rescue objective (rescue-two-civilians) remains at 0/2 through all 6 turns. The key causal bottleneck is that the team is forced through/into reactor zones (reactor-entry, reactor-console) where reactor-instability hazard deals 10 damage/turn and where pirates (Hacker Nyx, Captain Veyra) are positioned, while the actual civilians (Kade at life-console, Sato at med-ward) are elsewhere. Medic Reyes successfully escorts Sato at turn 3 but then the escort route to rescue-airlock is blocked by Raider Holt (blockerActorIds: pirate-raider-holt) and Medic's move to junction-cover is contested (target_zone_capacity_lost). The spatial pressure (reactor hazard + pirate positioning + zone capacity) prevents the team from converting the available rescue affordance into progress. This is not a knowledge bottleneck (civilians are located and confirmed) nor a local-policy failure (the agent repeatedly attempts rescue-relevant actions), but rather hostile/environmental spatial pressure blocking the useful affordance.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 6829,
+              "inputTokens": 24877,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 444,
+              "totalTokens": 25321,
+              "transportRetries": 0
+            }
+          }
+        ],
+        "usage": {
+          "elapsedMs": 19631,
+          "inputTokens": 74631,
+          "outputTokens": 1209,
+          "totalTokens": 75840,
+          "transportRetries": 0
+        }
+      },
+      "gameRevision": "269d8cf8362730e014c79ccdfa8f748c1b3e0bff",
+      "matchedRandom": {
+        "contextBytes": 78700,
+        "eventClassCoverage": 1.0,
+        "eventClassesObserved": [
+          "failure-spike",
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "world-mechanic-affordance"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The rescue team repeatedly fails to make progress on the primary objective (rescue-two-civilians stays at 0/2 through all 6 turns) while suffering sustained attrition. The dominant causal bottleneck is survival/spatial pressure: Engineer Imani is repeatedly damaged by Raider Holt's scatter-blast (100→71→46) and by the reactor environment hazard (46→36→26→16), dropping to 16/100 health. Security Chen also takes reactor environment damage (110→100→90→80) and then 25 damage from Raider Holt (80→55) plus reactor damage (55→45). Meanwhile the reactor-heat climbs monotonically 62→70→78→86→94→100, crossing the threshold at turn 4 and staying maxed. The team's movement repeatedly routes through the reactor zone (reactor-entry, reactor-console) which is the source of the environmental damage, and the medic's escort of civilian-sato is contested at turn 4 (target_zone_capacity_lost) blocking extraction. The intended rescue affordance (recover civilian) is never realized because hostile pressure (Raider Holt attacks) and environmental reactor hazard drain health faster than the team can act, and the reactor-heat threshold crossing at turn 2/4 compounds the pressure. This is a survival/spatial-pressure bottleneck rather than a local-policy or information problem: the civilians are known (kade at life-console, sato at med-ward), routes are known, but hostile and environmental pressure blocks the actors before the rescue affordance becomes actionable.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "sampledTurnIndexes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 6434,
+          "inputTokens": 24875,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 449,
+          "totalTokens": 25324,
+          "transportRetries": 0
+        }
+      },
+      "metrics": {
+        "falseEarlyStop": false,
+        "progressiveAgreementWithReference": true,
+        "progressiveStableAfterFullReveal": true,
+        "progressiveUniqueWindowFraction": 1.0,
+        "progressiveWindowsSaved": 0,
+        "randomAgreementWithReference": true
+      },
+      "packetDigest": "sha256:39901464dcd8f2015744ac2160074bb3a277ce784a8c3aabde8c43fccd7ce65e",
+      "packetPath": "inputs/baseline-269d8cf.json",
+      "profileId": "rescue-balanced",
+      "progressive": {
+        "eventClassCoverage": 1.0,
+        "eventClassesAvailable": [
+          "failure-spike",
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "eventClassesObserved": [
+          "failure-spike",
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "forcedByEvidenceExhaustion": true,
+        "initialContextBytes": 3661,
+        "observationBytes": 75460,
+        "observationRequests": 6,
+        "redundantObservationRequests": 0,
+        "result": {
+          "citedTurns": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "world-mechanic-affordance",
+            "information-route-bottleneck"
+          ],
+          "noFurtherDiscriminator": "All 6 turn windows have been observed. The reactor heat escalation (62→100) and its per-turn environment damage, combined with pirate attacks on Imani and zone capacity contention blocking Sato's extraction, consistently prevent the rescue from completing. No unobserved turn remains to further discriminate between survival-spatial-pressure and world-mechanic-affordance; the evidence strongly favors survival-spatial-pressure as the primary blocker since the affordances (civilians located, escort bound, repair available) are all present but the team is being worn down and blocked before they can execute.",
+          "parallelCallCountAtStop": 1,
+          "rationale": "Across all 6 turns, the rescue team never makes progress on the primary objective (rescue-two-civilians stays at 0/2) despite the civilians being located and reachable. The dominant causal blocker is survival/spatial pressure: (1) Engineer Imani is repeatedly attacked by Raider Holt (29 + 25 damage) and takes reactor-environment damage every turn he is in the reactor area (10/turn), dropping from 100 to 16 health by turn 6. (2) Reactor heat climbs monotonically from 62 to 100, and once it crosses 86+ the environment deals 10 damage per turn to anyone in the reactor room, which includes both Imani and Security Chen. (3) Medic Reyes successfully escorts civilian Sato at turn 3 but then gets contested at turn 4 when trying to move Sato toward the rescue airlock (target_zone_capacity_lost), and by turn 5-6 Sato is still only at med-console, not extracted. (4) The team's retreat threshold is 0.3 health; Imani at 16/100 (0.16) and Chen at 45/110 (0.41) are at or near the retreat threshold, meaning the team is being forced to disengage before completing the rescue. The reactor heat escalation is a world-mechanic pressure that blocks the team from reaching life-console (where civilian Kade is) because the route passes through the reactor area, and the pirate Raider Holt keeps intercepting Imani. The core issue is that health/position/hostile pressure (reactor environment damage + pirate attacks + zone capacity contention) prevents the actors from completing the rescue affordance that is otherwise available and legible.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "trace": [
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Initial state and information-gain context",
+                  "turnSequence": 0
+                },
+                "id": "call_00_HZxypnYuPtkOA2qTxTPi5756",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Major health loss and information gain",
+                  "turnSequence": 1
+                },
+                "id": "call_01_Rhqt4o4clxfCUQCgOiEr9410",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 0
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Reactor threshold crossing and continued health loss",
+                  "turnSequence": 2
+                },
+                "id": "call_00_MRryfPwD07KSEqD64A7a2285",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Failure spike and objective-relevant action",
+                  "turnSequence": 3
+                },
+                "id": "call_01_2hEuY1fiGNkF8u7eQUlM2690",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 1
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Continued health loss and whether rescue succeeds or fails",
+                  "turnSequence": 4
+                },
+                "id": "call_00_Wp94rUnLSEttQhJ7yUMw6621",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Final turn outcome and whether rescue completes",
+                  "turnSequence": 5
+                },
+                "id": "call_01_T5rB7t3BVdwhxojAzHVi4280",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 2
+          }
+        ],
+        "uniqueObservedCount": 6,
+        "uniqueObservedTurns": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 17521,
+          "inputTokens": 53920,
+          "outputTokens": 979,
+          "totalTokens": 54899,
+          "transportRetries": 0
+        }
+      },
+      "variant": "pre-af-loop-001"
+    },
+    {
+      "caseId": "pre-af-loop-001:core-aggressive",
+      "counterfactualFullReveal": {
+        "contextBytes": 66434,
+        "result": {
+          "citedTurns": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "repeated-low-information-failure",
+            "world-mechanic-affordance"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The trajectory shows the team successfully reaches the reactor, picks up the research-core (turn 2), and even repairs cooling to full (turn 5). The intended probe affordance (recover the research core) is realized. However, the run collapses due to sustained hostile and environmental pressure: Medic Reyes is repeatedly hit by Raider Holt's scatter-blast (25 dmg each turn, turns 2-5), dropping from 90 to 0 and dying at turn 5; all three actors take 10 dmg/turn from the reactor-instability hazard while in the reactor zone (turns 2-5); reactor-heat climbs 62→100 crossing the threshold at turn 2. The core objective remains active (progress 0) because the engineer holding the core is pinned in the reactor-console zone under environmental damage and pirate pressure, and the mandatory rescue-team-survives objective is lost when Medic Reyes dies. The bottleneck is not information (reactor, core, and contacts are all revealed by turn 2) nor local policy (the agent does exploit the affordance: pickup, field-repair, attacks all execute). The binding constraint is survival/spatial pressure — hostile scatter-blast and reactor hazard drain health faster than the team can extract, blocking the useful affordance from becoming actionable.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "usage": {
+          "elapsedMs": 6155,
+          "inputTokens": 21311,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 390,
+          "totalTokens": 21701,
+          "transportRetries": 0
+        }
+      },
+      "fullReference": {
+        "referenceTarget": "survival-spatial-pressure",
+        "referenceVotes": 3,
+        "stable": true,
+        "targets": [
+          "survival-spatial-pressure",
+          "survival-spatial-pressure",
+          "survival-spatial-pressure"
+        ],
+        "trials": [
+          {
+            "contextBytes": 66374,
+            "result": {
+              "citedTurns": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "repeated-low-information-failure",
+                "world-mechanic-affordance"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The aggressive probe successfully recovered the Research Core (Engineer Imani picked it up at turn 2), but the team was then blocked from extracting it by sustained hostile and environmental pressure. Medic Reyes was repeatedly focused by Raider Holt's scatter-blast (25 dmg at turns 2, 3, 4, 5), dropping from 90 to 0 and dying at turn 5. Meanwhile the reactor-instability hazard dealt 10 dmg/turn to Engineer Imani and Security Chen every turn they remained in the reactor zones, and reactor-heat climbed 62→100 (threshold crossing at turn 2). The engineer holding the core stayed pinned in reactor-console (never moved out to extract), and the medic was killed before any extraction could occur. This is a survival/spatial-pressure bottleneck: the useful affordance (core recovery) was achieved, but hostile focus-fire plus environmental hazard pressure blocked the team from converting it into extraction, with the medic's death at turn 5 being the decisive life-state failure.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5500,
+              "inputTokens": 21298,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 332,
+              "totalTokens": 21630,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 66374,
+            "result": {
+              "citedTurns": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "local-policy-choice",
+                "world-mechanic-affordance"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The aggressive probe successfully recovered the Research Core (Engineer Imani picked it up at turn 2) and even eliminated Hacker Nyx, but the team was blocked from extracting by sustained hostile and environmental pressure. Medic Reyes was repeatedly targeted by Raider Holt's scatter-blast (25 damage at turns 2, 3, 4, 5), dropping from 90 to 0 and dying at turn 5. Simultaneously, the reactor-instability hazard dealt 10 damage per turn to Engineer Imani and Security Chen while they remained in the reactor zones, and reactor-heat climbed 62→100 across the run. The mandatory rescue-team-survives objective was lost because Medic Reyes was left exposed in Command Deck while the team committed to the reactor objective. The causal bottleneck is that health/position/hostile pressure (Raider Holt's repeated attacks on the exposed medic, plus the reactor hazard) destroyed the team before the recovered Research Core could be extracted — the affordance (pickup) was realized but the survival/spatial pressure blocked the objective.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5182,
+              "inputTokens": 21298,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 336,
+              "totalTokens": 21634,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 66374,
+            "result": {
+              "citedTurns": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "world-mechanic-affordance",
+                "local-policy-choice"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The aggressive probe successfully reached the Research Core affordance (Engineer Imani picked up the research-core at turn 2) and even repaired Cooling to full integrity by turn 5. The causal bottleneck is not information or route formation—the core was located and acquired. Instead, the team is being destroyed by hostile and environmental pressure before the recovered core can be extracted: Medic Reyes is repeatedly hit by Raider Holt's scatter-blast (25 dmg at turns 2, 3, 4, 5) and dies at turn 5; all three actors take 10 dmg/turn from the reactor-instability hazard while standing in reactor zones; reactor-heat climbs 62→100 across the run. The team's health collapses (Imani 100→60, Chen 110→70, Reyes dead) while the core sits in Imani's inventory unextracted. This is a survival/spatial-pressure failure: hostile fire and the reactor hazard block the team before the recovered core affordance becomes actionable (extraction).",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5008,
+              "inputTokens": 21298,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 331,
+              "totalTokens": 21629,
+              "transportRetries": 0
+            }
+          }
+        ],
+        "usage": {
+          "elapsedMs": 15690,
+          "inputTokens": 63894,
+          "outputTokens": 999,
+          "totalTokens": 64893,
+          "transportRetries": 0
+        }
+      },
+      "gameRevision": "269d8cf8362730e014c79ccdfa8f748c1b3e0bff",
+      "matchedRandom": {
+        "contextBytes": 66373,
+        "eventClassCoverage": 1.0,
+        "eventClassesObserved": [
+          "failure-spike",
+          "information-gain",
+          "life-state-change",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "result": {
+          "citedTurns": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "repeated-low-information-failure",
+            "world-mechanic-affordance"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The aggressive probe successfully recovered the Research Core (Engineer Imani picked it up at turn 2 and holds it through turn 6), so the intended affordance was reached and exploited. The causal bottleneck is instead survival/spatial pressure: Medic Reyes is repeatedly exposed to Raider Holt's scatter-blast (25 dmg at turns 2, 3, 4, 5) while positioned in Command Deck, and dies at turn 5. Meanwhile the reactor-instability hazard drains 10 health/turn from Engineer Imani and Security Chen each turn they remain in the reactor zones, and reactor-heat climbs 62→100 (threshold crossing at turn 2). The team's health is being consumed by hostile pressure (Raider Holt) and environmental hazard (reactor) faster than the objective can be completed, and the mandatory rescue-team-survives objective is failed by Medic Reyes's death. This is a survival/spatial-pressure bottleneck rather than an information or affordance problem.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "sampledTurnIndexes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 5492,
+          "inputTokens": 21296,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 323,
+          "totalTokens": 21619,
+          "transportRetries": 0
+        }
+      },
+      "metrics": {
+        "falseEarlyStop": false,
+        "progressiveAgreementWithReference": true,
+        "progressiveStableAfterFullReveal": true,
+        "progressiveUniqueWindowFraction": 1.0,
+        "progressiveWindowsSaved": 0,
+        "randomAgreementWithReference": true
+      },
+      "packetDigest": "sha256:39901464dcd8f2015744ac2160074bb3a277ce784a8c3aabde8c43fccd7ce65e",
+      "packetPath": "inputs/baseline-269d8cf.json",
+      "profileId": "core-aggressive",
+      "progressive": {
+        "eventClassCoverage": 1.0,
+        "eventClassesAvailable": [
+          "failure-spike",
+          "information-gain",
+          "life-state-change",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "eventClassesObserved": [
+          "failure-spike",
+          "information-gain",
+          "life-state-change",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "forcedByEvidenceExhaustion": true,
+        "initialContextBytes": 3686,
+        "observationBytes": 63108,
+        "observationRequests": 6,
+        "redundantObservationRequests": 0,
+        "result": {
+          "citedTurns": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "local-policy-choice",
+            "world-mechanic-affordance"
+          ],
+          "noFurtherDiscriminator": "All six turn windows have been observed; the trajectory is fully exhausted. The core was successfully recovered and cooling repaired, ruling out information-route-bottleneck and world-mechanic-affordance as the primary blocker. The decisive causal factor is sustained hostile/environmental pressure (Raider Holt's repeated scatter-blast on the exposed medic plus reactor-instability drain) collapsing team health and killing Medic Reyes before the recovered core could be extracted. No unobserved turn remains that could change this bounded target.",
+          "parallelCallCountAtStop": 1,
+          "rationale": "The intended probe was \"accept higher tactical exposure to recover the Research Core.\" The trajectory shows the Agent successfully reached the Research Core (Engineer Imani picked it up at turn 2, reactor-console) and even repaired the cooling system to full integrity (0.58→1.0 by turn 5). The core objective was NOT blocked by lack of information (orbital-scan revealed reactor-console, reactor, cooling, reactor-instability, and ground:research-core at turn 0), nor by a missing world mechanic (the pickup and repair affordances both worked and were exploited). The decisive failure is survival/spatial pressure: the aggressive split formation exposed Medic Reyes to repeated scatter-blast attacks from Raider Holt (25 dmg at turns 2, 3, 4, 5), driving her from 90→65→40→15→0 (dead by turn 5), while the reactor-instability hazard drained 10 HP/turn from everyone in the reactor zones (Imani 100→60, Chen 110→70) and reactor-heat climbed to 100. The mandatory \"rescue-team-survives\" objective is now failed (Medic Reyes dead), and the team's health is collapsing faster than the core can be extracted. The bottleneck is hostile/environmental pressure (Raider Holt's sustained fire on the exposed medic, plus reactor hazard) blocking the team before the recovered core can be converted into a completed objective. This is not a local-policy-choice failure (the Agent did exploit the available pickup and repair affordances) and not a world-mechanic-affordance failure (the affordances were present and functional).",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "trace": [
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Initial state and information-gain context for the trajectory",
+                  "turnSequence": 0
+                },
+                "id": "call_00_2vuGze75ckwEi0K3jfNc6796",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Failure spike and information-gain at early turn",
+                  "turnSequence": 1
+                },
+                "id": "call_01_BhbELM6qReDWsTFO3P1U4891",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 0
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Major health loss, reactor threshold crossing, objective-relevant action",
+                  "turnSequence": 2
+                },
+                "id": "call_00_b8ZiOY6VLx10M7CuCVjh6446",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Failure spike, non-capacity failure, major health loss",
+                  "turnSequence": 3
+                },
+                "id": "call_01_YWHBf5sBArXD4nwwG2U45710",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 1
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Major health loss continuation",
+                  "turnSequence": 4
+                },
+                "id": "call_00_6sBuArgA1uHZY71Ql7Bj1284",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Major health loss and life-state change",
+                  "turnSequence": 5
+                },
+                "id": "call_01_aWG6rjFH80E8roewK61D6995",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 2
+          }
+        ],
+        "uniqueObservedCount": 6,
+        "uniqueObservedTurns": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 15888,
+          "inputTokens": 45536,
+          "outputTokens": 957,
+          "totalTokens": 46493,
+          "transportRetries": 0
+        }
+      },
+      "variant": "pre-af-loop-001"
+    },
+    {
+      "caseId": "pre-af-loop-001:hive-hunt",
+      "counterfactualFullReveal": {
+        "contextBytes": 49691,
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "survival-spatial-pressure",
+            "local-policy-choice"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "Across turns 1-5, the rescue team repeatedly issues guard::command-deck intents that resolve as \"no_effect\" (no_hostile_movement_triggered), while all hostile/pirate actors' moves are contested with \"target_zone_capacity_lost\". The team remains pinned at command-deck for all 6 turns, never advancing toward eliminate-hive-alpha or any objective. The failures are repetitive (25 hard failures, 17 repeated semantic action selections, guard dominating 14 of 30 selections) and add no new information — the same contested/no_effect pattern recurs each turn with no state change beyond resource drain (battery 48→36, oxygen 68→62, reactor-heat 62→100). This is a repeated low-information failure loop rather than a novel causal bottleneck.",
+          "researchTarget": "repeated-low-information-failure"
+        },
+        "usage": {
+          "elapsedMs": 4962,
+          "inputTokens": 16149,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 299,
+          "totalTokens": 16448,
+          "transportRetries": 0
+        }
+      },
+      "fullReference": {
+        "referenceTarget": "repeated-low-information-failure",
+        "referenceVotes": 3,
+        "stable": true,
+        "targets": [
+          "repeated-low-information-failure",
+          "repeated-low-information-failure",
+          "repeated-low-information-failure"
+        ],
+        "trials": [
+          {
+            "contextBytes": 49637,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "survival-spatial-pressure"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "Across turns 1-5, the rescue team repeatedly issues guard::command-deck intents that resolve as \"no_effect\" (no_hostile_movement_triggered) while the swarm/pirate actors repeatedly fail with \"target_zone_capacity_lost\" contestation. The team never leaves command-deck after turn 0, never makes contact with hive-alpha, and never progresses any objective. The dominant pattern is repeated low-information failure: the same guard actions produce no new information or progress, and the same contested moves recur turn after turn. The reactor-heat climbs monotonically to 100 and battery/oxygen drain, yet no new knowledge or route is gained after turn 0. This is the narrowest causal target — the repeated failure loop itself is the bottleneck, not a specific route or mechanic.",
+              "researchTarget": "repeated-low-information-failure"
+            },
+            "usage": {
+              "elapsedMs": 4807,
+              "inputTokens": 16137,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 292,
+              "totalTokens": 16429,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 49637,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "survival-spatial-pressure"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows a clear pattern of repeated, low-information failures. After turn 0, the rescue team (engineer-imani, medic-reyes, security-chen) all converge on command-deck and then repeatedly issue guard::command-deck intents (turns 2-5) that all resolve as \"no_effect\" with reason \"no_hostile_movement_triggered\". Meanwhile, the swarm/pirate actors repeatedly fail with \"target_zone_capacity_lost\" contestation (7 contested in turn 1, then 4-5 contested in turns 2-5). The team never leaves command-deck, never makes contact with hive-alpha, and never progresses any objective. The failures are repetitive (guard no_effect every turn, capacity contestation every turn) and add no new information — the known/contact state is frozen from turn 0 (only swarm-drone-one at maintenance-entry, stale). This is a repeated-low-information-failure pattern: the same guard actions produce the same no_effect, and the same contested moves produce the same capacity failures, with no new knowledge gained across turns 1-5.",
+              "researchTarget": "repeated-low-information-failure"
+            },
+            "usage": {
+              "elapsedMs": 5084,
+              "inputTokens": 16137,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 362,
+              "totalTokens": 16499,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 49637,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "survival-spatial-pressure"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows a clear pattern of repeated, low-information failures. After the initial information-gain turn (turn 0, orbital-scan revealing maintenance-entry, swarm-drone-one, maintenance-breach), the team moved to command-deck and then attempted to move to junction-cover (turn 1), which was contested due to target_zone_capacity_lost for engineer-imani and medic-reyes. From turn 2 onward, all three rescue actors (engineer-imani, medic-reyes, security-chen) repeatedly issued guard::command-deck intents that resolved as no_effect (no_hostile_movement_triggered) every single turn (turns 2, 3, 4, 5). Meanwhile, the swarm/pirate actors repeatedly contested target_zone_capacity_lost across turns 1-5. The rescue team never left command-deck, never engaged hive-alpha, never progressed any objective, and the reactor-heat climbed monotonically 62→70→78→86→94→100 (threshold crossing at turn 2). The failures are repetitive (17 repeated semantic action selections out of 30, 25 hard failures) and add no new information after turn 1 — the same guard::command-deck no_effect and same capacity contestation recur with no state change in actor positions or knowledge. This is the narrowest bounded target: the repeated low-information failure loop where the agent re-issues the same guard intents that produce no_effect and never advances toward the intended aggressive pressure on Hive Alpha.",
+              "researchTarget": "repeated-low-information-failure"
+            },
+            "usage": {
+              "elapsedMs": 5944,
+              "inputTokens": 16137,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 446,
+              "totalTokens": 16583,
+              "transportRetries": 0
+            }
+          }
+        ],
+        "usage": {
+          "elapsedMs": 15835,
+          "inputTokens": 48411,
+          "outputTokens": 1100,
+          "totalTokens": 49511,
+          "transportRetries": 0
+        }
+      },
+      "gameRevision": "269d8cf8362730e014c79ccdfa8f748c1b3e0bff",
+      "matchedRandom": {
+        "contextBytes": 49636,
+        "eventClassCoverage": 1.0,
+        "eventClassesObserved": [
+          "failure-spike",
+          "information-gain",
+          "reactor-threshold-crossing"
+        ],
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "survival-spatial-pressure"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "Across turns 1-5, the trajectory shows a persistent pattern of repeated contestation failures (target_zone_capacity_lost) that add no new information. The rescue team moves to command-deck in turn 0 and then never advances: turns 1-5 all show the three rescue actors either attempting moves that get contested (turn 1) or repeatedly issuing guard::command-deck actions that resolve as no_effect (turns 2-5). The failure counts stay high (25 hardFailures, 25 capacityFailures) with 17 of 30 semantic action selections being repeats, and the action kinds are only move (16) and guard (14). No objective progress is made (all objectives remain 0 progress), no new contacts are gained after turn 0, and the known map is static from turn 1 onward. The dominant causal pattern is repeated low-information failure: the same contested/no_effect outcomes recur without revealing new information or enabling progress, which is the narrowest bounded research target.",
+          "researchTarget": "repeated-low-information-failure"
+        },
+        "sampledTurnIndexes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 5506,
+          "inputTokens": 16135,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 334,
+          "totalTokens": 16469,
+          "transportRetries": 0
+        }
+      },
+      "metrics": {
+        "falseEarlyStop": false,
+        "progressiveAgreementWithReference": false,
+        "progressiveStableAfterFullReveal": false,
+        "progressiveUniqueWindowFraction": 1.0,
+        "progressiveWindowsSaved": 0,
+        "randomAgreementWithReference": true
+      },
+      "packetDigest": "sha256:39901464dcd8f2015744ac2160074bb3a277ce784a8c3aabde8c43fccd7ce65e",
+      "packetPath": "inputs/baseline-269d8cf.json",
+      "profileId": "hive-hunt",
+      "progressive": {
+        "eventClassCoverage": 1.0,
+        "eventClassesAvailable": [
+          "failure-spike",
+          "information-gain",
+          "reactor-threshold-crossing"
+        ],
+        "eventClassesObserved": [
+          "failure-spike",
+          "information-gain",
+          "reactor-threshold-crossing"
+        ],
+        "forcedByEvidenceExhaustion": true,
+        "initialContextBytes": 3495,
+        "observationBytes": 46562,
+        "observationRequests": 6,
+        "redundantObservationRequests": 0,
+        "result": {
+          "citedTurns": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "repeated-low-information-failure",
+            "survival-spatial-pressure"
+          ],
+          "noFurtherDiscriminator": "All 6 turn windows have been observed. The pattern is unambiguous: the agent has the knowledge and the route available but repeatedly selects guard:command-deck (no_effect) instead of moving toward the hive. No unobserved turn remains that could change the bounded target.",
+          "parallelCallCountAtStop": 1,
+          "rationale": "Across all 6 turns, the rescue team has full knowledge of the map (command-center, maintenance, medical-bay, power-junction, reactor), has a known contact (swarm-drone-one at maintenance-entry), and has the intended aggressive objective (eliminate-hive-alpha). Yet from turn 2 onward, all three rescue actors (engineer-imani, medic-reyes, security-chen) repeatedly select guard:command-deck every single turn, producing only \"no_effect\" results because no hostile movement triggers in their zone. The hive-alpha and swarm drones are moving through other zones (life-entry, life-duct, maintenance-console) and are repeatedly contested by zone-capacity, but the rescue team never moves to intercept or engage them. The affordance to move toward the hive is clearly available and legible (they moved successfully in turns 0-1 to command-deck, and the map/contact info is known), yet the agent chooses to sit on guard at command-deck for 4 consecutive turns, never advancing toward the hive, civilians, or research core. This is not an information bottleneck (knowledge is already revealed), not a survival/spatial pressure block (all actors at full health, no hostile pressure in their zone, reactor heat is a passive drain but not blocking movement), and not a world-mechanic failure (movement works fine when attempted). The failure is the agent's repeated poor policy choice to hold guard at command-deck instead of exploiting the available aggressive route.",
+          "researchTarget": "local-policy-choice"
+        },
+        "trace": [
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Initial information-gain turn to understand what the agent learns at the start and what actions are available.",
+                  "turnSequence": 0
+                },
+                "id": "call_00_mrC2qLnZ9x2HSOxKgkY77108",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "First failure-spike turn to understand what goes wrong early.",
+                  "turnSequence": 1
+                },
+                "id": "call_01_u4vixSjmD7Syl1GTsyeK8482",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 0
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Turn 2 has reactor-threshold-crossing and failure-spike. Need to see if the zone capacity contestation continues and whether reactor heat becomes a blocking factor.",
+                  "turnSequence": 2
+                },
+                "id": "call_00_md0XYoUZsdMLUaJ5oezf5685",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Turn 3 failure-spike to see if the pattern of contested moves continues or if the agent changes strategy.",
+                  "turnSequence": 3
+                },
+                "id": "call_01_LjDFKK5sSD0HxfZm9Pud3243",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 1
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Turn 4 failure-spike to see if the agent continues guarding at command-deck while reactor heat approaches critical, or if it finally attempts to move/engage.",
+                  "turnSequence": 4
+                },
+                "id": "call_00_1KqovWHgjb3H6PLu6AFg5998",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Turn 5 final failure-spike to see the terminal state and whether the agent ever engages the hive or rescues civilians.",
+                  "turnSequence": 5
+                },
+                "id": "call_01_HXJ3GI6GH4h90OL6Te8Z8729",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 2
+          }
+        ],
+        "uniqueObservedCount": 6,
+        "uniqueObservedTurns": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 15373,
+          "inputTokens": 37273,
+          "outputTokens": 962,
+          "totalTokens": 38235,
+          "transportRetries": 0
+        }
+      },
+      "variant": "pre-af-loop-001"
+    },
+    {
+      "caseId": "post-af-loop-001:rescue-cautious",
+      "counterfactualFullReveal": {
+        "contextBytes": 79249,
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "local-policy-choice"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The trajectory shows the rescue team consistently failing to make progress on the primary objective (rescue-two-civilians stays at 0/2 across all 6 turns) while suffering escalating health and spatial pressure. Engineer Imani is repeatedly attacked by Raider Holt (turns 1, 2, 3, 4) dropping from 100 to 17 health, and Medic Reyes took 21 damage on turn 1. The team's movement routes repeatedly funnel through junction-cover/storage-floor where Raider Holt holds position and attacks, while reactor-instability hazard drains health from anyone entering reactor zones (Security Chen and Hacker Nyx take 10 damage/turn). The rescue of civilian-sato was bound (turn 3) but Medic Reyes' extraction move to junction-cover was contested on turn 4 (target_zone_capacity_lost), blocking the escort route to rescue-airlock. The core bottleneck is that hostile pressure (Raider Holt's scatter-blast overwatch on the junction corridor, reactor hazard, zone capacity) blocks the actors from reaching/exploiting the rescue affordance before they can act on it. This is survival-spatial-pressure rather than an information problem (information is being gained steadily) or a local-policy-choice problem (the agents are attempting the correct rescue actions but being physically blocked/contested).",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "usage": {
+          "elapsedMs": 6541,
+          "inputTokens": 25303,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 394,
+          "totalTokens": 25697,
+          "transportRetries": 0
+        }
+      },
+      "fullReference": {
+        "referenceTarget": "survival-spatial-pressure",
+        "referenceVotes": 3,
+        "stable": true,
+        "targets": [
+          "survival-spatial-pressure",
+          "survival-spatial-pressure",
+          "survival-spatial-pressure"
+        ],
+        "trials": [
+          {
+            "contextBytes": 79189,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "local-policy-choice"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows the rescue team repeatedly taking heavy damage from Raider Holt's scatter-blast (Medic Reyes -21 at turn 1, Engineer Imani -29 at turn 2, -25 at turn 3, -29 at turn 4) while moving through the power-junction/storage corridor, driving Engineer Imani to 17/100 health. Simultaneously, reactor-heat climbs monotonically (62→70→78→86→94→100) and Security Chen takes 10 environmental damage per turn while at reactor-entry, plus the medic's escort move to junction-cover was contested at turn 4 (target_zone_capacity_lost). The core rescue affordance (recovering civilian-kade at life-console) is never reached because the team is blocked by hostile pressure and capacity/position constraints before the useful affordance becomes actionable. This is a survival/spatial-pressure bottleneck rather than an information or local-policy problem.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5094,
+              "inputTokens": 25290,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 313,
+              "totalTokens": 25603,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 79189,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "repeated-low-information-failure"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The rescue team repeatedly fails to make progress on the primary objective (rescue-two-civilians stays at 0/2 across all 6 turns) because hostile and environmental pressure blocks the actors before the useful affordance becomes actionable. Engineer Imani is repeatedly attacked by Raider Holt (turns 2, 3, 4) dropping from 100 to 17 health while shuttling between storage-floor and junction-console, never reaching civilian-kade at life-console. Medic Reyes escorts civilian-sato but is contested at junction-cover (turn 4, target_zone_capacity_lost) and cannot route to rescue-airlock because pirates hold the junction. Security Chen takes repeated reactor-environment damage (10/turn) while guarding/moving through reactor-entry. Reactor heat climbs 62→100 and oxygen drains 68→42, adding survival pressure that outpaces any rescue progress. The core blocker is spatial/hostile pressure (Raider Holt's scatter-blast on the power-junction corridor, zone capacity contestation, reactor hazard) preventing the team from converting known civilian locations into extraction.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5769,
+              "inputTokens": 25290,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 352,
+              "totalTokens": 25642,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 79189,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "local-policy-choice"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows the rescue team repeatedly taking heavy damage from Raider Holt's scatter-blast (Engineer Imani 100→71→46→17 across turns 2-4, Medic Reyes 90→69 in turn 1) while the cautious/forbidden-lethal-force posture prevents retaliation. The team's specialists are being whittled down by hostile pressure before they can complete the rescue affordance (civilian Sato was only escorted at turn 3, and civilian Kade was never reached). Meanwhile, reactor-heat climbs 62→100 and oxygen drains 68→42, adding environmental survival pressure. The core blocker is that hostile spatial pressure (Raider Holt at junction-cover repeatedly attacking moving specialists) plus environmental decay prevents the actors from surviving long enough to exploit the rescue affordance. This is a survival-spatial-pressure bottleneck rather than an information or local-policy problem.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5247,
+              "inputTokens": 25290,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 300,
+              "totalTokens": 25590,
+              "transportRetries": 0
+            }
+          }
+        ],
+        "usage": {
+          "elapsedMs": 16110,
+          "inputTokens": 75870,
+          "outputTokens": 965,
+          "totalTokens": 76835,
+          "transportRetries": 0
+        }
+      },
+      "gameRevision": "6bc74051affb78b3a6f4dd6c82fd31a2b9f7f25e",
+      "matchedRandom": {
+        "contextBytes": 79188,
+        "eventClassCoverage": 1.0,
+        "eventClassesObserved": [
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "repeated-low-information-failure",
+            "local-policy-choice"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The trajectory shows the rescue team repeatedly taking major health losses from hostile pressure (Raider Holt's scatter-blast) and environmental reactor heat while trying to reach civilians. Engineer Imani drops from 100→71→46→17 health across turns 2-4, and Medic Reyes takes 21 damage in turn 1. Meanwhile, the escort of civilian Sato is bound (turn 3) but Medic Reyes' attempt to move Sato toward the rescue airlock is contested in turn 4 (target_zone_capacity_lost), and the team never extracts either civilian across 6 turns. The core bottleneck is that hostile actors (Raider Holt at junction-cover, Captain Veyra, Hive Alpha) and zone capacity pressure block the specialists from completing the rescue affordance before they are worn down. This is a survival/spatial-pressure bottleneck rather than an information problem (information is being revealed steadily) or a local policy choice (the agent is consistently attempting the rescue objective).",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "sampledTurnIndexes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 5469,
+          "inputTokens": 25288,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 327,
+          "totalTokens": 25615,
+          "transportRetries": 0
+        }
+      },
+      "metrics": {
+        "falseEarlyStop": false,
+        "progressiveAgreementWithReference": true,
+        "progressiveStableAfterFullReveal": true,
+        "progressiveUniqueWindowFraction": 1.0,
+        "progressiveWindowsSaved": 0,
+        "randomAgreementWithReference": true
+      },
+      "packetDigest": "sha256:21903ac9922942d767ac72fb57095197ddcb2ab81e589f55a100235666156ade",
+      "packetPath": "inputs/afloop-6bc7405.json",
+      "profileId": "rescue-cautious",
+      "progressive": {
+        "eventClassCoverage": 1.0,
+        "eventClassesAvailable": [
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "eventClassesObserved": [
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "forcedByEvidenceExhaustion": true,
+        "initialContextBytes": 3638,
+        "observationBytes": 75971,
+        "observationRequests": 6,
+        "redundantObservationRequests": 0,
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "local-policy-choice"
+          ],
+          "noFurtherDiscriminator": "All six turn windows have been observed. The evidence consistently shows hostile attacks and environmental degradation (reactor heat, oxygen drain) eroding actor health and blocking movement routes, while the rescue affordance itself is known and functional. No unobserved turn remains that could discriminate a different bounded target.",
+          "parallelCallCountAtStop": 1,
+          "rationale": "Across all six observed turns, the rescue team's core problem is that hostile pressure and environmental degradation progressively destroy the actors' capacity to reach and exploit the rescue affordance. The civilians (Kade at life-console, Sato at med-ward) are located and confirmed early (turn 0-2), and the rescue affordance (interact:rescue) is locally available and legible — Medic Reyes successfully escorts Sato at turn 3 (civilian_escort_bound). Yet the trajectory fails to complete extraction because: (1) Raider Holt repeatedly attacks Engineer Imani (turns 2, 3, 4) driving health from 100→71→46→17, nearly killing the engineer; (2) Medic Reyes's escort route to rescue-airlock is contested at turn 4 (target_zone_capacity_lost) because pirates occupy junction-cover; (3) reactor-heat climbs 62→70→78→86→94→100, dealing environmental damage to Security Chen (110→100→90→80) and Hacker Nyx, and reaching the 100 threshold; (4) oxygen drains 68→42 and battery 48→33. The actor is repeatedly blocked by hostile presence and health/resource pressure before the useful affordance (extracting Sato to the airlock, or reaching Kade) becomes actionable. This is not an information-route bottleneck (all zones and civilians are known by turn 3), not a local-policy-choice failure (the agent does attempt rescue and escort actions), and not a world-mechanic-affordance failure (the rescue interaction works when attempted at turn 3). The dominant causal blocker is survival/spatial pressure: hostile attacks, zone capacity contention, and environmental degradation prevent the team from completing the extraction route.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "trace": [
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Initial state and information available to the actor",
+                  "turnSequence": 0
+                },
+                "id": "call_00_4vVTSK26btSgppkP8oJd4902",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Early health loss and whether it blocks action",
+                  "turnSequence": 1
+                },
+                "id": "call_01_o9JQuH7veI6GtV9L4gr67345",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 0
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Whether health loss and reactor heat continue to block progress or whether information/route is the bottleneck",
+                  "turnSequence": 2
+                },
+                "id": "call_00_ABTUt3p71clrbSq6rpmc9200",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Whether the actor reaches the civilian affordance but fails to exploit it, or is blocked before",
+                  "turnSequence": 3
+                },
+                "id": "call_01_ueGGK2Qbzg4mNsWjRmZl4972",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 1
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Whether the escort of Sato succeeds or is blocked by hostile pressure/health",
+                  "turnSequence": 4
+                },
+                "id": "call_00_4ZKkLC1iuLHccIr7Q4A35310",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Whether the final turn shows the rescue failing due to survival pressure or route/information bottleneck",
+                  "turnSequence": 5
+                },
+                "id": "call_01_b16zaHY3zU0ErQUwKcQj5950",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 2
+          }
+        ],
+        "uniqueObservedCount": 6,
+        "uniqueObservedTurns": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 16175,
+          "inputTokens": 53475,
+          "outputTokens": 967,
+          "totalTokens": 54442,
+          "transportRetries": 0
+        }
+      },
+      "variant": "post-af-loop-001"
+    },
+    {
+      "caseId": "post-af-loop-001:rescue-balanced",
+      "counterfactualFullReveal": {
+        "contextBytes": 76890,
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "local-policy-choice"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The rescue team repeatedly fails to extract civilians because hostile and environmental pressure blocks the actors before the useful rescue affordance becomes actionable. Across turns 1-5, the team's engineer (Imani) takes repeated damage from Raider Holt's scatter-blast (29 then 25 damage) and from reactor environment (10 per turn), dropping from 100 to 36 health. Security Chen also bleeds 10/turn from reactor environment (110→70). Meanwhile the rescue objective stays at 0/2: Medic Reyes successfully escorts Sato at turn 3, but at turn 4 Reyes' move to Junction Machinery is contested (target_zone_capacity_lost) and the escort cannot progress toward the airlock; civilian Kade remains unreachable at life-console with stale contact. Reactor heat climbs 62→100 (threshold crossing at turn 2), oxygen drains 68→42, and battery 48→36. The core bottleneck is that spatial/hostile pressure (zone capacity contestation, reactor environment damage, pirate attacks) prevents the team from reaching and extracting civilians, not a lack of information (all rooms/zones/civilians are revealed by turn 2) nor a local policy failure (the agent repeatedly attempts the correct rescue moves).",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "usage": {
+          "elapsedMs": 6309,
+          "inputTokens": 24265,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 380,
+          "totalTokens": 24645,
+          "transportRetries": 0
+        }
+      },
+      "fullReference": {
+        "referenceTarget": "survival-spatial-pressure",
+        "referenceVotes": 3,
+        "stable": true,
+        "targets": [
+          "survival-spatial-pressure",
+          "survival-spatial-pressure",
+          "survival-spatial-pressure"
+        ],
+        "trials": [
+          {
+            "contextBytes": 76830,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "local-policy-choice"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The rescue objective makes no progress across 6 turns (0/2 civilians extracted) despite the team repeatedly reaching the relevant zones. The dominant causal blocker is spatial/hostile pressure: Engineer Imani is repeatedly attacked by Raider Holt (29 then 25 damage, dropping to 36 health), the reactor hazard bleeds health each turn (reactor-heat climbs 62→100, dealing 10 damage/turn to actors in reactor zones), and Medic Reyes's escort route to the rescue airlock is contested twice (turn 4 target_zone_capacity_lost blocking the escort path, and turn 1 hive-alpha contested). The team is funneled through the power-junction/reactor corridor where hostile pirates and the reactor hazard converge, preventing the escort from reaching the airlock and draining the team's health and resources (battery 48→36, oxygen 68→42). This is survival/spatial pressure blocking the useful affordance (extraction) rather than a knowledge or local-policy problem.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5547,
+              "inputTokens": 24252,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 327,
+              "totalTokens": 24579,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 76830,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "local-policy-choice"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows the rescue team repeatedly failing to reach and extract civilians because of spatial/capacity and hostile pressure, while health and reactor heat degrade. Medic Reyes successfully escorts Sato at turn 3 (interact:rescue:civilian-sato), but then at turn 4 the medic's move to junction-cover is contested (target_zone_capacity_lost) and the escort route toward rescue-airlock is blocked by pirate-raider-holt (blockerActorIds). Meanwhile engineer-imani and security-chen take repeated environmental reactor damage (reactor-heat climbing 62→100, reactor-instability hazard) and hostile scatter-blast damage, dropping Imani to 36 and Chen to 70. The core bottleneck is that the useful affordance (extracting the escorted civilian and reaching the second civilian) is blocked by zone capacity contestation and hostile/spatial pressure before the action becomes actionable, rather than by lack of information (information was revealed early) or poor local policy choice.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5261,
+              "inputTokens": 24252,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 324,
+              "totalTokens": 24576,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 76830,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "local-policy-choice"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The rescue objective stalls at 0/2 across all 6 turns despite the team repeatedly moving toward civilians. The dominant causal blocker is spatial/hostile pressure: Engineer Imani is repeatedly attacked by Raider Holt (29 dmg turn 1, 25 dmg turn 2) while transiting power-junction/storage, dropping to 36 health; Medic Reyes's escort of civilian-sato is contested at turn 4 (target_zone_capacity_lost) when moving through junction-cover, and the reactor-instability hazard bleeds health (Chen 110→70, Imani 46→36) while reactor-heat climbs to 100. The team's route to the rescue-airlock extraction point is blocked by capacity contestation and hostile presence (Raider Holt at junction-cover/command-deck), so the useful rescue affordance never becomes actionable. This is a survival/spatial-pressure bottleneck rather than an information gap (knowledge is well-revealed) or a local policy failure (the agent does attempt rescue actions).",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5677,
+              "inputTokens": 24252,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 335,
+              "totalTokens": 24587,
+              "transportRetries": 0
+            }
+          }
+        ],
+        "usage": {
+          "elapsedMs": 16485,
+          "inputTokens": 72756,
+          "outputTokens": 986,
+          "totalTokens": 73742,
+          "transportRetries": 0
+        }
+      },
+      "gameRevision": "6bc74051affb78b3a6f4dd6c82fd31a2b9f7f25e",
+      "matchedRandom": {
+        "contextBytes": 76829,
+        "eventClassCoverage": 1.0,
+        "eventClassesObserved": [
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "local-policy-choice"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The rescue objective stalls at 0/2 across all 6 turns despite the team repeatedly attempting to reach civilians. The primary blocker is spatial/hostile pressure: Engineer Imani is repeatedly attacked by Raider Holt (29 then 25 damage, dropping to 46 health) and takes reactor environment damage (down to 36), while Security Chen and Imani both take reactor-instability damage each turn they remain in reactor zones. Medic Reyes successfully escorts civilian Sato (turn 3) but then fails to extract because the route to rescue-airlock is blocked by zone capacity (turn 4 contested: target_zone_capacity_lost) and pirates (Captain Veyra and Raider Holt occupy command-deck/junction-cover). Reactor heat climbs monotonically 62→100, and oxygen drains 68→42, while the team is spread across storage/reactor/med zones unable to converge on the airlock. The causal bottleneck is that hostile actors and zone capacity/positioning pressure prevent the team from reaching the rescue-airlock affordance, not a lack of information (civilian locations are known) nor a local policy failure (the team does attempt rescue actions).",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "sampledTurnIndexes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 5922,
+          "inputTokens": 24250,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 362,
+          "totalTokens": 24612,
+          "transportRetries": 0
+        }
+      },
+      "metrics": {
+        "falseEarlyStop": false,
+        "progressiveAgreementWithReference": true,
+        "progressiveStableAfterFullReveal": true,
+        "progressiveUniqueWindowFraction": 1.0,
+        "progressiveWindowsSaved": 0,
+        "randomAgreementWithReference": true
+      },
+      "packetDigest": "sha256:21903ac9922942d767ac72fb57095197ddcb2ab81e589f55a100235666156ade",
+      "packetPath": "inputs/afloop-6bc7405.json",
+      "profileId": "rescue-balanced",
+      "progressive": {
+        "eventClassCoverage": 1.0,
+        "eventClassesAvailable": [
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "eventClassesObserved": [
+          "information-gain",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "forcedByEvidenceExhaustion": true,
+        "initialContextBytes": 3607,
+        "observationBytes": 73643,
+        "observationRequests": 6,
+        "redundantObservationRequests": 0,
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "local-policy-choice"
+          ],
+          "noFurtherDiscriminator": "All 6 turns have been observed. The evidence consistently shows hostile and environmental pressure (pirate attacks on Imani, zone capacity contests blocking medic's extraction route, reactor heat damage, oxygen drain) preventing the rescue from completing, rather than information gaps or local policy failures. No unobserved turn remains to further discriminate.",
+          "parallelCallCountAtStop": 1,
+          "rationale": "The trajectory shows a clear pattern where the rescue team's ability to execute the intended rescue is repeatedly blocked by hostile pressure and environmental degradation before the useful affordance (extracting civilians) becomes actionable. Key evidence: (1) Engineer Imani is repeatedly attacked by Raider Holt (29 damage in turn 1, 25 damage in turn 2), dropping from 100 to 46 health by turn 3, and the team cannot reach civilian Kade at life-console because the route is contested. (2) Medic Reyes successfully rescues civilian Sato at turn 3 (escort bound), but in turn 4 the medic's move toward junction-cover is contested (target_zone_capacity_lost) because pirates Raider Holt and Captain Veyra occupy that zone, blocking the extraction route to rescue-airlock. (3) Reactor heat escalates from 62 to 100 across turns, causing environmental damage to Security Chen (10 per turn in reactor-entry) and to Engineer Imani, while oxygen drains from 68 to 42. (4) The team's health is being ground down by both hostile attacks and environmental hazards (reactor-instability) faster than they can complete the rescue. The core bottleneck is that hostile actors and environmental pressure (reactor heat, oxygen drain, pirate occupancy of key zones) physically block the team from reaching and extracting civilians, not a lack of information (they know where both civilians are from turn 0-2) and not a local policy failure (the team is making reasonable choices - attacking pirates, moving toward civilians - but being contested/attacked). The world mechanics (reactor heat, zone capacity, pirate reactions) are functioning as designed; the problem is the survival/spatial pressure preventing the affordance from being actionable.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "trace": [
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Initial state and information-gain context",
+                  "turnSequence": 0
+                },
+                "id": "call_00_GZFk8iPPXgBYPrZ3lsUp6747",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Major health loss and information gain - could reveal survival-spatial-pressure or information-route-bottleneck",
+                  "turnSequence": 1
+                },
+                "id": "call_01_MwcQKP5GUeRZnAXCdum37372",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 0
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Major health loss and reactor threshold crossing - could reveal survival-spatial-pressure or world-mechanic-affordance",
+                  "turnSequence": 2
+                },
+                "id": "call_00_Cq4b31nXfoVRMQj3N75z2647",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Non-capacity failure, major health loss, objective-relevant action - could reveal local-policy-choice or survival-spatial-pressure",
+                  "turnSequence": 3
+                },
+                "id": "call_01_6fKLkJ1MoUIsAkgwhjEj0300",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 1
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Non-capacity failure - could reveal local-policy-choice or world-mechanic-affordance",
+                  "turnSequence": 5
+                },
+                "id": "call_00_0hEZ3cuHclxxyIptGJvh1970",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 2
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "The only unobserved turn - could reveal what happened between turn 3 (Sato rescued) and turn 5 (non-capacity failure)",
+                  "turnSequence": 4
+                },
+                "id": "call_00_v9RmgqQVgnwage5Jjccq7111",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 3
+          }
+        ],
+        "uniqueObservedCount": 6,
+        "uniqueObservedTurns": [
+          0,
+          1,
+          2,
+          3,
+          5,
+          4
+        ],
+        "usage": {
+          "elapsedMs": 17769,
+          "inputTokens": 74436,
+          "outputTokens": 1010,
+          "totalTokens": 75446,
+          "transportRetries": 0
+        }
+      },
+      "variant": "post-af-loop-001"
+    },
+    {
+      "caseId": "post-af-loop-001:core-aggressive",
+      "counterfactualFullReveal": {
+        "contextBytes": 65417,
+        "result": {
+          "citedTurns": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "local-policy-choice",
+            "world-mechanic-affordance"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The aggressive probe successfully recovered the Research Core (Engineer Imani picked it up at turn 2), but the team is being destroyed by sustained hostile and environmental pressure before the core can be extracted. Medic Reyes is killed by Raider Holt's scatter-blast (turn 5), and the entire team bleeds health every turn from the reactor-instability hazard (10 dmg/turn to Imani, Chen, and even Captain Veyra). Reactor heat climbs 62→100 and crosses the threshold, while the engineer repeatedly uses field-repair on cooling instead of extracting. The core is in hand but the actor cannot escape the reactor zone because of the compounding environmental hazard plus pirate pressure (Raider Holt and Captain Veyra both converge on the reactor). This is a survival/spatial-pressure bottleneck: health, position, and hostile pressure block the actor before the useful affordance (extracting the recovered core) becomes actionable.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "usage": {
+          "elapsedMs": 5430,
+          "inputTokens": 20988,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 308,
+          "totalTokens": 21296,
+          "transportRetries": 0
+        }
+      },
+      "fullReference": {
+        "referenceTarget": "survival-spatial-pressure",
+        "referenceVotes": 3,
+        "stable": true,
+        "targets": [
+          "survival-spatial-pressure",
+          "survival-spatial-pressure",
+          "survival-spatial-pressure"
+        ],
+        "trials": [
+          {
+            "contextBytes": 65357,
+            "result": {
+              "citedTurns": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "repeated-low-information-failure",
+                "world-mechanic-affordance"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows the team successfully reaching the reactor and picking up the research-core (turn 2), but the intended aggressive probe to recover the core is blocked by sustained hostile and environmental pressure rather than by information or route formation. Medic Reyes is repeatedly hit by Raider Holt's scatter-blast (25 damage in turns 2, 3, 4, 5), dropping from 90 to 15 to 0 (dead by turn 5). Meanwhile the reactor-instability hazard deals 10 damage per turn to Engineer Imani and Security Chen every turn they remain in the reactor zone (turns 2-5), and reactor-heat climbs 62→100, crossing thresholds. The team is pinned in the reactor area by the hazard and by pirates (Hacker Nyx, Raider Holt, Captain Veyra) converging on Command Deck/Reactor Console, while the engineer holding the research-core cannot extract. The core was acquired but never recovered because survival/spatial pressure (hazard damage + hostile fire + zone capacity contestation) blocks the extraction affordance. This is the dominant causal bottleneck: the useful affordance (recovering the core) exists but is not actionable due to health/position/hostile pressure.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 6121,
+              "inputTokens": 20975,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 373,
+              "totalTokens": 21348,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 65357,
+            "result": {
+              "citedTurns": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "repeated-low-information-failure",
+                "world-mechanic-affordance"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows the team successfully recovering the research-core (Engineer Imani picked it up at turn 2) and repairing cooling to full integrity, yet the run fails because hostile and environmental pressure destroys the team before the core can be extracted. Medic Reyes is repeatedly hit by Raider Holt's scatter-blast (25 dmg at turns 2, 3, 4, 5) while positioned at Command Deck, dropping from 90 to 15 to 0 (dead at turn 5). Simultaneously, the reactor-instability hazard deals 10 dmg/turn to every actor in the reactor room (Imani 100→60, Chen 110→70), and reactor-heat climbs 62→100. The core is held by Imani but the team cannot extract because hostile pressure (Raider Holt + Captain Veyra converging on Command Deck/Reactor Console) and the escalating reactor hazard block survival. The intended probe (accept higher tactical exposure to recover the core) is realized, but the binding constraint is survival/spatial pressure: the medic is left exposed in Command Deck where the pirate raider repeatedly attacks, and the reactor hazard bleeds the whole team. This is the narrowest causal bottleneck — health/position/capacity pressure blocks the useful affordance (extracting the recovered core) from becoming actionable.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5565,
+              "inputTokens": 20975,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 394,
+              "totalTokens": 21369,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 65357,
+            "result": {
+              "citedTurns": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "world-mechanic-affordance",
+                "information-route-bottleneck"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows the team successfully reaching and picking up the research core (turn 2), yet the run collapses through sustained health loss rather than a failure to reach the affordance. The core was acquired, but the team is pinned in the reactor zone under the reactor-instability hazard (10 dmg/turn to everyone in reactor-console/reactor-entry) while simultaneously taking repeated scatter-blast damage from Raider Holt. Medic Reyes is repeatedly targeted (25 dmg in turns 2,3,4,5) and dies at turn 5. Reactor heat climbs 62→100 across the run and cooling repair (field-repair) only raises integrity while power stays off, so the environmental hazard never abates. The decisive bottleneck is survival/spatial pressure: the team is trapped in the reactor hazard zone, taking unavoidable environmental damage each turn, while hostile pressure (Raider Holt's scatter-blast) bleeds the medic to death. The useful affordance (recover-research-core) was already realized; what blocks completion is the survival/positional pressure preventing extraction.",
+              "researchTarget": "survival-spatial-pressure"
+            },
+            "usage": {
+              "elapsedMs": 5367,
+              "inputTokens": 20975,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 341,
+              "totalTokens": 21316,
+              "transportRetries": 0
+            }
+          }
+        ],
+        "usage": {
+          "elapsedMs": 17053,
+          "inputTokens": 62925,
+          "outputTokens": 1108,
+          "totalTokens": 64033,
+          "transportRetries": 0
+        }
+      },
+      "gameRevision": "6bc74051affb78b3a6f4dd6c82fd31a2b9f7f25e",
+      "matchedRandom": {
+        "contextBytes": 65356,
+        "eventClassCoverage": 1.0,
+        "eventClassesObserved": [
+          "information-gain",
+          "life-state-change",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "result": {
+          "citedTurns": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "world-mechanic-affordance",
+            "information-route-bottleneck"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The aggressive probe successfully recovered the Research Core (Engineer Imani picked it up at turn 2 and holds it), but the trajectory is dominated by survival/spatial pressure that blocks the intended affordance from becoming actionable. Medic Reyes is repeatedly exposed to Raider Holt's scatter-blast in Command Deck (25 damage each of turns 2, 3, 4, 5), dropping from 90 to 0 and dying at turn 5. Meanwhile the reactor-instability hazard deals 10 damage per turn to Engineer Imani and Security Chen in the reactor zones, and reactor-heat climbs 62→100 across the run. The team is split (Imani/Chen in reactor, Reyes in command-deck) and the mandatory rescue-team-survives objective is failed by Reyes' death. The core was recovered but the team cannot extract it because hostile pressure (Raider Holt in Command Deck) and environmental hazard (reactor instability) erode health faster than the objective can be completed. This is a survival/spatial-pressure bottleneck: the useful affordance (recovering the core) was reached, but health, position, and hostile pressure blocked completion.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "sampledTurnIndexes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 5164,
+          "inputTokens": 20973,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 357,
+          "totalTokens": 21330,
+          "transportRetries": 0
+        }
+      },
+      "metrics": {
+        "falseEarlyStop": false,
+        "progressiveAgreementWithReference": true,
+        "progressiveStableAfterFullReveal": true,
+        "progressiveUniqueWindowFraction": 1.0,
+        "progressiveWindowsSaved": 0,
+        "randomAgreementWithReference": true
+      },
+      "packetDigest": "sha256:21903ac9922942d767ac72fb57095197ddcb2ab81e589f55a100235666156ade",
+      "packetPath": "inputs/afloop-6bc7405.json",
+      "profileId": "core-aggressive",
+      "progressive": {
+        "eventClassCoverage": 1.0,
+        "eventClassesAvailable": [
+          "information-gain",
+          "life-state-change",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "eventClassesObserved": [
+          "information-gain",
+          "life-state-change",
+          "major-health-loss",
+          "non-capacity-failure",
+          "objective-relevant-action",
+          "reactor-threshold-crossing"
+        ],
+        "forcedByEvidenceExhaustion": true,
+        "initialContextBytes": 3652,
+        "observationBytes": 62125,
+        "observationRequests": 6,
+        "redundantObservationRequests": 0,
+        "result": {
+          "citedTurns": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "local-policy-choice",
+            "world-mechanic-affordance"
+          ],
+          "noFurtherDiscriminator": "All 6 turns observed. The core was successfully picked up (turn 2), so the affordance was realized. The failure is that hostile fire (Raider Holt's scatter-blast repeatedly hitting Medic Reyes) and reactor environmental damage (10/turn to Imani and Chen) killed the medic and prevented extraction. No unobserved turn remains to further discriminate between survival-pressure vs. local-policy-choice; the evidence clearly shows the team was executing the intended aggressive recovery but was blocked by survival pressure before extraction could complete.",
+          "parallelCallCountAtStop": 1,
+          "rationale": "The trajectory shows the team successfully reached the Research Core (Engineer Imani picked it up at turn 2) and the affordance was locally available and legible. The core was acquired. However, the team was then progressively ground down by sustained hostile pressure and environmental reactor damage. Medic Reyes took repeated scatter-blast hits (25 dmg at turns 2, 3, 4, 5) dropping from 90 to 0 and died at turn 5. Engineer Imani and Security Chen each took 10 environmental reactor damage every turn they remained in the reactor zone (turns 2-5), and reactor heat climbed to 100. The core was picked up but the team could not extract it because survival pressure (hostile Raider Holt's repeated attacks on the medic, plus reactor environmental damage) blocked the team before the core could be carried out. The intended probe was to accept higher tactical exposure to recover the core — the team did accept exposure and did recover the core, but the survival/spatial pressure (hostile fire + reactor hazard) killed the medic and prevented extraction. This is a survival-spatial-pressure bottleneck: the affordance (core pickup) was realized, but health/position/hostile pressure blocked the useful action (extracting with the core) from becoming actionable.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "trace": [
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Initial state and information-gain context for the aggressive recovery attempt",
+                  "turnSequence": 0
+                },
+                "id": "call_00_Cu5rFzRSPjsCJC2zJgoP9095",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Early information-gain and route formation before pressure builds",
+                  "turnSequence": 1
+                },
+                "id": "call_01_JSLo4XGXwCmqONEyzsoA1660",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 0
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Major health loss and reactor threshold crossing - key pressure event",
+                  "turnSequence": 2
+                },
+                "id": "call_00_OBiDcwVJJ28B5ilcPMdd8031",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Non-capacity failure and major health loss - check if pressure blocks the core recovery",
+                  "turnSequence": 3
+                },
+                "id": "call_01_d5Ey0ATO41Q9UiwP2YDx5385",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 1
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Major health loss - check if survival pressure blocks core extraction",
+                  "turnSequence": 4
+                },
+                "id": "call_00_zgByuGyRonP6cS5YyhQy5938",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Final turn with life-state change - determine if the core was recovered or if survival failed",
+                  "turnSequence": 5
+                },
+                "id": "call_01_vo0tKciZjnf6zi6b7xTt0232",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 2
+          }
+        ],
+        "uniqueObservedCount": 6,
+        "uniqueObservedTurns": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 15881,
+          "inputTokens": 44902,
+          "outputTokens": 902,
+          "totalTokens": 45804,
+          "transportRetries": 0
+        }
+      },
+      "variant": "post-af-loop-001"
+    },
+    {
+      "caseId": "post-af-loop-001:hive-hunt",
+      "counterfactualFullReveal": {
+        "contextBytes": 48842,
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "repeated-low-information-failure",
+            "information-route-bottleneck"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The rescue team is pinned at command-deck for the entire trajectory. After turn 0, all three rescue actors (engineer-imani, medic-reyes, security-chen) remain in command-deck and repeatedly issue guard::command-deck intents (turns 2-5) that all resolve to no_effect (no_hostile_movement_triggered). Meanwhile, the intended aggressive objective (eliminate-hive-alpha) is never engaged: the only attack in the whole run is pirate-captain-veyra's scatter-blast, which is invalidated (target_out_of_range_after_movement). The rescue team's movement attempts to junction-cover in turn 1 are all contested (target_zone_capacity_lost), blocking the route toward the reactor/hive. Simultaneously, reactor-heat climbs monotonically 62→70→78→86→94→100 (hitting the 100 threshold at turn 4), oxygen drains 68→42, and battery drains 48→36, while no objective progresses (all at 0). The causal bottleneck is spatial/capacity pressure: the team cannot leave command-deck (capacity contestation) and cannot reach the hive, so hostile pressure and position block the useful affordance (engaging Hive Alpha) from becoming actionable.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "usage": {
+          "elapsedMs": 5944,
+          "inputTokens": 15882,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 393,
+          "totalTokens": 16275,
+          "transportRetries": 0
+        }
+      },
+      "fullReference": {
+        "referenceTarget": "repeated-low-information-failure",
+        "referenceVotes": 3,
+        "stable": true,
+        "targets": [
+          "repeated-low-information-failure",
+          "repeated-low-information-failure",
+          "repeated-low-information-failure"
+        ],
+        "trials": [
+          {
+            "contextBytes": 48782,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "survival-spatial-pressure"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows a clear pattern of repeated low-information failures. From turn 1 onward, the rescue team (engineer-imani, medic-reyes, security-chen) repeatedly issues guard:command-deck intents that resolve as \"no_effect\" with reason \"no_hostile_movement_triggered\" (turns 2, 3, 4, 5), while the intended probe was \"cohesive aggressive pressure against Hive Alpha.\" The team never actually engages Hive Alpha — the only attack in the entire run is by pirate-captain-veyra (turn 3), which is invalidated. Meanwhile, repeated \"target_zone_capacity_lost\" contestations occur every turn (turns 1-5) against pirate-hacker-nyx, pirate-raider-holt, and swarm drones, adding no new information. The team remains pinned at command-deck for all 6 turns, never moving toward the objective, while resources drain (battery 48→36, oxygen 68→42, reactor heat 62→100). The failures are repetitive and information-poor: the same guard actions produce no_effect, the same capacity contestations recur, and no new knowledge or contact is gained after turn 0's orbital scan. This is the dominant causal pattern blocking the aggressive-pressure probe.",
+              "researchTarget": "repeated-low-information-failure"
+            },
+            "usage": {
+              "elapsedMs": 5468,
+              "inputTokens": 15869,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 399,
+              "totalTokens": 16268,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 48782,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "survival-spatial-pressure"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows a clear pattern of repeated, low-information failures. From turn 1 onward, the rescue team (engineer-imani, medic-reyes, security-chen) repeatedly issues guard:command-deck actions that resolve as \"no_effect\" with reason \"no_hostile_movement_triggered\" (turns 2, 3, 4, 5), while the same actors' earlier move attempts to junction-cover were contested due to \"target_zone_capacity_lost\" (turn 1). The team remains pinned in command-deck for the entire run, never advancing toward any objective. Meanwhile, enemy/pirate actors (pirate-hacker-nyx, pirate-raider-holt, swarm-drone-one/two) repeatedly fail with \"target_zone_capacity_lost\" across turns 1-5, adding no new information. The only information-gain occurred at turn 0 (orbital-scan revealing maintenance-entry, maintenance-breach, swarm-drone-one). After that, the run produces 16 hard failures and 15 capacity failures with zero objective progress, zero actor health changes, and zero new contacts beyond the stale swarm-drone-one sighting. The repeated guard no_effect and capacity contestation failures are the dominant, recurring, low-information failure mode that should be the next bounded research target.",
+              "researchTarget": "repeated-low-information-failure"
+            },
+            "usage": {
+              "elapsedMs": 5143,
+              "inputTokens": 15869,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 404,
+              "totalTokens": 16273,
+              "transportRetries": 0
+            }
+          },
+          {
+            "contextBytes": 48782,
+            "result": {
+              "citedTurns": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "liveAlternatives": [
+                "information-route-bottleneck",
+                "survival-spatial-pressure"
+              ],
+              "parallelCallCount": 1,
+              "rationale": "The trajectory shows a clear pattern of repeated low-information failures. From turn 1 onward, the rescue team (engineer-imani, medic-reyes, security-chen) repeatedly issues guard:command-deck actions that resolve as \"no_effect\" with reason \"no_hostile_movement_triggered\" (turns 2, 3, 4, 5), while the only hostile contact (swarm-drone-one) remains stale at maintenance-entry since turn 0. Meanwhile, the team's move attempts to junction-cover (turn 1) were contested due to target_zone_capacity_lost, and the team never successfully leaves command-deck across all 6 turns. The failures are repeated (16 hard failures, 15 capacity failures, 17 repeated semantic action selections) and add little new information — the team is stuck guarding a zone with no hostile movement while the actual objective (eliminate-hive-alpha) is never engaged. The hive-alpha moves freely (life-entry, life-duct) without being contested by the rescue team. This repeated no-effect guarding and capacity contestation constitutes a repeated low-information failure loop that is the narrowest bounded causal target.",
+              "researchTarget": "repeated-low-information-failure"
+            },
+            "usage": {
+              "elapsedMs": 4900,
+              "inputTokens": 15869,
+              "model": "deepseek-v4-flash",
+              "outputTokens": 368,
+              "totalTokens": 16237,
+              "transportRetries": 0
+            }
+          }
+        ],
+        "usage": {
+          "elapsedMs": 15511,
+          "inputTokens": 47607,
+          "outputTokens": 1171,
+          "totalTokens": 48778,
+          "transportRetries": 0
+        }
+      },
+      "gameRevision": "6bc74051affb78b3a6f4dd6c82fd31a2b9f7f25e",
+      "matchedRandom": {
+        "contextBytes": 48781,
+        "eventClassCoverage": 1.0,
+        "eventClassesObserved": [
+          "failure-spike",
+          "information-gain",
+          "non-capacity-failure",
+          "reactor-threshold-crossing"
+        ],
+        "result": {
+          "citedTurns": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "information-route-bottleneck",
+            "survival-spatial-pressure"
+          ],
+          "parallelCallCount": 1,
+          "rationale": "The trajectory shows a clear pattern of repeated contested failures (target_zone_capacity_lost) across turns 1-5, with 16 hard failures and 15 capacity failures total. The rescue team (engineer-imani, medic-reyes, security-chen) remains stuck in command-deck for all 6 turns, repeatedly issuing guard::command-deck intents that all resolve as no_effect (no_hostile_movement_triggered), while hostile/pirate actors repeatedly fail on target_zone_capacity_lost. The team never moves toward Hive Alpha or any objective, and the only attack action (turn 3 pirate-captain-veyra scatter-blast) is invalidated as target_out_of_range_after_movement. The repeated capacity contestation and no-effect guard actions add little new information each turn, and the team makes zero objective progress across all 6 turns. This is the dominant, bounded causal pattern.",
+          "researchTarget": "repeated-low-information-failure"
+        },
+        "sampledTurnIndexes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 4955,
+          "inputTokens": 15867,
+          "model": "deepseek-v4-flash",
+          "outputTokens": 318,
+          "totalTokens": 16185,
+          "transportRetries": 0
+        }
+      },
+      "metrics": {
+        "falseEarlyStop": false,
+        "progressiveAgreementWithReference": false,
+        "progressiveStableAfterFullReveal": true,
+        "progressiveUniqueWindowFraction": 1.0,
+        "progressiveWindowsSaved": 0,
+        "randomAgreementWithReference": true
+      },
+      "packetDigest": "sha256:21903ac9922942d767ac72fb57095197ddcb2ab81e589f55a100235666156ade",
+      "packetPath": "inputs/afloop-6bc7405.json",
+      "profileId": "hive-hunt",
+      "progressive": {
+        "eventClassCoverage": 1.0,
+        "eventClassesAvailable": [
+          "failure-spike",
+          "information-gain",
+          "non-capacity-failure",
+          "reactor-threshold-crossing"
+        ],
+        "eventClassesObserved": [
+          "failure-spike",
+          "information-gain",
+          "non-capacity-failure",
+          "reactor-threshold-crossing"
+        ],
+        "forcedByEvidenceExhaustion": true,
+        "initialContextBytes": 3464,
+        "observationBytes": 45738,
+        "observationRequests": 6,
+        "redundantObservationRequests": 0,
+        "result": {
+          "citedTurns": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "liveAlternatives": [
+            "local-policy-choice",
+            "information-route-bottleneck"
+          ],
+          "noFurtherDiscriminator": "All 6 turns have been observed. The pattern is consistent: the team is capacity-blocked at command-deck from turn 1 onward, never successfully moves again, and never engages the hive. No unobserved turn remains that could discriminate between the alternatives — the evidence is exhausted.",
+          "parallelCallCountAtStop": 1,
+          "rationale": "The rescue team is pinned at command-deck for all 6 turns. In turn 1, both engineer-imani and medic-reyes attempt to move to junction-cover but are contested with \"target_zone_capacity_lost\" — the zone they need to reach is capacity-blocked. After that, the team never attempts another move; all three actors repeatedly issue \"guard:command-deck\" (no_effect, no_hostile_movement_triggered) from turns 2-5. The hive-alpha moves freely (life-console, life-duct, life-entry) while the team is stuck. Meanwhile reactor-heat climbs 62→100, oxygen 68→42, battery 48→36 — a mounting survival/spatial pressure clock. The team's only attack attempt (pirate-captain-veyra's scatter-blast) was invalidated as target_out_of_range_after_movement, and the rescue team itself never attacks at all. The core bottleneck is that the actors cannot reach the zones where the hive/affordances are located because zone capacity blocks their movement, and the resulting spatial pressure (heat/oxygen drain) compounds. This is a survival-spatial-pressure pattern: hostile/zone-capacity pressure blocks the actor before the useful affordance (engaging hive-alpha, reaching junction-cover) becomes actionable.",
+          "researchTarget": "survival-spatial-pressure"
+        },
+        "trace": [
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Initial information-gain turn - establishing what the agent learns at start",
+                  "turnSequence": 0
+                },
+                "id": "call_00_sLrORZ1gxJYb6yG9UG0y0793",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Failure-spike turn - what went wrong early",
+                  "turnSequence": 1
+                },
+                "id": "call_01_zGQMF4oGxc4GmSuu4mNd8970",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 0
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Reactor threshold crossing - what happens as heat rises and whether it blocks action",
+                  "turnSequence": 2
+                },
+                "id": "call_00_ilIfeUhLgyRWNgbM2XRD1011",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Non-capacity failure - what kind of failure occurs beyond capacity contestation",
+                  "turnSequence": 3
+                },
+                "id": "call_01_aCy76kSiqn1P4FJ9iQMx1579",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 1
+          },
+          {
+            "calls": [
+              {
+                "arguments": {
+                  "discriminates": "Whether the team continues to be stuck at command-deck and whether any new action becomes available",
+                  "turnSequence": 4
+                },
+                "id": "call_00_IyjJL35Q2biMK26NmG4O2976",
+                "name": "observe_turn"
+              },
+              {
+                "arguments": {
+                  "discriminates": "Final turn - whether the team ever breaks out of the guard loop or engages the hive",
+                  "turnSequence": 5
+                },
+                "id": "call_01_S224Kmm63SocW5hRM40j0885",
+                "name": "observe_turn"
+              }
+            ],
+            "round": 2
+          }
+        ],
+        "uniqueObservedCount": 6,
+        "uniqueObservedTurns": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "usage": {
+          "elapsedMs": 14624,
+          "inputTokens": 36632,
+          "outputTokens": 878,
+          "totalTokens": 37510,
+          "transportRetries": 0
+        }
+      },
+      "variant": "post-af-loop-001"
+    }
+  ],
+  "fullReferenceReplicatesPerCase": 3,
+  "kind": "ordivon.computing.rf1-game-stopping-receipt",
+  "model": "deepseek-v4-flash",
+  "provider": "deepseek",
+  "receiptDigest": "sha256:33606f853939531b5704503f4f69817e03ae59884346b0381c7b5fb6e2243428",
+  "schemaVersion": 1,
+  "targetVocabulary": {
+    "information-route-bottleneck": "Knowledge/contact/route formation is the main causal bottleneck before useful action becomes available.",
+    "local-policy-choice": "The needed affordance is locally available/legible, but the Agent chooses poorly or fails to exploit it.",
+    "mixed-or-insufficient-evidence": "No single bounded causal research target is justified from the available trajectory evidence.",
+    "repeated-low-information-failure": "Repeated failure/contestation adds little new information and should be the next bounded research target.",
+    "survival-spatial-pressure": "Health, position, capacity, or hostile pressure blocks the actor before the useful affordance becomes actionable.",
+    "world-mechanic-affordance": "World/content/mechanics fail to expose or realize the intended causal affordance even when the Agent reaches the relevant situation."
+  }
+}

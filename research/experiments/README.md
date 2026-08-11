@@ -29,6 +29,8 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 - [`tm2-operator-selection/`](tm2-operator-selection/) — prospective Harness + Security holdout showing that deterministic owner-evidence operator selection improved combined causal localization from 3/6 to 5/6 without adding research-taste prose.
 - [`tm3-compiled-evidence/`](tm3-compiled-evidence/) — contraction test showing compiled one-shot evidence dominates iterative discovery for localized exact diagnostics but fails on distributed representation/dataflow, forcing topology-conditional operator selection.
 - [`tm4-research-frontier-model/`](tm4-research-frontier-model/) — research-only assimilation of TM0–TM3 into a conditional evidence-topology → operator-policy frontier model and calibration ledger; no scheduler, scalar tractability score, Core rewrite, or canonical-method mutation is promoted.
+- [`rf0-shadow-research-bet/`](rf0-shadow-research-bet/) — minimal shadow-only ResearchBet/ResearchOutcome calibration records; predictions are frozen before outcomes without entering Agent context, changing owner behavior, or creating a research service.
+- [`rf1-game-stopping/`](rf1-game-stopping/) — prospective Game stopping falsifier: serial Agent-controlled evidence acquisition consumed all 6/6 windows in 8/8 cases, agreed with unanimous full references only 6/8, and cost materially more than one-shot full inspection, exposing adaptive-selection overhead and path dependence.
 
 ## Deferred experiment families
 
