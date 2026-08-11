@@ -60,3 +60,7 @@ Canonicalization therefore did not improve semantic accuracy. The earlier P9 ord
 4. Before blaming Context order, falsify ambiguity in the question, metric and oracle.
 5. Deterministic canonical bytes are useful mechanics only under explicit owner semantics; they do not imply a better model representation.
 6. No EffectPhaseService, global deduper, EvidenceNormalizer, OrderService or ContextCompiler earns existence.
+
+## Apparatus recovery
+
+The complete executable/raw campaign is Git-recoverable from snapshot `cc259ffdf046fcb8a4a17d563bd07ac4e7944a64` under `research/experiments/p10-p11-effect-phase-order-v0/apparatus/`. The current tree intentionally removes it; no P10/P11 runner becomes a long-lived research authority.
