@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.feynman-documentation.first-tranche-preflight",
+  "date": "2026-08-12",
+  "status": "preregistered-before-live-provider-call",
+  "purpose": "Paired fresh-Agent preflight for the first Finance/Harness/Security documentation rewrite tranche under FD1 evaluation rules.",
+  "providerFamily": "DeepSeek credentials admitted under /root/.config/ordivon/secrets; exact slot/model recorded per trial",
+  "replicates": 3,
+  "subjectProtocol": {
+    "freshTurnPerTrial": true,
+    "conversationCarryover": false,
+    "temperature": 0,
+    "thinking": "disabled",
+    "instruction": "use only supplied exact-revision documents; answer unknown/not established when they do not support a stronger conclusion"
+  },
+  "judgeProtocol": {
+    "separateProviderCall": true,
+    "armBlind": true,
+    "receives": [
+      "task prompt",
+      "frozen oracle",
+      "subject answer"
+    ],
+    "doesNotReceive": [
+      "baseline/treatment label",
+      "source revision",
+      "document bundle"
+    ],
+    "temperature": 0,
+    "thinking": "disabled"
+  },
+  "arms": {
+    "finance": {
+      "repository": "/root/projects/ordivon-finance",
+      "baseline": "391c11bb40f87a404a2d46463a1481beff9ab45e",
+      "treatment": "51308b5e154e3f27558f6755bbd66cc080a06c22",
+      "baselineEntryMissing": true
+    },
+    "harness": {
+      "repository": "/root/projects/ordivon-harness",
+      "baseline": "9885f3dd04f0a4bee0761f362b5148c7d61f686e",
+      "treatment": "a5784736db5e7dcc9030c859c1d54a1f738693db"
+    },
+    "security": {
+      "repository": "/root/projects/ordivon-security",
+      "baseline": "f109cb8cc548479e852c8a4dbc914bd7d3e22ce0",
+      "treatment": "0c40ba27149d64bbd36145d3631fd31fadb15f5f"
+    }
+  },
+  "tasks": [
+    {
+      "id": "FD2-FIN-RW-01",
+      "owner": "finance",
+      "surface": "entry_only",
+      "sourcePaths": [
+        "README.md"
+      ],
+      "prompt": "A Finance Agent has dispatched one exact trade effect. The local executor completes, but the venue response is lost. May Finance now record the trade as filled or issue a blind new retry?",
+      "oracle": {
+        "decision": "No. Local execution does not prove venue occurrence. Preserve the exact effect identity and reconcile venue/native evidence before changing canonical capital state; do not blind-retry with a new identity.",
+        "requiredPoints": [
+          "local execution and venue occurrence are distinct",
+          "canonical capital state waits for admitted venue/reconciliation evidence",
+          "blind redispatch after an ambiguous outcome is not justified"
+        ],
+        "criticalErrors": [
+          "treat local process success as proof of venue fill",
+          "record the fill from Agent belief or executor success",
+          "issue a blind new retry because the response was lost"
+        ]
+      },
+      "origin": "new rewrite task frozen before live evaluation because FD0-FIN-01 is a historical entry-presence task whose correct answer intentionally changes when README is created"
+    },
+    {
+      "id": "FD2-FIN-RW-02",
+      "owner": "finance",
+      "surface": "entry_only",
+      "sourcePaths": [
+        "README.md"
+      ],
+      "prompt": "A canonical Trade credential is independently verified as valid, but the exact credential installed in the Finance executor fails the read-only admission probe. May Finance substitute the valid credential evidence and declare the executor ready for live submission?",
+      "oracle": {
+        "decision": "No. A separate valid credential does not prove fitness of the exact executor credential. Executor credential fitness remains unresolved and live submission must not be declared ready from substitution.",
+        "requiredPoints": [
+          "credential identity is exact and cannot be substituted",
+          "valid canonical credential does not prove executor-installed credential fitness",
+          "live submission/readiness remains unresolved or disabled"
+        ],
+        "criticalErrors": [
+          "substitute another valid credential as proof of executor credential",
+          "declare live executor ready despite exact credential failure",
+          "treat same account/scope as sufficient identity"
+        ]
+      },
+      "origin": "new rewrite task frozen before live evaluation from the current C2-L credential-substitution boundary"
+    },
+    {
+      "id": "FD0-HARNESS-01",
+      "owner": "harness",
+      "surface": "entry_only",
+      "prompt": "Harness finishes an Agent Run and returns a completion proposal. Has the caller Task or domain objective necessarily completed?",
+      "oracle": {
+        "decision": "No; Harness Run completion/proposal is bounded cognition state, not caller/domain completion.",
+        "requiredPoints": [
+          "Harness owns Run/Provider/Tool continuity",
+          "caller/domain owns final semantic acceptance"
+        ],
+        "criticalErrors": [
+          "Run completion equals Host Task completion",
+          "Harness becomes domain authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-HARNESS-02",
+      "owner": "harness",
+      "surface": "entry_plus_architecture",
+      "prompt": "A Provider has hidden continuation state while the Agent changes which evidence it wants in its current Working Set. Who owns the structural continuation and who owns the semantic choice?",
+      "oracle": {
+        "decision": "Harness owns structural Run/Provider continuation; Agent/caller owns semantic evidence selection.",
+        "requiredPoints": [
+          "structural state and semantic choice are distinct",
+          "Provider continuation need not become Agent-visible cognition"
+        ],
+        "criticalErrors": [
+          "Harness decides semantic relevance because it stores continuation",
+          "Agent choice rewrites canonical run history"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "FD0-SEC-01",
+      "owner": "security",
+      "surface": "entry_plus_boundary",
+      "prompt": "Red claims exploitation succeeded, a sensor saw suspicious traffic, the executor returned success, and an evaluator gave a high score. Which of these establishes authoritative world truth?",
+      "oracle": {
+        "decision": "None by itself; independent declared truth/management evidence owns world state while actor, sensor, executor, and evaluator claims remain separate.",
+        "requiredPoints": [
+          "truth plane is separated from actor/sensor/evaluator/execution evidence",
+          "evaluator judgment interprets evidence but is not world truth"
+        ],
+        "criticalErrors": [
+          "sensor observation equals truth",
+          "evaluator score authorizes or proves effect",
+          "actor claim becomes world state"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "docs/research-boundary.md",
+        "docs/LAW-PROFILES-C0.md"
+      ]
+    },
+    {
+      "id": "FD0-SEC-02",
+      "owner": "security",
+      "surface": "entry_plus_law",
+      "prompt": "A current experiment uses deny-all/no-network. Does that prove Ordivon Security constitutionally forbids networked adversarial experiments?",
+      "oracle": {
+        "decision": "No; deny-all is a scoped profile/grant. The constitutional rule is declared authority/sovereignty and truth separation, not universal no-network.",
+        "requiredPoints": [
+          "profile restrictions are not universal law",
+          "authorized external scope may exist in another declared Range"
+        ],
+        "criticalErrors": [
+          "generalize P0/P1 fixture into permanent Security law",
+          "reachability itself grants authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "docs/LAW-PROFILES-C0.md",
+        "docs/research-boundary.md"
+      ]
+    }
+  ],
+  "primaryMetrics": [
+    "decisionCorrect",
+    "criticalOverinferenceCount",
+    "unsupportedAuthorityClaimCount"
+  ],
+  "secondaryMetrics": [
+    "requiredPointCoverage",
+    "currentTargetHistoryConfusionCount",
+    "inputDocumentBytes",
+    "providerTokens"
+  ],
+  "decisionRules": [
+    "Any baseline-majority-correct to treatment-majority-wrong result blocks publication.",
+    "Any new treatment critical over-inference absent from baseline blocks publication until resolved.",
+    "A treatment improvement is treatment-majority-correct where baseline is majority-wrong, or equal correctness with lower burden/unsupported inference.",
+    "FD0-FIN-01 remains immutable historical structural evidence and is not force-fit into a paired oracle because creation of the missing README intentionally changes its factual answer.",
+    "No task/oracle/judge rubric may be edited after the first live Provider call."
+  ],
+  "expectedSubjectCalls": 36,
+  "expectedJudgeCalls": 36
+}
