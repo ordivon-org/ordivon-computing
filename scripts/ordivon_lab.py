@@ -862,6 +862,148 @@ def command_pressure(args: argparse.Namespace) -> int:
     return 0
 
 
+# ---------------------------------------------------------------------------
+# P5: contraction verification receipt
+
+EXECUTABLE_SOURCE_RE = re.compile(r"\.(?:py|sh|rs|ts|js|mjs|c|cc|cpp|go)$")
+
+
+def _git_object_id(repository: Path, revision: str, relative_path: str) -> str | None:
+    result = subprocess.run(
+        ["/usr/bin/git", "-C", str(repository), "rev-parse", f"{revision}:{relative_path}"],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return None
+    return result.stdout.strip() or None
+
+
+def build_contraction_receipt(
+    *,
+    repository: Path,
+    snapshot_revision: str,
+    retired_paths: Iterable[str],
+    gate_receipt: Path | None = None,
+    executable_root: str | None = None,
+    created_at_ms: int | None = None,
+) -> dict[str, Any]:
+    repository = repository.resolve()
+    if not (repository / ".git").exists() and not _git(repository, "rev-parse", "--git-dir", check=False):
+        raise LabError(f"repository is not a Git work tree: {repository}")
+    current = _git(repository, "rev-parse", "HEAD")
+    if _git(repository, "status", "--porcelain"):
+        raise LabError("contraction verification requires a clean current work tree")
+    if not _git_commit_exists(repository, snapshot_revision):
+        raise LabError("snapshot_revision is not a reachable local commit")
+    ancestor = subprocess.run(
+        ["/usr/bin/git", "-C", str(repository), "merge-base", "--is-ancestor", snapshot_revision, current],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    if ancestor.returncode != 0:
+        raise LabError("snapshot_revision must be an ancestor of current HEAD")
+
+    normalized: list[str] = []
+    for raw in retired_paths:
+        value = str(raw).strip().strip("/")
+        if not value or value.startswith("../") or "/../" in value or value == "..":
+            raise LabError(f"invalid retired path: {raw!r}")
+        normalized.append(value)
+    normalized = sorted(set(normalized))
+    if not normalized:
+        raise LabError("at least one Agent-declared retired path is required")
+
+    recoverability = []
+    for relative in normalized:
+        snapshot_object = _git_object_id(repository, snapshot_revision, relative)
+        if snapshot_object is None:
+            raise LabError(f"retired path did not exist in snapshot revision: {relative}")
+        current_object = _git_object_id(repository, current, relative)
+        physical_exists = (repository / relative).exists()
+        if current_object is not None or physical_exists:
+            raise LabError(f"declared retired path still exists at current revision: {relative}")
+        recoverability.append(
+            {
+                "path": relative,
+                "snapshotObjectId": snapshot_object,
+                "currentObjectId": None,
+                "physicallyAbsent": True,
+            }
+        )
+
+    gate: dict[str, Any] | None = None
+    if gate_receipt is not None:
+        raw_gate = load_json(gate_receipt)
+        if raw_gate.get("status") != "passed":
+            raise LabError("gate receipt is not passed")
+        if raw_gate.get("repositoryRevision") != current:
+            raise LabError("gate receipt is not bound to current HEAD")
+        gate = {
+            "path": str(gate_receipt),
+            "fileDigest": file_digest(gate_receipt),
+            "payloadDigest": raw_gate.get("integrity", {}).get("payloadDigest"),
+            "repositoryRevision": raw_gate.get("repositoryRevision"),
+            "status": raw_gate.get("status"),
+        }
+
+    executable: dict[str, Any] | None = None
+    if executable_root is not None:
+        root = executable_root.strip().strip("/")
+        if not root:
+            raise LabError("executable_root must be non-empty when supplied")
+        names = _git(repository, "ls-tree", "-r", "--name-only", current, "--", root).splitlines()
+        executable_names = sorted(name for name in names if EXECUTABLE_SOURCE_RE.search(name))
+        executable = {
+            "root": root,
+            "trackedExecutableLikeCount": len(executable_names),
+            "trackedExecutableLikePaths": executable_names,
+        }
+
+    receipt: dict[str, Any] = {
+        "schemaVersion": 1,
+        "kind": "ordivon.lab.contraction-verification-receipt",
+        "createdAtMs": now_ms() if created_at_ms is None else created_at_ms,
+        "repository": str(repository),
+        "snapshotRevision": snapshot_revision,
+        "currentRevision": current,
+        "retiredPaths": recoverability,
+        "gate": gate,
+        "executableCensus": executable,
+        "authorityBoundary": {
+            "retirementScopeChosenByVerifier": False,
+            "deletionPerformedByVerifier": False,
+            "publicationPerformedByVerifier": False,
+            "semanticRetentionJudgmentPerformedByVerifier": False,
+            "role": "verify Agent-declared contraction is Git-recoverable and current evidence is revision-bound",
+        },
+    }
+    receipt["integrity"] = {
+        "algorithm": "sha256",
+        "canonicalization": "ordivon-evidence-json-v1",
+        "payloadDigest": payload_digest(receipt),
+    }
+    return receipt
+
+
+def command_contraction_verify(args: argparse.Namespace) -> int:
+    result = build_contraction_receipt(
+        repository=args.repository,
+        snapshot_revision=args.snapshot_revision,
+        retired_paths=args.retired_path,
+        gate_receipt=args.gate_receipt,
+        executable_root=args.executable_root,
+    )
+    write_json(args.output, result)
+    census = result.get("executableCensus")
+    suffix = "" if census is None else f", {census['trackedExecutableLikeCount']} executable-like under {census['root']}"
+    print(
+        f"{args.output}: {len(result['retiredPaths'])} retired paths verified{suffix} "
+        f"{result['integrity']['payloadDigest']}"
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Thin non-authoritative RSI laboratory instruments for Ordivon Agents"
@@ -907,6 +1049,15 @@ def build_parser() -> argparse.ArgumentParser:
     pressure.add_argument("--commit-limit", type=int, default=20)
     pressure.add_argument("--output", type=Path, required=True)
     pressure.set_defaults(handler=command_pressure)
+
+    contraction = sub.add_parser("contraction-verify", help="verify an Agent-declared contraction without choosing or deleting its scope")
+    contraction.add_argument("--repository", type=Path, default=ROOT)
+    contraction.add_argument("--snapshot-revision", required=True)
+    contraction.add_argument("--retired-path", action="append", required=True)
+    contraction.add_argument("--gate-receipt", type=Path)
+    contraction.add_argument("--executable-root")
+    contraction.add_argument("--output", type=Path, required=True)
+    contraction.set_defaults(handler=command_contraction_verify)
     return parser
 
 

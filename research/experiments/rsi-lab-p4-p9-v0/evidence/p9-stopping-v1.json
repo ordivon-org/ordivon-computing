@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.p9-expensive-stopping-acceptance",
+  "runtimeSource": "dabb7b328c84288de2ec94e45a9299307f3491c7",
+  "workload": "execution.hostDependencies current semantics",
+  "evidenceUniverse": {
+    "trackedMatchingFiles": 21,
+    "literalMatches": 192,
+    "distributedAcross": [
+      "types/request identity",
+      "admission",
+      "registry persistence",
+      "dispatch",
+      "Runner witness",
+      "MCP",
+      "tests",
+      "docs"
+    ]
+  },
+  "hiddenOracleFields": 12,
+  "zeroObservationControl": {
+    "strictAccepted": 0,
+    "trials": 6,
+    "meanTokens": 1185,
+    "payloadDigest": "sha256:10deda513f95fbe1717a60ee40ddca810ae0b811d60732490dda562c7732e57a"
+  },
+  "autonomousSearchV1": {
+    "open": {
+      "trials": 6,
+      "strictAccepted": 0,
+      "meanCorrectFields": 4,
+      "observations": 168,
+      "meanObservations": 28,
+      "draftAttempts": 0,
+      "criticCalls": 0,
+      "criticRequests": 0,
+      "tokens": 2919060,
+      "providerCalls": 158
+    },
+    "criticAtPrimarySubmit": {
+      "trials": 6,
+      "strictAccepted": 0,
+      "meanCorrectFields": 4,
+      "observations": 168,
+      "meanObservations": 28,
+      "draftAttempts": 0,
+      "criticCalls": 0,
+      "criticRequests": 0,
+      "tokens": 3435740,
+      "providerCalls": 160
+    },
+    "totalTokens": 6354800,
+    "payloadDigest": "sha256:8452dd10c62eb2e68769c606a2ad9792884b43866efb4a707f0ae57dc7598686",
+    "result": "falsified: Primary produced zero draft attempts; critic hook was unreachable"
+  },
+  "checkpointedCriticV3": {
+    "strictAccepted": 6,
+    "trials": 6,
+    "meanObservations": 8,
+    "meanTokens": 97485,
+    "providerCalls": 57,
+    "criticDecisions": [
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT",
+      "ACCEPT"
+    ],
+    "protocolRetryTrials": 5,
+    "payloadDigest": "sha256:5cee0c707e8518da4d320e681b4256b45c6ca892fdb56fb936f22104e91ad576",
+    "ablation": "critic requested zero additional observations, so critic itself did not earn existence"
+  },
+  "freshSynthesisAblation": {
+    "checkpoint1": {
+      "trials": 6,
+      "strictAccepted": 6,
+      "meanTokens": 9428.666666666666,
+      "payloadDigest": "sha256:6cdaa0ef5a2c2a734c3817ab49a10f4b5fe0278751d0a5a5c9570688421f0c8f"
+    },
+    "checkpoint2": {
+      "trials": 6,
+      "strictAccepted": 6,
+      "meanTokens": 12642.5,
+      "payloadDigest": "sha256:03cb3c8446322f7024333688eb6b4928f142fd436dfef0590cde7719bfc8d17e"
+    },
+    "checkpoint4": {
+      "validMatrixTrials": 5,
+      "validStrict": 5,
+      "transportReplacement": {
+        "jobId": "job-019fef72-d9bb-7221-86b2-e1bbf303d2b6",
+        "checkpoint": 4,
+        "replicate": 3,
+        "strictAccepted": true,
+        "correctFields": 12,
+        "providerTokens": 21543,
+        "terminalEvidenceDigest": "sha256:a88abaeac697bc374fb43035ce8dcc83633456a18c0b3a65c0c753d5288b6910",
+        "replacementReason": "original Matrix cell terminated on HTTP IncompleteRead before any semantic output"
+      },
+      "combinedStrict": "6/6"
+    },
+    "checkpoint8": {
+      "mechanicallyValid": 6,
+      "strictAccepted": 5,
+      "correctFields": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        11
+      ],
+      "falseFields": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [
+          "replayRevalidatesCurrentDependencyBytes"
+        ]
+      ],
+      "totalTokens": 424498,
+      "meanTokens": 70749.67,
+      "protocolRetryTrials": 5
+    },
+    "checkpoint12": {
+      "mechanicallyValid": 6,
+      "strictAccepted": 6,
+      "correctFields": [
+        12,
+        12,
+        12,
+        12,
+        12,
+        12
+      ],
+      "falseFields": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ],
+      "totalTokens": 878168,
+      "meanTokens": 146361.33,
+      "protocolRetryTrials": 4
+    },
+    "matrixPayloadDigest": "sha256:a593cdbdfc2115085e313aca3b2676ce821943288dafc4dd5b300f2705621a44"
+  },
+  "wireInvalidCampaigns": [
+    "P9-v2 candidate boolean fields were returned as string true/false and runner lacked schema validation; excluded from acceptance",
+    "full-literal one-shot baseline used the same unchecked Provider wire and is diagnostic only"
+  ],
+  "acceptedLaw": "A repeatedly-searching Agent may fail to self-stop. On a materially expensive evidence universe, a fresh synthesis boundary after a bounded high-information operator batch can break search inertia. The sufficient batch size is workload/operator-relative; do not universalize one observation. More observations are not monotonically better and can introduce path-dependent semantic error.",
+  "reject": [
+    "critic service from this workload",
+    "serial per-observation marginal narration",
+    "universal observation-count threshold",
+    "always-full-inspection on expensive universes"
+  ],
+  "operatorInformationDensityNote": "The single successful P9 observation was a broad current git search returning up to 60 matches, including high-density current MCP/tool descriptions and source anchors; one observation here is not one line or one fact.",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:62bace8c125fd7950ac83d321bd55e700c1ff8c7a47bc4d62f7012a036b2d3ea"
+  }
+}

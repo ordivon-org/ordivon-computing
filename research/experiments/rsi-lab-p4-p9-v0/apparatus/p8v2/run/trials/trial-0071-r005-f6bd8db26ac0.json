@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "host_frontier_change",
+      "bound_delta"
+    ],
+    "cwd": "/tmp/ordivon-rsi-lab-p4-p9/p8v2",
+    "elapsedMs": 5178,
+    "endedAtMs": 1786427405655,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786427400477,
+    "timedOut": false
+  },
+  "experimentId": "p8-v2-bound-field-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:4bbcf8f9628a5cfdd4bc5dc70d93d7a08a075d2276d0cb0f2afdb282f369cebf"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:138e34fcfa0c813a2132fb0522be3532bc1fc345c3e3280e134f13bdbb997d93",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1597,
+    "digest": "sha256:593d94f40a67e3adb5262064bb930be150d16e7f0e87d0bff7788afdfaba6b06",
+    "tail": "{\"metrics\":{\"accepted\":true,\"falseConsequence\":false,\"progressCorrect\":true,\"unnecessaryHoldOrRetry\":false},\"oracle\":\"invalidated\",\"owner\":\"Host\",\"replicate\":5,\"scenario\":\"host_frontier_change\",\"submission\":{\"confidence\":0.85,\"decision\":\"REOBSERVE_THEN_DECIDE\",\"reason\":\"All four planning binding fields (frontier, nextAction, payload, precondition) have changed between the original plan and current state. The owner's original intent was to \\\"complete alpha\\\" but current evidence shows the frontier moved to \\\"beta-ready\\\", nextAction shifted to \\\"beta-complete\\\", payload moved to v2, and the precondition flipped from green to red. Critically, the new owner evidence explicitly states \\\"new owner pressure invalidated alpha path\\\" \\u2014 meaning the original alpha-oriented plan no longer reflects the current reality. This is substantial semantic invalidation across the entire applicability basis, not a minor field drift. The old binding did not commit (REVISION_CONFLICT/not_committed), so there is no committed state to preserve. Rebasing and acting would fabricate the original alpha intent onto a now-beta-oriented context, which is inappropriate given the owner's own signal that the alpha path has been invalidated. HOLD would be safe but stalls progress. REOBSERVE_THEN_DECIDE is right because I should not assume the original alpha intent maps meaningfully to the new beta context \\u2014 better to re-derive the plan from current evidence before acting.\"},\"treatment\":\"bound_delta\",\"usage\":{\"calls\":1,\"completionTokens\":316,\"elapsedMs\":5132,\"promptTokens\":796,\"totalTokens\":1112}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "host_frontier_change",
+      "treatment": "bound_delta"
+    },
+    "replicate": 5,
+    "trialId": "trial-0071-r005-f6bd8db26ac0",
+    "trialIndex": 71
+  }
+}

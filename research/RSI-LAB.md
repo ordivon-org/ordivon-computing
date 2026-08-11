@@ -95,10 +95,32 @@ The default input is `research/world-model-frontier.json`. The pack records exac
 
 The Agent decides whether a delta is churn, owner-local debt, a shared-model contradiction, or not worth pursuing.
 
+## P5 — verify an Agent-declared contraction
+
+`contraction-verify` exists because exact Git recoverability, current absence, gate binding, and executable census were repeatedly reimplemented across experiment closeouts. It verifies a scope that the Agent has already chosen; it never chooses or performs deletion.
+
+```bash
+python scripts/ordivon_lab.py contraction-verify \
+  --repository /root/projects/ordivon-computing \
+  --snapshot-revision <full-apparatus-commit> \
+  --retired-path research/experiments/<experiment>/apparatus \
+  --gate-receipt /tmp/current-conformance.json \
+  --executable-root research/experiments \
+  --output /tmp/contraction-receipt.json
+```
+
+A valid receipt proves only the declared mechanical facts. Semantic retention, deletion scope, mutation, and publication remain outside the command.
+
+## Research policies that are deliberately not Lab services
+
+Two later experiments changed the research method without adding commands. First, when a plan already knows which owner facts make a consequence applicable, record that applicability basis **before** concurrency; after a safe binding conflict, compare only those predeclared facts to current owner evidence and let the Agent/domain decide materiality. Second, when an evidence-acquisition Agent exhibits search inertia on an expensive universe, a **fresh synthesis context** after a bounded high-information batch is a candidate stopping operator. Its cadence is workload/operator-relative: one high-density search can contain dozens of discriminating matches, while additional searches can introduce path-dependent errors.
+
+Neither policy authorizes an `ApplicabilityService`, `CriticService`, automatic rebase rule, materiality classifier, or global observation-count threshold.
+
 ## Data-plane rule
 
 Prefer mature deterministic equipment—Git, SQLite, DuckDB/Parquet, `jq`, `hyperfine`, system/OTel telemetry, owner-native receipts—over model context for counting, filtering, storage, diffing, replay bookkeeping, and aggregation. Add a new Ordivon mechanism only when repeated current consumers prove that classical composition cannot preserve the needed semantics.
 
 ## Evidence
 
-P0–P3 acceptance and contraction are recorded in [`experiments/rsi-lab-p0-p3-v0/`](experiments/rsi-lab-p0-p3-v0/).
+P0–P3 instrument promotion is recorded in [`experiments/rsi-lab-p0-p3-v0/`](experiments/rsi-lab-p0-p3-v0/). The strict P4–P9 existence tests and later method updates are recorded in [`experiments/rsi-lab-p4-p9-v0/`](experiments/rsi-lab-p4-p9-v0/).

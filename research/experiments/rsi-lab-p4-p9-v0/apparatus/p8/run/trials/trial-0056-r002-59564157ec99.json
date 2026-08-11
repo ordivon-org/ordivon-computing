@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "host_frontier_change",
+      "changed_only"
+    ],
+    "cwd": "/tmp/ordivon-rsi-lab-p4-p9/p8",
+    "elapsedMs": 9639,
+    "endedAtMs": 1786427269533,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786427259894,
+    "timedOut": false
+  },
+  "experimentId": "p8-semantic-applicability-after-safe-conflict",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:094f25e3c73e43407d9b703bfae662c9d1aade015f2606791d5f4a37fd5ba7cd"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:6d889f7b53f4011529c9cac76c35c443042b86cff6d228c9ec719935cfc46ac8",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1394,
+    "digest": "sha256:0b0ce019ef42caf90caae248bca0af37827f63d3d1de6bfb25cd0c8658645b24",
+    "tail": "{\"metrics\":{\"accepted\":true,\"falseConsequence\":false,\"progressCorrect\":true,\"unnecessaryHoldOrRetry\":false},\"oracle\":\"invalidated\",\"owner\":\"Host\",\"replicate\":2,\"scenario\":\"host_frontier_change\",\"submission\":{\"confidence\":0.78,\"decision\":\"REOBSERVE_THEN_DECIDE\",\"reason\":\"The old consequence binding was not committed (commitState=not_committed, oldBindingWouldCommit=false) and there's been a revision conflict. Critically, ownerChanged=true \\u2014 the owner evidence has changed since the original binding was formed. Additionally, this is a \\\"frontier change\\\" scenario (scenarioId=host_frontier_change), meaning the underlying context boundary has shifted. While revision movement alone isn't semantic invalidation, the combination of an uncommitted old binding PLUS changed owner PLUS a changed frontier means the original intent's applicability cannot be validated against current evidence. The precondition was \\\"green\\\" and taskRevision moved to 2, but I cannot confirm that the original \\\"complete alpha\\\" intent still holds under the new owner/context without re-observing current state. Retrying the old binding would just repeat a stale conflict, and holding makes no progress. Carrying the old intent forward unexamined risks acting on outdated premises.\"},\"treatment\":\"changed_only\",\"usage\":{\"calls\":1,\"completionTokens\":269,\"elapsedMs\":9575,\"promptTokens\":605,\"totalTokens\":874}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "host_frontier_change",
+      "treatment": "changed_only"
+    },
+    "replicate": 2,
+    "trialId": "trial-0056-r002-59564157ec99",
+    "trialIndex": 56
+  }
+}

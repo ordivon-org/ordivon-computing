@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "host_frontier_change",
+      "semantic_delta"
+    ],
+    "cwd": "/tmp/ordivon-rsi-lab-p4-p9/p8",
+    "elapsedMs": 4875,
+    "endedAtMs": 1786427282451,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786427277576,
+    "timedOut": false
+  },
+  "experimentId": "p8-semantic-applicability-after-safe-conflict",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:88050af30fd093bcfaaa43e3b3119f9a554098f39d1d2dcb6e4fce40d7a71bd7"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:6d889f7b53f4011529c9cac76c35c443042b86cff6d228c9ec719935cfc46ac8",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1564,
+    "digest": "sha256:a0842d2a67ef9702f863e8361f6339b261de86b4cb4a933bd46b59bdee1f399c",
+    "tail": "{\"metrics\":{\"accepted\":true,\"falseConsequence\":false,\"progressCorrect\":true,\"unnecessaryHoldOrRetry\":false},\"oracle\":\"invalidated\",\"owner\":\"Host\",\"replicate\":6,\"scenario\":\"host_frontier_change\",\"submission\":{\"confidence\":0.9,\"decision\":\"REOBSERVE_THEN_DECIDE\",\"reason\":\"The old binding intended to \\\"complete alpha\\\" (frontier=alpha-ready, nextAction=alpha-complete, payload=v1, precondition=green). But the current owner evidence shows the frontier has moved to beta-ready, the new evidence states \\\"new owner pressure invalidated alpha path,\\\" nextAction is beta-complete, payload=v2, and precondition is now red. The planningEvidence intent was to complete alpha, but the alpha path has been explicitly invalidated by new owner pressure. The change is not mere evidence\\u2014the delta shows all decision-relevant fields changed (frontier, nextAction, payload, precondition all differ), and the owner also changed. The original intent (complete alpha) is materially invalidated because the alpha path no longer applies under current owner evidence. The old consequence did not commit, so there is no committed state to preserve. Carrying forward the alpha-completion intent would be wrong; the current evidence indicates a beta path requiring new observation to formulate a correct intent. HOLD would make no progress and RETRY would repeat a stale binding, while REBASE_AND_ACT would wrongly re-apply the invalidated alpha intent.\"},\"treatment\":\"semantic_delta\",\"usage\":{\"calls\":1,\"completionTokens\":309,\"elapsedMs\":4823,\"promptTokens\":692,\"totalTokens\":1001}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "host_frontier_change",
+      "treatment": "semantic_delta"
+    },
+    "replicate": 6,
+    "trialId": "trial-0072-r006-84872da9d96f",
+    "trialIndex": 72
+  }
+}

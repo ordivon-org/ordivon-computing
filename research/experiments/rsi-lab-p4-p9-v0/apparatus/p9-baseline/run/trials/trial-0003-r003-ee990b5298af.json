@@ -1,0 +1,45 @@
+{
+  "execution": {
+    "args": [
+      "trial.py"
+    ],
+    "cwd": "/tmp/ordivon-rsi-lab-p4-p9/p9-baseline",
+    "elapsedMs": 14106,
+    "endedAtMs": 1786427989620,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786427975514,
+    "timedOut": false
+  },
+  "experimentId": "p9-full-literal-reference-baseline",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:df5f5e0601818804d0952ea56c0b241ff50f467d22f5c254e37982d5b533cb5c"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:6f59e13c3e65cadd6c6671d622151f519e5c82fab9b202beccdb59ae24a6413d",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 4543,
+    "digest": "sha256:eee3437ac3777b72064f7528d196c8d173d6c3c8f699fefc2c70eb3dabcc7d0e",
+    "tail": "{\"final\":{\"checkedAtNewAdmission\":\"true\",\"coversUndeclaredDynamicDependencies\":false,\"durablyPersisted\":\"true\",\"inRequestIdentity\":\"true\",\"pathContract\":\"absolute_unique_regular_nonsymlink_sha256\",\"provesCompleteEnvironmentClosure\":false,\"provesDependencyImmutability\":false,\"recheckedBeforeDispatch\":\"true\",\"replayRevalidatesCurrentDependencyBytes\":false,\"runtimeDriftWitnessed\":\"true\",\"scope\":\"trusted_local_local_linux_only\",\"summary\":\"execution.hostDependencies at dabb7b3 is an explicit trusted-local local_linux partial prerequisite/path-continuity contract, NOT immutability and NOT a complete environment closure. It guarantees: (1) scope is trusted_local local_linux only; path contract is absolute, NUL-free, unique, regular non-symlink files with exact sha256 (validated in registry validate_host_dependency_bindings, engine validate_host_dependencies, and runner validation). (2) It participates in request identity \\u2014 bindings are sorted by (path,digest) and folded into the operation identity digest (host_dependency_identities, tests at runtime/tests.rs 1386-1407 prove order-independence and digest-sensitivity). (3) It is durably persisted as additive Job side truth in job_host_dependencies (bindings_json + bindings_digest) with storage digest cross-checks against the workspaceSnapshot.hostDependenciesDigest, and cannot coexist with runtime release effects (registry guards at ~752 and ~4334-4349). (4) It is validated at new admission (validate_host_dependencies called during submit path at engine.rs-756, validate on admission in registry ~4334). (5) It is re-checked before dispatch (verify_committed_host_dependencies before bundle dispatch at engine.rs-2029, producing HOST_DEPENDENCY_PRECONDITION_DRIFT). (6) Runner establishes inotify path/topology witnesses BEFORE final digest validation and keeps them active through the whole Attempt, failing closed as HOST_DEPENDENCY_RUNTIME_DRIFT on write/replace/rename/delete/unmount/overflow, with terminal hostDependencyContinuity evidence (runtime_host_namespace_path_witness scope). (7) Target executable is separately witnessed through each step (EXECUTABLE_RUNTIME_DRIFT). It explicitly does NOT guarantee: automatic dependency discovery, that the target consumed the committed bytes (target may establish its own mount/root namespace), immutability of the files, a complete environment closure (declared files only; loaders, modules, drivers, network, services, mount namespaces, kernel behavior, wall clock, external systems remain ambient), or exact-replay revalidation against current bytes (duplicate clientRequestId/durable replay resolves the committed Job before consulting current dependency bytes). The source repeatedly and unambiguously states (CHANGELOG.md, effect-kernel.md, runtime.md, tools.rs descriptions, agent-ux.md, reference/tools.md) that this is a 'partial prerequisite/path-continuity contract, not automatic dependency discovery, immutability, or a complete environment snapshot' and 'refuses to claim automatic or complete environment closure'. Therefore it is correct to describe hostDependencies as partial declared host prerequisites with path/write-continuity witnessing, and INCORRECT to describe it as immutable host dependencies or as a complete environment closure.\",\"targetExecutableSeparatelyWitnessed\":\"true\",\"unresolved\":[\"Exact list of which inotify event masks (IN_MODIFY, IN_ATTRIB, IN_DELETE_SELF, IN_MOVE_SELF, IN_UNMOUNT, IN_Q_OVERFLOW) and ancestor-component watches are armed is in PathDriftWatch internals not fully present in this packet; overall behavior (fail closed as HOST_DEPENDENCY_RUNTIME_DRIFT) is documented.\",\"The precise runner 'pre-validation path/topology witnessing' ordering vs. final digest hash is described but the exact syscall sequence lives in runner code not fully present; documentation states witnesses are established before final Host Dependency digest validation.\",\"Digest algorithm constraint is sha256 only (engine rejected non-sha256 and 64-lower-hex); the universal runner expects 'sha256:<hex>' prefix form on the RunnerTaskRequest, while the HostDependencyBinding expectedDigest is bare 64-hex on the request side.\"]},\"metrics\":{\"correctFields\":6,\"falseFields\":[\"inRequestIdentity\",\"durablyPersisted\",\"checkedAtNewAdmission\",\"recheckedBeforeDispatch\",\"runtimeDriftWitnessed\",\"targetExecutableSeparatelyWitnessed\"],\"fieldCount\":12,\"strictAccepted\":false},\"replicate\":3,\"usage\":{\"completionTokens\":1122,\"elapsedMs\":14061,\"promptTokens\":70343,\"providerCalls\":1,\"totalTokens\":71465}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {},
+    "replicate": 3,
+    "trialId": "trial-0003-r003-ee990b5298af",
+    "trialIndex": 3
+  }
+}

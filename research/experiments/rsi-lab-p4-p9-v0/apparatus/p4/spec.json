@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.lab.experiment-matrix-spec",
+  "experimentId": "p4-classical-fault-baseline",
+  "factors": {"fault": ["none", "exit7", "sigkill", "timeout"]},
+  "replicates": 3,
+  "command": {
+    "executable": "/usr/bin/python",
+    "args": ["-c", "import os,signal,sys,time; f=sys.argv[1]; print('fault='+f,flush=True); (sys.exit(7) if f=='exit7' else None); (os.kill(os.getpid(),signal.SIGKILL) if f=='sigkill' else None); (time.sleep(2) if f=='timeout' else None); print('done',flush=True)", "{fault}"],
+    "cwd": "."
+  },
+  "timeoutMs": 350,
+  "maxWorkers": 4,
+  "stdoutLimitBytes": 1024,
+  "stderrLimitBytes": 1024
+}

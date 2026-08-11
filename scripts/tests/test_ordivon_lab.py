@@ -120,6 +120,40 @@ class OrdivonLabTests(unittest.TestCase):
             self.assertTrue(Path(analysis["files"]["parquet"]["path"]).is_file())
             self.assertIn("derived analytical projection", analysis["authorityBoundary"])
 
+    def test_contraction_receipt_verifies_declared_scope_without_deleting(self) -> None:
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            repo = root / "repo"
+            repo.mkdir()
+            subprocess.run(["/usr/bin/git", "init", "-q", str(repo)], check=True)
+            subprocess.run(["/usr/bin/git", "-C", str(repo), "config", "user.email", "test@example.invalid"], check=True)
+            subprocess.run(["/usr/bin/git", "-C", str(repo), "config", "user.name", "Test"], check=True)
+            apparatus = repo / "research" / "experiments" / "x"
+            apparatus.mkdir(parents=True)
+            (apparatus / "run.py").write_text("print('old')\n", encoding="utf-8")
+            subprocess.run(["/usr/bin/git", "-C", str(repo), "add", "."], check=True)
+            subprocess.run(["/usr/bin/git", "-C", str(repo), "commit", "-qm", "snapshot"], check=True)
+            snapshot = subprocess.check_output(["/usr/bin/git", "-C", str(repo), "rev-parse", "HEAD"], text=True).strip()
+            subprocess.run(["/usr/bin/git", "-C", str(repo), "rm", "-qr", "research/experiments/x"], check=True)
+            subprocess.run(["/usr/bin/git", "-C", str(repo), "commit", "-qm", "contract"], check=True)
+            current = subprocess.check_output(["/usr/bin/git", "-C", str(repo), "rev-parse", "HEAD"], text=True).strip()
+            gate = root / "gate.json"
+            gate.write_text(json.dumps({"status":"passed","repositoryRevision":current,"integrity":{"payloadDigest":"sha256:"+"b"*64}})+"\n")
+            receipt = lab.build_contraction_receipt(
+                repository=repo,
+                snapshot_revision=snapshot,
+                retired_paths=("research/experiments/x",),
+                gate_receipt=gate,
+                executable_root="research/experiments",
+                created_at_ms=40,
+            )
+            self.assertEqual(receipt["currentRevision"], current)
+            self.assertEqual(receipt["executableCensus"]["trackedExecutableLikeCount"], 0)
+            self.assertTrue(receipt["retiredPaths"][0]["physicallyAbsent"])
+            self.assertIsNotNone(receipt["retiredPaths"][0]["snapshotObjectId"])
+            self.assertFalse(receipt["authorityBoundary"]["retirementScopeChosenByVerifier"])
+            self.assertFalse(receipt["authorityBoundary"]["deletionPerformedByVerifier"])
+
     def test_pressure_pack_reports_delta_without_priority(self) -> None:
         with tempfile.TemporaryDirectory() as raw:
             root = Path(raw)

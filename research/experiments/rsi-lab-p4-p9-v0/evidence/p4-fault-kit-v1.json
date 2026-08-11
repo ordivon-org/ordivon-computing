@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.p4-fault-kit-falsification",
+  "question": "Does repeated fault testing justify a cross-project Fault Injection Kit rather than Matrix plus mature OS/tool primitives and owner-local semantic adapters?",
+  "matrixReceiptDigest": "sha256:4ed22f02d6b4db044fdbfa60f4c14b7175a11bc8a6ebc542c7a41c8433f7e7b2",
+  "trials": 12,
+  "specBytes": 651,
+  "summary": [
+    {
+      "factor_fault": "exit7",
+      "n": 3,
+      "exit_codes": [
+        7.0,
+        7.0,
+        7.0
+      ],
+      "timeouts": "0",
+      "success": "0"
+    },
+    {
+      "factor_fault": "none",
+      "n": 3,
+      "exit_codes": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timeouts": "0",
+      "success": "3"
+    },
+    {
+      "factor_fault": "sigkill",
+      "n": 3,
+      "exit_codes": [
+        -9.0,
+        -9.0,
+        -9.0
+      ],
+      "timeouts": "0",
+      "success": "0"
+    },
+    {
+      "factor_fault": "timeout",
+      "n": 3,
+      "exit_codes": [
+        -9.0,
+        -9.0,
+        -9.0
+      ],
+      "timeouts": "3",
+      "success": "0"
+    }
+  ],
+  "crossOwnerAudit": {
+    "host": {
+      "sigkillMatches": 5,
+      "responseDropMatches": 34,
+      "delayMatches": 11,
+      "ownerLocalFaultAdapter": "ordivon_host.testing.faults"
+    },
+    "runtime": {
+      "sigkillMatches": 4,
+      "delayMatches": 68
+    },
+    "security": {
+      "sigkillMatches": 43,
+      "partialPhaseMatches": 84,
+      "delayMatches": 40
+    },
+    "world": {
+      "sigkillMatches": 3,
+      "responseDropMatches": 2,
+      "delayMatches": 9
+    },
+    "harness": {
+      "delayMatches": 5
+    },
+    "game": {
+      "sigkillMatches": 2,
+      "partialPhaseMatches": 12
+    }
+  },
+  "result": "reject_crosscut_fault_kit",
+  "retain": [
+    "ordivon_lab_matrix",
+    "os_process_signal_timeout_primitives",
+    "owner_local_semantic_fault_adapters"
+  ],
+  "reason": "The shared mechanical intersection is already expressed by OS/tool primitives; response-loss and phase semantics differ materially by owner. A shared Fault DSL would either wrap existing primitives or erase owner semantics.",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:3bd93a7b06cad35c3b387aa9399c7350c7671c1bdc8da145d77264d3ba812c4a"
+  }
+}
