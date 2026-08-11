@@ -101,3 +101,9 @@ FD1 is closed in [`FD1-REPORT.md`](FD1-REPORT.md). The external comparison and i
 Finance, Harness, and Security have completed the first real rewrite dogfood. Harness and Security are published; Finance has an exact tested/evaluated candidate but its `main` update is intentionally fenced by a concurrent uncommitted owner contraction. See [`FD2-FD3-FIRST-TRANCHE.md`](FD2-FD3-FIRST-TRANCHE.md) and [`editorial-discipline-v2.json`](editorial-discipline-v2.json).
 
 The seven FD1 disciplines survive without an eighth rule. Currentness-before-publication, linked-authority currentness, and paired-oracle invariance are now stricter.
+
+## FD4 second rewrite wave
+
+World and Host are published with causal entry rewrites; Runtime required an experiment-driven second contraction and remains publication-fenced behind active owner mutation; Computing has a contracted candidate awaiting final conformance/CAS publication. The primary 48-trial preflight plus 12-trial Runtime follow-up found no causal regression. See [`FD4-SECOND-WAVE-CLOSEOUT.md`](FD4-SECOND-WAVE-CLOSEOUT.md) and [`editorial-discipline-v3.json`](editorial-discipline-v3.json).
+
+The seven-discipline method still survives without an eighth rule. FD4 adds two practical refinements: preserve owner-native stable navigation anchors when they are part of the owner's public contract, and force a second contraction when a ceiling-correct rewrite materially increases reader burden without decision gain.

@@ -28,7 +28,7 @@ This is essentially burden-neutral: the README is causally reorganized around se
 
 ## Computing
 
-Both frozen tasks remained 3/3 correct. The second local contraction performed before prereg materially reduced both tested bundles.
+Both frozen tasks remained 3/3 correct. The second local contraction performed before preregistration materially reduced both tested bundles.
 
 - COMP-01: 26,810 → 22,502 bytes (-16.1%), tokens 21,577 → 18,885 (-12.5%).
 - COMP-02: 24,210 → 17,810 bytes (-26.4%), tokens 20,086 → 16,128 (-19.7%).
