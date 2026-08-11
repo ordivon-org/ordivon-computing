@@ -107,3 +107,9 @@ The seven FD1 disciplines survive without an eighth rule. Currentness-before-pub
 World and Host are published with causal entry rewrites; Runtime required an experiment-driven second contraction and remains publication-fenced behind active owner mutation; Computing has a contracted candidate awaiting final conformance/CAS publication. The primary 48-trial preflight plus 12-trial Runtime follow-up found no causal regression. See [`FD4-SECOND-WAVE-CLOSEOUT.md`](FD4-SECOND-WAVE-CLOSEOUT.md) and [`editorial-discipline-v3.json`](editorial-discipline-v3.json).
 
 The seven-discipline method still survives without an eighth rule. FD4 adds two practical refinements: preserve owner-native stable navigation anchors when they are part of the owner's public contract, and force a second contraction when a ceiling-correct rewrite materially increases reader burden without decision gain.
+
+## FD5–FD6 third wave
+
+Game and Human passed explicit no-change controls and were not rewritten. Studio contracted its root around revision-bound expression and added a document/fact authority map; Web contracted its root around public consequence and encounter-versus-comprehension, then published through its protected-main PR/check path. Across 36 reader trials and 36 judges there were no causal/authority regressions. See [`FD5-FD6-THIRD-WAVE-CLOSEOUT.md`](FD5-FD6-THIRD-WAVE-CLOSEOUT.md) and [`editorial-discipline-v4.json`](editorial-discipline-v4.json).
+
+The seven disciplines still survive without an eighth rule. The main new refinement is that **no-change is a valid experimental treatment** when an existing owner entry already satisfies the frozen reader consequence and has no observed structural authority gap.
