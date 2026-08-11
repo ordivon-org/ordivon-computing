@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import hashlib
+import http.client
 import json
 import os
 import random
@@ -143,7 +144,7 @@ def invoke(secret: dict[str,str], case: dict[str,Any], treatment: str, request_i
               'wireCorrections':errors,
             }
             return parsed, meta
-        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, json.JSONDecodeError, ValueError, KeyError) as exc:
+        except (urllib.error.URLError, urllib.error.HTTPError, http.client.RemoteDisconnected, ConnectionError, TimeoutError, json.JSONDecodeError, ValueError, KeyError) as exc:
             errors.append({'attempt':attempt,'type':type(exc).__name__,'message':str(exc)[:500]})
             if attempt==5:
                 raise

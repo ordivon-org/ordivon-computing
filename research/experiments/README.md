@@ -46,6 +46,9 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 - [`p10-p11-effect-phase-order-v0/`](p10-p11-effect-phase-order-v0/) — Finance C2 ambiguous-Effect and evidence-order falsification: applicability hands off to exact admitted identity after first admission, exactly-once remains identity-scoped, evaluator ambiguity is treated as a first-class confound, and tested order canonicalization is rejected rather than promoted into a Context/Evidence service.
 
+- [`ex2-world-finance-multiaxis-v0/`](ex2-world-finance-multiaxis-v0/) — causal-explanation falsification that rejected a universal five-axis record and closed whole-family relation ontology while retaining exact-question responsibility analysis as research method.
+- [`ex3-ex7-causal-comprehension-v0/`](ex3-ex7-causal-comprehension-v0/) — preregistered five-stage action-pressure programme over 17 owner-native responsibility families; 1,326/1,326 accepted Agent decisions were exact, richer representations never beat strong compact prose, and EX7 selected compact prose as the minimum non-inferior Agent-facing representation.
+
 ## Deferred experiment families
 
 Dynamic Task dataflow, branch/join coordination, adaptation, and additional World or Security experiments remain deferred until the generated portfolio admits a concrete falsifier and consuming workload. Historical Edge/Link or generic second-backend plans are not active promises.

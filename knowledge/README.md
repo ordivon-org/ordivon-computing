@@ -21,6 +21,7 @@ A topic belongs here when it is already coherent enough to reuse, but still bene
 - [`computing/`](computing/) — state, memory, parallelism, data movement, and machine execution;
 - [`models/`](models/) — framework, compiler, Transformer, training, and inference-runtime concepts;
 - [`agents/`](agents/) — goals, tasks, effects, execution kernels, tools, continuity, and capability externalization;
+- [`agents/causal-responsibility-explanation.md`](agents/causal-responsibility-explanation.md) — compact owner-native causal explanations, negative proof boundaries, and the on-demand responsibility-question method validated by EX3–EX7;
 - [`institutions/`](institutions/) — human–Agent products, collaboration, and organization;
 - [`cases/`](cases/) — concrete systems and failures that reveal reusable abstractions.
 
