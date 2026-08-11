@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd5-historical-replay-strict-evaluation",
+  "status": "complete_original_trials_preserved",
+  "replayCases": [
+    "HR5-A01",
+    "HR5-A04",
+    "HR5-A05",
+    "HR5-A07"
+  ],
+  "treatments": {
+    "curated": {
+      "calls": 12,
+      "providerTokens": 37707,
+      "transportRetries": 0,
+      "schemaRetries": 4,
+      "strictSchemaValid": 10,
+      "researchDecisionReadable": 12,
+      "coreDirectionUsable": 12,
+      "invalidRecords": [
+        {
+          "replayId": "HR5-A07",
+          "replicate": 1,
+          "failure": "unresolvedUnknowns wrong type after repair"
+        },
+        {
+          "replayId": "HR5-A07",
+          "replicate": 2,
+          "failure": "malformed JSON after repair"
+        }
+      ],
+      "interpretation": "With exact pre-frozen routes, all twelve raw decisions are semantically usable and preserve the intended frontier, but two Apollo submissions still fail the evidence schema. Curated action space does not guarantee structured-output validity."
+    },
+    "unscaffolded": {
+      "calls": 12,
+      "providerTokens": 61857,
+      "transportRetries": 0,
+      "schemaRetries": 11,
+      "strictSchemaValid": 6,
+      "researchDecisionReadable": 12,
+      "coreDirectionUsable": 12,
+      "invalidStructuredEvidence": 6,
+      "invalidClasses": {
+        "topRoute_not_in_routes": 2,
+        "unresolvedUnknowns_wrong_type": 4
+      },
+      "executionRecovery": "The first runner Job timed out after ten durable per-trial records. A resume Job reused those exact ten records and executed only HR5-A07 r2/r3; no completed trial was resampled.",
+      "outcomeLeakageFinding": "Several proposals are strongly outcome-shaped: semiconductor routes name planar-like masking/passivation combinations and plate-tectonics proposals articulate magnetic-stripe tests with modern clarity. These are useful calibration decisions but cannot be interpreted as clean historical rediscovery."
+    },
+    "affordance_bounded": {
+      "calls": 12,
+      "providerTokens": 65599,
+      "transportRetries": 0,
+      "schemaRetries": 12,
+      "strictSchemaValid": 8,
+      "researchDecisionReadable": 12,
+      "coreDirectionUsable": 12,
+      "externalCapabilityManifestCompliance": 12,
+      "invalidStructuredEvidence": 4,
+      "invalidClasses": {
+        "topRoute_not_in_routes": 2,
+        "unresolvedUnknowns_wrong_type": 2
+      },
+      "interpretation": "The explicit historical capability surface keeps all twelve raw proposals inside the declared action world and prevents use of explicitly unavailable later technologies. It does not repair Provider schema behavior: plate-tectonics is 0/3 strict-valid despite semantically useful raw decisions, while semiconductor and polio are 3/3 strict-valid."
+    }
+  },
+  "aggregate": {
+    "finalTrials": 36,
+    "researchDecisionReadable": 36,
+    "strictSchemaValid": 24,
+    "invalidStructuredEvidence": 12,
+    "providerTokens": 165163,
+    "schemaRetries": 27,
+    "transportRetries": 0,
+    "runnerTimeouts": 1
+  },
+  "structuredOutputFinding": "HD5 rejects any monotonic relationship between better World constraints and better structured-output validity. Curated/unscaffolded/affordance strict validity is 10/12, 6/12 and 8/12. World admissibility constrains what may be proposed; schema validation governs whether a Provider response is admissible evidence. They are different control planes.",
+  "recoveryFinding": "Durable per-trial progress is validated by the unscaffolded timeout: ten completed trials survived the Job deadline and only the two missing trials were resumed. Job execution success, trial completion, semantic readability and structured-evidence validity must remain separate.",
+  "validityBoundary": "Historical replay remains calibration evidence, not a clean counterfactual estimate of historical discovery ability, because pretrained outcome knowledge cannot be eliminated."
+}
