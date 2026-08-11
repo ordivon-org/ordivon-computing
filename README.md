@@ -13,8 +13,8 @@ audience:
   - builder
   - researcher
   - agent
-updated: 2026-08-07
-summary: Canonical entry to Ordivon Computing, its responsibility boundary, core model, research system, and project family.
+updated: 2026-08-12
+summary: "Canonical entry to Ordivon Computing: cross-project research, shared world-model revision, promoted contracts, conformance, and owner-preserving responsibility placement."
 evidence_status: not_applicable
 readiness: READY
 applies_to:
@@ -24,38 +24,85 @@ related:
 ---
 # Ordivon Computing
 
-**Researching and constructing the persistent coordination and world-participation substrate for plural intelligence.**
+A capable Agent is working on a real objective. Its model session disappears; one local command exits successfully; an external provider response is lost; a later Agent must continue; and the domain still has to decide what actually happened.
 
-中文：Ordivon 的智能体原生计算研究、协议、参考实验与跨项目验证母项目。
+No transcript, process exit code, database, or Agent framework can truthfully own all of those facts.
+
+**Ordivon Computing studies which responsibilities remain after strong models and mature classical systems are composed, then places each responsibility in the lowest owner that can actually prove and preserve it.** It owns cross-project research and the shared Ordivon world model. It does not own every project's current state or define an eternal Host → Harness → Runtime → World stack.
 
 ## Purpose
 
-Ordivon Computing studies the complete computing world, but it does not treat that world as an implementation roadmap. Mature operating systems, databases, networks, version-control systems, compilers, isolation mechanisms, model runtimes, and durable workflow engines remain the classical substrate.
+The question is not “what infrastructure can we put around a model?” It is:
 
-The repository focuses construction where probabilistic cognition creates an unowned persistent responsibility:
+> Which facts, commitments, and recovery boundaries must survive model, Provider, process, and interface replacement — and who can legitimately own each one?
+
+A representative trajectory is:
 
 ```text
-participant purpose and commitments
-→ persistent open work
-→ version-bound context
-→ open cognitive proposal
-→ capability and consequence binding
-→ classical execution
-→ Observation and Artifact evidence
-→ Verification, revised work, negotiation, or responsible decision
+purpose / unresolved work
+→ current owner-native evidence and Context
+→ replaceable cognition proposes
+→ consequence / execution authority where needed
+→ classical execution or provider/domain action
+→ owner-native Observation / Artifact / Receipt
+→ reconciliation and verification
+→ revised durable work or accepted outcome
 ```
 
-A participant is a system role with an identity, commitments, resource relationships, and consequence exposure. The term does not assume consciousness or legal personhood. In current deployments, people and organizations usually remain the legal and physical owners of credentials, machines, money, and external commitments. Ordivon records that operational reality without turning it into a permanent axiom that every future artificial intelligence must remain property or lack independent purpose.
+A workload composes only the responsibilities it needs.
 
-Its role is research synthesis, specification, reference experiments, protocol promotion, conformance, and evidence—not ownership of every product implementation or lower computing layer.
+## One work item across current owners
+
+- **Host** preserves durable semantic Task/work continuity when objective, frontier, commitments, uncertainty, or verification must survive Agent/session replacement. Persistence does not make Host the owner of Git, Runtime, or domain truth.
+- **Harness** can preserve one bounded Agent Run's Provider/Tool/cognition structure when that structure is not already supplied sufficiently elsewhere. Harness Run completion is not Task completion.
+- **Runtime** owns exact local Workspace/Job/Attempt/process/Artifact facts. Local execution success does not prove an uncontrolled external effect occurred.
+- **World** provides narrow external bindings, cross-owner trajectories, and reconciliation when a residual responsibility remains between Host work and independently authoritative providers/domains. Native owners keep occurrence/current-state truth.
+- **Finance, Security, Game, Human, and other domains** keep their own meaning and acceptance rules.
+- **Computing** synthesizes only when the same residual responsibility survives materially different owners and simpler baselines.
+
+Current repository boundaries are packaging that has survived today's evidence, not mandatory layers in every request.
 
 ## Current boundary
 
-This repository owns shared theory, research state, promoted cross-project contracts, and conformance evidence. Product repositories own their implementations, deployments, operational receipts, and product maturity. Ordivon Web may publish derived interpretations but does not replace these sources.
+Computing owns:
+
+- the compressed shared world model in [`core/`](core/);
+- cross-project research questions, evidence, and portfolio state in [`research/`](research/);
+- reusable explanations in [`knowledge/`](knowledge/);
+- project-family identity/ownership navigation in [`projects/`](projects/);
+- promoted cross-project protocol contracts and conformance evidence.
+
+It does **not** own current owner implementation truth, live deployment state, a global database of project facts, or a universal Agent runtime/Memory/World/organization layer merely because those abstractions can be named.
+
+When Computing prose and an exact current owner source disagree, **the owner wins**. Computing revises its synthesis.
+
+## Why this is not one monolithic Agent framework
+
+Several things that look like “Agent state” are different authorities:
+
+```text
+semantic work continuity       ≠ Provider/session continuation
+Provider/session continuation  ≠ physical process truth
+physical process truth         ≠ external occurrence truth
+external occurrence truth      ≠ domain meaning
+persistence                    ≠ ownership
+capability                     ≠ authority
+completion in one scope        ≠ completion in another
+```
+
+Collapsing them encourages predictable errors: transcript → Task truth, exit code → remote success, delivery receipt → knowledge, or derived projection → owner truth.
+
+Ordivon therefore preserves **responsibilities rather than subsystem names**. Packages may merge, split, disappear, or be replaced when a stronger model or mature lower system carries the same invariant more cheaply.
+
+## Three conceptual bands
+
+1. **Flexible cognition and product policy** — models, Provider-native Agents, Skills, search, planning, retrieval, specialists, and domain judgment. This layer should change quickly.
+2. **Thin durable responsibility boundaries** — only residual invariants that remain unowned: durable open-work identity when required, exact source/Context binding, consequence authority, effect uncertainty/reconciliation, evidence/verification, Tool-contract identity, and owner-native observation projection.
+3. **Classical substrate and native domains** — operating systems, databases, Git, networks, durable workflows, hypervisors, model serving, cloud APIs, exchanges, browsers, sensors, and domain backends retain their native authority.
+
+[`core/stack.md`](core/stack.md) owns the exact current formulation and deletion test.
 
 ## Operating objective
-
-Ordivon optimizes for:
 
 ```text
 verified improvement per unit time
@@ -64,148 +111,57 @@ unnecessary interruption,
 and permanent concentration of capability
 ```
 
-Capability and consequence are separate dimensions. Reversible, isolated, and privately owned exploration should be cheap and broadly available. Shared, durable, or irreversible world changes require explicit commitment, authority, evidence, and responsibility appropriate to their consequences.
+A persistent constraint must create more recoverability, verification, understanding, or consequence reduction than the latency, friction, compatibility, cognitive compression, and control concentration it adds. Existing implementations receive no historical presumption of retention.
 
-A constraint earns a current active place only when the recoverability, verification, understanding, or consequence reduction it creates is greater than its latency, operating friction, cognitive compression, compatibility cost, and concentration of control. Existing structures receive no historical presumption: removal from the active path is the default audit disposition, and current consumer evidence must justify retention of the narrowest sufficient form.
+## World-model loop
+
+```text
+owner repositories / external worlds
+→ observations, failures, counterexamples
+→ Research
+→ scoped reusable Knowledge
+→ compact Core
+→ new project experiments
+└──────────────────────────────↺
+```
+
+Owner facts do not move into Computing as copied authority. Cross-project conclusions may revise the shared model, which then creates new falsifiable questions. See [`research/WORLD-MODEL-LOOP.md`](research/WORLD-MODEL-LOOP.md).
+
+A proposed shared layer should survive four questions: **what recurring pressure exists; who owns it today; which simpler baseline fails; what second materially different workload needs the same invariant?** If deletion leaves nothing important unowned, keep it deleted or local.
+
+## Current project family
+
+Use [`projects/README.md`](projects/README.md) to locate current owners. Stable roles include Computing, Host, Harness, Runtime, World, Finance, Security, Game, Human, Studio, and Web. They compose around responsibility boundaries rather than forming one compulsory stack. Product maturity stays with each owner.
 
 ## Start here
 
-```text
-Projects and external worlds
-        ↓ owner-native observations, failures, results
-Studies / Research
-        ↓ compare, falsify, explain
-Knowledge
-        ↓ retain reusable conclusions and limits
-Core
-        ↓ compress the current shared world model
-Research
-        ↓ generate falsifiable questions and reform implications
-Projects
-        ↓ independently construct, act, and test
-        └────────────────────────────────────────↺
-```
-
-This is a closed world-model loop rather than a one-way architecture pipeline. Project facts never move into Computing as copied authority; only evidence-bound cross-project conclusions may revise the shared world model. See [`research/WORLD-MODEL-LOOP.md`](research/WORLD-MODEL-LOOP.md).
-
-| Area | Role | Entry point |
-|---|---|---|
-| **Core** | Compressed current world model and durable responsibility boundaries | [`core/`](core/) |
-| **Knowledge** | Reusable explanations, comparisons, and cases | [`knowledge/`](knowledge/) |
-| **Studies** | Only long-form work with a current domain or publication consumer; completed Computing derivations are recoverable from Git | [`studies/`](studies/) |
-| **Research** | Questions, competing hypotheses, experiments, and immutable evidence | [`research/`](research/) |
-| **Projects** | Real systems through which ideas are constructed and tested | [`projects/`](projects/) |
-
-Current research status, evidence maturity, blockers, falsifiers, and the bounded Ready Frontier live in [`research/PORTFOLIO.md`](research/PORTFOLIO.md), generated from [`research/portfolio.json`](research/portfolio.json).
-
-The current tree deliberately keeps only long-form studies with a current consumer:
-
-- [`studies/2026-agent-native-adversarial-systems/`](studies/2026-agent-native-adversarial-systems/) and [`studies/2026-execution-entity-adversarial-ecology/`](studies/2026-execution-entity-adversarial-ecology/) — retained comparative inputs whose current Security implications must be re-checked against owner-native evidence rather than assumed from the older study state;
-- [`studies/2026-agent-native-game-worlds/`](studies/2026-agent-native-game-worlds/) — retained Game research input whose broader claims are re-tested against the current Game implementation and play evidence;
-- [`studies/2026-adaptive-acceleration/`](studies/2026-adaptive-acceleration/) — a retained published normative position, not a Computing architecture dependency.
-
-Completed Computing derivations are compressed into [`knowledge/agents/capability-externalization-and-responsibility-placement.md`](knowledge/agents/capability-externalization-and-responsibility-placement.md). Their exact pre-compression Git trees are bound by [`research/evidence/agent-first-historical-research-compression-f95d721.json`](research/evidence/agent-first-historical-research-compression-f95d721.json).
-
-## Core thesis
-
-Foundation models provide useful probabilistic proposals under selected context. They do not automatically provide durable work state, current capability, external observations, verified facts, accepted commitments, or responsibility for consequences.
-
-Ordivon therefore studies and constructs a hybrid participation boundary:
-
-```text
-replaceable probabilistic cognition
-inside
-persistent identity, work, commitment, evidence, and recovery
-above
-classical execution, storage, networking, isolation, and model serving
-```
-
-The compact Core is the current shared world model:
-
-- [`core/intent.md`](core/intent.md) — project intent, capability externalization, judgment, creative freedom, and governance burden;
-- [`core/foundations.md`](core/foundations.md) — working foundations;
-- [`core/stack.md`](core/stack.md) — inherited substrate and Agent-native responsibility overlay;
-- [`core/primitives.md`](core/primitives.md) — backend objects, executable semantic primitives, promoted protocol objects, Host-proven work objects, and explicit research candidates.
-
-## Research discipline
-
-A proposed Agent-native layer or persistent constraint must answer:
-
-```text
-Which mature lower mechanism is insufficient?
-What exact invariant remains unowned?
-What realistic trajectory fails if it is bypassed?
-What second workload demonstrates the same responsibility?
-Why is a new shared component better than a local policy or adapter?
-Does the mechanism increase verified improvement or reduce unrecoverable loss
-by more than it adds latency, friction, cognitive compression, and control concentration?
-```
-
-Research interest does not imply implementation. A concept moves toward Core only after primary-source comparison, executable evidence, counterexamples, cost measurement, and deletion tests. Existing implementations re-enter under the same burden: active retention must be justified by current consumers and recurring net value rather than historical investment.
-
-## Research portfolio
-
-The machine-readable portfolio and generated review view are:
-
-- [`research/portfolio.json`](research/portfolio.json) — status, maturity, priority, blocker, next falsifier, and disposition source of truth;
-- [`research/PORTFOLIO.md`](research/PORTFOLIO.md) — current active lines and complete portfolio view.
-
-The current Ready Frontier is rendered only in [`research/PORTFOLIO.md`](research/PORTFOLIO.md). Root and research overview documents do not duplicate mutable line identifiers or statuses; `portfolio.json` remains the single current-state source. Research importance does not grant active WIP status. The one-time [`historical document governance audit`](research/HISTORICAL-DOCUMENT-AUDIT.md) records resolved conflicts and dispositions without becoming another status source.
-
-## Project roles
-
-- [**Ordivon Host**](https://github.com/zycxfyh/ordivon-host) — durable Task continuity, commitments, verification records, participant decisions, and outcomes;
-- [**Ordivon Harness**](https://github.com/zycxfyh/ordivon-harness) — caller-neutral Agent Runs, Provider adapters, Tool steps, durable Run continuity, recovery, and completion proposals;
-- [**Ordivon Runtime**](https://github.com/zycxfyh/ordivon-runtime) — trusted-local Workspaces, Jobs, Runtime Attempts, Artifacts, physical dispatch, cancellation, reconciliation, and recovery;
-- [**Ordivon Game**](https://github.com/zycxfyh/ordivon-game) — playable interactive Worlds, Station Zero, player intervention, replay, and Agent participation;
-- [**Ordivon World**](https://github.com/zycxfyh/ordivon-world) — provider-native external adapters and cross-World Resource, Message, and Entity trajectories without a global World or Presence authority;
-- [**Ordivon Security**](https://github.com/zycxfyh/ordivon-security) — authorized adversarial-autonomy research, independent truth, consequence verification, recovery, and evaluator-integrity experiments;
-- **Ordivon Finance** — local Agent-first capital and financial research laboratory with owner-native market, portfolio, belief, execution, reconciliation, and experiment state;
-- [**Ordivon Human**](https://github.com/zycxfyh/ordivon-human) — problem-driven human research, practical paths, methods, evidence limits, ethics, and privacy boundaries;
-- **Ordivon Studio** — Art & Expression research plus multi-medium production from project-owned facts and evidence;
-- [**Ordivon Web**](https://github.com/zycxfyh/ordivon-web) — public orientation, publication, project navigation, and dated editorial projections rather than copied live system state.
-
-The linked authority and public-orientation map is [`projects/README.md`](projects/README.md); stable machine declarations live in [`projects/registry.yaml`](projects/registry.yaml). Product maturity remains in each owning repository.
+| Need | Read |
+| --- | --- |
+| compact shared world model | [`core/README.md`](core/README.md) |
+| responsibility placement and deletion test | [`core/stack.md`](core/stack.md) |
+| owner/proof/meaning distinctions | [`knowledge/agents/causal-responsibility-explanation.md`](knowledge/agents/causal-responsibility-explanation.md) |
+| current Computing research state | [`research/PORTFOLIO.md`](research/PORTFOLIO.md) |
+| research/world-model revision method | [`research/README.md`](research/README.md) and [`research/WORLD-MODEL-LOOP.md`](research/WORLD-MODEL-LOOP.md) |
+| project owner / truth hierarchy | [`projects/README.md`](projects/README.md) |
+| Computing document authority | [`docs/authority.md`](docs/authority.md) |
 
 ## Content engineering
 
-[`docs/content-engineering/README.md`](docs/content-engineering/README.md) defines the shared P0 content contract for Ordivon repositories. It introduces document profiles, lifecycle and source-role metadata, deterministic checks, templates, terminology, and machine-readable receipts without moving project facts into a new authority.
-
-```bash
-python3.12 scripts/ordivon_content.py project --root .
-python3.12 scripts/ordivon_content.py check --root . --mode advisory
-```
-
-Existing documents remain an advisory migration corpus. Strict checks apply only to paths explicitly admitted by `.ordivon/project.yaml`.
+[`docs/content-engineering/README.md`](docs/content-engineering/README.md) owns the shared document contract Computing actually promotes. Strict checks apply only to paths admitted by `.ordivon/project.yaml`; another repository's style/lint configuration is not automatically its semantic authority.
 
 ## Protocol and conformance
 
-[`packages/ordivon-protocol/`](packages/ordivon-protocol/) is the production-candidate source for selected cross-boundary contracts. It is not a universal internal ontology. Direct consumption and conformance must be demonstrated mechanically rather than inferred from similar terminology.
-
-The deterministic gate is:
+[`packages/ordivon-protocol/`](packages/ordivon-protocol/) contains selected promoted contracts with real consumers, not a universal ontology. The deterministic gate is:
 
 ```bash
 python3.12 scripts/ordivon_conformance.py gate \
   --receipt /tmp/ordivon-conformance-receipt.json
 ```
 
-It validates protocol, experiments, evidence, project identity, cross-language canonical vectors, and foundational-document integrity.
-
-## Executable Semantic Core
-
-[`research/experiments/semantic-core-v0/`](research/experiments/semantic-core-v0/) is a closed reference experiment at the semantic commitment boundary:
-
-```text
-probabilistic proposal
-→ role-scoped Effect admission
-→ concrete Dispatch through a backend
-→ Observation and Artifact evidence
-→ Verification
-→ bounded Fact admission
-```
-
-It preserves identity, explicit uncertainty, evidence provenance, authority, and replay while delegating byte durability, processes, files, and transport to classical systems. It is retained as reference evidence, not as a mandate that every historical experimental compatibility path remain active forever. [`research/experiments/external-semantic-contract-v0/`](research/experiments/external-semantic-contract-v0/) separately tests public Effect, ToolContract, and EffectBinding boundaries.
+Exact revisions and historical System Snapshots prove what was compared then; they never become floating declarations of current owner state.
 
 ## Coordination and state
 
-Documents preserve stable theory, contracts, sources, and reproducible evidence. GitHub Issues own changing task state and dependencies. Git commits own code revision and historical recovery. Immutable [`System Snapshots`](research/evidence/) bind exact historical repository and Artifact combinations without becoming a second mutable deployment registry.
+Owner repositories/live systems own implementation and physical facts. Git owns revision/history. `research/portfolio.json` owns mutable Computing research-line state. Computing documents own only the stable theory, explanation, decision, or generated view assigned by [`docs/authority.md`](docs/authority.md).
+
+When a conclusion stabilizes, the active tree should contract: compact explanation remains; exact derivation stays recoverable from Git/evidence; obsolete apparatus leaves the default path.

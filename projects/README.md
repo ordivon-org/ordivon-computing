@@ -1,60 +1,81 @@
 # Projects
 
-This directory maps real projects into the Agent-Native Computing research stack. Each implementation repository remains the source of truth for its code, tests, Issues, releases, runtime state, deployment revision, and current capabilities.
+The Ordivon project family is a set of **owner-native responsibility boundaries**, not a pipeline that every request must traverse.
+
+Follow the missing fact:
+
+```text
+semantic work must survive Agent/session replacement
+→ Host
+
+one bounded Agent Run needs Provider/Tool/cognition continuation
+→ Harness, when a simpler Provider/application path is insufficient
+
+which source/process/Attempt physically ran?
+→ Runtime
+
+what happened or remains current in an external/domain world?
+→ native provider/domain; World only for residual cross-owner binding/reconciliation
+
+what does the evidence mean for capital/security/game/human work?
+→ domain owner
+
+same residual responsibility recurs across different owners?
+→ Computing may test/promote a shared contract
+
+source-owned facts need expression/public encounter?
+→ Studio / Web without transferring factual authority
+```
+
+This map is current packaging, not an eternal architecture.
 
 ## Project family
 
-| Project | Stable role | Current authority | Public orientation |
-| --- | --- | --- | --- |
-| [Computing](https://github.com/zycxfyh/ordivon-computing) | shared theory, research state, promoted contracts, and conformance | [`docs/authority.md`](../docs/authority.md) | [Project directory](https://ordivon.com/projects) |
-| [Host](https://github.com/zycxfyh/ordivon-host) | durable Task continuity, commitments, verification, and outcomes | [Host authority](https://github.com/zycxfyh/ordivon-host/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
-| [Harness](https://github.com/zycxfyh/ordivon-harness) | caller-neutral Agent Runs, Provider adapters, Tool steps, durable Run continuity, and recovery | [Harness authority](https://github.com/zycxfyh/ordivon-harness/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
-| [Runtime](https://github.com/zycxfyh/ordivon-runtime) | physical local execution, Jobs, process state, Artifacts, and recovery | [Runtime authority](https://github.com/zycxfyh/ordivon-runtime/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
-| [Game](https://github.com/zycxfyh/ordivon-game) | Station Zero, authoritative game Worlds, player intervention, Agent participation, and replay | [Game authority](https://github.com/zycxfyh/ordivon-game/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
-| [World](https://github.com/zycxfyh/ordivon-world) | provider-native adapters and cross-World Resource, Message, and Entity trajectories without global World authority | [World authority](https://github.com/zycxfyh/ordivon-world/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
-| [Security](https://github.com/zycxfyh/ordivon-security) | authorized adversarial-autonomy research, independent truth, consequence, recovery, and evaluation | [Security authority](https://github.com/zycxfyh/ordivon-security/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
-| [Finance](https://github.com/zycxfyh/ordivon-finance) | Agent-first capital research, economic state, decision, execution, reconciliation, and experiment laboratory | Finance local repository authority | [Project directory](https://ordivon.com/projects) |
-| [Human](https://github.com/zycxfyh/ordivon-human) | problem-driven human research, practical paths, methods, and limits | [Human authority](https://github.com/zycxfyh/ordivon-human/blob/main/docs/authority.md) | [Project directory](https://ordivon.com/projects) |
-| [Studio](https://github.com/zycxfyh/ordivon-studio) | Art & Expression research and multi-medium production from project-owned facts | [Studio repository](https://github.com/zycxfyh/ordivon-studio) | [Project directory](https://ordivon.com/projects) |
-| [Web](https://github.com/zycxfyh/ordivon-web) | public orientation, publication, and dated interpretation | [Web authority](https://github.com/zycxfyh/ordivon-web/blob/main/content/editorial/authority.md) | [Public site](https://ordivon.com/) |
+| Project | Stable role | Current authority |
+| --- | --- | --- |
+| [Computing](https://github.com/zycxfyh/ordivon-computing) | shared world-model synthesis, research, promoted contracts, conformance | [`docs/authority.md`](../docs/authority.md) |
+| [Host](https://github.com/zycxfyh/ordivon-host) | durable semantic Task/work continuity, commitments, uncertainty, verification | [Host authority](https://github.com/zycxfyh/ordivon-host/blob/main/docs/authority.md) |
+| [Harness](https://github.com/zycxfyh/ordivon-harness) | bounded Agent Run, Provider/Tool structure, selected cognition, Run recovery | [Harness authority](https://github.com/zycxfyh/ordivon-harness/blob/main/docs/authority.md) |
+| [Runtime](https://github.com/zycxfyh/ordivon-runtime) | local Workspace/Job/Attempt/process/Artifact truth and recovery | [Runtime authority](https://github.com/zycxfyh/ordivon-runtime/blob/main/docs/authority.md) |
+| [World](https://github.com/zycxfyh/ordivon-world) | external binding, Resource/Message/Entity trajectories, temporal provenance, reconciliation | [World authority](https://github.com/zycxfyh/ordivon-world/blob/main/docs/authority.md) |
+| Finance | capital reality, research, decision, execution/reconciliation, accounting | Finance owner repository |
+| [Security](https://github.com/zycxfyh/ordivon-security) | authorized adversarial autonomy, scoped authority, independent consequence evidence | [Security authority](https://github.com/zycxfyh/ordivon-security/blob/main/docs/authority.md) |
+| [Game](https://github.com/zycxfyh/ordivon-game) | authoritative playable game World/rules/action/replay | [Game authority](https://github.com/zycxfyh/ordivon-game/blob/main/docs/authority.md) |
+| [Human](https://github.com/zycxfyh/ordivon-human) | human research, practical paths, evidence/ethics/privacy limits | [Human authority](https://github.com/zycxfyh/ordivon-human/blob/main/docs/authority.md) |
+| Studio | Art & Expression research and multi-medium production from source facts | Studio owner repository |
+| [Web](https://github.com/zycxfyh/ordivon-web) | public orientation, publication, encounter, dated interpretation | [Web authority](https://github.com/zycxfyh/ordivon-web/blob/main/content/editorial/authority.md) |
 
-Use this table for navigation and stable role discovery. Use the owning repository for current implementation or research facts, and the public page for reader-facing orientation and maturity language.
-
-## Project-family decisions
-
-Cross-project ownership, admission, extraction, merge, and retirement rationale is indexed in [`decisions/README.md`](decisions/README.md). Decision records preserve why a boundary was considered or accepted, the alternatives and evidence, and the conditions that would reopen it.
-
-A record under review does not create a project, replace mutable GitHub Issue state, or modify stable identity. [`registry.yaml`](registry.yaml) remains the only stable project-identity registry, and implementation work begins only after the decision reaches the required status and an owning repository or Issue exists.
+Use [ordivon.com/projects](https://ordivon.com/projects) for public orientation. Use the owning repository for current implementation/research facts.
 
 ## Truth hierarchy
 
-When sources disagree about an implementation claim, use this order:
+For a current implementation/state claim, prefer:
 
-1. implementation code plus its tests, and exact-revision runtime or acceptance evidence;
-2. contracts maintained in the implementation repository;
-3. Issue and pull-request descriptions or discussion;
-4. Ordivon Computing summaries, maps, and charters.
+1. owner code/tests plus exact-revision or native runtime evidence;
+2. current owner contracts/authority documents;
+3. scoped owner research/Issue/PR evidence;
+4. Computing synthesis, studies, maps, and historical snapshots;
+5. public/editorial projection.
 
-Evidence must remain bound to the revision and observation time that produced it. A lower source may summarize a higher source, but it cannot override it; stale Computing prose is corrected from implementation and runtime truth rather than treated as an independent maturity authority.
+A lower source may explain a stronger source but cannot override it. When owner truth changes, summaries acquire a review obligation.
 
-- [`registry.yaml`](registry.yaml) — stable project identities, roles, research branches, focus, and feedback sources;
-- [`conformance.toml`](conformance.toml) — Protocol relationships and cross-project conformance profiles; repository URL and sibling path are derived from each stable project ID.
+Historical evidence remains bound to its revision and observation time. A System Snapshot proves what was jointly observed then, not what is current now.
 
-Neither file records mutable maturity, phase, deployment health, or a floating “latest revision.” In particular, the registry is not a maturity ledger. Those facts belong to the implementation repository, live runtime, or an immutable observation captured at a specific time.
+## Stable identity and mutable state
 
-The root conformance tool validates that every protocol participant exists in the broader project registry, captures exact local Git revisions, verifies the independent Host's full Computing Protocol package pin, verifies the Game's frozen vector-manifest pin, and emits digest-bound revision vectors or System Snapshots:
+[`registry.yaml`](registry.yaml) owns stable project identity/role/navigation. It does not own mutable maturity or deployment state. [`conformance.toml`](conformance.toml) declares protocol/conformance relationships without making Computing a product controller.
+
+Cross-project ownership/admission/extraction/merge/retirement rationale lives under [`decisions/README.md`](decisions/README.md). A record under review does not create a project.
+
+## Conformance and deletion
+
+Computing can compare exact clean owners:
 
 ```bash
 python3.12 scripts/ordivon_conformance.py manifest
 python3.12 scripts/ordivon_conformance.py vector --require-all --require-clean
 ```
 
-Protocol-path changes additionally run the bounded consumer gate against clean exact checkouts:
+Before adding or retaining a shared owner/contract ask: **which real owners need it, what remains unowned without it, which simpler baseline fails, and what second materially different workload proves it is shared?**
 
-```bash
-python3.12 scripts/check_protocol_consumers.py   --computing-root /path/to/ordivon-computing   --host-root /path/to/ordivon-host   --game-root /path/to/ordivon-game   --receipt /tmp/ordivon-protocol-consumers.json
-```
-
-The gate reports two distinct scopes. `release-frozen` revalidates the immutable consumer revisions and Protocol bindings recorded by the release manifest. `current-head` validates the actual clean sibling HEADs: Host runs against the exact Protocol revision it pins, and Game revalidates and executes its current frozen vector contract. Consumer tests run in detached clean worktrees so untracked checkout residue cannot change the meaning of a Git revision. The gate does not turn Computing into a product CI controller, inspect unrelated product maturity, or run on ordinary research prose.
-
-Cross-repository experiments bind exact repository commits, service binaries, Tool-contract digests, and evidence Artifacts through [`../research/evidence/system-snapshot.schema.json`](../research/evidence/system-snapshot.schema.json). A snapshot is historical evidence, not a mutable declaration of current system state.
+A repository exists because a responsibility currently survives those tests, not because its name belongs in a preferred diagram.
