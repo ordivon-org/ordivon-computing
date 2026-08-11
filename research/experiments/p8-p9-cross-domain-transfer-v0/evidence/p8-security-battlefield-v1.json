@@ -1,0 +1,565 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.p8-security-transfer-battlefield",
+  "securityRevision": "f109cb8cc548479e852c8a4dbc914bd7d3e22ce0",
+  "ownerRuleRevision": "ec1-exact-derivation-dependency-applicability-v1",
+  "question": "Can planning-time exact derivation dependencies transfer the P8 applicability law into Security evidence use without exposing the owner applicability classifier?",
+  "scenarios": [
+    {
+      "id": "v1_metadata_only_advance",
+      "planning": {
+        "projectionDigest": "sha256:2c174f54aec45bbe79c7c0de941c3a1417f7b47089e6759800ac5d9a8500cc5b",
+        "projectionSummary": {
+          "sourceMatchCounts": [
+            {
+              "episodeCount": 4,
+              "matchedAdjudicatedTruthCount": 4,
+              "sourceId": "sensor:ae2-a"
+            },
+            {
+              "episodeCount": 4,
+              "matchedAdjudicatedTruthCount": 0,
+              "sourceId": "sensor:ae2-b"
+            }
+          ],
+          "currentPatternPriorOccurrences": {
+            "adjudicatedFalseCount": 0,
+            "adjudicatedTrueCount": 2,
+            "matchingEpisodeIds": [
+              "episode:ae3b:1",
+              "episode:ae3b:3"
+            ],
+            "occurrenceCount": 2,
+            "sensorValues": [
+              {
+                "sourceId": "sensor:ae2-a",
+                "value": true
+              },
+              {
+                "sourceId": "sensor:ae2-b",
+                "value": false
+              }
+            ]
+          }
+        },
+        "planningGeneration": "generation:1",
+        "declaredApplicabilityBasis": {
+          "historyDigest": "sha256:b1d7f8a19666ec3a43c77c4cd3304586aa4d1c43c670a36160345bf699359635",
+          "currentSensorSetDigest": "sha256:56adf4cbd2a7fa0bb912f91fa0d44a182878506174c74638e332f0a02dfd2053"
+        }
+      },
+      "currentGeneration": "generation:2",
+      "ownerChanged": true,
+      "rawCurrentAuthority": {
+        "authorityId": "evidence-source:ec1-owned-prior-and-current-sensors",
+        "currentSensors": {
+          "observations": [
+            {
+              "observationAuthority": "range-owned-independent-sensor-not-world-truth",
+              "observationId": "observation:ae2-sensor-a:1",
+              "property": "serviceCompromised",
+              "sourceClass": "independent-sensor",
+              "sourceId": "sensor:ae2-a",
+              "value": true
+            },
+            {
+              "observationAuthority": "range-owned-independent-sensor-not-world-truth",
+              "observationId": "observation:ae2-sensor-b:1",
+              "property": "serviceCompromised",
+              "sourceClass": "independent-sensor",
+              "sourceId": "sensor:ae2-b",
+              "value": false
+            }
+          ],
+          "schemaVersion": 1
+        },
+        "generation": "generation:2",
+        "history": {
+          "episodes": [
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": true,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:1",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": true
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": false,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:2",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": false
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": true,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:3",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": true
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": false,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:4",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": false
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": true
+                }
+              ]
+            }
+          ],
+          "schemaVersion": 1
+        },
+        "kind": "ordivon.security.ec1-authoritative-evidence-source",
+        "schemaVersion": 1
+      },
+      "basisComparison": [
+        {
+          "field": "historyDigest",
+          "before": "sha256:b1d7f8a19666ec3a43c77c4cd3304586aa4d1c43c670a36160345bf699359635",
+          "after": "sha256:b1d7f8a19666ec3a43c77c4cd3304586aa4d1c43c670a36160345bf699359635",
+          "equal": true
+        },
+        {
+          "field": "currentSensorSetDigest",
+          "before": "sha256:56adf4cbd2a7fa0bb912f91fa0d44a182878506174c74638e332f0a02dfd2053",
+          "after": "sha256:56adf4cbd2a7fa0bb912f91fa0d44a182878506174c74638e332f0a02dfd2053",
+          "equal": true
+        }
+      ],
+      "oracle": "USE_PROJECTION"
+    },
+    {
+      "id": "v1_history_advanced",
+      "planning": {
+        "projectionDigest": "sha256:2c174f54aec45bbe79c7c0de941c3a1417f7b47089e6759800ac5d9a8500cc5b",
+        "projectionSummary": {
+          "sourceMatchCounts": [
+            {
+              "episodeCount": 4,
+              "matchedAdjudicatedTruthCount": 4,
+              "sourceId": "sensor:ae2-a"
+            },
+            {
+              "episodeCount": 4,
+              "matchedAdjudicatedTruthCount": 0,
+              "sourceId": "sensor:ae2-b"
+            }
+          ],
+          "currentPatternPriorOccurrences": {
+            "adjudicatedFalseCount": 0,
+            "adjudicatedTrueCount": 2,
+            "matchingEpisodeIds": [
+              "episode:ae3b:1",
+              "episode:ae3b:3"
+            ],
+            "occurrenceCount": 2,
+            "sensorValues": [
+              {
+                "sourceId": "sensor:ae2-a",
+                "value": true
+              },
+              {
+                "sourceId": "sensor:ae2-b",
+                "value": false
+              }
+            ]
+          }
+        },
+        "planningGeneration": "generation:1",
+        "declaredApplicabilityBasis": {
+          "historyDigest": "sha256:b1d7f8a19666ec3a43c77c4cd3304586aa4d1c43c670a36160345bf699359635",
+          "currentSensorSetDigest": "sha256:56adf4cbd2a7fa0bb912f91fa0d44a182878506174c74638e332f0a02dfd2053"
+        }
+      },
+      "currentGeneration": "generation:3",
+      "ownerChanged": true,
+      "rawCurrentAuthority": {
+        "authorityId": "evidence-source:ec1-owned-prior-and-current-sensors",
+        "currentSensors": {
+          "observations": [
+            {
+              "observationAuthority": "range-owned-independent-sensor-not-world-truth",
+              "observationId": "observation:ae2-sensor-a:1",
+              "property": "serviceCompromised",
+              "sourceClass": "independent-sensor",
+              "sourceId": "sensor:ae2-a",
+              "value": true
+            },
+            {
+              "observationAuthority": "range-owned-independent-sensor-not-world-truth",
+              "observationId": "observation:ae2-sensor-b:1",
+              "property": "serviceCompromised",
+              "sourceClass": "independent-sensor",
+              "sourceId": "sensor:ae2-b",
+              "value": false
+            }
+          ],
+          "schemaVersion": 1
+        },
+        "generation": "generation:3",
+        "history": {
+          "episodes": [
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": true,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:1",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": false
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": false,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:2",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": true
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": true,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:3",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": false
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": false,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:4",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": true
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": false
+                }
+              ]
+            }
+          ],
+          "schemaVersion": 1
+        },
+        "kind": "ordivon.security.ec1-authoritative-evidence-source",
+        "schemaVersion": 1
+      },
+      "basisComparison": [
+        {
+          "field": "historyDigest",
+          "before": "sha256:b1d7f8a19666ec3a43c77c4cd3304586aa4d1c43c670a36160345bf699359635",
+          "after": "sha256:6e44c1d7430d77d6992bf1a2ce69c6e061bede1b33f811c91462ca1b5ca4fe83",
+          "equal": false
+        },
+        {
+          "field": "currentSensorSetDigest",
+          "before": "sha256:56adf4cbd2a7fa0bb912f91fa0d44a182878506174c74638e332f0a02dfd2053",
+          "after": "sha256:56adf4cbd2a7fa0bb912f91fa0d44a182878506174c74638e332f0a02dfd2053",
+          "equal": true
+        }
+      ],
+      "oracle": "RECOMPUTE_OR_REOBSERVE"
+    },
+    {
+      "id": "v2_current",
+      "planning": {
+        "projectionDigest": "sha256:c394429dd58b224036912bdac053d7f474fd8f1cc34c673cd6e9cfed792109d1",
+        "projectionSummary": {
+          "sourceMatchCounts": [
+            {
+              "episodeCount": 4,
+              "matchedAdjudicatedTruthCount": 0,
+              "sourceId": "sensor:ae2-a"
+            },
+            {
+              "episodeCount": 4,
+              "matchedAdjudicatedTruthCount": 4,
+              "sourceId": "sensor:ae2-b"
+            }
+          ],
+          "currentPatternPriorOccurrences": {
+            "adjudicatedFalseCount": 2,
+            "adjudicatedTrueCount": 0,
+            "matchingEpisodeIds": [
+              "episode:ae3b:2",
+              "episode:ae3b:4"
+            ],
+            "occurrenceCount": 2,
+            "sensorValues": [
+              {
+                "sourceId": "sensor:ae2-a",
+                "value": true
+              },
+              {
+                "sourceId": "sensor:ae2-b",
+                "value": false
+              }
+            ]
+          }
+        },
+        "planningGeneration": "generation:3",
+        "declaredApplicabilityBasis": {
+          "historyDigest": "sha256:6e44c1d7430d77d6992bf1a2ce69c6e061bede1b33f811c91462ca1b5ca4fe83",
+          "currentSensorSetDigest": "sha256:56adf4cbd2a7fa0bb912f91fa0d44a182878506174c74638e332f0a02dfd2053"
+        }
+      },
+      "currentGeneration": "generation:3",
+      "ownerChanged": false,
+      "rawCurrentAuthority": {
+        "authorityId": "evidence-source:ec1-owned-prior-and-current-sensors",
+        "currentSensors": {
+          "observations": [
+            {
+              "observationAuthority": "range-owned-independent-sensor-not-world-truth",
+              "observationId": "observation:ae2-sensor-a:1",
+              "property": "serviceCompromised",
+              "sourceClass": "independent-sensor",
+              "sourceId": "sensor:ae2-a",
+              "value": true
+            },
+            {
+              "observationAuthority": "range-owned-independent-sensor-not-world-truth",
+              "observationId": "observation:ae2-sensor-b:1",
+              "property": "serviceCompromised",
+              "sourceClass": "independent-sensor",
+              "sourceId": "sensor:ae2-b",
+              "value": false
+            }
+          ],
+          "schemaVersion": 1
+        },
+        "generation": "generation:3",
+        "history": {
+          "episodes": [
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": true,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:1",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": false
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": false,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:2",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": true
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": false
+                }
+              ]
+            },
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": true,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:3",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": false
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "adjudicatedWorldTruth": {
+                "serviceCompromised": false,
+                "truthAuthority": "owned-range-prior-adjudication"
+              },
+              "episodeId": "episode:ae3b:4",
+              "sensorObservations": [
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-a",
+                  "value": true
+                },
+                {
+                  "property": "serviceCompromised",
+                  "sourceId": "sensor:ae2-b",
+                  "value": false
+                }
+              ]
+            }
+          ],
+          "schemaVersion": 1
+        },
+        "kind": "ordivon.security.ec1-authoritative-evidence-source",
+        "schemaVersion": 1
+      },
+      "basisComparison": [
+        {
+          "field": "historyDigest",
+          "before": "sha256:6e44c1d7430d77d6992bf1a2ce69c6e061bede1b33f811c91462ca1b5ca4fe83",
+          "after": "sha256:6e44c1d7430d77d6992bf1a2ce69c6e061bede1b33f811c91462ca1b5ca4fe83",
+          "equal": true
+        },
+        {
+          "field": "currentSensorSetDigest",
+          "before": "sha256:56adf4cbd2a7fa0bb912f91fa0d44a182878506174c74638e332f0a02dfd2053",
+          "after": "sha256:56adf4cbd2a7fa0bb912f91fa0d44a182878506174c74638e332f0a02dfd2053",
+          "equal": true
+        }
+      ],
+      "oracle": "USE_PROJECTION"
+    },
+    {
+      "id": "v1_authority_unavailable",
+      "planning": {
+        "projectionDigest": "sha256:2c174f54aec45bbe79c7c0de941c3a1417f7b47089e6759800ac5d9a8500cc5b",
+        "projectionSummary": {
+          "sourceMatchCounts": [
+            {
+              "episodeCount": 4,
+              "matchedAdjudicatedTruthCount": 4,
+              "sourceId": "sensor:ae2-a"
+            },
+            {
+              "episodeCount": 4,
+              "matchedAdjudicatedTruthCount": 0,
+              "sourceId": "sensor:ae2-b"
+            }
+          ],
+          "currentPatternPriorOccurrences": {
+            "adjudicatedFalseCount": 0,
+            "adjudicatedTrueCount": 2,
+            "matchingEpisodeIds": [
+              "episode:ae3b:1",
+              "episode:ae3b:3"
+            ],
+            "occurrenceCount": 2,
+            "sensorValues": [
+              {
+                "sourceId": "sensor:ae2-a",
+                "value": true
+              },
+              {
+                "sourceId": "sensor:ae2-b",
+                "value": false
+              }
+            ]
+          }
+        },
+        "planningGeneration": "generation:1",
+        "declaredApplicabilityBasis": {
+          "historyDigest": "sha256:b1d7f8a19666ec3a43c77c4cd3304586aa4d1c43c670a36160345bf699359635",
+          "currentSensorSetDigest": "sha256:56adf4cbd2a7fa0bb912f91fa0d44a182878506174c74638e332f0a02dfd2053"
+        }
+      },
+      "currentGeneration": null,
+      "ownerChanged": null,
+      "rawCurrentAuthority": null,
+      "basisComparison": null,
+      "oracle": "HOLD_UNKNOWN"
+    }
+  ]
+}

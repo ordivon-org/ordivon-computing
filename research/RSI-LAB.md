@@ -113,9 +113,11 @@ A valid receipt proves only the declared mechanical facts. Semantic retention, d
 
 ## Research policies that are deliberately not Lab services
 
-Two later experiments changed the research method without adding commands. First, when a plan already knows which owner facts make a consequence applicable, record that applicability basis **before** concurrency; after a safe binding conflict, compare only those predeclared facts to current owner evidence and let the Agent/domain decide materiality. Second, when an evidence-acquisition Agent exhibits search inertia on an expensive universe, a **fresh synthesis context** after a bounded high-information batch is a candidate stopping operator. Its cadence is workload/operator-relative: one high-density search can contain dozens of discriminating matches, while additional searches can introduce path-dependent errors.
+Later transfer experiments changed the research method without adding commands. When a plan or derivation already knows which exact owner facts make a consequence or claim applicable, record that applicability basis **before** drift; compare the scoped basis to current owner evidence and let the Agent/domain decide materiality. This now has prospective support in Runtime/Host consequence binding and independently developed Security derived-evidence semantics. More raw current context is not automatically safer.
 
-Neither policy authorizes an `ApplicabilityService`, `CriticService`, automatic rebase rule, materiality classifier, or global observation-count threshold.
+When an evidence-acquisition Agent exhibits search inertia, a **fresh synthesis context** after a bounded evidence batch is a supported research operator across both Runtime source evidence and Finance structured DataPlane evidence. Its cadence is not an observation count: calibrate against decision-relevant dependency coverage and operator information structure. Finance showed 5/6 dataset dependencies produced 11/12 fields, while all 6 produced 12/12; it also showed complete evidence remains presentation-order sensitive, so coverage is not a semantic-stability proof.
+
+Neither policy authorizes an `ApplicabilityService`, `CriticService`, `StoppingService`, automatic rebase rule, materiality classifier, evidence-order authority, or global observation-count threshold.
 
 ## Data-plane rule
 
@@ -123,4 +125,4 @@ Prefer mature deterministic equipment—Git, SQLite, DuckDB/Parquet, `jq`, `hype
 
 ## Evidence
 
-P0–P3 instrument promotion is recorded in [`experiments/rsi-lab-p0-p3-v0/`](experiments/rsi-lab-p0-p3-v0/). The strict P4–P9 existence tests and later method updates are recorded in [`experiments/rsi-lab-p4-p9-v0/`](experiments/rsi-lab-p4-p9-v0/).
+P0–P3 instrument promotion is recorded in [`experiments/rsi-lab-p0-p3-v0/`](experiments/rsi-lab-p0-p3-v0/). The strict P4–P9 existence tests are recorded in [`experiments/rsi-lab-p4-p9-v0/`](experiments/rsi-lab-p4-p9-v0/), and their Security/Finance cross-domain transfer is recorded in [`experiments/p8-p9-cross-domain-transfer-v0/`](experiments/p8-p9-cross-domain-transfer-v0/).
