@@ -1,0 +1,48 @@
+{
+  "execution": {
+    "args": [
+      "trial_phase.py",
+      "post_dispatch_unbound"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4174,
+    "endedAtMs": 1786438404549,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438400375,
+    "timedOut": false
+  },
+  "experimentId": "p10b-finance-phase-gated-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:2695ba648cf2498fc43df7ef802eb9ec12452257e75f968b7ad662ad5f322e73"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:01ee980f2956e537e08b6d64f21f3d70335531d563bf7c086a34b2349d8d1ebf",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1740,
+    "digest": "sha256:fd7e69208a40795202429b194e0baff32560ce1a87d358f513c49d7d07abdc3b",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":1,\"scenario\":\"post_dispatch_unbound\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The owner effect state shows admissionExists=true and dispatchOutcome=\\\"response-received\\\", with dispatchPermissionConsumed=true, meaning the exact effect package was already dispatched and a response was received. However, the scenario is \\\"post_dispatch_unbound\\\" \\u2014 the outcome of that dispatch is not confirmed as successfully applied. EXECUTE_EXACT_EFFECT is unsafe because it could replay the exact same effect package with the same clientOrderId/effectId/idempotencyKey, risking duplicate financial writes if the prior response-received actually resulted in application. FORM_NEW_EFFECT would create a distinct identity, which is also unsafe because the original effect may have already been applied, leading to a double economic intent. The correct action is RECONCILE_EXACT_EFFECT: a read-only lookup by the existing clientOrderId to determine whether the previously dispatched exact effect was actually applied, without creating any new financial write or replaying any dispatch. This preserves owner correctness and duplicate-effect safety.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":272,\"elapsedMs\":4090,\"promptTokens\":733,\"providerCalls\":1,\"totalTokens\":1005}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_unbound"
+    },
+    "replicate": 1,
+    "trialId": "trial-0033-r001-3b359b9f6597",
+    "trialIndex": 33
+  }
+}

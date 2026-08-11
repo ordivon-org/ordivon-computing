@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "post_dispatch_ambiguous",
+      "phase_gated_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4625,
+    "endedAtMs": 1786438568480,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438563855,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:4a4c70d2ee4116318d35e3cb5454fe3823b0b0a594684829c466fadc2f6dcafe"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1361,
+    "digest": "sha256:4c4e21963a6ecb0564fe8deaf78abd391d2ad6e92c8513a06ee487de756fd3e6",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\",\"RECONCILE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":6,\"scenario\":\"post_dispatch_ambiguous\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The effect was already dispatched (dispatchPermissionConsumed: true) with an ambiguous dispatch outcome. The exact effect identity (effectId: effect:p10:1) and clientOrderId are intact. Since dispatch permission has been consumed, we should NOT re-execute (that risks a duplicate dispatch for the same exact effect despite exactly-once semantics being ambiguous). We should NOT form a new effect because that would create a distinct identity with a new consequence for the same intent, risking duplication. A read-only reconcile by the existing clientOrderId is the safe action to determine the actual settlement state without creating any financial write.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":197,\"elapsedMs\":4572,\"promptTokens\":725,\"providerCalls\":1,\"totalTokens\":922}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_ambiguous",
+      "treatment": "phase_gated_basis"
+    },
+    "replicate": 6,
+    "trialId": "trial-0126-r006-5d148e9cadb8",
+    "trialIndex": 126
+  }
+}

@@ -1,0 +1,511 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.p10-finance-owner-phase-probe",
+  "financeRevision": "999672a068e1de16b59516cd1079f7d504e81a47",
+  "actions": [
+    "EXECUTE_EXACT_EFFECT",
+    "RECONCILE_EXACT_EFFECT",
+    "FORM_NEW_EFFECT",
+    "HOLD"
+  ],
+  "scenarios": [
+    {
+      "name": "new_unchanged",
+      "phase": "new_pre_admission",
+      "setupCode": null,
+      "planning": {
+        "effectId": "effect:p10:1",
+        "idempotencyKey": "p10:effect:1",
+        "clientOrderId": "ofb3640add4ccbbfc7c04f6f8a7683f7",
+        "packageDigest": "sha256:5f8a25f5061bc56fbb2e964c35eb131809a59b7754b5c2f0e5b884d7d6e70f2d",
+        "planningBasis": {
+          "instrumentState": "live",
+          "contractModel": "linear-base-value",
+          "ctVal": "0.01",
+          "quoteCurrency": "USD",
+          "lotSz": "1",
+          "minSz": "1",
+          "tickSz": "0.01"
+        }
+      },
+      "currentInstrument": {
+        "instrumentState": "live",
+        "contractModel": "linear-base-value",
+        "ctVal": "0.01",
+        "quoteCurrency": "USD",
+        "lotSz": "1",
+        "minSz": "1",
+        "tickSz": "0.01"
+      },
+      "basisComparison": {
+        "instrumentState": {
+          "before": "live",
+          "after": "live",
+          "equal": true
+        },
+        "contractModel": {
+          "before": "linear-base-value",
+          "after": "linear-base-value",
+          "equal": true
+        },
+        "ctVal": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        },
+        "quoteCurrency": {
+          "before": "USD",
+          "after": "USD",
+          "equal": true
+        },
+        "lotSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "minSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "tickSz": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        }
+      },
+      "ownerReplay": {
+        "admissionExists": false,
+        "admissionId": null,
+        "dispatchPermissionConsumed": false,
+        "dispatchOutcome": null,
+        "rawEvidenceDigest": null
+      },
+      "setupCounts": {
+        "posts": 0,
+        "reads": 0,
+        "reconciles": 0
+      },
+      "probeCounts": {
+        "posts": 0,
+        "reads": 1,
+        "reconciles": 0
+      }
+    },
+    {
+      "name": "new_material_drift",
+      "phase": "new_pre_admission",
+      "setupCode": null,
+      "planning": {
+        "effectId": "effect:p10:1",
+        "idempotencyKey": "p10:effect:1",
+        "clientOrderId": "ofb3640add4ccbbfc7c04f6f8a7683f7",
+        "packageDigest": "sha256:d741fa8a7f514b73e44cccb36eceb7f7eaf258de304a6023997f0b48879df442",
+        "planningBasis": {
+          "instrumentState": "live",
+          "contractModel": "linear-base-value",
+          "ctVal": "0.01",
+          "quoteCurrency": "USD",
+          "lotSz": "1",
+          "minSz": "1",
+          "tickSz": "0.01"
+        }
+      },
+      "currentInstrument": {
+        "instrumentState": "suspended",
+        "contractModel": "linear-base-value",
+        "ctVal": "0.01",
+        "quoteCurrency": "USD",
+        "lotSz": "1",
+        "minSz": "1",
+        "tickSz": "0.01"
+      },
+      "basisComparison": {
+        "instrumentState": {
+          "before": "live",
+          "after": "suspended",
+          "equal": false
+        },
+        "contractModel": {
+          "before": "linear-base-value",
+          "after": "linear-base-value",
+          "equal": true
+        },
+        "ctVal": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        },
+        "quoteCurrency": {
+          "before": "USD",
+          "after": "USD",
+          "equal": true
+        },
+        "lotSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "minSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "tickSz": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        }
+      },
+      "ownerReplay": {
+        "admissionExists": false,
+        "admissionId": null,
+        "dispatchPermissionConsumed": false,
+        "dispatchOutcome": null,
+        "rawEvidenceDigest": null
+      },
+      "setupCounts": {
+        "posts": 0,
+        "reads": 0,
+        "reconciles": 0
+      },
+      "probeCounts": {
+        "posts": 0,
+        "reads": 1,
+        "reconciles": 0
+      }
+    },
+    {
+      "name": "admitted_response_lost_pre_dispatch",
+      "phase": "admitted_pre_dispatch",
+      "setupCode": null,
+      "planning": {
+        "effectId": "effect:p10:1",
+        "idempotencyKey": "p10:effect:1",
+        "clientOrderId": "ofb3640add4ccbbfc7c04f6f8a7683f7",
+        "packageDigest": "sha256:f57251fd7ac9753e454083f94000a2e6721065c2043c93033872c5cca31a49c9",
+        "planningBasis": {
+          "instrumentState": "live",
+          "contractModel": "linear-base-value",
+          "ctVal": "0.01",
+          "quoteCurrency": "USD",
+          "lotSz": "1",
+          "minSz": "1",
+          "tickSz": "0.01"
+        }
+      },
+      "currentInstrument": {
+        "instrumentState": "suspended",
+        "contractModel": "linear-base-value",
+        "ctVal": "0.01",
+        "quoteCurrency": "USD",
+        "lotSz": "1",
+        "minSz": "1",
+        "tickSz": "0.01"
+      },
+      "basisComparison": {
+        "instrumentState": {
+          "before": "live",
+          "after": "suspended",
+          "equal": false
+        },
+        "contractModel": {
+          "before": "linear-base-value",
+          "after": "linear-base-value",
+          "equal": true
+        },
+        "ctVal": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        },
+        "quoteCurrency": {
+          "before": "USD",
+          "after": "USD",
+          "equal": true
+        },
+        "lotSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "minSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "tickSz": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        }
+      },
+      "ownerReplay": {
+        "admissionExists": true,
+        "admissionId": "remote_admit_v3_88ee5ab3c844a1eb1fb888a15aca34df",
+        "dispatchPermissionConsumed": false,
+        "dispatchOutcome": null,
+        "rawEvidenceDigest": null
+      },
+      "setupCounts": {
+        "posts": 0,
+        "reads": 0,
+        "reconciles": 0
+      },
+      "probeCounts": {
+        "posts": 0,
+        "reads": 1,
+        "reconciles": 0
+      }
+    },
+    {
+      "name": "post_dispatch_ambiguous",
+      "phase": "post_dispatch_ambiguous",
+      "setupCode": "AMBIGUOUS_SUBMISSION",
+      "planning": {
+        "effectId": "effect:p10:1",
+        "idempotencyKey": "p10:effect:1",
+        "clientOrderId": "ofb3640add4ccbbfc7c04f6f8a7683f7",
+        "packageDigest": "sha256:81ce3f9387bc623f8072af90a1d1af10a51288c75847417e250570210266bf7c",
+        "planningBasis": {
+          "instrumentState": "live",
+          "contractModel": "linear-base-value",
+          "ctVal": "0.01",
+          "quoteCurrency": "USD",
+          "lotSz": "1",
+          "minSz": "1",
+          "tickSz": "0.01"
+        }
+      },
+      "currentInstrument": {
+        "instrumentState": "suspended",
+        "contractModel": "linear-base-value",
+        "ctVal": "0.01",
+        "quoteCurrency": "USD",
+        "lotSz": "1",
+        "minSz": "1",
+        "tickSz": "0.01"
+      },
+      "basisComparison": {
+        "instrumentState": {
+          "before": "live",
+          "after": "suspended",
+          "equal": false
+        },
+        "contractModel": {
+          "before": "linear-base-value",
+          "after": "linear-base-value",
+          "equal": true
+        },
+        "ctVal": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        },
+        "quoteCurrency": {
+          "before": "USD",
+          "after": "USD",
+          "equal": true
+        },
+        "lotSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "minSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "tickSz": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        }
+      },
+      "ownerReplay": {
+        "admissionExists": true,
+        "admissionId": "remote_admit_v3_d7eb8840f3051b117a86fd16ecaa85d9",
+        "dispatchPermissionConsumed": true,
+        "dispatchOutcome": "ambiguous",
+        "rawEvidenceDigest": "sha256:32f0d5258376451153dc45098b3cf94d3347cd70cc2e5b8cf60750dbee5e14d6"
+      },
+      "setupCounts": {
+        "posts": 1,
+        "reads": 1,
+        "reconciles": 0
+      },
+      "probeCounts": {
+        "posts": 1,
+        "reads": 2,
+        "reconciles": 0
+      }
+    },
+    {
+      "name": "post_dispatch_unbound",
+      "phase": "post_dispatch_response-received",
+      "setupCode": "VENUE_RESPONSE_UNBOUND",
+      "planning": {
+        "effectId": "effect:p10:1",
+        "idempotencyKey": "p10:effect:1",
+        "clientOrderId": "ofb3640add4ccbbfc7c04f6f8a7683f7",
+        "packageDigest": "sha256:17b87dad7a96a28fd139f8644fed923b2c6607aa80b0ba0bbe4c9f00d7eb168d",
+        "planningBasis": {
+          "instrumentState": "live",
+          "contractModel": "linear-base-value",
+          "ctVal": "0.01",
+          "quoteCurrency": "USD",
+          "lotSz": "1",
+          "minSz": "1",
+          "tickSz": "0.01"
+        }
+      },
+      "currentInstrument": {
+        "instrumentState": "live",
+        "contractModel": "linear-base-value",
+        "ctVal": "0.01",
+        "quoteCurrency": "USD",
+        "lotSz": "1",
+        "minSz": "1",
+        "tickSz": "0.10"
+      },
+      "basisComparison": {
+        "instrumentState": {
+          "before": "live",
+          "after": "live",
+          "equal": true
+        },
+        "contractModel": {
+          "before": "linear-base-value",
+          "after": "linear-base-value",
+          "equal": true
+        },
+        "ctVal": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        },
+        "quoteCurrency": {
+          "before": "USD",
+          "after": "USD",
+          "equal": true
+        },
+        "lotSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "minSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "tickSz": {
+          "before": "0.01",
+          "after": "0.10",
+          "equal": false
+        }
+      },
+      "ownerReplay": {
+        "admissionExists": true,
+        "admissionId": "remote_admit_v3_b3bbd9a724415c2122d82ba01882fbc4",
+        "dispatchPermissionConsumed": true,
+        "dispatchOutcome": "response-received",
+        "rawEvidenceDigest": "sha256:f743fd0d77e66ea39f599675e57b109ac322f2f4451d865497b45e3713ccb850"
+      },
+      "setupCounts": {
+        "posts": 1,
+        "reads": 1,
+        "reconciles": 0
+      },
+      "probeCounts": {
+        "posts": 1,
+        "reads": 2,
+        "reconciles": 0
+      }
+    },
+    {
+      "name": "post_dispatch_accepted_response_lost",
+      "phase": "post_dispatch_response-received",
+      "setupCode": "VENUE_ACCEPTED",
+      "planning": {
+        "effectId": "effect:p10:1",
+        "idempotencyKey": "p10:effect:1",
+        "clientOrderId": "ofb3640add4ccbbfc7c04f6f8a7683f7",
+        "packageDigest": "sha256:e407e90a3a1d5dcc6dbadc36177f90853442c57ee99234d11c2afe409b89d887",
+        "planningBasis": {
+          "instrumentState": "live",
+          "contractModel": "linear-base-value",
+          "ctVal": "0.01",
+          "quoteCurrency": "USD",
+          "lotSz": "1",
+          "minSz": "1",
+          "tickSz": "0.01"
+        }
+      },
+      "currentInstrument": {
+        "instrumentState": "suspended",
+        "contractModel": "linear-base-value",
+        "ctVal": "0.01",
+        "quoteCurrency": "USD",
+        "lotSz": "1",
+        "minSz": "1",
+        "tickSz": "0.01"
+      },
+      "basisComparison": {
+        "instrumentState": {
+          "before": "live",
+          "after": "suspended",
+          "equal": false
+        },
+        "contractModel": {
+          "before": "linear-base-value",
+          "after": "linear-base-value",
+          "equal": true
+        },
+        "ctVal": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        },
+        "quoteCurrency": {
+          "before": "USD",
+          "after": "USD",
+          "equal": true
+        },
+        "lotSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "minSz": {
+          "before": "1",
+          "after": "1",
+          "equal": true
+        },
+        "tickSz": {
+          "before": "0.01",
+          "after": "0.01",
+          "equal": true
+        }
+      },
+      "ownerReplay": {
+        "admissionExists": true,
+        "admissionId": "remote_admit_v3_adbafacf3491f23db0acd0aa1fadb9c9",
+        "dispatchPermissionConsumed": true,
+        "dispatchOutcome": "response-received",
+        "rawEvidenceDigest": "sha256:bf8e7eba4d9d840036f39fc32c464341529f2e8875b23772a9c87bb91b32a0e5"
+      },
+      "setupCounts": {
+        "posts": 1,
+        "reads": 1,
+        "reconciles": 0
+      },
+      "probeCounts": {
+        "posts": 1,
+        "reads": 2,
+        "reconciles": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "post_dispatch_ambiguous",
+      "changed_only"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4825,
+    "endedAtMs": 1786438143602,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438138777,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:817ac2c798ebe60be7eca9fa8ddc2df6983af8a235c7825e4c6d0e68fff665be"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1566,
+    "digest": "sha256:1c54ffcb0d3ad94c9667cdf8b4f2fa05fe31a52c5800ec23e0980aa7176cd002",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":4,\"scenario\":\"post_dispatch_ambiguous\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The dispatch outcome is ambiguous. The owner effect state shows admissionExists=true and dispatchPermissionConsumed=true, but the dispatchOutcome is \\\"ambiguous\\\" \\u2014 meaning we cannot confirm whether the already-signed exact Effect package (effect:p10:1 with the recorded packageDigest) was actually delivered/processed by the venue. Since dispatchPermissionConsumed is already true, we must NOT submit another new effect or replay execution without certainty \\u2014 replaying could create a duplicate financial write if the original actually landed. The correct move is RECONCILE_EXACT_EFFECT: a read-only lookup by the existing clientOrderId (ofb3640add4ccbbfc7c04f6f8a7683f7) to determine whether the exact effect was recorded by the venue. This preserves the exact effect identity, avoids duplicate-effect risk under genuine ambiguity, and does not create a new financial write.\"},\"treatment\":\"changed_only\",\"usage\":{\"completionTokens\":256,\"elapsedMs\":4735,\"promptTokens\":729,\"providerCalls\":1,\"totalTokens\":985}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_ambiguous",
+      "treatment": "changed_only"
+    },
+    "replicate": 4,
+    "trialId": "trial-0076-r004-8b8121db2c44",
+    "trialIndex": 76
+  }
+}

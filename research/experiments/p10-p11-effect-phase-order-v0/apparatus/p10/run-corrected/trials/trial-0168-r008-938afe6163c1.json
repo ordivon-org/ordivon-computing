@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "post_dispatch_accepted_response_lost",
+      "changed_only"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 6079,
+    "endedAtMs": 1786438590258,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438584179,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:95bb3026b6cee13a071ed2c562281e01eabf50204088abe56f5cb5d3a3de801b"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1582,
+    "digest": "sha256:a2ab04b2b22c9c6bef36bf172f6825aa523654e3f2e9f7ab8f3ed96c14ccdbd5",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\",\"RECONCILE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":8,\"scenario\":\"post_dispatch_accepted_response_lost\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The effect was already dispatched (dispatchPermissionConsumed=true) with admission confirmed (admissionExists=true) and a response was received (dispatchOutcome=response-received). This scenario is \\\"post_dispatch_accepted_response_lost\\\" \\u2014 the response may have been accepted but its acknowledgment to us was lost. The exact effect identity (clientOrderId/effectId/idempotencyKey/packageDigest) is intact, ownerBasisChanged=false, meaning no new basis to form a new effect. The safe action is to reconcile the exact effect by its clientOrderId to confirm its actual dispatch/acceptance outcome without creating a duplicate financial write or replaying the exact effect (which could risk a double execution if the response was indeed accepted). RECONCILE_EXACT_EFFECT is read-only and cannot create a financial write, which is the correct no-duplication safe path.\"},\"treatment\":\"changed_only\",\"usage\":{\"completionTokens\":253,\"elapsedMs\":6030,\"promptTokens\":743,\"providerCalls\":1,\"totalTokens\":996}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_accepted_response_lost",
+      "treatment": "changed_only"
+    },
+    "replicate": 8,
+    "trialId": "trial-0168-r008-938afe6163c1",
+    "trialIndex": 168
+  }
+}

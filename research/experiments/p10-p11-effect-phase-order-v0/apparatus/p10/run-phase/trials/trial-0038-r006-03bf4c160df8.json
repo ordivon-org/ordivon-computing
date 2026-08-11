@@ -1,0 +1,48 @@
+{
+  "execution": {
+    "args": [
+      "trial_phase.py",
+      "post_dispatch_unbound"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4274,
+    "endedAtMs": 1786438407480,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438403206,
+    "timedOut": false
+  },
+  "experimentId": "p10b-finance-phase-gated-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:19945420570876288c70905f809e639987564bd9f5ae2cd5929177b4a107a683"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:01ee980f2956e537e08b6d64f21f3d70335531d563bf7c086a34b2349d8d1ebf",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1596,
+    "digest": "sha256:660dee2484cb4757e91c5749b82352d87c139853aa2900e620cf3ee070bd3c32",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":6,\"scenario\":\"post_dispatch_unbound\",\"submission\":{\"confidenceBand\":\"medium\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"Scenario is post_dispatch_unbound with dispatchOutcome=response-received. The Effect was already dispatched and permission consumed, but the outcome is merely \\\"response-received\\\" without confirmation that the financial effect was applied. The planning identity (effect:p10:1) differs from the admission identity (remote_admit_v3_...), and rawEvidenceDigest (sha256:8f03...) differs from the planning packageDigest (sha256:4956...). The admission exists and dispatch permission was consumed, so replaying via EXECUTE_EXACT_EFFECT risks a double effect. FORM_NEW_EFFECT would create a new identity for the same economic intent, risking a duplicate consequence. RECONCILE_EXACT_EFFECT is the correct read-only step: it uses the existing clientOrderId for a non-writing confirmation lookup before determining whether the already-created effect was applied, avoiding both double-dispatch and duplicate-effect risk.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":264,\"elapsedMs\":4230,\"promptTokens\":733,\"providerCalls\":1,\"totalTokens\":997}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_unbound"
+    },
+    "replicate": 6,
+    "trialId": "trial-0038-r006-03bf4c160df8",
+    "trialIndex": 38
+  }
+}

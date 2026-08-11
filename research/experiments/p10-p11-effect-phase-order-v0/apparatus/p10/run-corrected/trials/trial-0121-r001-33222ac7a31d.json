@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "post_dispatch_ambiguous",
+      "phase_gated_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 3873,
+    "endedAtMs": 1786438566725,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438562852,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:3f08bda3901a799ca0115f931b7fe1472dbcbe90850e860a349e491efc0ee391"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1412,
+    "digest": "sha256:7ecbb4066864504489783958ddabd3bc9c93883415bd2548705078cb9791cb8e",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\",\"RECONCILE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":1,\"scenario\":\"post_dispatch_ambiguous\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The dispatch outcome is ambiguous, dispatch permission is already consumed, and admission exists. This indicates the exact Effect package may have already been dispatched once (or the outcome is uncertain). Since dispatchPermissionConsumed is true and dispatchOutcome is ambiguous, I must reconcile the exact effect using the existing clientOrderId to determine the actual on-ledger state. This is a read-only lookup and cannot create a duplicate financial write. I should NOT re-execute (would risk duplicate dispatch) and should NOT form a new effect (would create a distinct idempotency identity, causing a stale duplicate consequence). Reconciling preserves exact identity and resolves ambiguity safely.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":204,\"elapsedMs\":3782,\"promptTokens\":725,\"providerCalls\":1,\"totalTokens\":929}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_ambiguous",
+      "treatment": "phase_gated_basis"
+    },
+    "replicate": 1,
+    "trialId": "trial-0121-r001-33222ac7a31d",
+    "trialIndex": 121
+  }
+}

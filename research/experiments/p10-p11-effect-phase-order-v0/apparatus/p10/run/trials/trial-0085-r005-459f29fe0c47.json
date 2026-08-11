@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "post_dispatch_ambiguous",
+      "raw_current"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 6127,
+    "endedAtMs": 1786438148336,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438142209,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:80f1ce85766e0c6281ddc419c1f9541c834bc4348f9b831a2b3d440ec2cf09a6"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1522,
+    "digest": "sha256:bb23e85b2009dc1a52aa164541895de2eb18484055bab6bacdc2101794021dcd",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":5,\"scenario\":\"post_dispatch_ambiguous\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The owner effect state shows dispatchOutcome=\\\"ambiguous\\\" with dispatchPermissionConsumed=true. This means a dispatch was already attempted and permission was consumed, but the outcome is ambiguous \\u2014 the effect may or may not have been applied. The exact effect package (clientOrderId=ofb3640add4ccbbfc7c04f6f8a7683f7, effectId=effect:p10:1) is already defined and matched. Re-executing (EXECUTE_EXACT_EFFECT) risks a duplicate financial write if the prior ambiguous dispatch actually landed. FORM_NEW_EFFECT would create a new distinct effect identity for the same economic intent, which could double-submit if the original landed. The safe path is a read-only RECONCILE_EXACT_EFFECT to look up the existing clientOrderId and determine the actual outcome before any further action. ownerBasisChanged=false, so no re-planning is needed.\"},\"treatment\":\"raw_current\",\"usage\":{\"completionTokens\":265,\"elapsedMs\":6049,\"promptTokens\":823,\"providerCalls\":1,\"totalTokens\":1088}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_ambiguous",
+      "treatment": "raw_current"
+    },
+    "replicate": 5,
+    "trialId": "trial-0085-r005-459f29fe0c47",
+    "trialIndex": 85
+  }
+}

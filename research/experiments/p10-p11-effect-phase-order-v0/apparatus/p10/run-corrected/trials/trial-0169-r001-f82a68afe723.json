@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "post_dispatch_accepted_response_lost",
+      "raw_current"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4826,
+    "endedAtMs": 1786438589499,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438584673,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:81367f656005d6cba690cf274d5753d9d48c43fc57cc1179504ce2d4874fdb3c"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1573,
+    "digest": "sha256:4593ed3daaab3d1daabd3c1f0f0a16d9dfc5bff76743391d04954b05a3f59ea0",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\",\"RECONCILE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":1,\"scenario\":\"post_dispatch_accepted_response_lost\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The dispatch outcome is \\\"response-received\\\" and dispatchPermissionConsumed is true, meaning the exact Effect package was already sent through the owner executor and the response was received. However, the scenario is \\\"post_dispatch_accepted_response_lost\\\", indicating the acceptance response may have been lost after dispatch. The exact Effect identity (clientOrderId ofb3640add4ccbbfc7c04f6f8a7683f7, effectId effect:p10:1) is already in flight with dispatch permission consumed. The right action is to reconcile by looking up the existing clientOrderId to confirm the authoritative state, rather than replaying (which risks a double-dispatch since permission was consumed) or forming a new effect (which would create a distinct new identity/consequence). RECONCILE_EXACT_EFFECT is read-only and cannot create a financial write, preserving exact identity.\"},\"treatment\":\"raw_current\",\"usage\":{\"completionTokens\":255,\"elapsedMs\":4746,\"promptTokens\":837,\"providerCalls\":1,\"totalTokens\":1092}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_accepted_response_lost",
+      "treatment": "raw_current"
+    },
+    "replicate": 1,
+    "trialId": "trial-0169-r001-f82a68afe723",
+    "trialIndex": 169
+  }
+}

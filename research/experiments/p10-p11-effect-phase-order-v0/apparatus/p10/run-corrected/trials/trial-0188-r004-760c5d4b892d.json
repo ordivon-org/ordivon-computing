@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "post_dispatch_accepted_response_lost",
+      "phase_gated_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4825,
+    "endedAtMs": 1786438599646,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438594821,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:1519bf8e1e9891e15d3377c897aecea16c9b9997a4d88386f4e5e36bc8ca515d"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1549,
+    "digest": "sha256:f25836f6ec448976c33849400469abf58bd000b8701e13314f6213eeac0c2d4d",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\",\"RECONCILE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":4,\"scenario\":\"post_dispatch_accepted_response_lost\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The owner effect state shows this exact effect was already dispatched (dispatchPermissionConsumed=true) with outcome \\\"response-received\\\", but the dispatch outcome may have been lost/uncertain (scenario post_dispatch_accepted_response_lost). Since admission exists and dispatch permission is already consumed for this exact effect identity (effect:p10:1), re-executing the same effect is permitted only if reconciliation confirms no financial write occurred. A read-only RECONCILE_EXACT_EFFECT by the existing clientOrderId is the safe action to confirm the outcome before deciding whether re-execution is needed. FORM_NEW_EFFECT would create a distinct new identity and a new consequence, which is inappropriate here as the original effect was already accepted. HOLD would stall progress without confirming the delivered outcome.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":232,\"elapsedMs\":4766,\"promptTokens\":736,\"providerCalls\":1,\"totalTokens\":968}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_accepted_response_lost",
+      "treatment": "phase_gated_basis"
+    },
+    "replicate": 4,
+    "trialId": "trial-0188-r004-760c5d4b892d",
+    "trialIndex": 188
+  }
+}

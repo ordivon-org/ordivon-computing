@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "admitted_response_lost_pre_dispatch",
+      "scoped_phase_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 7789,
+    "endedAtMs": 1786438140396,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438132607,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:7d4da1251443b3680e19d4ab75c06273a066104159a99d895950188c24b2054c"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1815,
+    "digest": "sha256:d779c36efa2b9672d1ff6607f8f0b879cda2408a8f978558c5e9340ba8bae989",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":true,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"EXECUTE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":2,\"scenario\":\"admitted_response_lost_pre_dispatch\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The owner effect state shows admissionExists=true but dispatchOutcome=null and dispatchPermissionConsumed=false, indicating the admission was created but no dispatch has occurred. The scenario is \\\"admitted_response_lost_pre_dispatch,\\\" meaning the response to the admission was lost before dispatch happened. While the planning identity (clientOrderId, effectId, idempotencyKey, packageDigest) matches the exact signed effect package, the instrumentState has changed from \\\"live\\\" (declared planning basis) to \\\"suspended\\\" (current after state), making ownerBasisChanged=true. Given the instrument is now suspended, executing the exact effect would submit a trade on a suspended instrument \\u2014 this is a material basis change that was not part of the original planning basis. RECONCILE_EXACT_EFFECT is the read-only, safe path: it checks the existing clientOrderId for any prior outcome without creating any financial write. This protects against both duplicate-effect risk and against acting on a now-suspended instrument, while still confirming whether the admission already produced a result on the venue side.\"},\"treatment\":\"scoped_phase_basis\",\"usage\":{\"completionTokens\":292,\"elapsedMs\":7743,\"promptTokens\":877,\"providerCalls\":1,\"totalTokens\":1169}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "admitted_response_lost_pre_dispatch",
+      "treatment": "scoped_phase_basis"
+    },
+    "replicate": 2,
+    "trialId": "trial-0066-r002-e128430b0a08",
+    "trialIndex": 66
+  }
+}

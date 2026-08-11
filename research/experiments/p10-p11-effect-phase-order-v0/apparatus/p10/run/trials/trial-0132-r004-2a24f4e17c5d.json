@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "post_dispatch_accepted_response_lost",
+      "raw_current"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 8335,
+    "endedAtMs": 1786438178484,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438170149,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:66a1073cce3cd7d5ac5fb20a9baf54836638c201b552e0c59eb965e5d081fe95"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1647,
+    "digest": "sha256:8e79032b3ff8b20676a8b86f8a11e7859825da3bbc23c5d2ac2d2de9d7ee9c82",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":4,\"scenario\":\"post_dispatch_accepted_response_lost\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The ownerEffectState shows a dispatch that was already consumed (dispatchPermissionConsumed: true) with a response-received outcome, but the planningIdentity references effectId \\\"effect:p10:1\\\" with a packageDigest. The scenario is \\\"post_dispatch_accepted_response_lost\\\" indicating that the response was accepted from the venue but the downstream response/acknowledgement may have been lost in transit back. The dispatch permission has already been consumed, meaning the exact effect has already been sent to the venue. Since we cannot be certain whether the venue confirmed the effect, and the owner basis has not changed, the correct move is to perform a read-only reconciliation using the existing clientOrderId to determine the current state of the order before deciding whether to re-execute. This avoids creating a duplicate effect while confirming the on-venue state. RECONCILE_EXACT_EFFECT is safe because it does not create a financial write.\"},\"treatment\":\"raw_current\",\"usage\":{\"completionTokens\":263,\"elapsedMs\":8290,\"promptTokens\":834,\"providerCalls\":1,\"totalTokens\":1097}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_accepted_response_lost",
+      "treatment": "raw_current"
+    },
+    "replicate": 4,
+    "trialId": "trial-0132-r004-2a24f4e17c5d",
+    "trialIndex": 132
+  }
+}

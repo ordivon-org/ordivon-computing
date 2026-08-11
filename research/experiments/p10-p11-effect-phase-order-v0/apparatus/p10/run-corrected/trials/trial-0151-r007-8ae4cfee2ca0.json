@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "post_dispatch_unbound",
+      "scoped_phase_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 9237,
+    "endedAtMs": 1786438585281,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438576044,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:3b46b3b2916cab066b3e8973bbc75dbb83a66f37c7b0b58cf86a5792fcf7c4ec"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1706,
+    "digest": "sha256:9567b3241d542337ab8f081b4f65fb36e9b0249d495bc9c65a516dbade1adcdc",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\",\"RECONCILE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":7,\"scenario\":\"post_dispatch_unbound\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The exact effect (effectId effect:p10:1) has already been dispatched (dispatchOutcome: response-received, dispatchPermissionConsumed: true). The basis has changed (tickSz differs: after 0.10 vs before 0.01), meaning the original planning basis no longer matches the current market instrument state. However, the economic intent and the exact effect identity are unchanged. The owner executor already consumed the exactly-once dispatch permission for this exact effect. Since a response was already received, forming a new effect (FORM_NEW_EFFECT) would create a distinct idempotency identity for the same economic intent, risking stale or duplicate consequences. Executing the exact effect again (EXECUTE_EXACT_EFFECT) would attempt to re-dispatch an effect whose permission is already consumed. The safe action is a read-only reconciliation (RECONCILE_EXACT_EFFECT) using the existing clientOrderId to confirm the state of the already-dispatched exact effect without creating any new financial write.\"},\"treatment\":\"scoped_phase_basis\",\"usage\":{\"completionTokens\":281,\"elapsedMs\":9188,\"promptTokens\":918,\"providerCalls\":1,\"totalTokens\":1199}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_unbound",
+      "treatment": "scoped_phase_basis"
+    },
+    "replicate": 7,
+    "trialId": "trial-0151-r007-8ae4cfee2ca0",
+    "trialIndex": 151
+  }
+}

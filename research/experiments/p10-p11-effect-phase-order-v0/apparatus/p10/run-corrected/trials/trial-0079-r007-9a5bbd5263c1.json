@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "admitted_response_lost_pre_dispatch",
+      "raw_current"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 6830,
+    "endedAtMs": 1786438547570,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438540740,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:64555b93ac62cea9431d762e7fabae25af8cfeafaaab6190ca7ec55a19a7ae23"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1790,
+    "digest": "sha256:a096bef586639e7e7b3e83c05e31cf2e895a6de16296dcc9ccb52ca8a08fcfe4",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":false,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":true,\"newPostDelta\":0,\"reconciliationDelta\":1,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":7,\"scenario\":\"admitted_response_lost_pre_dispatch\",\"submission\":{\"confidenceBand\":\"medium\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The scenario is \\\"admitted_response_lost_pre_dispatch\\\": the admission exists and dispatchPermissionConsumed is false, meaning the exact Effect has not yet been dispatched. However, the ownerBasisChanged is true, and the instrument state has changed from \\\"live\\\" (planning basis) to \\\"suspended\\\" (current instrument state). Because the underlying instrument is now suspended, the original planning basis no longer matches the current owner basis. Before re-executing the exact Effect (EXECUTE_EXACT_EFFECT) which would dispatch the signed package, it is safer to first RECONCILE_EXACT_EFFECT \\u2014 a read-only lookup by the existing clientOrderId (ofb3640add4ccbbfc7c04f6f8a7683f7) to confirm there is no orphaned/stale dispatch outcome and verify the true state before proceeding. Since dispatchOutcome is null and permission not yet consumed, the exact identity is preserved, and no new financial effect is created by this reconcile action. This avoids creating new consequences (FORM_NEW_EFFECT) while the instrument is suspended and avoids replaying a stale dispatch into a changed owner basis.\"},\"treatment\":\"raw_current\",\"usage\":{\"completionTokens\":311,\"elapsedMs\":6764,\"promptTokens\":797,\"providerCalls\":1,\"totalTokens\":1108}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "admitted_response_lost_pre_dispatch",
+      "treatment": "raw_current"
+    },
+    "replicate": 7,
+    "trialId": "trial-0079-r007-9a5bbd5263c1",
+    "trialIndex": 79
+  }
+}

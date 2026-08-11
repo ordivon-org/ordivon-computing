@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "post_dispatch_ambiguous",
+      "changed_only"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 6279,
+    "endedAtMs": 1786438146427,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438140148,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:4956746ed4b3a1985965641d678bf371500813ff5b239e6289ad400207cc213e"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1489,
+    "digest": "sha256:9930091ddf6abb80d9d9c327754ce271f9be7701976fd05f79754e30b0d0fed8",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":7,\"scenario\":\"post_dispatch_ambiguous\",\"submission\":{\"confidenceBand\":\"medium\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The admission exists and the dispatch outcome is \\\"ambiguous\\\" with dispatchPermissionConsumed=true. This means the effect package was already dispatched through the owner executor, but the outcome is unclear. The exact Effect identity (clientOrderId, effectId, idempotencyKey) is intact with the planning identity. Since a dispatch was already consumed and the result is ambiguous, the safe action is a read-only reconciliation using the existing clientOrderId to determine the true outcome before taking any further action. This avoids creating a duplicate financial write (FORM_NEW_EFFECT) while the exact effect may have already executed, and avoids re-sending (EXECUTE_EXACT_EFFECT) which could double-execute. The ownerBasis has not changed, so reconciliation against existing evidence is appropriate.\"},\"treatment\":\"changed_only\",\"usage\":{\"completionTokens\":231,\"elapsedMs\":6193,\"promptTokens\":729,\"providerCalls\":1,\"totalTokens\":960}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_ambiguous",
+      "treatment": "changed_only"
+    },
+    "replicate": 7,
+    "trialId": "trial-0079-r007-f033b052ef71",
+    "trialIndex": 79
+  }
+}

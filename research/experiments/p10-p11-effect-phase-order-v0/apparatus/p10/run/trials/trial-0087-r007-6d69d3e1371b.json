@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "post_dispatch_ambiguous",
+      "raw_current"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 3974,
+    "endedAtMs": 1786438148523,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438144549,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:1e6d1f5a1b5e52756862096042ed5c973990553a31d80350d3383d4e22e1d77e"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1594,
+    "digest": "sha256:9352f3cfbc30a53dfcc566e4a0d305bb744b7f4e58ac38e474385ab8574e14b0",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":7,\"scenario\":\"post_dispatch_ambiguous\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The dispatch outcome is \\\"ambiguous\\\" and the dispatch permission has already been consumed (dispatchPermissionConsumed: true). The exact effect package (clientOrderId: ofb3640add4ccbbfc7c04f6f8a7683f7, effectId: effect:p10:1) was already submitted for dispatch with unknown confirmation status. Since the submission was made and the outcome is ambiguous, the correct safe action is to reconcile \\u2014 perform a read-only lookup by the existing clientOrderId to determine the actual effect outcome before taking any further action. This avoids: (1) duplicating the effect (EXECUTE_EXACT_EFFECT could double-execute if the original actually landed), and (2) creating a new economic identity (FORM_NEW_EFFECT) which would change the idempotency/effect identity when the exact effect may already be in flight or accepted. Reconcile is the only read-only path that preserves single-effect correctness under ambiguity.\"},\"treatment\":\"raw_current\",\"usage\":{\"completionTokens\":273,\"elapsedMs\":3906,\"promptTokens\":823,\"providerCalls\":1,\"totalTokens\":1096}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_ambiguous",
+      "treatment": "raw_current"
+    },
+    "replicate": 7,
+    "trialId": "trial-0087-r007-6d69d3e1371b",
+    "trialIndex": 87
+  }
+}

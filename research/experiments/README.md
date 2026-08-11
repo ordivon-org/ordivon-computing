@@ -42,6 +42,8 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 - [`hd0-industrial-history-dogfood/`](hd0-industrial-history-dogfood/) — frozen design for a 320-trajectory historical OOD dogfood from the First Industrial Revolution to 2026: eight chronological waves, 12 domains, 96 deep Anchors, 32 de-identified prospective replays, winner/rival/failure controls, and source-native coding before LW0 theory mapping.
 - [`hd1-1760-1829/`](hd1-1760-1829/) — completed first historical wave: 105 candidates contracted to 40 source-locked trajectories; 12 Deep Anchors, frozen-theory coding, 12 live historical replay calls, independent confirmation-bias audit, and eight exploratory residual clusters. HD1 materially narrows several modern priors and explicitly preserves codebook uncertainty rather than promoting new laws.
 
+- [`p10-p11-effect-phase-order-v0/`](p10-p11-effect-phase-order-v0/) — Finance C2 ambiguous-Effect and evidence-order falsification: applicability hands off to exact admitted identity after first admission, exactly-once remains identity-scoped, evaluator ambiguity is treated as a first-class confound, and tested order canonicalization is rejected rather than promoted into a Context/Evidence service.
+
 ## Deferred experiment families
 
 Dynamic Task dataflow, branch/join coordination, adaptation, and additional World or Security experiments remain deferred until the generated portfolio admits a concrete falsifier and consuming workload. Historical Edge/Link or generic second-backend plans are not active promises.

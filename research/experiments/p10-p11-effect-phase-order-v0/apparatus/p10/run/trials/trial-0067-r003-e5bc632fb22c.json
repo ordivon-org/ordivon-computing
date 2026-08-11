@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "admitted_response_lost_pre_dispatch",
+      "scoped_phase_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 7339,
+    "endedAtMs": 1786438140147,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438132808,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:8e4ddebbfa08afd4fe177c39dd0be12724515bc19dba9694e076a07a779f7a63"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 2118,
+    "digest": "sha256:4169e609a19e932f6b4fdadd630c155ac906a1ab049f9ec9c191cb378dd6e52e",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":1,\"reconciliationDelta\":0,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"EXECUTE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":1,\"reads\":0,\"reconciles\":0},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":\"VENUE_ACCEPTED\"},\"replicate\":3,\"scenario\":\"admitted_response_lost_pre_dispatch\",\"submission\":{\"confidenceBand\":\"medium\",\"decision\":\"EXECUTE_EXACT_EFFECT\",\"reason\":\"The scenario is \\\"admitted_response_lost_pre_dispatch\\\" \\u2014 the order was admitted (admissionExists=true, admissionId present) but the dispatch outcome is null and dispatchPermissionConsumed=false, meaning the previously signed exact Effect package was never dispatched. The planning identity (clientOrderId, effectId, idempotencyKey, packageDigest) is intact and matches. The basis comparison reveals that the only change is the instrumentState transitioning from \\\"live\\\" to \\\"suspended\\\", while all other economic parameters (contractModel, ctVal, lotSz, minSz, quoteCurrency, tickSz) are unchanged. The declared planning basis was \\\"live\\\", but the owner state shows \\\"suspended\\\". This is a basis change (ownerBasisChanged=true), but the effect package itself was already formed and signed against the planning identity when the instrument was live. Since the dispatch was never consumed, replaying/executing the exact effect is appropriate \\u2014 the effect was formed under the valid basis at planning time. There is no divergence in any price-affecting parameter, and re-executing the exact stored package preserves idempotency and avoids creating a duplicate effect identity. HOLD would stall progress without cause; RECONCILE is read-only and can't dispatch; FORM_NEW_EFFECT would create a new economic identity for the same intent incorrectly since the original package is valid and undelivered.\"},\"treatment\":\"scoped_phase_basis\",\"usage\":{\"completionTokens\":357,\"elapsedMs\":7271,\"promptTokens\":877,\"providerCalls\":1,\"totalTokens\":1234}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "admitted_response_lost_pre_dispatch",
+      "treatment": "scoped_phase_basis"
+    },
+    "replicate": 3,
+    "trialId": "trial-0067-r003-e5bc632fb22c",
+    "trialIndex": 67
+  }
+}

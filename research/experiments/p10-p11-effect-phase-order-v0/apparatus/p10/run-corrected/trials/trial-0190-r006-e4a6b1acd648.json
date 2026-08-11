@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "post_dispatch_accepted_response_lost",
+      "phase_gated_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4524,
+    "endedAtMs": 1786438602667,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438598143,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:85e38df2594564352c345dc8ed31d4178e1b19cc8c46d343f71b28c42659aaab"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1677,
+    "digest": "sha256:10dc6dbe650aff6226b6a43c2f22905e80f946e21c1c37eb57c35cb1ee220699",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\",\"RECONCILE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":0,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":0},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":\"RECONCILIATION_REQUIRED\"},\"replicate\":6,\"scenario\":\"post_dispatch_accepted_response_lost\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"EXECUTE_EXACT_EFFECT\",\"reason\":\"This is a post-dispatch scenario where the dispatch already occurred but the response was lost. The dispatchPermissionConsumed=true and dispatchOutcome=response-received confirm the exact effect package was already dispatched to the owner executor. Since the earlier dispatch was accepted but the response was lost, I need to replay the exact same Effect (same effectId, idempotencyKey, clientOrderId, and packageDigest) to recover the deterministic outcome. The owner executor enforces exactly-once dispatch permission for this exact Effect identity, so a replay is safe and will not create a duplicate consequence. FORM_NEW_EFFECT would create a new distinct effect identity for the same economic intent, which would be a stale/duplicate new consequence. RECONCILE_EXACT_EFFECT is read-only and cannot recover the lost response. EXECUTE_EXACT_EFFECT is the correct action to obtain the accepted result for the already-signed exact effect.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":263,\"elapsedMs\":4439,\"promptTokens\":736,\"providerCalls\":1,\"totalTokens\":999}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_accepted_response_lost",
+      "treatment": "phase_gated_basis"
+    },
+    "replicate": 6,
+    "trialId": "trial-0190-r006-e4a6b1acd648",
+    "trialIndex": 190
+  }
+}

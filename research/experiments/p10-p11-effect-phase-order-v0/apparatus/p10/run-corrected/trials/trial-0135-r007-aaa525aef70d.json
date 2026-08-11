@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "post_dispatch_unbound",
+      "changed_only"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 5128,
+    "endedAtMs": 1786438573608,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438568480,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:c79d891f94a0abbb4f6c8c3e804dfbe36f36e31da0088c6cf34e40909334d87f"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1486,
+    "digest": "sha256:cee8146677f0ef829ee7c0df7f93b4a3f6a090fa7850cdfdfdced73d7dd6ac91",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\",\"RECONCILE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":7,\"scenario\":\"post_dispatch_unbound\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The owner effect state shows dispatchOutcome \\\"response-received\\\" and dispatchPermissionConsumed=true, meaning the exact Effect package for this identity (effect:p10:1) has already been sent through the owner executor. Since the admission exists and the exact dispatch permission has been consumed, re-executing (EXECUTE_EXACT_EFFECT) could violate the exactly-once dispatch guarantee. The ownerBasisChanged flag indicates the basis may have shifted, making FORM_NEW_EFFECT risky as it would create a distinct new consequence/identity for the same economic intent. The safe action is to perform a read-only reconciliation using the existing clientOrderId to confirm the settled state before considering any further action, avoiding both duplicate dispatch and premature new consequences.\"},\"treatment\":\"changed_only\",\"usage\":{\"completionTokens\":223,\"elapsedMs\":5044,\"promptTokens\":741,\"providerCalls\":1,\"totalTokens\":964}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_unbound",
+      "treatment": "changed_only"
+    },
+    "replicate": 7,
+    "trialId": "trial-0135-r007-aaa525aef70d",
+    "trialIndex": 135
+  }
+}

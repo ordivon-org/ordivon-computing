@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "post_dispatch_unbound",
+      "scoped_phase_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4072,
+    "endedAtMs": 1786438166709,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438162637,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:dc94d79e86cead7825ec42d4517e570b7a228ca38f07f36942a587feb393a9c6"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1619,
+    "digest": "sha256:dcb77f0347677e4dc0f1e68584f9edc51064b27a47bcc531adaefef84976edf6",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":true,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":0,\"strictAccepted\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":0},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":\"RECONCILIATION_REQUIRED\"},\"replicate\":7,\"scenario\":\"post_dispatch_unbound\",\"submission\":{\"confidenceBand\":\"medium\",\"decision\":\"EXECUTE_EXACT_EFFECT\",\"reason\":\"The owner basis changed (tickSz differs: before=0.01, after=0.10), but the planning identity (effectId, idempotencyKey, clientOrderId) is established and the owner effect state shows a prior dispatch that was response-received with the permission consumed. This indicates the exact signed Effect package was already dispatched to the owner executor and a response was received. Since dispatchOutcome=response-received and dispatchPermissionConsumed=true, the exact effect has already been sent \\u2014 the correct action is to re-execute/replay the exact signed Effect package (EXECUTE_EXACT_EFFECT) using the existing planning identity, preserving exact identity and avoiding the creation of a duplicate or new effect. No new effect should be formed because the economic intent is already represented by this exact, signed package, and reconciling or holding would not advance the already-dispatched exact effect.\"},\"treatment\":\"scoped_phase_basis\",\"usage\":{\"completionTokens\":256,\"elapsedMs\":3999,\"promptTokens\":915,\"providerCalls\":1,\"totalTokens\":1171}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_unbound",
+      "treatment": "scoped_phase_basis"
+    },
+    "replicate": 7,
+    "trialId": "trial-0119-r007-509a60c2bc52",
+    "trialIndex": 119
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "post_dispatch_accepted_response_lost",
+      "phase_gated_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 5878,
+    "endedAtMs": 1786438599301,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438593423,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:c2fc814d0517f8197a18741b9b5c2165abc08422f4e213385656185c1fba145d"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1567,
+    "digest": "sha256:7ad22000337318b50dda2145fdc43c3caaee4b65d1609be55c46f0cf879593d6",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\",\"RECONCILE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":1,\"scenario\":\"post_dispatch_accepted_response_lost\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The scenario is \\\"post_dispatch_accepted_response_lost\\\". The owner effect state shows dispatchPermissionConsumed=true and dispatchOutcome=\\\"response-received\\\", but the response was lost. The exact effect was already dispatched and admitted (admissionExists=true). Since the dispatch permission for this exact effect identity has been consumed, EXECUTE_EXACT_EFFECT would replay the already-sent package \\u2014 but per the dispatch permission semantics, exactly-once dispatch enforcement is in place. RECONCILE_EXACT_EFFECT performs a read-only lookup by the existing clientOrderId (ofb3640add4ccbbfc7c04f6f8a7683f7), which is safe because it cannot create a financial write, avoids creating a stale duplicate, and preserves the exact identity to determine the true outcome on the owner side before deciding whether any further action is warranted.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":251,\"elapsedMs\":5816,\"promptTokens\":736,\"providerCalls\":1,\"totalTokens\":987}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_accepted_response_lost",
+      "treatment": "phase_gated_basis"
+    },
+    "replicate": 1,
+    "trialId": "trial-0185-r001-9bff5e69310f",
+    "trialIndex": 185
+  }
+}

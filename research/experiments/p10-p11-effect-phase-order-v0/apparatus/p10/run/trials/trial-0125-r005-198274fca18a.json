@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "post_dispatch_accepted_response_lost",
+      "changed_only"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 10343,
+    "endedAtMs": 1786438177053,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438166710,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:ee175a84bbac8df25c989af912865a76fe77335686e37f67fa48883db4c7ae0b"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1708,
+    "digest": "sha256:2dd4e41fc8bb89f58a1890a97564e41186ceedc401011d3176809906cd84fcea",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":5,\"scenario\":\"post_dispatch_accepted_response_lost\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The owner effect state shows admissionExists=true, dispatchOutcome=response-received, and dispatchPermissionConsumed=true. The dispatch was sent and a response was received, but the scenario is 'post_dispatch_accepted_response_lost' \\u2014 meaning the effect was dispatched/permission consumed but the confirmation outcome is uncertain (response lost). This is the classic at-least-once delivery recovery case: I should NOT create a new effect (FORM_NEW_EFFECT) since the original effect identity (effect:p10:1, idempotency p10:effect:1, clientOrderId ofb3640...) already exists and permission was consumed. I also should NOT EXECUTE_EXACT_EFFECT blindly since the exact outcome of the prior dispatch is unconfirmed. The safe, owner-correct action is a read-only RECONCILE_EXACT_EFFECT using the existing clientOrderId/effect identity to determine whether the prior dispatch actually landed before deciding on any resend. This prevents double-effect while making forward progress in reconciling the lost response.\"},\"treatment\":\"changed_only\",\"usage\":{\"completionTokens\":287,\"elapsedMs\":10273,\"promptTokens\":740,\"providerCalls\":1,\"totalTokens\":1027}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_accepted_response_lost",
+      "treatment": "changed_only"
+    },
+    "replicate": 5,
+    "trialId": "trial-0125-r005-198274fca18a",
+    "trialIndex": 125
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "admitted_response_lost_pre_dispatch",
+      "raw_current"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4726,
+    "endedAtMs": 1786438542859,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438538133,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:a5487c3a9e3b88a3d48fc06f9d4556fe3b8554b21c581c1482e855e0252022e3"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1483,
+    "digest": "sha256:eee23e7be686278a79b0ec6a5c6110080836c5cc7dfd5548ec66c6982879d867",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":1,\"reconciliationDelta\":0,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":1,\"reads\":0,\"reconciles\":0},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":\"VENUE_ACCEPTED\"},\"replicate\":1,\"scenario\":\"admitted_response_lost_pre_dispatch\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"EXECUTE_EXACT_EFFECT\",\"reason\":\"The scenario is \\\"admitted_response_lost_pre_dispatch\\\" \\u2014 the effect has been admitted but the dispatch outcome is null and dispatchPermissionConsumed is false, meaning the exact effect was never actually dispatched. The ownerBasisChanged is true (instrument now suspended versus live at planning), but this only affects the current instrument state, not the validity of the already-admitted exact effect identity. RECONCILE would be a read-only no-op that cannot create the needed financial write. FORM_NEW_EFFECT would create a new idempotency/effect identity, producing a duplicate consequence for the same economic intent. The safe action is to dispatch the already-signed exact Effect package via the owner executor, preserving exact identity and completing the pending write.\"},\"treatment\":\"raw_current\",\"usage\":{\"completionTokens\":224,\"elapsedMs\":4640,\"promptTokens\":797,\"providerCalls\":1,\"totalTokens\":1021}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "admitted_response_lost_pre_dispatch",
+      "treatment": "raw_current"
+    },
+    "replicate": 1,
+    "trialId": "trial-0073-r001-c3789cf3e73b",
+    "trialIndex": 73
+  }
+}

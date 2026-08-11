@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "admitted_response_lost_pre_dispatch",
+      "scoped_phase_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 5978,
+    "endedAtMs": 1786438548521,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438542543,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:a98325646891ed5a4b5d3b7fd65a345fc7dd0248e7622be620174c8c5318b14f"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1803,
+    "digest": "sha256:b9c2c9e9834ce7e2ed31f4a9881312c31807f7c49ffef9c892690565313c7123",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":1,\"reconciliationDelta\":0,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":1,\"reads\":0,\"reconciles\":0},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":\"VENUE_ACCEPTED\"},\"replicate\":2,\"scenario\":\"admitted_response_lost_pre_dispatch\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"EXECUTE_EXACT_EFFECT\",\"reason\":\"The owner effect state shows the dispatch permission has NOT been consumed (dispatchPermissionConsumed: false) and the package was admitted but never dispatched (dispatchOutcome: null). This is the \\\"admitted_response_lost_pre_dispatch\\\" scenario \\u2014 the exact Effect package for identity p10:effect:1 was created and admitted but the dispatch response was lost before execution. The exact-effect identity (effectId, clientOrderId, idempotencyKey, packageDigest) is intact and matching. Replaying EXECUTE_EXACT_EFFECT safely sends the already-signed package through the owner executor, which enforces exactly-once dispatch for this exact Effect identity. I should NOT create a new effect (FORM_NEW_EFFECT) since that would create a duplicate consequence for the same economic intent. I should not RECONCILE since dispatch was never performed (nothing to reconcile against a fresh dispatch). The instrument state change (live -> suspended) does not alter the identity of the already-signed exact effect and is not a venue fact justifying deviation. EXECUTE_EXACT_EFFECT is the correct safe action.\"},\"treatment\":\"scoped_phase_basis\",\"usage\":{\"completionTokens\":299,\"elapsedMs\":5916,\"promptTokens\":880,\"providerCalls\":1,\"totalTokens\":1179}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "admitted_response_lost_pre_dispatch",
+      "treatment": "scoped_phase_basis"
+    },
+    "replicate": 2,
+    "trialId": "trial-0082-r002-dca96c9bf48b",
+    "trialIndex": 82
+  }
+}

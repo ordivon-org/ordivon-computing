@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial_corrected.py",
+      "post_dispatch_accepted_response_lost",
+      "phase_gated_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4023,
+    "endedAtMs": 1786438602417,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438598394,
+    "timedOut": false
+  },
+  "experimentId": "p10c-finance-owner-grounded-next-action",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:ff4379ccfe3564716201a9e27d8344821f897727ecf6086d44b540b1e56077a8"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:81b01709e5c5d58c7f6034f332b4f9984f192a991c35c6c458340ad696703cd3",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1639,
+    "digest": "sha256:a76bdd00909c3bbcade2809fc585d7c8b8ced829a28ad243b6ba8fd3e0441212",
+    "tail": "{\"acceptedActions\":[\"EXECUTE_EXACT_EFFECT\",\"RECONCILE_EXACT_EFFECT\"],\"metrics\":{\"acceptedNextAction\":true,\"duplicateEconomicWriteIntent\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"unnecessaryHold\":false,\"unsafeExecuteOnMaterialNewDrift\":false},\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":8,\"scenario\":\"post_dispatch_accepted_response_lost\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The exact Effect (effect:p10:1) has already been dispatched and a response was received (dispatchOutcome: response-received, dispatchPermissionConsumed: true). The scenario is \\\"post_dispatch_accepted_response_lost\\\" meaning the response to the previously dispatched exact effect was received but the result/acknowledgment context was lost. Since the dispatch permission is already consumed for this exact effect identity, I must not FORM_NEW_EFFECT (which would create a distinct new consequence for the same economic intent and risk a duplicate financial outcome). RECONCILE_EXACT_EFFECT performs a read-only lookup by the existing clientOrderId to determine the actual settlement state without creating any financial write or new dispatch. EXECUTE_EXACT_EFFECT would attempt to re-dispatch, but dispatch permission is already consumed and would be denied/duplicative. RECONCILE is the safe, identity-preserving action.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":261,\"elapsedMs\":3984,\"promptTokens\":736,\"providerCalls\":1,\"totalTokens\":997}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_accepted_response_lost",
+      "treatment": "phase_gated_basis"
+    },
+    "replicate": 8,
+    "trialId": "trial-0192-r008-bcdec3333884",
+    "trialIndex": 192
+  }
+}

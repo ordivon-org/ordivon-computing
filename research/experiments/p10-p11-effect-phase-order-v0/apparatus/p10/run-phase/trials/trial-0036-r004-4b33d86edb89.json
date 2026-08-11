@@ -1,0 +1,48 @@
+{
+  "execution": {
+    "args": [
+      "trial_phase.py",
+      "post_dispatch_unbound"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4323,
+    "endedAtMs": 1786438405922,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438401599,
+    "timedOut": false
+  },
+  "experimentId": "p10b-finance-phase-gated-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:9ac72eb3bf99b1f14eee035f60fd2e52fdbed19496f3f60a6e37902bce8b63a8"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:01ee980f2956e537e08b6d64f21f3d70335531d563bf7c086a34b2349d8d1ebf",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1471,
+    "digest": "sha256:c0c6d20f3adf8556feb8d262fee4aa89c889d8eaab59b292061fbc345ff02b74",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":4,\"scenario\":\"post_dispatch_unbound\",\"submission\":{\"confidenceBand\":\"medium\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The owner effect state shows admissionExists=true with a response-received dispatch outcome, and dispatchPermissionConsumed=true. This indicates the exact effect (effect:p10:1, idempotency p10:effect:1) has already been dispatched and a response was received. However, the post_dispatch_unbound scenario indicates the admission is not yet confirmed/bound to a definitive financial outcome. Since the existing admission already exists for this exact effect, the correct action is a read-only reconcile against the existing clientOrderId to confirm the outcome rather than creating a new effect (which would risk duplicate financial writes) or re-executing an already-consumed dispatch. RECONCILE_EXACT_EFFECT performs a safe verification lookup without creating any new financial effect.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":226,\"elapsedMs\":4261,\"promptTokens\":733,\"providerCalls\":1,\"totalTokens\":959}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_unbound"
+    },
+    "replicate": 4,
+    "trialId": "trial-0036-r004-4b33d86edb89",
+    "trialIndex": 36
+  }
+}

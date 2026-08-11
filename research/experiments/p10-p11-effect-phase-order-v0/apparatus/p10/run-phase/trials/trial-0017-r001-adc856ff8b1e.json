@@ -1,0 +1,48 @@
+{
+  "execution": {
+    "args": [
+      "trial_phase.py",
+      "admitted_response_lost_pre_dispatch"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 7780,
+    "endedAtMs": 1786438396951,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438389171,
+    "timedOut": false
+  },
+  "experimentId": "p10b-finance-phase-gated-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:ef4b1d83d64b4b35134f8a65ab58a43c05baba878f742e0af05245e50b43b74e"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:01ee980f2956e537e08b6d64f21f3d70335531d563bf7c086a34b2349d8d1ebf",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1724,
+    "digest": "sha256:876671c50c13af3195b8d9c8c2da1c2716f6086f9d767f9b7314448b352253fd",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":1,\"reconciliationDelta\":0,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"EXECUTE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":1,\"reads\":0,\"reconciles\":0},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":\"VENUE_ACCEPTED\"},\"replicate\":1,\"scenario\":\"admitted_response_lost_pre_dispatch\",\"submission\":{\"confidenceBand\":\"medium\",\"decision\":\"EXECUTE_EXACT_EFFECT\",\"reason\":\"The owner effect state shows admissionExists=true with an admission ID (remote_admit_v3_964d6d0fab3f54847d5f50aacb530119). This is the \\\"admitted_response_lost_pre_dispatch\\\" scenario: the admission was created but the response was lost before dispatch. The dispatchOutcome is null and dispatchPermissionConsumed is false, meaning no dispatch has actually occurred yet. Since the exact effect package identity (clientOrderId, effectId, idempotencyKey, packageDigest) matches the planning identity and there is a valid admission already granted, the correct action is to EXECUTE_EXACT_EFFECT to replay/send the already-signed exact Effect package through the owner executor. This does not create a duplicate effect \\u2014 it forwards the same exact package that was already admitted. RECONCILE would only perform a read-only lookup and cannot create the required financial write; FORM_NEW_EFFECT would incorrectly create a distinct identity for an effect that already has an admission, risking duplicate-effect safety.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":288,\"elapsedMs\":7734,\"promptTokens\":694,\"providerCalls\":1,\"totalTokens\":982}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "admitted_response_lost_pre_dispatch"
+    },
+    "replicate": 1,
+    "trialId": "trial-0017-r001-adc856ff8b1e",
+    "trialIndex": 17
+  }
+}

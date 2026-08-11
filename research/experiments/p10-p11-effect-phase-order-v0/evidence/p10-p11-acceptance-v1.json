@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.p10-p11-effect-phase-order-acceptance",
+  "computingBaseRevision": "592ff88aef8c68fbd67def14b66c838db62644a0",
+  "financeRevision": "999672a068e1de16b59516cd1079f7d504e81a47",
+  "p10": {
+    "outcome": "phase_gated_applicability_supported; always-on applicability/currentness after exact admission is rejected",
+    "correctedCampaignPayloadDigest": "sha256:df69c4eaef0702c52cc14a6696896468ce39f9711c0f6674aebab88a9cbd968b",
+    "acceptedSemanticTrials": 192,
+    "aggregate": {
+      "changed_only": {
+        "trials": 48,
+        "acceptedNextAction": 45,
+        "duplicateEconomicWriteIntent": 0,
+        "falseNewEffect": 0,
+        "unnecessaryHold": 0,
+        "unsafeExecuteOnMaterialNewDrift": 0,
+        "missedExactResume": 0,
+        "physicalNewPostDeltas": 16,
+        "reconciliationDeltas": 19,
+        "tokens": 44674,
+        "providerCalls": 48
+      },
+      "phase_gated_basis": {
+        "trials": 48,
+        "acceptedNextAction": 48,
+        "duplicateEconomicWriteIntent": 0,
+        "falseNewEffect": 0,
+        "unnecessaryHold": 0,
+        "unsafeExecuteOnMaterialNewDrift": 0,
+        "missedExactResume": 0,
+        "physicalNewPostDeltas": 16,
+        "reconciliationDeltas": 18,
+        "tokens": 47002,
+        "providerCalls": 48
+      },
+      "raw_current": {
+        "trials": 48,
+        "acceptedNextAction": 45,
+        "duplicateEconomicWriteIntent": 0,
+        "falseNewEffect": 0,
+        "unnecessaryHold": 1,
+        "unsafeExecuteOnMaterialNewDrift": 0,
+        "missedExactResume": 3,
+        "physicalNewPostDeltas": 13,
+        "reconciliationDeltas": 21,
+        "tokens": 49437,
+        "providerCalls": 48
+      },
+      "scoped_phase_basis": {
+        "trials": 48,
+        "acceptedNextAction": 40,
+        "duplicateEconomicWriteIntent": 0,
+        "falseNewEffect": 0,
+        "unnecessaryHold": 4,
+        "unsafeExecuteOnMaterialNewDrift": 0,
+        "missedExactResume": 3,
+        "physicalNewPostDeltas": 13,
+        "reconciliationDeltas": 19,
+        "tokens": 53922,
+        "providerCalls": 48
+      }
+    },
+    "ownerContractFencePayloadDigest": "sha256:e17026cbcb7ae2d054b5c7d48352a0b84ecc700475fdc7de0094e4b2ecebb753",
+    "physicalConsequenceMatrixFileDigest": "sha256:77bba1a2361a72012b57b4891b07e1a0e9ad95f498b2e240a2a65eb2323e4e32",
+    "selfFalsification": "P10a and P10b single-valued RECONCILE-only post-dispatch oracle was too narrow because Finance exact replay is owner-safe, cannot POST twice, and returns RECONCILIATION_REQUIRED. They remain diagnostics and were not rescored.",
+    "phaseLaw": "Before first admission, current applicability evidence may veto a new consequence. After exact admission, exact Effect/replay/dispatch identity becomes the controlling recovery substrate; do not keep reapplying generic currentness unless the owner contract requires a new admission.",
+    "identityScopeLaw": "Exactly-one dispatch is scoped to the exact admitted Effect identity. The physical matrix proves FORM_NEW_EFFECT after an already-consumed dispatch can obtain another POST permission and therefore can duplicate the economic write. P10c Agents did not choose this action in any accepted trial, so this is an owner-side physical risk boundary rather than an observed Agent failure."
+  },
+  "p11": {
+    "outcome": "active_order_canonicalization_rejected; evaluator_clarity_dominates tested order normalization",
+    "finalPayloadDigest": "sha256:9e51e3255492761fb80f76f5bcd96a83fa5d27071a9adb676db2810960100a9d",
+    "acceptedSemanticTrials": 144,
+    "aggregate": {
+      "raw_sequence": {
+        "trials": 48,
+        "strictAccepted": 44,
+        "strictRate": 0.9166666666666666,
+        "correctFieldsMean": 11.875,
+        "falseFieldCounts": {
+          "latestSwapBarsAllConfirmed": 1,
+          "latestIndexBarsAllConfirmed": 1,
+          "latestBarEventTimeUniform": 4
+        },
+        "distinctInputDigests": 6,
+        "wireDiagnosticTrials": 0,
+        "tokens": 134341,
+        "providerCalls": 48
+      },
+      "stable_dataset_order": {
+        "trials": 48,
+        "strictAccepted": 42,
+        "strictRate": 0.875,
+        "correctFieldsMean": 11.8542,
+        "falseFieldCounts": {
+          "allInstrumentStatesLive": 1,
+          "latestFundingLeaderMatchesHistoricalAbsFundingLeader": 2,
+          "latestBarEventTimeUniform": 4
+        },
+        "distinctInputDigests": 1,
+        "wireDiagnosticTrials": 0,
+        "tokens": 134606,
+        "providerCalls": 48
+      },
+      "identity_map": {
+        "trials": 48,
+        "strictAccepted": 43,
+        "strictRate": 0.8958333333333334,
+        "correctFieldsMean": 11.8958,
+        "falseFieldCounts": {
+          "latestBarEventTimeUniform": 4,
+          "allInstrumentStatesLive": 1
+        },
+        "distinctInputDigests": 1,
+        "wireDiagnosticTrials": 0,
+        "tokens": 133950,
+        "providerCalls": 48
+      }
+    },
+    "mechanicalFalsifierPayloadDigest": "sha256:a29c52113368b1595ac85e950c22c07117c0467c72a761b483864a0aa273d8fd",
+    "invalidations": [
+      "P11-v1 invalidated wholesale for Provider Tool wire truncation.",
+      "P11-v2 retained as diagnostic only because tracking-error leader was semantically ambiguous relative to the max-value oracle."
+    ],
+    "finalFinding": "After explicitly defining the tracking target as the numerically largest latest tracking_error_annualized_pct, raw six presentation orders were 44/48 strict, stable list 42/48, identity map 43/48. Canonicalization did not improve accuracy.",
+    "mechanicalBoundary": "For owner-declared unordered dataset bundles, stable identity encoding collapses 720 permutations to one digest. For ordered Effect events, only explicit orderingDomain+sequence reconstructs semantics; naive global lexical sort was semantically valid in 0/120 permutations."
+  },
+  "worldModelUpdates": [
+    "Applicability and replay belong to different consequence phases: applicability controls first admission of a new consequence; exact admitted identity controls recovery/reconciliation thereafter.",
+    "Exactly-once guarantees are identity-scoped. Abandoning a consumed Effect identity and creating a new Effect can physically create another external write.",
+    "A safe next-action oracle may be set-valued when multiple owner operations converge without new consequence, such as exact replay and read-only reconciliation after dispatch consumption.",
+    "Before attributing semantic variance to Context/evidence order, freeze an unambiguous question and independent oracle; evaluator ambiguity can masquerade as order sensitivity.",
+    "Canonical byte representation is not semantic tractability. Stable list/map encodings were mechanically invariant but did not outperform raw presentation after semantic clarification.",
+    "P9 order sensitivity is narrowed from a supported general law to an observed, ambiguity-confounded failure mode. Dependency coverage and fresh synthesis remain supported; presentation order should be tested only when a clear residual survives semantic clarification."
+  ],
+  "rejected": [
+    "ApplicabilityService",
+    "global_effect_phase_service",
+    "economic_intent_global_deduper",
+    "EvidenceNormalizer",
+    "OrderService",
+    "ContextCompiler promoted from P11",
+    "global lexical evidence sort",
+    "single-valued reconciliation oracle when owner-safe exact replay also exists",
+    "retaining P11 order-instability as a general law without unambiguous prospective reproduction"
+  ],
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:854443a40099a0975c1395a5886bb0045dd1d5c17f9c0dd2c1713d48b539dfb7"
+  }
+}

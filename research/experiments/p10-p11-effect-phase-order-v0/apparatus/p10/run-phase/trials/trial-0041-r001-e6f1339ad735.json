@@ -1,0 +1,48 @@
+{
+  "execution": {
+    "args": [
+      "trial_phase.py",
+      "post_dispatch_accepted_response_lost"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 5526,
+    "endedAtMs": 1786438411994,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438406468,
+    "timedOut": false
+  },
+  "experimentId": "p10b-finance-phase-gated-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:864fbc914f948eef8629ba20d72e467b833efb09d97175156b88444580c39ea5"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:01ee980f2956e537e08b6d64f21f3d70335531d563bf7c086a34b2349d8d1ebf",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1717,
+    "digest": "sha256:d77fdac5ff5f7ea7067b2c6a56239a388c65d1a54863d33ce0544802ed66a371",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":1,\"scenario\":\"post_dispatch_accepted_response_lost\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The owner effect state indicates admissionExists=true, dispatchOutcome=\\\"response-received\\\", and dispatchPermissionConsumed=true. The scenario is \\\"post_dispatch_accepted_response_lost,\\\" meaning the effect was already dispatched and a response was received, but the response was lost. Since the exact Effect was already submitted (permission consumed) and we have no confirmation of the final outcome, RECONCILE_EXACT_EFFECT is the safe action. It performs a read-only lookup by the existing clientOrderId (ofb3640add4ccbbfc7c04f6f8a7683f7) to recover the authoritative result without creating a new financial write or duplicating the effect. EXECUTE_EXACT_EFFECT would re-dispatch a potentially already-executed Effect (risk of double execution), FORM_NEW_EFFECT would create a distinct new consequence for the same intent (risk of duplicate financial effect), and HOLD would stall progress against the owner's interest. Reconcile preserves exact identity and clientOrderId safety while advancing toward resolution.\"},\"treatment\":\"phase_gated_basis\",\"usage\":{\"completionTokens\":289,\"elapsedMs\":5471,\"promptTokens\":735,\"providerCalls\":1,\"totalTokens\":1024}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_accepted_response_lost"
+    },
+    "replicate": 1,
+    "trialId": "trial-0041-r001-e6f1339ad735",
+    "trialIndex": 41
+  }
+}

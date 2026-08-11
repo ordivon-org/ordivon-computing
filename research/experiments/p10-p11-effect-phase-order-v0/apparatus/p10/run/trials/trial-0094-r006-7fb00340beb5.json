@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "post_dispatch_ambiguous",
+      "scoped_phase_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 4227,
+    "endedAtMs": 1786438152564,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438148337,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:8c5bfdd489861c70203871e68f88f363741a15e948c8025746ac72ff6d63b28c"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1562,
+    "digest": "sha256:f4ab2b32b18ba281c0a20f618620a27235843a53760c18cdceb864239ad634be",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":6,\"scenario\":\"post_dispatch_ambiguous\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The owner effect state shows admissionExists=true with dispatchOutcome=\\\"ambiguous\\\" and dispatchPermissionConsumed=true. The basis comparison shows no owner basis changed (all fields equal). The dispatch outcome was ambiguous, meaning we cannot confirm whether the already-signed exact effect (with packageDigest sha256:a858a41e...) was actually applied or not. Re-dispatching (EXECUTE_EXACT_EFFECT) risks creating a duplicate effect if the original already settled. FORM_NEW_EFFECT would create a distinct new effect for the same intent, risking double-execution of the same economic intent. RECONCILE_EXACT_EFFECT performs a read-only lookup by the existing clientOrderId (ofb3640add4ccbbfc7c04f6f8a7683f7), which preserves owner correctness and does not create additional financial writes. This is the safe path to determine the actual outcome before deciding next steps.\"},\"treatment\":\"scoped_phase_basis\",\"usage\":{\"completionTokens\":263,\"elapsedMs\":4171,\"promptTokens\":906,\"providerCalls\":1,\"totalTokens\":1169}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_ambiguous",
+      "treatment": "scoped_phase_basis"
+    },
+    "replicate": 6,
+    "trialId": "trial-0094-r006-7fb00340beb5",
+    "trialIndex": 94
+  }
+}

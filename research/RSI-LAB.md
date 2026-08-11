@@ -113,11 +113,11 @@ A valid receipt proves only the declared mechanical facts. Semantic retention, d
 
 ## Research policies that are deliberately not Lab services
 
-Later transfer experiments changed the research method without adding commands. When a plan or derivation already knows which exact owner facts make a consequence or claim applicable, record that applicability basis **before** drift; compare the scoped basis to current owner evidence and let the Agent/domain decide materiality. This now has prospective support in Runtime/Host consequence binding and independently developed Security derived-evidence semantics. More raw current context is not automatically safer.
+Later transfer experiments changed the research method without adding commands. When a plan or derivation knows which owner facts make a **new consequence** applicable, record that basis before admission and compare it to current owner truth. P10 adds a phase boundary: once the exact Effect/request identity is durably admitted, recovery should preserve that identity and use owner-native replay/dispatch/reconciliation semantics rather than repeatedly re-applying generic currentness. Exactly-once protection is identity-scoped; creating a new identity is a new consequence.
 
-When an evidence-acquisition Agent exhibits search inertia, a **fresh synthesis context** after a bounded evidence batch is a supported research operator across both Runtime source evidence and Finance structured DataPlane evidence. Its cadence is not an observation count: calibrate against decision-relevant dependency coverage and operator information structure. Finance showed 5/6 dataset dependencies produced 11/12 fields, while all 6 produced 12/12; it also showed complete evidence remains presentation-order sensitive, so coverage is not a semantic-stability proof.
+When an evidence-acquisition Agent exhibits search inertia, a **fresh synthesis context** after decision-relevant dependency coverage remains a supported research operator. P11 narrows the earlier order hypothesis: before blaming Context or evidence order, freeze an unambiguous semantic question and oracle. On the clarified Finance workload, raw order was already 44/48 strict and stable list/map canonicalization did not improve it. Canonical bytes are mechanical convenience, not evidence of better semantic tractability.
 
-Neither policy authorizes an `ApplicabilityService`, `CriticService`, `StoppingService`, automatic rebase rule, materiality classifier, evidence-order authority, or global observation-count threshold.
+Neither policy authorizes an `ApplicabilityService`, `EffectPhaseService`, `CriticService`, `StoppingService`, `EvidenceNormalizer`, `OrderService`, `ContextCompiler`, economic-intent global deduper, automatic rebase rule, materiality classifier, evidence-order authority, or global observation-count threshold.
 
 ## Data-plane rule
 
@@ -125,4 +125,4 @@ Prefer mature deterministic equipment—Git, SQLite, DuckDB/Parquet, `jq`, `hype
 
 ## Evidence
 
-P0–P3 instrument promotion is recorded in [`experiments/rsi-lab-p0-p3-v0/`](experiments/rsi-lab-p0-p3-v0/). The strict P4–P9 existence tests are recorded in [`experiments/rsi-lab-p4-p9-v0/`](experiments/rsi-lab-p4-p9-v0/), and their Security/Finance cross-domain transfer is recorded in [`experiments/p8-p9-cross-domain-transfer-v0/`](experiments/p8-p9-cross-domain-transfer-v0/).
+P0–P3 instrument promotion is recorded in [`experiments/rsi-lab-p0-p3-v0/`](experiments/rsi-lab-p0-p3-v0/). The strict P4–P9 existence tests are recorded in [`experiments/rsi-lab-p4-p9-v0/`](experiments/rsi-lab-p4-p9-v0/), their Security/Finance cross-domain transfer in [`experiments/p8-p9-cross-domain-transfer-v0/`](experiments/p8-p9-cross-domain-transfer-v0/), and the Effect-phase/order falsification in [`experiments/p10-p11-effect-phase-order-v0/`](experiments/p10-p11-effect-phase-order-v0/).

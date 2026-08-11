@@ -1,0 +1,50 @@
+{
+  "execution": {
+    "args": [
+      "trial.py",
+      "post_dispatch_unbound",
+      "scoped_phase_basis"
+    ],
+    "cwd": "/tmp/ordivon-p10-p11/p10",
+    "elapsedMs": 7682,
+    "endedAtMs": 1786438169724,
+    "executable": "/usr/bin/python",
+    "exitCode": 0,
+    "launchError": null,
+    "mechanicalSuccess": true,
+    "semanticCompletionEvaluated": false,
+    "startedAtMs": 1786438162042,
+    "timedOut": false
+  },
+  "experimentId": "p10-finance-ambiguous-effect-applicability",
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "ordivon-evidence-json-v1",
+    "payloadDigest": "sha256:dabaec7024f57ea75aa3e3038756f2a631c1a0c48a53145793c403b0156597d4"
+  },
+  "kind": "ordivon.lab.matrix-trial-record",
+  "schemaVersion": 1,
+  "specDigest": "sha256:077f9f4e4c372a679d6dc2dab93f2386ffd2cb21e66e084c431db4557919a2fe",
+  "stderr": {
+    "byteLength": 0,
+    "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tail": "",
+    "truncated": false
+  },
+  "stdout": {
+    "byteLength": 1651,
+    "digest": "sha256:162dd12115ecdf100b7c05dafcd5cdc6cd51faa658d87938d97b6a58beaef6e9",
+    "tail": "{\"metrics\":{\"duplicateEconomicWriteIntent\":false,\"failedToReconcileConsumedDispatch\":false,\"falseNewEffect\":false,\"missedExactResume\":false,\"newPostDelta\":0,\"reconciliationDelta\":1,\"strictAccepted\":true,\"unsafeExecuteOnMaterialNewDrift\":false},\"oracle\":\"RECONCILE_EXACT_EFFECT\",\"physicalConsequence\":{\"delta\":{\"posts\":0,\"reads\":0,\"reconciles\":1},\"duplicateEconomicWrite\":false,\"error\":null,\"resultCode\":null},\"replicate\":5,\"scenario\":\"post_dispatch_unbound\",\"submission\":{\"confidenceBand\":\"high\",\"decision\":\"RECONCILE_EXACT_EFFECT\",\"reason\":\"The owner basis has changed: tickSz moved from 0.01 (declared planning basis) to 0.10 after dispatch, and the current comparison shows tickSz before=0.01 vs after=0.10 (equal=false). The owner effect state shows admissionExists=true, dispatchPermissionConsumed=true, dispatchOutcome=response-received, and there is a rawEvidenceDigest present. The planning identity has a defined clientOrderId, effectId, idempotencyKey, and packageDigest. Since the exact effect package was already dispatched (permission consumed, response received), the correct next step is to RECONCILE_EXACT_EFFECT \\u2014 a read-only lookup against the existing clientOrderId to determine the authoritative outcome. This avoids creating a duplicate effect while also not blindly re-executing. The tick size change indicates a basis drift that requires confirmation of what the venue actually recorded before any further write action, but no new financial write should be initiated at this time.\"},\"treatment\":\"scoped_phase_basis\",\"usage\":{\"completionTokens\":276,\"elapsedMs\":7621,\"promptTokens\":915,\"providerCalls\":1,\"totalTokens\":1191}}\n",
+    "truncated": false
+  },
+  "terminal": true,
+  "trial": {
+    "factors": {
+      "scenario": "post_dispatch_unbound",
+      "treatment": "scoped_phase_basis"
+    },
+    "replicate": 5,
+    "trialId": "trial-0117-r005-a740fec000e7",
+    "trialIndex": 117
+  }
+}
