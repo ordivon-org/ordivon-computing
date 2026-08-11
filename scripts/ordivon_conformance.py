@@ -504,6 +504,8 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     compile_paths = [
         "packages/ordivon-protocol/src",
         "packages/ordivon-protocol/tests",
+        "packages/ordivon-observation-core/src",
+        "packages/ordivon-observation-core/tests",
         "packages/content-cli/src",
         "packages/content-cli/tests",
         "research/evidence/tests",
@@ -512,6 +514,8 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     ruff_paths = [
         "packages/ordivon-protocol/src",
         "packages/ordivon-protocol/tests",
+        "packages/ordivon-observation-core/src",
+        "packages/ordivon-observation-core/tests",
         "packages/content-cli/src",
         "packages/content-cli/tests",
         "scripts/run_conformance_gate.py",
@@ -534,6 +538,8 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
         ("compileall", [python, "-m", "compileall", "-q", *compile_paths], ROOT, {}),
         ("ruff", [ruff, "check", *ruff_paths], ROOT, {}),
         ("content-cli-tests", [python, "-m", "unittest", "discover", "-s", "packages/content-cli/tests"], ROOT, {"PYTHONPATH": "packages/content-cli/src"}),
+        ("observation-core-tests", [python, "-m", "unittest", "discover", "-s", "packages/ordivon-observation-core/tests"], ROOT, {"PYTHONPATH": "packages/ordivon-observation-core/src"}),
+        ("rsi-lab-tests", [python, "-m", "unittest", "scripts.tests.test_ordivon_lab"], ROOT, {}),
         ("content-managed-paths", [python, "scripts/ordivon_content.py", "check", "--root", ".", "--mode", "strict", "--receipt", "/tmp/ordivon-content-check.json"], ROOT, {}),
         ("content-vale", [vale, *content_tool_paths], ROOT, {}),
         ("content-markdownlint", [markdownlint, *content_tool_paths], ROOT, {}),

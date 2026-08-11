@@ -68,6 +68,7 @@ Research may contain alternatives, failed experiments, changing terminology, and
 
 - [`world-model-loop-v2.json`](world-model-loop-v2.json) defines how owner-native project evidence can challenge and revise the shared world model while separating historical observation validity from currentness.
 - [`experiment-contract-v1.json`](experiment-contract-v1.json) defines only the declarations every bounded experiment must freeze. It does not choose the hypothesis, evaluator truth, or correct answer, and it carries no product authority.
+- [`RSI-LAB.md`](RSI-LAB.md) defines the current thin scientific-instrument surface for owner evidence packing, mechanical matrices, DuckDB/Parquet analysis, and revision pressure without scientific or product authority.
 - [`computer-responsibility-map-v2.json`](computer-responsibility-map-v2.json) is the current responsibility prior for Ordivon Computer; retired architecture categories live in historical evidence rather than permanent active slots.
 - [`portfolio.json`](portfolio.json) is the mutable source of truth for line status, maturity, blockers, falsifiers, and disposition.
 - [`PORTFOLIO.md`](PORTFOLIO.md) is its generated review projection.
@@ -107,6 +108,7 @@ Experiment-contract and portfolio maintenance commands:
 
 ```bash
 python3 scripts/check_world_model_loop.py
+python3 scripts/ordivon_lab.py --help
 python3 scripts/check_experiment_contract.py
 python3 scripts/check_computer_responsibility_map.py
 python3 scripts/check_historical_research_compression.py
