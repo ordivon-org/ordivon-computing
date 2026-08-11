@@ -79,14 +79,29 @@
         "evidenceRef": "../rf1-game-stopping/evidence/rf1-live-v1.json",
         "worldModelUpdate": "8/8 consumed 6/6 windows, progressive matched full references only 6/8, and selection cost about 2.3x matched one-shot tokens. Batched/non-serial stopping is the next candidate only when full inspection is materially expensive."
       }
+    },
+    {
+      "betId": "HP3-topology-deception-control",
+      "before": {
+        "hypothesis": "A topology-challenge Agent can reject a deliberately misleading surface topology, switch operator, and improve owner-correct causal acceptance over open and surface-locked controls.",
+        "operator": "open_vs_surface_locked_vs_topology_challenge_on_mirrored_deception",
+        "falsifier": "Challenge does not improve correct topology/owner/operator or semantic acceptance, or its meta-deliberation cost dominates without better decisions."
+      },
+      "after": {
+        "outcome": "falsified_and_demotes_discrete_topology_control",
+        "evidenceRef": "../hp3-topology-deception-v0/evidence/hp3-live-v1.json",
+        "worldModelUpdate": "Open achieved 3/6 correct topology and 5/6 correct owner. Surface-locked achieved 0/6 topology and 5/6 false localization. Topology-challenge achieved 0/6 topology and 3/6 owner while consuming 6.27M tokens vs 4.25M open. Keep observable causal/evidence affordances; do not require an Agent-facing topology enum before operator selection."
+      }
     }
   ],
   "nextBetTemplate": {
     "before": [
       "questionRef",
       "ownerEvidenceRefs",
-      "evidenceTopologyHypothesis",
+      "observableResearchAffordances",
+      "descriptiveTopologyHypothesisOptional",
       "chosenOperatorPolicy",
+      "operatorAssumptions",
       "alternativeOperatorPolicies",
       "semanticAcceptanceBoundary",
       "strongFullInspectionOrClassicalBaseline",
@@ -95,6 +110,7 @@
       "expectedSelectionOverhead",
       "pathDependenceRisk",
       "wireRepresentationCost",
+      "bindingAndApplicabilityRisk",
       "stopCondition",
       "falsifier"
     ],

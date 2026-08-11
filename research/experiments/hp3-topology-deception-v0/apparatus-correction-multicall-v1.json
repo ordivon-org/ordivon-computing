@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.experiment-apparatus-correction",
+  "phase": "HP3",
+  "acceptedScientificSamplesBeforeCorrection": 0,
+  "failedJobId": "job-019fee9c-fae4-7333-bfa4-953e874dab53",
+  "failedTerminalEvidence": "sha256:02cf3f418943282094054845818301a5c2d524386e4e49ad668fa09bc94200fd",
+  "diagnosis": "The adapter incorrectly treated parallel_tool_calls=false as a guarantee of exactly one Tool call. DeepSeek repeatedly returned two valid read proposals in one response. No returned call was executed and no trial receipt was created.",
+  "correction": "Accept one or more Tool calls from one Provider response. Validate every call against the exact offered catalog. A response containing submit is valid only when submit is the sole call. Otherwise search/read calls are executed sequentially in returned order, with one Tool result per call id. Physical observation ceilings remain global per trial; calls beyond the ceiling receive a budget notice rather than being executed.",
+  "unchanged": [
+    "battlefield and true topology",
+    "owner revisions",
+    "hidden oracle and scorer",
+    "open/surface_locked/topology_challenge prompts",
+    "24-observation ceiling",
+    "8000 completion-token ceiling",
+    "three replicates per cell",
+    "high-budget-as-capacity policy"
+  ],
+  "scientificDisposition": "The failed pre-sample attempt is apparatus evidence only and is excluded from HP3 outcome statistics."
+}
