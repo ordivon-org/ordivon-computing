@@ -150,7 +150,7 @@ Contaminated fields were:
 - `R2.ownerNativeEvidence.currentBindingAttempt=removed`;
 - `H2.ownerNativeEvidence.rebasedExpectedRevision4Attempt=created revision 5`.
 
-That made the visible context and oracle semantically inconsistent. The complete v1 battlefield, 72 trial outputs and receipt are retained under `evidence/v1-invalidated/`; no v1 trial was selectively rescored or reused.
+That made the visible context and oracle semantically inconsistent. The complete v1 battlefield, 72 trial outputs and receipt are preserved in full-apparatus Git snapshot `0570a2cf1acae8632131276ed1bb6fd76f1c93ea` (under `evidence/v1-invalidated/` in that snapshot); no v1 trial was selectively rescored or reused.
 
 The corrected v2 removed only those two post-consequence outcome fields. All owner contracts, planning evidence, current identity evidence, generic signals, hidden oracle, scenarios, treatments, scoring, Provider/model, decision catalog and replicate counts remained unchanged.
 
