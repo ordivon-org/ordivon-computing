@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.feynman-documentation.runtime-contraction-preflight",
+  "date": "2026-08-12",
+  "status": "preregistered-before-live-provider-call",
+  "purpose": "Follow-up paired preflight forced by FD4 Runtime treatment burden regression. Compare first causally safe treatment to compact v2 using the same frozen Runtime tasks.",
+  "providerFamily": "DeepSeek credentials admitted under /root/.config/ordivon/secrets; exact slot/model recorded per trial",
+  "replicates": 3,
+  "subjectProtocol": {
+    "freshTurnPerTrial": true,
+    "conversationCarryover": false,
+    "temperature": 0,
+    "thinking": "disabled"
+  },
+  "judgeProtocol": {
+    "separateProviderCall": true,
+    "armBlind": true,
+    "temperature": 0,
+    "thinking": "disabled"
+  },
+  "arms": {
+    "runtime": {
+      "repository": "/root/projects/ordivon-runtime",
+      "baseline": "a09ccd2c0647a0b276920b4f3e95227340b056cc",
+      "treatment": "853858e941061468c011dca33fcc71e54f90306f",
+      "publication": "fenced_candidate",
+      "candidateRef": "refs/heads/docs/feynman-runtime-entry-v1"
+    }
+  },
+  "tasks": [
+    {
+      "id": "FD0-RUNTIME-01",
+      "owner": "runtime",
+      "surface": "entry_only",
+      "prompt": "A local command exits 0 after requesting an external effect, but the external provider response is lost. What has Runtime proved, and what remains unknown?",
+      "oracle": {
+        "decision": "Runtime proved admitted local execution facts; external occurrence/domain success remains unknown until owner-native reconciliation.",
+        "requiredPoints": [
+          "local process success is physical evidence only",
+          "external provider/domain owns outside occurrence truth",
+          "do not infer or blindly redispatch"
+        ],
+        "criticalErrors": [
+          "exit 0 proves external effect happened",
+          "missing response means failure and safe retry"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-RUNTIME-02",
+      "owner": "runtime",
+      "surface": "entry_only",
+      "prompt": "The client loses the response to workspace.exec and reconnects. Should it invent a new operation identity? What is the safe recovery path?",
+      "oracle": {
+        "decision": "Reuse/recover the same committed request identity and observe/reconcile it; do not create a duplicate just because delivery is uncertain.",
+        "requiredPoints": [
+          "stable clientRequestId/Job identity supports replay/observation",
+          "reconnect through list/get/observe when needed"
+        ],
+        "criticalErrors": [
+          "new client request is harmless after response loss",
+          "Runtime replay proves arbitrary external exactly-once effects"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    }
+  ],
+  "primaryMetrics": [
+    "decisionCorrect",
+    "criticalOverinferenceCount",
+    "unsupportedAuthorityClaimCount"
+  ],
+  "secondaryMetrics": [
+    "requiredPointCoverage",
+    "inputDocumentBytes",
+    "providerTokens"
+  ],
+  "decisionRules": [
+    "Any baseline-majority-correct to treatment-majority-wrong result rejects compact v2.",
+    "Any new treatment critical over-inference rejects compact v2.",
+    "At equal correctness, compact v2 should materially reduce input/token burden versus the first treatment.",
+    "No task/oracle/judge rubric may change after first live call.",
+    "Preflight acceptance does not remove the existing publication-currentness fence."
+  ],
+  "expectedSubjectCalls": 12,
+  "expectedJudgeCalls": 12
+}
