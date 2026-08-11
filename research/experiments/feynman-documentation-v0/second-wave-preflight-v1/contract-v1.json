@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.feynman-documentation.second-wave-preflight",
+  "date": "2026-08-12",
+  "status": "preregistered-before-live-provider-call",
+  "purpose": "Paired fresh-Agent preflight for FD4 World/Host/Runtime/Computing documentation rewrites under editorial-discipline-v2.",
+  "providerFamily": "DeepSeek credentials admitted under /root/.config/ordivon/secrets; exact slot/model recorded per trial",
+  "replicates": 3,
+  "subjectProtocol": {
+    "freshTurnPerTrial": true,
+    "conversationCarryover": false,
+    "temperature": 0,
+    "thinking": "disabled",
+    "instruction": "use only supplied exact-revision documents; do not import prior Ordivon knowledge; preserve unknown/currentness/authority boundaries"
+  },
+  "judgeProtocol": {
+    "separateProviderCall": true,
+    "armBlind": true,
+    "receives": [
+      "task prompt",
+      "frozen oracle",
+      "subject answer"
+    ],
+    "doesNotReceive": [
+      "baseline/treatment label",
+      "source revision",
+      "document bundle"
+    ],
+    "temperature": 0,
+    "thinking": "disabled"
+  },
+  "arms": {
+    "world": {
+      "repository": "/root/projects/ordivon-world",
+      "baseline": "8ddbb6a646a77a9180f4d988a23ccbf314aef044",
+      "treatment": "e57f873875cdfbc0b509eab50eece125f3e4e4bf",
+      "publication": "published"
+    },
+    "host": {
+      "repository": "/root/projects/ordivon-host",
+      "baseline": "19207a8fc3c6a9661eb6fcbb2d27e6a1dc5c617c",
+      "treatment": "4c5c15c8f7a406fead69bf2781ac7dbbc5110bcd",
+      "publication": "published"
+    },
+    "runtime": {
+      "repository": "/root/projects/ordivon-runtime",
+      "baseline": "a62d0b9d7c7d637ac738c3a58ae43369ea21238d",
+      "treatment": "a09ccd2c0647a0b276920b4f3e95227340b056cc",
+      "publication": "fenced_candidate",
+      "candidateRef": "refs/heads/docs/feynman-runtime-entry-v1"
+    },
+    "computing": {
+      "repository": "/root/projects/ordivon-computing",
+      "baseline": "2eb9847c5f80f2dda196ea29dc914944feaa00d4",
+      "treatment": "6ee07d6f961a897031d2802fefc2a24f25534fc3",
+      "publication": "candidate"
+    }
+  },
+  "tasks": [
+    {
+      "id": "FD0-WORLD-01",
+      "owner": "world",
+      "surface": "entry_only",
+      "prompt": "A message transport records successful delivery. May the system now claim the destination Agent knows or understood the content?",
+      "oracle": {
+        "decision": "No; delivery/receipt is not destination knowledge, cognition, or semantic acceptance.",
+        "requiredPoints": [
+          "transport occurrence and receiver semantics differ",
+          "native/receiver evidence is needed for stronger claims"
+        ],
+        "criticalErrors": [
+          "delivery receipt equals knowledge",
+          "World becomes cognition authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-WORLD-02",
+      "owner": "world",
+      "surface": "entry_plus_architecture",
+      "prompt": "A resource was observed present yesterday, then no current observation is available. May a current decision treat yesterday’s Presence as current truth?",
+      "oracle": {
+        "decision": "No; historical occurrence remains historical evidence and current Presence requires applicable owner-native observation/reconciliation.",
+        "requiredPoints": [
+          "historical truth and currentness are distinct",
+          "World should preserve exact external identity and reobserve/reconcile"
+        ],
+        "criticalErrors": [
+          "historical success implies current presence",
+          "a projection becomes global current-state authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "FD0-HOST-01",
+      "owner": "host",
+      "surface": "entry_only",
+      "prompt": "An Agent session disappears halfway through a long task and a different Agent must continue later. What must survive, and which details should not become the durable owner of the work?",
+      "oracle": {
+        "decision": "Host preserves durable semantic Task continuity/checkpoints/commitments; Provider/session state is replaceable.",
+        "requiredPoints": [
+          "Task identity and semantic frontier survive session replacement",
+          "checkpoint is a working claim that points back to owner truth",
+          "transport/provider session is not Task authority"
+        ],
+        "criticalErrors": [
+          "persist the chat transcript as authoritative task state",
+          "treat Provider session identity as work identity"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-HOST-02",
+      "owner": "host",
+      "surface": "entry_plus_architecture",
+      "prompt": "Runtime reports a local Job succeeded. May Host now mark the whole Task complete? Explain the missing proof boundary.",
+      "oracle": {
+        "decision": "Not from Runtime success alone; Host/domain completion requires the relevant verification and semantic outcome admission.",
+        "requiredPoints": [
+          "physical execution and semantic completion are different",
+          "domain/world truth may still be external",
+          "Task outcome remains Host/domain scoped"
+        ],
+        "criticalErrors": [
+          "Runtime exit status automatically completes Task",
+          "Host execution persistence makes Host domain truth owner"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "FD0-RUNTIME-01",
+      "owner": "runtime",
+      "surface": "entry_only",
+      "prompt": "A local command exits 0 after requesting an external effect, but the external provider response is lost. What has Runtime proved, and what remains unknown?",
+      "oracle": {
+        "decision": "Runtime proved admitted local execution facts; external occurrence/domain success remains unknown until owner-native reconciliation.",
+        "requiredPoints": [
+          "local process success is physical evidence only",
+          "external provider/domain owns outside occurrence truth",
+          "do not infer or blindly redispatch"
+        ],
+        "criticalErrors": [
+          "exit 0 proves external effect happened",
+          "missing response means failure and safe retry"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-RUNTIME-02",
+      "owner": "runtime",
+      "surface": "entry_only",
+      "prompt": "The client loses the response to workspace.exec and reconnects. Should it invent a new operation identity? What is the safe recovery path?",
+      "oracle": {
+        "decision": "Reuse/recover the same committed request identity and observe/reconcile it; do not create a duplicate just because delivery is uncertain.",
+        "requiredPoints": [
+          "stable clientRequestId/Job identity supports replay/observation",
+          "reconnect through list/get/observe when needed"
+        ],
+        "criticalErrors": [
+          "new client request is harmless after response loss",
+          "Runtime replay proves arbitrary external exactly-once effects"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-COMP-01",
+      "owner": "computing",
+      "surface": "entry_plus_core",
+      "prompt": "A future model absorbs most Tool loops, memory, subagents, and planning. What, if anything, should Ordivon Computing still insist on preserving, and what should it avoid freezing into a permanent stack?",
+      "oracle": {
+        "decision": "Preserve only residual durable responsibilities that remain unowned after stronger classical/provider baselines; subsystem names are not invariants.",
+        "requiredPoints": [
+          "owner-native/classical mechanisms remain preferred when sufficient",
+          "durable responsibilities may survive while package boundaries change",
+          "temporary model limitations do not justify permanent shared layers"
+        ],
+        "criticalErrors": [
+          "treat Host/Harness/Runtime/World names as a mandatory eternal stack",
+          "make Computing current product authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "core/stack.md"
+      ]
+    },
+    {
+      "id": "FD0-COMP-02",
+      "owner": "computing",
+      "surface": "entry_plus_authority",
+      "prompt": "Computing prose says a project is current in state A, but the owning repository at an exact current revision proves state B. Which source controls the current implementation claim and what role does Computing retain?",
+      "oracle": {
+        "decision": "The owner repository controls current product truth; Computing retains cross-project synthesis/research authority.",
+        "requiredPoints": [
+          "owner-native exact source/evidence outranks Computing summary",
+          "Computing may revise its synthesis from owner evidence"
+        ],
+        "criticalErrors": [
+          "let Computing override owner implementation truth",
+          "treat a historical snapshot as floating current state"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "docs/authority.md",
+        "projects/README.md"
+      ]
+    }
+  ],
+  "primaryMetrics": [
+    "decisionCorrect",
+    "criticalOverinferenceCount",
+    "unsupportedAuthorityClaimCount"
+  ],
+  "secondaryMetrics": [
+    "requiredPointCoverage",
+    "currentTargetHistoryConfusionCount",
+    "inputDocumentBytes",
+    "providerTokens"
+  ],
+  "decisionRules": [
+    "Any baseline-majority-correct to treatment-majority-wrong result blocks publication.",
+    "Any new treatment critical over-inference absent from baseline blocks publication until resolved.",
+    "No task/oracle/judge rubric may change after the first live Provider call.",
+    "When baseline and treatment are both ceiling-correct, lower input/token burden is preferred; material treatment burden increase without new decision benefit triggers contraction review, especially for Runtime and Computing.",
+    "Publication currentness remains independent of reader quality: a treatment can pass preflight yet remain fenced if owner-current authority is moving."
+  ],
+  "expectedSubjectCalls": 48,
+  "expectedJudgeCalls": 48
+}
