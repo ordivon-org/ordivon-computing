@@ -1,0 +1,562 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.feynman-documentation.comprehension-baseline",
+  "frozenBeforeRewrite": true,
+  "observedDate": "2026-08-12",
+  "purpose": "Evaluate whether a reader can reconstruct causal responsibility, currentness, and counterfactual action from owner-native documentation. These open-ended tasks are frozen before FD1 rewriting and may later be used for Agent preflight; human-response claims require a separate human protocol.",
+  "scoringDimensions": [
+    "decision_correct",
+    "required_points_coverage",
+    "critical_overinference_count",
+    "unsupported_authority_claim_count",
+    "current_target_history_confusion",
+    "answer_token_cost_when_measured"
+  ],
+  "rules": [
+    "Do not modify task oracle after seeing post-rewrite results.",
+    "Source paths are bound to owner-freeze-v1 revisions for the pre-rewrite arm.",
+    "Post-rewrite arm must bind exact new owner revisions and preserve the same task meaning.",
+    "Entry-only failures are legitimate baseline evidence; do not silently add deep sources to rescue the old arm.",
+    "Agent success is not human comprehension evidence."
+  ],
+  "tasks": [
+    {
+      "id": "FD0-COMP-01",
+      "owner": "computing",
+      "surface": "entry_plus_core",
+      "prompt": "A future model absorbs most Tool loops, memory, subagents, and planning. What, if anything, should Ordivon Computing still insist on preserving, and what should it avoid freezing into a permanent stack?",
+      "oracle": {
+        "decision": "Preserve only residual durable responsibilities that remain unowned after stronger classical/provider baselines; subsystem names are not invariants.",
+        "requiredPoints": [
+          "owner-native/classical mechanisms remain preferred when sufficient",
+          "durable responsibilities may survive while package boundaries change",
+          "temporary model limitations do not justify permanent shared layers"
+        ],
+        "criticalErrors": [
+          "treat Host/Harness/Runtime/World names as a mandatory eternal stack",
+          "make Computing current product authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "core/stack.md"
+      ]
+    },
+    {
+      "id": "FD0-COMP-02",
+      "owner": "computing",
+      "surface": "entry_plus_authority",
+      "prompt": "Computing prose says a project is current in state A, but the owning repository at an exact current revision proves state B. Which source controls the current implementation claim and what role does Computing retain?",
+      "oracle": {
+        "decision": "The owner repository controls current product truth; Computing retains cross-project synthesis/research authority.",
+        "requiredPoints": [
+          "owner-native exact source/evidence outranks Computing summary",
+          "Computing may revise its synthesis from owner evidence"
+        ],
+        "criticalErrors": [
+          "let Computing override owner implementation truth",
+          "treat a historical snapshot as floating current state"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "docs/authority.md",
+        "projects/README.md"
+      ]
+    },
+    {
+      "id": "FD0-HOST-01",
+      "owner": "host",
+      "surface": "entry_only",
+      "prompt": "An Agent session disappears halfway through a long task and a different Agent must continue later. What must survive, and which details should not become the durable owner of the work?",
+      "oracle": {
+        "decision": "Host preserves durable semantic Task continuity/checkpoints/commitments; Provider/session state is replaceable.",
+        "requiredPoints": [
+          "Task identity and semantic frontier survive session replacement",
+          "checkpoint is a working claim that points back to owner truth",
+          "transport/provider session is not Task authority"
+        ],
+        "criticalErrors": [
+          "persist the chat transcript as authoritative task state",
+          "treat Provider session identity as work identity"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-HOST-02",
+      "owner": "host",
+      "surface": "entry_plus_architecture",
+      "prompt": "Runtime reports a local Job succeeded. May Host now mark the whole Task complete? Explain the missing proof boundary.",
+      "oracle": {
+        "decision": "Not from Runtime success alone; Host/domain completion requires the relevant verification and semantic outcome admission.",
+        "requiredPoints": [
+          "physical execution and semantic completion are different",
+          "domain/world truth may still be external",
+          "Task outcome remains Host/domain scoped"
+        ],
+        "criticalErrors": [
+          "Runtime exit status automatically completes Task",
+          "Host execution persistence makes Host domain truth owner"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "FD0-HARNESS-01",
+      "owner": "harness",
+      "surface": "entry_only",
+      "prompt": "Harness finishes an Agent Run and returns a completion proposal. Has the caller Task or domain objective necessarily completed?",
+      "oracle": {
+        "decision": "No; Harness Run completion/proposal is bounded cognition state, not caller/domain completion.",
+        "requiredPoints": [
+          "Harness owns Run/Provider/Tool continuity",
+          "caller/domain owns final semantic acceptance"
+        ],
+        "criticalErrors": [
+          "Run completion equals Host Task completion",
+          "Harness becomes domain authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-HARNESS-02",
+      "owner": "harness",
+      "surface": "entry_plus_architecture",
+      "prompt": "A Provider has hidden continuation state while the Agent changes which evidence it wants in its current Working Set. Who owns the structural continuation and who owns the semantic choice?",
+      "oracle": {
+        "decision": "Harness owns structural Run/Provider continuation; Agent/caller owns semantic evidence selection.",
+        "requiredPoints": [
+          "structural state and semantic choice are distinct",
+          "Provider continuation need not become Agent-visible cognition"
+        ],
+        "criticalErrors": [
+          "Harness decides semantic relevance because it stores continuation",
+          "Agent choice rewrites canonical run history"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "FD0-RUNTIME-01",
+      "owner": "runtime",
+      "surface": "entry_only",
+      "prompt": "A local command exits 0 after requesting an external effect, but the external provider response is lost. What has Runtime proved, and what remains unknown?",
+      "oracle": {
+        "decision": "Runtime proved admitted local execution facts; external occurrence/domain success remains unknown until owner-native reconciliation.",
+        "requiredPoints": [
+          "local process success is physical evidence only",
+          "external provider/domain owns outside occurrence truth",
+          "do not infer or blindly redispatch"
+        ],
+        "criticalErrors": [
+          "exit 0 proves external effect happened",
+          "missing response means failure and safe retry"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-RUNTIME-02",
+      "owner": "runtime",
+      "surface": "entry_only",
+      "prompt": "The client loses the response to workspace.exec and reconnects. Should it invent a new operation identity? What is the safe recovery path?",
+      "oracle": {
+        "decision": "Reuse/recover the same committed request identity and observe/reconcile it; do not create a duplicate just because delivery is uncertain.",
+        "requiredPoints": [
+          "stable clientRequestId/Job identity supports replay/observation",
+          "reconnect through list/get/observe when needed"
+        ],
+        "criticalErrors": [
+          "new client request is harmless after response loss",
+          "Runtime replay proves arbitrary external exactly-once effects"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-WORLD-01",
+      "owner": "world",
+      "surface": "entry_only",
+      "prompt": "A message transport records successful delivery. May the system now claim the destination Agent knows or understood the content?",
+      "oracle": {
+        "decision": "No; delivery/receipt is not destination knowledge, cognition, or semantic acceptance.",
+        "requiredPoints": [
+          "transport occurrence and receiver semantics differ",
+          "native/receiver evidence is needed for stronger claims"
+        ],
+        "criticalErrors": [
+          "delivery receipt equals knowledge",
+          "World becomes cognition authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-WORLD-02",
+      "owner": "world",
+      "surface": "entry_plus_architecture",
+      "prompt": "A resource was observed present yesterday, then no current observation is available. May a current decision treat yesterday’s Presence as current truth?",
+      "oracle": {
+        "decision": "No; historical occurrence remains historical evidence and current Presence requires applicable owner-native observation/reconciliation.",
+        "requiredPoints": [
+          "historical truth and currentness are distinct",
+          "World should preserve exact external identity and reobserve/reconcile"
+        ],
+        "criticalErrors": [
+          "historical success implies current presence",
+          "a projection becomes global current-state authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "FD0-FIN-01",
+      "owner": "finance",
+      "surface": "entry_presence",
+      "prompt": "A new reader opens the repository root and wants one canonical explanation of why Finance exists, its authority boundary, current research status, and where to go next. Is that entry present at the frozen revision?",
+      "oracle": {
+        "decision": "No; the frozen revision has no root README and no explicit document-authority map.",
+        "requiredPoints": [
+          "strong domain documents exist but there is no canonical cognitive entry",
+          "this is a structural documentation gap, not a missing Finance domain model"
+        ],
+        "criticalErrors": [
+          "pretend AGENT-FIRST-ARCHITECTURE is already the declared root entry",
+          "invent authority metadata not present in the owner"
+        ]
+      },
+      "sourcePaths": []
+    },
+    {
+      "id": "FD0-FIN-02",
+      "owner": "finance",
+      "surface": "major_docs",
+      "prompt": "An Agent recommends a trade and the execution path becomes UNKNOWN after dispatch. May Finance immediately update canonical capital state as if the trade occurred?",
+      "oracle": {
+        "decision": "No; preserve exact intent/effect identity and reconcile venue/native truth before admitting the capital consequence.",
+        "requiredPoints": [
+          "reality outranks model belief",
+          "execution intent and venue occurrence are distinct",
+          "canonical capital state changes only from admitted evidence"
+        ],
+        "criticalErrors": [
+          "recommendation equals trade",
+          "local effect correctness proves venue occurrence",
+          "blind redispatch after UNKNOWN"
+        ]
+      },
+      "sourcePaths": [
+        "design/FOUNDATION-CONSTITUTION.md",
+        "design/OWNER-CONSTITUTION.md",
+        "design/AUTHORITY-EXECUTION-KERNEL.md"
+      ]
+    },
+    {
+      "id": "FD0-SEC-01",
+      "owner": "security",
+      "surface": "entry_plus_boundary",
+      "prompt": "Red claims exploitation succeeded, a sensor saw suspicious traffic, the executor returned success, and an evaluator gave a high score. Which of these establishes authoritative world truth?",
+      "oracle": {
+        "decision": "None by itself; independent declared truth/management evidence owns world state while actor, sensor, executor, and evaluator claims remain separate.",
+        "requiredPoints": [
+          "truth plane is separated from actor/sensor/evaluator/execution evidence",
+          "evaluator judgment interprets evidence but is not world truth"
+        ],
+        "criticalErrors": [
+          "sensor observation equals truth",
+          "evaluator score authorizes or proves effect",
+          "actor claim becomes world state"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "docs/research-boundary.md",
+        "docs/LAW-PROFILES-C0.md"
+      ]
+    },
+    {
+      "id": "FD0-SEC-02",
+      "owner": "security",
+      "surface": "entry_plus_law",
+      "prompt": "A current experiment uses deny-all/no-network. Does that prove Ordivon Security constitutionally forbids networked adversarial experiments?",
+      "oracle": {
+        "decision": "No; deny-all is a scoped profile/grant. The constitutional rule is declared authority/sovereignty and truth separation, not universal no-network.",
+        "requiredPoints": [
+          "profile restrictions are not universal law",
+          "authorized external scope may exist in another declared Range"
+        ],
+        "criticalErrors": [
+          "generalize P0/P1 fixture into permanent Security law",
+          "reachability itself grants authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "docs/LAW-PROFILES-C0.md",
+        "docs/research-boundary.md"
+      ]
+    },
+    {
+      "id": "FD0-GAME-01",
+      "owner": "game",
+      "surface": "entry_only",
+      "prompt": "Station Zero v3 is implemented and tested but remains unregistered. What is the current product?",
+      "oracle": {
+        "decision": "The registered current product remains Station Zero v2; implemented/tested target status does not equal registration.",
+        "requiredPoints": [
+          "current Scenario/Ruleset and v3 target are separate",
+          "registration is the current-product authority"
+        ],
+        "criticalErrors": [
+          "newest implementation automatically replaces registered product",
+          "P3 acceptance implies current root product"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-GAME-02",
+      "owner": "game",
+      "surface": "entry_plus_product",
+      "prompt": "A model proposes an action that its specialist lacks capability or authority to perform. Can model output directly change the game world?",
+      "oracle": {
+        "decision": "No; model output is a proposal and Game World/domain admission decides legal consequences.",
+        "requiredPoints": [
+          "World/reducer is authoritative",
+          "capability and authority are separate",
+          "terminal outcome is not inferred from model prose"
+        ],
+        "criticalErrors": [
+          "model invents legal action/world state",
+          "provider output is authoritative result"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "docs/PRODUCT.md",
+        "docs/ARCHITECTURE.md"
+      ]
+    },
+    {
+      "id": "FD0-HUMAN-01",
+      "owner": "human",
+      "surface": "entry_only",
+      "prompt": "Human builds a model of a person’s economic constraints. Does that model gain authority to prescribe the person’s financial, career, health, or legal choices?",
+      "oracle": {
+        "decision": "No; the framework is conditional research and modeling a person grants no authority over that person.",
+        "requiredPoints": [
+          "evidence scope and high-consequence boundaries remain explicit",
+          "individual decisions may require local current evidence"
+        ],
+        "criticalErrors": [
+          "framework output is individualized advice",
+          "research model owns person-level authority"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-HUMAN-02",
+      "owner": "human",
+      "surface": "entry_only",
+      "prompt": "Must a practitioner complete E0 through E9 in numerical order before acting?",
+      "oracle": {
+        "decision": "No; E0-E9 are stable identifiers/selectable modules chosen by the current bottleneck, with cross-cutting rails.",
+        "requiredPoints": [
+          "numbers are not a life ladder",
+          "diagnosis selects needed modules"
+        ],
+        "criticalErrors": [
+          "E0-E9 are mandatory sequential stages",
+          "completion of modules proves empirical effectiveness"
+        ]
+      },
+      "sourcePaths": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "FD0-STUDIO-01",
+      "owner": "studio",
+      "surface": "entry_plus_design",
+      "prompt": "Studio binds a Runtime fact at revision R and produces a video. Runtime later changes. Does Studio become the authority for the current Runtime fact?",
+      "oracle": {
+        "decision": "No; Studio keeps a revision-bound historical claim or explicitly rebases after review. Runtime remains fact owner.",
+        "requiredPoints": [
+          "expression source is bound to exact owner revision",
+          "production claim is not a second product authority"
+        ],
+        "criticalErrors": [
+          "published video overrides owner source",
+          "Studio silently floats claims to latest"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "STUDIO.md",
+        "docs/media-model.md"
+      ]
+    },
+    {
+      "id": "FD0-STUDIO-02",
+      "owner": "studio",
+      "surface": "entry_plus_research",
+      "prompt": "A vision-capable Agent observer understands a rendered artifact with very high accuracy. Does that establish human comprehension, preference, or trust?",
+      "oracle": {
+        "decision": "No; Agent-observer evidence does not establish human-response claims.",
+        "requiredPoints": [
+          "human-response claims require human evidence when material",
+          "mechanical/factual and human-experience claims are distinct"
+        ],
+        "criticalErrors": [
+          "Agent observer is a proxy for human preference",
+          "internal review approval proves audience understanding"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "research/expression/README.md"
+      ]
+    },
+    {
+      "id": "FD0-WEB-01",
+      "owner": "web",
+      "surface": "entry_plus_editorial",
+      "prompt": "An owner repository changes. Must Web publish a visible change?",
+      "oracle": {
+        "decision": "No; owner change creates a review obligation. Web may rebind/correct/update or make a public no-op depending on public consequence.",
+        "requiredPoints": [
+          "owner remains technical authority",
+          "public judgment is source-bound and may legitimately no-op"
+        ],
+        "criticalErrors": [
+          "every source commit forces website copy change",
+          "Web becomes implementation truth owner"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "content/editorial/agent-web-system.md",
+        "content/editorial/authority.md"
+      ]
+    },
+    {
+      "id": "FD0-WEB-02",
+      "owner": "web",
+      "surface": "entry_plus_editorial",
+      "prompt": "Chromium successfully renders a page and an exposure receipt proves facts were visible. Does that prove a human reader understood them?",
+      "oracle": {
+        "decision": "No; render/exposure evidence proves encounter mechanics, not comprehension or factual correctness.",
+        "requiredPoints": [
+          "human comprehension is a separate consequence claim",
+          "Web owns presentation/publication mechanics, not human-response truth"
+        ],
+        "criticalErrors": [
+          "successful browser test equals comprehension",
+          "exposure receipt makes Web owner of underlying project fact"
+        ]
+      },
+      "sourcePaths": [
+        "README.md",
+        "content/editorial/information-architecture.md",
+        "content/editorial/authority.md"
+      ]
+    },
+    {
+      "id": "FD0-X-01",
+      "owner": "cross-project",
+      "surface": "cross_owner",
+      "prompt": "World semantics are persisted through a Host Task. Who owns the meaning of the World state after persistence?",
+      "oracle": {
+        "decision": "World/domain remains semantic owner; Host persistence does not transfer meaning.",
+        "requiredPoints": [
+          "meaning is distinct from persistence",
+          "Host owns its Task continuity only"
+        ],
+        "criticalErrors": [
+          "storage/persistence implies semantic ownership"
+        ]
+      },
+      "sourcePaths": []
+    },
+    {
+      "id": "FD0-X-02",
+      "owner": "cross-project",
+      "surface": "cross_owner",
+      "prompt": "A Runtime process succeeds, an external provider later confirms occurrence, and Finance then reconciles the result. Name the three different claims instead of collapsing them into one success.",
+      "oracle": {
+        "decision": "Runtime: local execution; provider/native owner: external occurrence; Finance: domain semantic reconciliation/acceptance.",
+        "requiredPoints": [
+          "each success is scoped to its owner",
+          "completion must be read with scope"
+        ],
+        "criticalErrors": [
+          "one generic success flag covers all three",
+          "Runtime or provider decides Finance meaning"
+        ]
+      },
+      "sourcePaths": []
+    },
+    {
+      "id": "FD0-X-03",
+      "owner": "cross-project",
+      "surface": "currentness",
+      "prompt": "An owner-local clean main contains newer coherent work than the public server main. For FD0, should owner-current truth and published state be recorded as the same revision?",
+      "oracle": {
+        "decision": "No; freeze owner-current revision and published revision separately, with ancestry/publication lag explicit.",
+        "requiredPoints": [
+          "current owner truth and publication state are distinct facts",
+          "public surfaces must not pretend unpublished state was already published"
+        ],
+        "criticalErrors": [
+          "always choose server main as owner truth",
+          "always treat local main as already public"
+        ]
+      },
+      "sourcePaths": []
+    },
+    {
+      "id": "FD0-X-04",
+      "owner": "cross-project",
+      "surface": "deletion",
+      "prompt": "A mature classical/provider mechanism now preserves a responsibility that an Ordivon-specific layer used to carry. What presumption should the Ordivon layer receive?",
+      "oracle": {
+        "decision": "No presumption of retention; delete/localize it unless a real residual unowned responsibility survives deletion across relevant workloads.",
+        "requiredPoints": [
+          "deletion counterfactual is the burden of proof",
+          "implementation effort/history does not justify permanence"
+        ],
+        "criticalErrors": [
+          "keep layer because it already exists or has many tests",
+          "promote shared ontology before residual need is shown"
+        ]
+      },
+      "sourcePaths": []
+    }
+  ]
+}

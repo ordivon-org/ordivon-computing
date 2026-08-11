@@ -49,6 +49,7 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 - [`ex2-world-finance-multiaxis-v0/`](ex2-world-finance-multiaxis-v0/) — causal-explanation falsification that rejected a universal five-axis record and closed whole-family relation ontology while retaining exact-question responsibility analysis as research method.
 - [`ex3-ex7-causal-comprehension-v0/`](ex3-ex7-causal-comprehension-v0/) — preregistered five-stage action-pressure programme over 17 owner-native responsibility families; 1,326/1,326 accepted Agent decisions were exact, richer representations never beat strong compact prose, and EX7 selected compact prose as the minimum non-inferior Agent-facing representation.
+- [`feynman-documentation-v0/`](feynman-documentation-v0/) — FD0 pre-rewrite documentation freeze over all 11 owner repositories: exact owner-current versus published revisions, a curated reading-role map, omission-detection scan, and 26 frozen open-ended causal/currentness tasks; it changes no owner authority and makes no human-comprehension claim.
 
 ## Deferred experiment families
 
