@@ -1,0 +1,722 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd1-historical-replay-live",
+  "provider": "deepseek",
+  "replicatesPerCase": 3,
+  "records": [
+    {
+      "replayId": "HR-A03",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "The rigid boring bar and coupled lead-screw/change-gear experiments are precision enablers, but the key bottleneck is deciding whether to commit scarce capital to one of three production strategies for the concentrated six-figure block demand. The critical unknown is whether general-purpose machine tools (whose precision also constrains all downstream accuracy) can be made accurate enough and flexible enough to serve both the block workflow and the nearby cylinder/screw needs, versus whether the concentrated demand justifies dedicated special-purpose machines.",
+        "liveRoutesRanked": [
+          "build a small number of general-purpose machine tools and keep flexible craft routing",
+          "design a sequential set of special-purpose machines for the block workflow",
+          "expand skilled hand production with gauges/templates"
+        ],
+        "nextDiscriminatingTest": "Instrument a pilot: use the newly rigid boring arrangement and the lead-screw/change-gear/slide-rest setup to produce a representative lot of the block product (all repeated operations: saw, shape, bore, finish) on general-purpose machines run by current craftsmen, and measure per-piece time, dimensional variability, and yield against the six-figure annual quota. Separately estimate the capital and setup cost of the special-purpose sequential line for the same volume. Compare cost-per-piece and precision-transfer under both, and check whether the same general-purpose machines can then also make accurate large cylinders and repeatable screws for the nearby industries—testing transferability before committing to dedicated machines.",
+        "requiredComplements": [
+          "the rigid boring-bar arrangement (proven more accurate on large cylinders)",
+          "mechanically coupled lead screws, change gears and slide rests for reproducible pitch",
+          "metrology/gauges to measure dimensional variability and screw geometry repeatability",
+          "enough concentrated customer demand certainty to justify scale-up engineering"
+        ],
+        "mainFailureRisks": [
+          "precision of the general-purpose machine tools may be insufficient for the block's downstream accuracy requirements, and upstream-machine precision error propagates",
+          "the general-purpose pilot may look locally successful on blocks but fail to generalize to cylinders/screws or other factories, leaving the special-purpose vs flexible decision unresolved",
+          "high initial machine-design cost may be sunk without guaranteed volume from the single large customer",
+          "a locally successful pilot on one operation may not validate the full sequential workflow"
+        ],
+        "routeDecisions": [
+          {
+            "route": "build a small number of general-purpose machine tools and keep flexible craft routing",
+            "decision": "continue",
+            "reason": "The rigid boring bar and coupled lead-screw/change-gear experiments are direct precedents for general-purpose machine capabilities and also promise spillover to the nearby cylinder/screw problems; this route preserves flexibility and is the cheapest way to gather discriminating cost/precision data on representative block lots."
+          },
+          {
+            "route": "design a sequential set of special-purpose machines for the block workflow",
+            "decision": "defer",
+            "reason": "Potentially the lowest unit cost at very large volume, but committing now is premature: precision transfer and transferability to other products are unknown, and its capital cost should only be justified if the general-purpose pilot shows the flexible route cannot meet the six-figure quota cost-effectively."
+          },
+          {
+            "route": "expand skilled hand production with gauges/templates",
+            "decision": "abandon",
+            "reason": "Hand manufacture is already described as slow, variable and labor intensive, and the block decomposes into repeated operations that are natural targets for mechanical assistance; while gauges remain useful as metrology complements, hand expansion cannot scale to six-figure annual quantities efficiently."
+          }
+        ],
+        "generalizationBoundary": "The general-purpose machine pilot on the block product is only a local test; it demonstrates feasibility for that specific workflow under this workshop's craftsmen and precision baseline. Its extension to accurate large cylinders and repeatable screw geometry must be separately verified using the same mechanical components, and adoption in other factories requires that their skill base and upstream precision match—otherwise the flexible routing result may not transfer.",
+        "unresolvedUnknowns": [
+          "Can general-purpose machines meet the block's downstream accuracy given upstream-machine precision limits? (needs the pilot)",
+          "Do the rigid boring and screw-pitch mechanisms generalize from the demonstrated cylinder/screw cases to the block's boring and finishing operations?",
+          "Will the six-figure concentrated demand persist long enough to amortize special-purpose machine design cost?",
+          "Does investment in general-purpose machines improve the neighboring industries' cylinder and screw problems enough to justify shared costs / broader adoption?",
+          "What are the actual per-piece cost, setup time, and yield of each route at scale—no quantitative production data exists yet?"
+        ]
+      },
+      "usage": {
+        "inputTokens": 849,
+        "outputTokens": 1045,
+        "totalTokens": 1894,
+        "elapsedMs": 13772,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A03",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "Precision of upstream machine tools limits downstream accuracy — obtaining accurate large cylinders and repeatable screw geometry requires machine tools whose own accuracy sets the ceiling for everything built with them.",
+        "liveRoutesRanked": [
+          "build a small number of general-purpose machine tools and keep flexible craft routing",
+          "design a sequential set of special-purpose machines for the block workflow",
+          "expand skilled hand production with gauges/templates"
+        ],
+        "nextDiscriminatingTest": "Test whether the improved rigid boring arrangement plus the mechanically coupled lead-screw/slide-rest experiments can together produce an accurate large cylinder AND a repeatable screw pitch on the SAME general-purpose machine setup — i.e., first demonstrate that a single machine tool, built with these two recent advances, reliably produces both the cylinder-accuracy and screw-repeatability that nearby industries lack. This discriminates general-purpose (one machine, many products) from special-purpose (one machine per operation) because it shows whether the flexibility ceiling is real.",
+        "requiredComplements": [
+          "mechanically coupled lead screws and change gears",
+          "rigid boring bar support arrangement",
+          "slide rests for reproducible tool positioning",
+          "gauges/templates for final inspection where machining cannot hold tolerance"
+        ],
+        "mainFailureRisks": [
+          "general-purpose machine may produce accurate cylinders but not repeatable screw geometry (or vice versa), leaving the flexibility claim unproven",
+          "the six-figure annual block demand may justify dedicated special-purpose machines even if general-purpose works technically, on throughput/cost grounds",
+          "machine-design cost is high and the initial build may absorb budget before the transferability question is answered",
+          "precision of upstream machine tools may simply be insufficient at current quality level regardless of layout"
+        ],
+        "routeDecisions": [
+          {
+            "route": "build a small number of general-purpose machine tools and keep flexible craft routing",
+            "decision": "continue",
+            "reason": "This is the cheapest route that leverages the two strongest recent advances (rigid boring, coupled lead screws) into one capability; it addresses both cylinder accuracy and screw repeatability, which are the shared bottleneck across the block product AND nearby industries, and it keeps flexibility for unmodeled future work."
+          },
+          {
+            "route": "design a sequential set of special-purpose machines for the block workflow",
+            "decision": "defer",
+            "reason": "Potentially best for throughput on the six-figure concentrated demand, but committing high design cost to dedicated machines before knowing whether a general-purpose machine can hit the needed accuracy would waste budget and lock in to one product."
+          },
+          {
+            "route": "expand skilled hand production with gauges/templates",
+            "decision": "abandon",
+            "reason": "Hand manufacture is already slow, variable and labor intensive, and while gauges help inspection they do not address accuracy of large cylinders or screw repeatability; it cannot scale to six-figure quantities."
+          }
+        ],
+        "generalizationBoundary": "Success on the block decomposition (sawing, shaping, boring, finishing) plus demonstrated cylinder and screw accuracy does not by itself prove transferability: transferability to other factories holds only if those factories have comparable skill to operate and calibrate the general-purpose machines, and only if their products also reduce to boring/screw-type operations. Accuracy gains in cylinders and screws may not transfer to surface-finish or fine-tolerance operations not covered by these experiments.",
+        "unresolvedUnknowns": [
+          "whether the rigid boring arrangement and coupled lead-screw system can be combined on one machine without degrading each other's accuracy",
+          "whether a general-purpose machine can reach six-figure annual throughput, or whether dedicated special-purpose machines are needed on economics even if technically feasible",
+          "current quality level (and improvement ceiling) of the upstream machine tools that would produce the general-purpose machine itself",
+          "whether the nearby cylinder/screw accuracy problems share the exact same geometric tolerances as the block product, or only superficially similar",
+          "skill level required to operate and maintain the general-purpose machines versus availability in target factories"
+        ]
+      },
+      "usage": {
+        "inputTokens": 849,
+        "outputTokens": 920,
+        "totalTokens": 1769,
+        "elapsedMs": 15456,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A03",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Hand manufacture is slow, variable, and labor-intensive, and cannot economically scale to six-figure annual quantities while maintaining repeatable accuracy.",
+        "liveRoutesRanked": [
+          "build a small number of general-purpose machine tools and keep flexible craft routing",
+          "design a sequential set of special-purpose machines for the block workflow",
+          "expand skilled hand production with gauges/templates"
+        ],
+        "nextDiscriminatingTest": "Test whether a small set of general-purpose machine tools (borer with rigid bar support, lead-screw lathe with change gears, slide rest, power saw) can produce the full range of block operations—sawing, shaping, boring, finishing—at sufficient rate and accuracy to meet a meaningful fraction of the six-figure requirement, before committing to special-purpose sequential tooling.",
+        "requiredComplements": [
+          "rigid-boring arrangement for accurate large cylinders",
+          "mechanically coupled lead screws with change gears for accurate screw pitch",
+          "gauges/templates as inspection aids on general-purpose machines"
+        ],
+        "mainFailureRisks": [
+          "General-purpose machines may not reach the production rate needed for six-figure volume, forcing costly special-purpose investment anyway",
+          "Machine tools built to produce blocks may not transfer to cylinder or screw work for neighboring industries, weakening the diversification case",
+          "Precision of upstream machine tools (e.g., lead screw accuracy) may cap downstream part accuracy, undoing the accuracy gain",
+          "High initial machine-design cost may be irrecoverable if customer demand shifts"
+        ],
+        "routeDecisions": [
+          {
+            "route": "expand skilled hand production with gauges/templates",
+            "decision": "abandon",
+            "reason": "Gauges improve repeatability but do not address the fundamental throughput and labor-intensity bottleneck; six-figure volumes are impossible by hand regardless of inspection aids."
+          },
+          {
+            "route": "build a small number of general-purpose machine tools and keep flexible craft routing",
+            "decision": "continue",
+            "reason": "Leverages the already-demonstrated rigid boring and lead-screw/change-gear accuracy gains, serves multiple operations and products (blocks, cylinders, screws), and hedges against demand shifts at lower sunk cost than a full special-purpose line."
+          },
+          {
+            "route": "design a sequential set of special-purpose machines for the block workflow",
+            "decision": "defer",
+            "reason": "Potentially highest throughput for the block alone but largest sunk cost and weakest transferability; should only be committed after general-purpose tools prove insufficient on rate and before volume contracts are locked."
+          }
+        ],
+        "generalizationBoundary": "Demonstrated accuracy improvements (rigid boring, lead-screw/change-gear pitch reproduction) apply where part geometry is axisymmetric or prismatic and accuracy is set by machine-tool kinematics; they transfer to cylinders and screws for nearby industries but do not automatically generalize to non-mechanical products (e.g., intricate freeform shapes) or to factories lacking skilled setters for changeable gearing.",
+        "unresolvedUnknowns": [
+          "What production rate per block operation do the candidate general-purpose machines actually achieve versus the six-figure target?",
+          "How repeatable is screw pitch across long production runs with change-gear setups, including thermal and wear drift?",
+          "Can the boring arrangement hold cylinder accuracy at the diameter and length demanded by neighboring industries?",
+          "What is the realistic cost and lead time of designing the general-purpose tool set, and what skill level is required to set/change gears?",
+          "Will the block customer commit to volume in a way that supports recovery of machine-design costs?"
+        ]
+      },
+      "usage": {
+        "inputTokens": 849,
+        "outputTokens": 837,
+        "totalTokens": 1686,
+        "elapsedMs": 11772,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A05",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "The causal source of the electrical effect is disputed (animal tissue intrinsic electricity vs. contact between dissimilar conductors), and existing sources are weak/transient, so scaling either theory depends on an interpretable, repeatable source of the effect.",
+        "liveRoutesRanked": [
+          "remove animal tissue and construct a repeated conductor/electrolyte stack",
+          "treat the controversy as underdetermined and focus on better measurement before scaling either theory",
+          "deepen experiments on intrinsic animal electricity"
+        ],
+        "nextDiscriminatingTest": "Construct a purely inorganic repeated stack of alternating dissimilar conductors separated by moist conductive material, eliminating animal tissue entirely, and measure whether repeated (not just transient) electrical effects persist. If they persist, the contact/electrolyte explanation is confirmed and the animal tissue is merely a detector; if they do not, the animal tissue is a necessary part of the causal chain.",
+        "requiredComplements": [
+          "A repeatable measurement instrument (e.g., a sensitive electrometer or frog detector with controlled consistency) to quantify the effect rather than rely on qualitative contraction",
+          "Systematic variation of conductor pairs to map which combinations produce the largest and most repeatable effects",
+          "Moist conductive medium of controlled composition to rule out chemical/reaction confounds in the stack"
+        ],
+        "mainFailureRisks": [
+          "The inorganic stack may produce only weak or transient effects that the available detector cannot reliably resolve, leaving the discrimination ambiguous",
+          "A successful inorganic stack is a local demonstration and does not automatically prove the same mechanism generalizes to all conductor/electrolyte combinations",
+          "Side chemical reactions or oxidation in the moist stack could mimic electrical effects, confounding the causal reading"
+        ],
+        "routeDecisions": [
+          {
+            "route": "remove animal tissue and construct a repeated conductor/electrolyte stack",
+            "decision": "continue",
+            "reason": "This is the cheapest decisive test: it directly discriminates whether the animal tissue is a necessary causal part or merely an inert detector, and it uses the already-observed repeatability of alternating dissimilar conductors with moist material."
+          },
+          {
+            "route": "treat the controversy as underdetermined and focus on better measurement before scaling either theory",
+            "decision": "defer",
+            "reason": "Better measurement is valuable but only marginally discriminating on its own; it should be deployed once the inorganic stack has established whether the effect exists without animal tissue."
+          },
+          {
+            "route": "deepen experiments on intrinsic animal electricity",
+            "decision": "defer",
+            "reason": "Experiments on intrinsic animal electricity cannot resolve the disputed contact-vs-tissue question alone because they keep the animal tissue in place by construction; they should resume only if the inorganic stack fails to reproduce the effect."
+          }
+        ],
+        "generalizationBoundary": "A successful all-inorganic repeated stack demonstrates that dissimilar conductors plus moist electrolyte suffice to produce repeated electrical effects in this configuration; it does not prove that animal tissue never contributes intrinsic electricity, nor that all conductor/electrolyte pairs behave identically, nor that the effect extends beyond the laboratory scale without design changes.",
+        "unresolvedUnknowns": [
+          "Whether the repeated effect depends on specific conductor pair choices or is generic across dissimilar conductors",
+          "Whether the moist conductive material acts merely as a passive conductor or participates chemically/electrolytically in generating the effect",
+          "Whether animal tissue, when present, adds any intrinsic contribution on top of the contact effect",
+          "Whether the effect strength decays over repeated cycles or stays steady enough to power downstream use",
+          "Whether any continuous (non-transient) source can be built from this mechanism beyond short observation windows"
+        ]
+      },
+      "usage": {
+        "inputTokens": 828,
+        "outputTokens": 839,
+        "totalTokens": 1667,
+        "elapsedMs": 9795,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A05",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "The repeated alternation of two conductors with moist conductive material suggests a non-animal source of continuous electricity, but current evidence conflates tissue-based and contact-based causation, and existing sources are transient/weak.",
+        "liveRoutesRanked": [
+          "remove animal tissue and construct a repeated conductor/electrolyte stack",
+          "deepen experiments on intrinsic animal electricity",
+          "treat the controversy as underdetermined and focus on better measurement before scaling either theory"
+        ],
+        "nextDiscriminatingTest": "Build a stack alternating two dissimilar conductors separated by moist conductive material, with the animal tissue detector replaced by a purely quantitative detector (e.g., observation of a stable deflection/spark under a reliable galvanometer), and show that repeated alternation yields sustained, reproducible electrical effects without any animal tissue present. Then vary conductor pairings to confirm the effect depends on material differences, not tissue.",
+        "requiredComplements": [
+          "a sensitive, quantitative electrical detector that does not rely on muscle contraction",
+          "a large reproducible stack of alternating conductors and moist electrolyte layers",
+          "control experiment varying conductor material pairs to isolate contact/dissimilar-material cause"
+        ],
+        "mainFailureRisks": [
+          "the effect may require the tissue detector's sensitivity and fail to register on a quantitative instrument, keeping the animal-electricity route alive",
+          "the repeated stack may be too weak/transient to sustain measurable output beyond the biological scale",
+          "the controversy may remain underdetermined if measurement still cannot distinguish contact electromotive force from chemical/electrolytic effects"
+        ],
+        "routeDecisions": [
+          {
+            "route": "remove animal tissue and construct a repeated conductor/electrolyte stack",
+            "decision": "continue",
+            "reason": "The available evidence explicitly notes alternating two conductors with moist conductive material produces repeated electrical effects; this is the most direct, cheapest route to a continuous source with a non-animal causal mechanism, and it decouples the biological detector from the causal question."
+          },
+          {
+            "route": "deepen experiments on intrinsic animal electricity",
+            "decision": "defer",
+            "reason": "Animal tissue cannot yet be excluded as the cause, but the conductor/electrolyte stack is a cleaner test; intrinsic animal electricity should only be pursued again if the stack fails to reproduce the effect without tissue."
+          },
+          {
+            "route": "treat the controversy as underdetermined and focus on better measurement before scaling either theory",
+            "decision": "defer",
+            "reason": "Better measurement is useful, but the discriminating stack experiment is itself a measurement step; it is cheaper to run the decisive construction than to build a measurement program in advance of knowing which theory it should serve."
+          }
+        ],
+        "generalizationBoundary": "Success with a particular pair of conductors and electrolyte does not prove all material pairs work or that the effect scales indefinitely; generalization requires demonstrating the effect across different conductor pairings and quantifying how repetition scales output before claiming a general continuous source.",
+        "unresolvedUnknowns": [
+          "whether the tissue detector is genuinely interchangeable with a quantitative instrument in sensitivity",
+          "what specific conductor pairings and electrolyte concentrations yield the strongest sustained effect",
+          "whether the observed repeated effect is due to dissimilar-material contact, electrochemical action, or an unknown mechanism",
+          "whether the source can be made strong and continuous enough for purposes beyond the biological question"
+        ]
+      },
+      "usage": {
+        "inputTokens": 828,
+        "outputTokens": 777,
+        "totalTokens": 1605,
+        "elapsedMs": 14043,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A05",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "The causal ambiguity: the field cannot distinguish whether the repeated electrical effect arises from intrinsic animal electricity or from contact between dissimilar conductors/electrolytes, and existing sources are transient.",
+        "liveRoutesRanked": [
+          "remove animal tissue and construct a repeated conductor/electrolyte stack",
+          "treat the controversy as underdetermined and focus on better measurement before scaling either theory",
+          "deepen experiments on intrinsic animal electricity"
+        ],
+        "nextDiscriminatingTest": "Build a purely inorganic (animal-tissue-free) stack of alternating dissimilar conductors separated by moist conductive material, and measure whether repeated, sustained electrical effects (not just transient pulses) are produced and can drive a non-biological detector (e.g., a sensitive electrometer rather than muscle). If the stack produces reproducible sustained effects without any animal tissue present, the contact/electrolyte hypothesis is directly confirmed and the animal-electricity route loses support. If the stack fails or yields only transient weak effects, the animal-tissue contribution remains live and measurement improvements become the priority.",
+        "requiredComplements": [
+          "A sensitive, quantitative electrometer or similar meter to replace muscle as detector, removing tissue from the measurement path",
+          "Methods to maintain consistent moisture/hydration of the conductive layers over repeated cycles",
+          "A systematic matrix of conductor-pair combinations to establish which material pairs matter and which are inert"
+        ],
+        "mainFailureRisks": [
+          "The inorganic stack may produce only weak, transient effects indistinguishable from ordinary static discharge, failing to demonstrate sustained generation",
+          "The moist conductive layers may introduce electrolytic/chemical artifacts that mimic but do not equal the biological phenomenon",
+          "A local success of the inorganic stack may be specific to particular conductor/electrolyte pairs and not generalize to a continuous source or the biological question",
+          "Better measurement alone may not resolve the causal dispute if the animal tissue genuinely contributes part of the effect"
+        ],
+        "routeDecisions": [
+          {
+            "route": "remove animal tissue and construct a repeated conductor/electrolyte stack",
+            "decision": "continue",
+            "reason": "This is the cheapest direct discriminator: since conductor combination changes the contraction, and alternating conductors/electrolytes produces repeated effects, removing the tissue isolates the inorganic causal chain and tests whether a continuous source can be built. A positive result simultaneously explains the prior observations and yields a useful continuous source—addressing both the causal dispute and the transient-source constraint."
+          },
+          {
+            "route": "treat the controversy as underdetermined and focus on better measurement before scaling either theory",
+            "decision": "defer",
+            "reason": "Improving measurement is valuable as a complement (replacing muscle with an electrometer), but it does not by itself discriminate between intrinsic animal electricity and contact effects. It should be applied within the inorganic-stack test rather than pursued as a separate delaying step."
+          },
+          {
+            "route": "deepen experiments on intrinsic animal electricity",
+            "decision": "defer",
+            "reason": "This route assumes the very hypothesis in dispute. It should be revisited only if the inorganic stack fails to reproduce the repeated effect without tissue, at which point animal tissue's causal role becomes supported by elimination."
+          }
+        ],
+        "generalizationBoundary": "A successful inorganic conductor/electrolyte stack demonstrates that a continuous electrical source can be built from contact/electrolyte arrangements and explains prior contractions without invoking intrinsic animal electricity. However, this does not prove animal tissue contributes nothing in other configurations—only that tissue is not necessary. The generalizability to a practical continuous source depends on discovering conductor/electrolyte combinations that sustain rather than decay, which the matrix test must establish.",
+        "unresolvedUnknowns": [
+          "Whether any conductor/electrolyte stack can produce sustained (non-transient) electrical effects, or only repeated discrete pulses",
+          "Which specific material pairs, if any, give materially stronger or more sustained effects",
+          "Whether the moist conductive medium's chemical identity (acid, salt, water type) changes the magnitude or persistence of the effect",
+          "Whether animal tissue, when present, contributes an additional intrinsic effect on top of the contact/electrolyte mechanism"
+        ]
+      },
+      "usage": {
+        "inputTokens": 828,
+        "outputTokens": 944,
+        "totalTokens": 1772,
+        "elapsedMs": 12076,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A08",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Whether the small new timekeeper's workshop performance generalizes to sustained shipboard conditions and to reproducible manufacture, versus whether the astronomical route can be made operationally usable despite its skill/calculation burdens.",
+        "liveRoutesRanked": [
+          "test the timekeeper repeatedly and require independent manufacture/reproduction before fleet reliance",
+          "fund a long-voyage test of the new timekeeper and accept it if it passes once",
+          "continue both routes until total operating cost/reliability separates them",
+          "invest primarily in standardized astronomical tables/instruments"
+        ],
+        "nextDiscriminatingTest": "Conduct a repeated, independently-reproduced trial: have the timekeeper design copied/manufactured by a separate skilled maker, and run two parallel long-voyage trials under realistic shipboard motion, temperature, and humidity, measuring error accumulation — to distinguish one-off workshop craftsmanship from a manufacturable, seaworthy instrument.",
+        "requiredComplements": [
+          "a protocol defining acceptable long-voyage error bounds before any reward is paid",
+          "independent manufacture of the timekeeper by a second craftsman to test reproducibility",
+          "a controlled comparison of shipboard (motion/temperature) conditions versus workshop conditions"
+        ],
+        "mainFailureRisks": [
+          "the timekeeper's quality is personal craftsmanship that cannot be reproduced, so acceptance on a single pass overcommits the institution",
+          "test conditions (calm voyage, favorable temperature) differ from fleet use, so a single pass overstate reliability",
+          "the astronomical route is abandoned too early even though tables/instruments could be made operationally practical",
+          "waiting for full reproducibility tests delays reward payment and adoption beyond the institution's mandate"
+        ],
+        "routeDecisions": [
+          {
+            "route": "fund a long-voyage test of the new timekeeper and accept it if it passes once",
+            "decision": "defer",
+            "reason": "One pass does not separate craftsmanship from manufacturable design or workshop from shipboard conditions; too high a risk of overcommitting on non-reproducible evidence."
+          },
+          {
+            "route": "test the timekeeper repeatedly and require independent manufacture/reproduction before fleet reliance",
+            "decision": "continue",
+            "reason": "Highest discriminating value: separates reproducible manufacturing from one-off skill and tests robustness across realistic shipboard conditions; directly informs reward and adoption criteria."
+          },
+          {
+            "route": "invest primarily in standardized astronomical tables/instruments",
+            "decision": "defer",
+            "reason": "Not yet the cheapest discriminating test; keep alive only if timekeeper trials fail or reproducibility proves impossible, and revisit operating-cost comparison."
+          },
+          {
+            "route": "continue both routes until total operating cost/reliability separates them",
+            "decision": "defer",
+            "reason": "Running both in parallel is expensive and does not alone discriminate; the immediate need is a decisive reproducible timekeeper test, not open-ended parallel funding."
+          }
+        ],
+        "generalizationBoundary": "A successful independent-manufacture long-voyage trial demonstrates the timekeeper is robust and manufacturable under specified shipboard conditions; it does NOT prove it will hold under extreme routes, prolonged tropical humidity, very different ship motion regimes, or fleet-scale maintenance/crew competence, and it does NOT prove the astronomical route is inferior — only that the timekeeper meets defined evidence thresholds.",
+        "unresolvedUnknowns": [
+          "Can a second, independent craftsman reproduce the timekeeper to equivalent performance (reproducibility)?",
+          "How does error accumulation behave over voyages far longer than the test, and under repeated thermal cycling and shock?",
+          "Could the astronomical route with improved tables/instruments reach acceptable accuracy with manageable shipboard calculation burden?",
+          "What is the institution's threshold of evidence (e.g., how many voyages and what error bound) needed to justify paying the reward and advising fleet adoption?"
+        ]
+      },
+      "usage": {
+        "inputTokens": 898,
+        "outputTokens": 878,
+        "totalTokens": 1776,
+        "elapsedMs": 12809,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A08",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "The dominant bottleneck is distinguishing whether the new timekeeper's workshop-test success reflects a reproducible design or one-off craftsmanship, and whether its performance generalizes from controlled tests to long-voyage fleet conditions.",
+        "liveRoutesRanked": [
+          "test the timekeeper repeatedly and require independent manufacture/reproduction before fleet reliance",
+          "fund a long-voyage test of the new timekeeper and accept it if it passes once",
+          "continue both routes until total operating cost/reliability separates them",
+          "invest primarily in standardized astronomical tables/instruments"
+        ],
+        "nextDiscriminatingTest": "Run a second, independently reproduced timekeeper through the same controlled workshop test sequence used for the first prototype, and cross-check its accuracy against the astronomical route on a shared short sea trial, before committing to the full prize voyage.",
+        "requiredComplements": [
+          "independent manufacture or reproduction of the timekeeper by a separate craftsman/workshop",
+          "a defined and repeatable workshop test protocol",
+          "a short sea trial comparing timekeeper-derived and astronomical-derived longitude"
+        ],
+        "mainFailureRisks": [
+          "the promising prototype is one-off craftsmanship that cannot be reproduced to specification",
+          "workshop test conditions differ from fleet conditions (temperature, humidity, motion, handling)",
+          "the astronomical route's operating skill burden is underestimated, making it less competitive than it appears",
+          "the reward institution's sufficiency criteria are defined only after costly testing begins"
+        ],
+        "routeDecisions": [
+          {
+            "route": "fund a long-voyage test of the new timekeeper and accept it if it passes once",
+            "decision": "defer",
+            "reason": "One successful prototype voyage does not establish manufacturability or robustness; committing the prize on a single pass risks rewarding an irreproducible artifact."
+          },
+          {
+            "route": "test the timekeeper repeatedly and require independent manufacture/reproduction before fleet reliance",
+            "decision": "continue",
+            "reason": "This is the cheapest discriminating evidence: it isolates design quality from craftsman skill and tests reproducibility before large investment."
+          },
+          {
+            "route": "invest primarily in standardized astronomical tables/instruments",
+            "decision": "defer",
+            "reason": "Astronomical route remains a viable alternative but has high operating skill/calculation burden; defer until timekeeper reproduction result clarifies relative competitiveness."
+          },
+          {
+            "route": "continue both routes until total operating cost/reliability separates them",
+            "decision": "continue",
+            "reason": "Parallel pursuit is prudent while uncertainty about both routes is high, but the next commitment should be to the discriminating reproduction test rather than full parallel expenditure."
+          }
+        ],
+        "generalizationBoundary": "A reproduced timekeeper passing workshop tests and one short sea trial still does not establish decade-scale reliability across diverse voyages, climates, and handling regimes; the boundary is between 'works and reproduces under favorable conditions' and 'reliable across the full fleet operating envelope.' The astronomical route is likewise validated only for skilled observers under good visibility, not for average crew.",
+        "unresolvedUnknowns": [
+          "whether the promising design can be reproduced by an independent workshop to the same accuracy",
+          "how the timekeeper performs under sustained ship motion, temperature variation, and humidity at sea over weeks",
+          "the true per-voyage operating cost and skill burden of the astronomical method in fleet service, not just ideal conditions",
+          "the reward institution's tolerance for partial or near-miss results and how it will define sufficiency"
+        ]
+      },
+      "usage": {
+        "inputTokens": 898,
+        "outputTokens": 804,
+        "totalTokens": 1702,
+        "elapsedMs": 10848,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A08",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Sufficiency of evidence: a single successful workshop/long-voyage test does not establish reliability, but neither does infinite testing; the institution must define when a pass is adoption-worthy rather than a fluke.",
+        "liveRoutesRanked": [
+          "test the timekeeper repeatedly and require independent manufacture/reproduction before fleet reliance",
+          "fund a long-voyage test of the new timekeeper and accept it if it passes once",
+          "continue both routes until total operating cost/reliability separates them",
+          "invest primarily in standardized astronomical tables/instruments"
+        ],
+        "nextDiscriminatingTest": "Commission independent replication of the new timekeeper in a separate workshop using the design/specifications, then run both the original and the replica through a side-by-side long-voyage trial under shipboard conditions (humidity, motion, temperature, routine handling) rather than benign workshop conditions.",
+        "requiredComplements": [
+          "written/transferable manufacturing specifications sufficient for a second workshop to reproduce the timekeeper",
+          "a defined acceptance criterion for the voyage test (target error bound and number of consistent runs) set before the trial",
+          "protocol that mirrors fleet working conditions (handling, maintenance by ordinary crew, not the inventor)",
+          "a funded astronomical-route fallback so comparative total cost/skill burden can be assessed"
+        ],
+        "mainFailureRisks": [
+          "the new timekeeper's superior workshop performance does not survive shipboard conditions or independent reproduction",
+          "accepting a single pass leads to fleet reliance on a one-off artifact that cannot be manufactured at scale",
+          "the astronomical route is abandoned based on perceived skill burden rather than measured cost, or vice versa",
+          "the reward criteria are defined ex post, allowing an ambiguous or fluke result to be counted as a pass"
+        ],
+        "routeDecisions": [
+          {
+            "route": "fund a long-voyage test of the new timekeeper and accept it if it passes once",
+            "decision": "defer",
+            "reason": "A single pass on an inventor-built prototype does not prove manufacturability or fleet reliability; treat as necessary but not sufficient."
+          },
+          {
+            "route": "test the timekeeper repeatedly and require independent manufacture/reproduction before fleet reliance",
+            "decision": "continue",
+            "reason": "This is the cheapest discriminating test that simultaneously probes reliability, manufacturability, and non-fluke performance before the large reward is committed."
+          },
+          {
+            "route": "invest primarily in standardized astronomical tables/instruments",
+            "decision": "defer",
+            "reason": "Keep alive as a measured-cost comparison and fallback; spend only enough to quantify the operating burden, not a full build-out yet."
+          },
+          {
+            "route": "continue both routes until total operating cost/reliability separates them",
+            "decision": "continue",
+            "reason": "Parallel funding at modest level is prudent until the replication+voyage trial generates comparative numbers."
+          }
+        ],
+        "generalizationBoundary": "A successful voyage test of the replicated timekeeper establishes the timekeeper route's feasibility under defined conditions only; it does not automatically prove the astronomical route is inferior, nor that the design generalizes across climates, trade routes, crew skill levels, or long operational periods without specialized maintenance by the inventor.",
+        "unresolvedUnknowns": [
+          "Can a second workshop reproduce the timekeeper to specification from documentation alone?",
+          "Does shipboard environment (motion, temperature swings, humidity, rough handling) degrade performance versus workshop results?",
+          "What is the actual per-voyage operating cost/skill burden of the astronomical route when executed by ordinary navigators, not experts?",
+          "What error bound and number of consistent voyages should define an acceptable pass for the reward?",
+          "How does accuracy degrade over long continuous service without recalibration by the inventor?"
+        ]
+      },
+      "usage": {
+        "inputTokens": 898,
+        "outputTokens": 870,
+        "totalTokens": 1768,
+        "elapsedMs": 12552,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A09",
+      "replicate": 1,
+      "bet": {
+        "dominantBottleneck": "Incomplete and ununified field coverage at national scale; no single reliable framework correlates layers across distant regions while cartographic synthesis is costly.",
+        "liveRoutesRanked": [
+          "combine model-guided extrapolation with explicit uncertainty/independent regional checks",
+          "aggregate distributed regional observations even if they lack one unifying field model",
+          "extrapolate a unified stratigraphic/fossil model from the surveyor's observations",
+          "wait for more complete direct observation before national mapping"
+        ],
+        "nextDiscriminatingTest": "Select a specific contested boundary region (adjacent but surveyed by different independent observers, or at the edge of the surveyor's coverage) and test whether the surveyor's extrapolated layer/fossil order predicts the observed rock sequence there; compare against the distributed correspondents' locally-collected records in the same area. A cheap test: take two or three well-documented regional sections from the distributed collection that span a boundary between known layers and check whether the fossil-assemblage criterion reproduces the same relative order for both.",
+        "requiredComplements": [
+          "a standardized fossil-assemblage naming/correlation criterion for cross-checking",
+          "a base map or spatial referencing scheme to place observations in relation",
+          "access to multiple independent field records in the same area for contradiction"
+        ],
+        "mainFailureRisks": [
+          "the surveyor's model is overfit to his traverse and fails when extrapolated to regions he has not visited",
+          "distributed observations are inconsistent in naming or criteria, making aggregation misleading rather than informative",
+          "fossil-assemblage correlation is locally valid but not general across all regions, causing over-extension",
+          "cost of cartographic production is sunk into a wrong framework if extrapolation precedes verification"
+        ],
+        "routeDecisions": [
+          {
+            "route": "extrapolate a unified stratigraphic/fossil model from the surveyor's observations",
+            "decision": "defer",
+            "reason": "Promising and cheap in the short run, but unverified in distant unobserved regions; extrapolating alone risks committing to a wrong national framework."
+          },
+          {
+            "route": "wait for more complete direct observation before national mapping",
+            "decision": "defer",
+            "reason": "Slower and costs/wastes momentum; but should remain as fallback if the discriminating test contradicts the model."
+          },
+          {
+            "route": "aggregate distributed regional observations even if they lack one unifying field model",
+            "decision": "continue",
+            "reason": "Expands coverage cheaply and provides independent checks; needed to constrain/verify any extrapolation."
+          },
+          {
+            "route": "combine model-guided extrapolation with explicit uncertainty/independent regional checks",
+            "decision": "continue",
+            "reason": "Highest expected value: uses strong theory for coverage while the distributed collection provides falsification points, controlling cost and risk."
+          }
+        ],
+        "generalizationBoundary": "The fossil-assemblage correlation criterion is provisionally validated only in regions where two or more independent sections agree in relative order; it must not be assumed to hold in unobserved territories or where lithology alone suggests groups that no fossil evidence corroborates.",
+        "unresolvedUnknowns": [
+          "whether the surveyor's observed ordering generalizes across the country or only within his traversed area",
+          "whether distributed contributors use compatible criteria for identifying the same fossil assemblages",
+          "the true completeness and reliability of the independent regional observations being aggregated",
+          "whether the fossil-assemblage correlation remains ordinal across all relevant boundaries or breaks down in some stretches"
+        ]
+      },
+      "usage": {
+        "inputTokens": 880,
+        "outputTokens": 820,
+        "totalTokens": 1700,
+        "elapsedMs": 14858,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A09",
+      "replicate": 2,
+      "bet": {
+        "dominantBottleneck": "Coordinating incomplete field coverage against the cost and risk of premature national synthesis—neither the lone surveyor's model nor distributed observations alone is sufficient.",
+        "liveRoutesRanked": [
+          "combine model-guided extrapolation with explicit uncertainty/independent regional checks",
+          "aggregate distributed regional observations even if they lack one unifying field model",
+          "extrapolate a unified stratigraphic/fossil model from the surveyor's observations",
+          "wait for more complete direct observation before national mapping"
+        ],
+        "nextDiscriminatingTest": "Initiate a small, explicitly designated regional check: send the experienced surveyor (or a funded deputy) to a geographically remote, sparsely observed district where the unified fossil-lithology model makes a strong, falsifiable prediction about layer ordering/age, and compare against independent local observations already volunteered to the scientific society. This is cheap relative to national cartographic production and directly tests whether the model generalizes beyond its home sections.",
+        "requiredComplements": [
+          "Standardized fossil/layer recording protocol so distributed contributors' observations are comparable",
+          "A shared base-map or geographic frame onto which both model extrapolations and regional observations can be plotted",
+          "Independent observers who are not committed to the surveyor's model to avoid confirmation bias"
+        ],
+        "mainFailureRisks": [
+          "The model passes the single regional check but fails on other districts (local success does not prove generality)",
+          "Distributed contributors' inconsistent recording makes the regional check uninterpretable",
+          "Cartographic cost is incurred before field corroboration justifies it",
+          "Financial limits force abandoning either the check or the map effort"
+        ],
+        "routeDecisions": [
+          {
+            "route": "combine model-guided extrapolation with explicit uncertainty/independent regional checks",
+            "decision": "continue",
+            "reason": "Only route that hedges against both incomplete coverage and the risk of a wrong unifying theory; it uses the model to economize on field work while formalizing where it is trusted."
+          },
+          {
+            "route": "aggregate distributed regional observations even if they lack one unifying field model",
+            "decision": "continue",
+            "reason": "Needed as the empirical backbone and independent cross-check even if a unified model is eventually adopted; low-resource option that the society can sustain."
+          },
+          {
+            "route": "extrapolate a unified stratigraphic/fossil model from the surveyor's observations",
+            "decision": "defer",
+            "reason": "Strong and economical but rests on incomplete coverage; committing to it as the national basis before an independent regional test is premature."
+          },
+          {
+            "route": "wait for more complete direct observation before national mapping",
+            "decision": "abandon",
+            "reason": "Costly and slow; a country-scale map will never wait on complete coverage, so a passive wait maximizes delay without reducing uncertainty."
+          }
+        ],
+        "generalizationBoundary": "Evidence supports treating fossil/layer correlations as reliable within the surveyor's repeatedly observed canal/field regions and where the society's independent contributors have independently confirmed the same ordering; it does not yet justify extrapolating the unified model to unobserved districts without at least one remote, economically-cheap falsification test.",
+        "unresolvedUnknowns": [
+          "Whether fossil-lithology correlations in one district hold across geographically distant basins",
+          "Whether the society's distributed contributors can be standardized fast enough to serve as a check",
+          "Whether financing allows both the regional check and cartographic production, or forces a choice",
+          "Whether visually similar lithologies that are actually different ages can be reliably separated by the proposed fossil criteria"
+        ]
+      },
+      "usage": {
+        "inputTokens": 880,
+        "outputTokens": 829,
+        "totalTokens": 1709,
+        "elapsedMs": 10548,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR-A09",
+      "replicate": 3,
+      "bet": {
+        "dominantBottleneck": "Base-map/cartographic production is costly and field coverage incomplete, so the binding constraint is creating a reliable national representation from sparse data without a validated unifying framework.",
+        "liveRoutesRanked": [
+          "combine model-guided extrapolation with explicit uncertainty/independent regional checks",
+          "aggregate distributed regional observations even if they lack one unifying field model",
+          "extrapolate a unified stratigraphic/fossil model from the surveyor's observations",
+          "wait for more complete direct observation before national mapping"
+        ],
+        "nextDiscriminatingTest": "Take a small set of the surveyor's claimed layer-fossil correlations and test them against independent regional observations from the scientific society's contributors in areas the surveyor has NOT personally visited, checking whether the fossil-to-layer assignments survive in those independent districts.",
+        "requiredComplements": [
+          "A low-cost validation protocol that lets independent contributors report layer identity without being biased into the surveyor's framework",
+          "A common fossil-naming/lithology vocabulary usable by many contributors with limited training",
+          "A small pilot mapping project (one region) to measure cartographic cost before committing to national extent"
+        ],
+        "mainFailureRisks": [
+          "Fossil assemblages may not be stratigraphically invariant—similar fossils could recur in different layers across districts, breaking the proposed correlation",
+          "Distributed contributors may use inconsistent terminology, so aggregated observations conflate distinct layers",
+          "The surveyor's model may fit their own observations only because those observations were used to build it, and fail on truly independent data",
+          "Cartographic investment may be sunk before uncertainty is properly characterized"
+        ],
+        "routeDecisions": [
+          {
+            "route": "combine model-guided extrapolation with explicit uncertainty/independent regional checks",
+            "decision": "continue",
+            "reason": "This is the only route that simultaneously leverages the theory's extrapolative power while guarding against overconfident extrapolation; it should be the primary path."
+          },
+          {
+            "route": "aggregate distributed regional observations even if they lack one unifying field model",
+            "decision": "continue",
+            "reason": "Needed as the independent check and as raw material; but should be pursued in parallel as validation, not as the sole basis for national mapping."
+          },
+          {
+            "route": "extrapolate a unified stratigraphic/fossil model from the surveyor's observations",
+            "decision": "defer",
+            "reason": "Promising but unvalidated; must first pass independent regional corroboration before national-level extrapolation is justified."
+          },
+          {
+            "route": "wait for more complete direct observation before national mapping",
+            "decision": "abandon",
+            "reason": "Pressure and cost structure make indefinite waiting untenable; partial observation with explicit uncertainty beats paralysis."
+          }
+        ],
+        "generalizationBoundary": "Fossil-to-layer correlation validated in one region or across one pair of districts does not guarantee applicability across the whole country; broader geographic, structural, and facies variation could break the pattern. The result generalizes only as far as independent regional replications confirm it.",
+        "unresolvedUnknowns": [
+          "Whether fossil assemblages are truly stratigraphically diagnostic across all districts or only within restricted regions",
+          "The reliability and consistency of uncoordinated contributors' identifications",
+          "Whether the surveyor's unvisited-region projections will align with actual field checks",
+          "The real per-region cost of cartographic production and how it scales"
+        ]
+      },
+      "usage": {
+        "inputTokens": 880,
+        "outputTokens": 797,
+        "totalTokens": 1677,
+        "elapsedMs": 11880,
+        "transportRetries": 0
+      },
+      "model": "deepseek-v4-flash"
+    }
+  ]
+}
