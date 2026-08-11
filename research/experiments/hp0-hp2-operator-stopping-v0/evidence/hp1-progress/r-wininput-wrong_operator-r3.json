@@ -1,0 +1,95 @@
+{
+  "phase": "hp1",
+  "workload": "R-WININPUT",
+  "treatment": "wrong_operator",
+  "replicate": 3,
+  "submission": {
+    "hypothesis": "The exact public admission boundary is that `workspace.execBound` structurally fixes immutable-input execution to `contained_local` (its MCP adapter calls `bind_bound`, which forces `ExecutionProfile::ContainedLocal` and suppresses any caller-selectable `executionProfile`), while `windows_native` admission is gated in Core (`validate_run_structure`, engine.rs:4914-4927) to `TrustedLocal` with zero steps. These two Runtime-owned fact sets are mutually exclusive by construction: there is no `windows_native` + `contained_local` combination the public surface can express, so a real cross-target workload that wants to keep canonical source bytes and `foreignReferences` while dispatching on `windows_native` cannot pass `workspace.execBound` at all.",
+    "files": [
+      "crates/ordivon-runtime-mcp/src/server/tools.rs",
+      "crates/ordivon-runtime-core/src/runtime/engine.rs",
+      "crates/ordivon-runtime-mcp/src/server/tests.rs",
+      "docs/runtime.md",
+      "docs/effect-kernel.md",
+      "docs/status.md"
+    ],
+    "causalMechanism": "1) `workspace.exec_bound` (tools.rs:631-643) calls `bind_bound`, whose test (`workspace_exec_bound_binding_forces_contained_local`, tests.rs:220-260) asserts the resulting proposal has `execution_profile == ContainedLocal`. The `WorkspaceExecBoundExecution` schema explicitly omits `executionProfile` (tests.rs:170-172), so the caller cannot override it. 2) On the Core side, `validate_run_structure` (engine.rs:4914) rejects any `execution_profile != TrustedLocal` when `execution_target == WindowsNative` with `\"windows_native currently supports trusted_local only\"` (engine.rs:4917), and also rejects multi-step for windows_native (engine.rs:4921). Therefore any `execBound` proposal (always `ContainedLocal`) reaching Core with `executionTarget=WindowsNative` fails that validation before admission. The immutable-input materialization presented read-only under /run/ordivon/inputs is per docs also described only in contained_local terms (`effect-kernel.md:187`, `agent-ux.md:15`), so the boundary is owned by Runtime in two coupled places: (a) the MCP Tool's structural profile freeze, and (b) Core's windows_native profile/steps reservation. Neither byte authority nor path authority is in World/Agent arguments; the executable/argv/env/foreignReferences remain concrete action input carried through the same proposal-plus-input identity.",
+    "nextFalsifier": "The smallest next physical falsifier without moving byte/path authority into World or Agent arguments: build a real WSL/Windows provider and a real cross-target fixture that admits one `windows_native` single-command Job through the existing documented path but with immutable inputs, to demonstrate whether the blocker is (i) the `bind_bound` profile freeze at the MCP layer (would need a Core-side admission contract permitting `contained_local` semantics for windows_native), or (ii) the Core `windows_native currently supports trusted_local only` gate (engine.rs:4917) as the sole boundary. Keep the caller submitting only authority name + relativeObject + expectedDigest + presentationRelativePath, keep `contained_local` semantics for input materialization, and do NOT add any host-source-path argument; the falsifier is a deterministic admission test asserting whether the current two-hop profile/step guard, not a schema or identity change, is what blocks the combined workload.",
+    "abstain": false,
+    "confidence": 0.88
+  },
+  "metrics": {
+    "score": 4,
+    "maxScore": 7,
+    "successThreshold": 6,
+    "success": false,
+    "requiredFileHits": 2,
+    "concepts": {
+      "execbound_reaches_run_task_proposal_with_inputs": true,
+      "input_bound_admission_rejects_windows_native_before_materialization_dispatch": false,
+      "immutable_inputs_require_contained_local_but_windows_native_requires_trusted_local": true,
+      "local_linux_dispatch_has_input_set_presentation_while_windows_dispatch_has_no_equivalent_input_presentation": false,
+      "existing_job_replay_precedes_current_input_authority_or_policy_checks": false
+    },
+    "forbiddenBoundaryHits": [],
+    "abstain": false,
+    "observations": 11,
+    "observedBytes": 163776,
+    "compiledReadPaths": [
+      "docs/runtime.md",
+      "crates/ordivon-runtime-mcp/src/server/tests.rs",
+      "crates/ordivon-runtime-mcp/src/server/tools.rs",
+      "docs/agent-ux.md",
+      "docs/effect-kernel.md",
+      "crates/ordivon-runtime-core/src/runtime/engine.rs",
+      "docs/compatibility.md",
+      "docs/reference/tools.md",
+      "docs/status.md"
+    ],
+    "falseStop": true,
+    "forcedByBudget": false,
+    "tokenUtilizationScorePer100k": 10.481081647626034
+  },
+  "usage": {
+    "inputTokens": 37297,
+    "outputTokens": 867,
+    "totalTokens": 38164,
+    "elapsedMs": 10261,
+    "transportRetries": 0,
+    "providerCalls": 1
+  },
+  "evidencePlan": {
+    "searches": [
+      {
+        "anchor": "workspace.execBound",
+        "digest": "sha256:45e7b5c2da179041c7dd0df623a1b1ae5873f618a3ffbd2954881f8e0af01a81"
+      },
+      {
+        "anchor": "windows_native currently supports trusted_local only",
+        "digest": "sha256:7d73e934ef270708ee3398542d95920f2e0e658563aa0d0acb6c17578ea74cf3"
+      }
+    ],
+    "readPaths": [
+      "docs/runtime.md",
+      "crates/ordivon-runtime-mcp/src/server/tests.rs",
+      "crates/ordivon-runtime-mcp/src/server/tools.rs",
+      "docs/agent-ux.md",
+      "docs/effect-kernel.md",
+      "crates/ordivon-runtime-core/src/runtime/engine.rs",
+      "docs/compatibility.md",
+      "docs/reference/tools.md",
+      "docs/status.md"
+    ],
+    "rankedPaths": [
+      "docs/runtime.md",
+      "crates/ordivon-runtime-mcp/src/server/tests.rs",
+      "crates/ordivon-runtime-mcp/src/server/tools.rs",
+      "docs/agent-ux.md",
+      "docs/effect-kernel.md",
+      "crates/ordivon-runtime-core/src/runtime/engine.rs",
+      "docs/compatibility.md",
+      "docs/reference/tools.md",
+      "docs/status.md"
+    ]
+  }
+}

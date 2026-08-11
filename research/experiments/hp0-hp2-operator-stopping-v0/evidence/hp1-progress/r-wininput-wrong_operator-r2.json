@@ -1,0 +1,92 @@
+{
+  "phase": "hp1",
+  "workload": "R-WININPUT",
+  "treatment": "wrong_operator",
+  "replicate": 2,
+  "submission": {
+    "hypothesis": "The exact Runtime-owned causal boundary is the `validate_run_proposal_structure` gate in `crates/ordivon-runtime-core/src/runtime/engine.rs` around lines 4914-4927 (specifically the `windows_native currently supports trusted_local only` rejection at line 4917 combined with the `contained_local`-forcing admission in `tools.rs`/`bind_bound`), which structurally couples `workspace.execBound` immutable-input admission to the Linux-only `contained_local` profile and to the profile-level single-command restriction while `windows_native` dispatch is gated to `trusted_local`. The block is: (1) public `workspace.execBound` admission (`crates/ordivon-runtime-mcp/src/server/tools.rs:631-643` → `bind_bound` at `tests.rs:252`) structurally forces `ExecutionProfile::ContainedLocal` with no caller-selectable profile; (2) `validate_run_proposal_structure` in `engine.rs` rejects any `windows_native` request whose profile is not `TrustedLocal` (line 4915-4920), and rejects multi-step plans; (3) the Windows dispatcher (`docs/runtime.md:177`) documents structured plans and execBound immutable-input admission remain Linux-only. Together these three Runtime-owned constraints—not World or Agent arguments—are the current causal wall: even though source bytes and foreignReferences would survive intact from `local_linux -> windows_native` in the Core request plane, admission is impossible because execBound hard-codes `contained_local` (which windows_native rejects) before any target-specific authority logic runs.",
+    "files": [
+      "crates/ordivon-runtime-core/src/runtime/engine.rs",
+      "crates/ordivon-runtime-mcp/src/server/tools.rs",
+      "crates/ordivon-runtime-mcp/src/server/tests.rs"
+    ],
+    "causalMechanism": "Corroborated code-path mechanism: `workspace.exec_bound` (tools.rs:631) calls `self.state.execution.bind_bound(request)` which is proven by the schema test (`workspace_exec_bound_binding_forces_contained_local`, tests.rs:254-256) to set `execution_profile = ContainedLocal` unconditionally with no caller override, and then dispatches through `run_task_proposal_with_inputs`. Every proposal path ultimately validates via `validate_run_proposal_structure` (engine.rs ~5012), and the `windows_native` branch (engine.rs 4914-4927) rejects any profile != TrustedLocal with the literal error `windows_native currently supports trusted_local only`, and also rejects any non-empty `steps` (`windows_native currently supports one command only`). So an execBound admission is rejected at the Core profile gate before any Windows provider, token, launcher, or WSL path logic is consulted — this is purely a Runtime validation-order / profile-semantics causal boundary. Distributed corroboration: docs/runtime.md:144 (\"workspace.execBound does not expose this choice: immutable inputs structurally require contained_local\"), docs/runtime.md:177 (\"structured multi-step plans and workspace.execBound immutable-input admission remain Linux-only\"), docs/status.md:121 (\"Windows admission remains trusted_local and single-command at the Runtime profile layer ... immutable-input Windows admission are not yet implemented\"), docs/effect-kernel.md:187 (\"exposes it read-only only under contained_local\"), and tools.rs:620-621 description restating the same. Multiple independent anchors (MCP tool def, MCP schema test, Core validator literal, and three docs) all name the same causal boundary, so this is not a single-file coincidence.",
+    "nextFalsifier": "The smallest next physical falsifier that does NOT move byte/path authority into World or Agent arguments is: add a Core-level integration fixture that admits an existing-Runtime Job whose durable ExecutionPlan was produced with `executionProfile=contained_local` AND `executionTarget=windows_native`, and prove that exact replay (idempotent existing-Job lookup, which `docs/runtime.md:155/165` and `docs/compatibility.md:35` say is resolved before current policy/provider inspection) returns the existing committed Job without the `validate_run_proposal_structure` profile gate being re-applied. That isolates whether the causal wall is only at *new-admission profile validation* (replay path survives) versus whether the wall also exists in the dispatch/plan-decoding path (replay path also fails). The falsifier result binary: if exact replay of a `contained_local`+`windows_native` plan returns the committed Job and dispatches the Windows launcher, then the causal boundary is precisely the new-admission profile gate (engine.rs 4914-4927); if replay itself fails/denies, then the boundary additionally lives in the plan-decoding/provider-commit path and the next falsifier must move to the `run_task_proposal_with_inputs` → provider-commit → `windows_native` launcher-selection chain rather than the admission validator. This is the smallest decisive experiment because it requires no schema, no Tool, no argument, and no authority change — only a real reconstructed-Runtime fixture that persists a cross-target plan and exercises the exact-replay-before-policy invariant that both docs and compatibility matrix already claim.",
+    "abstain": false,
+    "confidence": 0.88
+  },
+  "metrics": {
+    "score": 5,
+    "maxScore": 7,
+    "successThreshold": 6,
+    "success": false,
+    "requiredFileHits": 2,
+    "concepts": {
+      "execbound_reaches_run_task_proposal_with_inputs": true,
+      "input_bound_admission_rejects_windows_native_before_materialization_dispatch": false,
+      "immutable_inputs_require_contained_local_but_windows_native_requires_trusted_local": true,
+      "local_linux_dispatch_has_input_set_presentation_while_windows_dispatch_has_no_equivalent_input_presentation": false,
+      "existing_job_replay_precedes_current_input_authority_or_policy_checks": true
+    },
+    "forbiddenBoundaryHits": [],
+    "abstain": false,
+    "observations": 11,
+    "observedBytes": 163776,
+    "compiledReadPaths": [
+      "docs/runtime.md",
+      "crates/ordivon-runtime-mcp/src/server/tests.rs",
+      "crates/ordivon-runtime-mcp/src/server/tools.rs",
+      "docs/agent-ux.md",
+      "docs/effect-kernel.md",
+      "crates/ordivon-runtime-core/src/runtime/engine.rs",
+      "docs/compatibility.md",
+      "docs/reference/tools.md",
+      "docs/status.md"
+    ],
+    "falseStop": true,
+    "forcedByBudget": false,
+    "tokenUtilizationScorePer100k": 12.979259143888067
+  },
+  "usage": {
+    "inputTokens": 37297,
+    "outputTokens": 1226,
+    "totalTokens": 38523,
+    "elapsedMs": 13586,
+    "transportRetries": 0,
+    "providerCalls": 1
+  },
+  "evidencePlan": {
+    "searches": [
+      {
+        "anchor": "workspace.execBound",
+        "digest": "sha256:45e7b5c2da179041c7dd0df623a1b1ae5873f618a3ffbd2954881f8e0af01a81"
+      },
+      {
+        "anchor": "windows_native currently supports trusted_local only",
+        "digest": "sha256:7d73e934ef270708ee3398542d95920f2e0e658563aa0d0acb6c17578ea74cf3"
+      }
+    ],
+    "readPaths": [
+      "docs/runtime.md",
+      "crates/ordivon-runtime-mcp/src/server/tests.rs",
+      "crates/ordivon-runtime-mcp/src/server/tools.rs",
+      "docs/agent-ux.md",
+      "docs/effect-kernel.md",
+      "crates/ordivon-runtime-core/src/runtime/engine.rs",
+      "docs/compatibility.md",
+      "docs/reference/tools.md",
+      "docs/status.md"
+    ],
+    "rankedPaths": [
+      "docs/runtime.md",
+      "crates/ordivon-runtime-mcp/src/server/tests.rs",
+      "crates/ordivon-runtime-mcp/src/server/tools.rs",
+      "docs/agent-ux.md",
+      "docs/effect-kernel.md",
+      "crates/ordivon-runtime-core/src/runtime/engine.rs",
+      "docs/compatibility.md",
+      "docs/reference/tools.md",
+      "docs/status.md"
+    ]
+  }
+}

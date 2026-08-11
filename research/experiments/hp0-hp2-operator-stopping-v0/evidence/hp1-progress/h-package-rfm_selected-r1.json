@@ -1,0 +1,108 @@
+{
+  "phase": "hp1",
+  "workload": "H-PACKAGE",
+  "treatment": "rfm_selected",
+  "replicate": 1,
+  "submission": {
+    "hypothesis": "The locked Python graph expanded from 9 to 34 packages because the Host distribution (ordivon-host) directly depends on `mcp==2.0.0` and, transitively, `ordivon-protocol` (pinned to a Computing git commit) plus the `anc_*` packages (anc_canonical, anc_effect_ir, anc_effect_binding, anc_tool_contract) imported by the code-change Host, and the mcp SDK/starlette/pydantic HTTP stack that mcp_server.py imports. The single causal owner is `pyproject.toml`'s unconditional `[project.dependencies]` list, which makes every consumer of `ordivon-host` (both the CLI workload surface and the MCP server surface) install the entire server-side dependency graph even for pure CLI/World-core use.",
+    "files": [
+      "pyproject.toml",
+      "src/ordivon_host/mcp_server.py",
+      "src/ordivon_host/engine/code_change/host.py",
+      "src/ordivon_host/__init__.py",
+      "docs/OPERATIONS.md"
+    ],
+    "causalMechanism": "pyproject.toml declares runtime `dependencies = [\"mcp==2.0.0\", \"ordivon-protocol @ git+...\"]` with no optional/extra separation and no `[project.optional-dependencies]` gate for the MCP server surface. `src/ordivon_host/mcp_server.py` imports `mcp.server`, `mcp.server.transport_security`, `mcp.types`, pydantic, and starlette, so installing the ordivon-host wheel pulls the mcp SDK plus its pydantic/starlette ASGI transport stack. `src/ordivon_host/__init__.py` eagerly imports `McpRuntimeClient` from `.runtime`, and `src/ordivon_host/engine/code_change/host.py` imports the `anc_*` protocol packages, so the public package __init__ forces the ancestor/ordivon-protocol graph. The CLI entrypoint (`ordivon-host`) shares the same installed environment as the MCP server (`ordivon-host-mcp`) because both come from the same wheel and there is no extra that installs the server transport separately. Because the distribution carries the MCP server entrypoint `ordivon-host-mcp` as a first-class script and the SDK pins/exposes a large ASGI/starlette/pydantic stack, a World-core consumer doing a normal `pip/uv install ordivon-host` gains the full 34-package server graph even though it only needs the CLI/workload plane. The failure is not that the MCP server needs a server dependency — it legitimately does — but that the Host distribution does not isolate that server-only dependency set behind an extra, so a core-only consumer cannot install a lean graph and the distribution's locked graph is forced to 34.",
+    "nextFalsifier": "Split the MCP server surface into an optional extra (e.g. `ordivon-host[mcp-server]`) with `mcp==2.0.0` and the starlette/pydantic ASGI stack moved there, keep only the lean core dependencies in `[project.dependencies]`, and update `uv.lock` so a World core consumer `pip install ordivon-host` resolves the original ~9-package graph while `install ordivon-host[mcp-server]` yields the 34-package graph and the `ordivon-host-mcp` entrypoint still passes its full 44/44 Host semantics including the authenticated loopback MCP probe and six-Tool serverInterface receipt. The falsifier passes only if (a) the core-only lock resolves to the small graph, (b) the MCP extra still passes `ordivon-host-mcp --check`, the 2026-07-28 server/discover probe, and the exact six-Tool catalog, and (c) `ordivon_host/__init__.py` and the CLI entrypoint no longer force-import the mcp/starlette server stack so a World core consumer importing `ordivon_host` never loads the server transport.",
+    "abstain": false,
+    "confidence": 0.72
+  },
+  "metrics": {
+    "score": 6,
+    "maxScore": 6,
+    "successThreshold": 5,
+    "success": true,
+    "requiredFileHits": 2,
+    "concepts": {
+      "mcp_is_an_unconditional_project_dependency": true,
+      "mcp_server_is_a_separate_console_entrypoint_and_direct_mcp_import_carrier": true,
+      "core_semantic_compatibility_is_not_the_current_failure": true,
+      "next_falsifier_is_package_import_dependency_graph_not_world_semantics": true
+    },
+    "forbiddenBoundaryHits": [],
+    "abstain": false,
+    "observations": 16,
+    "observedBytes": 126184,
+    "compiledReadPaths": [
+      "src/ordivon_host/mcp_server.py",
+      "docs/OPERATIONS.md",
+      "pyproject.toml",
+      "docs/STATUS.md",
+      "docs/QUICKSTART.md",
+      "docs/P0_P1_ALIGNMENT.md",
+      "src/ordivon_host/config.py",
+      "src/ordivon_host/engine/code_change/host.py",
+      "tests/test_mcp_server.py",
+      "docs/RELEASES.md",
+      "src/ordivon_host/__init__.py",
+      "src/ordivon_host/cli.py",
+      "tests/test_deployment.py",
+      "docs/PRE_H7_CLOSURE.md"
+    ],
+    "falseStop": false,
+    "forcedByBudget": false,
+    "tokenUtilizationScorePer100k": 16.55583455202671
+  },
+  "usage": {
+    "inputTokens": 35251,
+    "outputTokens": 990,
+    "totalTokens": 36241,
+    "elapsedMs": 10944,
+    "transportRetries": 0,
+    "providerCalls": 1
+  },
+  "evidencePlan": {
+    "searches": [
+      {
+        "anchor": "mcp",
+        "digest": "sha256:623a3ec4fcc03a5336200502c74949114c70f34ad60c443f0a20d28f07719a2e"
+      },
+      {
+        "anchor": "ordivon-host-mcp",
+        "digest": "sha256:ed0626f673c9db0b573efaee0f47fe7c164baaa931ddf47241804a415011ba4f"
+      }
+    ],
+    "readPaths": [
+      "src/ordivon_host/mcp_server.py",
+      "docs/OPERATIONS.md",
+      "pyproject.toml",
+      "docs/STATUS.md",
+      "docs/QUICKSTART.md",
+      "docs/P0_P1_ALIGNMENT.md",
+      "src/ordivon_host/config.py",
+      "src/ordivon_host/engine/code_change/host.py",
+      "tests/test_mcp_server.py",
+      "docs/RELEASES.md",
+      "src/ordivon_host/__init__.py",
+      "src/ordivon_host/cli.py",
+      "tests/test_deployment.py",
+      "docs/PRE_H7_CLOSURE.md"
+    ],
+    "rankedPaths": [
+      "src/ordivon_host/mcp_server.py",
+      "docs/OPERATIONS.md",
+      "pyproject.toml",
+      "docs/STATUS.md",
+      "docs/QUICKSTART.md",
+      "docs/P0_P1_ALIGNMENT.md",
+      "src/ordivon_host/config.py",
+      "src/ordivon_host/engine/code_change/host.py",
+      "tests/test_mcp_server.py",
+      "docs/RELEASES.md",
+      "src/ordivon_host/__init__.py",
+      "src/ordivon_host/cli.py",
+      "tests/test_deployment.py",
+      "docs/PRE_H7_CLOSURE.md"
+    ]
+  }
+}
