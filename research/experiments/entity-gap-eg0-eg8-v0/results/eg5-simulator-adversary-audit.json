@@ -1,0 +1,48 @@
+{
+  "adversaryBoundary": "Agent adversary, deterministic fuzzer/mutator, hidden oracle, simulator and verifier are different entity roles and should not be collapsed.",
+  "disposition": "retain-domain-local-simulators-and-distinct-adversaries",
+  "domains": {
+    "finance": {
+      "authority": "Finance domain; simulation is not execution permission",
+      "currentCarrier": "capital_transition_simulation + decision/research replay",
+      "initialIdentity": "owner/portfolio/world snapshot + requested transition",
+      "intervention": "candidate capital transition",
+      "observation": "derived finance metrics/evidence",
+      "trajectory": "counterfactual portfolio/effect consequences"
+    },
+    "game": {
+      "authority": "Game world/reducer owns state; model does not",
+      "currentCarrier": "Scenario/Genesis/reducer/replay",
+      "initialIdentity": "authoritative game world/genesis",
+      "intervention": "admitted player/Agent action",
+      "observation": "player/Agent projections + replay evidence",
+      "trajectory": "deterministic game transition/replay"
+    },
+    "security": {
+      "authority": "Security domain; Observer/Evaluator/Guardian are separate",
+      "currentCarrier": "Range/Contest/KVM backends",
+      "initialIdentity": "Environment/Range/Sample/Authority identities",
+      "intervention": "admitted actor/effect request",
+      "observation": "sensor + management + hidden/world truth kept distinct",
+      "trajectory": "contested/adversarial world events"
+    }
+  },
+  "kind": "ordivon.computing.eg5-simulator-adversary-audit",
+  "ownerRevisions": {
+    "finance": "7df8cee4df4f4ba3f3b80fd0f58b5691d73d89b5",
+    "game": "cb271fa43142035937c629f449feaadb1701b997",
+    "security": "f626f0faa55435f54c1c01da492bff8b651e0b6f"
+  },
+  "reason": "Three domains independently validate simulation as an entity role, but their state, transition, oracle and consequence semantics remain owner-specific; no current duplication pressure earns a universal implementation.",
+  "schemaVersion": 1,
+  "sharedSimulatorService": "reject",
+  "stableResearchIntersection": [
+    "exact-or-bound initial state/environment identity",
+    "explicit intervention/action identity",
+    "transition or trajectory",
+    "observation/evidence distinct from hidden/authoritative state",
+    "consequence/terminal state",
+    "replay/provenance where consequence comparison requires it",
+    "simulator output does not itself grant real-world action authority"
+  ]
+}
