@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 2,
+  "kind": "ordivon.human-response-bridge.hr0-contract-v2",
+  "date": "2026-08-12",
+  "status": "preregistered-after-v1-scoring-falsification-before-v2-surrogate-and-any-human-response",
+  "researchQuestion": "Does the inherited R6 same-fact reveal-order intervention transfer from one Agent-observer class to human observers without changing the mechanism family, question family, or initial-viewport evidence rule?",
+  "ownerRevisions": {
+    "computing": "832e143e75da56e513c6e8deb3b012a50bcc7686",
+    "studio": "8d583cb3cbc62aa59c9e5b611a1db4424b58b356",
+    "web": "d57868dfb711dd65fb038649c67e45561c6c62ad",
+    "human": "8d55d31062d0e85e5b306ca94ea0165ebec314f7",
+    "harness": "a5784736db5e7dcc9030c859c1d54a1f738693db"
+  },
+  "inheritedR6": {
+    "source": "Studio research/expression/experiments/r6-creative-alpha.md",
+    "variants": [
+      "explicit-chain",
+      "fragmented",
+      "evidence-delayed"
+    ],
+    "primaryContrast": {
+      "treatment": "explicit-chain",
+      "control": "fragmented"
+    },
+    "fullEvidenceIds": [
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "D1",
+      "D2"
+    ],
+    "orders": {
+      "explicit-chain": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "D1",
+        "D2"
+      ],
+      "fragmented": [
+        "D1",
+        "F5",
+        "D2",
+        "F3",
+        "F4",
+        "F2",
+        "F1"
+      ],
+      "evidence-delayed": [
+        "F2",
+        "F3",
+        "F4",
+        "D1",
+        "D2",
+        "F5",
+        "F1"
+      ]
+    },
+    "encounter": {
+      "mode": "initial-viewport-no-scroll",
+      "viewport": {
+        "width": 1080,
+        "height": 1050
+      }
+    },
+    "expectedViewportEvidence": {
+      "explicit-chain": [
+        "F1",
+        "F2",
+        "F3",
+        "F4"
+      ],
+      "fragmented": [
+        "D1",
+        "F5",
+        "D2",
+        "F3"
+      ],
+      "evidence-delayed": [
+        "F2",
+        "F3",
+        "F4",
+        "D1"
+      ]
+    }
+  },
+  "humanStimulusPlan": {
+    "novelMechanisms": 3,
+    "mechanismIds": [
+      "H1",
+      "H2",
+      "H3"
+    ],
+    "generation": "cryptographically random master seed generated only after preregistration; private seed and oracle stored outside Git with mode 0600",
+    "publicBeforeClosure": [
+      "seed commitment",
+      "participant-packet digest",
+      "private-oracle digest",
+      "mechanism count",
+      "schedule count"
+    ],
+    "scheduleCount": 6,
+    "scheduleAssignment": "private-salt deterministic assignment over a pseudonymous participant id; one variant per mechanism; permutations balance mechanism×variant across six schedules",
+    "participantExposure": "only the assigned variant and public questions; no oracle, seed, variant label, hypothesis wording, or alternative variant text"
+  },
+  "preflightPlan": {
+    "mechanisms": 2,
+    "mechanismIds": [
+      "P1",
+      "P2"
+    ],
+    "humanMechanismReuse": false,
+    "browser": "Web R6 encounter harness checks exact initial-viewport evidence sets and receipt integrity",
+    "surrogate": "Harness deepseek-v4-flash structured completion; two replicates per mechanism×variant; used only to detect broken task/oracle/wiring, never to tune or select human stimuli",
+    "expectedProviderCalls": 12
+  },
+  "questions": {
+    "Q1": {
+      "stage": "perception",
+      "role": "secondary"
+    },
+    "Q2": {
+      "stage": "comprehension",
+      "role": "secondary"
+    },
+    "Q3": {
+      "stage": "comprehension",
+      "role": "secondary"
+    },
+    "Q4": {
+      "stage": "adaptation",
+      "role": "primary"
+    },
+    "Q5": {
+      "stage": "adaptation",
+      "role": "primary"
+    },
+    "Q6": {
+      "stage": "adaptation",
+      "role": "primary"
+    }
+  },
+  "humanResponseShape": {
+    "perQuestion": [
+      "optionId",
+      "confidence0to100"
+    ],
+    "participantMetadata": [
+      "pseudonymousParticipantId",
+      "naivetyClass",
+      "evaluatorClass",
+      "scheduleId"
+    ],
+    "forbiddenByDefault": [
+      "name",
+      "email",
+      "phone",
+      "IP address",
+      "precise location",
+      "device fingerprint",
+      "demographic profile",
+      "private biography",
+      "free-form identifying notes"
+    ],
+    "confidenceSemantics": "confidence0to100 means confidence that the selected response is justified by the evidence shown, so calibration is evaluated against epistemic decision accuracy rather than hidden factual truth alone."
+  },
+  "primaryOutcome": "R6-comparable factual adaptation accuracy: for Q4-Q6, optionId equals the mechanism oracle answer even when the assigned viewport lacks evidence required to justify that answer.",
+  "secondaryOutcomes": [
+    "immediate factual comprehension accuracy Q2-Q3",
+    "factual perception accuracy Q1",
+    "epistemic decision accuracy: choose the factual oracle when required evidence is visible and O4 when it is not",
+    "confidence calibration against epistemic decision accuracy"
+  ],
+  "unsupportedInferenceRule": "A substantive option selected when the exact assigned initial-viewport evidence lacks all required evidence is an unsupported inference even if the substantive option happens to equal the factual oracle.",
+  "decisionRules": [
+    "HR0-v2 uses the exact H1-H3 participant/oracle digests frozen by seal commit fb9b4ab; any regenerated human stimulus invalidates v2.",
+    "HR0-A v2 passes only if the already frozen browser preflight remains exact and 12/12 fresh Harness surrogate Runs over P1/P2 produce structured conclusions with no equipment/protocol failure.",
+    "Surrogate factual accuracy and unsupported-inference rates are descriptive apparatus-falsification context. They do not tune/select H1-H3 and do not become human evidence.",
+    "Human primary factual adaptation accuracy must remain separate from unsupported inference and epistemic decision accuracy; no composite human-understanding score is permitted.",
+    "Any participant known to have seen hypothesis or variant identities beforehand is non-naive and supports only apparatus/local calibration.",
+    "HR0-v2 makes no population-level human effect claim. Population inference requires a future preregistration with an independent-evaluator sampling/analysis plan.",
+    "No raw identifiable participant record enters Git; no delayed recall, diagram, trust, preference, affect, or interaction claim is inferred from this bridge."
+  ],
+  "stoppingRules": [
+    "Stop before human use if the sealed bundle commitment cannot be reproduced from the private files or any private oracle leaks into participant material.",
+    "Stop and revise under a new contract version if browser geometry changes the expected R6 viewport-evidence sets.",
+    "Stop and revise if preflight exposes ambiguous/broken questions; do not patch the sealed human stimuli in place.",
+    "A participant may stop at any time; incomplete pilot data remain private and are not reinterpreted as negative outcome evidence."
+  ],
+  "excludedInfrastructure": [
+    "HumanResponseService",
+    "participant database",
+    "analytics platform",
+    "universal survey schema",
+    "permanent experiment backend",
+    "mandatory human approval gate"
+  ],
+  "humanComprehensionEvidencePresentAtPreregistration": false,
+  "revisionFromV1": {
+    "v1PreregisteredCommit": "7f850e378c6a2ebf5057d367f0d9a3b9b2819eae",
+    "sealCommit": "fb9b4ab1a37e0ad598ea7c9f9c2f45a5eb64d71b",
+    "sameSealedStimulusBytesRequired": true,
+    "reason": "v1 collapsed factual answer accuracy into evidence-sufficiency abstention; v2 restores R6 consequence separation",
+    "v1HumanResponsesCollected": 0
+  }
+}
