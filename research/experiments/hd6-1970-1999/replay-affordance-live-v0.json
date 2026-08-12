@@ -1,0 +1,896 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd6-historical-replay-live",
+  "status": "complete_original_trials_preserved",
+  "treatment": "affordance",
+  "model": "deepseek-v4-flash",
+  "parallelCredentialSlots": 6,
+  "records": [
+    {
+      "replayId": "HR6-A03",
+      "hiddenTrajectoryId": "HD6-A03",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Executing multi-relation relational queries without precompiled physical paths, so join and scan performance is unproven and likely slow.",
+        "routes": [
+          {
+            "route": "Implement relational prototype with scans, indexes, and two join algorithms; benchmark against navigational access on mixed selective/join workload",
+            "decision": "continue",
+            "reason": "Directly addresses critics' performance doubts with measured evidence while staying within budget."
+          },
+          {
+            "route": "Develop formal algebraic query rewrite rules and equivalence proofs",
+            "decision": "defer",
+            "reason": "Useful for optimization but not necessary for first physical benchmark; can be layered later."
+          },
+          {
+            "route": "Build full multi-user relational database server",
+            "decision": "abandon",
+            "reason": "Exceeds limited budget and risks production data; a single-user bounded prototype suffices for viability test."
+          },
+          {
+            "route": "Simulate relational query performance using only analytical cost models",
+            "decision": "abandon",
+            "reason": "Critics demand actual execution proof; simulation without implementation would not resolve the performance controversy."
+          },
+          {
+            "route": "Extend existing navigational system with relational-like query interface",
+            "decision": "defer",
+            "reason": "Could be fallback, but it would not test the pure relational physical execution system and may obscure the comparison."
+          }
+        ],
+        "topRoute": "Implement relational prototype with scans, indexes, and two join algorithms; benchmark against navigational access on mixed selective/join workload",
+        "nextDiscriminatingTest": "Run a controlled benchmark comparing the relational prototype's wall-clock time and I/O against a hand-coded navigational program on the same relations, with query variants covering selective one-relation lookups and two-relation joins at different join selectivities.",
+        "requiredComplements": [
+          "collect table and index statistics before optimization",
+          "implement simple cost model over operator estimates",
+          "instrument each physical operator for time and I/O counts",
+          "prepare an equivalent navigational baseline program",
+          "create a workload generator with tunable selectivity and join multiplicity"
+        ],
+        "mainFailureRisks": [
+          "naive join algorithms cause dramatic slowdown on multi-relation queries",
+          "cost estimates from small statistics may mislead plan selection",
+          "navigational baseline may be artificially fast or slow depending on coder skill",
+          "prototype performs well only on synthetic data not real production shapes",
+          "implementation bugs in buffer management distort comparison"
+        ],
+        "generalizationBoundary": "Results are bounded to the prototype's data size, schema complexity, and query workload; they do not establish general relational DBMS performance, scalability to large shared databases, or behavior under concurrent multi-user load.",
+        "unresolvedUnknowns": [
+          "whether automatic statistics-based plan selection can match or approach hand-tuned navigational access",
+          "whether join algorithms beyond two require more sophisticated memory management",
+          "whether the relational optimizer can consistently exploit indexes without hints",
+          "whether the effort of writing declarative queries is offset by runtime performance",
+          "whether benchmark results would persist on larger disks or production data volumes"
+        ],
+        "capabilityComplianceNote": "These actions only use available capabilities: implementing a bounded database prototype, representing data as relations, algebra queries, scans/indexes/joins, statistics collection, and benchmarking against contemporary navigational access."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 803,
+        "completionTokens": 2567,
+        "totalTokens": 3370,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 28680,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 0
+    },
+    {
+      "replayId": "HR6-A03",
+      "hiddenTrajectoryId": "HD6-A03",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Uncertainty over whether a relational query layer can be made physically competitive with navigational record-link traversal for realistic selective and multi-relation workloads.",
+        "routes": [
+          {
+            "route": "Implement bounded relational prototype with scan/index/join strategies",
+            "decision": "continue",
+            "reason": "Directly tests whether the relational abstraction can be supported by practical execution strategies within the limited budget."
+          },
+          {
+            "route": "Instrument a navigational baseline using record-link and index traversal",
+            "decision": "continue",
+            "reason": "Provides a controlled comparison point and prevents misleading conclusions about relative performance."
+          },
+          {
+            "route": "Design a small high-level relational query notation and algebra layer",
+            "decision": "continue",
+            "reason": "Shows that applications can specify what data they want without encoding physical access paths, which is the core relational claim."
+          },
+          {
+            "route": "Collect simple table/index statistics and use them for join strategy selection",
+            "decision": "continue",
+            "reason": "A cost-based choice among scans, indexes, and join methods is essential to show competitive execution rather than naive worst-case behavior."
+          },
+          {
+            "route": "Deploy an industrial relational prototype on existing production data",
+            "decision": "abandon",
+            "reason": "Existing production data cannot be risked and the prototype budget is too limited before performance viability is established."
+          }
+        ],
+        "topRoute": "Implement bounded relational prototype with scan/index/join strategies",
+        "nextDiscriminatingTest": "Benchmark a mixed workload of selective single-relation and multi-relation queries on the relational prototype using scan, index, nested-loop join, and sort-merge join plans, versus a hand-coded navigational traversal of the same linked records, measuring end-to-end elapsed time and selected plan choices.",
+        "requiredComplements": [
+          "A small relational algebra parser and query interpreter",
+          "Table/index statistics collection routines",
+          "A controlled workload generator with selective and multi-relation queries",
+          "A hand-coded navigational implementation using physical record links",
+          "A benchmark harness that records execution times and plan choices"
+        ],
+        "mainFailureRisks": [
+          "Join plan choices degrade badly when statistics are inaccurate or stale",
+          "The navigational baseline is not tuned fairly, making the comparison meaningless",
+          "The prototype data scale is too small to expose real disk and join costs",
+          "Implementation complexity consumes the budget before the benchmark is complete",
+          "The relational algebra layer becomes too slow because of interpretive overhead"
+        ],
+        "generalizationBoundary": "The findings can only support conclusions about a bounded relational prototype on controlled workloads with modest data sizes; they cannot directly predict production-scale performance, concurrency behavior, or durability under real application loads.",
+        "unresolvedUnknowns": [
+          "How the cost of relational joins scales relative to hand-coded record traversal as data size grows",
+          "Whether statistics-driven join ordering remains robust across many query shapes",
+          "Whether programmers will accept the new high-level notation despite unfamiliarity",
+          "What fraction of physical access decisions can actually be hidden without performance loss"
+        ],
+        "capabilityComplianceNote": "All proposed actions stay within available capabilities: implementing a bounded prototype, representing relations, writing and querying a small algebra, using scans/indexes/joins and multiple strategies, collecting basic statistics, and benchmarking against a navigational access implementation."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 803,
+        "completionTokens": 1654,
+        "totalTokens": 2457,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 20607,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 1
+    },
+    {
+      "replayId": "HR6-A03",
+      "hiddenTrajectoryId": "HD6-A03",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Physical query execution performance: relational joins/scans must be made competitive with fast navigational record traversal on large shared data, despite limited prototype budget and no production risk.",
+        "routes": [
+          {
+            "route": "Implement cost-based relational prototype with indexed nested-loop and hash/merge joins and compare to navigational pointer chasing on controlled workloads",
+            "decision": "continue",
+            "reason": "This directly addresses the core performance challenge and can demonstrate whether relational execution can be competitive."
+          },
+          {
+            "route": "Build only index-based relational scans mirroring navigational record links and defer join flexibility",
+            "decision": "defer",
+            "reason": "It may be useful as a baseline but does not tackle the required multi-relation query workload; defer until the main prototype proves viability."
+          },
+          {
+            "route": "Develop a parametric benchmark generator for selective and multi-relation queries to test physical strategies",
+            "decision": "continue",
+            "reason": "A controlled workload with both selective and multi-relation queries is necessary to evaluate whether the relational abstraction holds up."
+          },
+          {
+            "route": "Formalize query rewrite rules for merging selects/projections before joins and test on prototype",
+            "decision": "continue",
+            "reason": "Query optimization is a key part of making relational execution competitive with hand-written navigational paths."
+          },
+          {
+            "route": "Instrument prototype to collect table/index statistics and use them for access path selection",
+            "decision": "continue",
+            "reason": "Simple statistics are explicitly available and are needed to choose between scans, indexes, and join orders in a cost-based manner."
+          }
+        ],
+        "topRoute": "Implement cost-based relational prototype with indexed nested-loop and hash/merge joins and compare to navigational pointer chasing on controlled workloads",
+        "nextDiscriminatingTest": "On the same controlled data and query workload, run selective multi-relation queries under (a) relational prototype using index nested-loop joins chosen by a cost model with table/index statistics, (b) relational prototype with hash/merge joins, and (c) hand-coded navigational pointer-chasing access; compare elapsed time and page I/O to see whether either relational strategy can approach or beat navigational path performance.",
+        "requiredComplements": [
+          "Collect and use table/index statistics for cardinality estimation",
+          "Create a controlled workload that includes both selective and multi-relation queries",
+          "Implement both indexed nested-loop and hash/merge join strategies",
+          "Build a small benchmark harness comparing against contemporary navigational database access",
+          "Instrument the prototype to count disk accesses and query execution time",
+          "Develop query rewrite rules to push selections/projections before expensive joins"
+        ],
+        "mainFailureRisks": [
+          "Join/scan cost remains too high on large shared data compared to navigational pointer chasing",
+          "Limited prototype budget prevents realistic scale and hides performance issues",
+          "Simple statistics and optimizer heuristics produce poor query plans",
+          "High-level query overhead cancels data independence benefits",
+          "The controlled workload is not representative of production path-dependent queries",
+          "Time is spent on optimizer complexity rather than demonstrating competitive physical execution"
+        ],
+        "generalizationBoundary": "The result generalizes only to workloads and data sizes captured by the bounded prototype benchmark; it may not extend to very large production databases, complex recursive queries, or applications requiring real-time transaction behavior beyond relational algebra.",
+        "unresolvedUnknowns": [
+          "Actual query mix and selectivity of production organizations",
+          "How real navigational systems' buffering, caching, and compiled paths perform at scale",
+          "Overhead of high-level query parsing/compilation versus compiled navigational programs",
+          "Whether relational optimizer can adapt without detailed physical storage knowledge",
+          "Whether application programmers can express target queries naturally in relational algebra"
+        ],
+        "capabilityComplianceNote": "All proposed actions are confined to designing and implementing a bounded relational prototype, writing relational queries, implementing scans/indexes/joins with simple statistics, and benchmarking against contemporary navigational access within the stated constraints."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 803,
+        "completionTokens": 2020,
+        "totalTokens": 2823,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 23422,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 2
+    },
+    {
+      "replayId": "HR6-A06",
+      "hiddenTrajectoryId": "HD6-A06",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Coordinating common interface and spectrum decisions across sovereign governments is the primary bottleneck. Technical feasibility is already shown by NMT/AMPS; the unresolved issue is institutional coordination to enable roaming and vendor scale.",
+        "routes": [
+          {
+            "route": "Pursue an interim common analog specification across coordinated spectrum blocks",
+            "decision": "continue",
+            "reason": "NMT demonstrates multi-country analog roaming works; an interim common analog standard can deliver immediate interoperable service and scale while digital maturation is proven."
+          },
+          {
+            "route": "Continue parallel digital prototyping and incremental standards work",
+            "decision": "continue",
+            "reason": "Digital promises capacity and service advantages but needs evidence of continent-scale reliability; low-cost prototyping and tests keep the option open without premature lock-in."
+          },
+          {
+            "route": "Defer any common interface agreement until digital is fully proven",
+            "decision": "defer",
+            "reason": "Waiting avoids analog lock-in and coordination effort, but leaves fragmented national systems and no roaming in the interim, eroding near-term market scale."
+          },
+          {
+            "route": "Let each country optimize its own system independently",
+            "decision": "abandon",
+            "reason": "Fragmentation creates small vendor markets and blocks roaming, directly contradicting the evidence that common market coordination supports more suppliers and user value."
+          }
+        ],
+        "topRoute": "Pursue an interim common analog specification across coordinated spectrum blocks",
+        "nextDiscriminatingTest": "Organize a multi-country/vendor conformance trial that tests the interim common analog specification against a contemporary digital prototype under identical handoff, capacity, authentication/billing, and roaming scenarios, and measure which approach meets near-term reliability and which would require unacceptable delay or lock-in.",
+        "requiredComplements": [
+          "Multi-country spectrum coordination agreements",
+          "Common radio/network interface specification",
+          "Authentication and billing clearinghouse prototype",
+          "Vendor conformance and interoperation test program",
+          "Transition plan from interim analog to proven digital",
+          "Policy safeguards to prevent decade-long lock-in"
+        ],
+        "mainFailureRisks": [
+          "National sovereignty and procurement differences delay spectrum and interface agreement",
+          "Interim analog capacity saturates sooner than expected under demand growth",
+          "Digital platform becomes proven quickly and makes the analog interim unnecessary",
+          "Vendors underinvest in analog common interfaces if they expect digital dominance",
+          "Conformance tests pass on paper but fail under real-world interference and handoff loads"
+        ],
+        "generalizationBoundary": "This reasoning applies to pre-digital, spectrum-constrained multi-country cellular markets where cross-border roaming and supplier scale are valuable; it may not generalize to single-country deployments, already-locked-in national systems, or later eras with software-defined radios and spectrum refarming.",
+        "unresolvedUnknowns": [
+          "Whether digital radio/switching can meet continent-scale reliability and capacity at acceptable cost",
+          "Whether governments will agree on spectrum allocation and roaming revenue sharing",
+          "Whether an interim common analog standard can be deployed before digital matures",
+          "Whether vendors can profitably support both interim analog and future digital product lines",
+          "Whether authentication/billing coordination can scale reliably across many operators"
+        ],
+        "capabilityComplianceNote": "Every proposed action uses only the listed capabilities: deploy/measure analog systems, coordinate regional spectrum plans, write interface specifications, build digital prototypes, test handoff/capacity/authentication/roaming, and organize multi-country/vendor conformance trials; no unavailable future tools or named post-cutoff outcomes are assumed."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 812,
+        "completionTokens": 2828,
+        "totalTokens": 3640,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 29906,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 3
+    },
+    {
+      "replayId": "HR6-A06",
+      "hiddenTrajectoryId": "HD6-A06",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Coordinating a continent-scale digital cellular standard is bottlenecked by immature digital radio/switching reliability and by divergent national spectrum and procurement interests that block interface agreement.",
+        "routes": [
+          {
+            "route": "scale existing analog NMT-style coordination for near-term roaming",
+            "decision": "continue",
+            "reason": "Analog cellular is proven and multi-country roaming works when neighbors coordinate; it can provide service revenue and momentum while digital matures."
+          },
+          {
+            "route": "defer digital interface choice while expanding analog capacity",
+            "decision": "defer",
+            "reason": "Digital promises capacity and service gains but is not yet proven at continent scale; deferring avoids locking in unreliable specifications."
+          },
+          {
+            "route": "draft common digital interface specs and run multi-country conformance trials",
+            "decision": "continue",
+            "reason": "Writing common specs and testing them through multi-country/vendor trials is the most direct way to resolve interoperability and scale issues before deployment."
+          },
+          {
+            "route": "abandon pan-European harmonization in favor of national optima",
+            "decision": "abandon",
+            "reason": "Fragmented national systems directly contradict the pressure to reduce market fragmentation and would constrain roaming and supplier scale."
+          },
+          {
+            "route": "build and test digital radio/switching prototype alongside ongoing analog service",
+            "decision": "continue",
+            "reason": "Parallel prototyping lets us measure real capacity, handoff, authentication and roaming without risking existing analog service."
+          }
+        ],
+        "topRoute": "draft common digital interface specs and run multi-country conformance trials",
+        "nextDiscriminatingTest": "Conduct a multi-country corridor field trial comparing digital prototype and analog NMT on handoff reliability, capacity per MHz, and roaming authentication/billing under real spectrum scarcity.",
+        "requiredComplements": [
+          "governments agreeing to coordinate spectrum for a common pan-European allocation",
+          "an authentication and billing framework for cross-border roaming",
+          "commitment from multiple equipment vendors to implement the same open interface",
+          "a fallback plan to maintain analog service during digital transition"
+        ],
+        "mainFailureRisks": [
+          "digital prototypes may fail handoff or capacity tests under realistic conditions",
+          "governments may refuse to align spectrum or procurement choices",
+          "vendor conformance trials may expose irreconcilable interface disputes",
+          "delay could allow national systems to lock in and make pan-European harmonization harder"
+        ],
+        "generalizationBoundary": "This approach generalizes to continent-scale infrastructure where supranational coordination is politically feasible, but not to globally fragmented markets with entrenched incompatible legacy systems or no effective forum for enforcing common interfaces.",
+        "unresolvedUnknowns": [
+          "whether digital handoff can be made reliable for fast-moving users at scale",
+          "whether multi-vendor interoperability can be achieved through conformance testing",
+          "whether national governments will accept a common spectrum plan and procurement standard",
+          "whether digital's capacity advantage will be large enough to offset standardization delay"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only listed capabilities: deploying/measuring analog systems, coordinating regional spectrum plans, writing common interface specs, building digital prototypes with contemporary electronics, testing handoff/capacity/auth/roaming, and organizing multi-country/vendor conformance trials."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 812,
+        "completionTokens": 1644,
+        "totalTokens": 2456,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 19591,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 4
+    },
+    {
+      "replayId": "HR6-A06",
+      "hiddenTrajectoryId": "HD6-A06",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Cross-border coordination failure: no agreed spectrum plan and interface standard, so vendors lack scale, users lack roaming, and nations are locked into fragmented analog systems.",
+        "routes": [
+          {
+            "route": "Pan-European NMT analog harmonization with common spectrum plan",
+            "decision": "continue",
+            "reason": "NMT already proves multi-country roaming; unifying on it now is technically low-risk and immediately broadens the market, funding a later digital transition."
+          },
+          {
+            "route": "Joint digital interface specification and multi-country prototype trial",
+            "decision": "continue",
+            "reason": "Digital promises capacity and security; the only way to resolve uncertainty is to build and test a common interface across vendors and countries now, while analog still generates revenue."
+          },
+          {
+            "route": "Defer digital efforts until analog roaming reaches 50% adoption",
+            "decision": "defer",
+            "reason": "Postpone costly digital lock-in until there is proven demand and scale; analog harmonization can proceed alone, but this risks missing the technology curve."
+          },
+          {
+            "route": "Abandon coordinated standard and rely on national proprietary systems",
+            "decision": "abandon",
+            "reason": "Forfeits roaming benefits and market scale; fragmentation will persist and force expensive retrofits later."
+          }
+        ],
+        "topRoute": "Pan-European NMT analog harmonization with common spectrum plan",
+        "nextDiscriminatingTest": "Run a live side-by-side trial along a three-country corridor comparing NMT analog roaming with a digital prototype, measuring capacity, handoff reliability, authentication/billing overhead, and cross-vendor interoperability to decide whether to keep analog or switch to the digital route.",
+        "requiredComplements": [
+          "Establish a standards body empowered to allocate spectrum and certify equipment",
+          "Create a shared authentication and billing clearinghouse for roaming",
+          "Set aside future digital spectrum bands now to avoid costly re-farming",
+          "Mandate common interface in public procurement to force vendor conformance"
+        ],
+        "mainFailureRisks": [
+          "National governments resist pooling spectrum sovereignty",
+          "Vendors introduce proprietary extensions that break interoperability",
+          "Digital trial reveals capacity or handoff problems that delay transition",
+          "Early analog lock-in creates sunk cost that slows digital upgrade",
+          "Market demand for roaming proves lower than expected"
+        ],
+        "generalizationBoundary": "A forced common standard is only viable when a group of countries shares a market and legal framework such as the EU; it will not transfer to global markets with independent sovereigns or to highly proprietary ecosystems where vertical integration outweighs interoperability.",
+        "unresolvedUnknowns": [
+          "Actual capacity and quality of digital prototypes under field conditions",
+          "Willingness of governments to cede spectrum decisions to a supranational body",
+          "Cost and reliability of cross-border authentication and billing",
+          "Whether a later digital standard can be made backward compatible with analog investment"
+        ],
+        "capabilityComplianceNote": "All proposed actions rely solely on listed capabilities: deploying and measuring analog systems, coordinating spectrum plans, writing interface specifications, building contemporary digital prototypes, testing handoff/capacity/authentication/roaming, and organizing multi-country conformance trials."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 812,
+        "completionTokens": 3312,
+        "totalTokens": 4124,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 38583,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 5
+    },
+    {
+      "replayId": "HR6-A11",
+      "hiddenTrajectoryId": "HD6-A11",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Uncontrolled lithium dendrite growth causing internal shorts and safety failures during repeated charging, which threatens commercial viability despite high energy density.",
+        "routes": [
+          {
+            "route": "Develop non-metallic-host/layered-oxide rocking-chair cell with optimized electrolyte and separator to avoid lithium dendrites while retaining high voltage.",
+            "decision": "continue",
+            "reason": "This directly removes the dendrite hazard by using an intercalation host anode, while layered oxide cathodes maintain high voltage; it leverages available empirical host screening and cell testing."
+          },
+          {
+            "route": "Optimize lithium-metal/layered-oxide cells with electrolyte additives and separator barriers for dendrite suppression and abuse tolerance.",
+            "decision": "defer",
+            "reason": "High energy is attractive, but the safety bottleneck is severe in simple cells; this should be revisited only if non-metallic host routes fail or if new electrolyte/separator combinations show strong dendrite prevention."
+          },
+          {
+            "route": "Use lithium-metal/TiS2 baseline with systematic abuse and cycle tests to map failure envelope; do not attempt commercialization yet.",
+            "decision": "defer",
+            "reason": "Useful as a benchmark for energy and failure modes, but the known short-circuit hazard makes it a poor primary product route under the safety constraints."
+          },
+          {
+            "route": "Optimize nickel-based rechargeable as fallback/safety baseline for portable electronics.",
+            "decision": "defer",
+            "reason": "Nickel is safer but lower energy density; keep as a control and commercial fallback if lithium routes cannot meet cycle-life and abuse requirements."
+          }
+        ],
+        "topRoute": "Develop non-metallic-host/layered-oxide rocking-chair cell with optimized electrolyte and separator to avoid lithium dendrites while retaining high voltage.",
+        "nextDiscriminatingTest": "Build identical cells with the non-metallic host anode and with lithium-metal anode using the same layered oxide cathode, electrolyte, and separator, then run 500 deep charge/discharge cycles plus nail/short-circuit abuse tests; measure capacity retention, internal short rate, and abuse tolerance to determine whether the non-metallic host route is both safer and sufficiently durable.",
+        "requiredComplements": [
+          "Electrolyte additive and separator variation matrix",
+          "Abuse/short-circuit testing protocol",
+          "Non-metallic host material empirical screening",
+          "Nickel-baseline control cells",
+          "Electrode geometry and capacity-balancing optimization"
+        ],
+        "mainFailureRisks": [
+          "Available non-metallic hosts may have high irreversible first-cycle capacity, reducing usable energy density below practical value.",
+          "Layered oxide cathode may suffer electrolyte oxidation or structural instability during extended cycling.",
+          "Small-sample safety results may not capture manufacturing variability or large-format cell defects.",
+          "Separator modifications to block dendrites could increase impedance, degrade rate capability, or reduce energy density."
+        ],
+        "generalizationBoundary": "These results apply only to small-format laboratory cells with specific electrode loadings, electrolyte/separator families, and test conditions; scaling to commercial portable batteries, fast charging, or manufacturing-grade defect distributions requires additional validation.",
+        "unresolvedUnknowns": [
+          "Which non-metallic host materials are practically available and cycle with sufficient capacity and efficiency.",
+          "Whether layered oxide cathode cycle life is limited by electrolyte decomposition or structural fatigue.",
+          "Critical current density and cycling conditions that trigger dendrite growth in lithium-metal cells.",
+          "Acceptable energy-density trade-off for safer rechargeable batteries in the portable-electronics market."
+        ],
+        "capabilityComplianceNote": "All proposed actions use only listed capabilities: fabrication/testing of electrodes, layered oxide cathodes, empirical host screening, small-cell assembly, repeated cycling, abuse tests, nickel baselines, and electrolyte/separator/geometry variation. No post-cutoff tools or named outcomes are assumed."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 823,
+        "completionTokens": 2763,
+        "totalTokens": 3586,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 32820,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 0
+    },
+    {
+      "replayId": "HR6-A11",
+      "hiddenTrajectoryId": "HD6-A11",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Dendrite-induced safety failures of metallic lithium anodes under repeated cycling",
+        "routes": [
+          {
+            "route": "Lithium-metal battery with electrolyte/separator dendrite mitigation",
+            "decision": "continue",
+            "reason": "High energy density is attractive and existing capabilities allow systematic electrolyte/separator and geometry variations to test whether dendrite growth can be suppressed enough for commercial safety."
+          },
+          {
+            "route": "Intercalation carbon/host anode paired with layered oxide cathode",
+            "decision": "continue",
+            "reason": "This path avoids metallic lithium plating and deposits, directly addressing the cycle-life and safety constraints while retaining significantly higher energy density than nickel-based systems."
+          },
+          {
+            "route": "Nickel-based rechargeable battery component optimization",
+            "decision": "abandon",
+            "reason": "Nickel-based chemistries have inherent energy-density limits that cannot meet the lightweight portable-electronics requirement, so effort is better spent on lithium-based routes."
+          },
+          {
+            "route": "Lithium-metal with TiS2 cathode cell refinement",
+            "decision": "defer",
+            "reason": "TiS2's low voltage caps energy gains; high-voltage layered oxide cathodes alter the tradeoff, so revisit only after a safer anode architecture is demonstrated."
+          },
+          {
+            "route": "Screening non-metallic host materials for high-capacity reversible Li storage",
+            "decision": "continue",
+            "reason": "Empirical screening of contemporary host materials could reveal better anode options than conventional intercalation, complementing the main intercalation-cell route."
+          }
+        ],
+        "topRoute": "Intercalation carbon/host anode paired with layered oxide cathode",
+        "nextDiscriminatingTest": "Build matched small cells with lithium-metal vs host-anode using the same layered oxide cathode and electrolyte/separator, then run identical 500-cycle and nail-penetration abuse tests; record which cell family fails first and its retained capacity.",
+        "requiredComplements": [
+          "Test layered oxide cathodes in both lithium-metal and host-anode cells",
+          "Screen non-metallic host materials for reversible capacity, voltage, and cycle life",
+          "Vary electrolyte composition and separator thickness/porosity to probe dendrite suppression",
+          "Run repeated charge/discharge and short-circuit/nail tests on all cell types",
+          "Compare against nickel-based baseline cells for energy density and cycle life"
+        ],
+        "mainFailureRisks": [
+          "Host anode may have insufficient capacity or voltage to meet energy-density targets",
+          "Electrolyte decomposition on layered oxide cathode could limit cycle life",
+          "Small-cell abuse-test results may not extrapolate to large-format or high-rate cells",
+          "Dendrite mitigation may work in lab but not under manufacturing variability"
+        ],
+        "generalizationBoundary": "Findings from small coin or pouch cells with controlled cycling may not generalize to large-format cells, high-rate pulses, low-temperature operation, or abuse scenarios beyond nail penetration; safety conclusions are bounded by the specific electrolyte/separator choices and electrode thicknesses tested.",
+        "unresolvedUnknowns": [
+          "How to prevent dendrite nucleation over thousands of cycles",
+          "Optimal host-anode structure for fast charging and high capacity",
+          "SEI/CEI layer composition and stability under voltage and temperature extremes",
+          "Scalable manufacturing methods for uniform thin electrolytes and separators"
+        ],
+        "capabilityComplianceNote": "All proposed actions rely only on listed capabilities: fabricating and testing lithium-metal and intercalation electrodes, testing layered oxide cathodes, screening non-metallic hosts, assembling small cells, cycle/abuse testing, and varying electrolyte/separator/geometry. No external tools or post-cutoff named outcomes are assumed."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 823,
+        "completionTokens": 4296,
+        "totalTokens": 5119,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 46570,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 1
+    },
+    {
+      "replayId": "HR6-A11",
+      "hiddenTrajectoryId": "HD6-A11",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Repeated lithium-metal plating creates dendrite/whisker growth that can pierce separators and cause catastrophic internal shorts; cycle life and safety, not first-cycle energy, control commercial viability.",
+        "routes": [
+          {
+            "route": "Screen non-metallic host anodes paired with layered oxide cathodes",
+            "decision": "continue",
+            "reason": "Avoids repeated lithium-metal plating that drives dendrite growth and internal shorts, while preserving high voltage and energy; uses existing electrode fabrication, cell assembly, and cycling capabilities."
+          },
+          {
+            "route": "Vary electrolyte, separator, and electrode geometry in lithium-metal cells",
+            "decision": "defer",
+            "reason": "May reduce dendrite risk but does not eliminate it; only worth pursuing if host-anode screening fails or as a complementary mitigation after host-anode cells are characterized."
+          },
+          {
+            "route": "Benchmark nickel-based rechargeable cells for safety and cycle-life baseline",
+            "decision": "continue",
+            "reason": "Provides a quantitative safety and cycle-life baseline against which any lithium-based candidate must be judged, aligning with the commercial constraints of abuse tolerance and repeated cycling."
+          },
+          {
+            "route": "Pursue layered oxide cathode optimization in isolation",
+            "decision": "abandon",
+            "reason": "Layered oxide cathodes are already demonstrated at high voltage; further optimization alone does not address the dominant anode-side dendrite/shorting bottleneck and would not yield a viable cell."
+          }
+        ],
+        "topRoute": "Screen non-metallic host anodes paired with layered oxide cathodes",
+        "nextDiscriminatingTest": "Build small rechargeable cells pairing a non-metallic host anode with a layered oxide cathode and run repeated charge/discharge cycles plus abuse/short-circuit tests, comparing capacity retention and failure rates against identical lithium-metal-anode cells using the same electrolyte, separator, and geometry.",
+        "requiredComplements": [
+          "Layered oxide cathode integration in full-cell tests",
+          "Electrolyte and separator matching for the non-metallic host anode",
+          "Repeated charge/discharge cycling and capacity-retention measurement",
+          "Abuse/short-circuit test protocol to detect internal shorts",
+          "Nickel-based rechargeable baseline comparison"
+        ],
+        "mainFailureRisks": [
+          "Non-metallic host materials may still plate lithium metal on overcharge, recreating dendrite risk",
+          "Electrolyte incompatibility with the host anode can cause rapid capacity fade",
+          "Electrode volume changes during intercalation can crack the electrode and degrade cycle life",
+          "Small-cell results may not reflect manufacturing variability or commercial-scale abuse behavior",
+          "Energy density of the host-anode cell may fall below the portable-electronics reward threshold"
+        ],
+        "generalizationBoundary": "Conclusions apply only to small laboratory cells using the available non-metallic host materials, layered oxide cathodes, and the tested electrolyte/separator combinations; scaling to commercial manufacturing, larger formats, or different abuse conditions requires additional validation beyond these capabilities.",
+        "unresolvedUnknowns": [
+          "Which non-metallic host material offers the best combination of energy density, cyclability, and safety",
+          "Whether the host anode avoids lithium plating under all normal and overcharge conditions",
+          "Long-term electrolyte/separator compatibility with the host anode",
+          "Whether the host-anode cell can meet the cycle-life and retained-capacity requirements of portable electronics",
+          "How the host-anode cell compares to the nickel-based baseline under identical abuse and cycling protocols"
+        ],
+        "capabilityComplianceNote": "All proposed actions are limited to the stated capabilities: fabricating and testing lithium-metal and intercalation electrodes, testing layered oxide cathodes, empirically screening non-metallic host materials, assembling small rechargeable cells, running repeated charge/discharge and abuse/short-circuit tests, comparing nickel-based baselines, and varying electrolyte/separator and electrode geometry."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 823,
+        "completionTokens": 1708,
+        "totalTokens": 2531,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 20199,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 2
+    },
+    {
+      "replayId": "HR6-A12",
+      "hiddenTrajectoryId": "HD6-A12",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Causal validation is slow because no dramatic continent-scale ozone loss is yet established, while instrument drift/coverage can mimic or hide trends.",
+        "routes": [
+          {
+            "route": "Laboratory photochemistry and atmospheric chemistry calculations to quantify CFC ozone depletion potential",
+            "decision": "continue",
+            "reason": "The mechanism is published but rate constants and quantum yields need tightening; this is low-cost, within capability, and sharpens predictions."
+          },
+          {
+            "route": "Expand and intercompare Dobson and satellite ozone records with rigorous calibration and drift correction",
+            "decision": "continue",
+            "reason": "Detecting a slow global signal requires separating real changes from instrument artifacts; this uses existing on-the-ground measurement strengths."
+          },
+          {
+            "route": "Balloon and aircraft stratospheric composition campaigns linking ClO and ozone depletion",
+            "decision": "continue",
+            "reason": "Directly tests the catalytic mechanism in the stratosphere with contemporary instruments and is the clearest short-term discriminator."
+          },
+          {
+            "route": "Negotiate voluntary and national staged restrictions on CFC aerosol uses where substitutes are viable",
+            "decision": "continue",
+            "reason": "Existing aerosol restrictions and substitute technologies make this feasible, reducing irreversible risk while creating a natural experiment."
+          },
+          {
+            "route": "Pursue comprehensive international controls on all CFC uses immediately",
+            "decision": "defer",
+            "reason": "Application-specific costs differ greatly across countries and industrial uses; broad controls lack consensus until global ozone loss is better validated."
+          },
+          {
+            "route": "Evaluate application-specific substitutes and transition costs for refrigeration and industrial processes",
+            "decision": "continue",
+            "reason": "Provides the evidence needed to design staged controls and to forecast which uses depend on continued CFCs."
+          }
+        ],
+        "topRoute": "Balloon and aircraft stratospheric composition campaigns linking ClO and ozone depletion",
+        "nextDiscriminatingTest": "Fly balloon/aircraft campaigns that simultaneously measure CFCs, ClO, and ozone in the same stratospheric air mass and compare observed ozone loss rates with model predictions from the published mechanism.",
+        "requiredComplements": [
+          "Independent Dobson versus satellite ozone calibration intercomparisons",
+          "Laboratory measurements of CFC photolysis quantum yields and ClO reaction rates",
+          "Tropospheric CFC source/release inventories to interpret trends",
+          "Application-level substitution and cost analyses for aerosols, refrigeration, and industrial processes",
+          "Design of voluntary/national staged control provisions with monitoring and reporting"
+        ],
+        "mainFailureRisks": [
+          "Instrument drift and sparse coverage could mimic or obscure a real ozone trend",
+          "Natural variability and volcanic aerosols may confound attribution to CFCs",
+          "Economic resistance from affected industries may block staged controls or monitoring",
+          "Delayed validation may allow irreversible stratospheric ozone harm before controls are adopted"
+        ],
+        "generalizationBoundary": "The results apply to long-lived chlorinated/brominated source gases that are transported to the stratosphere and release ozone-destroying radicals, but not to short-lived or tropospheric-only pollutants lacking stratospheric coupling.",
+        "unresolvedUnknowns": [
+          "Atmospheric lifetime and transport efficiency of individual CFCs",
+          "Quantitative importance of ClO-catalyzed cycles under ambient NOx, HOx, and aerosol conditions",
+          "Magnitude and direction of ozone trends relative to instrument calibration biases",
+          "Elasticity of substitution and transition costs by country/application"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only the listed capabilities: running chemical calculations/laboratory photochemistry, operating and calibrating Dobson/satellite ozone instruments, balloon/aircraft sampling, negotiating staged agreements, and evaluating substitutes."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 834,
+        "completionTokens": 3131,
+        "totalTokens": 3965,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 32577,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 3
+    },
+    {
+      "replayId": "HR6-A12",
+      "hiddenTrajectoryId": "HD6-A12",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Causal validation is slow and ozone measurements have calibration/coverage limits, so distinguishing a real CFC-driven trend from natural variability or instrument drift is the critical difficulty.",
+        "routes": [
+          {
+            "route": "Integrated polar chlorine-ozone correlation campaign with intercalibrated ground and satellite ozone records",
+            "decision": "continue",
+            "reason": "Directly tests the modeled catalytic ozone destruction mechanism against natural variability in the strongest predicted signal, using existing measurement and sampling capabilities."
+          },
+          {
+            "route": "Expand global Dobson record intercomparison and homogenize satellite calibration",
+            "decision": "continue",
+            "reason": "Necessary to separate real slow ozone trends from instrument drift and coverage gaps, which is a core stated constraint."
+          },
+          {
+            "route": "Negotiate staged international controls on nonessential aerosol CFC uses with periodic review",
+            "decision": "continue",
+            "reason": "Captures relatively cheap reductions while building institutions and avoiding irreversible harm, without imposing uneven costs on all industrial applications immediately."
+          },
+          {
+            "route": "Defer regulation until a large observed ozone loss is publicly established",
+            "decision": "abandon",
+            "reason": "Given irreversibility and slow validation, waiting for dramatic damage would make delayed evidence extremely expensive."
+          },
+          {
+            "route": "Universal CFC production ban without transition assessments",
+            "decision": "defer",
+            "reason": "Transition costs differ by application and country; a broad ban is premature before substitute evaluation and staged monitoring agreements are in place."
+          }
+        ],
+        "topRoute": "Integrated polar chlorine-ozone correlation campaign with intercalibrated ground and satellite ozone records",
+        "nextDiscriminatingTest": "Deploy intercalibrated Dobson and satellite ozone measurements alongside balloon/aircraft stratospheric chlorine species sampling in the Antarctic spring vortex, testing whether ozone loss anomalies correlate with ClO and CFC-derived chlorine in the same air parcels as the chemical mechanism predicts.",
+        "requiredComplements": [
+          "Correlative ClO and HCl measurements from balloon/aircraft campaigns",
+          "Lagrangian transport analysis of air parcels using CFC tracer fields",
+          "Formal intercomparison and homogenization of Dobson and satellite ozone records",
+          "Application-specific substitute cost studies for staged control negotiations"
+        ],
+        "mainFailureRisks": [
+          "Natural dynamical variability may mask or mimic the predicted ozone anomaly in the observed region",
+          "Satellite calibration drift or coverage gaps create false trends or obscure real ones",
+          "CFC emission growth outside the core negotiating countries could offset staged controls",
+          "Political resistance due to uneven industry transition costs while scientific uncertainty remains",
+          "The catalytic cycle may require rare polar stratospheric conditions not captured during limited campaigns"
+        ],
+        "generalizationBoundary": "This strategy applies to long-lived pollutants with a validated chemical mechanism, a measurable atmospheric signature, and some available substitutes; it is not directly transferable to acute local pollutants, substances without detectable atmospheric signatures, or cases with no plausible controls.",
+        "unresolvedUnknowns": [
+          "Quantitative rate constants and heterogeneous chemistry under polar stratospheric conditions",
+          "True global CFC emission inventories by application and country",
+          "Magnitude of natural interannual ozone variability versus the long-term trend",
+          "Effectiveness and cost trajectory of substitutes across all industrial uses",
+          "Institutional feasibility of staged international monitoring agreements before a confirmed large ozone loss"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only the listed capabilities: existing Dobson and satellite ozone measurements with intercomparison, balloon/aircraft sampling, laboratory photochemistry/atmospheric calculations, and negotiation of voluntary/national/international monitoring or staged-control agreements; no post-cutoff tools or named outcomes are assumed."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 834,
+        "completionTokens": 2488,
+        "totalTokens": 3322,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 29171,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 4
+    },
+    {
+      "replayId": "HR6-A12",
+      "hiddenTrajectoryId": "HD6-A12",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Causal validation is slow: no publicly established dramatic ozone-loss observation yet exists, while instrument drift and limited coverage could mimic or mask a real global ozone trend, making it hard to justify costly international controls.",
+        "routes": [
+          {
+            "route": "strengthen Dobson calibration and harmonize satellite ozone records to reduce instrument drift/coverage confounds",
+            "decision": "continue",
+            "reason": "Directly targets the dominant bottleneck by building a reliable, intercalibrated ozone trend signal needed for causal attribution."
+          },
+          {
+            "route": "advance atmospheric chemistry calculations and laboratory photochemistry for CFC chlorine cycles",
+            "decision": "continue",
+            "reason": "Sharpens mechanistic predictions so observed trend patterns can be distinguished from measurement artifacts."
+          },
+          {
+            "route": "defer large balloon/aircraft stratospheric CFC/ozone campaigns until the harmonized trend signal identifies a clear anomaly",
+            "decision": "defer",
+            "reason": "In situ campaigns are expensive and currently cannot discriminate the predicted global trend from calibration noise, so waiting improves their targeting."
+          },
+          {
+            "route": "negotiate voluntary international monitoring and staged control agreements",
+            "decision": "continue",
+            "reason": "Monitoring cooperation is low-cost and builds an institutional framework that can act quickly if the causal evidence strengthens."
+          },
+          {
+            "route": "evaluate application-specific substitute costs and transition pathways",
+            "decision": "continue",
+            "reason": "Knowing where substitutes exist and what they cost reduces negotiation friction and prepares for eventual controls without assuming uniform feasibility."
+          }
+        ],
+        "topRoute": "strengthen Dobson calibration and harmonize satellite ozone records to reduce instrument drift/coverage confounds",
+        "nextDiscriminatingTest": "Cross-calibrate Dobson station and satellite ozone records against a common transfer standard, then test whether the measured altitude-latitude-season pattern of ozone changes matches the CFC chlorine-cycle fingerprint rather than uniform instrument drift.",
+        "requiredComplements": [
+          "laboratory photochemistry and mechanistic modeling of CFC chlorine cycles",
+          "deferred but ready balloon/aircraft sampling capability",
+          "voluntary international monitoring and staged control negotiations",
+          "application-specific substitute cost and transition assessments"
+        ],
+        "mainFailureRisks": [
+          "instrument drift and station coverage biases persist despite harmonization",
+          "natural ozone variability temporarily hides the predicted trend",
+          "staged negotiations move too slowly relative to irreversible ozone harm",
+          "uncertain reaction-rate coefficients make mechanistic fingerprints ambiguous",
+          "deferring stratospheric campaigns could delay detection of early changes"
+        ],
+        "generalizationBoundary": "This approach applies to global slow-onset atmospheric harms where the mechanism is credible but direct public validation is delayed and measurement noise can mimic the effect; it is not a template for acute, local, or directly observable environmental problems.",
+        "unresolvedUnknowns": [
+          "true stratospheric chlorine loading and its trend under current CFC emissions",
+          "rate constants and quantum yields for key chlorine-catalyzed ozone loss reactions",
+          "magnitude and structure of natural lower-stratospheric ozone variability",
+          "intercalibration offsets between Dobson stations and satellite instruments",
+          "application-by-application availability and cost of substitutes in refrigeration and industrial processes"
+        ],
+        "capabilityComplianceNote": "All proposed actions recombine listed capabilities: calibrating Dobson/satellite measurements, running atmospheric chemistry calculations, negotiating voluntary monitoring/staged controls, and evaluating substitutes; no unavailable future tools or named post-cutoff outcomes are assumed."
+      },
+      "invalidRawArguments": null,
+      "validationError": null,
+      "usage": {
+        "promptTokens": 834,
+        "completionTokens": 2841,
+        "totalTokens": 3675,
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "elapsedMs": 33308,
+        "invalidAttempts": []
+      },
+      "model": "deepseek-v4-flash",
+      "credentialSlot": 5
+    }
+  ]
+}
