@@ -20,7 +20,7 @@ Optimization is useful as a certificate and search instrument. Domain simulation
 
 [`experiment-contract.json`](experiment-contract.json) requires every candidate entity to compete against the current owner-native and simple deterministic baseline. Comparison remains multi-axis; no universal entity score or capability router is introduced.
 
-The reproducible runner is [`run_entity_gap.py`](run_entity_gap.py). It reads exact Git revisions of all owner inputs, refuses the run if an owner HEAD or cleanliness state changes during execution, writes only bounded JSON evidence, and deletes the temporary SQLite index used by EG7.
+The complete execution apparatus was first snapshotted at Git revision `d9cd4f53764e8ef164cdd48f919d19701fe0d5e7`, then removed from the active tree after the bounded results survived independently. [`apparatus-archive-v0.json`](apparatus-archive-v0.json) binds the exact runner/test digests and recovery revision. Current regression lives in [`../../evidence/tests/test_entity_gap_eg0_eg8.py`](../../evidence/tests/test_entity_gap_eg0_eg8.py); Git, not permanent phase machinery, owns exact archaeology.
 
 ## EG0 — responsibility × entity matrix
 
