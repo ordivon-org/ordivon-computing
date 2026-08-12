@@ -68,3 +68,11 @@ The public repository stores protocol, commitments, aggregate/mechanical receipt
 ## Reopen conditions
 
 Broader human-response infrastructure is justified only if repeated real experiments require a shared contract that owner-local files plus Runtime/Host continuity cannot express. Diagram, delayed-memory, trust, preference, or interaction treatments should open only after a named unresolved human consequence survives HR0 or another real production decision.
+
+## Current status
+
+HR0-A apparatus preflight is complete. v1 was falsified before human use because its scorer collapsed factual correctness into evidence-sufficiency abstention. v2 restores factual accuracy, unsupported inference, and epistemic decision quality as separate consequences; 12/12 fresh Harness surrogate Runs completed with no equipment failure. The exact sealed human stimulus bytes remain unchanged and no human response has been collected. See [`HR0-A-CLOSEOUT.md`](HR0-A-CLOSEOUT.md).
+
+A private non-naïve owner-pilot packet is ready for interaction-path calibration. It must not be interpreted as blinded human-effect evidence.
+
+The HR0-A executable generator/participant/scorer apparatus is no longer active in the current tree. Exact v1/v2 code remains recoverable from the preregistration commits; the already generated private owner-pilot packet remains available without keeping research runners resident. A future naïve human study must open a new preregistered experiment rather than silently reactivate HR0-A as an always-on platform.
