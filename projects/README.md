@@ -63,7 +63,7 @@ Historical evidence remains bound to its revision and observation time. A System
 
 ## Stable identity and mutable state
 
-[`registry.yaml`](registry.yaml) owns stable project identity/role/navigation. It does not own mutable maturity or deployment state. [`conformance.toml`](conformance.toml) declares protocol/conformance relationships without making Computing a product controller.
+[`registry.yaml`](registry.yaml) owns stable project identity/role/navigation. It does not own mutable maturity or deployment state. [`SYSTEM-MAP.md`](SYSTEM-MAP.md) and [`system-map.json`](system-map.json) are generated projections of that registry so project counts and stable roles cannot drift through hand-maintained prose; they deliberately exclude live implementation, deployment, Task, service, and maturity state. [`conformance.toml`](conformance.toml) declares protocol/conformance relationships without making Computing a product controller.
 
 Cross-project ownership/admission/extraction/merge/retirement rationale lives under [`decisions/README.md`](decisions/README.md). A record under review does not create a project.
 
