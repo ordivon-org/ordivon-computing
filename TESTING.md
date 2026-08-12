@@ -31,6 +31,7 @@ python3.12 scripts/check_computer_responsibility_map.py
 python3.12 scripts/check_historical_research_compression.py
 python3.12 scripts/check_research_portfolio.py
 python3.12 scripts/render_research_portfolio.py --check
+python3.12 scripts/generate_project_family.py --check
 python3.12 -m unittest research.evidence.tests.test_foundational_docs
 ```
 

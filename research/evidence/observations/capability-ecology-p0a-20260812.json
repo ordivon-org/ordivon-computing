@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.capability-ecology-p0a-observation",
+  "observedAt": "2026-08-12T20:12:12+08:00",
+  "truthRole": "cross-owner observation; owner repositories remain authoritative for their domains",
+  "ownerHeads": {
+    "computing": "8b4496a603a67928fa0ef215d850ce07710373c4",
+    "finance": "fe672dea79b43c0c244d80e2ccb9e53ea58b2a73",
+    "workstation": "3c8d8dc7d0153f560cc3c910d4207ac129593664"
+  },
+  "network": {
+    "directEgress": {
+      "ip": "39.144.242.151",
+      "country": "CN",
+      "asn": "AS9808",
+      "asnOrg": "China Mobile Communications Group Co., Ltd."
+    },
+    "okxReadOnlyDirect": {
+      "wwwOkxPublicTime": "tcp-connect-timeout",
+      "wwwOkxPublicInstrument": "tcp-connect-timeout",
+      "externalFinancialWriteAttempted": false
+    },
+    "nativeProxyAandB": {
+      "ports": [19081, 19082],
+      "egressIp": "39.144.242.151",
+      "egressAsn": "AS9808",
+      "okxConnect": "CONNECT-502",
+      "independentExternalEgress": false
+    },
+    "windowsPhysicalInterfaces": [
+      {
+        "class": "Remote NDIS based Internet Sharing Device #2",
+        "status": "Up",
+        "ipv4": "192.168.0.122",
+        "gateway": "192.168.0.1"
+      },
+      {
+        "class": "Realtek 8852BE Wireless LAN WiFi 6 PCI-E NIC",
+        "status": "Up",
+        "ipv4": "192.168.0.35",
+        "gateway": "192.168.0.1"
+      }
+    ],
+    "physicalIndependenceAssessment": "not-established-same-gateway-and-dns-prefix",
+    "surfshark": {
+      "windowsServiceRunning": true,
+      "openVpnDataChannelAdapter": "Disconnected",
+      "manualProviderCatalog": {
+        "logicalNodes": 142,
+        "variants": 415,
+        "wireguard": 137,
+        "openvpnUdp": 139,
+        "openvpnTcp": 139
+      },
+      "freshQualifiedObservation": false,
+      "boundedDiscoveryAttempts": [
+        "five-Asia-node multi-protocol discovery timed out",
+        "single jp-tok wireguard/native-a discovery timed out"
+      ],
+      "cleanup": "all transient workers created by these attempts were explicitly stopped"
+    },
+    "workstationCapabilityUniverse": {
+      "currentCapabilityCoverage": 0.8182,
+      "currentCoverageOfCurrentlyAchievableSlots": 1.0,
+      "currentOwnerDiversifiedSlotCoverage": 0.5909,
+      "currentMechanismDiversifiedSlotCoverage": 0.5909,
+      "currentMethodologyDiversifiedSlotCoverage": 0.5,
+      "externallyBlockedSlots": [
+        "effect.authorized-relay",
+        "measurement.active-user-authorized",
+        "ownership.independent-carrier",
+        "ownership.self-owned-external-root"
+      ]
+    }
+  },
+  "interpretation": [
+    "The current OKX blocker is an observation/path blocker before it is a Finance verifier blocker.",
+    "Two Windows interfaces do not establish two physical/carrier failure domains when they share the same IPv4 gateway and observed public egress.",
+    "VPN/provider diversity and physical/carrier diversity are separate axes. Connecting Surfshark may restore OKX observation but cannot prove independent-carrier ownership.",
+    "No purchase or new credential is required for P0-B/P0-C. P0-A should exhaust a user-controlled existing VPN/path switch before considering new paid infrastructure."
+  ]
+}

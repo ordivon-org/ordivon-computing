@@ -127,3 +127,21 @@ At the same observation boundary:
 - Finance remained at revision 9 with the independent-host admission blocker unchanged.
 
 Therefore **selection regret is not yet identifiable**. FS0 must remain a prospective cohort rather than pretending one early Runtime checkpoint is the portfolio outcome.
+
+
+## P0-C statistical calibration
+
+The frozen selector counts are now accompanied by a sampling-uncertainty calibration in [`statistical-calibration-v1.json`](statistical-calibration-v1.json). The prediction receipt itself is unchanged and is not rerun.
+
+Using 95% Wilson score intervals:
+
+```text
+raw G-AF3 top choice      5 / 5   point 1.00   interval [0.566, 1.000]
+RFM R-P5 top choice       4 / 5   point 0.80   interval [0.376, 0.964]
+negative-control chosen   0 / 10  point 0.00   interval [0.000, 0.278]
+negative-control deferred 10 / 10 point 1.00   interval [0.722, 1.000]
+```
+
+The raw and RFM top-choice intervals overlap materially. Therefore the small replicate set does **not** establish that one treatment is intrinsically more stable than the other. Likewise, `0/10` and `10/10` remain useful observations but are not zero-error / perfect-reliability claims.
+
+This estimator has deliberately narrow authority: it calibrates stochastic evidence. It does not choose research value, identify selection regret, decide between the raw/RFM objectives, or turn selector frequency into semantic truth.
