@@ -52,6 +52,20 @@ jobs:
       - name: Consumer gate unit tests
         working-directory: ordivon-computing
         run: python -m unittest research.evidence.tests.test_protocol_consumer_gate
+      - name: Install current Host MCP test surface
+        run: |
+          python - <<'PY'
+          import subprocess
+          import sys
+          import tomllib
+          from pathlib import Path
+
+          project = tomllib.loads(Path("ordivon-host/pyproject.toml").read_text())
+          requirements = project["project"]["optional-dependencies"]["mcp"]
+          subprocess.check_call(
+              [sys.executable, "-m", "pip", "install", "--disable-pip-version-check", *requirements]
+          )
+          PY
       - name: Frozen and current consumer compatibility
         run: |
           python ordivon-computing/scripts/check_protocol_consumers.py \
