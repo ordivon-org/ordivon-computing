@@ -47,9 +47,11 @@ This file contains the smallest current foundations from which the project’s a
 
 Foundation models are the current probabilistic cognition baseline. Their architectures, capabilities, legal status, and relationships with people will change. The Core therefore preserves stable system responsibilities across model families, prompt patterns, ownership arrangements, and Harness implementations.
 
-## A1 — Inherit the classical substrate
+## A1 — Inherit mature mechanism owners
 
-Operating systems, isolation mechanisms, databases, networks, version control, compilers, model runtimes, and durable workflow engines remain authoritative for their declared physical and deterministic contracts. Agent-native semantics are constructed above them when evidence exposes an unowned responsibility.
+Operating systems, isolation mechanisms, databases, networks, version control, compilers, model runtimes, durable workflow engines, mature specialist tools, and provider-native services remain authoritative for the physical, deterministic, or specialist mechanics they demonstrably own. Before creating another mechanism, Agents search the current capability world, inspect the strongest relevant owner, and prefer direct use or the thinnest exact binding when real consumer evidence shows lower total ownership cost.
+
+Existence is not adoption authority. A public or mature provider may remain unsuitable because acquisition, mutability, authority leakage, failure semantics, evidence quality, scope, dependency cost, or local substrate makes the binding worse than the current mechanism. Agent-native semantics are constructed above inherited mechanisms only when evidence exposes an unowned responsibility or a measured residual gap.
 
 ## A2 — Cognition proposes; owning layers admit truth and commitment
 
@@ -97,7 +99,7 @@ The system objective is verified improvement per unit time while minimizing unre
 
 A reversible feature can enter through a bounded experiment. A durable constraint carries a higher admission burden because it shapes repeated future action. It should answer an observed or credible recurring loss, demonstrate the limits of recovery or a narrower boundary, and declare a review or deletion condition.
 
-Historical existence grants no presumption of active legitimacy. When an existing structure is re-audited, the initial disposition is removal from the active path. Continued retention is an affirmative judgment that identifies a current consumer, the concrete capability or failure it protects, why a narrower local mechanism is insufficient, its recurring net benefit, and the condition that returns it to audit. Historical investment, test count, documentation, implementation maturity, or hypothetical future use do not satisfy this burden alone.
+Historical existence grants no presumption of active legitimacy. When an existing structure is re-audited, the initial disposition is removal from the active path. Continued retention is an affirmative judgment that identifies a current consumer, the concrete capability or failure it protects, why a narrower local mechanism is insufficient, its recurring net benefit, and the condition that returns it to audit. When mechanism ownership is at issue, this burden is comparative: the current implementation should be tested against the strongest mature external owner that is realistically acquirable and admissible, including adapter thickness, evidence quality, provider churn, dependency and acquisition cost, authority leakage, failure semantics, and reversibility. A mature provider that loses this comparison is evidence for retaining or narrowing the local mechanism, not a mandate to adopt dependencies. Historical investment, test count, documentation, implementation maturity, popularity, or hypothetical future use do not satisfy this burden alone.
 
 Deletion here normally means removal from active execution, default Context, current CI, or public surface—not destruction of history, participant-owned data, legal records, unique evidence, or externally governed state. Git and archive preserve reconstructable learning. Uncertainty therefore favors localization, archive, or reversible removal rather than indefinite compatibility.
 
