@@ -1,0 +1,96 @@
+{
+  "authorityNote": "Derived observation of the live local Runtime MCP only; ChatGPT connector publication is a separate consumer surface.",
+  "catalog": {
+    "lifecycle": "modern",
+    "protocolVersion": "2026-07-28",
+    "requiredTools": [],
+    "serverInfo": {
+      "name": "ordivon-runtime-mcp",
+      "title": "Ordivon Runtime",
+      "version": "0.1.0"
+    },
+    "supportedVersions": [
+      "2026-07-28",
+      "2025-11-25",
+      "2025-06-18"
+    ],
+    "toolCatalogDigest": "sha256:72b7d5e43c14044b4b5de4aa66d8aaefaa320fab8c3a51faba71e606d1caa2bc",
+    "toolCount": 22,
+    "toolNames": [
+      "artifact.read",
+      "release.apply",
+      "release.get",
+      "runtime.describe",
+      "task.cancel",
+      "task.get",
+      "task.list",
+      "task.observe",
+      "workspace.changes",
+      "workspace.close",
+      "workspace.content",
+      "workspace.diff",
+      "workspace.exec",
+      "workspace.execBound",
+      "workspace.execPlan",
+      "workspace.get",
+      "workspace.list",
+      "workspace.mutate",
+      "workspace.open",
+      "workspace.patch",
+      "workspace.patch.get",
+      "workspace.read"
+    ]
+  },
+  "endpoint": "http://127.0.0.1:8897/mcp",
+  "kind": "ordivon.computing.acs-runtime-owner-surface-observation",
+  "runtimeDescribe": {
+    "allowedExecutableRoots": [
+      "/"
+    ],
+    "globalExecutionLimit": 8,
+    "inputAuthorities": [
+      "finance-research-materializations"
+    ],
+    "maxOutputBytes": 16777216,
+    "maxRuntimeMs": 3600000,
+    "schemaVersion": 1,
+    "structuredReleaseConfigured": true,
+    "targets": [
+      {
+        "available": true,
+        "configured": true,
+        "executionProfiles": [
+          "trusted_local",
+          "contained_local"
+        ],
+        "executionProvider": {
+          "contract": "local_linux_runner_v1",
+          "executableDigest": "sha256:4eb596d4e3a72ece926cea388f95c1873133111328cc0a3ad61701823edad0d7"
+        },
+        "hostDependencyCommitments": true,
+        "hostDependencyContinuityScope": "runtime_host_namespace_path_witness",
+        "immutableInputs": true,
+        "structuredPlan": true,
+        "target": "local_linux"
+      },
+      {
+        "availabilityIssue": "WINDOWS_AUTHORITY_UNAVAILABLE",
+        "available": false,
+        "configured": true,
+        "executionProfiles": [
+          "trusted_local"
+        ],
+        "executionProvider": {
+          "contract": "windows_native_launcher_v1",
+          "executableDigest": "sha256:7cac06ec54d3d1c9905c07cb5462e7841d50a08b0cd7f60b2582821dec7e6da9",
+          "wslDistribution": "archlinux"
+        },
+        "hostDependencyCommitments": false,
+        "immutableInputs": false,
+        "structuredPlan": false,
+        "target": "windows_native"
+      }
+    ]
+  },
+  "schemaVersion": 1
+}

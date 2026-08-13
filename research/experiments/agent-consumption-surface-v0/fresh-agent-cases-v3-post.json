@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.acs-post-implementation-discovery-cases",
+  "instruction": "You are a fresh Agent with no prior Ordivon memory and no source-code access. You are choosing the single best next operation from the supplied consumer entry material; you are not executing it inside this evaluation. Use an exact operation string that the packet exposes. Do not invent a missing operation. If the task says an object or identifier is known, assume the caller has its concrete value. If no exposed operation is sufficient without source archaeology or guessing, set needsMoreInfo=true and selectedOperation to an empty string. Classify only the selected operation's immediate effect. TASK:\n{{TASK}}\n\nCONSUMER ENTRY MATERIAL:\n{{PACKET}}",
+  "cases": [
+    {
+      "caseId": "security-public-entry",
+      "task": "Classify the exposed Security mechanisms as constitution, profile, integration, or research apparatus without running an experiment or granting authority.",
+      "expectedOperation": "uv run ordivon-security-surface",
+      "rawPacket": "PRE-ACS README Start according to your job: understand why Security exists -> README + docs/research-boundary.md; constitutional law versus profiles/fixtures -> docs/LAW-PROFILES-C0.md; architecture -> docs/architecture.md; mission -> CHARTER.md; authority -> docs/authority.md; falsifiers -> docs/research-agenda.md; evidence -> evidence/README.md. The entry material exposes no read-only surface-classification command.",
+      "compiledPacket": "CURRENT README Start according to your job: classify the exposed Security surface as constitution, profile, integration, or research apparatus -> `uv run ordivon-security-surface` — read-only projection; it runs no experiment and grants no authority. Other rows continue to point to research-boundary, law/profile, architecture, charter, authority, agenda, and evidence documents."
+    },
+    {
+      "caseId": "studio-production-entry",
+      "task": "Inspect one known Studio Production, its Claims/Outputs, and optional source-binding Git relation in one read-only operation without rendering or editing.",
+      "expectedOperation": "uv run ordivon-studio production-context <production-root>",
+      "rawPacket": "PRE-ACS README Start here: understand why Studio exists -> README; authority -> docs/authority.md; architecture -> STUDIO.md; Production/Claim/Asset/Blob/Output model -> docs/media-model.md; Agent review -> docs/review-consumption.md; perception -> docs/artifact-perception.md; local render loop -> docs/fast-inner-loop.md. The entry material exposes no one-step Production context operation.",
+      "compiledPacket": "CURRENT README Start here: inspect one Production, its Claims/Outputs, and optional source-binding Git relation without rendering or editing -> `uv run ordivon-studio production-context <production-root> [--source-repo BINDING_ID=PATH]`. Exact production/claim manifests remain the deeper evidence escape hatch. For operation selection, use the required base form `uv run ordivon-studio production-context <production-root>`; optional source-repo binding can be added after selection when current Git relation is needed."
+    },
+    {
+      "caseId": "finance-current-context-entry",
+      "task": "For one known Finance Goal, enter the current read-only Agent Context that exposes unresolved obligations, candidate operation references, authority/effect semantics, and current availability without reading kernels or SQLite tables.",
+      "expectedOperation": "./bin/finance-context-compile <goal-id>",
+      "rawPacket": "PRE-ACS README Start here: docs/authority.md is the responsibility-to-source map; design/AGENT-SURFACE.md is the current machine-facing Finance surface; kernel/ contains canonical semantics; capabilities/ admitted contracts; executor/ and deploy/ execution equipment; research/ and experiments/ evidence. No normal Goal-to-current-Context command is named in the entry material.",
+      "compiledPacket": "CURRENT README Start here: For an Agent that already knows a Finance Goal identity, the normal read-only entry is `./bin/finance-context-compile <goal-id>`. It defaults to the current Agent Context contract, mechanically infers the canonical state/control/finance.db -> state-root binding, and exposes unresolved obligations, candidate Agent-operation refs, exact bindings, effect/authority semantics, and current availability. Historical schemas require explicit --schema-version."
+    },
+    {
+      "caseId": "harness-telemetry-entry",
+      "task": "For one known Harness Run, inspect compact read-only usage, remaining budget, Provider cache hit/miss counters, and recovery/UNKNOWN context without opening the full exact inspect payload.",
+      "expectedOperation": "ordivon-harness --state-root /var/lib/ordivon/harness telemetry HARNESS_RUN_ID",
+      "rawPacket": "PRE-ACS Operator interface: `ordivon-harness --state-root /var/lib/ordivon/harness status HARNESS_RUN_ID`; `... inspect HARNESS_RUN_ID`; `... recover HARNESS_RUN_ID`; `... doctor`. Recovery is evidence-driven. The entry material exposes no compact telemetry operation.",
+      "compiledPacket": "CURRENT Operator interface: `ordivon-harness --state-root /var/lib/ordivon/harness status HARNESS_RUN_ID`; `ordivon-harness --state-root /var/lib/ordivon/harness telemetry HARNESS_RUN_ID`; `... inspect HARNESS_RUN_ID`; `... recover HARNESS_RUN_ID`; `... doctor`. `telemetry` is a read-only projection over exact Harness state, normalizes usage/budget/cache/recovery, treats cache as measurement-only, and keeps `inspect` as the exact evidence escape hatch."
+    },
+    {
+      "caseId": "web-currentness-entry",
+      "task": "Re-probe whether Web's captured public project source envelopes changed relative to each owner's currently admitted canonical public-document envelope, without editing publication content or treating unrelated owner HEAD changes as staleness.",
+      "expectedOperation": "pnpm agent:context:currentness",
+      "rawPacket": "PRE-ACS quick commands include `pnpm install --frozen-lockfile`, `pnpm agent:context`, `pnpm check`, and publication build commands. `agent:context` reports captured project sourceRevision/publicSourceDigest values, but the entry material exposes no command that re-probes their current admitted public-document envelopes.",
+      "compiledPacket": "CURRENT quick commands include `pnpm agent:context` and `pnpm agent:context:currentness`. README states that `agent:context` reports the captured publication snapshot; `pnpm agent:context:currentness` re-probes each owner's admitted canonical public-document envelope. A changed envelope creates a Web review obligation, not proof of semantic staleness or mandatory mutation."
+    },
+    {
+      "caseId": "workstation-network-surface-entry",
+      "task": "Discover the bounded read-only Workstation network observation surface that explains the roles of profiles, broad matrix comparison, and one-profile/one-URL probing without selecting a route or enabling proxy/TUN.",
+      "expectedOperation": "task network:surface",
+      "rawPacket": "PRE-ACS Agent operations expose many network commands including network:vpn, network:cloudflare-direct, network:transport-test, network:profiles, network:matrix, and network:profile-probe. The entry material exposes no compact command whose role is to explain the bounded observation surface and its no-selection/no-routing-mutation boundary.",
+      "compiledPacket": "CURRENT Agent operations add `task network:surface` alongside `task network:profiles`, `task network:matrix`, and `task network:profile-probe PROFILE=... URL=...`. `network:surface` projects the bounded read-only HTTPS transport observation surface for Agents and explicitly omits selector/admission/start/run operations, default-route mutation, system proxy, and TUN mutation."
+    },
+    {
+      "caseId": "host-positive-control",
+      "task": "Continue one known external-continuity Host Task by exact Task identity after the conversation was replaced, while preserving that Runtime/Git fields remain navigation hints.",
+      "expectedOperation": "task.resume",
+      "rawPacket": "Host MCP exposes host.status, task.observe, task.list, task.resume, task.adopt, task.checkpoint. `task.resume` reads one external-continuity Task as TaskProjection + OperatorHandoffCapsule + WorkingCheckpoint bound to the exact revision; it never validates Runtime/Git/domain truth.",
+      "compiledPacket": "Host MCP exposes host.status, task.observe, task.list, task.resume, task.adopt, task.checkpoint. `task.resume` reads one external-continuity Task as TaskProjection + OperatorHandoffCapsule + WorkingCheckpoint bound to the exact revision; it never validates Runtime/Git/domain truth."
+    },
+    {
+      "caseId": "world-positive-control",
+      "task": "Check current World repository/machine/provider health without creating resource transfer, message delivery, entity migration, or changing a network route.",
+      "expectedOperation": "ordivon-world-doctor",
+      "rawPacket": "World package declares the read-only CLI `ordivon-world-doctor`. STATUS distinguishes repository-only health from live machine/provider health and says historical receipts do not establish current Presence/reachability/provider state. Resource/message/entity operations are separate effect paths.",
+      "compiledPacket": "World package declares the read-only CLI `ordivon-world-doctor`. STATUS distinguishes repository-only health from live machine/provider health and says historical receipts do not establish current Presence/reachability/provider state. Resource/message/entity operations are separate effect paths."
+    }
+  ]
+}

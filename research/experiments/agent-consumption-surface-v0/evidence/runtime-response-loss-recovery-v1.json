@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.acs-runtime-response-loss-recovery",
+  "clientRequestId": "acs9-runtime-response-loss-recovery-20260813-v1",
+  "workspaceId": "acs-system-census-20260813",
+  "jobId": "job-019ffa2d-1f68-79c1-aa13-464759a19ee5",
+  "attemptId": "attempt-019ffa2d-1f68-79c1-aa13-465de81639f1",
+  "procedure": [
+    "Admit workspace.exec with waitMs=0 so the initial response is non-terminal.",
+    "Recover the durable Job only by exact clientRequestId using task.list.",
+    "Read exact terminal convergence using task.get without reconstructing Job state from memory.",
+    "Read retained stdout by exact Job + Artifact identity."
+  ],
+  "result": {
+    "attemptState": "succeeded",
+    "executionDisposition": "succeeded",
+    "deliveryDisposition": "committed",
+    "executionReasonCode": "PROCESS_EXIT_ZERO",
+    "recoveryRequired": false,
+    "resultAvailable": true,
+    "mechanicallyConverged": true,
+    "semanticCompletionEvaluated": false,
+    "dispatches": 1,
+    "duplicateDispatches": 0,
+    "stdout": "ACS_RUNTIME_RECOVERY_OK\n",
+    "stdoutDigest": "sha256:ed7ea25f2ec802fe3a0d2fe0034098cec162fe83f160d52a4888c600f1893a9c"
+  },
+  "conclusion": "Runtime's current native surface already supports response-loss reattachment without blind redispatch: exact clientRequestId -> Job identity -> exact task.get/artifact evidence.",
+  "authorityBoundary": "This is physical Runtime execution/recovery evidence only and explicitly does not claim domain semantic completion."
+}

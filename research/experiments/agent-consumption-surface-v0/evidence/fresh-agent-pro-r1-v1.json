@@ -1,0 +1,960 @@
+{
+  "caseSourceDigest": "sha256:b1ea7d39ff2721038d50f29cb48ac73fc1342cd57d6731ffc84b319004cc5760",
+  "kind": "ordivon.computing.acs-fresh-agent-campaign",
+  "model": "deepseek-v4-pro",
+  "schemaVersion": 1,
+  "trials": [
+    {
+      "caseId": "runtime-affordances",
+      "contractDigest": "sha256:216ff2aa7feaa5d8f3f9341cd69eefaf84fb1e5da3589e5f2bf290788c8495c1",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4627,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "none",
+        "effectClass": "read_only",
+        "needsMoreInfo": true,
+        "owner": "ordivon",
+        "reason": "The task requires discovering configured/available Runtime execution targets, their execution profiles and provider identity, whether immutable inputs are supported, and the named immutable-input authorities. None of the operations exposed in the surface packet (artifact.read, task.*, workspace.*) exposes enumeration of execution targets/profiles/providers or immutable-input authorities. The packet explicitly states task.list lists Jobs and workspace.list lists Workspaces, and no Runtime discovery operation is exposed. Selecting any listed operation would require guessing about capability or semantics, which is not permitted.",
+        "selectedOperation": ""
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:runtime-affordances:raw:deepseek-v4-pro:1:1786603213733",
+      "schemaVersion": 1,
+      "stopCode": "needs_input",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 289,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 1108,
+            "prompt_tokens": 1108,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1397
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1397,
+        "wallTimeMs": 4582
+      }
+    },
+    {
+      "caseId": "runtime-affordances",
+      "contractDigest": "sha256:7652c0a5811992393290d028b08fcd238f23446c343a9c61e15b0feaa1fee4a0",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 5016,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:6d98f2e60ce464e942bce0bf31df3ed5717c982d1abaa49241129c7fdb367d0e",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "read-only catalog projection",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "runtime",
+        "reason": "The task requires determining configured/available Runtime execution targets, their execution profiles/provider identity, immutable-input support, and named immutable-input authorities before any Job creation/dispatch. runtime.describe is explicitly exposed and sufficient: it is read-only, idempotent, performs no dispatch/selection/mutation, and projects exactly the required current execution affordances (global ceiling, allowed executable roots, named immutable-input authorities, and per-target configured/available state with execution profiles, provider identity, immutable-input support, structured-plan support, and host-dependency continuity scope). Creating work remains a separate later operation (workspace.exec/execBound/execPlan), and exact Job state remains task.get/observe, neither of which should be selected at this discovery step.",
+        "selectedOperation": "runtime.describe"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:runtime-affordances:compiled:deepseek-v4-pro:1:1786603218501",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 311,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 1105,
+            "prompt_tokens": 1105,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1416
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1416,
+        "wallTimeMs": 4899
+      }
+    },
+    {
+      "caseId": "host-resume",
+      "contractDigest": "sha256:b935f2619a0afe30f4c5f2a2a9b2ac27180cf7776762094d8d069a565b88efe0",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4623,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:b45c57d4716fd04c697a290372260ed03ae32993d0e0b1d3f6151cc09f364fcc",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "ordivon-host",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "ordivon-host",
+        "reason": "The task is to continue one known external-continuity Task from its Task identity while preserving that the Runtime/Git fields in its checkpoint are only navigation hints to be revalidated elsewhere. task.resume reads one external-continuity Task as TaskProjection + OperatorHandoffCapsule + WorkingCheckpoint bound to the exact Task revision, which is exactly the next required step to observe and continue the known Task. It performs no Runtime/Git/domain truth validation and invokes no other system, matching the constraint that those fields remain unvalidated navigation hints. The concrete Task identity/revision and optional expectedRevision fence are supplied by the caller, and this operation is explicitly sufficient for the next step without guessing capability or semantics.",
+        "selectedOperation": "task.resume"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:host-resume:raw:deepseek-v4-pro:1:1786603223659",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 311,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 223,
+            "prompt_tokens": 1119,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1430
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1430,
+        "wallTimeMs": 4503
+      }
+    },
+    {
+      "caseId": "host-resume",
+      "contractDigest": "sha256:5aa928b81581cfdc91bf6db9aada759fa674e82bcbb2b3aefd26c94b7292039a",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3565,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:f42e3c12e3fac1ab90c172b9bdbcc4b98315d34f2df87dcfd900aab3d2f76bdc",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Task",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Task",
+        "reason": "The task is to continue one known external-continuity Task from its identity. The host consumption path RESUME EXISTING CONTINUITY exposes task.resume(taskId[, expectedRevision]) as the exact sufficient operation to obtain that Task's checkpoint for continuation. Resuming only reads/rehydrates the known task; it does not write state. Any Runtime Workspace/Job/Git fields returned are treated as navigation hints only and are revalidated with their owners before acting.",
+        "selectedOperation": "task.resume"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:host-resume:compiled:deepseek-v4-pro:1:1786603228418",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 253,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 188,
+            "prompt_tokens": 1084,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1337
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1337,
+        "wallTimeMs": 3443
+      }
+    },
+    {
+      "caseId": "finance-obligations",
+      "contractDigest": "sha256:f3d471fc9d8988602e7dc248d4e016abb8818c3239b069fdce153164a36d97a3",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 5648,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:4724a811227bdf26461db77f780f1630e51741f40017862e84b3ef3a6e7d5ff8",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Finance",
+        "effectClass": "read_only",
+        "needsMoreInfo": true,
+        "owner": "Finance",
+        "reason": "The task requires discovering current unresolved Finance obligations and the exact currently callable operations that could advance them, without mutating state and without reading kernels/SQLite/repository schemas. The Finance surface packet exposes finance-portfolio-observe as the read-only operation for observing the portfolio, which is the sufficient next step to discover outstanding obligations. Because the packet does not list the concrete currently-callable advance operations (they depend on the portfolio's current contents/obligation state), I can only select the observation operation now; the specific advance operations must be determined from its output. I select the read-only observation operation as the immediate next step.",
+        "selectedOperation": "finance-portfolio-observe"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:finance-obligations:raw:deepseek-v4-pro:1:1786603232115",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 333,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 246,
+            "prompt_tokens": 1142,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1475
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1475,
+        "wallTimeMs": 5531
+      }
+    },
+    {
+      "caseId": "finance-obligations",
+      "contractDigest": "sha256:804d6a5f2a0d0827710974859d1eee9c200dfbcc39f8759a94068af3a3e152be",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4459,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:800998356d6d70d07243282c70bc493a47c33f48d0dc9d5c9a7fcdf4312027af",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Finance",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Finance Agent Surface",
+        "reason": "The task is to discover current unresolved Finance obligations and the exact currently callable operations that could advance them, without mutating Finance state. The exposed operation finance-context-compile GOAL_ID compiles a read-only integrated Agent Context that separates obligation (unresolved domain work) and AgentOperation (curated callable surface, including capability refs, side-effect class, required authority, availability and basis). This is explicitly sufficient for the immediate next step and is non-mutating. Given the known existing Finance goal, this operation directly yields the requested unresolved obligations and callable operations.",
+        "selectedOperation": "finance-context-compile"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:finance-obligations:compiled:deepseek-v4-pro:1:1786603237902",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 279,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 232,
+            "prompt_tokens": 1128,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1407
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1407,
+        "wallTimeMs": 4340
+      }
+    },
+    {
+      "caseId": "security-taxonomy",
+      "contractDigest": "sha256:ff1d2f3d32525fbb823dd490e9f9eb52b2d00526de03c328d2a047edf651d5cf",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 5067,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "unknown",
+        "effectClass": "unknown",
+        "needsMoreInfo": true,
+        "owner": "Security mechanism classification",
+        "reason": "The surface packet lists entrypoint names and README statements but does not classify individual entrypoints as constitutional substrate, accepted profiles, experimental integrations, or research-only/falsified apparatus. The packet explicitly states it does not indicate which individual entrypoints are stable product surface versus research apparatus, and no exposed operation in the packet performs this classification or supplies the required determinative facts. Selecting any specific operation (e.g., a KVM probe or contest) is explicitly forbidden by the task. Therefore no exposed operation is sufficient without guessing about capability or semantics.",
+        "selectedOperation": ""
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:security-taxonomy:raw:deepseek-v4-pro:1:1786603242502",
+      "schemaVersion": 1,
+      "stopCode": "needs_input",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 305,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 259,
+            "prompt_tokens": 1155,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1460
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1460,
+        "wallTimeMs": 5022
+      }
+    },
+    {
+      "caseId": "security-taxonomy",
+      "contractDigest": "sha256:14fa63fcaa4e01b4da2e43cd8fd20f2f5d030ebd4a055115c7a27f00be827f20",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4483,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:be65b7968964408fcb6ea8e110ab58a63fe01c50d1376f6b5825d765598f2f5d",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "owner-native Python projection; read-only classification",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "security_surface_manifest",
+        "reason": "The surface packet exposes exactly one relevant operation: the owner-native Python projection security_surface_manifest(), which returns kind=ordivon.security.agent-first-surface with entries carrying name, tier, module, role, stability. This read-only projection directly returns the tier classifications (constitution, profile, integration, research-apparatus) needed to determine which exposed concepts are constitutional substrate, accepted profiles, experimental integrations, or research-only/falsified apparatus. It is a classification read, not a contest/KVM experiment or any consequence, satisfying the task's constraint. No other exposed operation is required for this immediate classification step.",
+        "selectedOperation": "security_surface_manifest"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:security-taxonomy:compiled:deepseek-v4-pro:1:1786603247713",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 294,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 224,
+            "prompt_tokens": 1120,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1414
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1414,
+        "wallTimeMs": 4361
+      }
+    },
+    {
+      "caseId": "world-live-health",
+      "contractDigest": "sha256:4f1bc95a69d7250e857c369e3e1823a7c427afa61f08edab525d116d425b8d1a",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4149,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:181405847b70419dcc5759c2069286f5925555a3fc9234cb641bf8cb3bce815d",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "World repository/machine/provider health and capability availability check",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "World",
+        "reason": "The task is to check current World repository/machine/provider health and capability availability without creating a resource transfer, message delivery, entity migration, or changing a network route. The only CLI exposed by the World package is ordivon-world-doctor, which the STATUS explicitly lists as the World doctor tool. This diagnostic operation is read-only and does not trigger any prohibited effect; it is the sufficient next operation for the requested health/capability availability check.",
+        "selectedOperation": "ordivon-world-doctor"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:world-live-health:raw:deepseek-v4-pro:1:1786603252340",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 259,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 184,
+            "prompt_tokens": 1080,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1339
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1339,
+        "wallTimeMs": 4033
+      }
+    },
+    {
+      "caseId": "world-live-health",
+      "contractDigest": "sha256:205ed8265d5d7f60715a3b3221de4b601fc181094c87f5de19e8960fe3f5ad8c",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4692,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:8d68d83c835e25aabc407d5c6a99bce3fe1ada760af82e19229896bf183f098b",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "health/status inspection; doctor aggregates owner-native health without taking provider control-plane authority",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "ordivon-world",
+        "reason": "The task is to check current World machine/provider health and capability availability without creating resource transfers, message deliveries, entity migrations, or network route changes. The LIVE MACHINE/PROVIDER HEALTH operation exposed in the surface packet (uv run ordivon-world-doctor --repo /root/projects/ordivon-world) is exactly sufficient for inspecting live health, and it is a read-only inspection that does not trigger the excluded effect paths. The repository-only offline variant was not chosen because the task asks for current machine/provider health, which requires the live (non-offline) invocation.",
+        "selectedOperation": "uv run ordivon-world-doctor --repo /root/projects/ordivon-world"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:world-live-health:compiled:deepseek-v4-pro:1:1786603256633",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 310,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 191,
+            "prompt_tokens": 1087,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1397
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1397,
+        "wallTimeMs": 4565
+      }
+    },
+    {
+      "caseId": "workstation-network-observe",
+      "contractDigest": "sha256:58c80c4d2908351b8088528a7d473278c0d57281d45ee2d9a0fb79d648b075a2",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4240,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:99736a1c8d46b86d9bdaf2743a48c76a0f6ed479503e52b99c19bae1d5b0a9bd",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "local_observation",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Workstation",
+        "reason": "The task is to compare which declared network profiles currently reach bounded destinations, i.e., an observation/diagnostic of each profile's reachability. `network:profile-probe PROFILE=... URL=...` probes a declared profile against a destination URL and reports results, matching the exact read-only diagnostic required. It does not select a proxy target, change the default route, enable TUN/system proxy, or start an overlay, so it complies with all exclusions.",
+        "selectedOperation": "network:profile-probe"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:workstation-network-observe:raw:deepseek-v4-pro:1:1786603261465",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 257,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 236,
+            "prompt_tokens": 1132,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1389
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1389,
+        "wallTimeMs": 4124
+      }
+    },
+    {
+      "caseId": "workstation-network-observe",
+      "contractDigest": "sha256:a0bb814523c33ac8ea40d045a5a391cf71a66decd5a24b31a3b632b84edac5cf",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4366,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:8626f73dac9297aa7cb469042727166f2ee08cff529e7f7ec778752dca6d91b8",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Workstation",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Workstation",
+        "reason": "The task asks to compare which declared Workstation network profiles currently reach bounded destinations, a read-only observation. The packet exposes `task network:matrix` as the read-only happy path that returns point-in-time per-target path coverage across declared profiles, which directly answers the comparison without selecting a proxy target, changing the default route, enabling TUN/system proxy, or starting an overlay. The profiles and per-tuple probe commands are narrower and do not themselves give the cross-profile comparison; selection/admission operations are side-effecting and excluded.",
+        "selectedOperation": "task network:matrix"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:workstation-network-observe:compiled:deepseek-v4-pro:1:1786603265854",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 267,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 222,
+            "prompt_tokens": 1118,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1385
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1385,
+        "wallTimeMs": 4246
+      }
+    },
+    {
+      "caseId": "harness-capabilities",
+      "contractDigest": "sha256:4729b7c1065bbe8c9b222080fb4415cae770a93b1bb232e91e14b7b205dfc1d6",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 5553,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "caller",
+        "effectClass": "read_only",
+        "needsMoreInfo": true,
+        "owner": "caller",
+        "reason": "No exposed operation in the surface packet is sufficient to discover the built-in execution profile, non-Tool catalog/grant digests, supported CLI commands, or Tool-bearing CLI execution availability without guessing about capability or semantics. The packet only lists help/command names and states that an exact Run Contract is caller-supplied; it does not expose a discoverable operation (e.g., capabilities/doctor/inspect read commands with concrete identifiers) that this task could select and execute to obtain those facts without starting a Run.",
+        "selectedOperation": ""
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:harness-capabilities:raw:deepseek-v4-pro:1:1786603270361",
+      "schemaVersion": 1,
+      "stopCode": "needs_input",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 289,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 0,
+            "prompt_cache_miss_tokens": 1098,
+            "prompt_tokens": 1098,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1387
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1387,
+        "wallTimeMs": 5509
+      }
+    },
+    {
+      "caseId": "harness-capabilities",
+      "contractDigest": "sha256:d3ecea468588289d0cec2f4fbdd18cd5924d905f4dae32956307069f54f0b4e7",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4196,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-pro",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:f80eb28803f97c7af42be76afb45c4908555f7b793c836c3afda64c302b89245",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "pre-run self-description discovery, no Run started",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Harness",
+        "reason": "The task requires discovering the built-in execution profile, exact no-Tool catalog/grant digests, supported CLI commands, and whether Tool-bearing CLI execution is available, without starting a Run. The surface packet exposes 'ordivon-harness capabilities', which is read-only discovery of execution profiles and exact Tool catalog/grant digests, plus the projection of run/resume/recover/status/inspect commands and whether Runtime is required. This operation is explicitly sufficient for the next step and starts no Run.",
+        "selectedOperation": "ordivon-harness capabilities"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:harness-capabilities:compiled:deepseek-v4-pro:1:1786603276057",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-pro"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 284,
+            "effectiveModelId": "deepseek-v4-pro",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 195,
+            "prompt_tokens": 1091,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-pro",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-pro",
+            "systemFingerprint": "fp_v4pro_20260812_prod0820_fp8_kvcache_20260402",
+            "total_tokens": 1375
+          }
+        ],
+        "requestedModelId": "deepseek-v4-pro",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1375,
+        "wallTimeMs": 4074
+      }
+    }
+  ]
+}
