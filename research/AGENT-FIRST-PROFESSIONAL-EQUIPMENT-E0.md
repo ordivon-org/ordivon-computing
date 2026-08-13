@@ -218,16 +218,20 @@ The first signed Nmap materialization exposed a publication bug: the manifest pr
 
 Status was then hardened further: manifest digest + root existence is insufficient. An equipment root is active only when every declared bin/library/Python-site directory exists and resolves beneath the final published root. An outside/stale locator fails closed as `invalid`.
 
+The first `/root/tools/bin` deployment found a second packaging defect: the script's default contract locator was derived from `__file__`, so relocation from the repository into the managed tool directory changed the default from `/root/workstation-lab/workstation.toml` to the nonexistent `/root/tools/workstation.toml`. The deployed surface was therefore unusable without caller folklore. The default contract is now canonical and deployment-location independent.
+
+The same usability pass added compact `list` and conservative `gc` operations. `list` exposes bounded equipment identity/state/purpose/package-count/environment facts instead of entire package manifests. `gc` removes only recognized roots whose signed/integrity-valid state is genuinely expired; invalid or unrecognized roots are retained for explicit operator/Agent judgment rather than silently deleted.
+
 ### Live acceptance
 
-Signed `security-nmap-e0` and `security-tshark-e0` roots were created under the Workstation isolated-equipment state root. Both report:
+Signed `security-nmap-e0`, `security-tshark-e0`, and `security-mitmproxy-e0` roots were created under the Workstation isolated-equipment state root. They currently project respectively 2-, 5-, and 49-package signed closures and all report:
 
 - `manifestIntegrity=true`;
 - `environmentValid=true`;
 - final, non-staging paths;
 - exact signed package closure.
 
-Nmap replay returns `admission=existing` without reinstalling or mutating global state. Ambient `command -v nmap/tshark` and `pacman -Q nmap/wireshark-cli` remain absent while exact toolroot executables work.
+Nmap replay returns `admission=existing` without reinstalling or mutating global state. Ambient `command -v nmap/tshark` and `pacman -Q nmap/wireshark-cli` remain absent while exact toolroot executables work. The managed `/root/tools/bin/isolated-equipment` bytes are identical to the current Workstation source and can invoke `list`, `status`, `gc`, `materialize`, and `remove` without an explicit contract argument.
 
 ### Important boundary: isolated roots are not universal ABI containers
 
@@ -257,7 +261,7 @@ Tools that depend strongly on host ABI/kernel integration need either normal sys
 | osquery | **reject/defer** | host-coupled isolated trial crashed; existing doctor/status already owns needed semantics |
 | OpenTelemetry/Prometheus/Grafana | reject/defer | prior P6/A0 experiments still show no continuous-telemetry consumer |
 | new quant/database platform | reject | no missing Finance responsibility demonstrated |
-| `isolated-equipment` Workstation utility | **promote candidate** | repeated cross-domain friction, signed fail-closed live dogfood, no package/PATH mutation |
+| `isolated-equipment` Workstation utility | **promoted** | repeated cross-domain friction, signed fail-closed live dogfood, deployed compact discovery/GC surface, no package/PATH mutation |
 
 ## Responsibility model after E0
 
