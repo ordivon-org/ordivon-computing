@@ -125,6 +125,8 @@ The execution-entity, lineage, propagation, organization, control, resilience, a
 
 The expanded Game thesis, comparative source set, experience/infrastructure admission split, and bounded post-alpha falsification program live in [`../studies/2026-agent-native-game-worlds/`](../studies/2026-agent-native-game-worlds/). `ANC-GAME-001` remains the completed Host/Game ownership question; `ANC-GAME-002` is the deferred product-and-world question and must not displace the current Ready Frontier.
 
+- [`../studies/2026-cross-project-convergence/`](../studies/2026-cross-project-convergence/) — completed revision-bound comparison of Computing, Runtime, Host, Harness, World, Security, Finance, Studio, Web, Human, and Game; derives cross-owner convergence laws, a two-timescale self-loop, and a Game negative-knowledge lineage finding without promoting new shared infrastructure.
+
 The one-time [`HISTORICAL-DOCUMENT-AUDIT.md`](HISTORICAL-DOCUMENT-AUDIT.md) records the retain, merge, historical, archive, delete, and rewrite-summary decisions applied to high-impact historical documents. It is audit evidence and does not own portfolio status or architecture.
 
 ## Retrospective research-taste evidence
