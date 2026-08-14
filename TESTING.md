@@ -79,6 +79,14 @@ This is deliberately narrower than a general cross-project gate. Under Core A11 
 
 Revision-vector and System Snapshot capture are deterministic tools, but deciding which exact repositories, services, deployments, and live evidence belong to an experiment remains a bounded research decision.
 
+Before interpreting a cross-project failure, project the exact Git currentness coordinates instead of assuming that a bare `main` is current:
+
+```bash
+python3.12 scripts/foundation_currentness.py --live-runtime
+```
+
+By default the report compares each foundation repository's worktree `HEAD`, local `refs/heads/main`, and the locally observed `refs/remotes/origin/main`. It deliberately does **not** claim that the remote-tracking ref is fresh. Add `--fetch` only when an explicit network refresh is intended. Runtime deployment identity may be added through its owner-native status projection with `--live-runtime`; the tool does not infer deployment truth for Host, Harness, or World from Git state.
+
 ```bash
 python3.12 scripts/ordivon_conformance.py vector \
   --require-all --require-clean \
