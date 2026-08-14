@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.pal-experiment-disposition",
+  "experimentId": "PAL-F15-CROSSDOMAIN-COMPLEMENTARITY-CANDIDATE",
+  "status": "not-admitted-current-world-nonidentifiable",
+  "question": "Does Workstation scoped egress compose non-additively with Finance proxy-aware consumer transport to unlock a read-only OKX capability that neither factor provides alone?",
+  "candidateFactors": {
+    "A": "current Workstation finance-okx scoped HTTPS CONNECT capability",
+    "B": "Finance executor/client support for explicit HTTPS CONNECT transport"
+  },
+  "t0OwnerEvidence": {
+    "financeHead": "8f9c8f468f6e2728877f12d34079851af65cd40f",
+    "financeDirty": false,
+    "financeExecutor": "disabled staging executor is healthy, bound to finance-okx profile digest sha256:c895f13bc16eda4e02c2e1d91b1f22d7c5f168468e17d8c7ff1f8be1e31a0333",
+    "financeOkxEgress": "AVAILABLE, listenerReachable=true, parentHealthOk=true"
+  },
+  "readOnlyReobservation": {
+    "endpoint": "https://openapi.okx.com/api/v5/public/time",
+    "ambient": {"httpStatus":200,"connectSeconds":1.099240,"tlsSeconds":1.555526,"totalSeconds":2.265004},
+    "scopedProxy": {"httpStatus":200,"connectSeconds":0.000448,"tlsSeconds":0.811305,"totalSeconds":1.166352},
+    "financialWrite": false,
+    "credentialRead": false
+  },
+  "reason": "The current world does not expose the proposed non-additive capability boundary: ambient transport already completes the exact read-only owner-relevant endpoint. The scoped path is materially faster in this observation, but a performance delta is not evidence that A+B uniquely creates the capability. Forcing direct failure, disabling ambient networking, or selecting an artificial blocked route merely to obtain Y00=Y10=Y01=0 and Y11=1 would manufacture the interaction.",
+  "decision": "Do not run the four-arm Finance × Workstation complementarity experiment now. Retain F12 as the only clean scoped complementarity result and wait for a naturally route-sensitive or otherwise cross-domain workload whose baseline genuinely lacks the joint outcome.",
+  "reopenConditions": [
+    "a real owner workload is blocked or materially incomplete under ambient/direct transport while a separately available scoped capability exists",
+    "neither/A/B/A+B interventions are feasible without mutating the environment merely to make an arm fail",
+    "the outcome is owner-native and is not definitionally implied by the two interfaces",
+    "all interventions remain read-only or separately authorized for the domain"
+  ],
+  "authorityBoundary": "No Finance or Workstation mutation; no routing change; no financial write; no credential read."
+}

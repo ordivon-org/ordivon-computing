@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.experiment-local-contract",
+  "experimentId": "PAL-F14-PROSPECTIVE-OPTION-PORTFOLIO",
+  "status": "prospective-field-window-open",
+  "mission": "Test capability-retention policies by realized future regret after a frozen t0 cutoff, using real future Ordivon owner work and external/provider changes as the demand oracle rather than hindsight labels.",
+  "questionOrHypothesis": "Does retaining currently low-consumption capability reduce future realized reacquisition/blocking regret enough to justify its carrying cost, and can a bounded policy outperform both keep-only-current and keep-everything without seeing future demand?",
+  "t0Cutoff": "2026-08-14T11:37:44.543+08:00",
+  "evidenceSelection": "Freeze a shadow portfolio from real E0/P2 capability decisions and current read-only Workstation observations. No owner capability is installed or removed for the experiment. Future evidence begins strictly after t0 and must be owner-native or externally observed demand, not retrospective plausibility.",
+  "policies": [
+    {
+      "id": "ACTUAL_T0",
+      "definition": "Shadow the exact t0 E0/P2 disposition/current materialization state. This is the real incumbent policy, not optimized for F14."
+    },
+    {
+      "id": "CURRENT_ONLY",
+      "definition": "Carry a capability only if t0 evidence has a current active/accepted consumer or current live operational profile. Deferred/rejected/no-current-consumer capabilities are treated as absent and reacquired only after a qualifying future demand event."
+    },
+    {
+      "id": "KEEP_ALL_FEASIBLE",
+      "definition": "Shadow-carry every candidate whose t0 evidence does not show an execution-invalid treatment such as the failed osquery ABI root. This is a speculative-retention control; its carrying burden is charged even when no demand arrives."
+    }
+  ],
+  "oracle": "After the window closes, an after-reveal oracle may select the lowest-loss portfolio for the realized demand sequence. It is an evaluation upper bound only and is never visible to t0 policies.",
+  "lossVector": [
+    "carrying bytes/service-currentness/maintenance actually observed during the window",
+    "reacquisition package/download/configuration cost measured only when a missing capability is first demanded",
+    "reacquisition delay measured from admitted demand to usable owner-native capability",
+    "blocked or degraded owner outcome attributable to capability absence",
+    "compatibility/maintenance failure caused by carrying a capability",
+    "lost information/experimentation opportunity attributable to absence"
+  ],
+  "scalarizationBoundary": "Do not create a universal option score. Scalar regret may be computed only for subcases with commensurable units or an owner mandate that supplies an ordering. Otherwise compare policies by Pareto/dominance and explicit tradeoffs.",
+  "qualifyingDemandEvent": "A post-t0 event counts only when an owner-native Task/checkpoint, repository change, retained evidence, or exact command actually uses, attempts to acquire, or is blocked by the named capability; or when an external/provider change creates an owner-recorded requirement for it. Narrative could-have-helped claims do not count.",
+  "observationOwners": ["ordivon-game","ordivon-web","ordivon-security","ordivon-finance","ordivon-workstation","ordivon-computing"],
+  "stopRule": "Close at the earlier of 2026-08-28T11:37:44.543+08:00 or 50 qualifying post-t0 owner events inspected, provided every candidate demand event found has exact source evidence. A mid-window checkpoint may report events but cannot change portfolio cards, policies, demand semantics, or loss definitions.",
+  "invalidityConditions": [
+    "changing a t0 capability card after observing post-t0 demand",
+    "counting a hypothetical benefit without exact consumption/acquisition/blocking evidence",
+    "using F11 labels as the future oracle",
+    "physically retaining/deleting owner capability only to make one policy win",
+    "backfilling reacquisition cost from guesswork instead of measuring it at first real demand",
+    "treating disk bytes alone as total carrying cost",
+    "silently excluding an externally induced demand because it was not initiated by an Ordivon Task"
+  ],
+  "authorityBoundary": "Computing shadow field study only. Workstation/domain owners retain all real equipment/capability authority. F14 cannot install, delete, extend expiry, reroute traffic, or mutate owner policy.",
+  "promotionBoundary": "A positive F14 result may update H-OPTION-VALUE and prospective retention research. It cannot create a generic retention service, global option score, or automatic equipment policy."
+}

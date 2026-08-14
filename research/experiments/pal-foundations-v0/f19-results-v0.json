@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.pal-f19-identity-under-change-analysis",
+  "status": "completed-scoped-positive",
+  "oldRevision": "321ce5c006b6a28a9f44055688e66d0c3b6b8c09",
+  "currentRevision": "6639cf575eb006e8be2864037d9427b9913dd8a3",
+  "oldCreationJob": "job-019ffe61-252d-7b90-ad72-6220f86b1125",
+  "currentReopenResumeJob": "job-019ffe62-db43-7c32-ab77-1637fe3e1786",
+  "run": {
+    "harnessRunId": "harness-run:r3-pal-f19-identity",
+    "oldStatus": "paused",
+    "oldRevisionNumber": 6,
+    "currentFinalStatus": "completed",
+    "currentFinalRevisionNumber": 11,
+    "contractDigest": "sha256:6cd1fbb1ff77c28e8e1a102e809c18a3a9ed0d269431e53508942f9109a6cf20",
+    "contractObjectDigest": "sha256:fe703b894a5e9fb553a4a4a9334dd3e9e1244060856260dd61a5b76f9ddad139",
+    "toolCatalogDigest": "sha256:314bbd649e4527e375d0afaf8aded1457d9f84f6335ad7d64b42a3ee1accf7b3",
+    "toolGrantDigest": "sha256:14360a97e1885668fc0e2b99a31cd7dde85bb6d20fdd1772d394dfb12f24992b",
+    "oldDoctorHealthy": true,
+    "currentDoctorBeforeResumeHealthy": true,
+    "currentDoctorAfterResumeHealthy": true,
+    "resumeStopCode": "candidate_completed",
+    "resumedTurnTools": [],
+    "resumedToolCalls": 0,
+    "resumedTurnNativeActions": ["conclusion"]
+  },
+  "packageVsRun": {
+    "currentInstalledKnowledgeTopologyPresent": true,
+    "currentInstalledToolProgramPresent": true,
+    "oldRunProjectedToolSurface": "harness.execution.no-tool.v1",
+    "oldRunHasToolProgram": false,
+    "resumedTurnHasToolProgram": false,
+    "oldRunHasReusableProcedureAutomaticallySelected": false,
+    "interpretation": "The current implementation knows that new reusable-procedure and ToolProgram mechanisms exist, while the exact old Run remains bound to its old no-Tool authority. Installation did not mutate the old Run's admitted capability."
+  },
+  "gates": {
+    "sameRunId": true,
+    "sameContractDigest": true,
+    "sameToolCatalogDigest": true,
+    "sameToolGrantDigest": true,
+    "oldStateReopenedHealthy": true,
+    "newInstalledMechanismsVisibleAtPackageLevel": true,
+    "noToolProgramInheritedAtRun": true,
+    "noToolProgramInheritedAtTurn": true,
+    "noPhysicalToolsGrantedOnResume": true,
+    "sameRunCompletesAfterUpgrade": true
+  },
+  "countermodelResults": {
+    "RESET_ALL": {
+      "rejectedInThisCase": true,
+      "basis": "Current code reopened and continued the exact old-written durable state; semantic reconstruction or a new Run was unnecessary."
+    },
+    "INHERIT_ALL_INSTALLED": {
+      "rejectedInThisCase": true,
+      "basis": "Current package exposed new P1/P2 mechanisms, but old Run/turn projections retained the exact old no-Tool authority and did not acquire ToolProgram or Tools."
+    },
+    "BYTE_IDENTITY": {
+      "rejectedInThisCase": true,
+      "basis": "Implementation revision changed materially while the same durable Run identity, Contract, admitted capability digests and evidence chain remained usable and healthy."
+    },
+    "INVARIANT_BOUND": {
+      "supportedInThisCase": true,
+      "basis": "Lineage/Run identity, exact Contract/authority and durable evidence survived implementation change; new mechanisms remained available only at the installed layer until separately admitted."
+    }
+  },
+  "firstPrinciplesIdentityModel": {
+    "preserveByDefault": [
+      "durable semantic/work identity",
+      "exact commitments and immutable Contract identity",
+      "already-admitted authority/capability digests",
+      "effect/evidence/uncertainty history",
+      "owner/participant constraints and unresolved obligations"
+    ],
+    "replaceableOrMigratable": [
+      "implementation revision",
+      "model/provider implementation",
+      "storage/projection representation when migration proves equivalence",
+      "new optional capability mechanisms not yet admitted",
+      "planning/optimization method"
+    ],
+    "rule": "Implementation evolution may increase what the system can explicitly admit next, but it must not silently rewrite what an existing durable object already meant, what authority it had, or what uncertain effects occurred."
+  },
+  "claimBoundary": "One real Harness old-revision -> current-revision durable Run migration supports invariant-bound identity over reset-all, inherit-all-installed and byte-sameness in this case. It does not prove all future schema migrations or cross-owner self-modification preserve the same invariants.",
+  "nextFalsifier": "Find a materially different migration where schema/representation or owner responsibility changes, then compare invariant-bound explicit migration against keep-all and reset-all on stale-state carryover, evidence interpretability, authority violations and continuation correctness.",
+  "authorityBoundary": "No Harness product change is authorized."
+}

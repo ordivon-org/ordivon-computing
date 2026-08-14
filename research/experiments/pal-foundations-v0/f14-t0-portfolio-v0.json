@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.pal-f14-t0-shadow-portfolio",
+  "cutoff": "2026-08-14T11:37:44.543+08:00",
+  "truthBoundary": "These are t0 observations/dispositions only. Workstation/owner truth must be re-observed later; this file is intentionally frozen after t0.",
+  "currentReadOnlyEvidence": {
+    "financeOkxEgress": {
+      "profile": "finance-okx",
+      "status": "AVAILABLE",
+      "proxy": "http://127.0.0.1:19083",
+      "listenerReachable": true,
+      "anchor": "surf-clash",
+      "profileDigest": "sha256:c895f13bc16eda4e02c2e1d91b1f22d7c5f168468e17d8c7ff1f8be1e31a0333",
+      "anchorGenerationDigest": "sha256:d9fb43dd7b8fcb1f5ea51494e69c68530f90e836e4d52474082bbf0ab223052a",
+      "serviceActive": true,
+      "parentHealthOk": true
+    },
+    "isolatedEquipment": [
+      {"equipmentId":"security-mitmproxy-e0","active":true,"environmentValid":true,"packageCount":49,"diskBytesObserved":84874677,"expiresAtMs":1786699543747,"manifestDigest":"sha256:f7d046e950458962d02eba302fbc6193316871738160a7441ab60bd1cc7d6630"},
+      {"equipmentId":"security-nmap-e0","active":true,"environmentValid":true,"packageCount":2,"diskBytesObserved":29072716,"expiresAtMs":1786871932730,"manifestDigest":"sha256:a1377318d78f8029c5e8a7563f072ac18e159ed29b1d3e0838023b133761bc9c"},
+      {"equipmentId":"security-tshark-e0","active":true,"environmentValid":true,"packageCount":5,"diskBytesObserved":108005005,"expiresAtMs":1786871958499,"manifestDigest":"sha256:08e642c8cb7b52d144a6e16abf4c9005bfa3d489ec3c330c09d2be6eb170afb8"}
+    ]
+  },
+  "capabilities": [
+    {"id":"scoped-egress-finance-okx","owner":"workstation/finance","t0Disposition":"active-real-capability","t0CurrentConsumer":true,"t0Evidence":"live finance-okx Workstation egress profile AVAILABLE and healthy","actualT0":"carry","currentOnly":"carry","keepAllFeasible":"carry","firstDemandMatcher":"post-t0 owner evidence requiring scoped CONNECT / finance-okx / route-specific OKX access"},
+    {"id":"security-tshark","owner":"security/workstation","t0Disposition":"retain-on-demand-active-root","t0CurrentConsumer":false,"t0Evidence":"E0 earned deterministic PCAP decode; active signed 5-package root; 108005005 bytes observed","actualT0":"carry-until-owner-expiry","currentOnly":"do-not-carry-after-current-purpose","keepAllFeasible":"carry","firstDemandMatcher":"post-t0 owner evidence invoking TShark/wireshark-cli or requiring structured decode of retained PCAP bytes"},
+    {"id":"security-nmap","owner":"security/workstation","t0Disposition":"retain-bounded-on-demand-active-root","t0CurrentConsumer":false,"t0Evidence":"E0 earned bounded local surface observation; active signed 2-package root; 29072716 bytes observed","actualT0":"carry-until-owner-expiry","currentOnly":"do-not-carry-after-current-purpose","keepAllFeasible":"carry","firstDemandMatcher":"post-t0 owner evidence invoking Nmap or requiring independent bounded network-surface observation"},
+    {"id":"security-mitmproxy","owner":"security/workstation","t0Disposition":"conditional-retain-active-root","t0CurrentConsumer":false,"t0Evidence":"E0 local flow record/replay passed; active signed 49-package root; 84874677 bytes observed; deliberately short expiry","actualT0":"carry-until-owner-expiry","currentOnly":"do-not-carry-after-current-purpose","keepAllFeasible":"carry","firstDemandMatcher":"post-t0 authorized fault experiment requiring HTTP flow record/replay, delay, duplication, or programmable transport perturbation"},
+    {"id":"game-strykerjs","owner":"game","t0Disposition":"defer-engine-retain-method","t0CurrentConsumer":false,"t0Evidence":"targeted mutation method found a real blind spot; Stryker acquisition/runtime did not earn permanent cost","actualT0":"do-not-carry","currentOnly":"do-not-carry","keepAllFeasible":"carry-shadow","firstDemandMatcher":"post-t0 owner attempt to provision/use Stryker or repeated mutation campaign explicitly requiring automation beyond manual mutants"},
+    {"id":"web-firefox-webkit","owner":"web","t0Disposition":"defer","t0CurrentConsumer":false,"t0Evidence":"no current compatibility claim; provisioning stalled on external browser supply","actualT0":"do-not-carry","currentOnly":"do-not-carry","keepAllFeasible":"carry-shadow","firstDemandMatcher":"post-t0 owner compatibility claim/failure requiring Firefox or WebKit or explicit attempt to provision them"},
+    {"id":"web-lighthouse","owner":"web","t0Disposition":"defer","t0CurrentConsumer":false,"t0Evidence":"no incremental finding beyond current budget/review gate; npm acquisition unavailable in E0","actualT0":"do-not-carry","currentOnly":"do-not-carry","keepAllFeasible":"carry-shadow","firstDemandMatcher":"post-t0 owner performance/SEO diagnosis explicitly requiring Lighthouse/LHCI or provisioning attempt"},
+    {"id":"security-semgrep","owner":"security","t0Disposition":"defer","t0CurrentConsumer":false,"t0Evidence":"no uncovered SAST class over existing stack; PyPI acquisition unavailable in E0","actualT0":"do-not-carry","currentOnly":"do-not-carry","keepAllFeasible":"carry-shadow","firstDemandMatcher":"post-t0 owner SAST/rule-pack gap explicitly requiring Semgrep or provisioning attempt"},
+    {"id":"finance-hypothesis-py312","owner":"finance","t0Disposition":"retain-method-defer-project-dependency","t0CurrentConsumer":false,"t0Evidence":"property generation useful on 330 cases; pinned Python 3.12 dependency not admitted while supply path unreliable","actualT0":"do-not-carry-project-dependency","currentOnly":"do-not-carry","keepAllFeasible":"carry-shadow","firstDemandMatcher":"post-t0 Finance pinned-Python use/provisioning of Hypothesis or task blocked by absence of property generation in project environment"},
+    {"id":"finance-marimo","owner":"finance","t0Disposition":"defer","t0CurrentConsumer":false,"t0Evidence":"no concrete notebook-reactivity consumer or admitted local supply path","actualT0":"do-not-carry","currentOnly":"do-not-carry","keepAllFeasible":"carry-shadow","firstDemandMatcher":"post-t0 owner task requiring/provisioning Marimo for a concrete workflow"},
+    {"id":"cross-osquery","owner":"workstation/security","t0Disposition":"reject-defer-invalid-isolated-root","t0CurrentConsumer":false,"t0Evidence":"signed 31-package root launched version but real system_info query aborted with allocator error; root removed","actualT0":"do-not-carry","currentOnly":"do-not-carry","keepAllFeasible":"exclude-invalid","firstDemandMatcher":"post-t0 owner evidence requiring osquery plus a newly compatible execution/materialization mode"},
+    {"id":"cross-continuous-telemetry-stack","owner":"computing/workstation","t0Disposition":"reject-defer","t0CurrentConsumer":false,"t0Evidence":"prior experiments show no continuous telemetry consumer","actualT0":"do-not-carry","currentOnly":"do-not-carry","keepAllFeasible":"carry-shadow","firstDemandMatcher":"post-t0 owner task explicitly requiring continuous OpenTelemetry/Prometheus/Grafana-style telemetry rather than bounded existing observations"}
+  ],
+  "frozenPolicies": ["ACTUAL_T0","CURRENT_ONLY","KEEP_ALL_FEASIBLE"],
+  "postT0MutationRule": "Do not edit this file to reflect later reality. Later observations belong in append-only F14 event/checkpoint artifacts."
+}

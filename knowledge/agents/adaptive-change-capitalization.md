@@ -58,7 +58,7 @@ retained learning
 → may help, do nothing, or harm
 ```
 
-Therefore reusable cognition should preserve provenance, scope, falsifiers, and reopen conditions. No generic expiry or revalidation algorithm has yet been earned; when model or task family changes materially, old priors should lose presumptive authority rather than silently becoming current truth.
+Therefore reusable cognition should preserve provenance, scope, mechanism, support conditions, falsifiers, and reopen conditions. F18 adds one scoped natural result: a later owner change should not expire an entire prior merely because its revision or age changed. Instead, identify which support conditions were threatened and retain, narrow, or supersede the affected clauses. No generic TTL, change-point service, or automatic revalidation engine has been earned.
 
 ## 4. Safe responsibility placement is not sufficient reason to externalize
 
@@ -118,6 +118,66 @@ F11 failed to establish a generic option-aware retention rule. Both greedy and o
 
 Useful future experiments should measure carrying cost, reacquisition cost, hidden future workload probability, realized regret, and portfolio diversity rather than treating `retain/delete` as certain at time zero.
 
+## 7. Prior applicability is support-bound, not age-bound
+
+A retained prior is not one indivisible truth token. Its current applicability depends on the mechanism and support conditions that made each clause useful.
+
+A natural Harness change after the earlier rejected recovery-Skill experiment exposed all three possible outcomes at once: some anti-authority clauses remained valid, some became stronger, and one broad negative claim about capability compilation became too coarse after exact reusable procedural cognition and bounded ToolProgram composition were independently demonstrated.
+
+The reusable form is therefore closer to:
+
+```text
+prior
+= claim
++ mechanism
++ support conditions
++ evidence family
++ scope
++ falsifier
++ known negative-transfer boundary
+```
+
+Then a revision, model, provider, task-family, or environment change creates **review pressure** only when it plausibly threatens one of those support conditions.
+
+```text
+changed revision / old age
+        !=
+semantic invalidation
+```
+
+If support is unchanged, retain. If only some support changed, split or narrow. If new decisive evidence contradicts the mechanism, supersede the affected current claim. The historical experiment result itself remains historical evidence rather than being rewritten.
+
+This is a scoped explanation, not a prior engine or expiry daemon.
+
+## 8. Identity under implementation change is invariant-bound
+
+Implementation bytes can change while one durable work object remains the same, but continuity cannot mean inheriting every newly installed mechanism.
+
+F19 created a real paused Harness Run under an older revision and then reopened and completed the exact old-written state with a newer Harness that had acquired reusable procedural cognition and bounded ToolProgram composition. The Run identity, Contract digest, Tool catalog/grant digests, evidence and Doctor health remained exact. The new mechanisms were visible at the package-installed layer but did not silently appear in the old Run or resumed turn authority.
+
+This supports the scoped rule:
+
+```text
+identity continuity
+= explicit lineage
++ preserved commitments
++ preserved admitted authority
++ preserved evidence / uncertainty history
++ explicit migration or re-admission for changed meaning
+```
+
+The implementation revision, model/provider, storage projection, planning method, and newly available optional mechanisms may change. What must not happen silently is reinterpretation of an existing commitment, authority, unresolved effect, or evidence chain merely because the implementation became more capable.
+
+So all three simple identity models are too coarse:
+
+```text
+byte sameness       — too strict
+reset everything    — loses valid continuity
+inherit everything  — silently expands old authority
+```
+
+The current evidence is one Harness migration family. Cross-owner responsibility transfer or semantic schema migration still requires independent replication before any stronger shared invariant is claimed.
+
 ## What remains research-only
 
 These questions are important but are not stable knowledge claims yet:
@@ -126,9 +186,9 @@ These questions are important but are not stable knowledge claims yet:
 - whether explicit independent regulation is necessary to prevent endogenous self-reinforcement;
 - whether selection rather than generation is the dominant current recursive-improvement bottleneck;
 - how broad complementarity/coalition credit behaves outside the scoped Harness durable-correction case;
-- how identity and inherited commitments should behave across genuine self-change;
+- how invariant-bound identity behaves when schema meaning or owner responsibility changes, beyond the current Harness implementation-upgrade case;
 - how a system reliably discovers the next important improvement pressure;
-- how prior expiry/revalidation should work after a natural model/task-family change.
+- whether support-bound prior revalidation transfers to a second materially different model/task/environment shift, and whether any automation is justified.
 
 A negative or unidentifiable result remains evidence. These questions should reopen only when a materially better discriminating experiment exists.
 
@@ -136,9 +196,10 @@ A negative or unidentifiable result remains evidence. These questions should reo
 
 Primary current research artifacts:
 
-- `research/experiments/pal-foundations-v0/hypothesis-map-v2.json`
-- `research/experiments/pal-foundations-v0/knowledge-promotion-audit-v0.json`
-- `research/experiments/pal-foundations-v0/f1-results-v0.json` through `f12-results-v0.json`
-- `research/experiments/pal-foundations-v0/f13-disposition-v0.json`
+- `research/experiments/pal-foundations-v0/hypothesis-map-v3.json`
+- `research/experiments/pal-foundations-v0/knowledge-promotion-audit-v1.json`
+- `research/experiments/pal-foundations-v0/f18-results-v0.json`
+- `research/experiments/pal-foundations-v0/f19-results-v0.json`
+- earlier F1–F13 evidence remains preserved in the same research directory
 
 The page should be revised or narrowed when later prospective evidence contradicts any scoped conclusion. It does not authorize changes in Runtime, Host, Harness, World, Workstation, or domain owners.
