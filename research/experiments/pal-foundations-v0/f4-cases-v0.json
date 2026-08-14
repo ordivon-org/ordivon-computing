@@ -1,0 +1,181 @@
+{
+  "cases": [
+    {
+      "acceptedTestIds": [
+        "T2"
+      ],
+      "caseId": "web-chromium-launch",
+      "causeOptions": {
+        "A": "RTNL/netlink deadlock",
+        "B": "missing Chromium shared-library dependency",
+        "C": "Unix-domain-socket/profile path length overflow in Chromium process singleton",
+        "D": "DNS/proxy failure",
+        "E": "stale Playwright browser binary",
+        "F": "GPU process crash",
+        "G": "Workspace file permission denial",
+        "H": "TCP port collision"
+      },
+      "oracleCauseId": "C",
+      "packet": "A Playwright Chromium launch fails before page navigation inside a long Runtime Workspace path. Earlier suspicion focused on a Linux networking lock, but ip link, ip addr, ip route and ss all return immediately with no observed RTNL waiters. The same browser build can launch when its temporary/profile path is materially shorter. The direct Web runner imports Playwright before its later temporary-directory normalization step.",
+      "split": "development",
+      "testOptions": {
+        "T1": "repeat ip/ss networking probes while launch is hung",
+        "T2": "force a short TMPDIR/profile root before Playwright import and rerun exact launch",
+        "T3": "change DNS resolver and proxy",
+        "T4": "reinstall browser dependencies",
+        "T5": "disable GPU only",
+        "T6": "change page URL",
+        "T7": "chmod the source tree",
+        "T8": "randomize local TCP port"
+      }
+    },
+    {
+      "acceptedTestIds": [
+        "T2"
+      ],
+      "caseId": "finance-okx-egress",
+      "causeOptions": {
+        "A": "DNS poisoning alone",
+        "B": "bad OKX API key",
+        "C": "destination/SNI-sensitive egress path filtering or incompatibility",
+        "D": "expired local TLS trust store",
+        "E": "deprecated OKX REST endpoint",
+        "F": "HTTP proxy authentication failure",
+        "G": "OKX account rate limit",
+        "H": "local clock skew"
+      },
+      "oracleCauseId": "C",
+      "packet": "Two scoped HTTPS CONNECT sidecars are healthy for example.com. Ambient DNS for the OKX API resolves to an obviously invalid/link-local destination. Bypassing DNS with a known Cloudflare address still yields EOF when TLS SNI is openapi.okx.com, while the same address with example.com SNI succeeds. A materially different VPN root can GET the official OKX public-time endpoint with HTTP 200/code=0. No API credential is required for this public probe.",
+      "split": "development",
+      "testOptions": {
+        "T1": "only replace DNS and keep the same egress",
+        "T2": "compare the same destination IP under OKX versus control SNI and then repeat OKX over an independent egress root",
+        "T3": "rotate API key",
+        "T4": "change system clock",
+        "T5": "retry after rate-limit sleep",
+        "T6": "disable certificate verification",
+        "T7": "switch REST path only",
+        "T8": "add proxy credentials"
+      }
+    },
+    {
+      "acceptedTestIds": [
+        "T2"
+      ],
+      "caseId": "host-optional-mcp-tests",
+      "causeOptions": {
+        "A": "PAL research evidence regressed Host code",
+        "B": "optional MCP dependency extra was not installed for this test invocation",
+        "C": "Python interpreter version incompatibility",
+        "D": "stale bytecode cache",
+        "E": "corrupted Git worktree",
+        "F": "network outage during test",
+        "G": "import cycle introduced in Host core",
+        "H": "wrong test working directory"
+      },
+      "oracleCauseId": "B",
+      "packet": "A Host tree containing only new research evidence runs 232 unit tests. Exactly one test module fails to import with ModuleNotFoundError: mcp; the same failure reproduces on a clean current-main control. Host documentation/package metadata marks MCP support as an optional extra. Product source is otherwise unchanged.",
+      "split": "development",
+      "testOptions": {
+        "T1": "rerun after deleting research evidence",
+        "T2": "run the same suite with the package MCP optional extra enabled",
+        "T3": "clear __pycache__ only",
+        "T4": "change network route",
+        "T5": "reclone repository",
+        "T6": "skip the failing module",
+        "T7": "change cwd only",
+        "T8": "downgrade Python blindly"
+      }
+    },
+    {
+      "acceptedTestIds": [
+        "T1"
+      ],
+      "caseId": "p4-empty-provider-content",
+      "causeOptions": {
+        "A": "network transport timeout",
+        "B": "credential rejected",
+        "C": "reasoning/thinking consumed the small completion budget before final JSON content",
+        "D": "wrong API hostname",
+        "E": "rate limit",
+        "F": "JSON parser cannot parse valid content",
+        "G": "case history exceeds HTTP body limit",
+        "H": "concurrent file write corruption"
+      },
+      "oracleCauseId": "C",
+      "packet": "A bounded DeepSeek evidence-computation campaign receives HTTP response envelopes, but most logical trials produce empty or truncated message.content that cannot be parsed as the requested small JSON object. The request allows only 220 output tokens. The same provider family is known to support an internal reasoning/thinking mode. There is no evidence of socket timeout or authentication rejection.",
+      "split": "holdout",
+      "testOptions": {
+        "T1": "disable thinking/reasoning and increase final-output budget while keeping fixtures/evaluator unchanged",
+        "T2": "rotate credential only",
+        "T3": "change network route only",
+        "T4": "replace JSON parser",
+        "T5": "halve case count",
+        "T6": "retry same request unchanged",
+        "T7": "change API hostname",
+        "T8": "serialize file writes"
+      }
+    },
+    {
+      "acceptedTestIds": [
+        "T1"
+      ],
+      "caseId": "p4-false-acceptance-gate",
+      "causeOptions": {
+        "A": "deterministic reducer arithmetic is wrong",
+        "B": "acceptance logic fails to require sufficient/all valid logical samples before comparing correctness",
+        "C": "provider network is slow",
+        "D": "hidden oracle leaked into treatment",
+        "E": "wrong Git revision",
+        "F": "sample treatment order is imbalanced",
+        "G": "JSON sorting changed counts",
+        "H": "token price accounting bug"
+      },
+      "oracleCauseId": "B",
+      "packet": "A preliminary experiment summary has raw-history valid=0/correct=0 and derived-projection valid=1/correct=1. The script labels the treatment accepted because derived correct > raw correct and accuracy among valid treatment results is 1.0, even though almost every logical trial in both arms is invalid. The reducer one valid projection is not known to be wrong.",
+      "split": "holdout",
+      "testOptions": {
+        "T1": "require predeclared validity coverage for both arms before any scientific acceptance and rerun unchanged evaluator",
+        "T2": "rewrite reducer arithmetic",
+        "T3": "increase network timeout only",
+        "T4": "shuffle treatment order",
+        "T5": "change Git branch",
+        "T6": "remove hidden expected values from evaluator",
+        "T7": "sort JSON differently",
+        "T8": "ignore invalid trials"
+      }
+    },
+    {
+      "acceptedTestIds": [
+        "T1"
+      ],
+      "caseId": "runtime-connector-19-vs-22",
+      "causeOptions": {
+        "A": "Runtime owner forgot to implement the three tools",
+        "B": "stale consumer connector registration/publication catalog",
+        "C": "deployed Runtime release is older than source",
+        "D": "Bearer authentication blocks only those methods",
+        "E": "all three tool schemas are invalid",
+        "F": "Runtime service is crash-looping",
+        "G": "network path truncates MCP responses",
+        "H": "global 19-tool hard cap in Runtime"
+      },
+      "oracleCauseId": "B",
+      "packet": "The deployed Runtime service is healthy, reports modern protocol, zero restarts, exact artifact digests and toolCount=22 with a stable catalog digest. A ChatGPT connector in an already-open conversation exposes only 19 tools, omitting exactly runtime.describe, release.get and release.apply. Other Runtime tools work through the connector.",
+      "split": "holdout",
+      "testOptions": {
+        "T1": "refresh/re-register the ChatGPT connector against the already-live Runtime catalog and compare discovered tool names",
+        "T2": "rewrite Runtime tool implementations",
+        "T3": "restart service repeatedly",
+        "T4": "rotate Bearer secret",
+        "T5": "reduce tool schemas",
+        "T6": "change network egress",
+        "T7": "deploy an older release",
+        "T8": "delete three other tools"
+      }
+    }
+  ],
+  "kind": "ordivon.computing.pal-f4-diagnosis-cases",
+  "schemaVersion": 1,
+  "status": "frozen-before-live-provider-call"
+}

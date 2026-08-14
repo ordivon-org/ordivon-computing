@@ -1,0 +1,2002 @@
+{
+  "caseDigest": "sha256:bba11ddfa2c1f0573672bfd5ae82b2bda141c869054b707b13a647fc21ddc5f0",
+  "kind": "ordivon.computing.pal-f8a-provider-campaign",
+  "model": "deepseek-v4-flash",
+  "replicas": 2,
+  "rows": [
+    {
+      "caseId": "web-chromium-launch",
+      "diagnosisCorrect": true,
+      "elapsedMs": 8841,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:55c69b8f984b0156633d71751384243206815566ff8e38169af3ca75970d616a",
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "The root cause is a Linux networking lock/RTNL deadlock, but ip/addr/route/ss all return immediately with no RTNL waiters and, more decisively, the same browser build launches successfully with a shorter path, which no networking-lock theory explains."
+        ],
+        "diagnosis": "A Unix-domain socket path length limit (sun_path buffer, typically 108 bytes on Linux) is exceeded because Chromium/Playwright places its DevTools/protocol or process-communication sockets inside the very long Runtime Workspace temporary/profile path. When the path is materially shorter, the sockets fit within the kernel's sockaddr_un.sun_path limit and launch succeeds.",
+        "discriminatingTest": "Inspect the base-64-encoded error from the Playwright/Chromium launch failure and confirm it contains a message like 'Failed to create ... socket' or a truncated/too-long path near the 108-byte boundary, or run Chromium under the long path with strace and observe a socket()/bind()/connect() call that fails with ENAMETOOLONG for a path under the workspace; contrast with the short-path run which shows no ENAMETOOLONG.",
+        "reason": "The incident is strictly path-length dependent (fails only under the long Runtime Workspace path, succeeds with a materially shorter temp/profile path). A networking lock would not depend on the length of the browser's temporary/profile path, and the direct evidence (immediate returns, no RTNL waiters) already ruled that out. Chromium/Playwright routinely create Unix-domain sockets under the user-data/temp directory for IPC and DevTools, and the classic Linux failure for long sockets paths is the 108-byte sun_path limit producing ENAMETOOLONG at socket creation, which blocks browser launch before any page navigation. The mention that the direct Web runner imports Playwright before a later temporary-directory normalization step explains why the runner itself hits the long un-normalized path while later normalization would have shortened it: the premature import forces Chromium to use the container's already-long working/temp path. This fits all observations and is distinguishable by demonstrating an ENAMETOOLONG socket syscall on the long path that disappears on the short path."
+      },
+      "runId": "harness-run:pal-f8a:web-chromium-launch:direct:deepseek-v4-flash:1:1786645564893",
+      "split": "development",
+      "stopCode": "candidate_completed",
+      "testCorrect": false,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 639,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 383,
+            "prompt_tokens": 895,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1534
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1534,
+        "wallTimeMs": 8716
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "web-chromium-launch",
+      "diagnosisCorrect": false,
+      "elapsedMs": 12419,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 0,
+      "receiptDigest": "sha256:dbdd949b84d41cbfdf8b24f1fddc82193dab27426c24f2fcc9cfdb6931c735a4",
+      "replica": 1,
+      "result": null,
+      "runId": "harness-run:pal-f8a:web-chromium-launch:variation:deepseek-v4-flash:1:1786645573871",
+      "split": "development",
+      "stopCode": "invalid_model_output",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [],
+        "modelCalls": 0,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 0,
+        "wallTimeMs": 12330
+      },
+      "valid": false,
+      "variationCompliant": false
+    },
+    {
+      "caseId": "web-chromium-launch",
+      "diagnosisCorrect": true,
+      "elapsedMs": 11975,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:091fae4e33cc34f5c5d6b30ac20ddeaa4144fe2a3f8bc3637c88cd077b94591b",
+      "replica": 2,
+      "result": {
+        "consideredAlternatives": [
+          "AF_UNIX socket path length limit: Chromium/DevTools or Playwright's process/session communication uses a Unix-domain socket path derived from the user-data-dir/temp path; in the long runtime workspace path the socket name exceeds the 108-byte sockaddr_un limit, so bind/connect fail before navigation. This matches short-path-success and all network tools returning fine.",
+          "RTNL/netlink lock or other kernel netlink deadlock: the original lead; a genuine RTNL contention or netlink-related stall blocks Chromium's network stack during startup. Rejected because ip link/addr/route/ss complete immediately with no RTNL waiters, and this would not be path-length dependent.",
+          "Executable/environment-length failure: the aggregated environment variables plus long workspace path exceed the execve() ARG_MAX/MAX_ARG_STRLEN limit, so Chromium's process fails to spawn (ENAMETOOLONG or exec failure), not something a shorter temp path would legitimately fix since the workspace path is unchanged.",
+          "Mount permission / noexec or missing dependencies resolution based on the workspace path: the long path changes symlink resolution of node_modules or Chromium's relative dependency paths so an ELF/dependency (library or chrome binary) cannot be resolved per mission during launch."
+        ],
+        "diagnosis": "The Chromium launch fails because the socket path / Unix domain socket used by Chromium's DevTools / process communication exceeds the 108-byte (struct sockaddr_un) path length limit. Chromium/Playwright creates an internal DevTools pipe or socket keyed off the user-data-dir path. Inside a long Runtime Workspace path, the resolved Unix socket path exceeds the kernel limit, causing binds/connects to fail (EINVAL/ENAMETOOLONG) before page navigation. This is distinct from the initially suspected RTNL/netlink lock, and it is consistent with the observation that ip/ip route/ss (netlink-based tools) return immediately with no RTNL waiters. It also explains why the same browser build launches when the temporary/profile path is materially shorter — shortening the path brings the generated socket path under the 108-byte kernel cap.",
+        "discriminatingTest": "Run the launch with `strace -f -e trace=bind,connect,socket` (or `ltrace`) while using the original long Workspace path. If the diagnosis is correct, the trace will show a call to bind()/connect() on an AF_UNIX socket whose address string length (strlen of sun_path including leading abstract prefix if present, plus null terminator) is >= 108 bytes, returning EINVAL/ENAMETOOLONG, before Chromium exits. Under the alternatives, the failure would instead occur in the fetch of the browser executable, in a workspace-mount permission/exec, or in the DNS/network configuration layers, and the trace would show no sockaddr_un over-length failure at that point.",
+        "reason": "The strongest signal is the strict path-length dependence: the identical browser build launches with a materially shorter temporary/profile path but fails in a long Runtime Workspace path. Only the AF_UNIX socket-length mechanism is directly and monotonically governed by own path length in a way that (a) is independent of the network stack (so ip/ss/route staying fast is fully consistent) and (b) fails before page navigation. The strace bind/connect test cleanly separates this from the RTNL/mount/exec/dependency alternatives."
+      },
+      "runId": "harness-run:pal-f8a:web-chromium-launch:variation:deepseek-v4-flash:2:1786645586418",
+      "split": "development",
+      "stopCode": "candidate_completed",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 890,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 4,
+            "prompt_tokens": 900,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1790
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1790,
+        "wallTimeMs": 11858
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "web-chromium-launch",
+      "diagnosisCorrect": false,
+      "elapsedMs": 12040,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 0,
+      "receiptDigest": "sha256:2acd60bee26ae04ca2db00eb742dbf7f7ced2be55ed6e705c6e3af662df95114",
+      "replica": 2,
+      "result": null,
+      "runId": "harness-run:pal-f8a:web-chromium-launch:direct:deepseek-v4-flash:2:1786645598535",
+      "split": "development",
+      "stopCode": "invalid_model_output",
+      "testCorrect": false,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [],
+        "modelCalls": 0,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 0,
+        "wallTimeMs": 11942
+      },
+      "valid": false,
+      "variationCompliant": false
+    },
+    {
+      "caseId": "finance-okx-egress",
+      "diagnosisCorrect": true,
+      "elapsedMs": 7471,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:9e7d93fbdf6b0d51f14e8feefc0be712e26ed46dfda757a5d0a5800d15b487b9",
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "SNI-based egress filtering/dropping by a middlebox or policy enforcement proxy that resets ClientHello carrying disallowed SNI openapi.okx.com"
+        ],
+        "diagnosis": "The environment is subject to SNI-based egress filtering/blocking: a middlebox or policy layer inspects the TLS ClientHello SNI field and drops/resets connections whose SNI is not on an allowlist. The correct IP (Cloudflare) works with example.com SNI but yields EOF specifically when the SNI is openapi.okx.com, demonstrating SNI-dependent blocking rather than an IP/route/TLS-layer failure. The alternate VPN path bypassing the policy enforcement shows the same API is reachable and functional end-to-end, ruling out server-side or Cloudflare-side issues.",
+        "discriminatingTest": "From the same sidecar/network, send a raw TLS ClientHello to the known-good Cloudflare IP but with SNI set to openapi.okx.com while keeping the CONNECT target host header as the legitimate hostname (or vice versa): if the connection with openapi.okx.com SNI is reset/EOF while the identical TCP path with example.com SNI succeeds, SNI inspection is confirmed. Compare this against connecting to a non-Cloudflare public IP that fronts the OKX API to see if the same SNI-triggered cutoff reproduces at the network edge.",
+        "reason": "Ambient DNS poisoned to link-local destination plus EOF only when SNI=openapi.okx.com while same IP with example.com SNI succeeds points to policy-controlled SNI inspection, not DNS, routing, TLS version, or upstream API outage (a materially different VPN root reaches the same official API with HTTP 200/code=0). The sharp SNI-conditional success/failure on an otherwise identical TCP connection is the discriminating signature."
+      },
+      "runId": "harness-run:pal-f8a:finance-okx-egress:direct:deepseek-v4-flash:1:1786645610705",
+      "split": "development",
+      "stopCode": "candidate_completed",
+      "testCorrect": false,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 537,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 146,
+            "prompt_tokens": 914,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1451
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1451,
+        "wallTimeMs": 7354
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "finance-okx-egress",
+      "diagnosisCorrect": true,
+      "elapsedMs": 10084,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "DNS poisoning at the resolver: ambient records hijacked to link-local; but this fails to explain why pinned Cloudflare IP with correct SNI still EOFs.",
+          "Local sidecar/proxy misconfiguration for the openapi.okx.com CONNECT route (misrouting to an invalid upstream); but healthy healthchecks and example.com success through the same path argue against it.",
+          "TLS version/cipher incompatibility unique to the OKX server (e.g., unsupported handshake), which would fail only for that SNI.",
+          "Client-side HSTS/certificate pinning cache causing a handshake abort for the OKX hostname only."
+        ],
+        "diagnosis": "The environmental constraints show DNS poisoning/SINKHOLE plus a TLS-SNI-specific block (EOF on openapi.okx.com SNI while example.com SNI succeeds) consistent with an on-path middlebox/L7 filter or MITM that terminates the handshake for the target domain regardless of IP pinning. This is a regional/ISP-level SNI-based TLS interception or GFW-style reset, not a local DNS-only problem, because bypassing DNS with Cloudflare IP still fails for the OKX SNI.",
+        "discriminatingTest": "Connect to the same pinned Cloudflare IP using SNI openapi.okx.com but with TLS ClientHello altered (e.g., ECH / encrypted ClientHello, or use a CONNECT tunnel to a second unaffected proxy that forwards to openapi.okx.com). If EOF persists only when the SNI plaintext is visible but succeeds when the SNI is encrypted/proxied, this confirms an on-path SNI-inspecting filter and eliminates local DNS and sidecar misconfiguration.",
+        "reason": "The evidence isolates the failure to SNI value plus destination IP independently: DNS bypass does not help, and a different VPN root succeeds. The most parsimonious cause is an on-path middlebox inspecting the plaintext SNI and dropping the handshake for the target domain."
+      },
+      "runId": "harness-run:pal-f8a:finance-okx-egress:variation:deepseek-v4-flash:1:1786645618304",
+      "split": "development",
+      "stopCode": "needs_input",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 572,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 279,
+            "prompt_tokens": 919,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1491
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1491,
+        "wallTimeMs": 10039
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "finance-okx-egress",
+      "diagnosisCorrect": false,
+      "elapsedMs": 8997,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replica": 2,
+      "result": {
+        "consideredAlternatives": [
+          "TLS/SNI-dependent routing at a shared middlebox (e.g., Cloudflare edge or upstream proxy) applying distinct routing/policies to openapi.okx.com vs example.com, producing EOF on the former while the latter succeeds.",
+          "The Cloudflare address used is not actually an authoritative/valid edge for openapi.okx.com (e.g., a region/colo or stale/poisoned anycast mapping causing the origin to terminate the TLS handshake, while example.com coincidentally succeeds via a different route/origin).",
+          "Server-side application-layer rejection: openapi.okx.com endpoint actively closes connections (EOF) for this client's IP/network/TLS fingerprint or geo-source, while example.com is freely served, and the VPN GET success indicates network egress path matters.",
+          "TLS client-parsing/verification failure (e.g., certificate chain, SNI/ALPN mismatch, or missing intermediate) causing a local EOF for openapi.okx.com while example.com's chain validates fine, independent of the network path."
+        ],
+        "diagnosis": "Insufficient bounded evidence is available to definitively discriminate among the plausible causal mechanisms for this incident.",
+        "discriminatingTest": "No discriminating test can be fully executed within this harness because key inputs (e.g., whether the Cloudflare address used is actually a working anycast/edge IP for openapi.okx.com, whether SNI-based routing at that Cloudflare edge differentiates openapi.okx.com from example.com, the TLS validation error type, and DNS response sources) are not observable here.",
+        "reason": "The available evidence describes observed symptoms (healthy CONNECT sidecars, poisoned DNS, EOF with openapi.okx.com SNI at a Cloudflare address, HTTP 200 from a different VPN) but does not expose the TLS error bytes, the actual Cloudflare IP used, the region/edge, DNS source, or egress-path details. Without those, selecting one mechanism as authoritatively correct would be an unsupported guess, and the required discriminating test cannot be executed with the given observations."
+      },
+      "runId": "harness-run:pal-f8a:finance-okx-egress:variation:deepseek-v4-flash:2:1786645628519",
+      "split": "development",
+      "stopCode": "needs_input",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 650,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 23,
+            "prompt_tokens": 919,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1569
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1569,
+        "wallTimeMs": 8952
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "finance-okx-egress",
+      "diagnosisCorrect": true,
+      "elapsedMs": 8381,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:b0384dd2d78e073dc32b57262aaa577866107ece499c38be6e1c3604cf474121",
+      "replica": 2,
+      "result": {
+        "consideredAlternatives": [
+          "The official diagnosis: SNI-based destination filtering of openapi.okx.com at the scoped egress (DNS-polluted ambient resolution plus TLS-SNI reset on the direct path, while alternate VPN root bypasses it)."
+        ],
+        "diagnosis": "The TLS SNI (Server Name Indication) value openapi.okx.com is being actively blocked/reset by an egress interceptor (middlebox/DNS-pollution/firewall) while the same IP with example.com SNI passes through, evidenced by the symmetric contrast: same Cloudflare IP + example.com SNI succeeds, same IP + openapi.okx.com SNI yields EOF, and a different VPN root successfully reaches the public OKX endpoint. This indicates SNI-based (or destination-hostname-based) filtering of the OKX API domain at the network egress, not a cloud-host or service-side failure.",
+        "discriminatingTest": "From the same scoped sidecar, connect to the same Cloudflare IP with SNI openapi.okx.com but route via the materially-different VPN root (or a TLS-in-TLS tunnel) that already succeeded for the HTTP GET; if this succeeds while the direct scoped path fails, the blocking is confirmed to be at the scoped path's SNI inspection layer rather than at OKX's server or Cloudflare edge.",
+        "reason": "The evidence isolates the failure to an SNI-sensitive filter. Ambient DNS resolving yes to a link-local/invalid address indicates DNS poisoning specific to that hostname. Bypassing DNS with a known Cloudflare IP still EOFs only when SNI=openapi.okx.com but succeeds with SNI=example.com, proving the discriminator is the hostname in TLS, not the IP. A differently-rooted VPN obtaining HTTP 200/code=0 from the official OKX public-time endpoint proves the server/API is up and accessible from another network path. Together these point to egress-side SNI-based filtering/DNS pollution of openapi.okx.com on the scoped path."
+      },
+      "runId": "harness-run:pal-f8a:finance-okx-egress:direct:deepseek-v4-flash:2:1786645637646",
+      "split": "development",
+      "stopCode": "candidate_completed",
+      "testCorrect": true,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 573,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 18,
+            "prompt_tokens": 914,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1487
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1487,
+        "wallTimeMs": 8258
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "host-optional-mcp-tests",
+      "diagnosisCorrect": true,
+      "elapsedMs": 6606,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "The mcp optional dependency is missing from the package metadata used to install dependencies for the test host."
+        ],
+        "diagnosis": "The failing test module unconditionally imports the `mcp` package at module top level without guarding it behind the optional-extra check, so the import error occurs whenever the `mcp` extra is not installed.",
+        "discriminatingTest": "In a clean environment with the `mcp` extra installed, verify the module imports successfully; and inspect the failing module's top-level import statement to confirm it does not use a try/except or fixture-based skip for missing optional dependencies.",
+        "reason": "The incident states the Host contains only new research evidence and reproduces on clean current-main control, with product source otherwise unchanged and package metadata marking MCP as an optional extra. Since the failure reproduces on clean current-main (not something environmental or introduced by the new evidence), the failure is inherent to current-main test code. The most plausible root cause is that the failing test module imports `mcp` unconditionally, while production code correctly treats it as optional. On both the pre-resolution host and clean current-main control, the optional extra is not installed, so the unconditional import raises ModuleNotFoundError. The distinguishing test is to install the optional mcp extra and see if the module imports cleanly, plus inspect the test module to confirm the import lacks an optional-dependency guard."
+      },
+      "runId": "harness-run:pal-f8a:host-optional-mcp-tests:direct:deepseek-v4-flash:1:1786645646162",
+      "split": "development",
+      "stopCode": "needs_input",
+      "testCorrect": true,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 434,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 108,
+            "prompt_tokens": 876,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1310
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1310,
+        "wallTimeMs": 6560
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "host-optional-mcp-tests",
+      "diagnosisCorrect": true,
+      "elapsedMs": 8725,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "A packaging/metadata error: The 'mcp' extra is declared in project metadata but the dependency listing (e.g. in setup.py/pyproject.toml) incorrectly omits or misspells the 'mcp' package name, so even installing the extra doesn't provide the module.",
+          "A stale or corrupted installed environment: The Host's site-packages has a broken/partial 'mcp' installation (e.g., from an interrupted install or an incompatible version), causing ModuleNotFoundError despite the package nominally present.",
+          "An unpinned transitive dependency mismatch: The 'mcp' package depends on something (e.g., another library) whose incompatible/missing version causes Python to fail resolving/importing the mcp module even though mcp itself is installed.",
+          "A test isolation/config issue: The single failing test module imports mcp at module load time (module-level import) without a skip-guard, so merely running that module in a fresh interpreter where the optional extra isn't enabled causes the failure — not a code change but a missing optional environment toggle."
+        ],
+        "diagnosis": "The mcp module import failure is caused by the optional 'mcp' extra (MCP protocol support for Model Context Protocol) not being installed in the test environment. Since MCP support is an optional extra, the one test module that imports mcp requires that extra to be present, but the test run environment (both the Host and the clean current-main control) lacks the optional dependency. An unpinned or missing optional extra in the host's runtime or a test module that unconditionally imports the optional module (rather than guarding it) is the root cause.",
+        "discriminatingTest": "Run: pip install -e '.[mcp]' (or pip install mcp) then re-run the 232 unit tests. If the failing module now imports successfully, the cause is the missing optional extra dependency in the test environment rather than product source changes (which are confirmed unchanged).",
+        "reason": "Given the Host contains only new research evidence (no product source changes) and Host metadata marks MCP as an optional extra, the most parsimonious cause is that the test environment lacks the optional 'mcp' dependency. This reproduces identically on a clean current-main control because both environments were provisioned without enabling the optional extra. The discriminating install-extra test cleanly separates this from packaging-metadata bugs and stale-environment corruption."
+      },
+      "runId": "harness-run:pal-f8a:host-optional-mcp-tests:variation:deepseek-v4-flash:1:1786645652905",
+      "split": "development",
+      "stopCode": "needs_input",
+      "testCorrect": true,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 680,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 113,
+            "prompt_tokens": 881,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1561
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1561,
+        "wallTimeMs": 8680
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "host-optional-mcp-tests",
+      "diagnosisCorrect": true,
+      "elapsedMs": 8283,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replica": 2,
+      "result": {
+        "consideredAlternatives": [
+          "The mcp package is genuinely broken/removed on current-main, so even a properly guarded optional install would fail — test would be to pip-install mcp in a clean env and rerun to see if it passes.",
+          "The Host's Python PATH/sys.path is misconfigured such that a coincidentally named `mcp` module (e.g., multiple namespace package shadowing) shadows the real one — test by inspecting `python -c 'import mcp; print(mcp.__file__)'` in the test env.",
+          "The test module was newly added with the 'new research evidence' commit and unconditionally requires mcp, which the Host's optional-extra metadata does not declare as an install requirement for its test extra — test by reading the test module's header for imports.",
+          "A version conflict/typo in the dependency resolution caused mcp to be installed at a version lacking the required submodule — test by pinning and verifying the installed mcp version and imports of what the module needs."
+        ],
+        "diagnosis": "The incident is a test-environment/import-path configuration mismatch: the MCP (Model Context Protocol) integration is an optional extra, and its import is unconditionally triggered by a test module that attempts to import mcp at collection time. The failing module is not guarded by an importorskip/optional-extra check, so when the test environment lacks the optional mcp dependency, the module fails to import and the entire unit-test run for that module errors out.",
+        "discriminatingTest": "Check whether the failing test module performs a bare `import mcp` at module scope versus a guarded import (e.g., `pytest.importorskip('mcp')` or a try/except within an optional-extra check). If it is unguarded, the fix is to add importorskip, confirming the diagnosis.",
+        "reason": "Key discriminating facts: exactly one module fails, the failure reproduces on clean current-main control, Host metadata marks MCP as optional extra, and product source is unchanged. This strongly indicates the test module itself unconditionally imports an optional dependency that is not installed (nor required) in the test environment. The clean control rules out Host-local corruption or product-source changes, leaving a test-collection-time unguarded optional import as the most parsimonious diagnosis."
+      },
+      "runId": "harness-run:pal-f8a:host-optional-mcp-tests:variation:deepseek-v4-flash:2:1786645661763",
+      "split": "development",
+      "stopCode": "needs_input",
+      "testCorrect": true,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 629,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 113,
+            "prompt_tokens": 881,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1510
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1510,
+        "wallTimeMs": 8239
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "host-optional-mcp-tests",
+      "diagnosisCorrect": true,
+      "elapsedMs": 7233,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:345ed30e8c3677985b6e38c4d8abbd5908856c8347ad10a718e50a3bc318d59c",
+      "replica": 2,
+      "result": {
+        "consideredAlternatives": [
+          "The failing test module imports mcp unconditionally while mcp is only an optional extra, so the failure is a test-side import defect independent of product source changes."
+        ],
+        "diagnosis": "The unit test suite itself unconditionally imports mcp (directly or transitively) in one test module, rather than guarding that import behind the optional 'mcp' extra. Host documentation marks MCP as optional, meaning the base install does not include mcp, so the test collector raises ModuleNotFoundError at import time. This is a test-harness/dependency-declaration defect, not a product-source regression.",
+        "discriminatingTest": "Inspect the failing test module's import statements: if it contains a bare top-level 'import mcp' or 'from mcp import ...' without a conditional skip when importlib.util.find_spec('mcp') is None (or without pytest.importorskip('mcp')), then the diagnosis is confirmed, since reinstalling the same product source under a clean venv with only the base extra and running the 232 tests would reproduce the same single import failure.",
+        "reason": "The evidence indicates: (1) the Host tree contains only new research evidence, with product source otherwise unchanged; (2) exactly one test module fails to import; (3) the failure reproduces on clean current-main control; (4) MCP support is documented as an optional extra. Reproducing on clean current-main — where product source is the known-good version — rules out a product-side regression and points to the test module's own dependency being undeclared for the base environment. Since mcp is optional, the base test environment does not install it, so an unconditional import in the single failing module is the direct cause. This is a packaging/test-definition bug in the repository, not a runtime product failure."
+      },
+      "runId": "harness-run:pal-f8a:host-optional-mcp-tests:direct:deepseek-v4-flash:2:1786645670183",
+      "split": "development",
+      "stopCode": "candidate_completed",
+      "testCorrect": true,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 530,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 108,
+            "prompt_tokens": 876,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1406
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1406,
+        "wallTimeMs": 7107
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "harness-token-normalization",
+      "diagnosisCorrect": false,
+      "elapsedMs": 7611,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:febb9f253f235a51c0f6931a11863a43158133c6298b49e5fca9c54f739c98ae",
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "The Run-level aggregate reports totalTokens=0 because an aggregation query/reduce step failed to include or sum the two retained provider usage records despite them being present."
+        ],
+        "diagnosis": "The Run-level aggregate independently recomputes totalTokens from a separate numeric field (e.g., the Run's own token ledger) rather than summing the retained per-provider usage records; that Run-level field was never populated (left at its zero default) by the component responsible for writing the aggregate, so the aggregate reports 0 even though the two provider usage records carry correct positive token counts. Provider calls, receipts, and semantic completion are normal because those paths write correctly to the per-record usage objects, while the Run-level aggregate is derived from a different, uninitialized source.",
+        "discriminatingTest": "Inspect the Run aggregate's token field sources: check whether run.totalTokens has a distinct backing field/value separate from summing usage_records[].inputTokens+outputTokens. Query the raw stored aggregate (e.g., database row or JSON) and compare the value of the Run-level token field directly against the sum of the two provider records. If the stored Run-level field is an explicit 0 or null (not a computed sum), while each provider record holds positive tokens, that confirms the aggregate is populated from an independent source that was never written, rather than being recomputed from the (correct) usage records.",
+        "reason": "The incident evidence states provider calls, receipts, and semantic completion are normal, no usage record is missing, and each of the two records has positive input/output tokens, yet the Run-level aggregate is exactly 0. This exact-zero mismatch despite all underlying records being present and correct strongly indicates that the aggregate is not computed from the retained records at all; rather it reads an independent scalar field that was left at its zero default. A missing-records or failed-summation explanation is contradicted by the explicit statement that both records are retained with positive values, making an unpopulated separate aggregate field the single best fit."
+      },
+      "runId": "harness-run:pal-f8a:harness-token-normalization:direct:deepseek-v4-flash:1:1786645677553",
+      "split": "development",
+      "stopCode": "candidate_completed",
+      "testCorrect": true,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 553,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 97,
+            "prompt_tokens": 865,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1418
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1418,
+        "wallTimeMs": 7487
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "harness-token-normalization",
+      "diagnosisCorrect": true,
+      "elapsedMs": 11176,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:5f7a259c79be98fa2745b578f5963a958fcbf409ba0d45ad86df6a712cb96d36",
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "A summation bug in the aggregate code: the reducer sums a distinct field (e.g., only outputTokens, or only a sub-field like promptTokens) that happens to be 0 in both retained records even though inputTokens/outputTokens are populated, so the records are truthfully nonzero but the aggregate misses the counted field.",
+          "Record normalization/copying mismatch: the retained Provider records are pre-normalization objects with positive tokens, but the aggregate path consumes the same records after a mapping/filter that drops or zeroes the token fields (e.g., reads .data.input_tokens on a record where the field lives at the top level), yielding 0 per record.",
+          "Duplicate/overlapping accounting offset: the aggregate subtracts 'residual' or already-attributed tokens (shared provider usage from a prior run) such that residual equals the full usage, netting to 0, while the two retained records still hold their original positive values and nothing is actually missing.",
+          "Timing/ordering race: the Run-level aggregate is finalized (flushed to 0) before the two Provider usage record emissions land in the store; the records are retained later and are correct, but the aggregate snapshot was taken too early and never refreshed to include them."
+        ],
+        "diagnosis": "The Run-level aggregate is computed by a lambda that maps over provider usage records and sums a field (e.g., providerRecord.inputTokens) that is typed/present on the wire (so the raw Provider records show positive inputTokens/outputTokens), but the aggregate path reads a different, separately-initialized accumulation bucket. Specifically, the aggregation runs in a separate data flow (e.g., a stream processing step / event handler) that concatenates records into a totalTokens counter that was never incremented or was re-initialized to zero after commit, while the individual Provider records that are retained and inspected come from the authoritative callback receipts (which are unchanged and correct). The semantic completion and receipts look normal because the discrepancy lives only in a derived, post-hoc aggregate field computed from a cache or a zero-init reducer rather than from the retained records themselves.",
+        "discriminatingTest": "Recompute the Run-level totalTokens by directly summing inputTokens+outputTokens from the two retained Provider usage records in a debug/settled view (or re-run the same aggregation code against a fixture with two records). If the recomputed sum equals the records' sum (nonzero) while the Run aggregate still displays 0, then the aggregate is not computed from those records at all, confirming a disconnected/cached aggregation path rather than a summation bug or record-normalization issue.",
+        "reason": "The incident is engineered to note that 'no usage record is missing' and records are positively populated, yet the aggregate is 0. Summation-of-wrong-field and normalization-mismatch alternatives both still imply the aggregate code traverses the retained records; a discriminating test that recomputes from the records would then equal the aggregate. The race alternative would resolve over time (aggregate would refresh). The chosen diagnosis posits a structurally disconnected aggregate path (separate accumulator/cache) where recomputing from retained records yields a nonzero sum while the displayed Run total stays 0, and the test distinguishes it by checking whether summation-from-the-retained-records matches the displayed aggregate."
+      },
+      "runId": "harness-run:pal-f8a:harness-token-normalization:variation:deepseek-v4-flash:1:1786645685298",
+      "split": "development",
+      "stopCode": "candidate_completed",
+      "testCorrect": true,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 811,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 102,
+            "prompt_tokens": 870,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1681
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1681,
+        "wallTimeMs": 11054
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "harness-token-normalization",
+      "diagnosisCorrect": true,
+      "elapsedMs": 10270,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:ed6e01881040915dc2beb2d5a46698bec626179b3beb672aff8e39444b601514",
+      "replica": 2,
+      "result": {
+        "consideredAlternatives": [
+          "Data-type/overflow issue: the two token counts exceed an integer range (e.g., 32-bit int) at the Run level, or are negative/NaN and normalized to 0 at aggregation, while the raw record fields serialize correctly as larger or different typed values.",
+          "Field-naming mismatch: the Provider records use 'inputTokens'/'outputTokens' but the Run-level aggregator sums different fields (e.g., 'promptTokens'/'completionTokens' or 'input_tokens'), both of which are 0 because the actual token columns weren't mapped into that schema.",
+          "Parallelism/race condition: the two Provider usage records are written asynchronously after the Run-level aggregate/totalTokens is computed and finalized (e.g., an eventual-consistency or deferred write), so the aggregate snapshot was taken before either record's nonzero values were committed, yielding totalTokens=0 despite records later existing.",
+          "Currency/units conversion dividing tokens by a rate (e.g., per-10k or per-1k normalization) that truncates small aggregate totals to integer 0 in the Run-level summary while the detailed Provider records retain the un-normalized raw counts."
+        ],
+        "diagnosis": "The Run-level aggregate computes totalTokens from a different field or path than the Provider usage records. The Provider records carry positive inputTokens/outputTokens at the per-call level, but the Run-level rollup reads an aggregate usage container (e.g., a top-level 'usage' object on the Run/Completion result) that was never populated or was zero-initialized, rather than summing the individual Provider records. Only the per-call records are written with real token counts; the enclosing aggregate field defaults to 0 and is never recomputed from the retained records.",
+        "discriminatingTest": "Inspect the Run result/aggregate JSON and compare the aggregate 'totalTokens' field against the sum of inputTokens+outputTokens across the two retained Provider usage records. If the aggregate field is an independently stored zero/falsey value rather than a computed sum, that confirms aggregation-from-a-separate-source bug. Additionally, check whether a third 'usageSummary' or 'billing' aggregate document exists separately from the records — if present with zeros while records are nonzero, the diagnosis is confirmed.",
+        "reason": "The scenario states Provider calls, receipts, and semantic completion are 'otherwise normal,' with no missing usage record, and both records carry positive token values. This rules out a general data-loss or missing-record problem. The most parsimonious explanation consistent with 'two valid nonzero records yet a zero Run total' is that the Run-level totalTokens is not computed from those same records at all — it reads an aggregate container that is stale or zero-initialized. The overflow, field-name, race, and units alternatives each require additional failure conditions (value magnitude, schema mapping, write ordering, or rounding) that are less consistent with an otherwise normal, complete pipeline."
+      },
+      "runId": "harness-run:pal-f8a:harness-token-normalization:variation:deepseek-v4-flash:2:1786645696614",
+      "split": "development",
+      "stopCode": "candidate_completed",
+      "testCorrect": true,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 751,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 102,
+            "prompt_tokens": 870,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1621
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1621,
+        "wallTimeMs": 10145
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "harness-token-normalization",
+      "diagnosisCorrect": true,
+      "elapsedMs": 8423,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:661d5705cde292ddaed44ea1bbc9706be1f32d4c1bd97ef77d5dc124fd31b115",
+      "replica": 2,
+      "result": {
+        "consideredAlternatives": [
+          "The Run-level totalTokens=0 is caused by the Provider usage records being zero-valued, dropped, or filtered before aggregation."
+        ],
+        "diagnosis": "The Run-level aggregate totalTokens derives from a field or aggregation path that does not actually sum the Provider usage records' inputTokens and outputTokens (e.g., it sums a separate/parallel 'usage' projection that populates a different or defaulted field, or it reads tokens from a Run-level snapshot taken before/independently of the two Provider records). The two records are retained and individually correct, but the aggregate reads from a source (a distinct aggregation field, a summed separate column, or a stale/zero default) that does not integrate these records, yielding totalTokens=0 despite both records being present and valid.",
+        "discriminatingTest": "Inspect the exact query/aggregation expression used to compute the Run-level totalTokens (its source column or sub-aggregation). If it sums a different field than the Provider records' inputTokens/outputTokens (e.g., an unpopulated 'totalTokens' column or a separate token-tracking table not written by this run), that distinguishes this root cause from alternatives such as the records being zeroed, dropped, or filtered out — since here the records exist with positive values but are simply not the source of the aggregate.",
+        "reason": "The incident explicitly states both Provider usage records are retained with positive inputTokens/outputTokens and no usage record is missing, yet the aggregate reports 0. This rules out missing/zeroed records. The cause is therefore an aggregation/source mismatch: the Run-level totalTokens aggregate does not consume these retained records' positive values, but rather reads an unrelated defaulted (0) field or independent snapshot. The discriminating test — inspecting the aggregate's source expression — directly differentiates this from record-loss/zeroing alternatives before resolution."
+      },
+      "runId": "harness-run:pal-f8a:harness-token-normalization:direct:deepseek-v4-flash:2:1786645707022",
+      "split": "development",
+      "stopCode": "candidate_completed",
+      "testCorrect": true,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 532,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 97,
+            "prompt_tokens": 865,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1397
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1397,
+        "wallTimeMs": 8294
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "p4-empty-provider-content",
+      "diagnosisCorrect": true,
+      "elapsedMs": 6239,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:46a596e3aefdd0c5c0c3e51c7879fb6c22219f39da955ed1633544f27bdf83ff",
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "The output-token cap is exhausted by reasoning-trace content, truncating the final JSON answer."
+        ],
+        "diagnosis": "The 220-output-token budget is being consumed by the model's internal reasoning/thinking content (a DeepSeek reasoning-trace mode), leaving little or no room for the actual final answer in message.content. DeepSeek's reasoning mode emits a thinking block that counts against the output token limit; truncation occurs at the 220-token cap before the model can emit the small JSON payload, so the response envelope arrives intact (no socket/auth errors) but message.content is empty or truncated and fails JSON parsing.",
+        "discriminatingTest": "Increase the max output token limit above the size of the reasoning trace plus the JSON (e.g., to 1200+) and retry the same request; if complete parseable JSON appears, this confirms the output token budget was being exhausted by the reasoning trace rather than by any network, authentication, or prompt-construction defect.",
+        "reason": "The evidence points to truncation at a small 220-token cap on an envelope-delivering provider known to support a reasoning/thinking mode. Empty or truncated message.content with otherwise healthy HTTP envelopes and no socket/auth failures is precisely consistent with the reasoning trace consuming the output budget. A distinguishing test that raises the token cap and observes complete JSON isolates this cause from alternatives such as response-format misconfiguration or client-side parsing bugs."
+      },
+      "runId": "harness-run:pal-f8a:p4-empty-provider-content:direct:deepseek-v4-flash:1:1786645715590",
+      "split": "holdout",
+      "stopCode": "candidate_completed",
+      "testCorrect": false,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 435,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 117,
+            "prompt_tokens": 885,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1320
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1320,
+        "wallTimeMs": 6121
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "p4-empty-provider-content",
+      "diagnosisCorrect": true,
+      "elapsedMs": 10024,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:023f07cc6ae0eca73c1f4a7c929415955b69c43008e8102649bd6ca04d6cbab2",
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "Truncation from a malformed JSON stream where the model begins emitting whitespace, comments, or markdown fences (「```json」) that count toward the token cap, pushing the actual JSON past the 220-token limit so the parser sees an empty/partial object. This is a formatting-overhead hypothesis rather than a reasoning-mode hypothesis and would persist even if reasoning were disabled.",
+          "A provider-side sampling or max-token misconfiguration where the effective max_tokens sent to the API is zero or near-zero (e.g., a request-builder bug multiplying 220 by a scalar that underflows), so the model emits no content regardless of model behavior. This would produce uniformly empty content across all trials and would be provider-independent.",
+          "A batch/fanout framework bug where the logical trial results are correlated with warm cache misses; early/uncached generation times out internally (server-side, not client socket) and returns default empty envelopes, while warm-cached trials succeed. This would be intermittent and improve with retries of the same prompt, unlike the reasoning-token explanation which is deterministic per prompt."
+        ],
+        "diagnosis": "The provider's internal reasoning/thinking mode is consuming the token budget. The request allows only 220 output tokens, and when reasoning mode is enabled (or automatically engaged), the provider appends reasoning/thought tokens to the output stream before the final answer content. These reasoning tokens exhaust the 220-token cap, causing message.content to be empty or truncated before the requested small JSON object can be emitted. This explains why HTTP envelopes arrive correctly (no socket/auth failure) yet most logical trials produce unparseable content.",
+        "discriminatingTest": "Re-issue the identical request with the reasoning/thinking mode explicitly disabled (e.g., a 'reasoning_effort: none' or equivalent provider flag, or a non-deepseek variant/model that lacks internal reasoning), while keeping the same 220-token cap. If content becomes complete and parseable JSON, reasoning-token consumption is confirmed. A control: keep reasoning enabled but raise the token cap to ~500 and observe that complete JSON reappears — this isolates token budgeting by reasoning rather than a content-generation defect.",
+        "reason": "The presence of an internal reasoning/thinking mode combined with an unusually tight 220-token cap is the strongest causal mechanism. It uniquely explains the observed pattern: successful HTTP envelopes (transport and auth are fine) with systematically empty/truncated content across most trials (reasoning tokens deterministically burn the budget). Formatting overhead and max-token underflow would not tie to the provider's known reasoning feature. The distinguishing test cleanly separates reasoning-token consumption from all three alternatives: disabling reasoning or raising the cap restores parseable JSON, which no alternative predicts."
+      },
+      "runId": "harness-run:pal-f8a:p4-empty-provider-content:variation:deepseek-v4-flash:1:1786645721960",
+      "split": "holdout",
+      "stopCode": "candidate_completed",
+      "testCorrect": true,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 726,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 122,
+            "prompt_tokens": 890,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1616
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1616,
+        "wallTimeMs": 9903
+      },
+      "valid": true,
+      "variationCompliant": false
+    },
+    {
+      "caseId": "p4-empty-provider-content",
+      "diagnosisCorrect": false,
+      "elapsedMs": 12447,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 0,
+      "receiptDigest": "sha256:6a31f442e5bacdc82d776f636a959757a5d240323f1e870da54834c523ac4884",
+      "replica": 2,
+      "result": null,
+      "runId": "harness-run:pal-f8a:p4-empty-provider-content:variation:deepseek-v4-flash:2:1786645732115",
+      "split": "holdout",
+      "stopCode": "invalid_model_output",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [],
+        "modelCalls": 0,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 0,
+        "wallTimeMs": 12358
+      },
+      "valid": false,
+      "variationCompliant": false
+    },
+    {
+      "caseId": "p4-empty-provider-content",
+      "diagnosisCorrect": true,
+      "elapsedMs": 7190,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:a42074b9ba7c560454651135b709d9bd7807f14b5f59ab393aea6d8ca079ea38",
+      "replica": 2,
+      "result": {
+        "consideredAlternatives": [
+          "The output token limit of 220 is being fully consumed by the model's internal reasoning/thinking phase, leaving empty or truncated message.content."
+        ],
+        "diagnosis": "The output token limit of 220 is being consumed entirely by the model's internal reasoning/thinking tokens before any visible message.content is emitted, so the rendered content field is empty or truncated and cannot parse as JSON. DeepSeek models that support a thinking/reasoning mode allocate against the same completion budget as visible output; when max_tokens is small, the model spends the entire budget on reasoning and emits little or no final answer.",
+        "discriminatingTest": "Re-run one failing trial with the same small max_tokens but with the provider's internal reasoning/thinking mode explicitly disabled (or with max_tokens raised to e.g. 1024), and check whether a complete parseable JSON message.content appears. A fully formed JSON object in the disabled/raised case combined with empty content on the original configuration isolates the token-budget-vs-reasoning interaction from envelope, auth, and timeout causes.",
+        "reason": "The incident reports empty/truncated message.content that cannot be parsed as a small JSON object, a 220-token output cap, known support for a reasoning/thinking mode, and explicitly no socket-timeout or auth-rejection evidence. The evidence strongly suggests the bounded completion budget is exhausted by hidden reasoning tokens before content is emitted. Envelope delivery being fine and authentication not failing rules out transport and credential mechanisms; the only plausible remaining mechanism, fully aligned with the known reasoning-mode support, is that max_tokens caps the combined reasoning+content budget and the model spends it all thinking."
+      },
+      "runId": "harness-run:pal-f8a:p4-empty-provider-content:direct:deepseek-v4-flash:2:1786645744694",
+      "split": "holdout",
+      "stopCode": "candidate_completed",
+      "testCorrect": true,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 519,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 373,
+            "prompt_tokens": 885,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1404
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1404,
+        "wallTimeMs": 7081
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "p4-false-acceptance-gate",
+      "diagnosisCorrect": false,
+      "elapsedMs": 7280,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:2e4809f026e80ffa94c87330d92f274f47467233f74f596bb11e654b014a112b",
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "The single correct derived projection being a false positive (data corruption in the projection) - rejected because the incident states the one valid projection is not known to be wrong, so the failure is in the comparison/acceptance logic rather than the projection value itself."
+        ],
+        "diagnosis": "The experiment acceptance logic labels the treatment as accepted based on derived-projection metrics (valid=1/correct=1, accuracy 1.0) while ignoring that the raw-history arm has valid=0/correct=0 and that nearly all logical trials in both arms are invalid. This is a case of the acceptance criterion improperly substituting a permissive derived projection (which retains only one possibly-coincidental valid row) for the authoritative raw evidence, judging success by a near-empty sample whose single valid datum is not shown to be wrong.",
+        "discriminatingTest": "Recompute the acceptance decision using raw-history-only valid/correct counts (both zero) and require a minimum valid-trial count (e.g., >= some threshold) before declaring any acceptance; if acceptance flips to rejection under raw-only accounting, the root cause is the acceptance heuristic substituting the derived projection for the raw evidence.",
+        "reason": "The evidence shows acceptance was driven by derived correct (1) exceeding raw correct (0) and accuracy among the single valid treatment result being 1.0. The logical flaw is using a one-row derived subset as the basis for accepting a treatment when the authoritative raw history shows zero valid and zero correct results. The correct cause is the acceptance criterion's over-reliance on the derived projection and lack of a minimum-validity gate, not a defect in the projection data."
+      },
+      "runId": "harness-run:pal-f8a:p4-false-acceptance-gate:direct:deepseek-v4-flash:1:1786645752013",
+      "split": "holdout",
+      "stopCode": "candidate_completed",
+      "testCorrect": false,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 483,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 121,
+            "prompt_tokens": 889,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1372
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1372,
+        "wallTimeMs": 7164
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "p4-false-acceptance-gate",
+      "diagnosisCorrect": false,
+      "elapsedMs": 11463,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replica": 1,
+      "result": null,
+      "runId": "harness-run:pal-f8a:p4-false-acceptance-gate:variation:deepseek-v4-flash:1:1786645759434",
+      "split": "holdout",
+      "stopCode": "no_progress",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 821,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 126,
+            "prompt_tokens": 894,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1715
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1715,
+        "wallTimeMs": 11413
+      },
+      "valid": false,
+      "variationCompliant": false
+    },
+    {
+      "caseId": "p4-false-acceptance-gate",
+      "diagnosisCorrect": false,
+      "elapsedMs": 13607,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 0,
+      "receiptDigest": "sha256:bf5c8177a33d89eab741a99d2cc3f53f82c765101cd4ebcf0185263198db7c42",
+      "replica": 2,
+      "result": null,
+      "runId": "harness-run:pal-f8a:p4-false-acceptance-gate:variation:deepseek-v4-flash:2:1786645771034",
+      "split": "holdout",
+      "stopCode": "invalid_model_output",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [],
+        "modelCalls": 0,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 0,
+        "wallTimeMs": 13510
+      },
+      "valid": false,
+      "variationCompliant": false
+    },
+    {
+      "caseId": "p4-false-acceptance-gate",
+      "diagnosisCorrect": true,
+      "elapsedMs": 7981,
+      "jointCorrect": true,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:4e86e74fe9f4f18949499e6c4b48c7ea866ab05471fb2de88524c0798343c6cd",
+      "replica": 2,
+      "result": {
+        "consideredAlternatives": [
+          "The derived projection is systematically over-generating valid/correct counts because of a data leakage or reduction-order bug, making 1/1 appear while the underlying trials are invalid."
+        ],
+        "diagnosis": "The experimental accept/reject logic was gated on the derived-projection accuracy metric rather than the raw-history accuracy, and the derived projection happened to have 1/1 valid trials (one valid datum, not known to be wrong), so the treatment was labeled accepted despite the raw evidence showing 0/0 valid-correct — a near-total loss of trial validity in the source data that the projection artifact silently did not inherit.",
+        "discriminatingTest": "Require acceptance to be contingent on the raw-history validity count: rerun the reducer and reject the treatment whenever raw_history_valid == 0 (or raw_valid < some minimum), and additionally assert derived_projection.valid == raw_history.valid, so that a projection that diverges from a near-empty raw valid set is flagged as unsupported rather than accepted.",
+        "reason": "The evidence explicitly states 'raw-history valid=0/correct=0' and 'derived-projection valid=1/correct=1'. The script's acceptance rule ('derived correct > raw correct and accuracy among valid treatment results is 1.0') directly produced 'accepted' from those numbers. The most direct root cause is that the acceptance criterion was computed on the derived-projection metric, which had one valid-but-not-known-wrong datum, while the authoritative raw evidence showed essentially no valid trials. This is an execution/de-cision-logic defect (choosing the wrong validity gate), not an unproven projection bug, because the one projection value is explicitly not known to be wrong."
+      },
+      "runId": "harness-run:pal-f8a:p4-false-acceptance-gate:direct:deepseek-v4-flash:2:1786645784797",
+      "split": "holdout",
+      "stopCode": "candidate_completed",
+      "testCorrect": true,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 513,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 121,
+            "prompt_tokens": 889,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1402
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1402,
+        "wallTimeMs": 7855
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "runtime-connector-19-vs-22",
+      "diagnosisCorrect": false,
+      "elapsedMs": 7031,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replica": 1,
+      "result": null,
+      "runId": "harness-run:pal-f8a:runtime-connector-19-vs-22:direct:deepseek-v4-flash:1:1786645792920",
+      "split": "holdout",
+      "stopCode": "no_progress",
+      "testCorrect": false,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 501,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 112,
+            "prompt_tokens": 880,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1381
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1381,
+        "wallTimeMs": 6989
+      },
+      "valid": false,
+      "variationCompliant": false
+    },
+    {
+      "caseId": "runtime-connector-19-vs-22",
+      "diagnosisCorrect": false,
+      "elapsedMs": 11523,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 0,
+      "receiptDigest": "sha256:ff8d188b557c8a3ab78b667c6ec8b57e4382773e790969a5df8e7e57c96d4054",
+      "replica": 1,
+      "result": null,
+      "runId": "harness-run:pal-f8a:runtime-connector-19-vs-22:variation:deepseek-v4-flash:1:1786645800086",
+      "split": "holdout",
+      "stopCode": "invalid_model_output",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [],
+        "modelCalls": 0,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 0,
+        "wallTimeMs": 11407
+      },
+      "valid": false,
+      "variationCompliant": false
+    },
+    {
+      "caseId": "runtime-connector-19-vs-22",
+      "diagnosisCorrect": false,
+      "elapsedMs": 11549,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replica": 2,
+      "result": null,
+      "runId": "harness-run:pal-f8a:runtime-connector-19-vs-22:variation:deepseek-v4-flash:2:1786645811746",
+      "split": "holdout",
+      "stopCode": "no_progress",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 882,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 117,
+            "prompt_tokens": 885,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1767
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1767,
+        "wallTimeMs": 11507
+      },
+      "valid": false,
+      "variationCompliant": false
+    },
+    {
+      "caseId": "runtime-connector-19-vs-22",
+      "diagnosisCorrect": false,
+      "elapsedMs": 5718,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replica": 2,
+      "result": {
+        "consideredAlternatives": [
+          "Per-conversation connector filter excludes the 3 runtime tool IDs"
+        ],
+        "diagnosis": "The connector filtering is per-conversation but the runtime catalog is stable, so the 3 omitted tools are likely excluded by an allowlist/denylist or capability filter applied by the connector that predates or is out of sync with the runtime's current catalog.",
+        "discriminatingTest": "Compare the connector's emitted tool list against a per-conversation filter configuration or user entitlement mapping to determine whether runtime.describe, release.get, and release.apply correspond to a scoped permission tier.",
+        "reason": "Only 3 of 22 tools are omitted, runtime metadata (digests, toolCount=22, zero restarts, modern protocol) is all consistent and healthy, and other tools work through the connector—pointing to a connector-side per-conversation exclusion rather than a runtime-side failure."
+      },
+      "runId": "harness-run:pal-f8a:runtime-connector-19-vs-22:direct:deepseek-v4-flash:2:1786645823451",
+      "split": "holdout",
+      "stopCode": "needs_input",
+      "testCorrect": false,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 386,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 112,
+            "prompt_tokens": 880,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1266
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1266,
+        "wallTimeMs": 5676
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "f5-evidence-durability",
+      "diagnosisCorrect": true,
+      "elapsedMs": 7162,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:77e260daa3cef5f201bf545d9773613f6e6bcfa6ea911bed6799aff8f36c604c",
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "Final diagnosis: single end-of-run in-memory artifact with no incremental durable checkpoint, so an abnormal process termination (TLS EOF) between successful calls and the final JSON write irrecoverably loses the completed logical rows."
+        ],
+        "diagnosis": "The campaign has a single, end-of-run atomic durability point: completed logical rows are held only in the runner's in-process memory and serialized to evidence JSON exactly once, when the run ends normally. Any asynchronous process termination (here, a TLS EOF that kills the process before the normal-exit write path runs) permanently loses all accumulated in-process result rows, because there is no incremental/checkpointed durable write and no recovery mechanism to rehydrate them. The Provider calls had already succeeded at the transport/application level, but the campaign's artifact durability is not tied to per-call success — it is tied to the single process-lifetime flush that never occurred.",
+        "discriminatingTest": "Re-run the campaign while introducing a process kill (e.g., SIGKILL or an induced TLS EOF) partway through a multi-call run and inspect the evidence JSON artifact location: if the artifact is absent or contains only an empty/partial default while the Provider side shows the individual calls succeeded, that confirms the sole-write-at-normal-exit design is the root cause. Conversely, any design with incremental durable checkpointing would leave a non-empty recoverable artifact after the same kill.",
+        "reason": "The incident describes exactly the window: many successful calls (work done, Provider succeeded), then a TLS EOF terminates the process, and none of the completed rows are durable. The only single point of coercion/durability is the end-of-run JSON write that never executes. No alternative mechanism is needed to explain the loss — the race/failure-window is the design fault."
+      },
+      "runId": "harness-run:pal-f8a:f5-evidence-durability:direct:deepseek-v4-flash:1:1786645829304",
+      "split": "holdout",
+      "stopCode": "candidate_completed",
+      "testCorrect": false,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 515,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 117,
+            "prompt_tokens": 885,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1400
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1400,
+        "wallTimeMs": 7043
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "f5-evidence-durability",
+      "diagnosisCorrect": true,
+      "elapsedMs": 12436,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:eabbdecb8127e38e5cc8810a226c439a71daf2db7630ea6136b24cc5fa3003de",
+      "replica": 1,
+      "result": {
+        "consideredAlternatives": [
+          "1. The TLS EOF itself corrupted or lost the evidence JSON: i.e., the write-at-end was interrupted mid-write, so the file is truncated/corrupted even though earlier process state was fine — predicts a partial/corrupt artifact on disk rather than a complete absence.",
+          "2. Transport-level acknowledgement confusion: tail calls 'succeeded' in the Provider protocol but the returning acknowledgment was lost in the TLS teardown, so the last few logical rows never actually entered the process buffer and thus were silently dropped — predicts loss bounded to only the tail/racing rows, not all completed rows.",
+          "3. A runner feature that spools every completed row to a separate sidecar/spool file (shadowing the JSON) but loses the sidecar on process death (e.g., temp file, unlinked/unnamed temporary in /tmp, or deferred rename) so 'already-completed' rows were in fact durable-ish but in a volatile location — predicts some recoverable bytes in temp space.",
+          "4. Structural single-file-at-end design (single JSON written once with no incremental durability) where the loss is correctly described but truly unavoidable by design, so the incident is not a bug but a missing durability feature — prediction indistinguishable from the primary diagnosis without source inspection, but lacking any secondary failure mode."
+        ],
+        "diagnosis": "A long-lived Harness/Provider campaign accumulates completed logical rows only in process memory (a volatile buffer) and defers durable serialization until campaign end, so a mid-campaign transport-level failure (TLS EOF) that terminates the process destroys every completed row that had not yet been flushed to a durable artifact. The absence of a write-ahead log, incremental checkpoint, or periodic durability policy means the 'successful calls' were only acknowledged into the in-memory buffer, not into durable storage — hence the loss.",
+        "discriminatingTest": "Reproduce with a synthetic campaign that completes N logical rows, performs a checkpoint-flush before and after a deliberately injected TLS EOF mid-campaign, then inspect whether any durable JSON/checkpoint exists between the two flushes. If loss is only avoidable via an explicit prior flush (and no automatic incremental artifact is emitted after each call), that confirms the 'deferred single-write, memory-only buffering' root cause and rules out the in-memory-vs-transport and single-file alternatives that would still leave some recent rows or a partial artifact durable.",
+        "reason": "The incident text emphasizes two design facts: rows are kept only in process memory and the JSON is written exactly once at campaign end. A TLS EOF that terminates the process therefore destroys all buffered rows because durability is deferred and nothing is durable until the final write. The primary diagnosis (memory-only buffering with no write-ahead/checkpoint, single deferred write) directly and completely explains the total loss of all completed rows despite per-call success. Alternative 1 (truncation/corruption of the artifact) predicts a present-but-corrupt file, contradicting 'no longer available as a durable artifact'; Alternative 2 predicts only tail losses, not total loss; Alternative 3 introduces an un-evidenced spool sidecar; Alternative 4 is weaker (no secondary failure mechanism). The discriminating test — injecting a mid-campaign TLS EOF and checking for any durable artifact between a pre-crash flush and post-crash state — cleanly separates the memory-only deferred-write cause (no durable bytes before the final write) from the alternatives."
+      },
+      "runId": "harness-run:pal-f8a:f5-evidence-durability:variation:deepseek-v4-flash:1:1786645836601",
+      "split": "holdout",
+      "stopCode": "candidate_completed",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 831,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 122,
+            "prompt_tokens": 890,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1721
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1721,
+        "wallTimeMs": 12310
+      },
+      "valid": true,
+      "variationCompliant": true
+    },
+    {
+      "caseId": "f5-evidence-durability",
+      "diagnosisCorrect": false,
+      "elapsedMs": 11711,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 0,
+      "receiptDigest": "sha256:345d42e3a0f0dade52b89e0edead273a7ce521657018d44839c1af4e17e559f8",
+      "replica": 2,
+      "result": null,
+      "runId": "harness-run:pal-f8a:f5-evidence-durability:variation:deepseek-v4-flash:2:1786645849171",
+      "split": "holdout",
+      "stopCode": "invalid_model_output",
+      "testCorrect": false,
+      "treatment": "variation",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [],
+        "modelCalls": 0,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 0,
+        "wallTimeMs": 11619
+      },
+      "valid": false,
+      "variationCompliant": false
+    },
+    {
+      "caseId": "f5-evidence-durability",
+      "diagnosisCorrect": false,
+      "elapsedMs": 6221,
+      "jointCorrect": false,
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": null,
+      "replica": 2,
+      "result": null,
+      "runId": "harness-run:pal-f8a:f5-evidence-durability:direct:deepseek-v4-flash:2:1786645861012",
+      "split": "holdout",
+      "stopCode": "no_progress",
+      "testCorrect": false,
+      "treatment": "direct",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 446,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 117,
+            "prompt_tokens": 885,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1331
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 18000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1331,
+        "wallTimeMs": 6179
+      },
+      "valid": false,
+      "variationCompliant": false
+    }
+  ],
+  "schemaDigest": "sha256:033abff271f89a29842271a6627e6c30762f52079e031d81b8d3e5fd8ba15ebc",
+  "schemaVersion": 1
+}

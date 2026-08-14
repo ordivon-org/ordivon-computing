@@ -1,0 +1,269 @@
+{
+  "cases": [
+    {
+      "caseId": "web-chromium-launch",
+      "diagnosisGroups": [
+        [
+          "path length",
+          "path-length",
+          "socket path",
+          "unix-domain",
+          "process singleton"
+        ],
+        [
+          "profile",
+          "temporary",
+          "tmpdir",
+          "socket"
+        ]
+      ],
+      "packet": "A Playwright Chromium launch fails before page navigation inside a long Runtime Workspace path. Earlier suspicion focused on a Linux networking lock, but ip link, ip addr, ip route and ss all return immediately with no observed RTNL waiters. The same browser build can launch when its temporary/profile path is materially shorter. The direct Web runner imports Playwright before its later temporary-directory normalization step.",
+      "split": "development",
+      "testGroups": [
+        [
+          "short",
+          "shorter"
+        ],
+        [
+          "tmpdir",
+          "profile",
+          "temporary"
+        ]
+      ]
+    },
+    {
+      "caseId": "finance-okx-egress",
+      "diagnosisGroups": [
+        [
+          "sni",
+          "server name"
+        ],
+        [
+          "egress",
+          "path",
+          "filter",
+          "route"
+        ]
+      ],
+      "packet": "Two scoped HTTPS CONNECT sidecars are healthy for example.com. Ambient DNS for the OKX API resolves to an obviously invalid/link-local destination. Bypassing DNS with a known Cloudflare address still yields EOF when TLS SNI is openapi.okx.com, while the same address with example.com SNI succeeds. A materially different VPN root can GET the official OKX public-time endpoint with HTTP 200/code=0. No API credential is required for this public probe.",
+      "split": "development",
+      "testGroups": [
+        [
+          "same",
+          "compare"
+        ],
+        [
+          "sni",
+          "server name"
+        ],
+        [
+          "independent egress",
+          "different egress",
+          "vpn"
+        ]
+      ]
+    },
+    {
+      "caseId": "host-optional-mcp-tests",
+      "diagnosisGroups": [
+        [
+          "optional",
+          "extra"
+        ],
+        [
+          "mcp"
+        ]
+      ],
+      "packet": "A Host tree containing only new research evidence runs 232 unit tests. Exactly one test module fails to import with ModuleNotFoundError: mcp; the same failure reproduces on a clean current-main control. Host documentation/package metadata marks MCP support as an optional extra. Product source is otherwise unchanged.",
+      "split": "development",
+      "testGroups": [
+        [
+          "extra",
+          "install",
+          "enable"
+        ],
+        [
+          "mcp"
+        ]
+      ]
+    },
+    {
+      "caseId": "harness-token-normalization",
+      "diagnosisGroups": [
+        [
+          "normaliz",
+          "mapping",
+          "field",
+          "fallback"
+        ],
+        [
+          "inputtokens",
+          "outputtokens",
+          "camelcase",
+          "naming"
+        ]
+      ],
+      "packet": "A Harness Run completes normally and retains two Provider usage records with positive inputTokens and outputTokens fields. The Run-level aggregate nevertheless reports totalTokens=0. Provider calls, receipts and semantic completion are otherwise normal, and no usage record is missing.",
+      "split": "development",
+      "testGroups": [
+        [
+          "sum",
+          "aggregate",
+          "total"
+        ],
+        [
+          "inputtokens",
+          "outputtokens",
+          "field",
+          "fallback"
+        ]
+      ]
+    },
+    {
+      "caseId": "p4-empty-provider-content",
+      "diagnosisGroups": [
+        [
+          "thinking",
+          "reasoning"
+        ],
+        [
+          "budget",
+          "output token",
+          "completion token"
+        ]
+      ],
+      "packet": "A bounded DeepSeek evidence-computation campaign receives HTTP response envelopes, but most logical trials produce empty or truncated message.content that cannot be parsed as the requested small JSON object. The request allows only 220 output tokens. The same provider family is known to support an internal reasoning/thinking mode. There is no evidence of socket timeout or authentication rejection.",
+      "split": "holdout",
+      "testGroups": [
+        [
+          "disable",
+          "off"
+        ],
+        [
+          "thinking",
+          "reasoning"
+        ],
+        [
+          "increase",
+          "larger",
+          "raise"
+        ],
+        [
+          "output",
+          "completion",
+          "token"
+        ]
+      ]
+    },
+    {
+      "caseId": "p4-false-acceptance-gate",
+      "diagnosisGroups": [
+        [
+          "validity",
+          "valid coverage",
+          "sample coverage",
+          "coverage"
+        ],
+        [
+          "accept",
+          "gate",
+          "acceptance"
+        ]
+      ],
+      "packet": "A preliminary experiment summary has raw-history valid=0/correct=0 and derived-projection valid=1/correct=1. The script labels the treatment accepted because derived correct > raw correct and accuracy among valid treatment results is 1.0, even though almost every logical trial in both arms is invalid. The reducer one valid projection is not known to be wrong.",
+      "split": "holdout",
+      "testGroups": [
+        [
+          "require",
+          "minimum",
+          "threshold",
+          "predeclare"
+        ],
+        [
+          "valid",
+          "coverage"
+        ],
+        [
+          "rerun",
+          "repeat"
+        ]
+      ]
+    },
+    {
+      "caseId": "runtime-connector-19-vs-22",
+      "diagnosisGroups": [
+        [
+          "stale",
+          "outdated",
+          "cached"
+        ],
+        [
+          "connector",
+          "registration",
+          "catalog",
+          "publication"
+        ]
+      ],
+      "packet": "The deployed Runtime service is healthy, reports modern protocol, zero restarts, exact artifact digests and toolCount=22 with a stable catalog digest. A ChatGPT connector in an already-open conversation exposes only 19 tools, omitting exactly runtime.describe, release.get and release.apply. Other Runtime tools work through the connector.",
+      "split": "holdout",
+      "testGroups": [
+        [
+          "refresh",
+          "re-register",
+          "reregister",
+          "reconnect"
+        ],
+        [
+          "connector",
+          "registration",
+          "catalog"
+        ],
+        [
+          "tool",
+          "22",
+          "names"
+        ]
+      ]
+    },
+    {
+      "caseId": "f5-evidence-durability",
+      "diagnosisGroups": [
+        [
+          "persist",
+          "durab",
+          "checkpoint",
+          "write"
+        ],
+        [
+          "end",
+          "campaign end",
+          "in memory",
+          "memory"
+        ]
+      ],
+      "packet": "A long live Provider campaign is designed to collect many logical slots. The runner keeps completed rows only in process memory and writes the evidence JSON once, at campaign end. After many successful calls, one TLS EOF terminates the process; the already-completed logical rows are no longer available as a durable campaign artifact, even though the Provider calls themselves had succeeded.",
+      "split": "holdout",
+      "testGroups": [
+        [
+          "persist",
+          "write",
+          "checkpoint"
+        ],
+        [
+          "each",
+          "per slot",
+          "incremental"
+        ],
+        [
+          "restart",
+          "failure",
+          "resume",
+          "crash"
+        ]
+      ]
+    }
+  ],
+  "kind": "ordivon.computing.pal-f8a-open-diagnosis-cases",
+  "schemaVersion": 1,
+  "status": "frozen-before-live-provider-call"
+}

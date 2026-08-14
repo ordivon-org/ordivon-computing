@@ -1,0 +1,258 @@
+{
+  "byModel": {
+    "deepseek-v4-flash": {
+      "single": {
+        "causeCorrectAmongValid": 8,
+        "completionTokens": 3470,
+        "jointAccuracyAmongValid": 1.0,
+        "jointCorrectAmongValid": 8,
+        "logicalSlots": 12,
+        "meanCompletionTokensPerSlot": 289.1666666666667,
+        "meanTotalTokensPerSlot": 1467.3333333333333,
+        "modelCalls": 12,
+        "oracleCoverageAmongValid": 8,
+        "promptTokens": 14138,
+        "testCorrectAmongValid": 8,
+        "totalTokens": 17608,
+        "validSlots": 8,
+        "validityRate": 0.6666666666666666
+      },
+      "variation": {
+        "causeCorrectAmongValid": 10,
+        "completionTokens": 3989,
+        "jointAccuracyAmongValid": 1.0,
+        "jointCorrectAmongValid": 10,
+        "logicalSlots": 12,
+        "meanCompletionTokensPerSlot": 332.4166666666667,
+        "meanTotalTokensPerSlot": 1511.5833333333333,
+        "modelCalls": 12,
+        "oracleCoverageAmongValid": 10,
+        "promptTokens": 14150,
+        "testCorrectAmongValid": 10,
+        "totalTokens": 18139,
+        "validSlots": 10,
+        "validityRate": 0.8333333333333334
+      }
+    },
+    "deepseek-v4-pro": {
+      "single": {
+        "causeCorrectAmongValid": 12,
+        "completionTokens": 3458,
+        "jointAccuracyAmongValid": 1.0,
+        "jointCorrectAmongValid": 12,
+        "logicalSlots": 12,
+        "meanCompletionTokensPerSlot": 288.1666666666667,
+        "meanTotalTokensPerSlot": 1466.3333333333333,
+        "modelCalls": 12,
+        "oracleCoverageAmongValid": 12,
+        "promptTokens": 14138,
+        "testCorrectAmongValid": 12,
+        "totalTokens": 17596,
+        "validSlots": 12,
+        "validityRate": 1.0
+      },
+      "variation": {
+        "causeCorrectAmongValid": 12,
+        "completionTokens": 4052,
+        "jointAccuracyAmongValid": 1.0,
+        "jointCorrectAmongValid": 12,
+        "logicalSlots": 12,
+        "meanCompletionTokensPerSlot": 337.6666666666667,
+        "meanTotalTokensPerSlot": 1516.8333333333333,
+        "modelCalls": 12,
+        "oracleCoverageAmongValid": 12,
+        "promptTokens": 14150,
+        "testCorrectAmongValid": 12,
+        "totalTokens": 18202,
+        "validSlots": 12,
+        "validityRate": 1.0
+      }
+    }
+  },
+  "bySplit": {
+    "development": {
+      "single": {
+        "causeCorrectAmongValid": 10,
+        "completionTokens": 3411,
+        "jointAccuracyAmongValid": 1.0,
+        "jointCorrectAmongValid": 10,
+        "logicalSlots": 12,
+        "meanCompletionTokensPerSlot": 284.25,
+        "meanTotalTokensPerSlot": 1467.9166666666667,
+        "modelCalls": 12,
+        "oracleCoverageAmongValid": 10,
+        "promptTokens": 14204,
+        "testCorrectAmongValid": 10,
+        "totalTokens": 17615,
+        "validSlots": 10,
+        "validityRate": 0.8333333333333334
+      },
+      "variation": {
+        "causeCorrectAmongValid": 12,
+        "completionTokens": 3914,
+        "jointAccuracyAmongValid": 1.0,
+        "jointCorrectAmongValid": 12,
+        "logicalSlots": 12,
+        "meanCompletionTokensPerSlot": 326.1666666666667,
+        "meanTotalTokensPerSlot": 1510.8333333333333,
+        "modelCalls": 12,
+        "oracleCoverageAmongValid": 12,
+        "promptTokens": 14216,
+        "testCorrectAmongValid": 12,
+        "totalTokens": 18130,
+        "validSlots": 12,
+        "validityRate": 1.0
+      }
+    },
+    "holdout": {
+      "single": {
+        "causeCorrectAmongValid": 10,
+        "completionTokens": 3517,
+        "jointAccuracyAmongValid": 1.0,
+        "jointCorrectAmongValid": 10,
+        "logicalSlots": 12,
+        "meanCompletionTokensPerSlot": 293.0833333333333,
+        "meanTotalTokensPerSlot": 1465.75,
+        "modelCalls": 12,
+        "oracleCoverageAmongValid": 10,
+        "promptTokens": 14072,
+        "testCorrectAmongValid": 10,
+        "totalTokens": 17589,
+        "validSlots": 10,
+        "validityRate": 0.8333333333333334
+      },
+      "variation": {
+        "causeCorrectAmongValid": 10,
+        "completionTokens": 4127,
+        "jointAccuracyAmongValid": 1.0,
+        "jointCorrectAmongValid": 10,
+        "logicalSlots": 12,
+        "meanCompletionTokensPerSlot": 343.9166666666667,
+        "meanTotalTokensPerSlot": 1517.5833333333333,
+        "modelCalls": 12,
+        "oracleCoverageAmongValid": 10,
+        "promptTokens": 14084,
+        "testCorrectAmongValid": 10,
+        "totalTokens": 18211,
+        "validSlots": 10,
+        "validityRate": 0.8333333333333334
+      }
+    }
+  },
+  "claimBoundary": "Invalid structured Provider slots are validity/apparatus outcomes, not semantic misses. Semantic comparisons are restricted to valid results and exact both-valid pairs.",
+  "interpretation": {
+    "hVariationSupportedAsSemanticBottleneck": false,
+    "nextFalsifier": "Test variation only where candidate generation itself is the uncertainty: remove the closed cause menu, freeze an external oracle, and compare independently generated candidate sets under matched total token budget. Do not build variation infrastructure from F4.",
+    "reason": "Among every valid logical trial in both treatments, the selected cause+test is correct. Across exact pairs where both arms are valid, explicit four-cause variation produces no semantic wins. Variation slightly changes validity/compliance and costs more completion tokens, but coverage/compliance without final diagnosis gain does not satisfy the preregistered H-VARIATION admission rule.",
+    "scope": "Six bounded historical diagnosis tasks with explicit candidate cause/test menus and strong DeepSeek models. This does not show variation is never useful in open-ended generation where the correct candidate is absent from a supplied menu."
+  },
+  "invalidSlots": [
+    {
+      "caseId": "web-chromium-launch",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "replica": 1,
+      "result": null,
+      "stopCode": "no_progress",
+      "totalTokens": 1481,
+      "treatment": "single"
+    },
+    {
+      "caseId": "web-chromium-launch",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "replica": 2,
+      "result": null,
+      "stopCode": "no_progress",
+      "totalTokens": 1523,
+      "treatment": "single"
+    },
+    {
+      "caseId": "p4-false-acceptance-gate",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "replica": 1,
+      "result": null,
+      "stopCode": "no_progress",
+      "totalTokens": 1493,
+      "treatment": "variation"
+    },
+    {
+      "caseId": "p4-false-acceptance-gate",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "replica": 2,
+      "result": null,
+      "stopCode": "no_progress",
+      "totalTokens": 1459,
+      "treatment": "single"
+    },
+    {
+      "caseId": "runtime-connector-19-vs-22",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "replica": 1,
+      "result": null,
+      "stopCode": "no_progress",
+      "totalTokens": 1480,
+      "treatment": "single"
+    },
+    {
+      "caseId": "runtime-connector-19-vs-22",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "replica": 2,
+      "result": null,
+      "stopCode": "no_progress",
+      "totalTokens": 1599,
+      "treatment": "variation"
+    }
+  ],
+  "kind": "ordivon.computing.pal-f4-variation-analysis",
+  "logicalTrials": 48,
+  "paired": {
+    "bothValidPairs": 18,
+    "meanCompletionTokenDelta": 46.375,
+    "meanTotalTokenDelta": 47.375,
+    "semanticTies": 18,
+    "singleSemanticWins": 0,
+    "totalPairs": 24,
+    "variationSemanticWins": 0
+  },
+  "schemaVersion": 1,
+  "status": "completed",
+  "summary": {
+    "single": {
+      "causeCorrectAmongValid": 20,
+      "completionTokens": 6928,
+      "jointAccuracyAmongValid": 1.0,
+      "jointCorrectAmongValid": 20,
+      "logicalSlots": 24,
+      "meanCompletionTokensPerSlot": 288.6666666666667,
+      "meanTotalTokensPerSlot": 1466.8333333333333,
+      "modelCalls": 24,
+      "oracleCoverageAmongValid": 20,
+      "promptTokens": 28276,
+      "testCorrectAmongValid": 20,
+      "totalTokens": 35204,
+      "validSlots": 20,
+      "validityRate": 0.8333333333333334
+    },
+    "variation": {
+      "causeCorrectAmongValid": 22,
+      "completionTokens": 8041,
+      "jointAccuracyAmongValid": 1.0,
+      "jointCorrectAmongValid": 22,
+      "logicalSlots": 24,
+      "meanCompletionTokensPerSlot": 335.0416666666667,
+      "meanTotalTokensPerSlot": 1514.2083333333333,
+      "modelCalls": 24,
+      "oracleCoverageAmongValid": 22,
+      "promptTokens": 28300,
+      "testCorrectAmongValid": 22,
+      "totalTokens": 36341,
+      "validSlots": 22,
+      "validityRate": 0.9166666666666666
+    }
+  }
+}

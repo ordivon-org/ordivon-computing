@@ -1,0 +1,80 @@
+{
+  "cases": [
+    {
+      "caseId": "D1-source-quorum",
+      "compiledPacket": "Deterministic projection for claim C: latest source states = {sA:MATCH, sB:REVOKED, sC:MATCH, sD:MISMATCH, sE:MATCH}. distinct latest non-revoked MATCH sources = 3.",
+      "family": "exact_reduction",
+      "oracle": "ACCEPT",
+      "rawPacket": "Events in order: sA MATCH; sB MATCH; sA MATCH duplicate; sC MATCH; sB REVOKE; sD MISMATCH; sE MATCH; sC MATCH duplicate. Revocation applies to that source until a later MATCH.",
+      "split": "development",
+      "task": "POLICY: ACCEPT iff at least 3 DISTINCT sources have a latest non-revoked MATCH for claim C. Otherwise HOLD. Operations: ACCEPT, HOLD."
+    },
+    {
+      "caseId": "D2-budget-total",
+      "compiledPacket": "Deterministic usage projection: admitted record count=8; admitted totalTokens=8245; non-admitted diagnostic usage excluded.",
+      "family": "exact_reduction",
+      "oracle": "STOP",
+      "rawPacket": "Admitted usage records: 730, 1250, 980, 1640, 410, 1320, 875, 1040. One diagnostic record of 999 tokens is marked NOT_ADMITTED and must not count.",
+      "split": "development",
+      "task": "POLICY: STOP iff total admitted token usage is strictly greater than 8000. Otherwise CONTINUE. Operations: STOP, CONTINUE."
+    },
+    {
+      "caseId": "R1-response-loss-terminal",
+      "compiledPacket": "Owner-native current projection for req-71: durableRequest=true; dispatchCount=1; executionDisposition=succeeded; deliveryDisposition=committed; resultAvailable=true; recoveryRequired=false; terminal=true.",
+      "family": "reconciliation",
+      "oracle": "DO_NOT_RETRY",
+      "rawPacket": "Timeline for request req-71: admitted request persisted; attempt-1 dispatched; client response channel lost; later runner-bound event observed; process exit=0; result artifact committed; registry event marks Job succeeded; no second dispatch event exists.",
+      "split": "development",
+      "task": "POLICY: If the exact request has any reconciled terminal success, DO_NOT_RETRY. If no terminal result exists and the request was never committed, RETRY_SAME. Otherwise RECONCILE_FIRST. Operations: DO_NOT_RETRY, RETRY_SAME, RECONCILE_FIRST."
+    },
+    {
+      "caseId": "R2-concurrency-nonadmission",
+      "compiledPacket": "Owner-native admission projection: committed=false; jobCreated=false; attemptCreated=false; retryable=true; retryClass=safe_same_request; retryAfterMs=250.",
+      "family": "reconciliation",
+      "oracle": "RETRY_SAME",
+      "rawPacket": "A second Workspace execution proposal is rejected while another Job is active. Rejection record says commitState=not_started, retryClass=safe_same_request, retryable=true, retryAfterMs=250. No Job ID or Attempt ID was created for the rejected proposal.",
+      "split": "development",
+      "task": "POLICY: RETRY_SAME only when the proposal was NOT committed/admitted and retrying the same request is explicitly safe. If committed with unknown outcome, RECONCILE_FIRST. Operations: RETRY_SAME, RECONCILE_FIRST."
+    },
+    {
+      "caseId": "D3-tool-contract-drift",
+      "compiledPacket": "Deterministic contract relation: bound tool identity=edit.exact; current tool identity=edit.exact; bound digest sha256:AAA91; current digest sha256:BBF07; relation=changed.",
+      "family": "exact_reduction",
+      "oracle": "REFRESH",
+      "rawPacket": "Context binding record: tool=edit.exact, schemaRevision=mcp-schema:4a1, digest=sha256:AAA91. Current provider catalog record for edit.exact: schemaRevision=mcp-schema:5b2, digest=sha256:BBF07. A historical catalog entry also contains sha256:AAA91 but is not current.",
+      "split": "holdout",
+      "task": "POLICY: USE_CURRENT only if the Tool contract digest bound into Context equals the current callable Tool digest. Otherwise REFRESH. Operations: USE_CURRENT, REFRESH."
+    },
+    {
+      "caseId": "D4-artifact-completeness",
+      "compiledPacket": "Deterministic completeness projection: A terminal+matching=true; B terminal+matching=true; C terminal+matching=false; required complete matching artifacts=2/3; missing terminal receipt for C.",
+      "family": "exact_reduction",
+      "oracle": "WAIT",
+      "rawPacket": "Expected: A=sha256:a1, B=sha256:b2, C=sha256:c3. Receipts: A terminal retained observed sha256:a1; B terminal retained observed sha256:b2; C upload-started observed sha256:c3 but no terminal retained receipt; old superseded C receipt observed sha256:oldc.",
+      "split": "holdout",
+      "task": "POLICY: VERIFY only if every required artifact A,B,C has a terminal retained receipt whose observed digest matches its expected digest. Otherwise WAIT. Operations: VERIFY, WAIT."
+    },
+    {
+      "caseId": "R3-provider-unknown",
+      "compiledPacket": "Reconciliation projection: requestSent=true; executionPossible=true; outcome=UNKNOWN; unresolvedUnknown=true; ownerReceipt=absent; reconciliationPerformed=false.",
+      "family": "reconciliation",
+      "oracle": "RECONCILE_FIRST",
+      "rawPacket": "Provider request p-44 was sent and provider transport acknowledged request bytes. Connection ended before a response body arrived. Harness persisted providerResult=unknown. No provider idempotency lookup or downstream owner receipt has run yet. There is no definitive pre-execution rejection.",
+      "split": "holdout",
+      "task": "POLICY: If an effectful Provider request may have executed but its result is UNKNOWN and unresolved, RECONCILE_FIRST. Retry is forbidden until reconciliation. If definitively failed before execution, RETRY_SAME. Operations: RECONCILE_FIRST, RETRY_SAME."
+    },
+    {
+      "caseId": "R4-source-currentness",
+      "compiledPacket": "Currentness projection: Finance bound/current relation=same. Workstation bound generation=42, current generation=43, relation=changed. Material changed-source count=1.",
+      "family": "reconciliation",
+      "oracle": "REFRESH_CONTEXT",
+      "rawPacket": "Compiled Context at t0 binds Finance context revision 15 digest F15 and Workstation network surface generation 42 digest W42. At t1 Finance current remains revision 15 digest F15. At t2 Workstation publishes generation 43 digest W43 as current; generation 42 remains readable as history.",
+      "split": "holdout",
+      "task": "POLICY: USE_CONTEXT only if every material source revision bound into the Context is still current. If any material owner source has changed, REFRESH_CONTEXT. Operations: USE_CONTEXT, REFRESH_CONTEXT."
+    }
+  ],
+  "instruction": "You are operating a bounded system. Follow the POLICY exactly. Select the one exact operation required by the current facts. Do not invent missing facts. RAW and COMPILED forms are merely alternative representations; reason from what is shown.\n\nTASK:\n{{TASK}}\n\nEVIDENCE:\n{{PACKET}}\n\nReturn selectedOperation exactly as one operation label named in the POLICY. Set owner=Ordivon Computing, needsMoreInfo=false, effectClass=read_only, authorityBoundary=Computing research only.",
+  "kind": "ordivon.computing.pal-f10a-responsibility-cases",
+  "schemaVersion": 1,
+  "status": "frozen-before-live-provider-call"
+}

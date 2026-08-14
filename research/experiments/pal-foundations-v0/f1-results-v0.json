@@ -1,0 +1,217 @@
+{
+  "all": {
+    "B0_PERSISTENCE": {
+      "accuracy": 0.5,
+      "correct": 4,
+      "total": 8
+    },
+    "B1_CURRENT_BURDEN": {
+      "accuracy": 0.5,
+      "correct": 4,
+      "total": 8
+    },
+    "B2_CROSSCUT_SYMMETRY": {
+      "accuracy": 0.375,
+      "correct": 3,
+      "total": 8
+    },
+    "M_RESPONSIBILITY": {
+      "accuracy": 0.875,
+      "correct": 7,
+      "total": 8
+    }
+  },
+  "caseCount": 8,
+  "development": {
+    "B0_PERSISTENCE": {
+      "accuracy": 0.75,
+      "correct": 3,
+      "total": 4
+    },
+    "B1_CURRENT_BURDEN": {
+      "accuracy": 0.75,
+      "correct": 3,
+      "total": 4
+    },
+    "B2_CROSSCUT_SYMMETRY": {
+      "accuracy": 0.75,
+      "correct": 3,
+      "total": 4
+    },
+    "M_RESPONSIBILITY": {
+      "accuracy": 1.0,
+      "correct": 4,
+      "total": 4
+    }
+  },
+  "holdout": {
+    "B0_PERSISTENCE": {
+      "accuracy": 0.25,
+      "correct": 1,
+      "total": 4
+    },
+    "B1_CURRENT_BURDEN": {
+      "accuracy": 0.25,
+      "correct": 1,
+      "total": 4
+    },
+    "B2_CROSSCUT_SYMMETRY": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 4
+    },
+    "M_RESPONSIBILITY": {
+      "accuracy": 0.75,
+      "correct": 3,
+      "total": 4
+    }
+  },
+  "interpretation": {
+    "bestByExactDispositionAccuracy": "M_RESPONSIBILITY",
+    "bestResiduals": [
+      "F1-C6-INFRASTRUCTURE-PROMOTION-RULE"
+    ],
+    "claimBoundary": "Small retrospective case court. Accuracy is discrimination evidence, not causal proof; manually inspect residuals and time leakage before any PAL conclusion."
+  },
+  "kind": "ordivon.computing.pal-f1-historical-replay",
+  "rows": [
+    {
+      "correct": {
+        "B0_PERSISTENCE": false,
+        "B1_CURRENT_BURDEN": false,
+        "B2_CROSSCUT_SYMMETRY": true,
+        "M_RESPONSIBILITY": true
+      },
+      "id": "F1-C1-SEMANTIC-CORE-V0",
+      "oracle": "localize_or_narrow",
+      "predictions": {
+        "B0_PERSISTENCE": "retain_durable",
+        "B1_CURRENT_BURDEN": "retain_durable",
+        "B2_CROSSCUT_SYMMETRY": "localize_or_narrow",
+        "M_RESPONSIBILITY": "localize_or_narrow"
+      },
+      "split": "development"
+    },
+    {
+      "correct": {
+        "B0_PERSISTENCE": true,
+        "B1_CURRENT_BURDEN": true,
+        "B2_CROSSCUT_SYMMETRY": true,
+        "M_RESPONSIBILITY": true
+      },
+      "id": "F1-C2-TASK-CONTINUITY",
+      "oracle": "retain_durable",
+      "predictions": {
+        "B0_PERSISTENCE": "retain_durable",
+        "B1_CURRENT_BURDEN": "retain_durable",
+        "B2_CROSSCUT_SYMMETRY": "retain_durable",
+        "M_RESPONSIBILITY": "retain_durable"
+      },
+      "split": "development"
+    },
+    {
+      "correct": {
+        "B0_PERSISTENCE": true,
+        "B1_CURRENT_BURDEN": true,
+        "B2_CROSSCUT_SYMMETRY": false,
+        "M_RESPONSIBILITY": true
+      },
+      "id": "F1-C3-TEMPORAL-COGNITIVE-GRAPH",
+      "oracle": "defer_or_contract",
+      "predictions": {
+        "B0_PERSISTENCE": "defer_or_contract",
+        "B1_CURRENT_BURDEN": "defer_or_contract",
+        "B2_CROSSCUT_SYMMETRY": "localize_or_narrow",
+        "M_RESPONSIBILITY": "defer_or_contract"
+      },
+      "split": "development"
+    },
+    {
+      "correct": {
+        "B0_PERSISTENCE": true,
+        "B1_CURRENT_BURDEN": true,
+        "B2_CROSSCUT_SYMMETRY": true,
+        "M_RESPONSIBILITY": true
+      },
+      "id": "F1-C4-OBSERVATION-MINIMUM-CORE",
+      "oracle": "retain_durable",
+      "predictions": {
+        "B0_PERSISTENCE": "retain_durable",
+        "B1_CURRENT_BURDEN": "retain_durable",
+        "B2_CROSSCUT_SYMMETRY": "retain_durable",
+        "M_RESPONSIBILITY": "retain_durable"
+      },
+      "split": "development"
+    },
+    {
+      "correct": {
+        "B0_PERSISTENCE": false,
+        "B1_CURRENT_BURDEN": false,
+        "B2_CROSSCUT_SYMMETRY": false,
+        "M_RESPONSIBILITY": true
+      },
+      "id": "F1-C5-AGENT-FIRST-RESEARCH-METHOD",
+      "oracle": "localize_or_narrow",
+      "predictions": {
+        "B0_PERSISTENCE": "retain_durable",
+        "B1_CURRENT_BURDEN": "retain_durable",
+        "B2_CROSSCUT_SYMMETRY": "retain_durable",
+        "M_RESPONSIBILITY": "localize_or_narrow"
+      },
+      "split": "holdout"
+    },
+    {
+      "correct": {
+        "B0_PERSISTENCE": true,
+        "B1_CURRENT_BURDEN": true,
+        "B2_CROSSCUT_SYMMETRY": false,
+        "M_RESPONSIBILITY": false
+      },
+      "id": "F1-C6-INFRASTRUCTURE-PROMOTION-RULE",
+      "oracle": "retain_durable",
+      "predictions": {
+        "B0_PERSISTENCE": "retain_durable",
+        "B1_CURRENT_BURDEN": "retain_durable",
+        "B2_CROSSCUT_SYMMETRY": "localize_or_narrow",
+        "M_RESPONSIBILITY": "localize_or_narrow"
+      },
+      "split": "holdout"
+    },
+    {
+      "correct": {
+        "B0_PERSISTENCE": false,
+        "B1_CURRENT_BURDEN": false,
+        "B2_CROSSCUT_SYMMETRY": false,
+        "M_RESPONSIBILITY": true
+      },
+      "id": "F1-C7-SHARED-CONFIGURATION-IDENTITY",
+      "oracle": "localize_or_narrow",
+      "predictions": {
+        "B0_PERSISTENCE": "retain_durable",
+        "B1_CURRENT_BURDEN": "retain_durable",
+        "B2_CROSSCUT_SYMMETRY": "retain_durable",
+        "M_RESPONSIBILITY": "localize_or_narrow"
+      },
+      "split": "holdout"
+    },
+    {
+      "correct": {
+        "B0_PERSISTENCE": false,
+        "B1_CURRENT_BURDEN": false,
+        "B2_CROSSCUT_SYMMETRY": false,
+        "M_RESPONSIBILITY": true
+      },
+      "id": "F1-C8-GLOBAL-USAGE-AUTHORITY",
+      "oracle": "localize_or_narrow",
+      "predictions": {
+        "B0_PERSISTENCE": "defer_or_contract",
+        "B1_CURRENT_BURDEN": "retain_durable",
+        "B2_CROSSCUT_SYMMETRY": "retain_durable",
+        "M_RESPONSIBILITY": "localize_or_narrow"
+      },
+      "split": "holdout"
+    }
+  ],
+  "schemaVersion": 1,
+  "status": "completed-retrospective-replay"
+}

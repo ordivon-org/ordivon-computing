@@ -1,0 +1,3272 @@
+{
+  "caseSourceDigest": "sha256:7b52c25ffc31feba6a48a551ee9e653a546a6531e04b02a03419527886cf4c61",
+  "kind": "ordivon.computing.acs-fresh-agent-campaign",
+  "model": "deepseek-v4-flash",
+  "schemaVersion": 1,
+  "trials": [
+    {
+      "caseId": "D1-source-quorum",
+      "contractDigest": "sha256:a0bf02bf7209c66a9eb06d2d6e971d4c5c4b7fc95017403f0428c2004033c45a",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 5739,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:00a9232cbbd1c20760de7e9b391428fe2c1ea23bc1a7733e57af8d8a127410e3",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Policy requires at least 3 DISTINCT sources with a latest non-revoked MATCH. Sources: sA latest match (its final event is a MATCH duplicate, non-revoked), sB has REVOKE as its latest event (revocation applies until a later MATCH, none occurs for sB), sC latest match (final event is MATCH duplicate), sD is MISMATCH, sE MATCH. Non-revoked distinct matches: sA, sC, sE = 3 distinct sources. Wait—sB's REVOKE applies to sB only. sA, sC, sE have non-revoked MATCHes as their latest events, giving 3 distinct sources. However, reconsider: the policy says at least 3 DISTINCT sources must have a latest non-revoked MATCH. sA, sC, sE each satisfy this = 3 distinct sources. But the order check: sB's REVOKE does not affect sA/C/D/E. So ACCEPT would apply with 3 distinct qualifying sources (sA, sC, sE). Re-evaluating: sA has two MATCH events (latest is duplicate MATCH, non-revoked), sC has two MATCH events (latest duplicate, non-revoked), sE has one MATCH. That is 3 distinct sources with latest non-revoked MATCH, so ACCEPT.",
+        "selectedOperation": "HOLD"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D1-source-quorum:raw:deepseek-v4-flash:1:1786648293486",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 466,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 326,
+            "prompt_tokens": 966,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1432
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1432,
+        "wallTimeMs": 5644
+      }
+    },
+    {
+      "caseId": "D1-source-quorum",
+      "contractDigest": "sha256:16238515ad834000275502a7eb560f0cd1f411dfbb2a61fa1c78657add4f118c",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3981,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:f387d1b8b6c85101ba357666da7e6858d93ee64416c26cfc68487bb18d77103b",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Tracking latest non-revoked MATCH per source: sA MATCH (not revoked), sB MATCH then REVOKE (so latest non-revoked = none, unless later MATCH; no later sB MATCH), sC MATCH (not revoked), sD MISMATCH, sE MATCH (not revoked). Distinct sources with latest non-revoked MATCH: sA, sC, sE = 3 distinct sources, meeting the at-least-3 threshold for ACCEPT.",
+        "selectedOperation": "ACCEPT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D1-source-quorum:raw:deepseek-v4-flash:2:1786648299316",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 271,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 70,
+            "prompt_tokens": 966,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1237
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1237,
+        "wallTimeMs": 3889
+      }
+    },
+    {
+      "caseId": "D1-source-quorum",
+      "contractDigest": "sha256:cec54d40e2d220d6d8808c9bfaf9800872ae07a95bd8822577defd4dd4e8ec83",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4201,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:eb80a15ef309e738ccfd4aab8dd6022e3ed40d1adc4be9c86263e3c2cfbb180e",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Sources: sA MATCH (latest non-revoked MATCH from sA until revoked - sA not revoked), sB MATCH then sB REVOKE (sB's MATCH revoked, no later MATCH for sB), sC MATCH + later MATCH duplicate (latest non-revoked MATCH), sE MATCH. Distinct sources with latest non-revoked MATCH: sA, sC, sE = 3 distinct sources. At least 3 distinct sources have latest non-revoked MATCH, so ACCEPT.",
+        "selectedOperation": "ACCEPT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D1-source-quorum:raw:deepseek-v4-flash:3:1786648303396",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 281,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 70,
+            "prompt_tokens": 966,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1247
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1247,
+        "wallTimeMs": 4112
+      }
+    },
+    {
+      "caseId": "D1-source-quorum",
+      "contractDigest": "sha256:20ab22c09468d0610c75b4a803c4d9381db65bc2adccc34218c8a04a7fa8c00d",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4603,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:22a51d80ac89e6f914a802b5a76382f231e65ba7cf2f4f877e96a6c7eac219c4",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "POLICY requires ACCEPT iff at least 3 DISTINCT sources have a latest non-revoked MATCH for claim C. The deterministic projection shows exactly 3 distinct latest non-revoked MATCH sources (sA, sC, sE). The threshold of 3 is met, so ACCEPT is required.",
+        "selectedOperation": "ACCEPT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D1-source-quorum:compiled:deepseek-v4-flash:1:1786648307697",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 228,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 324,
+            "prompt_tokens": 964,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1192
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1192,
+        "wallTimeMs": 4517
+      }
+    },
+    {
+      "caseId": "D1-source-quorum",
+      "contractDigest": "sha256:7bd20ad667c9b145df42767ba0123c235779b59e7297b4c675ed4ef172b1148e",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3600,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:3102bdc18290a4550fe0f61fa76812c6e9a11e8734b50484ff13e7faf48b2626",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The deterministic projection for claim C shows latest non-revoked MATCH sources from sA, sC, and sE (sB is REVOKED, sD is MISMATCH). This yields 3 distinct latest non-revoked MATCH sources, which satisfies the POLICY threshold of at least 3 DISTINCT sources with a latest non-revoked MATCH. Therefore ACCEPT is required.",
+        "selectedOperation": "ACCEPT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D1-source-quorum:compiled:deepseek-v4-flash:2:1786648312399",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 246,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 68,
+            "prompt_tokens": 964,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1210
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1210,
+        "wallTimeMs": 3500
+      }
+    },
+    {
+      "caseId": "D1-source-quorum",
+      "contractDigest": "sha256:f40b23eb9ea2b6595042dc0fd65dd29a201e6b9eecb96ebe6a4095920c3569ed",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3663,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:9a2a13402747789b8453122c2bce3a95c7e71a66d22d1c894a7bf0377fd2898a",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The deterministic projection for claim C shows latest source states with 3 DISTINCT latest non-revoked MATCH sources (sA, sC, sE). POLICY requires ACCEPT iff at least 3 DISTINCT sources have a latest non-revoked MATCH, which is satisfied. sB is REVOKED and sD is MISMATCH, excluded. Therefore ACCEPT is required.",
+        "selectedOperation": "ACCEPT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D1-source-quorum:compiled:deepseek-v4-flash:3:1786648316116",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 244,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 68,
+            "prompt_tokens": 964,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1208
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1208,
+        "wallTimeMs": 3558
+      }
+    },
+    {
+      "caseId": "D2-budget-total",
+      "contractDigest": "sha256:b1e759e741625992f9d15c9c6d1ed9e0f121cb6bd06b5d180ba9c45e1f4189f3",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3565,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:4343d2d412a875a41cf8785872350cf7c29ee9b9d090584d499e13d18d029b23",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Admitted token usage records sum to 730+1250+980+1640+410+1320+875+1040 = 8245. The 999-token diagnostic record is NOT_ADMITTED and excluded. 8245 is not strictly greater than 8000, so the STOP condition is not met; therefore CONTINUE.",
+        "selectedOperation": "CONTINUE"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D2-budget-total:raw:deepseek-v4-flash:1:1786648319898",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 235,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 179,
+            "prompt_tokens": 947,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1182
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1182,
+        "wallTimeMs": 3483
+      }
+    },
+    {
+      "caseId": "D2-budget-total",
+      "contractDigest": "sha256:df2552cc94df722f0618957ba502a5f0a5ebe149e7d4213ca9b9f36ce47f308b",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4054,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:a0c80208cf059ce8e248736d4214750f055d8af2f96aaf0d2e317d700822772a",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Sum of admitted usage records: 730+1250+980+1640+410+1320+875+1040 = 8245. The not-admitted 999 diagnostic record is excluded. Policy says STOP iff total admitted tokens > 8000. 8245 > 8000, so STOP is required.",
+        "selectedOperation": "CONTINUE"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D2-budget-total:raw:deepseek-v4-flash:2:1786648323569",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 230,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 51,
+            "prompt_tokens": 947,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1177
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1177,
+        "wallTimeMs": 3939
+      }
+    },
+    {
+      "caseId": "D2-budget-total",
+      "contractDigest": "sha256:8de1333f9a20646b065ab8a4e9fd036a8fc4c08f28571db851a3e9ccf975e53d",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4062,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:404bbaddca4a6d98a7b648ae12a2bdcd4e276b4f8d97b5961ce949eeaad580c0",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Total admitted token usage = 730+1250+980+1640+410+1320+875+1040 = 8245, which is strictly greater than 8000. The 999-token diagnostic record is NOT_ADMITTED and excluded. Per POLICY, STOP applies.",
+        "selectedOperation": "STOP"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D2-budget-total:raw:deepseek-v4-flash:3:1786648327711",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 223,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 51,
+            "prompt_tokens": 947,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1170
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1170,
+        "wallTimeMs": 3961
+      }
+    },
+    {
+      "caseId": "D2-budget-total",
+      "contractDigest": "sha256:8ba7fc0fdd58e88ee3fc12c6262a4a421a377b7b543e52c12a81f2c78959491e",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3347,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:4e2666b4d4971f548ad5053b4fc84bd0017260db037b5ee1b6d5dc0802ce5912",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "POLICY states STOP iff total admitted token usage is strictly greater than 8000. Admitted totalTokens=8245 which is strictly greater than 8000, therefore STOP is required.",
+        "selectedOperation": "STOP"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D2-budget-total:compiled:deepseek-v4-flash:1:1786648331885",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 200,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 153,
+            "prompt_tokens": 921,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1121
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1121,
+        "wallTimeMs": 3255
+      }
+    },
+    {
+      "caseId": "D2-budget-total",
+      "contractDigest": "sha256:67d31aab0130422256198165080cbdfbac3044b1edf469ed5cceb889387e5591",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3419,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:8e52fe19261dd74de85a3144bca6888519ec081c010770b83bea52511873a6a6",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Admitted totalTokens=8245 is strictly greater than 8000, satisfying the STOP condition per POLICY.",
+        "selectedOperation": "STOP"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D2-budget-total:compiled:deepseek-v4-flash:2:1786648335344",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 184,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 25,
+            "prompt_tokens": 921,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1105
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1105,
+        "wallTimeMs": 3306
+      }
+    },
+    {
+      "caseId": "D2-budget-total",
+      "contractDigest": "sha256:91b1fbd8493da22fa9219eff5eb5f04e4db8dcb972f3db2a1c2a064250110db8",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3318,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:ce7b46dd9624760c1fdbed7e14e2eeb46f29356285600ea20f70e3a0abd6eedd",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Admitted totalTokens=8245 is strictly greater than 8000, satisfying the STOP condition per POLICY.",
+        "selectedOperation": "STOP"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D2-budget-total:compiled:deepseek-v4-flash:3:1786648338862",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 184,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 281,
+            "prompt_tokens": 921,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1105
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1105,
+        "wallTimeMs": 3212
+      }
+    },
+    {
+      "caseId": "R1-response-loss-terminal",
+      "contractDigest": "sha256:6193313b6a584d8ab157982aea834971ad73e8bbc6a4d6cb180ad626e0a18313",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3561,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:59c5cc5715c8ef114f82f4791597f503f6b6b591993407306e37d1f249ee7db8",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The request req-71 has a reconciled terminal success: process exit=0, result artifact committed, and registry event marks Job succeeded. Per POLICY, if the exact request has any reconciled terminal success, DO_NOT_RETRY.",
+        "selectedOperation": "DO_NOT_RETRY"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R1-response-loss-terminal:raw:deepseek-v4-flash:1:1786648342303",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 211,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 214,
+            "prompt_tokens": 982,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1193
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1193,
+        "wallTimeMs": 3481
+      }
+    },
+    {
+      "caseId": "R1-response-loss-terminal",
+      "contractDigest": "sha256:4214eeb43f6108645a347b47ad22d0fe592e49066275f87365fd1842df9b8ec7",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3612,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:cd23e9a7ee0d46a4ea66fd048f4ace54d9a60ad4851543fc59c12dd84714ca32",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The evidence shows a reconciled terminal success: result artifact committed and registry event marks Job succeeded with process exit=0. No second dispatch event exists, indicating the request was committed and reached a terminal successful state. Per POLICY, if the exact request has any reconciled terminal success, DO_NOT_RETRY.",
+        "selectedOperation": "DO_NOT_RETRY"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R1-response-loss-terminal:raw:deepseek-v4-flash:2:1786648345990",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 225,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 86,
+            "prompt_tokens": 982,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1207
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1207,
+        "wallTimeMs": 3519
+      }
+    },
+    {
+      "caseId": "R1-response-loss-terminal",
+      "contractDigest": "sha256:929a6d92266fa327fab4e8c7ebf7b245e6c2f7a2c411a76263106292e2e66947",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3868,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:764510540b4a8d7db4ab051dcdbff29227d9bb2b3a4d184a072573980459b190",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The evidence shows reconcilable terminal success: attempt-1 was dispatched, process exit=0, result artifact committed, and the registry event marks Job succeeded. Although the client response channel was lost, a later runner-bound event was observed confirming completion. The task was committed (attempt-1 dispatched) and a terminal result exists (Job succeeded with committed artifact). Per POLICY, if the exact request has any reconciled terminal success, DO_NOT_RETRY.",
+        "selectedOperation": "DO_NOT_RETRY"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R1-response-loss-terminal:raw:deepseek-v4-flash:3:1786648349682",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 255,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 86,
+            "prompt_tokens": 982,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1237
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1237,
+        "wallTimeMs": 3784
+      }
+    },
+    {
+      "caseId": "R1-response-loss-terminal",
+      "contractDigest": "sha256:e483cc61af0779f29266f7ada2c16d4682670d1de3e2f1d530cd7af7a19b92d6",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3727,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:e6c30333d770b268b8209347f619628db9ffa6413da4de9e0dfc8850cfc576a1",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The exact request req-71 has a reconciled terminal success: executionDisposition=succeeded, deliveryDisposition=committed, resultAvailable=true, terminal=true. Per POLICY, if the exact request has any reconciled terminal success, DO_NOT_RETRY.",
+        "selectedOperation": "DO_NOT_RETRY"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R1-response-loss-terminal:compiled:deepseek-v4-flash:1:1786648353665",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 216,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 207,
+            "prompt_tokens": 975,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1191
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1191,
+        "wallTimeMs": 3582
+      }
+    },
+    {
+      "caseId": "R1-response-loss-terminal",
+      "contractDigest": "sha256:80832a26fb4da47ae29887465667125aa1e782b5279ca6340c0bf5e7014f10dc",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3349,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:afc3ff880ba37e8df499d2eddb730f3a19c35da57000dcf45bbefe40686ef49a",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The precise current projection for req-71 shows terminal=true with executionDisposition=succeeded and deliveryDisposition=committed, which is a reconciled terminal success. Per POLICY, any reconciled terminal success requires DO_NOT_RETRY.",
+        "selectedOperation": "DO_NOT_RETRY"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R1-response-loss-terminal:compiled:deepseek-v4-flash:2:1786648357481",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 211,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 79,
+            "prompt_tokens": 975,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1186
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1186,
+        "wallTimeMs": 3226
+      }
+    },
+    {
+      "caseId": "R1-response-loss-terminal",
+      "contractDigest": "sha256:b50348ca2d66721e54f0f3c0f16e47786e5f1401831f8526b170f24c082f6bcc",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3611,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:d662723ef68221826101ee56d1c1de5d7a7ff287b1db0f5cd791e9c02c856b16",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The evidence shows req-71 has terminal=true, executionDisposition=succeeded, deliveryDisposition=committed, and resultAvailable=true. The policy states: if the exact request has any reconciled terminal success, DO_NOT_RETRY. This is a reconciled terminal success, so no retry should occur.",
+        "selectedOperation": "DO_NOT_RETRY"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R1-response-loss-terminal:compiled:deepseek-v4-flash:3:1786648361012",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 252,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 79,
+            "prompt_tokens": 975,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1227
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1227,
+        "wallTimeMs": 3515
+      }
+    },
+    {
+      "caseId": "R2-concurrency-nonadmission",
+      "contractDigest": "sha256:d196d3381deedd008655c71fe00392cd311c2d56384e5647bd0015507be3d1fe",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3699,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:5fa4cf8be4e19ca57fd654425426e9bc6f3b8558122b188c0bf19fcac5dd3636",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The rejected proposal has commitState=not_started (not committed/admitted), retryClass=safe_same_request, retryable=true, retryAfterMs=250, and no Job ID or Attempt ID was created. Per POLICY, RETRY_SAME applies only when the proposal was NOT committed/admitted and retrying the same request is explicitly safe. All conditions are met, so RETRY_SAME is the exact required operation.",
+        "selectedOperation": "RETRY_SAME"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R2-concurrency-nonadmission:raw:deepseek-v4-flash:1:1786648364761",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 254,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 213,
+            "prompt_tokens": 981,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1235
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1235,
+        "wallTimeMs": 3581
+      }
+    },
+    {
+      "caseId": "R2-concurrency-nonadmission",
+      "contractDigest": "sha256:a46779e5d2908290da8de2d4599e7601af136313e4c7e5b98d81c2b8c142ff0f",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4425,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:f4d823ef6fdba5260209941aa1c350f745a89cbf08eba88b6cace8039846f103",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The proposal was NOT committed/admitted (commitState=not_started, no Job ID or Attempt ID created) and the rejection record explicitly marks retryClass=safe_same_request with retryable=true, so retrying the same request is explicitly safe per POLICY.",
+        "selectedOperation": "RETRY_SAME"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R2-concurrency-nonadmission:raw:deepseek-v4-flash:2:1786648368559",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 219,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 85,
+            "prompt_tokens": 981,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1200
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1200,
+        "wallTimeMs": 4306
+      }
+    },
+    {
+      "caseId": "R2-concurrency-nonadmission",
+      "contractDigest": "sha256:2447d9de3b2a667c249c55738786a6a681895845a9a42ee856e7bb5f180c168f",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4043,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:0b59c6dbd136bcb0d704fb6dd7e3d2ab85177b76ee2b14df7db8e1a763b783e8",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The proposal was not committed/admitted (commitState=not_started, no Job ID or Attempt ID created), so the RETRY_SAME path applies. The rejection record explicitly marks retryClass=safe_same_request and retryable=true with retryAfterMs=250, confirming retrying the same request is explicitly safe. This satisfies the 'not committed and retrying is explicitly safe' condition for RETRY_SAME, not RECONCILE_FIRST (which requires committed with unknown outcome).",
+        "selectedOperation": "RETRY_SAME"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R2-concurrency-nonadmission:raw:deepseek-v4-flash:3:1786648373139",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 269,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 85,
+            "prompt_tokens": 981,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1250
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1250,
+        "wallTimeMs": 3924
+      }
+    },
+    {
+      "caseId": "R2-concurrency-nonadmission",
+      "contractDigest": "sha256:b20f65818ae28d055da814e365bb6a1701c6fbac3f5c6535c5053f22d8f1d94b",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3646,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:d167dd406df8b0e336237e65b995bf9e5a0546bcf0c2331830dc0208b31af9b5",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The admission projection shows committed=false, meaning the proposal was NOT committed/admitted. retryClass=safe_same_request confirms retrying the same request is explicitly safe. Therefore RETRY_SAME is the operation required by POLICY.",
+        "selectedOperation": "RETRY_SAME"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R2-concurrency-nonadmission:compiled:deepseek-v4-flash:1:1786648377318",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 210,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 191,
+            "prompt_tokens": 959,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1169
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1169,
+        "wallTimeMs": 3527
+      }
+    },
+    {
+      "caseId": "R2-concurrency-nonadmission",
+      "contractDigest": "sha256:72561e370700ef090fdd4dc4a754272f49e54bdbd164187989586cfd510601b6",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4518,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:64e4d813e0b012d36af1f0c77f5df37a702b3e6511442e58a78b601de2659243",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The proposal was NOT committed/admitted (committed=false; jobCreated=false; attemptCreated=false) and retrying the same request is explicitly safe (retryable=true, retryClass=safe_same_request, retryAfterMs=250). Per POLICY, RETRY_SAME applies only when the proposal was NOT committed/admitted and retrying the same request is explicitly safe, which is exactly the present state.",
+        "selectedOperation": "RETRY_SAME"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R2-concurrency-nonadmission:compiled:deepseek-v4-flash:2:1786648381098",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 249,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 63,
+            "prompt_tokens": 959,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1208
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1208,
+        "wallTimeMs": 4404
+      }
+    },
+    {
+      "caseId": "R2-concurrency-nonadmission",
+      "contractDigest": "sha256:042fd9c5283613fd20f0613cd4929a8993e0c9b7fbd3c75536bb328e34c4eee7",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4156,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:15981c51881cb8aaf518ba0fe3713c2eaa2dfc25e5d86070bd0dcab063db231c",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The proposal was NOT committed (committed=false), so RECONCILE_FIRST does not apply. Retrying the same request is explicitly safe (retryable=true, retryClass=safe_same_request), satisfying the RETRY_SAME condition.",
+        "selectedOperation": "RETRY_SAME"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R2-concurrency-nonadmission:compiled:deepseek-v4-flash:3:1786648385747",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 217,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 319,
+            "prompt_tokens": 959,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1176
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1176,
+        "wallTimeMs": 4038
+      }
+    },
+    {
+      "caseId": "D3-tool-contract-drift",
+      "contractDigest": "sha256:51525007897f10a0d884321a74e607b8a065ae90b12619e5ca9826372710e55b",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3516,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:788de4334829ff482ea6a9844174ccd1e250a17670f7384a5d0505adb9566771",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The Context binding record has digest=sha256:AAA91, but the current provider catalog record digest is sha256:BBF07. Per POLICY, USE_CURRENT applies only if the Tool contract digest bound into Context equals the current callable Tool digest. Since AAA91 != BBF07 (the AAA91 entry is historical, not current), the correct operation is REFRESH.",
+        "selectedOperation": "REFRESH"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D3-tool-contract-drift:raw:deepseek-v4-flash:1:1786648390029",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 241,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 211,
+            "prompt_tokens": 979,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1220
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1220,
+        "wallTimeMs": 3399
+      }
+    },
+    {
+      "caseId": "D3-tool-contract-drift",
+      "contractDigest": "sha256:3f716cc8f06647a3f3922f62569c162f29d272385a64300e41c1b6ad858912ae",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3546,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:724c8f72b378e3901660dcd784fa32bfefdb8ba6417c77b5fe65fd459feef6d5",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The Context binding digest is sha256:AAA91 for edit.exact, but the current provider catalog digest is sha256:BBF07 for the same tool. Since the bound digest does not equal the current callable tool digest, POLICY requires REFRESH rather than USE_CURRENT. The historical entry containing AAA91 is not current and does not change this determination.",
+        "selectedOperation": "REFRESH"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D3-tool-contract-drift:raw:deepseek-v4-flash:2:1786648393678",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 237,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 83,
+            "prompt_tokens": 979,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1216
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1216,
+        "wallTimeMs": 3431
+      }
+    },
+    {
+      "caseId": "D3-tool-contract-drift",
+      "contractDigest": "sha256:df965351d12793e37dcc86f6d0b382b0f4690da05a34162a141e206bbe582fe8",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3267,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:48dea3491e9bdf4e83c9630e44744c0601df256de37cef4ba0c604d007349a83",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The Context binding record digest (sha256:AAA91) does not equal the current callable Tool digest (sha256:BBF07). Per POLICY, USE_CURRENT applies only when the digest bound into Context equals the current callable Tool digest. Since they differ, REFRESH is required.",
+        "selectedOperation": "REFRESH"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D3-tool-contract-drift:raw:deepseek-v4-flash:3:1786648397355",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 224,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 211,
+            "prompt_tokens": 979,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1203
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1203,
+        "wallTimeMs": 3150
+      }
+    },
+    {
+      "caseId": "D3-tool-contract-drift",
+      "contractDigest": "sha256:889379e58ce445884b8de32148f3590a3f3e768c4cdac7dfac3a83c0655d590f",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3621,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:1fab877a8c98511e24d6d4d478364a98bb07345853c30120dfca0b2ffdbe18e8",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The bound tool digest (sha256:AAA91) does not equal the current callable tool digest (sha256:BBF07), so the contract digest bound into Context does not equal the current callable Tool digest. Policy requires REFRESH when digests differ.",
+        "selectedOperation": "REFRESH"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D3-tool-contract-drift:compiled:deepseek-v4-flash:1:1786648400760",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 218,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 180,
+            "prompt_tokens": 948,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1166
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1166,
+        "wallTimeMs": 3506
+      }
+    },
+    {
+      "caseId": "D3-tool-contract-drift",
+      "contractDigest": "sha256:c6063a1857c0fcb24d6f6e990a412c87afd8fdb1ef2cd2b2f7e44ca6a9e13704",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3599,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:f09f83fe0009c278e4b6ed5376377c9268335cb4762f8ccf280874a4712e993a",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The policy states USE_CURRENT only if the bound digest equals the current digest. The bound digest is sha256:AAA91 and the current digest is sha256:BBF07, which differ. The relation is changed. Therefore USE_CURRENT is not applicable, and REFRESH is the required operation.",
+        "selectedOperation": "REFRESH"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D3-tool-contract-drift:compiled:deepseek-v4-flash:2:1786648404511",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 225,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 52,
+            "prompt_tokens": 948,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1173
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1173,
+        "wallTimeMs": 3479
+      }
+    },
+    {
+      "caseId": "D3-tool-contract-drift",
+      "contractDigest": "sha256:6263f49ba8cef9117d04f92d59e593079403387c6b8e277958d2ee9d7f20b135",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3322,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:2a561ffb1a2a9e35c06beb0b8be9f24aea7dd5f4a36dfe9a323918acc6a3e228",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The bound digest sha256:AAA91 does not equal the current digest sha256:BBF07 (relation=changed). Per POLICY, USE_CURRENT is only permitted when bound digest equals current digest; otherwise REFRESH is required. Since the digests differ, REFRESH is the correct operation.",
+        "selectedOperation": "REFRESH"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D3-tool-contract-drift:compiled:deepseek-v4-flash:3:1786648408236",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 225,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 52,
+            "prompt_tokens": 948,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1173
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1173,
+        "wallTimeMs": 3200
+      }
+    },
+    {
+      "caseId": "D4-artifact-completeness",
+      "contractDigest": "sha256:074ccec901617387f4928eba66265e7ee6ebbb5012ee5854db4324a20a9c535c",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3868,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:1b71dc19ab8b229e11eb89e646ec816c0e36ccd67c49eb512e52a62fabe9bf6d",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "VERIFY requires every required artifact A, B, C to have a terminal retained receipt whose observed digest matches its expected digest. A and B qualify (A terminal retained sha256:a1 matches; B terminal retained sha256:b2 matches). However, C only has an upload-started observed sha256:c3 with no terminal retained receipt, and the old superseded C receipt (sha256:oldc) does not match expected c3. Since C lacks a terminal retained receipt, not all required artifacts are verified, so the policy requires WAIT.",
+        "selectedOperation": "WAIT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D4-artifact-completeness:raw:deepseek-v4-flash:1:1786648411689",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 273,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 209,
+            "prompt_tokens": 977,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1250
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1250,
+        "wallTimeMs": 3754
+      }
+    },
+    {
+      "caseId": "D4-artifact-completeness",
+      "contractDigest": "sha256:def8bcfe07ad481df2c8c135d3cd11a77bb6384c22646cdd4573898e6f04a809",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3947,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:38ed7a80116ef57895271d2a28f3b0dc02da8a313adf0b0de57c8a4101f4073b",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "PER POLICY, VERIFY requires every required artifact A, B, C to have a terminal retained receipt whose observed digest matches its expected digest. A and B satisfy this (a1 matches, b2 matches). However C has only an upload-started receipt (observed c3) but no terminal retained receipt; the old superseded C receipt is not terminal retained for C. Therefore not all required artifacts meet the VERIFY condition, so WAIT is required.",
+        "selectedOperation": "WAIT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D4-artifact-completeness:raw:deepseek-v4-flash:2:1786648415696",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 271,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 81,
+            "prompt_tokens": 977,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1248
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1248,
+        "wallTimeMs": 3828
+      }
+    },
+    {
+      "caseId": "D4-artifact-completeness",
+      "contractDigest": "sha256:bc409a5f542ce36f7d94b3f305f1981a92fca7fecb288b71464167fe2b7e1c59",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4066,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:db2b29f74d123acfb3900dc3795c5e483293c0a5724bcec98eb0d9bdcf2de062",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "VERIFY requires every required artifact A, B, C to have a terminal retained receipt with matching observed digest. A terminal retained observed sha256:a1 (matches expected a1), B terminal retained observed sha256:b2 (matches expected b2), but C only has an upload-started receipt with observed sha256:c3 and no terminal retained receipt. The old superseded C receipt (sha256:oldc) does not satisfy the terminal retained requirement for C. Since not all three artifacts have terminal retained receipts, the policy requires WAIT.",
+        "selectedOperation": "WAIT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D4-artifact-completeness:raw:deepseek-v4-flash:3:1786648419779",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 272,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 81,
+            "prompt_tokens": 977,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1249
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1249,
+        "wallTimeMs": 3945
+      }
+    },
+    {
+      "caseId": "D4-artifact-completeness",
+      "contractDigest": "sha256:310520cb4114de2b7d9c0963e29faeb54d8e6814aaeab01ecbae9bd03525b5f6",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3963,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:7b52376d92d2076d098bb9c2d1a6596cb0992d14741e5359cadbf7d1627efc18",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "VERIFY requires every required artifact A,B,C to have a terminal retained receipt with matching observed digest. The evidence shows only 2/3 matched (C has terminal+matching=false with missing terminal receipt for C), so VERIFY conditions are not met. Per POLICY, the operation is WAIT.",
+        "selectedOperation": "WAIT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D4-artifact-completeness:compiled:deepseek-v4-flash:1:1786648423977",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 222,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 176,
+            "prompt_tokens": 944,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1166
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1166,
+        "wallTimeMs": 3842
+      }
+    },
+    {
+      "caseId": "D4-artifact-completeness",
+      "contractDigest": "sha256:4fdfb38144f1a85570000625d5d83d66dee50d5dc2b13efef2bfb574bf9a743f",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3566,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:6e8fd8febcfbc0e566f7e10f9304f41e606ca0e2663c53c0d6b92ea7aea850aa",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "VERIFY requires every required artifact A,B,C to have a terminal retained receipt with matching digest. Evidence shows only 2/3 artifacts are terminal+matching=true; artifact C is terminal+matching=false with a missing terminal receipt. Therefore the VERIFY precondition is not met; the required operation is WAIT.",
+        "selectedOperation": "WAIT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D4-artifact-completeness:compiled:deepseek-v4-flash:2:1786648428072",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 224,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 176,
+            "prompt_tokens": 944,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1168
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1168,
+        "wallTimeMs": 3441
+      }
+    },
+    {
+      "caseId": "D4-artifact-completeness",
+      "contractDigest": "sha256:3bf0738e8146ff6a56b7c952dc4cbe2b70b5cb91b23a0522a82a8a2a69e78e3c",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3935,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:dbda575d4fdd561de02143d9cd294670209c226a1f089eda59aa0502ade21fef",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Policy requires VERIFY only if every required artifact A, B, C has a terminal retained receipt with matching digest. Evidence shows C has terminal+matching=false and is missing a terminal receipt. Since not all three artifacts meet the requirement (only 2/3), VERIFY condition is not satisfied, so the correct operation is WAIT.",
+        "selectedOperation": "WAIT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:D4-artifact-completeness:compiled:deepseek-v4-flash:3:1786648431774",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 230,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 48,
+            "prompt_tokens": 944,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1174
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1174,
+        "wallTimeMs": 3816
+      }
+    },
+    {
+      "caseId": "R3-provider-unknown",
+      "contractDigest": "sha256:0bf041c34bc39d1d785d7f91cf7190e9a38b9bdc82801fe02fbbaa365b5d56e8",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3482,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:6a4cbbbd7de6fcda9f551e9eda690a5cd99fe45fc8c32c045e2e54e7d5ae5d21",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The provider request p-44 was sent, transport acknowledged request bytes, but connection ended before a response body arrived. Provider result is persisted as unknown, no idempotency lookup or downstream owner receipt has run, and there is no definitive pre-execution rejection. Under policy, an effectful Provider request may have executed but its result is UNKNOWN and unresolved, so RECONCILE_FIRST is required. Retry is forbidden until reconciliation.",
+        "selectedOperation": "RECONCILE_FIRST"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R3-provider-unknown:raw:deepseek-v4-flash:1:1786648435834",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 258,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 216,
+            "prompt_tokens": 984,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1242
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1242,
+        "wallTimeMs": 3361
+      }
+    },
+    {
+      "caseId": "R3-provider-unknown",
+      "contractDigest": "sha256:cec8aa7e1571debdd13bc8594b91f7ed2e8b3ef121327a5f0dda469e6a6acc93",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3758,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:60f970ada248dc248af6c2be20f85342ecb6178815a0f036904087522200a6ef",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The Provider request p-44 may have executed (transport acknowledged request bytes) but the result is UNKNOWN and unresolved (persisted providerResult=unknown, no idempotency lookup or downstream owner receipt run). Per POLICY, if an effectful Provider request may have executed but its result is UNKNOWN and unresolved, RECONCILE_FIRST. Retry is forbidden until reconciliation. There is no definitive pre-execution rejection, so RETRY_SAME does not apply.",
+        "selectedOperation": "RECONCILE_FIRST"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R3-provider-unknown:raw:deepseek-v4-flash:2:1786648439454",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 264,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 88,
+            "prompt_tokens": 984,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1248
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1248,
+        "wallTimeMs": 3642
+      }
+    },
+    {
+      "caseId": "R3-provider-unknown",
+      "contractDigest": "sha256:8f337117081e5b74db4c2563c5f784b473a91109e3a11dac30792390316e037a",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 4661,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:e23567d98164351f51920d1eb8d19525988954f7a50b44f52d8f7eb84e8133e2",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Provider request p-44 was sent and transport acknowledged bytes, but the connection ended before a response body arrived, leaving providerResult=unknown. No idempotency lookup or downstream receipt has run. There is no definitive pre-execution rejection, so the request may have executed with an UNKNOWN, unresolved result. Per POLICY, when an effectful Provider request may have executed but its result is UNKNOWN and unresolved, RECONCILE_FIRST is required, and retry is forbidden until reconciliation.",
+        "selectedOperation": "RECONCILE_FIRST"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R3-provider-unknown:raw:deepseek-v4-flash:3:1786648443363",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 269,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 216,
+            "prompt_tokens": 984,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1253
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1253,
+        "wallTimeMs": 4543
+      }
+    },
+    {
+      "caseId": "R3-provider-unknown",
+      "contractDigest": "sha256:d2e44eebe1f49ea4cbef2b219dcaf3e6a880e45c45d039e4eb71e1f9e7ca2e6e",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3468,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:a7eb673d93b23cad58d3342b8242dc94f01dc6316daf1c02fb6ee8958bd29d7d",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Reconciliation projection shows requestSent=true, executionPossible=true, outcome=UNKNOWN, unresolvedUnknown=true, ownerReceipt=absent, and reconciliationPerformed=false. Per POLICY, if an effectful Provider request may have executed but its result is UNKNOWN and unresolved, RECONCILE_FIRST is required. Retry is forbidden until reconciliation completes.",
+        "selectedOperation": "RECONCILE_FIRST"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R3-provider-unknown:compiled:deepseek-v4-flash:1:1786648448165",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 239,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 194,
+            "prompt_tokens": 962,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1201
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1201,
+        "wallTimeMs": 3348
+      }
+    },
+    {
+      "caseId": "R3-provider-unknown",
+      "contractDigest": "sha256:8ecce073a19096649a4bee3caae6247a83185b107d86f19165887576c3473a4c",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3837,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:c0a4e29473fd736be6a37e8c1737d1fb3840ed7b6d60747b1838f15dedfbc9a5",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The reconciliation projection shows requestSent=true, executionPossible=true, outcome=UNKNOWN, unresolvedUnknown=true, ownerReceipt=absent, and reconciliationPerformed=false. Under the POLICY, if an effectful Provider request may have executed but its result is UNKNOWN and unresolved, RECONCILE_FIRST is required. Retry is forbidden until reconciliation is performed.",
+        "selectedOperation": "RECONCILE_FIRST"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R3-provider-unknown:compiled:deepseek-v4-flash:2:1786648451765",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 241,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 66,
+            "prompt_tokens": 962,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1203
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1203,
+        "wallTimeMs": 3718
+      }
+    },
+    {
+      "caseId": "R3-provider-unknown",
+      "contractDigest": "sha256:4ce3a6d750a8b7e2ed411cd0a155ec19f87da1e05ef4441f83974b9f05ae27ae",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3833,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:c3dfe914c48b9e1a11059baf4df43e16eb21a3f95e1b0091ff74db8279a26f5f",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "Reconciliation projection shows requestSent=true, executionPossible=true, outcome=UNKNOWN, unresolvedUnknown=true, ownerReceipt=absent, and reconciliationPerformed=false. Policy requires RECONCILE_FIRST when an effectful Provider request may have executed but result is UNKNOWN and unresolved, with retry forbidden until reconciliation.",
+        "selectedOperation": "RECONCILE_FIRST"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R3-provider-unknown:compiled:deepseek-v4-flash:3:1786648455736",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 233,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 66,
+            "prompt_tokens": 962,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1195
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1195,
+        "wallTimeMs": 3714
+      }
+    },
+    {
+      "caseId": "R4-source-currentness",
+      "contractDigest": "sha256:3ce9811084426becc45b12fcf32b573eb4505c7fe3c1fbe56e673fb98d1369ca",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3879,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:8d3fa6a6b38dd693f6dce01c53aaa8f27880e62b6d0ec80d9386a7ee0b2b6076",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "At t2, the Workstation network surface (a material owner source bound into Context) has changed: it now publishes generation 43 digest W43 as current, whereas the Context binds generation 42 digest W42. Under POLICY, if any material owner source has changed, REFRESH_CONTEXT is required.",
+        "selectedOperation": "REFRESH_CONTEXT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R4-source-currentness:raw:deepseek-v4-flash:1:1786648459702",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 228,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 208,
+            "prompt_tokens": 976,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1204
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1204,
+        "wallTimeMs": 3760
+      }
+    },
+    {
+      "caseId": "R4-source-currentness",
+      "contractDigest": "sha256:efc7fe204c78f509c9038b9307fc9fd7072333f8cca0b69909ba197008bed2b6",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3947,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:1856b55bad387e386b958966b84ecc48cea6136522c637f86ebccb7875d75ad1",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The Workstation network surface is a material owner source bound into the Context (generation 42 digest W42 at t0). At t2, Workstation published generation 43 digest W43 as current, so this material owner source has changed. Per POLICY, if any material owner source has changed, REFRESH_CONTEXT is required. The Finance source remains current at revision 15 digest F15, but the change to Workstation generation triggers the refresh.",
+        "selectedOperation": "REFRESH_CONTEXT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R4-source-currentness:raw:deepseek-v4-flash:2:1786648463714",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 258,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 80,
+            "prompt_tokens": 976,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1234
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1234,
+        "wallTimeMs": 3827
+      }
+    },
+    {
+      "caseId": "R4-source-currentness",
+      "contractDigest": "sha256:6919d75e2d415bed73d50cce4df3185cc371565ccce1c177d5c29ac2a4b784b1",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3950,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:7b1acd7ed5ca9c5017c4becae956b485bccad10909028340f713b02a1b5cf8d7",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The Workstation source is a material owner source bound into the Context (generation 42, digest W42). At t2, Workstation published generation 43 digest W43 as current, so this material owner source has changed. Per POLICY, if any material owner source has changed, REFRESH_CONTEXT is required.",
+        "selectedOperation": "REFRESH_CONTEXT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R4-source-currentness:raw:deepseek-v4-flash:3:1786648467798",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "raw",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 231,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 80,
+            "prompt_tokens": 976,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1207
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1207,
+        "wallTimeMs": 3831
+      }
+    },
+    {
+      "caseId": "R4-source-currentness",
+      "contractDigest": "sha256:875c7204e96307d396b49f5d1789c88ca1fb68fc1c376f5ce2553884502b71d6",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3581,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:8ac335ca019b59d8913145db8984cb01e9c704f87e847a243b4be78f378c48f8",
+      "replicate": 1,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The Workstation material owner source has changed (bound generation=42, current generation=43, relation=changed), and the material changed-source count is 1. Per POLICY, if any material owner source has changed, REFRESH_CONTEXT is required.",
+        "selectedOperation": "REFRESH_CONTEXT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R4-source-currentness:compiled:deepseek-v4-flash:1:1786648471880",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 217,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 180,
+            "prompt_tokens": 948,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1165
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1165,
+        "wallTimeMs": 3460
+      }
+    },
+    {
+      "caseId": "R4-source-currentness",
+      "contractDigest": "sha256:63e148d7c356a76807ec2e797c157066e825cf52fb6b3dea951de03733297b3e",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3472,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:9579a5c84ccb545bb2a7d877d0b20e877f68ca77070f2a8a1143380c8c9b6ddf",
+      "replicate": 2,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "The material changed-source count is 1, indicating at least one material owner source has changed. Per POLICY, if any material owner source has changed, REFRESH_CONTEXT is required. The Workstation source (current generation 43 vs bound generation 42) has changed.",
+        "selectedOperation": "REFRESH_CONTEXT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R4-source-currentness:compiled:deepseek-v4-flash:2:1786648475603",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 221,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 52,
+            "prompt_tokens": 948,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1169
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1169,
+        "wallTimeMs": 3357
+      }
+    },
+    {
+      "caseId": "R4-source-currentness",
+      "contractDigest": "sha256:fa5b746f0bef06ed146d79fe05a4cfbabb2c6b3ca1a370e40f2150cd3ae51aa2",
+      "diagnosticMessageTail": null,
+      "elapsedMs": 3561,
+      "kind": "ordivon.computing.acs-fresh-agent-trial",
+      "model": "deepseek-v4-flash",
+      "modelCalls": 1,
+      "receiptDigest": "sha256:1a9cc13608d9eaf83cfe50acaf55fe3b5c7218f7ae7138e2fa5fdf355acebb7d",
+      "replicate": 3,
+      "result": {
+        "authorityBoundary": "Computing research only",
+        "effectClass": "read_only",
+        "needsMoreInfo": false,
+        "owner": "Ordivon Computing",
+        "reason": "A material owner source has changed. Workstation bound generation=42 vs current generation=43 (relation=changed), and material changed-source count=1. POLICY requires REFRESH_CONTEXT if any material owner source has changed.",
+        "selectedOperation": "REFRESH_CONTEXT"
+      },
+      "resultSchemaErrors": [],
+      "resultSchemaValid": true,
+      "runId": "harness-run:acs1:R4-source-currentness:compiled:deepseek-v4-flash:3:1786648479207",
+      "schemaVersion": 1,
+      "stopCode": "candidate_completed",
+      "toolCalls": 0,
+      "treatment": "compiled",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 211,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 52,
+            "prompt_tokens": 948,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 1159
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 24000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 1159,
+        "wallTimeMs": 3441
+      }
+    }
+  ]
+}

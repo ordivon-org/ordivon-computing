@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.experiment-local-contract",
+  "experimentId": "PAL-F4-EXPLICIT-VARIATION-DIAGNOSIS",
+  "mission": "Test whether forcing explicit competing causal variants improves final diagnosis and discriminating-test selection on blind historical Ordivon incidents under the same per-turn Provider budget.",
+  "questionOrHypothesis": "Does explicit variation before selection improve causal diagnosis, or can a strong model select as well from one direct pass?",
+  "evidenceSelection": "Six historical incidents with later owner-established causes. Provider-visible packets stop before final resolution and expose only bounded symptoms, candidate cause classes and candidate discriminating tests. Oracle cause/test IDs remain evaluator-only.",
+  "strongBaseline": "SINGLE treatment: select one cause and one discriminating test directly from the same packet/options.",
+  "minimalCandidateOrNoChange": "VARIATION treatment: explicitly retain four distinct plausible causes, then select one final cause and one test. No new memory, graph or multi-agent substrate.",
+  "independentOracle": "Frozen later owner evidence mapped to exact cause ID plus one or more accepted discriminating test IDs.",
+  "developmentSplit": "Three cases: Web Chromium, Finance OKX, Host optional MCP dependency.",
+  "holdoutSplit": "Three cases: P4 Provider output budget, P4 false acceptance gate, Runtime connector publication gap.",
+  "invalidityConditions": ["oracle text appears in Provider-visible packet", "case/options change after first live call", "structured result schema differs by treatment", "one treatment gets a larger max output/token/run budget", "invalid Provider result is scored as a semantic miss rather than transport/format invalidity"],
+  "authorityBoundary": "Computing research only; historical owner evidence is read-only and no owner source/effect is invoked.",
+  "budget": "DeepSeek V4 Flash and V4 Pro; two predeclared replicas per model/treatment/case; 6 cases x 2 treatments x 2 models x 2 replicas = 48 logical trials. Same max_output_tokens=700 and Harness no-tool budget per trial.",
+  "stopRule": "Stop after all 48 logical slots either yield valid structured decisions or retain terminal Provider invalidity. Do not add cases or replicas based on observed result.",
+  "deletionOrNoChangeOutcome": "If VARIATION does not improve final diagnosis/test correctness enough to offset token/call cost, downgrade H-VARIATION and do not build variation infrastructure. Coverage-only gains are insufficient.",
+  "rollbackRule": "Research-only files and temporary Harness state; no owner mutations.",
+  "publicationBoundary": "F4 can update Computing PAL hypotheses only. It cannot promote multi-agent/branching/search infrastructure."
+}

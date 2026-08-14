@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.pal-f10a-responsibility-placement-analysis",
+  "status": "completed-scoped-mechanical-signal",
+  "caseDigest": "sha256:1b5027e72676efd75caab14e85d7420f454a6b5ef8c642dfd02e7f52773c78eb",
+  "countedJobs": {
+    "deepseek-v4-flash": "job-019ffc89-6f20-75a3-a23f-19b3e3e4a9ee",
+    "deepseek-v4-pro": "job-019ffc8c-abf9-76a3-b0e8-66552b56fd80"
+  },
+  "evidenceDigests": {
+    "deepseek-v4-flash": "sha256:8272d684a7dd6d290e50d2a526092589cd0d523a27128e2e33d602a1cee1ff26",
+    "deepseek-v4-pro": "sha256:c2e8f204c3086afa4e53ab3b5d5da8063b51d39a3dc28fe632d82e7165da0331"
+  },
+  "aggregate": {
+    "raw": {"slots": 48, "valid": 48, "exact": 39, "accuracy": 0.8125, "totalTokens": 58604, "meanTokensPerSlot": 1220.9},
+    "compiled": {"slots": 48, "valid": 48, "exact": 48, "accuracy": 1.0, "totalTokens": 56169, "meanTokensPerSlot": 1170.2}
+  },
+  "byFamily": {
+    "exact_reduction": {
+      "raw": {"exact": 15, "total": 24, "accuracy": 0.625},
+      "compiled": {"exact": 24, "total": 24, "accuracy": 1.0},
+      "strictPairs": {"compiledWins": 9, "rawWins": 0, "ties": 15, "twoSidedSignP": 0.00390625}
+    },
+    "reconciliation": {
+      "raw": {"exact": 24, "total": 24, "accuracy": 1.0},
+      "compiled": {"exact": 24, "total": 24, "accuracy": 1.0},
+      "strictPairs": {"compiledWins": 0, "rawWins": 0, "ties": 24}
+    }
+  },
+  "byModel": {
+    "deepseek-v4-flash": {"rawExact": 21, "rawTotal": 24, "compiledExact": 24, "compiledTotal": 24, "strictCompiledWins": 3, "strictRawWins": 0, "strictTies": 21},
+    "deepseek-v4-pro": {"rawExact": 18, "rawTotal": 24, "compiledExact": 24, "compiledTotal": 24, "strictCompiledWins": 6, "strictRawWins": 0, "strictTies": 18, "twoSidedSignP": 0.03125}
+  },
+  "holdout": {
+    "rawExact": 24,
+    "rawTotal": 24,
+    "compiledExact": 24,
+    "compiledTotal": 24,
+    "strictTies": 24
+  },
+  "failureConcentration": {
+    "D1-source-quorum": {"rawExact": 2, "total": 6, "compiledExact": 6},
+    "D2-budget-total": {"rawExact": 1, "total": 6, "compiledExact": 6},
+    "allOtherSixCasesRaw": "36/36 exact"
+  },
+  "interpretation": {
+    "broadHRespSupported": false,
+    "scopedMechanicalBurdenSignal": true,
+    "reason": "COMPILED improves aggregate selection and exact-reduction cases, but all nine semantic wins are concentrated in two development cases requiring duplicate-aware quorum reduction and arithmetic aggregation. The two exact-reduction holdouts and every reconciliation case are already RAW ceiling. Responsibility type alone therefore does not predict externalization value.",
+    "strongerCandidate": "Externalization value appears thresholded by repeated mechanical burden/complexity relative to model reliability, not by a binary cognitive-versus-substrate category. Future-model-robust responsibility is necessary for safe placement but not sufficient for useful externalization.",
+    "costObservation": "COMPILED also uses fewer Provider tokens overall (56,169 versus 58,604; about 4.2% less), but token savings without semantic gain do not independently earn a durable abstraction.",
+    "nextFalsifier": "Do not lengthen synthetic raw packets to manufacture difficulty. Reopen this mechanism on natural workloads where raw reconstruction already shows measurable error or recurring cost, and test whether the smallest owner-native projection removes that observed burden."
+  },
+  "claimBoundary": "Eight Computing-local synthetic-but-Ordivon-grounded operational cases, two DeepSeek model families and three replicas. F10A provides scoped evidence for complexity-dependent deterministic externalization, not a general PAL responsibility-placement law and not an owner reform authorization."
+}
