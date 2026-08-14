@@ -220,5 +220,22 @@ class SerializationTests(unittest.TestCase):
             self.assertFalse(path.with_name(path.name + ".tmp").exists())
 
 
+class GateLauncherContractTests(unittest.TestCase):
+    def test_public_gate_uses_repo_owned_python_and_requirements(self) -> None:
+        readme = (ROOT / "README.md").read_text()
+        workflow = (ROOT / ".github" / "workflows" / "deterministic-contracts.yml").read_text()
+        launcher = (ROOT / "scripts" / "run_conformance_gate.py").read_text()
+        requirements = (ROOT / "requirements-conformance.txt").read_text()
+
+        public_command = "python scripts/run_conformance_gate.py"
+        self.assertIn(public_command, readme)
+        self.assertIn(public_command, workflow)
+        self.assertNotIn("python3.12 scripts/ordivon_conformance.py gate", readme)
+        self.assertIn('PYTHON_VERSION = "3.12.13"', launcher)
+        self.assertIn('REQUIREMENTS = ROOT / "requirements-conformance.txt"', launcher)
+        self.assertIn("--with-requirements", launcher)
+        self.assertIn("jsonschema==4.25.1", requirements)
+
+
 if __name__ == "__main__":
     unittest.main()

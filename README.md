@@ -154,9 +154,11 @@ Use [`projects/README.md`](projects/README.md) to locate current owners. Stable 
 [`packages/ordivon-protocol/`](packages/ordivon-protocol/) contains selected promoted contracts with real consumers, not a universal ontology. The deterministic gate is:
 
 ```bash
-python3.12 scripts/ordivon_conformance.py gate \
+python scripts/run_conformance_gate.py \
   --receipt /tmp/ordivon-conformance-receipt.json
 ```
+
+The launcher owns the gate environment: it uses the repository-pinned Python 3.12.13 and `requirements-conformance.txt` instead of inheriting an ambient Python or dependency set.
 
 Exact revisions and historical System Snapshots prove what was compared then; they never become floating declarations of current owner state.
 
