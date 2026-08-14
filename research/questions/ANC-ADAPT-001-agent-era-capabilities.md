@@ -146,6 +146,21 @@ The full-evidence one-shot path was also not a winner: every valid development r
 
 `ANC-ADAPT-001` remains **M5** because P2's bounded recursive cross-evidence self-reform evidence is unchanged, but it moves from `ready` to `deferred`. Autonomous problem selection, evaluator-law discovery, and open-ended RSI remain unproven. There is intentionally no C7 architecture category. Reopen only from materially different owner-native selection evidence rather than tuning this corpus.
 
+## Wave 4 prospective field-study reactivation
+
+C6 was a valid reason to defer the then-current pressure-selection mechanism, not a permanent reason to freeze adaptation research. Wave 4 produced materially different evidence and therefore satisfies the existing reopen condition without inventing a new question identity.
+
+Two prospective studies are now active under frozen pre-outcome contracts:
+
+1. **F14 option portfolio** freezes three retention policies over twelve real capability cards and delegates the oracle to future owner/external demand. It measures realized carrying, reacquisition, delay, blocking, maintenance, and information-opportunity consequences rather than asking a model to predict a future label. The first three natural owner events produced zero qualifying capability demand, so no policy ranking is yet identifiable.
+2. **F17 pressure certificate** compares strong direct full-evidence review with a mandate-relative pressure certificate on the same future owner/external event packets. Its scientific oracle is downstream decision change from an admitted decisive probe, not card classification or model self-score. Across the first Computing, Game, and Studio control/confirming events, all eleven valid decisions chose `NO_OP`; direct review was valid 6/6 and the certificate 5/6 with one retained `invalid_model_output`. No positive-pressure event has occurred, so comparative discovery value remains unresolved.
+
+Wave 4 also narrowed adjacent governance questions without creating new infrastructure: F15 rejected a currently non-identifiable cross-domain complementarity candidate; F16 made endogenous false self-reinforcement a prerequisite for regulation evidence; F18 supports clause-level support-bound prior revalidation in one natural Harness shift; and F19 supports invariant-bound durable identity across one real Harness implementation upgrade.
+
+`ANC-ADAPT-001` therefore returns to **active** only for these bounded field studies. This does not revive closed F1–F12 executable apparatus, authorize autonomous scheduling, or imply open-ended RSI. Closed runners/analyzers are removed from the active tree and remain exactly recoverable from Git; only F17's current runner remains executable while the field campaign is open.
+
+Current machine evidence lives under [`../experiments/pal-foundations-v0/`](../experiments/pal-foundations-v0/), especially `f14-contract.json`, `f17-contract.json`, `f17-interim-v0.json`, `hypothesis-map-v3.json`, and `PAL-WAVE4-FOUNDATION-PASS-INTERIM.md`.
+
 ## Evidence required for progress
 
 - learning improves a repeated workload without merely adding more context or model budget;

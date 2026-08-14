@@ -4,7 +4,7 @@
 
 - **As of:** `2026-08-10`
 - **Active research-line limit:** `2`
-- **Current active lines:** `0`
+- **Current active lines:** `1`
 
 `portfolio.json` is the single source of truth for research status, maturity, blockers, next falsifier, and Ready Frontier. This generated document is a review projection; question pages preserve stable hypotheses and experiment contracts, while Issues preserve discussion and execution history.
 
@@ -12,6 +12,7 @@
 
 | Line | Priority | Question | Items | Implementation | Exit criterion |
 |---|---|---|---|---|---|
+| PAL-FIELD-001 | P1 | PAL prospective option-value and pressure-formation field studies | ANC-ADAPT-001 | — | F14 and F17 reach their frozen stop rules; results are scored from realized future evidence, stable findings are compressed, and no closed PAL executable remains in the active tree. |
 
 ## Question and track portfolio
 
@@ -21,6 +22,12 @@
 |---|---|---|---|---|---|---|---|---|
 | ANC-STACK-001 | M5 | reference | ordivon-computing | — | — | — | Use as the admission test; reopen only on contradictory evidence. | A cross-workload failure reveals a necessary responsibility absent from the current substrate/overlay split. |
 | ANC-HARNESS-002 | M5 | reference | ordivon-harness | — | 5a42afdf5e01 | — | Retain and localize the current public DomainToolLoopRunner as an evidence-backed bounded bare-model Tool-cognition surface. In the corrected P0 live group H was accepted 3/5 and produced 4/5 verifier-passing candidates versus S at 0/5 and 0/5, at about 7.93x the average Provider-token cost. Do not expand HarnessAgentRun for this benchmark; keep H2 advanced/internal and reopen broader composition only for a natural independent consumer. | A materially different workload or strong Provider-native Harness matches the bounded repository-repair and current independent-consumer needs with equal correctness, recovery and evidence quality at materially lower recurring cost, eliminating the remaining reason to retain the public bare-model Tool loop. |
+
+### Active
+
+| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-ADAPT-001 | M5 | P1 | ordivon-computing | PAL-FIELD-001 | — | — | Continue only from natural post-t0 reality. Append qualifying F14 demand and F17 owner/external events under their frozen contracts; do not manufacture positive cases, change policy cards/prompts, or score either field study early. When both stop rules resolve, compress stable findings and remove f17_run.py from the active tree. | F14 must accumulate real post-t0 capability demand or close at its frozen window so ACTUAL_T0/CURRENT_ONLY/KEEP_ALL_FEASIBLE can be compared by realized carry/reacquisition/blocking regret; F17 must encounter genuine positive-pressure owner/external events whose predeclared decisive probes change a downstream research/design decision, allowing DIRECT_FULL_REVIEW versus PRESSURE_CERTIFICATE to be compared beyond no-op controls. |
 
 ### Blocked
 
@@ -37,7 +44,6 @@
 | ANC-COMPILER-001 | M1 | P2 | ordivon-computing | — | — | — | Do not implement an Agent VM; revisit only after a minimal branch/join failure. | An ordinary Host Task Graph, queue, reducer, and workflow backend express the first branch/join workload without an Agent VM. |
 | ANC-MULTI-001 | M4 | P2 | ordivon-computing | — | — | — | Do not build a Multi-Agent framework. P4 observed development-only gain and holdout error decorrelation but no strict holdout superiority; current Host primitives expressed the full minimum branch/Artifact/Join pattern. Reopen only for a materially different consumer/workload with an explicit selection hypothesis. | A materially different workload with natural independent hypotheses shows a reproducible strict holdout advantage for independent participants over a strong sequential-reflection plus verifier baseline, or exposes a repeated coordination responsibility that current Goal/Task/Artifact/Verification composition cannot express. |
 | ANC-ORG-001 | M1 | P3 | ordivon-computing | — | — | ANC-MULTI-001, real-operator-attention-traces | Remain an umbrella; derive objects only from real operator and multi-Agent trajectories. | Host-local DecisionRequests and ordinary Task/participant relations explain observed coordination without a new organization layer. |
-| ANC-ADAPT-001 | M5 | P1 | ordivon-computing | — | — | — | C6 is closed as a negative owner-pressure selection falsifier. Do not build a pressure-discovery daemon, selector service, or new architecture category. Retain P2 bounded recursive self-reform evidence, and reopen only when a materially different owner-generated pressure signal or selection representation provides a new concrete falsifier with independently frozen owner-bound truth. | A materially different pressure-selection representation or natural owner-generated pressure signal must produce a fully valid frozen campaign, identify real shared pressure without category preselection or false promotion, respect bounded evidence inspection, and beat or materially improve a strong explicit review baseline under an independent owner-bound oracle. |
 | ANC-GAME-002 | M1 | P1 | ordivon-game | — | — | — | Finish the Station Zero first playable, then run G-PLAY-001 with scripted, decorative-Agent, and consequential-Agent cells; do not build a general society or world platform. | One small non-mission Agent activity fails to produce greater return, surprise, attachment, expression, consequential history, or meaningful choice than a scripted baseline at comparable total cost. |
 | ANC-SECURITY-001 | M1 | P2 | ordivon-security | — | — | — | Keep as a deferred umbrella. Round 1 completed the minimum dynamic-opponent method and rejected Campaign promotion; resume only through the narrower Security #10 and #20 experiments after current WIP frees. | Mature simulation, MARL, cyber evaluation, and thin adapters express the strategic distinctions without a new shared layer. |
 | ANC-SECURITY-003 | M4 | P2 | ordivon-security | — | — | — | Round 1 completed the minimum local and CAGE dynamic-opponent method but did not earn Campaign state. Defer the next test to held-out policies and Host/Context replacement through Security #10. | A scripted or ordinary Goal/Task policy matches explicit Campaign state on policy-switch and held-out-opponent cases. |

@@ -12,14 +12,28 @@ class ComputerContractionC5Tests(unittest.TestCase):
     def setUp(self) -> None:
         self.doc = json.loads((ROOT / "evidence/computer-contraction-c5-closeout.json").read_text())
 
-    def test_no_executable_research_surface_remains_without_active_work(self) -> None:
+    def test_executable_research_surface_matches_live_work(self) -> None:
         portfolio = json.loads((ROOT / "portfolio.json").read_text())
-        self.assertFalse([q for q in portfolio["questions"] if q["status"] in {"active", "ready"}])
+        live = [q for q in portfolio["questions"] if q["status"] in {"active", "ready"}]
         executable = []
         for path in (ROOT / "experiments").rglob("*"):
             if path.is_file() and (path.suffix in {".py", ".sh", ".rs", ".ts"} or any(part in {"tests", "scripts", "src", "integration", "fixtures", "benchmarks"} for part in path.parts)):
                 executable.append(path)
-        self.assertEqual(executable, [])
+        if not live:
+            self.assertEqual(executable, [])
+            return
+
+        allowed = {
+            evidence
+            for question in live
+            for evidence in question.get("evidence", [])
+        }
+        unbound = [
+            str(path.relative_to(ROOT.parent))
+            for path in executable
+            if str(path.relative_to(ROOT.parent)) not in allowed
+        ]
+        self.assertEqual(unbound, [])
 
     def test_v1_authority_is_absent_current_but_git_recoverable(self) -> None:
         authority = self.doc["responsibilityAuthority"]

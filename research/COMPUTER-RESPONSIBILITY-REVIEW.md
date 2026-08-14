@@ -64,6 +64,17 @@ ready  = []
 
 That null state is valid. If either set changes, `check_computer_responsibility_map.py` fails until the prior is deliberately recompiled. There is no automatic C7/P5 and no architecture noun is next by default.
 
+### Current PAL field-study binding
+
+Wave 4 later satisfied the existing `ANC-ADAPT-001` reopen condition with materially different natural owner events and two frozen prospective field studies. The current portfolio activity is therefore:
+
+```text
+active = [ANC-ADAPT-001]
+ready  = []
+```
+
+The v2 responsibility set is unchanged. Only `portfolioActivityBinding` and its canonical digest were deliberately recompiled so the prior describes current research activity without treating activity as a new responsibility or architecture phase. The binding should return to empty when F14/F17 reach their stop rules and the line closes.
+
 ## What the contraction changed
 
 The implementation series established four concrete reductions before this final map recompile:
