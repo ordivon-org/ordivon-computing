@@ -47,14 +47,9 @@ There is no scalar UX score. Measurements remain separate: discovery calls, wron
 - Mechanical `nextActions` may be projected only when mechanically entailed; semantic recommendations remain Agent/domain work.
 - Native escape-hatch primitives remain available even if a happy path is added.
 
-## Run
+## Historical execution
 
-```bash
-python3 research/experiments/agent-consumption-surface-v0/collect_surface_census.py \
-  --output research/experiments/agent-consumption-surface-v0/evidence/surface-census-v0.json
-```
-
-The collector reads current local repositories only. It does not mutate owner projects or invoke external effects.
+ACS0–ACS9 is closed. Its executable collection/evaluation apparatus has been removed from the current active tree under the Computing research-compression policy; exact historical executables remain recoverable from Git. Use the retained closeout and `evidence/` receipts below rather than rerunning a closed campaign as if it were current research.
 
 For full falsification/release evidence, also inspect:
 

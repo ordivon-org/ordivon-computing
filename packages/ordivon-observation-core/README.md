@@ -29,6 +29,31 @@ continuous collection policy.
 - continuous telemetry should inherit mature OpenTelemetry/system tooling when
   a real workload requires it.
 
+## Agent Situation composition
+
+P3 adds one advanced, read-only composition module at
+`ordivon_observation_core.situation`. It compiles **already-observed**
+owner-qualified facts into one bounded Agent Situation projection. This is a
+consumption surface, not a new owner or liveness service.
+
+The caller must still read Host, Harness, Runtime, World, or domain truth from
+those owners. Situation composition performs only exact identity joins and
+fixed proof-boundary checks such as:
+
+```text
+navigation hint != current execution locus
+installed capability != exact current admission
+Runtime physical success != semantic completion
+historical occurrence != current presence
+UNKNOWN != permission to redispatch
+```
+
+It can surface an owner-provided `nextOwnerOperation`, but never executes or
+grants that operation. It does not select a replacement Workspace, probe
+Provider/Runtime/World liveness, infer freshness from timestamps, or copy
+owner-native payload state. The module remains a direct advanced import and is
+not promoted through the package-root facade in P3.
+
 ## Promotion contraction
 
 The historical experiment also generated standalone JSON Schema builders and
