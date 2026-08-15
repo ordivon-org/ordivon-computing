@@ -151,6 +151,10 @@ useful compression
 
 EX3–EX7 showed strong compact prose can beat richer representations on bounded action reconstruction. OFR4 showed that deleting causal roles can reduce fidelity or shift token cost into reconstruction. OFR5 showed a 514-word Atlas index could still approach eager-full failure-adjusted prompt cost when navigation, hydration, and a second answer turn were counted. Evaluate the **whole consumption loop**, not word count alone.
 
+OFR7 adds the complementary practical boundary. On 20 frozen held-out decision cases across DeepSeek Flash and Pro, the same explicit owner-grounded case facts produced `1.0` primary and blinded causal accuracy under direct review, the full pre-OFR6 doctrine, and the full post-OFR6 doctrine. The post-OFR6 full surface therefore added no measured decision gain on that bounded corpus while increasing mean generation prompt footprint from about 1.33k to 10.60k tokens. An exact-text focused projection cut the post-OFR6 footprint roughly in half, but still cost more than direct facts and retained one original structured-realization failure. Prefix caching reduced repeated cache-miss cost but did not remove the larger context/request footprint.
+
+The reusable conclusion is not that Foundations are useless. It is that **Foundations are not default per-decision Context**. When current owner facts already expose the decisive distinctions, give those facts directly. Load broader causal doctrine when a real reconstruction, transfer, ambiguity, negative-transfer, or missing-structure burden requires it. OFR7 did not test under-specified open research or tasks where the relevant distinction must first be discovered, so those remain separate falsifiers.
+
 ## When to create a shared Ordivon layer
 
 Start with mature classical infrastructure and the owner-domain implementation. Add a new Ordivon responsibility only when a recurring residual problem remains that those owners cannot correctly hold. Then ask the deletion question: if the proposed layer disappears, what materially breaks across more than one real workload?

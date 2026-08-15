@@ -1,0 +1,73 @@
+{
+  "antiLeakage": [
+    "No OFR7 gold or family label in generation prompt.",
+    "Treatments receive identical case facts/options and identical output schema.",
+    "Theory text cannot establish current owner facts and is explicitly non-authoritative.",
+    "Holdout remains byte-frozen after development begins.",
+    "Judge sees anonymized answers and gold rationale but never treatment/model identity."
+  ],
+  "apparatusAmendmentRule": "After first development execution, only schema size, batching, retries/concurrency, timeouts and answer/judge realization may change. Case facts/gold/options, treatment texts, thresholds and holdout composition remain frozen. Any semantic change invalidates holdout.",
+  "families": {
+    "C10_OPTION_VALUE": "OFR6 Knowledge",
+    "C2_UNKNOWN": "OFR6 Core refinement",
+    "C4_IDENTITY": "OFR6 Core refinement",
+    "M13_CAUSAL_HISTORY": "OFR6 Knowledge",
+    "M16_MECHANICAL_PROJECTION": "OFR6 Knowledge",
+    "M17_COMPRESSION": "OFR6 Knowledge",
+    "NEUTRAL_EXISTING_CORE": "negative-control family for generic theory-prefix halo"
+  },
+  "frozenBeforeLiveGeneration": true,
+  "generationOutput": [
+    "primaryChoice",
+    "truthState",
+    "identityState",
+    "evidenceAuthority",
+    "seekMoreEvidence",
+    "reason",
+    "boundary"
+  ],
+  "judgeModel": "deepseek-v4-pro",
+  "kind": "ordivon.ofr7-practical-transfer-contract.v1",
+  "models": [
+    "deepseek-v4-flash",
+    "deepseek-v4-pro"
+  ],
+  "preregisteredInterpretation": {
+    "coreRefinementRetention": "For C2 and C4 separately: retain as practical-supporting if POST_OFR6_FULL produces at least one paired correction versus PRE_OFR6_FULL and no paired regressions, or if PRE is already ceiling and POST introduces no regression; a regression concentrated in the target family reopens/narrows the refinement.",
+    "focusedQualification": "POST_OFR6_FOCUSED qualifies as a better practical projection only if holdout primary accuracy is within 0.03 of POST_OFR6_FULL, causal score within 0.05, each boundary error rate no more than 0.03 worse, physical validity >=0.95, and mean prompt tokens <=75% of POST_OFR6_FULL.",
+    "knowledgeRetention": "For each C10/M13/M16/M17 family, classify as SUPPORTED, NEUTRAL/CEILING, MIXED, or NEGATIVE from paired holdout decisions plus causal/boundary scores; no aggregate win may hide a family-specific regression.",
+    "marginalSupport": "POST_OFR6_FULL holdout targeted primary accuracy must improve over PRE_OFR6_FULL by at least 0.05 OR correct at least two additional paired model×case decisions, while causal score does not fall by >0.05 and each boundary-error rate does not rise by >0.05. Otherwise OFR6 marginal practical value is not established even if not falsified.",
+    "neutralControl": "A large gain on NEUTRAL_EXISTING_CORE without target-family specificity is evidence of general prompt/verbosity halo rather than OFR6-specific value."
+  },
+  "primaryComparisons": [
+    "POST_OFR6_FULL vs PRE_OFR6_FULL isolates marginal OFR6 doctrine effect.",
+    "PRE_OFR6_FULL vs DIRECT estimates value already present before OFR6.",
+    "POST_OFR6_FOCUSED vs POST_OFR6_FULL tests receiver-conditioned compression of the same current doctrine."
+  ],
+  "promotionBoundary": "OFR7 may support, narrow, leave neutral, or falsify OFR6 doctrine. It does not itself authorize product mutation, owner-current truth, a new service/schema, or public Foundations product.",
+  "question": "Does post-OFR6 Core+Knowledge improve fresh-Agent held-out decisions, causal boundary discipline and transfer at acceptable whole-loop cost compared with strong direct and pre-OFR6 baselines?",
+  "schemaVersion": 1,
+  "scoring": {
+    "applicableFieldAccuracy": "exact over non-NOT_APPLICABLE oracle fields",
+    "boundaryErrors": [
+      "unsupportedInference",
+      "overgeneralized",
+      "authorityConfusion"
+    ],
+    "causalGradeValues": {
+      "FAIL": 0.0,
+      "PARTIAL": 0.5,
+      "PASS": 1.0
+    },
+    "cost": "provider prompt tokens, total generation tokens, wall time; focused qualification uses generation-side cost and reports judge cost separately",
+    "invalidCausalScore": 0.0,
+    "physical": "structured-result validity retained separately from semantic score",
+    "primaryChoice": "exact; invalid generation scores 0"
+  },
+  "treatments": [
+    "DIRECT",
+    "PRE_OFR6_FULL",
+    "POST_OFR6_FULL",
+    "POST_OFR6_FOCUSED"
+  ]
+}

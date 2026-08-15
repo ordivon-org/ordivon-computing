@@ -1,0 +1,183 @@
+{
+  "caseId": "OFR7-H-M16-02",
+  "kind": "ordivon.ofr7-postholdout-realization-diagnostic.v1",
+  "model": "deepseek-v4-flash",
+  "primaryHoldoutReplaced": false,
+  "reason": "Diagnose the single primary no_progress realization failure. Exact frozen prompt/surface/case/schema; these retries do not replace or rescore the primary holdout.",
+  "rows": [
+    {
+      "elapsedMs": 3334,
+      "replicate": 0,
+      "result": {
+        "boundary": "Decision at present, W11 current owner reachability unverified; Atlas is navigation only, no current projection fetched.",
+        "evidenceAuthority": "INSUFFICIENT_CURRENT_EVIDENCE",
+        "identityState": "NOT_APPLICABLE",
+        "primaryChoice": "B",
+        "reason": "The frozen Atlas is a navigation/research artifact, not current owner truth; it records reachability at W8 but the owner has advanced to W11. The Atlas's historical record remains valid history but does not prove current reachability (A10 time-scoping, navigation != current owner truth). Options A and C improperly promote the Atlas to current authority. D wrongly collapses uncertainty into unreachable. B correctly uses the Atlas to locate owner evidence then revalidates at W11 before a current consequential decision, preserving the unresolved current state until owner evidence is fetched.",
+        "seekMoreEvidence": true,
+        "truthState": "UNKNOWN"
+      },
+      "stopCode": "candidate_completed",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 320,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 5376,
+            "prompt_cache_miss_tokens": 30,
+            "prompt_tokens": 5406,
+            "prompt_tokens_details": {
+              "cached_tokens": 5376
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 5726
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 100000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 5726,
+        "wallTimeMs": 3213
+      },
+      "valid": true
+    },
+    {
+      "elapsedMs": 3284,
+      "replicate": 1,
+      "result": {
+        "boundary": "Atlas speaks to W8 only; current W11 reachability requires owner-native revalidation.",
+        "evidenceAuthority": "INSUFFICIENT_CURRENT_EVIDENCE",
+        "identityState": "NOT_APPLICABLE",
+        "primaryChoice": "B",
+        "reason": "The frozen Atlas records W8 reachability but the task asks about current reachability at W11 after the owner advanced revisions. The Atlas is explicitly a navigation/research artifact, not current owner truth; it cannot establish current reachability. Per the causal-history boundary, a frozen research reconstruction cannot serve as live authority for present truth. The correct action is to use the Atlas to locate the owner's native reachability evidence, then revalidate at W11 before any consequential decision. Treating E as reachable from the Atlas alone (A), promoting the Atlas to authority (C), or assuming unreachable solely from revision differences (D) all overreach. Current reachability remains UNKNOWN until a current owner projection is fetched.",
+        "seekMoreEvidence": true,
+        "truthState": "UNKNOWN"
+      },
+      "stopCode": "candidate_completed",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 346,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 5376,
+            "prompt_cache_miss_tokens": 30,
+            "prompt_tokens": 5406,
+            "prompt_tokens_details": {
+              "cached_tokens": 5376
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 5752
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 100000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 5752,
+        "wallTimeMs": 3164
+      },
+      "valid": true
+    },
+    {
+      "elapsedMs": 3220,
+      "replicate": 2,
+      "result": {
+        "boundary": "Decision bound: reachability at current revision W11, requiring owner-native current evidence; frozen Atlas at W8 is insufficient.",
+        "evidenceAuthority": "INSUFFICIENT_CURRENT_EVIDENCE",
+        "identityState": "NOT_APPLICABLE",
+        "primaryChoice": "B",
+        "reason": "The Atlas is a frozen research/navigation artifact, not current owner truth. It records reachability at W8, but the task concerns W11, and no current owner reachability projection has been fetched. Current reachability at W11 cannot be established from stale research history. The correct move is to use the Atlas to locate the owner's evidence and revalidate at W11 before a consequential decision. Options A and C wrongly promote a research artifact to current truth; D wrongly collapses unresolved state into unreachable. Current truth state is UNKNOWN and additional current owner evidence is required.",
+        "seekMoreEvidence": true,
+        "truthState": "UNKNOWN"
+      },
+      "stopCode": "candidate_completed",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 337,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 5376,
+            "prompt_cache_miss_tokens": 30,
+            "prompt_tokens": 5406,
+            "prompt_tokens_details": {
+              "cached_tokens": 5376
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 5743
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 100000,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 5743,
+        "wallTimeMs": 3101
+      },
+      "valid": true
+    }
+  ],
+  "schemaVersion": 1,
+  "semanticFreezeDigest": "sha256:27527aff2c7c9ed2e955f5bd98b86d3c737a2ded77ecad07d689601077835fd0",
+  "treatment": "POST_OFR6_FOCUSED"
+}
