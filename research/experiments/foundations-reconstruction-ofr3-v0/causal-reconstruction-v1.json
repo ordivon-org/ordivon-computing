@@ -1,0 +1,423 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.foundations-reconstruction.causal-reconstruction.v1",
+  "inheritsFreeze": "../foundations-reconstruction-ofr0-ofr2-v0/owner-freeze-v1.json",
+  "question": "For a high-impact retained invariant, can a future Agent recover not only what exists but the strongest attractive rival, the discriminator that defeated/narrowed it, the consequence of the retained model, the failure predicted by restoring the rival, and the condition under which the rival should be reconsidered?",
+  "cases": [
+    {
+      "id": "OFR3-RUNTIME-01",
+      "owner": "runtime",
+      "title": "Physical realization must not change the target world to satisfy evidence",
+      "recoverability": "DIRECT_CANONICAL",
+      "falsifierStrength": "DECISIVE_EMPIRICAL",
+      "currentInvariant": "Runtime may strengthen executable/provider realization evidence only while preserving the target-visible execution semantics it claims to execute; ambiguous or drifting path realization fails rather than silently substituting a different world.",
+      "strongestRival": {
+        "model": "Make sealed-memfd execution the default after admission so the exact validated bytes are what execute; alternatively use a single-file read-only bind.",
+        "whyAttractive": "Both are stronger-looking immutability mechanisms. Sealed memfd closes pathname replacement races and gives exact executable bytes even after the original path changes."
+      },
+      "decisiveFalsifier": "The single-file systemd read-only bind did not stabilize future pathname resolution when the parent directory entry was replaced. Sealed memfd did execute exact ELF/shebang bytes, but changed `__file__`, `sys.argv[0]`, and `/proc/self/exe`; the stronger evidence mechanism changed target-observable semantics.",
+      "retainedConsequence": "Keep the original pathname semantics, witness declared dependency/executable paths through execution, fail on detected runtime drift, and bind the Runtime-owned Runner provider independently.",
+      "counterfactualRestoration": "A default memfd substitution would make programs observe a different executable/script location than the one the caller requested. Debugging, self-location, module/resource discovery and provenance could become semantically false even though byte identity is stronger.",
+      "boundary": "This rejects memfd as the universal default, not memfd as a tool. A workload that explicitly treats pathname semantics as irrelevant may still choose a stronger immutable-byte mechanism. It also does not claim complete ambient dependency closure.",
+      "reopenCondition": "Reopen if Runtime can preserve both immutable execution bytes and the target-visible pathname semantics required by a real workload, or if a caller explicitly admits a semantics-changing immutable execution mode.",
+      "evidence": [
+        {
+          "kind": "git_path",
+          "owner": "runtime",
+          "repo": "/root/projects/ordivon-runtime",
+          "revision": "c6e45d9e41d3b4d64b5b3dace01497c53e574026",
+          "path": "docs/effect-kernel.md"
+        }
+      ],
+      "ownerHead": "c6e45d9e41d3b4d64b5b3dace01497c53e574026"
+    },
+    {
+      "id": "OFR3-HOST-01",
+      "owner": "host",
+      "title": "Task continuity does not require a generic Host-owned Effect lifecycle",
+      "recoverability": "HISTORICAL_RECONSTRUCTION",
+      "falsifierStrength": "DECISIVE_DELETION",
+      "currentInvariant": "Host owns durable Task/revision/commitment continuity and referenced uncertainty/evidence; executor/domain-specific effect lifecycles remain with the narrow workload owner instead of a universal Host Effect abstraction.",
+      "strongestRival": {
+        "model": "`EffectLifecycleHost` plus generic `DispatchEnvelope`, executor-neutral `deliver/observe/reconcile`, Observation/Verification/Outcome state, reused across Runtime, Game and other executors.",
+        "whyAttractive": "It offered one elegant response-loss and effect-lifecycle story for multiple executors, with a common WAITING/VERIFYING path and no-blind-redelivery behavior."
+      },
+      "decisiveFalsifier": "The generic lifecycle was fully implemented and tested, then commit `06ef7a394b136cefee5812d9fc990a30061585ea` deleted roughly 1.4k lines of lifecycle/executor/Game-workload apparatus because no production consumer earned it. Current Host architecture records that the former candidate duplicated specialized read, mutation, code-change and Harness paths; later cleanup removed remaining residue.",
+      "retainedConsequence": "Keep one Task Journal/CAS projection, revision/lease fencing, explicit commitment/uncertainty and external-executor references. Let each workload own the smallest effect/reconciliation semantics required to produce Host-visible facts.",
+      "counterfactualRestoration": "Restoring the generic lifecycle would create two semantic recovery authorities around Runtime/Harness/domain effects, invite Host to interpret effect semantics it cannot verify, and reintroduce a large abstraction whose current consumers already have narrower owners.",
+      "boundary": "Host may still own caller-neutral external-executor request/binding/observation because those are Task-continuity facts. The rejected model is the universal executor-neutral semantic Effect lifecycle, not every cross-executor interface.",
+      "reopenCondition": "Reopen only if at least two materially different production workloads reproduce the same unowned effect-lifecycle responsibility and deleting the shared layer creates measurable duplication or recovery failure.",
+      "evidence": [
+        {
+          "kind": "git_path",
+          "owner": "host",
+          "repo": "/root/projects/ordivon-host",
+          "revision": "942bf41cb4f3ef6bfc2b70644f269fe6251b10a7",
+          "path": "ARCHITECTURE.md"
+        },
+        {
+          "kind": "git_commit",
+          "owner": "host",
+          "repo": "/root/projects/ordivon-host",
+          "revision": "06ef7a394b136cefee5812d9fc990a30061585ea",
+          "note": "refactor(host): remove unconsumed Effect lifecycle"
+        },
+        {
+          "kind": "git_commit",
+          "owner": "host",
+          "repo": "/root/projects/ordivon-host",
+          "revision": "41033485338c2fbe4e473b83aec47f00210e9cc5",
+          "note": "later removal of retired Effect lifecycle residue"
+        }
+      ],
+      "ownerHead": "942bf41cb4f3ef6bfc2b70644f269fe6251b10a7"
+    },
+    {
+      "id": "OFR3-HARNESS-01",
+      "owner": "harness",
+      "title": "Storage persistence is not cognition persistence or Run authority",
+      "recoverability": "DISTRIBUTED_CURRENT",
+      "falsifierStrength": "DECISIVE_CONTROL",
+      "currentInvariant": "Materialized source bytes, reusable-source existence, current durable cognition, and future Run admission are separate facts. Cross-Run knowledge becomes current cognition only through explicit exact selection under the new Run authority.",
+      "strongestRival": {
+        "model": "Add a Harness Memory/Skill repository or promotion state machine that automatically turns materialized/extracted/promoted knowledge into future cognition.",
+        "whyAttractive": "Automatic persistent memory appears to reduce repeated selection work and makes cross-Run learning look simpler: once K exists or is promoted, inject it into later Runs."
+      },
+      "decisiveFalsifier": "P-C1.7 materialized K while A remained current: when the Agent selected only A, K stayed physically readable in CAS but never appeared in the successor or fresh-process model view. When selected, A+K survived attempt/process boundaries; when later omitted, K left current cognition while its immutable bytes remained. P1 therefore reproduced durable reuse without a new Memory/Promotion subsystem.",
+      "retainedConsequence": "Use exact external reusable references/resolution plus the existing cognition seed/WorkingSet selection path. External owners evaluate/promote semantics; Harness makes exact reuse admissible but does not decide what deserves persistence.",
+      "counterfactualRestoration": "Automatic injection would turn storage existence or an external label into semantic Run authority, allow stale/irrelevant material into future model views, and make Harness a hidden knowledge evaluator instead of a structural cognition substrate.",
+      "boundary": "The result proves authority/state semantics, not that a real model will make good long-term memory choices. Harness still supports exact cross-Run reuse and may expose history without semantic search/ranking.",
+      "reopenCondition": "Reopen only if a real second consumer shows that explicit exact selection cannot express required reusable cognition or creates recurring cost that a narrower shared repository can reduce without granting hidden semantic authority.",
+      "evidence": [
+        {
+          "kind": "git_path",
+          "owner": "harness",
+          "repo": "/root/projects/ordivon-harness",
+          "revision": "286985c82874d293308297f66b23152c1ed53369",
+          "path": "docs/P1-REUSABLE-KNOWLEDGE-PROCEDURAL-CAPITAL-CLOSEOUT.md"
+        },
+        {
+          "kind": "git_path",
+          "owner": "harness",
+          "repo": "/root/projects/ordivon-harness",
+          "revision": "286985c82874d293308297f66b23152c1ed53369",
+          "path": "evidence/harness-pc17-durable-knowledge-promotion-5a0530a.json"
+        },
+        {
+          "kind": "git_path",
+          "owner": "harness",
+          "repo": "/root/projects/ordivon-harness",
+          "revision": "286985c82874d293308297f66b23152c1ed53369",
+          "path": "ARCHITECTURE.md"
+        }
+      ],
+      "ownerHead": "286985c82874d293308297f66b23152c1ed53369"
+    },
+    {
+      "id": "OFR3-WORLD-01",
+      "owner": "world",
+      "title": "Resource dynamics are owner-native claims/events, not one universal Resource state machine",
+      "recoverability": "DIRECT_CANONICAL",
+      "falsifierStrength": "DECISIVE_MODEL_COMPETITION",
+      "currentInvariant": "Resource identity remains separate from optional owner-native quantity/rate/capacity/currentness/authority/materialization/maintenance claims and reserve/release/consume/renew events. World derives demand-scoped ecology projections only when a consumer needs them.",
+      "strongestRival": {
+        "model": "A universal scalar stock account (A), universal stock-flow-capacity vector (B), or exactly one canonical family-specific lifecycle per Resource (C).",
+        "whyAttractive": "Inventory/accounting models are compact and familiar; the vector can absorb many quantitative cases; family-specific lifecycle C preserves heterogeneity while offering a global taxonomy."
+      },
+      "decisiveFalsifier": "Across 50 frozen discriminators A scored 16 PASS/24 FAIL/10 AMBIG, B 19/21/10, strengthened C 39/0/11, while owner-native model D scored 50/0/0; ten post-freeze falsifiers also passed without changing D. Network currentness, relation-scoped availability, non-rival knowledge, authority expiry, replica/materialization and reservation/release repeatedly broke depletion/state-machine intuitions. C was not declared false; its family registry simply added no demonstrated decision value.",
+      "retainedConsequence": "Persist native dynamic truth where its owner needs history/currentness, and project only the coordinates required by the named transition. Do not add a central `ResourceState`, family registry, universal quantity table or global unit conversion.",
+      "counterfactualRestoration": "A/B would fabricate stock/depletion semantics for routes, authority and reusable knowledge; C would force canonical family ownership for multi-aspect resources and could turn explanatory taxonomy into execution authority without changing predictions.",
+      "boundary": "D is provisional research, not canonical World doctrine. R7 also found a real quantitative projection gap; the result forbids overgeneralizing the fix, not adding demand-earned quantitative claims.",
+      "reopenCondition": "Reopen when a stronger universal/family model survives an equally strong frozen corpus with lower ownership/representation cost, or a real consumer proves owner-native projection cannot answer its transition efficiently.",
+      "evidence": [
+        {
+          "kind": "git_path",
+          "owner": "world",
+          "repo": "/root/projects/ordivon-world",
+          "revision": "a531c915c0c14ba49d19270dad35f7289e38d730",
+          "path": "docs/resource-ontology-r7-ecology-dynamics-falsification.md"
+        },
+        {
+          "kind": "git_path",
+          "owner": "world",
+          "repo": "/root/projects/ordivon-world",
+          "revision": "a531c915c0c14ba49d19270dad35f7289e38d730",
+          "path": "evidence/acceptance/resource-ontology-r7-ecology-matrix-20260815.json"
+        }
+      ],
+      "ownerHead": "a531c915c0c14ba49d19270dad35f7289e38d730"
+    },
+    {
+      "id": "OFR3-HUMAN-01",
+      "owner": "human",
+      "title": "Recurrence and control value are not stable-core promotion authority",
+      "recoverability": "DISTRIBUTED_CURRENT",
+      "falsifierStrength": "DECISIVE_ABLATION",
+      "currentInvariant": "Choose knowledge representation granularity and allocation using Durability × Future Control Value, but stable-core promotion is a separate evidence decision requiring support maturity appropriate to scope, an explicit boundary/falsifier, and an implementation-independent representation.",
+      "strongestRival": {
+        "model": "Promote high-durability/high-control or repeatedly recurring cross-project structures directly into the Human stable core.",
+        "whyAttractive": "Recurrence across many projects/epochs and high future control value look like exactly what a small stable core should retain; an extra gate appears redundant."
+      },
+      "decisiveFalsifier": "AE1 ablation has one explicit mismatch only when the Promotion Gate is removed: AE-K15. The claim “R1–R8 structures recur enough to be universal laws” is high durability/high control but has `support_maturity_established=false` and no explicit boundary/falsifier because source-bias/taxonomy concerns remain. Without the gate it is over-promoted.",
+      "retainedConsequence": "Treat recurrence/control value as evidence that a representation is worth understanding/reviewing, not as authority to canonize it. Preserve mechanism-level status until support and falsification boundary earn stable-core admission.",
+      "counterfactualRestoration": "A recurrence-only rule would harden shared prompts, architecture ancestry or measurement taxonomy into “universal” Human knowledge, making later contradiction psychologically/operationally more expensive and reducing epistemic optionality.",
+      "boundary": "The current gate is an Ordivon-specific supported candidate derived from selected cases, not a universal education curriculum or claim that all stable knowledge needs identical evidence forms.",
+      "reopenCondition": "Reopen when natural use finds a repeatedly decision-useful representation blocked without reason, or a promoted item should have been rejected for a dimension the three-part gate cannot express.",
+      "evidence": [
+        {
+          "kind": "git_path",
+          "owner": "human",
+          "repo": "/root/projects/ordivon-human",
+          "revision": "f7725dfc9b391c3e9a0c509d49795994931c9d63",
+          "path": "research/agentic-capability/HYPOTHESES.md"
+        },
+        {
+          "kind": "git_path",
+          "owner": "human",
+          "repo": "/root/projects/ordivon-human",
+          "revision": "f7725dfc9b391c3e9a0c509d49795994931c9d63",
+          "path": "research/agentic-capability/experiments/evidence/ae1-c1-round1.json"
+        },
+        {
+          "kind": "git_path",
+          "owner": "human",
+          "repo": "/root/projects/ordivon-human",
+          "revision": "f7725dfc9b391c3e9a0c509d49795994931c9d63",
+          "path": "research/agentic-capability/experiments/ae1-c1/knowledge-cases.json"
+        }
+      ],
+      "ownerHead": "f7725dfc9b391c3e9a0c509d49795994931c9d63"
+    },
+    {
+      "id": "OFR3-FINANCE-01",
+      "owner": "finance",
+      "title": "Financial instrument identity requires temporal relations and knowledge time",
+      "recoverability": "DIRECT_CANONICAL",
+      "falsifierStrength": "DECISIVE_MODEL_COMPETITION",
+      "currentInvariant": "Ticker/label is not identity authority. Finance represents one economic object through temporal venue/instrument relation intervals and explicit identity/reference events, with effective time distinct from `observed_at` knowledge time; unresolved transition windows return UNKNOWN and later evidence appends rather than rewrites earlier knowledge.",
+      "strongestRival": {
+        "model": "A symbol-keyed enriched current record (A), or stable economic object plus only the current venue/instrument relation (B).",
+        "whyAttractive": "Both are dramatically simpler than a temporal dataset and satisfy ordinary current lookup. B already fixes many cross-domain and instrument-type semantics."
+      },
+      "decisiveFalsifier": "A fails on QNT cross-domain ticker collision and SPCX rename/conversion history. B loses SPCX pre-IPO share-estimate/rebase/listed regimes, cannot make historical comparability/invalidation deterministic, and requires prose reconstruction for PIT queries. Writing a future `validTo` into the original observation leaks future knowledge; collapsing history into the current row deletes invalidation targets.",
+      "retainedConsequence": "Persist immutable identity intervals/events as A2 datasets, append later observations of the same regime with supersession links, keep bounded UNKNOWN windows, and treat current relation as a disposable projection.",
+      "counterfactualRestoration": "A/B would create symbol collisions, look-ahead leakage, silently splice reference regimes, and make backtests/research validate with information Finance did not possess at the historical decision time.",
+      "boundary": "FR2 owns identity/reference meaning only. It does not create a universal graph engine, replace portfolio exposure, market observation, beliefs or current effect-bound venue metadata.",
+      "reopenCondition": "Reopen if a smaller model answers current and PIT identity, cross-domain disambiguation, historical invalidation and transition uncertainty without future leakage.",
+      "evidence": [
+        {
+          "kind": "git_path",
+          "owner": "finance",
+          "repo": "/root/projects/ordivon-finance",
+          "revision": "3d714710e330954b2f0f98510ceaf700847b02b6",
+          "path": "research/financial_resource/FR2-MODEL-COMPETITION.md"
+        }
+      ],
+      "ownerHead": "3d714710e330954b2f0f98510ceaf700847b02b6"
+    },
+    {
+      "id": "OFR3-WORKSTATION-01",
+      "owner": "workstation",
+      "title": "Recovery of a selected path must not silently become a new selection",
+      "recoverability": "DISTRIBUTED_CURRENT",
+      "falsifierStrength": "DECISIVE_CONTRACT_CONTROL",
+      "currentInvariant": "`path.revalidate` re-qualifies one exact prior observation/path and cannot enumerate or select alternatives; negative revalidation does not overwrite the saved observation; an active anchor under a different selection is a conflict; published egress is generation/currentness-bound and fails closed when its parent changes.",
+      "strongestRival": {
+        "model": "Treat recovery as rediscovery/failover: if the saved path is stale or unhealthy, automatically choose the best currently working endpoint/protocol/path under the same revalidation/recovery operation.",
+        "whyAttractive": "It maximizes apparent liveness and hides provider/path outages from consumers; a generic “ensure network works” primitive is simpler for Agents."
+      },
+      "decisiveFalsifier": "Current owner tests make the rival mechanically impossible: source-observation drift fails before network effects; binding drift creates no tunnel; exact revalidation asserts endpoint enumeration is never called; successful revalidation returns `selectionMutationAllowed=false` and one preserved path; negative results are never persisted as a replacement observation; active different selection raises `ANCHOR_SELECTION_CONFLICT`. Earlier NX0.2 half-dead transport recovery similarly rebuilds the same admitted path or terminates the generation rather than reselecting.",
+      "retainedConsequence": "Separate discovery/selection from exact revalidation/admission. Bind semantic tools to exact observation/path/generation, and require explicit replacement/new admission for a different selection.",
+      "counterfactualRestoration": "A caller asking “is this exact route still valid?” could silently receive a different endpoint/provider/protocol/region. That would destroy causal identity, currentness provenance and any downstream security/venue assumptions tied to the selected path while reporting recovery success.",
+      "boundary": "A distinct product whose semantics are explicitly “best current path” may own automatic selection. The invariant applies when the operation claims continuity/revalidation of an already selected identity.",
+      "reopenCondition": "Reopen only if a real consumer explicitly grants reselection authority and can bind the resulting new path identity/side effects without presenting it as continuity of the old selection.",
+      "evidence": [
+        {
+          "kind": "git_path",
+          "owner": "workstation",
+          "repo": "/root/workstation-lab",
+          "revision": "85f904635e856612b78e8b13acc553b1e80d292a",
+          "path": "docs/semantic-mcp.md"
+        },
+        {
+          "kind": "git_path",
+          "owner": "workstation",
+          "repo": "/root/workstation-lab",
+          "revision": "85f904635e856612b78e8b13acc553b1e80d292a",
+          "path": "README.md"
+        },
+        {
+          "kind": "git_path",
+          "owner": "workstation",
+          "repo": "/root/workstation-lab",
+          "revision": "85f904635e856612b78e8b13acc553b1e80d292a",
+          "path": "tests/test_surfshark_path.py"
+        },
+        {
+          "kind": "git_path",
+          "owner": "workstation",
+          "repo": "/root/workstation-lab",
+          "revision": "85f904635e856612b78e8b13acc553b1e80d292a",
+          "path": "tests/node/workstation_semantic_mcp.test.mjs"
+        },
+        {
+          "kind": "git_commit",
+          "owner": "workstation",
+          "repo": "/root/workstation-lab",
+          "revision": "e823c31b19c84a0dc857444302ade600056b8b45",
+          "note": "introduced bounded selected-path semantic recovery"
+        },
+        {
+          "kind": "git_commit",
+          "owner": "workstation",
+          "repo": "/root/workstation-lab",
+          "revision": "1f02857dafe32af7fed2658844035eb7d88b4e76",
+          "note": "generation-bound Exterior CONNECT"
+        }
+      ],
+      "ownerHead": "85f904635e856612b78e8b13acc553b1e80d292a"
+    },
+    {
+      "id": "OFR3-SECURITY-01",
+      "owner": "security",
+      "title": "Authority revocation is prospective; delivered information and historical admission remain facts",
+      "recoverability": "DIRECT_CANONICAL",
+      "falsifierStrength": "DECISIVE_SELF_OWNED_EXPERIMENT",
+      "currentInvariant": "Consequential Security admission binds an exact authority snapshot/digest. Later authority revision controls future admission but does not rewrite historically valid decisions, delivered bytes/results or the producer identity required to verify old evidence.",
+      "strongestRival": {
+        "model": "Model revocation/current authority as retroactive: once a grant is revoked or key rotated, past local authority/results should be treated as no longer valid/known, and current authority identity is sufficient for all verification.",
+        "whyAttractive": "A single mutable “current entitlement” is simple and feels safer: revoke once and make all old rights/results disappear from the active model."
+      },
+      "decisiveFalsifier": "Self-owned ToyDesigner V5 showed revoking Alice cannot retract an already delivered key/plaintext; rotation only protects future releases. V6 TTL sweeps measured offline survivability equal to worst-case stale-revocation window. V8 showed old signed receipts require retained old authority identity after key rotation, while future calls can be denied immediately. The R1 runner passes 26/26 structural gates for these distinctions.",
+      "retainedConsequence": "Freeze exact grant snapshots in Range/Evaluation specs, record the `authorityDigest` that admitted each effect, create new authority revisions prospectively, and preserve historical producer/key identity for retained evidence.",
+      "counterfactualRestoration": "Retroactive current-authority semantics would corrupt audit history, claim impossible “take-back” of delivered information, make old receipts unverifiable after rotation, and conflate future permission with past occurrence.",
+      "boundary": "This does not say revoked actors retain future authority. Security may deny future actions, destroy owned disposable worlds, or mark credentials no longer current. The irreversibility applies to past facts/delivered information, not future permission.",
+      "reopenCondition": "Reopen when a real persistent Security world needs grants to change mid-session, cached disconnected authority, non-exportable hardware operations, remote protected capability, or provider/key migration with historical verification.",
+      "evidence": [
+        {
+          "kind": "git_path",
+          "owner": "security",
+          "repo": "/root/projects/ordivon-security",
+          "revision": "6a7a8f9b22cb4995d436da2968b135248f8f6bb3",
+          "path": "docs/AUTHORITY-LIFECYCLE-ENGINEERING.md"
+        },
+        {
+          "kind": "git_path",
+          "owner": "security",
+          "repo": "/root/projects/ordivon-security",
+          "revision": "6a7a8f9b22cb4995d436da2968b135248f8f6bb3",
+          "path": "docs/CLIENT-AUTHORITY-ENTITLEMENT-CA-LIC-R1.md"
+        },
+        {
+          "kind": "git_path",
+          "owner": "security",
+          "repo": "/root/projects/ordivon-security",
+          "revision": "6a7a8f9b22cb4995d436da2968b135248f8f6bb3",
+          "path": "research/ca-lic/toydesigner/R1_MEASUREMENTS.md"
+        }
+      ],
+      "ownerHead": "6a7a8f9b22cb4995d436da2968b135248f8f6bb3"
+    },
+    {
+      "id": "OFR3-GAME-01",
+      "owner": "game",
+      "title": "Plan Preview is durable cognition/product state but not World commitment",
+      "recoverability": "DIRECT_CANONICAL",
+      "falsifierStrength": "DECISIVE_PRODUCT_STATE_TEST",
+      "currentInvariant": "Commander Order, sealed Plan Preview, explicit Commit and deterministic World consequence are distinct states. Preview is retained/recoverable and inspectable but has no World authority until explicit Commit binds the selected Preview to canonical faction plans/Turn Batch.",
+      "strongestRival": {
+        "model": "Collapse planning and commitment: let model/policy plan generation directly occupy faction plan slots or mutate World, or treat Preview as ephemeral UI decoration with no authoritative identity.",
+        "whyAttractive": "Fewer states and less persistence: generate plans, execute them, and render whatever was generated as a preview."
+      },
+      "decisiveFalsifier": "P3 tests explicitly verify Preview non-authority before Commit. Changing the mutable Order invalidates/clears the Preview without touching World or P2 plan slots. The selected Preview survives restart before Commit; partial plan submission/P2 preparation resumes the same Preview/Batch; response-lost World results are observed under the original Turn Batch before a new Planning Head.",
+      "retainedConsequence": "Persist Order/Preview identity/digests, expose player review, require explicit Commit, reuse selected Preview across restart/partial submission, and separate World effect receipts from planning state.",
+      "counterfactualRestoration": "Direct plan-to-effect would let model generation or browser refresh commit consequences without player authority, make re-planning ambiguous, and allow response loss to create duplicate/replacement turns. Ephemeral Preview would break audit/restart fidelity and “what exactly did I commit?” review.",
+      "boundary": "This is a Station Zero product invariant. It supports a broader proposal/commit inequality but does not prove every Agent/game UI requires the same Preview object or explicit button.",
+      "reopenCondition": "Reopen if a different Game mode deliberately grants autonomous plan authority, or a smaller product state preserves player agency, restart/recovery and exact committed-plan review.",
+      "evidence": [
+        {
+          "kind": "git_path",
+          "owner": "game",
+          "repo": "/root/projects/ordivon-game",
+          "revision": "0c8581c6b5eebceaf33aeb8907fa91a8b53708dc",
+          "path": "docs/STATION_ZERO_V3_P3.md"
+        },
+        {
+          "kind": "git_path",
+          "owner": "game",
+          "repo": "/root/projects/ordivon-game",
+          "revision": "0c8581c6b5eebceaf33aeb8907fa91a8b53708dc",
+          "path": "docs/STATION_ZERO_V3_CONTRACTION.md"
+        },
+        {
+          "kind": "git_path",
+          "owner": "game",
+          "repo": "/root/projects/ordivon-game",
+          "revision": "0c8581c6b5eebceaf33aeb8907fa91a8b53708dc",
+          "path": "src/station-zero-v3/planning-store.ts"
+        }
+      ],
+      "ownerHead": "0c8581c6b5eebceaf33aeb8907fa91a8b53708dc"
+    },
+    {
+      "id": "OFR3-WEB-01",
+      "owner": "web",
+      "title": "An index whose primary task is selection must expose selectable entities, not only taxonomy",
+      "recoverability": "DIRECT_CANONICAL",
+      "falsifierStrength": "DECISIVE_RENDERED_TREATMENT",
+      "currentInvariant": "For the current Projects directory, initial desktop/mobile orientation must expose actual Project identities/links. The quick index derives from the same canonical `projects` array; detailed taxonomy/capability cards remain below.",
+      "strongestRival": {
+        "model": "Keep the existing taxonomy/status/thesis architecture and fix the initial encounter with spacing alone, bringing the first group heading/cards upward.",
+        "whyAttractive": "It is the smallest visual change, adds no new projection, and preserves the existing directory composition."
+      },
+      "decisiveFalsifier": "Exact desktop/mobile browser review showed the mechanically correct page exposed taxonomy, status and a large thesis but no selectable Project identity. The first desktop-only spacing treatment merely moved the `Core work system` group heading into view and remained non-actionable. A canonical-data-derived quick index then exposed all eight Project identities in both initial encounters while mechanical review stayed clean.",
+      "retainedConsequence": "Keep the Projects-local quick index derived from the canonical `projects` array and preserve the detailed capability directory below; smoke tests assert project identity appears in the initial encounter.",
+      "counterfactualRestoration": "Reverting to spacing-only restores a visually cleaner but task-incomplete first encounter: users see classification before any object they can select. Implementing the fix with a second manifest would instead create publication drift from canonical project data.",
+      "boundary": "This is not a universal above-the-fold law and does not require every page to front-load links. It applies to this selection-dominant directory under the observed viewport/task.",
+      "reopenCondition": "Reopen when inventory/task/viewport materially changes, or another directory falsifies the need for early entity exposure while preserving selection success.",
+      "evidence": [
+        {
+          "kind": "git_path",
+          "owner": "web",
+          "repo": "/root/projects/ordivon-web",
+          "revision": "5c7c6cbc95eb2b062fe2f335f28a7c931f279018",
+          "path": "design/expression-profile.md"
+        },
+        {
+          "kind": "git_path",
+          "owner": "web",
+          "repo": "/root/projects/ordivon-web",
+          "revision": "5c7c6cbc95eb2b062fe2f335f28a7c931f279018",
+          "path": "app/projects/page.tsx"
+        },
+        {
+          "kind": "git_path",
+          "owner": "web",
+          "repo": "/root/projects/ordivon-web",
+          "revision": "5c7c6cbc95eb2b062fe2f335f28a7c931f279018",
+          "path": "tests/smoke.spec.ts"
+        }
+      ],
+      "ownerHead": "5c7c6cbc95eb2b062fe2f335f28a7c931f279018"
+    }
+  ],
+  "summary": {
+    "caseCount": 10,
+    "recoverability": {
+      "DIRECT_CANONICAL": 6,
+      "HISTORICAL_RECONSTRUCTION": 1,
+      "DISTRIBUTED_CURRENT": 3
+    },
+    "falsifierStrength": {
+      "DECISIVE_EMPIRICAL": 1,
+      "DECISIVE_DELETION": 1,
+      "DECISIVE_CONTROL": 1,
+      "DECISIVE_MODEL_COMPETITION": 2,
+      "DECISIVE_ABLATION": 1,
+      "DECISIVE_CONTRACT_CONTROL": 1,
+      "DECISIVE_SELF_OWNED_EXPERIMENT": 1,
+      "DECISIVE_PRODUCT_STATE_TEST": 1,
+      "DECISIVE_RENDERED_TREATMENT": 1
+    }
+  }
+}
