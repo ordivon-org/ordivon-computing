@@ -101,10 +101,14 @@ Historical Computing dogfood repeatedly found this pattern, and PAL P2 supplies 
 So:
 
 ```text
-zero current use
+current use
     !=
-zero future option value
+future option value
+    !=
+capability value
 ```
+
+Later OFR2 cross-owner reconstruction found the same distinction in Computing, World, Human, and Studio, and World R9/R10 independently strengthened the operational side: a Resource may exist before it is currently actionable; an Option is a selectable feasible relation for a purpose/context; capability depends on whether the relevant transition can actually be produced under current constraints. These distinctions are related without collapsing into one scalar.
 
 But the inverse error is equally important:
 
@@ -114,9 +118,9 @@ possible future value
 retain everything
 ```
 
-F11 failed to establish a generic option-aware retention rule. Both greedy and option-aware treatments rejected the negative controls well; the difficult problem was identifying *which* dormant positive would later matter. Option value is therefore a real outcome dimension whose prospective valuation remains uncertain.
+F11 failed to establish a generic option-aware retention rule. Both greedy and option-aware treatments rejected the negative controls well; the difficult problem was identifying *which* dormant positive would later matter. Option value is therefore a real outcome dimension whose prospective valuation remains uncertain. Current World evidence likewise rejects a universal Resource value/maturity scalar.
 
-Useful future experiments should measure carrying cost, reacquisition cost, hidden future workload probability, realized regret, and portfolio diversity rather than treating `retain/delete` as certain at time zero.
+Useful future experiments should measure carrying cost, reacquisition cost, hidden future workload probability, realized regret, portfolio diversity, authority, and conversion into actual capability/effect rather than treating `retain/delete` as certain at time zero.
 
 ## 7. Prior applicability is support-bound, not age-bound
 
@@ -176,7 +180,9 @@ reset everything    — loses valid continuity
 inherit everything  — silently expands old authority
 ```
 
-The current evidence is one Harness migration family. Cross-owner responsibility transfer or semantic schema migration still requires independent replication before any stronger shared invariant is claimed.
+OFR2 later supplied materially different cross-owner evidence for the same negative identity principle: Finance instrument identity cannot be reduced to ticker/current row, Workstation recovery binds one selected path rather than silently reselecting, Security preserves historical authority/producer identity across revocation/rotation, and Runtime replay binds enforceable request facts rather than reinterpreting the current world. This upgrades the reusable conclusion that **label, byte, or revision sameness is neither necessary nor sufficient for continuity**.
+
+The boundary remains important. No universal identity tuple is implied, and cases where schema meaning or owner responsibility itself moves still need separate evidence; identity follows the owner-named invariants that make the object or commitment the same thing for the responsibility under review.
 
 ## What remains research-only
 
@@ -186,7 +192,7 @@ These questions are important but are not stable knowledge claims yet:
 - whether explicit independent regulation is necessary to prevent endogenous self-reinforcement;
 - whether selection rather than generation is the dominant current recursive-improvement bottleneck;
 - how broad complementarity/coalition credit behaves outside the scoped Harness durable-correction case;
-- how invariant-bound identity behaves when schema meaning or owner responsibility changes, beyond the current Harness implementation-upgrade case;
+- how invariant-bound identity behaves when schema meaning or owner responsibility itself changes, beyond the now cross-owner-supported negative claim about labels/bytes/revisions;
 - how a system reliably discovers the next important improvement pressure;
 - whether support-bound prior revalidation transfers to a second materially different model/task/environment shift, and whether any automation is justified.
 

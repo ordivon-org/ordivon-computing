@@ -13,7 +13,7 @@ audience:
   - builder
   - researcher
   - agent
-updated: 2026-08-07
+updated: 2026-08-16
 summary: Minimal shared vocabulary for future-model-robust work, consequence, Effect, evidence, Tool-drift, and observation responsibilities.
 evidence_status: not_applicable
 readiness: READY
@@ -34,6 +34,8 @@ Production compatibility remains defined by versioned protocol artifacts and pro
 ## Contract
 
 A shared term exists only to preserve a durable responsibility boundary. The exact storage object, schema, API, Provider representation, or repository is replaceable unless a real consumer depends on that representation.
+
+Identity follows the owner-named invariants that make an object, commitment, or observation the same thing for the responsibility being protected. Label, byte, ticker/name, or implementation-revision equality alone is neither necessary nor sufficient. No universal identity tuple follows; each owner names the invariants whose change would alter meaning, authority, replay, or continuity.
 
 ## Errors
 

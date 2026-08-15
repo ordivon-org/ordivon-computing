@@ -13,7 +13,7 @@ audience:
   - builder
   - researcher
   - agent
-updated: 2026-08-05
+updated: 2026-08-16
 summary: Canonical working foundations used to admit, reject, and revise durable Ordivon constraints.
 evidence_status: not_applicable
 readiness: READY
@@ -91,7 +91,7 @@ An Effect preserves the stable intended observation or change. Its identity is s
 
 ## A10 — Evidence mediates truth admission and is time-scoped
 
-Observation, Artifact, Claim, Verification, and Fact are distinct roles. Accepted system truth requires the evidence and decision method declared by the relevant domain authority. Evidence and accepted truth are scoped to the property, owner, and time they establish: historical evidence remains valid history without automatically proving current state. Multiple legitimate observations may conflict while current world truth remains unresolved; later authoritative current evidence may resolve the present property without rewriting the historical conflict.
+Observation, Artifact, Claim, Verification, and Fact are distinct roles. Accepted system truth requires the evidence and decision method declared by the relevant domain authority. Evidence and accepted truth are scoped to the property, owner, and time they establish: historical evidence remains valid history without automatically proving current state. When missing, stale, conflicting, or insufficient evidence would imply different next actions, the unresolved state remains explicit—typically `UNKNOWN`—rather than being collapsed into false, absent, failed, or safe-to-retry. Multiple legitimate observations may conflict while current world truth remains unresolved; later authoritative current evidence may resolve the present property without rewriting the historical conflict.
 
 ## A11 — Every durable constraint must prove net acceleration
 

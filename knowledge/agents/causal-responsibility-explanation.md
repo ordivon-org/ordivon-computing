@@ -87,6 +87,70 @@ These statements are especially useful because they prevent overreach:
 
 Each claim remains scoped. New evidence can narrow, strengthen, or falsify it.
 
+## Causal history, navigation, and compression
+
+OFR3–OFR6 add a second requirement to compact causal explanations: **the current winner is not the whole theory**. When future transfer, deletion, or reopening decisions matter, enough negative causal history must remain recoverable to explain why the current structure survived.
+
+A useful recoverable causal case usually preserves:
+
+```text
+current invariant
++ strongest attractive rival
++ why the rival was attractive
++ decisive discriminator / falsifier
++ retained consequence
++ what restoring the rival would break
++ negative-transfer boundary
++ reopen condition
++ exact owner evidence escape hatch
+```
+
+This is a semantic recoverability target, not an eight-field storage schema. OFR4 strongly falsified winner-only summaries on held-out causal reconstruction, while compressed fixed packets did not earn a universal canonical representation. Ordinary work should still load only the causal material its decision actually needs.
+
+### Reopen conditions are not action triggers
+
+A theory sentence such as “reopen this question if X becomes possible” does not itself establish that X happened or authorize a mechanism change. Keep four responsibilities distinct:
+
+```text
+Theory.reopenCondition
+!= Evidence.sufficientToClaimConditionObserved
+!= Research.reopenQuestion
+!= Owner.admitRivalOrAction
+```
+
+OFR4 discovered this boundary by invalidating its own one-bit reopen metric. The measurement failure is part of the evidence: a compact decision variable was too small because it collapsed theory, evidence, research policy, and owner authority.
+
+### A map is not the territory or its owner
+
+A compact index can be excellent at locating the right causal case without carrying that case's rival, falsifier, history, or current owner truth. Likewise, a cross-owner shared law can explain a recurring invariant without replacing the owner-local causal history that established a concrete product decision.
+
+```text
+index != causal theory
+shared invariant != owner-local causal history
+frozen theory != current owner truth / evidence authority
+```
+
+Navigation therefore keeps exact owner/revision references as escape hatches. If a current decision depends on present truth, revalidate with the owner rather than treating a frozen research reconstruction as live authority.
+
+### Project mechanically known boundary facts
+
+When an owning surface already knows a revision, truth role, currentness marker, or authority relation exactly, expose that fact mechanically rather than asking a model to infer it again from prose. OFR5's post-holdout diagnostic is narrow but instructive: a read-only Tool observation carrying explicit `truthRole`, currentness, and false evidence/research/admission/action-authority flags eliminated the authority overclaims seen in prose-only treatments on that bounded corpus.
+
+This is not a universal metadata schema. Only mechanically owned facts should be projected; evidence sufficiency, semantic meaning, and domain judgment stay with the relevant owner.
+
+### Compression is receiver-conditioned
+
+Shorter sender payloads do not automatically reduce total cognitive cost. Compression can shift work into receiver reconstruction, extra model turns, longer conclusions, search, or failure recovery.
+
+```text
+useful compression
+= fewer transmitted distinctions
+  while preserving decision-relevant structure
+  and reducing total accepted-work cost
+```
+
+EX3–EX7 showed strong compact prose can beat richer representations on bounded action reconstruction. OFR4 showed that deleting causal roles can reduce fidelity or shift token cost into reconstruction. OFR5 showed a 514-word Atlas index could still approach eager-full failure-adjusted prompt cost when navigation, hydration, and a second answer turn were counted. Evaluate the **whole consumption loop**, not word count alone.
+
 ## When to create a shared Ordivon layer
 
 Start with mature classical infrastructure and the owner-domain implementation. Add a new Ordivon responsibility only when a recurring residual problem remains that those owners cannot correctly hold. Then ask the deletion question: if the proposed layer disappears, what materially breaks across more than one real workload?
