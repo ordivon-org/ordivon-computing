@@ -1,9 +1,11 @@
 # Core Work System v1
 
-This is the executable Round 1 comparison for Ordivon's core work-system claims.
-It deliberately gives LangGraph and Temporal the same application state that the
-Ordivon variant receives. The experiment asks whether separate Host semantics add
-measurable value, not whether mature workflow systems can be made to look weak.
+This is the completed historical Round 1 comparison for Ordivon's core work-system claims.
+The executable apparatus was intentionally removed from the active tree during the
+Computer contraction round; current `main` retains the report and bound evidence only.
+The source receipt binds the executable experiment to Computing revision
+`0485fcf337ba002aa81a57cb166489f3ddce7709`, which remains recoverable from Git.
+It is therefore **not** an executable package on current `main`.
 
 ```text
 one frozen maintenance world
@@ -27,9 +29,16 @@ one frozen maintenance world
 - `effect`: plain call, idempotency/audit, durable Activity, and Effect/Binding/Dispatch/UNKNOWN;
 - `attention`: approval-everywhere, static risk policy, model-selected interruption, and evidence-rich DecisionRequest.
 
-## Deterministic gate
+## Historical executable gate
+
+The original executable gate belongs to the source-bound historical revision, not the
+contracted active tree. To reproduce it without reviving retired dependencies on `main`,
+materialize revision `0485fcf337ba002aa81a57cb166489f3ddce7709` in a detached Git
+worktree and run the gate there:
 
 ```bash
+git worktree add --detach /tmp/core-work-system-v1 0485fcf337ba002aa81a57cb166489f3ddce7709
+cd /tmp/core-work-system-v1/research/experiments/core-work-system-v1
 uv sync --frozen
 uv run python -m unittest discover -s tests -v
 uv run ruff check src tests scripts
@@ -39,8 +48,8 @@ uv run anc-core-work-system matrix \
   --output evidence/deterministic-matrix.json
 ```
 
-Live model trials are a later command over the same frozen fixture and do not
-change scoring, fault schedules, or hard-failure definitions.
+The retained `evidence/round1-source-receipt.json` records that this bound source passed
+clean-environment recreation, compileall, Ruff, and all nine unit tests at closeout.
 
 ## Report statistics
 
