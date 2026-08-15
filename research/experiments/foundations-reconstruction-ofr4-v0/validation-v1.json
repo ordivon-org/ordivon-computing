@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.ofr4-validation.v1",
+  "result": "PASS",
+  "frozen": {
+    "experimentContractDigest": "sha256:1e563950b455761b78df1697c652def6ec395bb7a34507c72afd522eac6e9547",
+    "corpusDigest": "sha256:26fd37921e03f5e528a82b0174c73813442ebc1603e741d518601df4b93a0dd5",
+    "packetsDigest": "sha256:2760475fc55890e1cb22c1ee7794bd5584331aaa2881cfb4bfe3eafbceab3422",
+    "ofr3SourceDigest": "sha256:d6809c0c2855efa5abdfe2cf1bb2579f8e291efeeecb6105c6a94bec32ad8bc3"
+  },
+  "live": {
+    "developmentCampaigns": 2,
+    "developmentPhysicalTrials": 32,
+    "developmentSemanticAccepted": 24,
+    "holdoutPhysicalTrials": 48,
+    "holdoutSemanticAccepted": 33,
+    "holdoutGenerationInvalid": 15,
+    "rawFrozenSelector": "full_eight_role",
+    "scientificDisposition": "NO_THEORY_UNIT_PROMOTION"
+  },
+  "runtime": {
+    "harnessRevision": "286985c82874d293308297f66b23152c1ed53369",
+    "generationModel": "deepseek-v4-flash",
+    "judgeModel": "deepseek-v4-pro",
+    "adapterId": "deepseek.chat-completions.non-thinking.v1"
+  },
+  "machineChecks": [
+    "frozen contract/corpus/packets digests unchanged after live execution",
+    "all trial packetDigest values match frozen packets",
+    "4 development + 6 holdout case geometry exact",
+    "non-accepted rows are not silently semantically graded",
+    "raw selector and no-promotion scientific disposition retained",
+    "no credential-shaped secret value fields persisted"
+  ],
+  "repositoryChecks": {
+    "foundationalDocsTests": "3/3 PASS",
+    "researchPortfolioTests": "6/6 PASS",
+    "foundationalMarkdown": "59 checked / 0 issues",
+    "ofr4JsonBeforeReceipt": "8/8 parse",
+    "pythonCompile": "PASS",
+    "gitDiffCheck": "PASS",
+    "coreKnowledgeUntouched": true
+  },
+  "validationNotes": [
+    "Two validator-implementation mistakes were detected during closeout (an over-strong failed-row predicate and an incorrect derived filename). Both failed before acceptance, were corrected without changing frozen packets/oracles/live evidence, and the final exact-path validator passed.",
+    "Development-v1 summary initially displayed meanPromptTokens=0 because the analyzer read camelCase instead of provider `prompt_tokens`; provider usage bytes were intact. Only the analyzer extraction was corrected before development-v2/holdout; frozen representation semantics were unchanged."
+  ]
+}

@@ -1,0 +1,2467 @@
+{
+  "analysis": {
+    "bestOverallRoleScore": 0.9583,
+    "byTreatment": {
+      "causal_kernel": {
+        "accepted": 3,
+        "criticalRoleScore": 0.9,
+        "meanGenerationTokens": 2336.3,
+        "meanPromptTokens": 1435.0,
+        "overallRoleScore": 0.8542,
+        "overgeneralizationRate": 0.0,
+        "qualifies": false,
+        "reopenDecisionAccuracy": 0.3333,
+        "roleMeans": {
+          "counterfactualBreakage": 0.8333,
+          "decisiveFalsifier": 0.6667,
+          "invariantScope": 1.0,
+          "negativeTransferBoundary": 1.0,
+          "reopenCondition": 1.0,
+          "retainedConsequence": 0.3333,
+          "strongestRival": 1.0,
+          "whyAttractive": 1.0
+        },
+        "unsupportedInferenceRate": 0.0
+      },
+      "full_eight_role": {
+        "accepted": 3,
+        "criticalRoleScore": 0.9667,
+        "meanGenerationTokens": 2400.0,
+        "meanPromptTokens": 1500.3,
+        "overallRoleScore": 0.9583,
+        "overgeneralizationRate": 0.0,
+        "qualifies": false,
+        "reopenDecisionAccuracy": 0.6667,
+        "roleMeans": {
+          "counterfactualBreakage": 1.0,
+          "decisiveFalsifier": 1.0,
+          "invariantScope": 0.8333,
+          "negativeTransferBoundary": 1.0,
+          "reopenCondition": 1.0,
+          "retainedConsequence": 1.0,
+          "strongestRival": 0.8333,
+          "whyAttractive": 1.0
+        },
+        "unsupportedInferenceRate": 0.0
+      },
+      "minimal_causal_chain": {
+        "accepted": 2,
+        "criticalRoleScore": 0.7,
+        "meanGenerationTokens": 2151.5,
+        "meanPromptTokens": 1333.5,
+        "overallRoleScore": 0.6562,
+        "overgeneralizationRate": 0.0,
+        "qualifies": false,
+        "reopenDecisionAccuracy": 0.5,
+        "roleMeans": {
+          "counterfactualBreakage": 0.5,
+          "decisiveFalsifier": 0.5,
+          "invariantScope": 0.75,
+          "negativeTransferBoundary": 0.75,
+          "reopenCondition": 1.0,
+          "retainedConsequence": 0.5,
+          "strongestRival": 0.75,
+          "whyAttractive": 0.5
+        },
+        "unsupportedInferenceRate": 0.0
+      },
+      "winner_only": {
+        "accepted": 4,
+        "criticalRoleScore": 0.725,
+        "meanGenerationTokens": 2213.0,
+        "meanPromptTokens": 1190.0,
+        "overallRoleScore": 0.7969,
+        "overgeneralizationRate": 0.0,
+        "qualifies": false,
+        "reopenDecisionAccuracy": 0.5,
+        "roleMeans": {
+          "counterfactualBreakage": 0.75,
+          "decisiveFalsifier": 0.5,
+          "invariantScope": 1.0,
+          "negativeTransferBoundary": 1.0,
+          "reopenCondition": 0.75,
+          "retainedConsequence": 0.875,
+          "strongestRival": 0.625,
+          "whyAttractive": 0.875
+        },
+        "unsupportedInferenceRate": 0.0
+      }
+    },
+    "selected": "NO_PROMOTION"
+  },
+  "contractDigest": "sha256:1e563950b455761b78df1697c652def6ec395bb7a34507c72afd522eac6e9547",
+  "corpusDigest": "sha256:26fd37921e03f5e528a82b0174c73813442ebc1603e741d518601df4b93a0dd5",
+  "expectedTrials": 16,
+  "failures": [
+    {
+      "caseId": "OFR3-RUNTIME-01",
+      "generation": {
+        "elapsedMs": 7624,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:e8fac0a6d4f9eb11935872c128760f6898d93fcfac5a5803615a3f2b0fe3a499",
+        "result": {
+          "counterfactualBreakage": "If memfd became the default, programs would observe a different executable/script location than the caller requested, making debugging, self-location, module/resource discovery, and provenance semantically false despite byte identity being stronger.",
+          "decisiveFalsifier": "Evidence that a sealed-memfd or equivalent immutable-byte execution mode, when used by a workload that explicitly declares pathname/self-location semantics irrelevant, preserves all other admitted target-visible semantics and is opt-in (not transparent replacement of the default path).",
+          "invariantScope": "Runtime executable/provider realization may strengthen realization evidence only while preserving target-visible execution semantics; a stronger immutable-byte mechanism is rejected as the universal default for Runtime but may be admitted for a workload that explicitly waives pathname semantics.",
+          "negativeTransferBoundary": "The rejection applies only to transparent/default substitution. An explicit, opt-in admission by a caller who declares pathname semantics irrelevant — with a prototype that preserves all other admitted semantics — falls outside the rejected scope.",
+          "reopenCondition": "Reopen if Runtime can preserve both immutable execution bytes and target-visible pathname semantics required by a real workload, or if a caller explicitly admits a semantics-changing immutable execution mode.",
+          "reopenDecision": "REOPEN",
+          "reopenDecisionReason": "The reopen probe precisely matches the second reopen condition stated in the packet's REOPEN clause: a caller explicitly declares pathname/self-location semantics irrelevant and requests immutable exact-byte execution, with a prototype proving the stronger mode is opt-in rather than transparent replacement. The packet's LIMIT explicitly preserves memfd-as-tool and non-default uses; the probe is an explicit admission of a semantics-changing mode, which is exactly the admitted path. This is not a rival returning to reclaim the default; it is a caller-opted exception the original rejection explicitly carved out.",
+          "retainedConsequence": "Memfd-as-tool remains available; only memfd-as-universal-default is rejected. The rejection does not claim complete ambient dependency closure and does not preclude workloads that explicitly waive pathname semantics.",
+          "strongestRival": "Sealed-memfd execution (or single-file read-only bind) as the default realization mechanism, which achieves exact validated-byte immutability but changes target-observables like __file__, sys.argv[0], and /proc/self/exe.",
+          "uncertainty": "The packet does not enumerate what counts as 'all other admitted semantics' or specify how the opt-in proof must be demonstrated; whether the prototype actually preserves all admitted semantics requires verification beyond the packet text.",
+          "whyAttractive": "Sealed memfd closes pathname replacement races and guarantees the exact validated bytes execute even after the original path changes; it appears to be a strictly stronger immutability guarantee than path-based execution."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-RUNTIME-01:causal_kernel:r0:66d0920c852943ec93ca8fcebfe28483",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 738,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 1,
+              "prompt_tokens": 1409,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2147
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2147,
+          "wallTimeMs": 7429
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 11335,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": null,
+        "result": null,
+        "runId": "harness-run:ofr4:judge:development:OFR3-RUNTIME-01:r0:55ffd27f:35ea34f5ff9744eaaaf9dfdba7732b53",
+        "secretSlot": "deepseek.json",
+        "stopCode": "no_progress",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 681,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1490,
+              "prompt_tokens": 2514,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3195
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3195,
+          "wallTimeMs": 11288
+        },
+        "valid": false
+      },
+      "replicate": 0,
+      "treatment": "causal_kernel"
+    },
+    {
+      "caseId": "OFR3-HOST-01",
+      "generation": {
+        "elapsedMs": 11343,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": null,
+        "result": null,
+        "runId": "harness-run:ofr4:gen:development:OFR3-HOST-01:full_eight_role:r0:cb2fdaeedfdc4b05ae3209eb1d60045e",
+        "secretSlot": "deepseek.json",
+        "stopCode": "no_progress",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1260,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 125,
+              "prompt_tokens": 1533,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2793
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2793,
+          "wallTimeMs": 11264
+        },
+        "valid": false
+      },
+      "judge": null,
+      "replicate": 0,
+      "treatment": "full_eight_role"
+    },
+    {
+      "caseId": "OFR3-HUMAN-01",
+      "generation": {
+        "elapsedMs": 12149,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:c443e31b2062ac499a7912c3c2417d1b497e2eddaace9f37bd6d8a2254bc8e8d",
+        "result": {
+          "counterfactualBreakage": "If the rival returned now (direct promotion based on durability × control or recurrence while ignoring support maturity and explicit falsifier), the prediction is that AE-K15 and comparable cases would be over-promoted: the R1–R8 recurrent structures would enter the stable core despite support_maturity_established=false and unresolved source-bias/taxonomy concerns, and there would be no explicit falsifier to later reject them, breaking the gate that the AE1 ablation evidence supports.",
+          "decisiveFalsifier": "The decisive historical discriminator was AE-K15: exactly one explicit mismatch (AE-K15) appearing only when the Promotion Gate is removed. That single ablation mismatch, combined with the R1–R8 claim having support_maturity_established=false and no explicit boundary/falsifier (source-bias/taxonomy concerns), is what discriminated the gate-required variant from the direct-promotion rival.",
+          "invariantScope": "The kept invariant is about knowledge-representation governance for the Human stable core: choose granularity/allocation via Durability × Future Control Value, but promotion into the stable core is a separate evidence decision requiring (a) support maturity appropriate to scope, (b) an explicit boundary/falsifier, and (c) implementation-independent representation. The reject-over alternative is: directly promote high-durability/high-control or repeatedly recurring cross-project structures into the stable core solely on recurrence/durability grounds.",
+          "negativeTransferBoundary": "The boundary is that the gate is Ordivon-specific and derived from selected cases. It does NOT transfer to: universal education curricula, claims that all stable knowledge needs identical evidence forms, or non-Human contexts. The three-part gate's authority is scoped to the Human stable-core promotion process evidenced by the AE1 cases.",
+          "reopenCondition": "Reopen when natural use finds (1) a repeatedly decision-useful representation blocked without reason, OR (2) a promoted item that should have been rejected for a dimension the three-part gate cannot express.",
+          "reopenDecision": "KEEP_CLOSED",
+          "reopenDecisionReason": "The reopen probe fails to meet the packet's burden because both reopen triggers are absent. The probe describes a representation that (a) is repeatedly decision-useful but (b) is blocked because its support is biased to one shared research lineage and no explicit falsifier is stated. This is exactly the REASON the gate blocks it — the gate exists precisely to withhold promotion from high-value-looking but under-supported (support_maturity_established=false, source-bias-unresolved) representations lacking an explicit falsifier. A block 'because support is biased and no falsifier exists' is a block WITH reason, not 'without reason,' so trigger (1) is not met. Trigger (2) requires a promoted item that should have been rejected — the probe concerns a blocked item, not a wrongly promoted one. Therefore the probe describes the gate working as designed, not an anomaly warranting reopening.",
+          "retainedConsequence": "The consequence retained is that the Human stable core requires the three-part promotion gate (support maturity appropriate to scope, explicit boundary/falsifier, implementation-independent representation) as an Ordivon-specific supported candidate; it is not universalized into a claim that all education curricula or all stable knowledge require identical evidence forms.",
+          "strongestRival": "The rejected alternative (direct promotion of high-durability/high-control or repeatedly recurring structures without the support-maturity/boundary-falsifier/implementation-independence gate) is the strongest rival, anchored in the AE-K15 single explicit mismatch observed when the Promotion Gate is removed.",
+          "uncertainty": "The packet is a reconstruction from a bounded theory packet; exact contents of the referenced files (HYPOTHESES.md, ae1-c1-round1.json, knowledge-cases.json) are not directly inspected. The AE1 evidence is summarized only as one explicit mismatch (AE-K15) when the gate is removed. The reopen probe is assessed against the packet's stated reopen triggers, which do not require new repository evidence.",
+          "whyAttractive": "The rival is attractive because the AE1 ablation shows only one explicit mismatch (AE-K15) when the gate is removed, and the R1–R8 recurrence claim looks like high-durability/high-control content that 'should' qualify; without the gate accounting for support_maturity_established=false and unresolved source-bias/taxonomy concerns, the risk is silent over-promotion of apparently strong-but-under-supported structures."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-HUMAN-01:minimal_causal_chain:r0:5aeeb68e336245a88ea8ada7ed595cec",
+        "secretSlot": "deepseek4.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1168,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1280,
+              "prompt_cache_miss_tokens": 83,
+              "prompt_tokens": 1363,
+              "prompt_tokens_details": {
+                "cached_tokens": 1280
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2531
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2531,
+          "wallTimeMs": 11976
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 9908,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": null,
+        "result": null,
+        "runId": "harness-run:ofr4:judge:development:OFR3-HUMAN-01:r0:38054d4b:71c659e8d63a4dd3b02ca9fd6dabf914",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "no_progress",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 586,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1783,
+              "prompt_tokens": 2807,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3393
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3393,
+          "wallTimeMs": 9857
+        },
+        "valid": false
+      },
+      "replicate": 0,
+      "treatment": "minimal_causal_chain"
+    },
+    {
+      "caseId": "OFR3-WEB-01",
+      "generation": {
+        "elapsedMs": 13745,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": null,
+        "result": null,
+        "runId": "harness-run:ofr4:gen:development:OFR3-WEB-01:minimal_causal_chain:r0:5d9420fdc0fa4ea1ae93c18d6c090f5c",
+        "secretSlot": "deepseek5.json",
+        "stopCode": "no_progress",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1372,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1280,
+              "prompt_cache_miss_tokens": 46,
+              "prompt_tokens": 1326,
+              "prompt_tokens_details": {
+                "cached_tokens": 1280
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2698
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2698,
+          "wallTimeMs": 13703
+        },
+        "valid": false
+      },
+      "judge": null,
+      "replicate": 0,
+      "treatment": "minimal_causal_chain"
+    }
+  ],
+  "kind": "ordivon.ofr4-live-evidence.v1",
+  "packetsDigest": "sha256:2760475fc55890e1cb22c1ee7794bd5584331aaa2881cfb4bfe3eafbceab3422",
+  "replicatesPerTreatment": 1,
+  "schemaVersion": 1,
+  "semanticAcceptedTrials": 12,
+  "sourceDigest": "sha256:d6809c0c2855efa5abdfe2cf1bb2579f8e291efeeecb6105c6a94bec32ad8bc3",
+  "split": "development",
+  "trials": [
+    {
+      "caseId": "OFR3-RUNTIME-01",
+      "generation": {
+        "elapsedMs": 7996,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:16d905b41dfebc1a980969046e927ed49352588f4600f6b054e6db9a91131f50",
+        "result": {
+          "counterfactualBreakage": "If the rival were restored as the default now, programs would observe a different executable/script location than the caller requested; debugging, self-location, module/resource discovery and provenance would become semantically false even though byte identity is stronger.",
+          "decisiveFalsifier": "The single-file read-only bind failed to stabilize pathname resolution when a parent directory entry was replaced, while sealed memfd changed target-visible semantics: __file__, sys.argv[0], and /proc/self/exe diverged from the requested path. Either failure mode violates the invariant that evidence-strengthening must preserve target-visible execution semantics.",
+          "invariantScope": "Runtime execution realization must preserve the target-visible execution semantics (pathname, self-location, argv[0], __file__) it claims to execute; stronger byte-immutability mechanisms cannot silently substitute different path semantics. This is scoped to the Runtime's default/vendor-provided execution path, not to workloads that explicitly opt out.",
+          "negativeTransferBoundary": "The rejection covers memfd as the universal/default mechanism only, not memfd as an opt-in tool. Workloads that explicitly treat pathname semantics as irrelevant may choose a stronger immutable-byte mechanism. The invariant does not claim complete ambient dependency closure.",
+          "reopenCondition": "Reopen if Runtime can preserve both immutable execution bytes and the target-visible pathname semantics required by a real workload, or if a caller explicitly admits a semantics-changing immutable execution mode.",
+          "reopenDecision": "REOPEN",
+          "reopenDecisionReason": "The reopen probe precisely matches the packet's stated reopen condition: the caller explicitly declares pathname/self-location semantics irrelevant for this workload and requests immutable exact-byte execution. This is the 'caller explicitly admits a semantics-changing immutable execution mode' branch. Additionally the probe requires the prototype to preserve all OTHER admitted semantics and prove the mode is opt-in rather than transparent replacement, which directly addresses the counterfactual breakage (transparent substitution) and the negative-transfer boundary (opt-in tool, not default). A prototype satisfying preservation of remaining semantics and opt-in proof would meet the packet's burden.",
+          "retainedConsequence": "Keep original pathname semantics, witness declared dependency/executable paths through execution, fail on detected runtime drift, and bind the Runtime-owned Runner provider independently.",
+          "strongestRival": "Make sealed-memfd execution (or a single-file read-only bind) the default after admission so the exact validated bytes are what execute.",
+          "uncertainty": "The packet does not supply evidence backing the prototype's preservation claims; the reopen decision is contingent on the prototype actually demonstrating preservation of all other admitted semantics and clear opt-in admission, which would need to be verified with current evidence. The historical discriminator was a defect in default/transparent substitution, not in opt-in use.",
+          "whyAttractive": "Both mechanisms promise stronger immutability: sealed memfd closes pathname-replacement races and guarantees exact executable bytes even after original paths change; read-only binds are simpler."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-RUNTIME-01:full_eight_role:r0:49889301f9c645f9b2f38f5301b839e2",
+        "secretSlot": "deepseek4.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 809,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 75,
+              "prompt_tokens": 1483,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2292
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2292,
+          "wallTimeMs": 7784
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 6869,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:f2c37a2c35997dd7115b1032089bed095e67d5f2785fbb6e0afe92a5fc25eeef",
+        "result": {
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "PASS",
+          "invariantScopeGrade": "PARTIAL",
+          "judgeReason": "Substantively faithful. counterfactualBreakage, decisiveFalsifier, retainedConsequence, negativeTransferBoundary, reopenCondition, whyAttractive all materially equivalent. invariantScope graded PARTIAL (not FAIL) because the agent added a scoping clarification ('default/vendor-provided, not explicit opt-out') that is consistent with but narrower/specified beyond GOLD; the core invariant sentence is preserved. strongestRival graded PARTIAL because the agent compressed the two alternatives ('alternatively use a single-file read-only bind') into a parenthetical '(or a single-file read-only bind)', slightly flattening the alternative framing but retaining both mechanisms and the default-after-admission qualifier. The extra reopenDecision/reopenDecisionReason/uncertainty fields are additive evaluator commentary, not evidence-supported overreach; they correctly map the probe to the packet's explicit 'caller explicitly admits' branch and flag contingency. Reopen is justified by the packet's own reopen condition, so no overgeneralization or unsupported inference is asserted.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "PARTIAL",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-RUNTIME-01:r0:8deaf623:8fd9e47ed0dd44229f620d569486dccd",
+        "secretSlot": "deepseek1.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 451,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1613,
+              "prompt_tokens": 2637,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3088
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3088,
+          "wallTimeMs": 6739
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:328d3c94fc6ae8e17da43bfc7d1936e9c8f2e94db080619298a712350afd6896",
+      "reopenDecisionCorrect": true,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "full_eight_role"
+    },
+    {
+      "caseId": "OFR3-RUNTIME-01",
+      "generation": {
+        "elapsedMs": 7624,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:e8fac0a6d4f9eb11935872c128760f6898d93fcfac5a5803615a3f2b0fe3a499",
+        "result": {
+          "counterfactualBreakage": "If memfd became the default, programs would observe a different executable/script location than the caller requested, making debugging, self-location, module/resource discovery, and provenance semantically false despite byte identity being stronger.",
+          "decisiveFalsifier": "Evidence that a sealed-memfd or equivalent immutable-byte execution mode, when used by a workload that explicitly declares pathname/self-location semantics irrelevant, preserves all other admitted target-visible semantics and is opt-in (not transparent replacement of the default path).",
+          "invariantScope": "Runtime executable/provider realization may strengthen realization evidence only while preserving target-visible execution semantics; a stronger immutable-byte mechanism is rejected as the universal default for Runtime but may be admitted for a workload that explicitly waives pathname semantics.",
+          "negativeTransferBoundary": "The rejection applies only to transparent/default substitution. An explicit, opt-in admission by a caller who declares pathname semantics irrelevant — with a prototype that preserves all other admitted semantics — falls outside the rejected scope.",
+          "reopenCondition": "Reopen if Runtime can preserve both immutable execution bytes and target-visible pathname semantics required by a real workload, or if a caller explicitly admits a semantics-changing immutable execution mode.",
+          "reopenDecision": "REOPEN",
+          "reopenDecisionReason": "The reopen probe precisely matches the second reopen condition stated in the packet's REOPEN clause: a caller explicitly declares pathname/self-location semantics irrelevant and requests immutable exact-byte execution, with a prototype proving the stronger mode is opt-in rather than transparent replacement. The packet's LIMIT explicitly preserves memfd-as-tool and non-default uses; the probe is an explicit admission of a semantics-changing mode, which is exactly the admitted path. This is not a rival returning to reclaim the default; it is a caller-opted exception the original rejection explicitly carved out.",
+          "retainedConsequence": "Memfd-as-tool remains available; only memfd-as-universal-default is rejected. The rejection does not claim complete ambient dependency closure and does not preclude workloads that explicitly waive pathname semantics.",
+          "strongestRival": "Sealed-memfd execution (or single-file read-only bind) as the default realization mechanism, which achieves exact validated-byte immutability but changes target-observables like __file__, sys.argv[0], and /proc/self/exe.",
+          "uncertainty": "The packet does not enumerate what counts as 'all other admitted semantics' or specify how the opt-in proof must be demonstrated; whether the prototype actually preserves all admitted semantics requires verification beyond the packet text.",
+          "whyAttractive": "Sealed memfd closes pathname replacement races and guarantees the exact validated bytes execute even after the original path changes; it appears to be a strictly stronger immutability guarantee than path-based execution."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-RUNTIME-01:causal_kernel:r0:66d0920c852943ec93ca8fcebfe28483",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 738,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 1,
+              "prompt_tokens": 1409,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2147
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2147,
+          "wallTimeMs": 7429
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 11335,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": null,
+        "result": null,
+        "runId": "harness-run:ofr4:judge:development:OFR3-RUNTIME-01:r0:55ffd27f:35ea34f5ff9744eaaaf9dfdba7732b53",
+        "secretSlot": "deepseek.json",
+        "stopCode": "no_progress",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 681,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1490,
+              "prompt_tokens": 2514,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3195
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3195,
+          "wallTimeMs": 11288
+        },
+        "valid": false
+      },
+      "packetDigest": "sha256:624f18ae6f8faead0d2dff7d82a73163ef71c75db79a1d53acc93434b9d1dcc2",
+      "reopenDecisionCorrect": true,
+      "replicate": 0,
+      "semanticAccepted": false,
+      "treatment": "causal_kernel"
+    },
+    {
+      "caseId": "OFR3-RUNTIME-01",
+      "generation": {
+        "elapsedMs": 8430,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:1698b98f535bf06fa0ca42430a14881d3dffba974e56111c581441484fc34d0e",
+        "result": {
+          "counterfactualBreakage": "If this probe's mode were accepted as a default or silently applied to workloads that depend on pathname semantics, the target-visible semantics would change, breaking the KEEP invariant — exactly the failure the original rejection predicted. The probe avoids this by remaining opt-in.",
+          "decisiveFalsifier": "A workload that actually relies on pathname/self-location semantics while requesting the semantics-changing immutable mode, or deployment of the stronger mode as a transparent default rather than explicit opt-in.",
+          "invariantScope": "Runtime execution enforcement: physical realization must not change the target-visible execution semantics (pathname, __file__, sys.argv[0], /proc/self/exe) to satisfy evidence.",
+          "negativeTransferBoundary": "This result is limited to this packet's workload-execution domain; it does not generalize the opt-in exception to environmental or ambient dependency closure, nor to any workload that has not explicitly disclaimed pathname relevance.",
+          "reopenCondition": "Reopen if Runtime can preserve both immutable execution bytes and target-visible pathname semantics required by a real workload, or if a caller explicitly admits a semantics-changing immutable execution mode.",
+          "reopenDecision": "REOPEN",
+          "reopenDecisionReason": "The probe matches the second reopen clause: 'if a caller explicitly admits a semantics-changing immutable execution mode.' The caller explicitly declares pathname/self-location semantics irrelevant, requests immutable exact-byte execution, and the prototype must preserve all other admitted semantics and prove the mode is opt-in rather than transparent replacement. This is a permitted exception under the LIMIT (a workload that explicitly treats pathname semantics as irrelevant may still choose a stronger immutable-byte mechanism) and does not resurrect the rejected universal-default rival.",
+          "retainedConsequence": "The strengthened evidence mode is permitted only where the caller explicitly and verifiably declares pathname/semantics irrelevant, and must remain opt-in so it never silently substitutes a different target-visible world for the unmodified case.",
+          "strongestRival": "The rejected alternative (global default to sealed-memfd execution) is not resurrected by this probe because the probe is explicitly opt-in per-workload and caller-admitted, not a default replacement. The rival is a universal default that silently substitutes a different target world.",
+          "uncertainty": "The probe condition is satisfied procedurally (explicit caller admission + opt-in proof requirement), but whether the prototype actually preserves all other admitted semantics and is verifiably opt-in can only be confirmed by inspecting the prototype's verification evidence, which is not in the packet.",
+          "whyAttractive": "The KEEP statement emphasizes preserving target-visible execution semantics while strengthening provider evidence; immutable exact-byte execution is attractive as stronger evidence. The probe leverages this attractiveness by conceding the semantic tradeoff explicitly."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-RUNTIME-01:minimal_causal_chain:r0:2e965b91142942849c1f7cfbd8433127",
+        "secretSlot": "deepseek.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 787,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1280,
+              "prompt_cache_miss_tokens": 35,
+              "prompt_tokens": 1315,
+              "prompt_tokens_details": {
+                "cached_tokens": 1280
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2102
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2102,
+          "wallTimeMs": 8228
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 4920,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:5f1c894c87645cca29611e96e1a3618db759907011d80b46549e027d65fe436f",
+        "result": {
+          "counterfactualBreakageGrade": "PARTIAL",
+          "decisiveFalsifierGrade": "FAIL",
+          "invariantScopeGrade": "PARTIAL",
+          "judgeReason": "Evaluating the agent's reconstruction of GOLD roles given the REOPEN probe.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "PARTIAL",
+          "strongestRivalGrade": "PARTIAL",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PARTIAL"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-RUNTIME-01:r0:dbec5e34:9fbd9b2c7a624cb781dc5ab0418354f7",
+        "secretSlot": "deepseek5.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 237,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1392,
+              "prompt_tokens": 2416,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 2653
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2653,
+          "wallTimeMs": 4781
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:0247759fb19c320ae0a5bc4d59bda6132f7a2806b6f08a96fc41d87d360efa6a",
+      "reopenDecisionCorrect": true,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "minimal_causal_chain"
+    },
+    {
+      "caseId": "OFR3-RUNTIME-01",
+      "generation": {
+        "elapsedMs": 10833,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": null,
+        "result": {
+          "counterfactualBreakage": "If the rival returned now and pathname/self-location semantics became freely replaceable in transparent mode, the Runtime packet's core guarantee would break: evidence from a runtime tool would no longer certify that the executing world matches the claimed world, turning realization evidence into byte-matching forgery that can drift from the target it purports to instantiate.",
+          "decisiveFalsifier": "A decisive falsifier would be a case where the packet's own trace (runtime:docs/effect-kernel.md@c6e45d9e41d3) shows that Runtime permits changing target-visible execution semantics (pathname/self-location or provider identity) when byte-equivalence of output is demonstrably preserved, thereby establishing that semantic preservation is not the governing invariant.",
+          "invariantScope": "Runtime tools may strengthen executable/provider realization evidence only while preserving the target-visible execution semantics they claim to execute (the KEEP statement). The packet's causal claim is scoped to the Runtime criterion: physical realization must not change the target world to satisfy evidence, and drift in path semantics or provider binding fails rather than silently substituting a different world.",
+          "negativeTransferBoundary": "The invariant does not universalize to other cases or functional areas outside Runtime tooling; it does not govern physical realization in general nor tasks where pathname/self-location semantics are never part of the target's claimed execution semantics. It specifically binds Runtime-owned Runner provider binding and path realization.",
+          "reopenCondition": "Reopen would be warranted only if new evidence from the packet shows that transparency (silent replacement of pathname/self-location semantics) is within the permitted Runtime behavior, or that opt-in immutable-byte execution with preserved pathname semantics was already rejected by the packet.",
+          "reopenDecision": "KEEP_CLOSED",
+          "reopenDecisionReason": "The reopen probe does not attack the packet's invariant: it explicitly preserves all other admitted semantics, declares pathname/self-location irrelevant only for this workload, and proves the stricter mode is opt-in rather than transparent replacement. This is fully consistent with the KEEP/DO NOW directives, which require failing on runtime drift and binding Runtime-owned Runner independently but do not prohibit a caller from explicitly opting into stricter byte-immutability when no admitted semantics are silently dropped. The case states drift fails rather than silently substituting a different world; an explicit opt-in that preserves all other semantics is not silent substitution. There is no packet evidence that exempting pathname semantics per-workload contradicts the governing criterion, so the probe does not meet the burden of falsifying the rejected rival.",
+          "retainedConsequence": "Retained consequence: a Runtime tool that preserves all admitted semantics but changes how pathname/self-location is realized must still preserve the target-visible semantics it claims to execute; opt-in stricter modes are permitted so long as they are not transparent replacement of the claimed world.",
+          "strongestRival": "The rival alternative is that Runtime may transparently replace pathname/self-location semantics with any realizer that yields matching byte output, treating physical realization as freely interchangeable as long as observable evidence is satisfied.",
+          "uncertainty": "The packet contains only the KEEP statement, DO NOW directives, and trace reference; the actual trace document content is not supplied, so whether it explicitly addresses opt-in stricter execution modes or per-workload semantic irrelevance declarations cannot be confirmed. The decision relies on the stated invariant alone.",
+          "whyAttractive": "The KEEP statement is attractive because it anchors the Runtime role to honesty of execution semantics: evidence is only valid if the world actually executed is the world the target claims to run, preventing a tool from presenting execution of one thing as evidence for another."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-RUNTIME-01:winner_only:r0:bdef25227c1d4125b0fc96312f488298",
+        "secretSlot": "deepseek1.json",
+        "stopCode": "needs_input",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 928,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1152,
+              "prompt_cache_miss_tokens": 5,
+              "prompt_tokens": 1157,
+              "prompt_tokens_details": {
+                "cached_tokens": 1152
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2085
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2085,
+          "wallTimeMs": 10759
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 18002,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:2a9847194ec15b0f4ca37e5c263bb3602d251c74b41ad679b3af279c97ecd01a",
+        "result": {
+          "counterfactualBreakageGrade": "PARTIAL",
+          "decisiveFalsifierGrade": "PARTIAL",
+          "invariantScopeGrade": "PASS",
+          "judgeReason": "invariantScope: agent restates KEEP faithfully linking preservation of target-visible execution semantics and fail-on-drift, with non-changing-world criterion. PASS. strongestRival: GOLD rival is default sealed-memfd / single-file read-only bind; agent reframes rival as 'transparently replace pathname semantics with any realizer yielding matching bytes' — this captures the transparent-replacement essence but omits the concrete mechanism names (sealed memfd, read-only bind) and frames it as general interchangeability. Directionally correct and matches the decisive falsifier's semantic-change consequence, though it drops the specific mechanisms; PARTIAL. whyAttractive: agent grounds attractiveness in honesty/valid-evidence rationale, which is GOLD's underlying reason; GOLD emphasizes the concrete immutability mechanisms (closing pathname races, exact bytes). Agent captures the principle but not the concrete mechanism appeal; PARTIAL-leaning but the core attractiveness (stronger evidence only valid when semantics preserved) is material. I grade PARTIAL. decisiveFalsifier: GOLD falsifier is a specific observed case (single-file read-only bind failing to stabilize pathname resolution; sealed memfd executing exact bytes but changing __file__/argv[0]/proc/self/exe). Agent instead posits a hypothetical condition ('a case where the trace shows Runtime permits...'). This is directionally aligned (semantic-preservation-as-governing-invariant) but is a hypothetical restatement rather than the actual empirical falsifier, dropping the concrete evidence; PARTIAL. retainedConsequence: GOLD lists four concrete actions (keep pathname semantics, witness declared deps, fail on drift, bind Runner independently). Agent restates general principle and adds opt-in clause but drops the witness-dependency and independent-Runner-binding specific actions; directionally correct but loses decision-relevant specifics; PARTIAL. counterfactualBreakage: GOLD says substitution makes programs observe a different executable/script location, and lists debuging/self-location/module-discovery/provenance becoming semantically false. Agent describes certifying world matches claimed world, evidence becoming forgery, drift from target. This is the same consequence but drops the concrete program-observable symptoms (self-location, module discovery, provenance) and frames it more abstractly; PARTIAL. negativeTransferBoundary: agent correctly scopes to Runtime, rejects memfd-as-default-vs-tool distinction correctly via opt-in framing, and notes no complete ambient dependency closure not required? Agent does focus on runtime-tool-specific scoping; GOLD also notes memfd-not-banned-as-tool and no-complete-ambient-dependency-closure. Agent captures the boundary essence (does not universalize, opt-in allowed) though omits explicit 'no complete ambient dependency closure' and 'memfd as tool' phrasing; still materially equivalent. PASS. reopenCondition: GOLD reopen is preserving both immutable bytes and pathname semantics, or caller explicitly admits semantics-changing mode. The probe exactly states explicit admission + opt-in; agent's reopenDecision KEEP_CLOSED is correct (probe consistent with invariant, not falsifier), and agent's reopenCondition (transparency permitted or opt-in-with-preserved-pathname already rejected) is equivalent to GOLD's reopen trigger. PASS. No material unsupported claims beyond valid packet inference; no overgeneralization to a broader law. Extra fields (reopenDecision/Reason/uncertainty) are accurate and not penalized.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "PARTIAL",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-RUNTIME-01:r0:e81f0493:c1d1e9b1b6c74d74aef59c79a9d424d0",
+        "secretSlot": "deepseek4.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 933,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1424,
+              "prompt_tokens": 2448,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3381
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3381,
+          "wallTimeMs": 17876
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:2c72a9370684b51b0cc4817c486b81c0620b49c89a3ffe7ba72c0bad4c51bc06",
+      "reopenDecisionCorrect": false,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "winner_only"
+    },
+    {
+      "caseId": "OFR3-HOST-01",
+      "generation": {
+        "elapsedMs": 11343,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": null,
+        "result": null,
+        "runId": "harness-run:ofr4:gen:development:OFR3-HOST-01:full_eight_role:r0:cb2fdaeedfdc4b05ae3209eb1d60045e",
+        "secretSlot": "deepseek.json",
+        "stopCode": "no_progress",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1260,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 125,
+              "prompt_tokens": 1533,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2793
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2793,
+          "wallTimeMs": 11264
+        },
+        "valid": false
+      },
+      "judge": null,
+      "packetDigest": "sha256:d30c989f8a675f81492915905329fa539bd590913724d9c29d6e34223a44c030",
+      "reopenDecisionCorrect": null,
+      "replicate": 0,
+      "semanticAccepted": false,
+      "treatment": "full_eight_role"
+    },
+    {
+      "caseId": "OFR3-HOST-01",
+      "generation": {
+        "elapsedMs": 9842,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:82d8bd0700e9f684792267d508d6c754dc7715f068e09cf43021cb7ca4727b34",
+        "result": {
+          "counterfactualBreakage": "If the RESPONSE did not occur (i.e., if the generic lifecycle had not been killed), Host would now have two semantic recovery authorities around Runtime/Harness/domain effects and would be invited to interpret effect semantics it cannot verify, with a large abstraction whose current consumers already have narrower owners.",
+          "decisiveFalsifier": "Failure of the reopen probe criterion: fewer than two materially different production workloads reproducing the same unowned effect-lifecycle responsibility where deleting the shared layer creates measurable duplication or recovery failure. The packet's current evidence shows deletion of the shared layer happened (1.4k lines removed) with no production consumer needing it, and current Host architecture records the former candidate duplicated specialized read/mutation/code-change/Harness paths.",
+          "invariantScope": "Host-owned durable Task/revision/commitment continuity and referenced uncertainty/evidence; executor/domain-specific effect lifecycles belong to the narrow workload owner, not a universal Host Effect abstraction. This applies to Host architecture decisions about whether a generic executor-neutral Effect lifecycle should be reintroduced.",
+          "negativeTransferBoundary": "Host may still own caller-neutral external-executor request/binding/observation because those are Task-continuity facts; only the universal executor-neutral semantic Effect lifecycle is rejected, not every cross-executor interface.",
+          "reopenCondition": "Reopen only if at least two materially different production workloads reproduce the same unowned effect-lifecycle responsibility AND deleting the shared layer creates measurable duplication or recovery failure.",
+          "reopenDecision": "KEEP_CLOSED",
+          "reopenDecisionReason": "The reopen probe's premise asserts two materially different production workloads now duplicate the same unowned response-loss effect lifecycle with parallel code and identical recovery defect. However, the case packet's current evidence does not establish the re-open criterion (two such workloads with measurable duplication/recovery failure from shared-layer deletion). The reply-to-that-which-is-not-the-approach must be distinguished: the historical discriminator was that the generic lifecycle was deleted because no production consumer earned it (killed, not merely narrowed). The rival's return is predicted to fail by creating two semantic recovery authorities and asking Host to verify effect semantics it cannot. The reopen probe merely restates the required re-open condition as an assertion without supplying the packet evidence establishing that condition is now met. Since no decisive falsifying evidence in the packet demonstrates two qualifying workloads with measurable duplication or recovery failure, the reopened alternative remains unsupported and the rejection stands.",
+          "retainedConsequence": "The rejected universal executor-neutral semantic Effect lifecycle stays rejected; the reopen condition requires two materially different production workloads to reproduce the same unowned effect-lifecycle responsibility with measurable duplication or recovery failure from deletion.",
+          "strongestRival": "The generic `EffectLifecycleHost` plus `DispatchEnvelope` with executor-neutral deliver/observe/reconcile, Observation/Verification/Outcome state, and no-blind-redelivery — which was fully implemented/tested and then deleted (commit 06ef7a394b136cefee5812d9fc990a30061585ea, ~1.4k lines) because no production consumer earned it.",
+          "uncertainty": "The reopen probe is a claim that the reopen criterion is now satisfied, but the packet provides no evidence of specific production workloads that reproduce the unowned lifecycle or measurable duplication/recovery failure. The packet's TRACE points (host:ARCHITECTURE.md@942bf41cb4f3, two commits) are cited but their content is not excerpted, so current-state corroboration of the two-workload duplication claim is not directly observable from the packet alone.",
+          "whyAttractive": "It promised one elegant response-loss/effect-lifecycle story spanning Runtime, Game, and other executors, with a common WAITING/VERIFYING path and no-blind-redelivery behavior — a single abstraction that would have unified duplicated concern across executors."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-HOST-01:causal_kernel:r0:974362f3324243b8ad1918bc1a366b51",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 967,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 40,
+              "prompt_tokens": 1448,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2415
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2415,
+          "wallTimeMs": 9641
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 12662,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:8406547750150dd12cea404692413c885be2088cb2000d7e744416861b32d1a6",
+        "result": {
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "FAIL",
+          "invariantScopeGrade": "PASS",
+          "judgeReason": "invariantScope: materially equivalent to GOLD (Host owns Task/revision/commitment continuity and referenced uncertainty/evidence; effect lifecycles remain with narrow owner). strongRival: preserved key content, added commit detail from packet. whyAttractive: preserved the one-elegant-story + common WAITING/VERIFYING + no-blind-redelivery. counterfactualBreakage: reframed to counterfactual but retained all three GOLD harms. negativeTransferBoundary: preserved Task-continuity facts limit and 'not every cross-executor interface'. reopenCondition: preserved both conjuncts (two workloads AND measurable duplication/recovery failure).\n\nTwo FAILs:\n1) decisiveFalsifier: GOLD's decisive falsifier is the historical fact that the generic lifecycle was fully implemented/tested then deleted (~1.4k lines) because no production consumer earned it, and Host records duplication of specialized paths. The Agent instead substituted a 'failure of the reopen probe criterion' argument and recast the packet's facts as merely showing the criterion is not met, thereby treating the reopen probe (a hypothetical condition) as the decisively falsifying counter-evidence instead of the actual implementation-then-deletion falsifier. This loses the key distinguishing fact (the rival was NOT merely 'not reintroduced' — it was implemented and deleted as uneconomical), changing the role's content.\n2) retainedConsequence: GOLD's retained consequence is a substantive positive list — keep one Task Journal/CAS projection, revision/lease fencing, explicit commitment/uncertainty, external-executor references, and let workloads own the smallest effect/reconciliation semantics. The Agent's answer contains none of this; it merely restates that the rival stays rejected and reiterates the reopen condition. This omits the retained-consequence content entirely, hence FAIL.\n\nNote: Agent added fields (reopenDecision, reopenDecisionReason, uncertainty) not in the GOLD schema, but this does not affect grading of the eight GOLD roles. unsupportedInference=false: nothing asserted beyond packet + valid causal inference; overgeneralized=false: no local result turned into broader law. The decisive false-scope claim (KEEP_CLOSED) is a judgment call consistent with the packet lacking two-workload evidence, not an unsupported material assertion.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "FAIL",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-HOST-01:r0:6155c5c6:6695393731a44ef5a762af52a5229f11",
+        "secretSlot": "deepseek2.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 697,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1789,
+              "prompt_tokens": 2813,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3510
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3510,
+          "wallTimeMs": 12533
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:7d1f82147e91e269fff2e32236cb0f54884d74133a42290d7df93d8e955cd89d",
+      "reopenDecisionCorrect": false,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "causal_kernel"
+    },
+    {
+      "caseId": "OFR3-HOST-01",
+      "generation": {
+        "elapsedMs": 8899,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": null,
+        "result": {
+          "counterfactualBreakage": "If the two production workloads did not both reproduce the same unowned effect-lifecycle responsibility, removing the shared layer would not create measurable duplication or recovery failure; the reopen probe would then rest on a merely plausible but unverified scenario.",
+          "decisiveFalsifier": "Two materially different production workloads reproducing the same unowned effect-lifecycle responsibility (parallel deliver/observe/reconcile code) with the same recovery defect when the shared layer is removed, i.e., the substantive condition named in the REOPEN guard.",
+          "invariantScope": "Host-owned durable Task/revision/commitment continuity and referenced uncertainty/evidence; executor/domain-specific effect lifecycles remain with the narrow workload owner, not a universal Host Effect abstraction.",
+          "negativeTransferBoundary": "The REOPEN guard is workload-scoped: at least two materially different PRODUCTION workloads must reproduce the SAME unowned effect-lifecycle responsibility. Local evidence from a single workload, from non-production experiments, or from different responsibilities does not satisfy it and must not be universalized.",
+          "reopenCondition": "Adduce concrete evidence that at least two materially different production workloads each carry parallel deliver/observe/reconcile code for the same unowned response-loss effect lifecycle and that deleting the shared behavior yields the same measurable recovery defect in both.",
+          "reopenDecision": "NEEDS_INPUT_CANNOT_DECIDE",
+          "reopenDecisionReason": "The REOPEN probe asserts the exact fact pattern the reopen condition requires (two materially different production workloads duplicating the same unowned response-loss lifecycle with the same recovery defect when shared behavior is removed), but the supplied packet provides no evidence beyond the assertion itself. No repository, logs, workload evidence, or observation confirming the two workloads or the recovery defect is present.",
+          "retainedConsequence": "The historical discriminator was that no production consumer earned the generic lifecycle (duplication of specialized paths, later cleanup of residue). If the two workloads genuinely duplicate orphaned lifecycle logic with measurable failure on removal, the original no-consumer basis would be falsified in today's production reality.",
+          "strongestRival": "The rejected `EffectLifecycleHost` plus generic `DispatchEnvelope` and executor-neutral deliver/observe/reconcile lifecycle, previously fully implemented and tested, then deleted in commit 06ef7a394b136cefee5812d9fc990a30061585ea because no production consumer earned it.",
+          "uncertainty": "The reopen probe is a candidate fact pattern that, if true, would decisively falsify the historical no-production-consumer discriminator and warrant reopening. However, the packet contains no independent evidence substantiating the two workloads, their parallel code, or the recovery defect; I cannot verify the claimed duplication or failure offline from the given packet.",
+          "whyAttractive": "The current Host architecture explicitly preserves caller-neutral external-executor request/binding/observation as Task-continuity facts, so the residual Question is whether the narrow-emancipation line itself is stable or whether the deleted universal lifecycle represents sounder infrastructure for handling executor effects."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-HOST-01:minimal_causal_chain:r0:49626c0256a14d50bea17cb31a5d008e",
+        "secretSlot": "deepseek.json",
+        "stopCode": "needs_input",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 849,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1280,
+              "prompt_cache_miss_tokens": 72,
+              "prompt_tokens": 1352,
+              "prompt_tokens_details": {
+                "cached_tokens": 1280
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2201
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2201,
+          "wallTimeMs": 8816
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 10976,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:0729312511b3b98385fef7b38cbbeb77864f6afb68c41e120ec838f09d22180d",
+        "result": {
+          "counterfactualBreakageGrade": "PARTIAL",
+          "decisiveFalsifierGrade": "PASS",
+          "invariantScopeGrade": "PASS",
+          "judgeReason": "The agent reconstructs the core discriminator correctly: Host owns durable Task continuity while executor/domain effect lifecycles stay with narrow owners (invariantScope PASS), identifies the rejected universal EffectLifecycleHost/DispatchEnvelope model (strongestRival PASS), and correctly reproduces the decisive falsifier (deleted commit ~1.4k lines because no production consumer earned it). The reopen condition is restated accurately including the two-workload and same-responsibility qualifiers (PASS). However, several roles lose decision-relevant qualifiers: whyAttractive drops GOLD's 'one elegant response-loss and effect-lifecycle story' and the 'no-blind-redelivery / WAITING-VERIFYING' specifics, substituting broader infrastructure commentary (PARTIAL). retainedConsequence omits GOLD's concrete 'keep one Task Journal/CAS projection, revision/lease fencing, explicit commitment/uncertainty and external-executor references' and instead generalizes about the no-consumer discriminator, which is a reasoning note rather than the retained consequence (PARTIAL). counterfactualBreakage reframes GOLD's substantive breakage (two semantic recovery authorities, Host interpreting unverifiable effect semantics, an oversized abstraction) as a conditional about whether the probe is verified, so it does not state the actual breakage (PARTIAL). negativeTransferBoundary partially preserves the workload-scoped, production-only, same-responsibility qualifiers but omits GOLD's key distinction that the rejected model is only the universal semantic Effect lifecycle 'not every cross-executor interface'; it also introduces an ungraded assertion that local/non-production evidence 'must not be universalized' (PARTIAL). reopenDecision/reopenDecisionReason/uncertainty are extra fields not in GOLD and are treated as non-scored. unsupportedInference=false because the added fields do not assert new material packet facts beyond reasoning about the probe; overgeneralized=false because no local result is turned into a broader prohibition than GOLD permits.",
+          "negativeTransferBoundaryGrade": "PARTIAL",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "PARTIAL",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PARTIAL"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-HOST-01:r0:c2f96149:60a45257329c49cb927d6c5d1a72767b",
+        "secretSlot": "deepseek1.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 628,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1524,
+              "prompt_tokens": 2548,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3176
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3176,
+          "wallTimeMs": 10845
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:30065dbb2e2d1678b486ea22dcb25e9c901825ebe7aafc9707baa80a87d777eb",
+      "reopenDecisionCorrect": false,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "minimal_causal_chain"
+    },
+    {
+      "caseId": "OFR3-HOST-01",
+      "generation": {
+        "elapsedMs": 7956,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": null,
+        "result": {
+          "counterfactualBreakage": "If the universal Host Effect abstraction had been adopted, Host scope would expand beyond durable continuity into generic effect lifecycle ownership, contradicting the Keep boundary.",
+          "decisiveFalsifier": "Evidence that materially different production workloads deliver, observe, and reconcile the same effect lifecycle with identical shared recovery semantics that cannot be owned by either workload narrow scope.",
+          "invariantScope": "The packet asserts that task continuity does not require a generic Host-owned Effect lifecycle; the Host keeps durable Task/revision/commitment continuity plus referenced uncertainty/evidence, while executor/domain-specific effect lifecycles remain owned by the narrow workload owner rather than a universal Host Effect abstraction.",
+          "negativeTransferBoundary": "The rejection is local to Host-owned generic Effect lifecycles; it does not generalize to all shared code or to the Host owning durable continuity, fencing, commitment/uncertainty, and external-executor references.",
+          "reopenCondition": "Evidence that materially different production workloads genuinely share an unowned response-loss effect lifecycle requiring common reconciliation semantics that neither workload can own narrowly and that the Host must absorb to avoid a shared recovery defect.",
+          "reopenDecision": "REOPEN",
+          "reopenDecisionReason": "Two materially different production workloads now duplicate the same unowned response-loss effect lifecycle, each with parallel deliver/observe/reconcile code and producing the same recovery defect when the shared behavior is removed. This directly satisfies the decisive falsifier: duplication of the same effect lifecycle with shared recovery semantics that cannot be owned by either narrow workload. The packet's rejection was predicated on effects being narrow workload-owned; evidence of a shared unowned response-loss lifecycle outside any single narrow owner means the universal Host Effect abstraction is no longer clearly rejected.",
+          "retainedConsequence": "Host keeps durable Task/revision/commitment continuity, revision/lease fencing, explicit commitment/uncertainty, external-executor references, and one Task Journal/CAS projection; each workload owns the smallest effect/reconciliation semantics required to produce Host-visible facts.",
+          "strongestRival": "The rejected alternative is a universal Host-owned Effect lifecycle abstraction with cross-workload shared deliver/observe/reconcile semantance.",
+          "uncertainty": "The packet given is a high-level statement with only trace references to architecture/commit documents. I cannot verify the actual production workloads or code from the supplied packet alone; the reopen probe's factual claims cannot be independently confirmed from the packet.",
+          "whyAttractive": "Task continuity appears to need coordination across workload boundaries; a single Host Effect lifecycle could have provided a uniform reconciliation story."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-HOST-01:winner_only:r0:966155aa0a484f348d3e0c601f52a633",
+        "secretSlot": "deepseek2.json",
+        "stopCode": "needs_input",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 706,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1152,
+              "prompt_cache_miss_tokens": 31,
+              "prompt_tokens": 1183,
+              "prompt_tokens_details": {
+                "cached_tokens": 1152
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 1889
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 1889,
+          "wallTimeMs": 7882
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 13275,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:a33b9fa512c47aaaba432c281c0b52643dc7c38d9a465969422d386109fa70d6",
+        "result": {
+          "counterfactualBreakageGrade": "PARTIAL",
+          "decisiveFalsifierGrade": "FAIL",
+          "invariantScopeGrade": "PASS",
+          "judgeReason": "invariantScope: faithfully restates the Keep/DO NOW boundary and package scope; PASS. retainedConsequence: captures the one Task Journal/CAS projection, fencing, commitment/uncertainty, external-executor refs, and workload-owned effects; PASS. negativeTransferBoundary: correctly preserves the distinction that the rejected model is the universal executor-neutral Effect lifecycle, not every cross-executor interface or the continuity facts; PASS. decisiveFalsifier: GOLD's falsifier is a specific historical fact (fully implemented/tested then commit 06ef7a394b13... deleted ~1.4k lines because no production consumer earned it); the Agent instead substituted a hypothetical condition (workloads duplicating semantics) that is not the actual decisive falsifier and is UNKNOWN from the packet. FAIL. reopenCondition: GOLD's condition is quantitative (>=2 materially different production workloads reproducing the same unowned effect-lifecycle responsibility causing measurable duplication/recovery failure); the Agent instead re-states the decisive-falsifier framing (must absorb to avoid a shared defect) and drops the numeric threshold, with the reopen decision itself grounded in the probe rather than the packet's condition. FAIL. strongestRival: Agent names 'universal Host-owned Effect lifecycle' but omits the concrete rival design (EffectLifecycleHost, DispatchEnvelope, deliver/observe/reconcile, Observation/Verification/Outcome state, reuse across Runtime/Game). PARTIAL. whyAttractive: Agent reconstructs only the general 'uniform reconciliation' appeal and misses the specific shared WAITING/VERIFYING path and no-blind-redelivery behavior. PARTIAL. counterfactualBreakage: Agent captures scope-expansion/contradiction but omits the two-authority/interpretation problem and the large-abstraction removal; directionally plausible but thinner. PARTIAL. unsupportedInference=false: the Agent's uncertainty note properly flags the probe, and its reopen decision is the only material assertion beyond the packet; it is grounded in the supplied probe value, but since that is a supplied probe rather than packet-derived, the falsifier/reopenCondition grades already capture the mismatch. overgeneralized=false: no local result broadened into a universal law. Reopen decision is marked against GOLD's reopenCondition, hence FAIL overall on that role.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "FAIL",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "PARTIAL",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PARTIAL"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-HOST-01:r0:75ef4729:0c6a626f1b1d40808d5c871266fdd297",
+        "secretSlot": "deepseek5.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 696,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1248,
+              "prompt_tokens": 2272,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 2968
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2968,
+          "wallTimeMs": 13077
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:3e42e09b89cba0847c69a3234aadaa211fe2f17e28a9663955b7efb0b039428a",
+      "reopenDecisionCorrect": true,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "winner_only"
+    },
+    {
+      "caseId": "OFR3-HUMAN-01",
+      "generation": {
+        "elapsedMs": 10812,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:e795acdaa3dff0a21069531ea6ef88b6eebc2065e59dbb7bddadaa338610b5ab",
+        "result": {
+          "counterfactualBreakage": "If the current invariant were removed/weakened such that recurrence-plus-control alone (with support_maturity_established=false and no falsifier) admitted structures, AE-K15 would recur and source-bias/taxonomy-laden items would harden into universal Human knowledge, losing epistemic optionality and raising contradiction cost.",
+          "decisiveFalsifier": "AE-K15: a single explicit mismatch arising in ablation AE1 only when the Promotion Gate is removed — the 'R1-R8 recur enough to be universal laws' item being over-promoted (support_maturity_established=false, no boundary/falsifier, source-bias/taxonomy concerns unresolved). If restoring the rival produced this or a class-identical over-promotion, the invariant is reaffirmed.",
+          "invariantScope": "Ordivon Human stable-core promotion authority specifically: recurrence/future-control value are evidence for understanding/reviewing, not authorization to canonize into the stable core; a three-part gate (support maturity appropriate to scope, explicit boundary/falsifier, implementation-independent representation) is required.",
+          "negativeTransferBoundary": "The gate is an Ordivon-specific supported candidate derived from selected AE1 cases (not universal education curriculum, not a claim that all stable knowledge everywhere requires identical evidence forms). The reopen decision therefore generalizes only within this Ordivon Human stable-core context.",
+          "reopenCondition": "Reopen only if (a) natural use finds a repeatedly decision-useful representation blocked without any reason, or (b) a promoted item should have been rejected for a dimension the three-part gate cannot express.",
+          "reopenDecision": "KEEP_CLOSED",
+          "reopenDecisionReason": "The reopen probe's described case — 'blocked because support is biased to one shared research lineage and no explicit falsifier stated' — is exactly the AE-K15 scenario the gate is designed to catch, and the probe states a reason for blocking, so it is not 'blocked without reason' per the reopen condition; nor does the probe identify any promoted item the gate fails to express. The unchanged merit signal (a non-falsified, lineage-biased mechanism item) does not meet the higher reopen burden.",
+          "retainedConsequence": "Recurrence/control value indicate worth understanding/reviewing but not authority to canonize; preserve mechanism-level status until support maturity and falsification boundary earn stable-core admission. Reopen probe does NOT match the reopen condition: the item is 'blocked because its support is still biased to one shared research lineage and no explicit falsifier has been stated' — this is precisely the scenario AE-K15/AE1 identified as correct blocking, not a 'blocked without reason' case. The probe's blocker has a stated reason (source-bias + missing falsifier), and there is no promoted item that should have been rejected on a dimension the gate cannot express.",
+          "strongestRival": "Directly promote high-durability/high-control or repeatedly recurring cross-project structures into the Human stable core on the basis of recurrence and future control value alone, treating the promotion gate as redundant.",
+          "uncertainty": "Evidence is limited to the packet's references (HYPOTHESES.md, ae1-c1-round1.json, knowledge-cases.json at one commit); I cannot verify independent cases establishing that some repeatedly decision-useful representation is being blocked with no stated reason, or that the gate omits some relevant dimension. The probe's own description supplies the blocker's reason, aligning with the invariant rather than against it.",
+          "whyAttractive": "Recurrence across many projects/epochs plus high future control value looks exactly like what a small stable core should retain; an extra gate appears redundant. AE1 evidence includes a high-durability/high-control claim (R1-R8 'universal laws') that would be over-promoted when support_maturity_established=false and no explicit falsifier/boundary exists."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-HUMAN-01:full_eight_role:r0:2424d202e9914ca9bd8ce5b51fafed39",
+        "secretSlot": "deepseek5.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1097,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 126,
+              "prompt_tokens": 1534,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2631
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2631,
+          "wallTimeMs": 10620
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 8481,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:e289729ecff28e3126a4097349fa423b4c8f052ba96401e0cd9d1379430ba3ed",
+        "result": {
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "PASS",
+          "invariantScopeGrade": "PASS",
+          "judgeReason": "Agent reconstructed all eight GOLD causal roles with material equivalence while preserving decision-relevant qualifiers. invariantScope correctly captures the Durability × Future Control Value vs. separate three-part promotion gate distinction, scoped to Ordivon. strongestRival and whyAttractive preserve the recurrence-plus-control 'promotion is redundant' framing. decisiveFalsifier correctly identifies AE-K15 as the single ablation mismatch and its over-promotion mechanism (support_maturity_established=false, no falsifier, source-bias/taxonomy). retainedConsequence preserves the understand/review-vs-canonize distinction and mechanism-level deferral. counterfactualBreakage captures hardening of shared prompts/architectural ancestry/taxonomy into universal knowledge and lost epistemic optionality/raised contradiction cost (restated in Agent's own terms and consistent). negativeTransferBoundary correctly scopes to an Ordivon-specific candidate, not a universal curriculum. reopenCondition reproduces both disjuncts faithfully. The reopen probe is correctly evaluated: the probe describes a reason (lineage bias + missing falsifier), matching AE-K15 as correct blocking rather than 'blocked without reason', so KEEP_CLOSED is well-supported. No unsupported material claims beyond valid causal inference, and no over-generalization of the local gate into a broader law.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-HUMAN-01:r0:6c3949e9:77ee853f5fa640a0820cc3247588ba8f",
+        "secretSlot": "deepseek.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 488,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1839,
+              "prompt_tokens": 2863,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3351
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3351,
+          "wallTimeMs": 8355
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:d3f2be124ecb90485055606d815e3fce729756aff4febd6289fea2b700906800",
+      "reopenDecisionCorrect": true,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "full_eight_role"
+    },
+    {
+      "caseId": "OFR3-HUMAN-01",
+      "generation": {
+        "elapsedMs": 10790,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:36d9bfd6a816649cbbdc6cb95b615219f1a99ffd3dd03d347d4b1fe2516bfd61",
+        "result": {
+          "counterfactualBreakage": "Counterfactually, a recurrence-only rule breaks the AE1 ablated case: removing the gate over-promotes at least one item (AE-K15) that the three-part gate correctly holds back. The historical discriminator is the AE-K15 over-promotion; the failure predicted if the rival returns now is the same over-promotion of biased/unfalsifiable high-recurrence items into an effectively universal, hard-to-contradict core.",
+          "decisiveFalsifier": "The decisive falsifier is AE-K15: the R1–R8 structures with high durability/high control but support_maturity_established=false (with source-bias/taxonomy concerns unresolved and no explicit boundary/falsifier) get over-promoted when the Promotion Gate is removed in AE1 ablation. That is the exact one explicit mismatch that kills the rival.",
+          "invariantScope": "The invariant is Ordivon-specific: stable-core promotion requires an explicit gate (support maturity appropriate to scope, explicit boundary/falsifier, implementation-independent representation), and recurrence/high future control value alone is NOT sufficient promotion authority. This applies to the Human stable core knowledge representation in the AE1 causal evidence context.",
+          "negativeTransferBoundary": "The result does NOT transfer universally: the gate is an Ordivon-specific supported candidate derived from selected cases (AE1), not a universal education curriculum nor a claim that all stable knowledge globally requires identical evidence forms. It cannot be generalized to non-Human knowledge domains or to claims about curriculum standards.",
+          "reopenCondition": "Reopen when (a) natural use finds a repeatedly decision-useful representation blocked without reason, or (b) a promoted item should have been rejected for a dimension the three-part gate cannot express.",
+          "reopenDecision": "KEEP_CLOSED",
+          "reopenDecisionReason": "The reopen probe describes exactly the AE-K15 scenario — a mechanism-level representation repeatedly improves decisions but is blocked because its support is lineage-biased and lacks an explicit falsifier. This is precisely the case the gate is designed to hold back and the decisive falsifier shows over-promotion harms the core. Blocking biased, unfalsifiable representations is a reason ('no explicit falsifier' and unresolved source-bias), not 'without reason.' The probe does not allege a blocked decision-useful representation with adequate support maturity and an explicit falsifier, nor does it identify a dimension beyond the gate's three parts. The rival's predicted failure (over-promoting AE-K15-type items) is exactly what this probe would trigger, so the reopen condition is not met.",
+          "retainedConsequence": "If the rival were adopted, shared prompts, architecture ancestry, and measurement taxonomy would harden into 'universal' Human knowledge, making later contradiction psychologically and operationally more expensive and reducing epistemic optionality — even when bias/falsifier deficiencies remain as in AE-K15.",
+          "strongestRival": "The rival is the recurrence-only rule: promote high-durability/high-control or repeatedly recurring cross-project structures directly into the stable core without the Promotion Gate. Its real advantage is parsimony — recurrence across many projects/epochs plus high future control value looks intrinsically like what a small core should retain, making an extra gate appear redundant.",
+          "uncertainty": "The packet is based on AE1 ablation with one explicit mismatch (AE-K15); confidence that the gate's three-part form is the right general gate is moderate, not near-certain. Whether recurrence could ever suffice given adequate support maturity and an explicit falsifier is not fully resolved by the packet, and the packet's scope claims (selected cases, Ordivon-specific) mean wider applicability is untested.",
+          "whyAttractive": "A small stable core naturally wants the most reused, highest-leverage knowledge. Structures that recur across many projects and carry high control value appear prototypically core-worthy; the gate looks like bureaucratic overhead rather than protection."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-HUMAN-01:causal_kernel:r0:dacba8188539498b898cbdb8db4f38ea",
+        "secretSlot": "deepseek1.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1001,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 42,
+              "prompt_tokens": 1450,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2451
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2451,
+          "wallTimeMs": 10590
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 9958,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:4494dd0a52384e21cf2714f6bae179b5a568d725c5f47ab342b11d4ed1cd51c4",
+        "result": {
+          "counterfactualBreakageGrade": "PARTIAL",
+          "decisiveFalsifierGrade": "PASS",
+          "invariantScopeGrade": "PASS",
+          "judgeReason": "The agent captures the core distinctions across roles. invariantScope correctly states stable-core promotion requires the three-part gate and recurrence/control alone is insufficient. strongestRival, whyAttractive, decisiveFalsifier, negativeTransferBoundary, and reopenCondition all match GOLD materially. Two roles are PARTIAL but not wrong: (1) retainedConsequence — the agent's answer describes the consequence of adopting the rival (hardening into universal knowledge) rather than recovering GOLD's affirmative retained consequence that recurrence/control value should be treated as evidence worth understanding/reviewing, not canonization authority, with mechanism-level status preserved. The agent implicitly touches this (blocking biased items) but does not state the positive retained-consequence of preserving mechanism-level status. (2) counterfactualBreakage — the agent correctly identifies AE-K15 over-promotion as the breakage but frames it more as 'the rival would fail again by over-promoting' rather than GOLD's RESTORE statement that a recurrence-only rule would harden shared prompts/architecture ancestry/measurement taxonomy into universal knowledge, reducing epistemic optionality. Both are directionally correct and share the key discriminator, hence PARTIAL rather than FAIL. No unsupported material claims beyond valid causal inference; no overgeneralization (the negativeTransferBoundary is properly scoped as Ordivon-specific; the agent's statement cannot be generalized to non-Human domains is faithful to the packet). The reopenDecision (KEEP_CLOSED) is a correct application given the probe matches the AE-K15 scenario and does not raise a new dimension or an adequately-supported blocked representation.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "PARTIAL",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-HUMAN-01:r0:96906267:6d2c74eb74a040a3b9fc4516898468c6",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 551,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1751,
+              "prompt_tokens": 2775,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3326
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3326,
+          "wallTimeMs": 9765
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:62b9c73c9c61b7c008d2cc6f0e3ce782b2b3f3420406d05d1527a44b974dcbb4",
+      "reopenDecisionCorrect": true,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "causal_kernel"
+    },
+    {
+      "caseId": "OFR3-HUMAN-01",
+      "generation": {
+        "elapsedMs": 12149,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:c443e31b2062ac499a7912c3c2417d1b497e2eddaace9f37bd6d8a2254bc8e8d",
+        "result": {
+          "counterfactualBreakage": "If the rival returned now (direct promotion based on durability × control or recurrence while ignoring support maturity and explicit falsifier), the prediction is that AE-K15 and comparable cases would be over-promoted: the R1–R8 recurrent structures would enter the stable core despite support_maturity_established=false and unresolved source-bias/taxonomy concerns, and there would be no explicit falsifier to later reject them, breaking the gate that the AE1 ablation evidence supports.",
+          "decisiveFalsifier": "The decisive historical discriminator was AE-K15: exactly one explicit mismatch (AE-K15) appearing only when the Promotion Gate is removed. That single ablation mismatch, combined with the R1–R8 claim having support_maturity_established=false and no explicit boundary/falsifier (source-bias/taxonomy concerns), is what discriminated the gate-required variant from the direct-promotion rival.",
+          "invariantScope": "The kept invariant is about knowledge-representation governance for the Human stable core: choose granularity/allocation via Durability × Future Control Value, but promotion into the stable core is a separate evidence decision requiring (a) support maturity appropriate to scope, (b) an explicit boundary/falsifier, and (c) implementation-independent representation. The reject-over alternative is: directly promote high-durability/high-control or repeatedly recurring cross-project structures into the stable core solely on recurrence/durability grounds.",
+          "negativeTransferBoundary": "The boundary is that the gate is Ordivon-specific and derived from selected cases. It does NOT transfer to: universal education curricula, claims that all stable knowledge needs identical evidence forms, or non-Human contexts. The three-part gate's authority is scoped to the Human stable-core promotion process evidenced by the AE1 cases.",
+          "reopenCondition": "Reopen when natural use finds (1) a repeatedly decision-useful representation blocked without reason, OR (2) a promoted item that should have been rejected for a dimension the three-part gate cannot express.",
+          "reopenDecision": "KEEP_CLOSED",
+          "reopenDecisionReason": "The reopen probe fails to meet the packet's burden because both reopen triggers are absent. The probe describes a representation that (a) is repeatedly decision-useful but (b) is blocked because its support is biased to one shared research lineage and no explicit falsifier is stated. This is exactly the REASON the gate blocks it — the gate exists precisely to withhold promotion from high-value-looking but under-supported (support_maturity_established=false, source-bias-unresolved) representations lacking an explicit falsifier. A block 'because support is biased and no falsifier exists' is a block WITH reason, not 'without reason,' so trigger (1) is not met. Trigger (2) requires a promoted item that should have been rejected — the probe concerns a blocked item, not a wrongly promoted one. Therefore the probe describes the gate working as designed, not an anomaly warranting reopening.",
+          "retainedConsequence": "The consequence retained is that the Human stable core requires the three-part promotion gate (support maturity appropriate to scope, explicit boundary/falsifier, implementation-independent representation) as an Ordivon-specific supported candidate; it is not universalized into a claim that all education curricula or all stable knowledge require identical evidence forms.",
+          "strongestRival": "The rejected alternative (direct promotion of high-durability/high-control or repeatedly recurring structures without the support-maturity/boundary-falsifier/implementation-independence gate) is the strongest rival, anchored in the AE-K15 single explicit mismatch observed when the Promotion Gate is removed.",
+          "uncertainty": "The packet is a reconstruction from a bounded theory packet; exact contents of the referenced files (HYPOTHESES.md, ae1-c1-round1.json, knowledge-cases.json) are not directly inspected. The AE1 evidence is summarized only as one explicit mismatch (AE-K15) when the gate is removed. The reopen probe is assessed against the packet's stated reopen triggers, which do not require new repository evidence.",
+          "whyAttractive": "The rival is attractive because the AE1 ablation shows only one explicit mismatch (AE-K15) when the gate is removed, and the R1–R8 recurrence claim looks like high-durability/high-control content that 'should' qualify; without the gate accounting for support_maturity_established=false and unresolved source-bias/taxonomy concerns, the risk is silent over-promotion of apparently strong-but-under-supported structures."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-HUMAN-01:minimal_causal_chain:r0:5aeeb68e336245a88ea8ada7ed595cec",
+        "secretSlot": "deepseek4.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1168,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1280,
+              "prompt_cache_miss_tokens": 83,
+              "prompt_tokens": 1363,
+              "prompt_tokens_details": {
+                "cached_tokens": 1280
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2531
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2531,
+          "wallTimeMs": 11976
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 9908,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": null,
+        "result": null,
+        "runId": "harness-run:ofr4:judge:development:OFR3-HUMAN-01:r0:38054d4b:71c659e8d63a4dd3b02ca9fd6dabf914",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "no_progress",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 586,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1783,
+              "prompt_tokens": 2807,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3393
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3393,
+          "wallTimeMs": 9857
+        },
+        "valid": false
+      },
+      "packetDigest": "sha256:e14c26c16395f524636573632e93175115307b0033e75765b67d696bd71fcf1d",
+      "reopenDecisionCorrect": true,
+      "replicate": 0,
+      "semanticAccepted": false,
+      "treatment": "minimal_causal_chain"
+    },
+    {
+      "caseId": "OFR3-HUMAN-01",
+      "generation": {
+        "elapsedMs": 15783,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:8c5cb2749b6305d95421e4297d8eae6e95087b4cd41d8982c31af00e8ff1f6b8",
+        "result": {
+          "counterfactualBreakage": "If the rival returned and were accepted (recurrence/control value treated as stable-core promotion authority), the packet's governance would break: representations would be canonized on utility evidence alone, the explicit boundary/falsifier requirement would be dropped, bias to a single shared research lineage would be admitted as sufficient support, and implementation-dependent forms could enter the stable core. The 'separate evidence decision' distinction in KEEP would be void; DO NOW's restriction of recurrence/control value to 'worth understanding/reviewing, not authority to canonize' would be violated.",
+          "decisiveFalsifier": "A decisive falsifier for the invariant would be evidence that the packet's own canonization procedure (the one gating stable-core promotion) itself uses recurrence/control value as the promotion authority — e.g., a logged decision where a representation was admitted to stable core solely on the basis of repeated decision improvements, without a stated explicit falsifier, without de-biasing from a single shared research lineage, or without an implementation-independent representation. Any stable-core admission record that satisfies the DO NOW's three conditions would confirm rather than falsify the invariant.",
+          "invariantScope": "The invariant is scoped to knowledge representation governance: recurrence/control value (a representation repeatedly improving real decisions) is evidence a representation is worth understanding/reviewing, but is NOT alone sufficient authority to promote it to stable-core status. Stable-core promotion is a separate evidence decision requiring (a) support maturity appropriate to scope, (b) an explicit boundary/falsifier, and (c) implementation-independent representation. Mechanism-level status must be preserved until support maturity and a falsification boundary earn stable-core admission.",
+          "negativeTransferBoundary": "The invariant does not transfer to settings outside representation-promotion governance: it does not forbid using recurrence/control value as evidence in other contexts (e.g., allocation of review effort, prioritization for understanding, resource allocation via Durability x Future Control Value). It also does not imply that recurrence/control value is irrelevant to promotion — only that it alone is insufficient. The boundary holds only where stable-core promotion decisions occur and does not generalize to arbitrary decision-utility scoring.",
+          "reopenCondition": "Reopen and reconsider the rejected alternative only if new evidence appears that (1) demonstrates the actual promotion authority in this case is recurrence/control value (i.e., the decisively falsifying admission record), OR (2) the packet's requirements themselves shift, such that an explicit falsifier, scope-appropriate support maturity, and implementation-independent representation are no longer prerequisites for stable-core admission — showing the governing standard the invariant asserts is not the governing standard in force.",
+          "reopenDecision": "KEEP_CLOSED",
+          "reopenDecisionReason": "The reopen probe describes exactly the scenario the packet intends to govern: a mechanism-level representation that repeatedly improves real decisions but is blocked from stable-core promotion because its support is biased to one shared research lineage and no explicit falsifier is stated. Under KEEP and DO NOW, this blocking is the correct outcome — recurrence/control value alone is not promotion authority, and the missing explicit falsifier and lineage bias are precisely the unmet prerequisites the packet says must be earned before stable-core admission. The probe does not supply any new evidence that the actual promotion authority is recurrence/control value, nor any evidence that the packet's stated prerequisites are not the governing standard. It merely restates the governed situation. Several important facts are UNKNOWN from the supplied packet — the specific decision outcomes, promotion records, falsifier syntax, and implementation details — and with only the packet's stated relations available, the correct decision is to keep the rejected alternative closed rather than reopen on an unsupported prospect.",
+          "retainedConsequence": "If the packet holds, the retained consequence is that this mechanism-level representation (though repeatedly improving real decisions) remains at mechanism-level status and is blocked from stable-core promotion; it is subject to review/understanding but not canonized. The blocking itself is not a defect but the correct enforcement of the separate evidence decision. The team should invest in stating an explicit falsifier, broadening support beyond the single shared research lineage, and producing an implementation-independent representation — and only then promote.",
+          "strongestRival": "The strongest rival is the proposal that repeated real-world decision improvement (recurrence/control value) is itself sufficient or constitutive of stable-core promotion authority, i.e., that demonstrated utility accrues canonization authority and that the additional requirements (explicit falsifier, scope-appropriate support maturity, implementation-independent representation) are optional hardening rather than gate-keeping. This rival would collapse the promotion decision into the evidence of utility, which the KEEP and DO NOW clauses explicitly reject.",
+          "uncertainty": "Medium. The packet strongly supports the invariant as stated and the reopen probe plainly falls within it, so the keep-closed decision is well-supported. Uncertainty chiefly concerns what lies beyond the packet: no admission records, falsifier documents, or promotion logs were supplied, so I cannot independently verify that no decisive falsifier exists in the wider case evidence. The invariant's boundary (promotion-governance only, not general utility scoring) and the three prerequisites (explicit falsifier, de-biased support, implementation-independent representation) are the most reliable elements; the least reliable is any claim about what the 'repeatedly improves real decisions' evidence actually shows, which is UNKNOWN here.",
+          "whyAttractive": "The packet's own TRACE cites experimental evidence (ae1-c1-round1.json, knowledge-cases.json) that recurrence/control value itself has measurable, encouraging signal. A manager or governance process under time pressure would find it attractive to canonize a representation that keeps improving real decisions, treating empirical wins as de facto authority and deferring the harder work of stating a falsifier and de-biasing the support lineage."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-HUMAN-01:winner_only:r0:55460a729a144233baa27e67a7c60b7b",
+        "secretSlot": "deepseek2.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1364,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1152,
+              "prompt_cache_miss_tokens": 80,
+              "prompt_tokens": 1232,
+              "prompt_tokens_details": {
+                "cached_tokens": 1152
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2596
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2596,
+          "wallTimeMs": 15582
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 12873,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:3f3eb116640cdceb4322799e0f76ebdecb8bc898e3e82812342fd611127a57a5",
+        "result": {
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "PARTIAL",
+          "invariantScopeGrade": "PASS",
+          "judgeReason": "Grading each GOLD role against the packet (embedding withheld, treated blind). invariantScope: PASS — agent correctly reconstructs the Durability x Future Control Value allocation rule with stable-core promotion as a separate decision requiring support maturity, explicit boundary/falsifier, and implementation-independent representation. strongestRival: PASS — identifies promotion of high-durability/high-control recurring structures directly into stable core, materially equivalent to GOLD. whyAttractive: PASS — captures that recurrence/control value looks like what the core should retain and the extra gate appears redundant. decisiveFalsifier: PARTIAL — GOLD's decisive falsifier is specific: AE1 ablation shows one explicit mismatch (AE-K15) only when the Promotion Gate is removed, where R1-R8 recur at high durability/control but support_maturity_established=false and no boundary/falsifier. The agent instead describes a generic falsifier (an admission record that used recurrence/control value alone as authority, violating DO NOW conditions). While directionally aligned with the gate-vs-authority distinction, it loses the specific AE-K15 falsifier and the concrete high-durability/high-control-but-not-established structure of the ablation result. retainedConsequence: PASS — matches GOLD: treat recurrence/control value as worth reviewing, not canonizing; preserve mechanism-level status until support/falsification boundary earned. counterfactualBreakage: PASS — correctly identifies that a recurrence-only rule would harden shared prompts/lineage and drop the falsifier requirement, reducing epistemic optionality. negativeTransferBoundary: PARTIAL — GOLD's boundary is that the gate is an Ordivon-specific supported candidate, not a universal education curriculum or claim that all stable knowledge needs identical evidence forms. The agent frames the boundary as limited to promotion-governance vs general utility scoring, which is directionally about non-transfer but misses the specific Ordivon-specific / not-a-universal-curriculum scope. unsupportedInference: false — all agent material claims trace to packet text or are valid causal inferences from it. overgeneralized: false — agent explicitly scopes the invariant to promotion governance and does not elevate it to a general law. reopenDecision of KEEP_CLOSED is consistent with the probe falling squarely under KEEP/DO NOW.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-HUMAN-01:r0:4d3eacc9:36f7607a8603494f92a34c18b1c26007",
+        "secretSlot": "deepseek1.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 728,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1923,
+              "prompt_tokens": 2947,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3675
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3675,
+          "wallTimeMs": 12750
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:899492cbe9294778eb1602b5c6bddb6bb045fe7b8705e5b9ace3d2e9f4254ee5",
+      "reopenDecisionCorrect": true,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "winner_only"
+    },
+    {
+      "caseId": "OFR3-WEB-01",
+      "generation": {
+        "elapsedMs": 7358,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:a61885bba9d1366063d5a9327b4b4813239a7e6bc55e4e005fc9e977c15a84a2",
+        "result": {
+          "counterfactualBreakage": "Spacing-only restoration reverts to a visually cleaner but task-incomplete first encounter: users see classification before any selectable object. A second-manifest fix would create publication drift from canonical project data.",
+          "decisiveFalsifier": "Exact desktop/mobile browser review showed the mechanically correct page exposed only taxonomy, status, and a thesis — no selectable Project identity. The spacing-only fix merely moved the `Core work system` heading into view, remaining non-actionable. A canonical-`projects`-array-derived quick index exposed all eight Project identities in both initial encounters with clean mechanical review.",
+          "invariantScope": "Projects directory (selection-dominant) under the observed desktop/mobile initial orientation; requires actual Project identities/links exposure, sourced from the canonical `projects` array.",
+          "negativeTransferBoundary": "Not a universal above-the-fold law; does not require every page to front-load links. Applies only to this selection-dominant directory under the observed viewport/task.",
+          "reopenCondition": "Reopen when inventory/task/viewport materially changes, or another directory falsifies the need for early entity exposure while preserving selection success.",
+          "reopenDecision": "KEEP_CLOSED",
+          "reopenDecisionReason": "The reopen probe describes a different directory with a search-first task, changed viewport, and measured selection success WITHOUT showing entity links initially. This fails the reopen condition because (1) it refers to a different directory, so it cannot falsify this Projects-directory-scoped invariant; (2) it does not preserve selection success for THIS Projects directory under ITS observed viewport/task — that is exactly what was falsified; and (3) it actually falls outside the invariant's scope, being a search-first page rather than a selection-dominant one. The probe does not present evidence that the Projects directory itself can preserve selection success without early entity exposure under the observed task/viewport. No materially changed inventory/task/viewport for the Projects directory is supplied.",
+          "retainedConsequence": "Projects-local quick index stays derived from the canonical `projects` array; detailed capability directory preserved below; smoke tests assert project identity appears in the initial encounter.",
+          "strongestRival": "Keep the existing taxonomy/status/thesis architecture and fix only spacing to bring the first group heading/cards up — a minimal visual change, no new projection, preserving directory composition.",
+          "uncertainty": "The probe's 'measured selection success' refers to the unrelated directory, which is outside the invariant's scope, so it cannot falsify this invariant. Whether a future material change to THIS Projects directory (e.g., a materially different viewport or task) could justify reopening remains open but is not met by the supplied probe.",
+          "whyAttractive": "Smallest visual change, adds no new projection, no manifest duplication, preserves existing directory composition and appears visually cleaner."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-WEB-01:full_eight_role:r0:aad66caaa7044698902d0327c3496413",
+        "secretSlot": "deepseek5.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 793,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1408,
+              "prompt_cache_miss_tokens": 76,
+              "prompt_tokens": 1484,
+              "prompt_tokens_details": {
+                "cached_tokens": 1408
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2277
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2277,
+          "wallTimeMs": 7159
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 7166,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:6f6067266270f53536556f463941d4843f6b6ee9cd2af9fc32fda13f5fe4fff2",
+        "result": {
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "PASS",
+          "invariantScopeGrade": "PASS",
+          "judgeReason": "All eight causal roles are materially equivalent to GOLD. Invariant scope preserves the selection-dominant Projects-local qualifier and canonical projects array. Strongest rival, whyAttractive, decisiveFalsifier, retainedConsequence, counterfactualBreakage, negativeTransferBoundary, and reopenCondition all preserve the decision-relevant qualifiers (local vs universal, spacing-only vs data-derived, taxonomy-first vs entity exposure). The added reopenDecision KEEP_CLOSED correctly applies the reopen condition: the probe describes a different directory with search-first task, changed viewport, and selection success, which is explicitly outside the Projects-directory scope and does not constitute a material change to inventory/task/viewport of this directory. No unsupported inference or overgeneralization: the answer retains the local/conditional scope and does not extend to a universal law.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-WEB-01:r0:4c42d7f1:5822bb83966247e8b52982efa77f3bd6",
+        "secretSlot": "deepseek.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 392,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1554,
+              "prompt_tokens": 2578,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 2970
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2970,
+          "wallTimeMs": 7037
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:aaa2698a35cf090ff120e827f143374d3c52d690dbffa86a479ffb912cb65a09",
+      "reopenDecisionCorrect": false,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "full_eight_role"
+    },
+    {
+      "caseId": "OFR3-WEB-01",
+      "generation": {
+        "elapsedMs": 7250,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:576e10e286874ec27bf3dbba514cc8833b09bb44cd272373bc0cdaac0ee1f6b9",
+        "result": {
+          "counterfactualBreakage": "Had the packet kept spacing-only, users would still land on a viewport showing classification/status/thesis without any selectable Project identity, failing the index's primary selection task during the initial encounter.",
+          "decisiveFalsifier": "Exact desktop/mobile browser review showed the mechanically correct page exposed taxonomy, status and a large thesis but no selectable Project identity; the spacing-only treatment merely moved the `Core work system` heading into view and remained non-actionable, while the canonical-data-derived quick index exposed all eight Project identities in both initial encounters with clean mechanical review.",
+          "invariantScope": "Current Projects directory under observed desktop/mobile viewports; the quick index exposing selectable Project identities derives from the canonical `projects` array, with taxonomy/capability detail below.",
+          "negativeTransferBoundary": "The finding is not a universal above-the-fold law; it does not require every page to front-load links and applies only to this selection-dominant directory under observed viewport/task conditions. The packet's own LIMIT section explicitly declines universalization.",
+          "reopenCondition": "Reopen when inventory/task/viewport materially changes, or another directory falsifies the need for early entity exposure while still preserving selection success.",
+          "reopenDecision": "KEEP_CLOSED",
+          "reopenDecisionReason": "The reopen probe reports a different directory with a search-first task, a changed viewport, and measured selection success without initial-viewport entity links. This fits squarely within the packet's declared LIMIT scope — the positive finding applies to THIS selection-dominant directory under the observed viewport/task, and is explicitly not a universal above-the-fold law nor a requirement that every page front-load links. The probe describes a materially different task (search-first vs selection-first) and different viewport, which is precisely the boundary of applicability, not a falsification of the original finding. Unsupported invention of an alternative-falsified case would be needed to claim the original result breaks; the probe instead demonstrates the boundary the LIMIT already carved out.",
+          "retainedConsequence": "Reverting to spacing-only restores a visually cleaner but task-incomplete first encounter where users see classification before any object they can select; implementing the fix via a second manifest would create publication drift from canonical project data.",
+          "strongestRival": "Spacing-only fix preserving the taxonomy/status/thesis architecture and moving the first group heading upward — minimal visual change, no new projection, retains directory composition.",
+          "uncertainty": "Low. The packet explicitly scopes the invariant to this directory and observed viewport/task, so a different directory with a different task and viewport succeeding without early entity links does not contradict the original finding's scope.",
+          "whyAttractive": "The packet confirms the rival's real advantage: it is the smallest visual change, adds no new projection, preserves the existing directory composition, and produces a visually cleaner first encounter. It is a low-cost, low-risk alternative to the chosen quick-index fix."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-WEB-01:causal_kernel:r0:8905559a8a9948e096e297a9a5a14c7f",
+        "secretSlot": "deepseek2.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 736,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1280,
+              "prompt_cache_miss_tokens": 127,
+              "prompt_tokens": 1407,
+              "prompt_tokens_details": {
+                "cached_tokens": 1280
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2143
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2143,
+          "wallTimeMs": 7058
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 7214,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:268affef9aa5e94b46450296fc233d9c0751580f24ddf656ecdf4c650c8f18c4",
+        "result": {
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "PASS",
+          "invariantScopeGrade": "PASS",
+          "judgeReason": "The agent faithfully reconstructs most causal roles. decisiveFalsifier, invariantScope, strongestRival, whyAttractive, negativeTransferBoundary, reopenCondition, and counterfactualBreakage all match GOLD materially. The reopen decision (KEEP_CLOSED) is consistent with the packet's LIMIT scope; the probe describes a different directory with search-first task/changed viewport, which the LIMIT explicitly carves out. However, retainedConsequence is PARTIAL: the agent repurposed the RESTORE/counterfactual text (reverting to spacing-only / second manifest) rather than stating GOLD's retainedConsequence, which asserts the positive retained fix — keeping the Projects-local quick index from the canonical `projects` array, preserving the capability directory below, and smoke tests asserting project identity in the initial encounter. The agent's version captures the 'why keep the fix' rationale but omits the decision-relevant retained artifact (quick index + smoke test assertion). No unsupported inference or overgeneralization: the reopen reasoning stays within packet-declared limits.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "PARTIAL",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-WEB-01:r0:0f382dc3:ab75f2e7a53e4e54a0b8c1bcc1b0e3f9",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 441,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 1504,
+              "prompt_tokens": 2528,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 2969
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2969,
+          "wallTimeMs": 7092
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:d61cd9c76ef01aaed1203dff0c6c203c35e0b493a635401697f9c952cef8aec8",
+      "reopenDecisionCorrect": false,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "causal_kernel"
+    },
+    {
+      "caseId": "OFR3-WEB-01",
+      "generation": {
+        "elapsedMs": 13745,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": null,
+        "result": null,
+        "runId": "harness-run:ofr4:gen:development:OFR3-WEB-01:minimal_causal_chain:r0:5d9420fdc0fa4ea1ae93c18d6c090f5c",
+        "secretSlot": "deepseek5.json",
+        "stopCode": "no_progress",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1372,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1280,
+              "prompt_cache_miss_tokens": 46,
+              "prompt_tokens": 1326,
+              "prompt_tokens_details": {
+                "cached_tokens": 1280
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2698
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2698,
+          "wallTimeMs": 13703
+        },
+        "valid": false
+      },
+      "judge": null,
+      "packetDigest": "sha256:b62e41a8a12002e3f343e5f363ed60ded3cb0a963d974a58fea6034993cba906",
+      "reopenDecisionCorrect": null,
+      "replicate": 0,
+      "semanticAccepted": false,
+      "treatment": "minimal_causal_chain"
+    },
+    {
+      "caseId": "OFR3-WEB-01",
+      "generation": {
+        "elapsedMs": 11822,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:631901b566677a0bb48c7e9555e1edf557341b5e3b3cd68fd67675afe31f8576",
+        "result": {
+          "counterfactualBreakage": "If, in the Projects directory, the initial desktop/mobile orientation showed only taxonomy/capability cards without project identity/links, index users whose primary task is selection would not see selectable entities and selection would be impaired; the smoke tests asserting project identity would fail. This is the breakage the invariant prevents.",
+          "decisiveFalsifier": "A different directory having a search-first task with measured selection success despite no entity links in the initial viewport would decisively falsify a universalized version of the invariant ('all selection-task indexes must show entity links in the initial viewport'). However, the packet explicitly illustrates a local result; the invariant is scoped to the current Projects directory. The search-first directory is explicitly a 'different directory', so it is outside the invariant's asserted scope rather than a falsifier of it.",
+          "invariantScope": "The invariant concerns index pages whose primary task is selection. For such pages, the initial encounter (desktop/mobile orientation) must expose actual selectable entity identities/links, not merely taxonomy or capability categories. The scope is bounded to the Projects directory context: a quick index derived from the canonical `projects` array exposing project identity, with detailed taxonomy/capability cards below, and smoke tests asserting project identity in the initial encounter.",
+          "invariantScope_note": "See invariantScope field.",
+          "negativeTransferBoundary": "The invariant does not transfer to a different directory with a search-first task, a changed viewport, and measured selection success without initial entity links. The packet explicitly scopes to the current Projects directory and cautions not to universalize a local result. The search-first directory's task structure (search-first versus selection-primary) and its demonstrated selection success distinguish it from the Projects case.",
+          "reopenCondition": "Reopen would be warranted if the current Projects directory itself shows a changed viewport and measured selection success without initial entity exposure, or if the canonical `projects` array source or smoke-test assertion changed such that entity identity no longer appears in the initial encounter. Simply being a different directory with search-first properties does not reopen the Projects-local invariant.",
+          "reopenDecision": "KEEP_CLOSED",
+          "reopenDecisionReason": "The reopen probe explicitly describes a different directory (search-first task, changed viewport, measured selection success without initial entity links). The packet's invariant is scoped to the current Projects directory with its specific task and smoke-test constraints. The packet explicitly cautions against universalizing a local result. The different-directory probe is therefore outside the invariant's scope rather than evidence contradicting or undermining it. The probe does not meet the burden for reconsidering the rejected alternative for the current Projects directory.",
+          "retainedConsequence": "Within the current Projects directory, the index must keep the quick index derived from the canonical `projects` array exposing project identity in the initial encounter, preserve the detailed taxonomy/capability directory below, and smoke tests must assert project identity appears in the initial encounter. Any change that hides project identity from the initial desktop/mobile orientation while relying only on taxonomy/capability cards would violate the retained requirement.",
+          "strongestRival": "The rival hypothesis is that an index page with a search-first task, a changed viewport, and measured selection success may legitimately omit entity links from the initial viewport, because search tooling or alternative affordances compensate for the missing initial-viewport entity exposure. This rival asserts the entity-exposure requirement is not universal across index/selection pages.",
+          "uncertainty": "Medium-confidence conclusion. The packet states the local scope explicitly and warns against universalization, so the different-directory probe is cleanly out of scope. Residual uncertainty: the packet's principle wording ('an index whose primary task is selection must expose selectable entities, not only taxonomy') could arguably generalize, and I lack the different directory's actual evidence to fully evaluate whether its search-first framing makes entity exposure unnecessary or merely differently delivered (e.g., search results count as exposure on-demand).",
+          "whyAttractive": "Local evidence (the WEB case) shows one directory (Projects) where initial exposure of selectable entities is required and kept, with smoke tests enforcing it. The specification's primary-task framing ('an index whose primary task is selection must expose selectable entities') could be read as a general principle, making the invariant more broadly attractive. The DO NOW fix was accepted and traces to the canonical array, suggesting the maintainers treat entity exposure as essential."
+        },
+        "runId": "harness-run:ofr4:gen:development:OFR3-WEB-01:winner_only:r0:652015786c544d0c9273c99b987ed393",
+        "secretSlot": "deepseek2.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1094,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1152,
+              "prompt_cache_miss_tokens": 36,
+              "prompt_tokens": 1188,
+              "prompt_tokens_details": {
+                "cached_tokens": 1152
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2282
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2282,
+          "wallTimeMs": 11696
+        },
+        "valid": true
+      },
+      "judge": {
+        "elapsedMs": 15910,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:36591911840e8c2db64ffa5e7527a7b75ce5fc229ed537b53df064076dad57e3",
+        "result": {
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "PASS",
+          "invariantScopeGrade": "PASS",
+          "judgeReason": "invariantScope: materially equivalent — matches GOLD's Projects-local scope derived from canonical projects array with taxonomy/capability cards below; agent adds task-selection framing consistent with the CASE line. PASS. strongestRival: GOLD's strongestRival is the spacing-only treatment to the Projects directory ('keep existing taxonomy/status/thesis architecture and fix initial encounter with spacing alone'). The agent instead reconstructed a rival about a search-first directory omitting entity links and claimed initial-viewport entity exposure is not universal. The decision-relevant rival (the alternative rejected for this specific Projects directory) is entirely missed/replaced. Directionally touches 'universality' but loses the concrete competing hypothesis. FAIL. whyAttractive: GOLD's whyAttractive explains why spacing-only is attractive (smallest visual change, no new projection, preserves composition). The agent instead reasons about why the invariant is attractive (its own accepted view, not the rival). This is a wrong-target reconstruction; does not preserve the 'why the rival is attractive' distinction. Actually assess as FAIL. Corrections below. decisiveFalsifier: agent correctly notes the search-first directory would only falsify a universalized invariant and that the local scope keeps it out of scope, consistent with GOLD's decisiveFalsifier (canonical-data quick index exposing all eight identities in both orientations with clean mechanical review) — but agent presents the falsifier as the different-directory probe rather than the empirical browser review. The core insight (selection-primary directory must expose identities; spacing-only is non-actionable) is preserved. PASS (directionally faithful; gold's mechanical-review specifics approximated). retainedConsequence: materially equivalent to GOLD (keep Projects-local quick index from canonical array, preserve capability directory below, smoke tests assert identity). PASS. counterfactualBreakage: PASS — matches GOLD's counterfactual that spacing-only keeps taxonomy before selectable objects and that second-manifest publication drift would result; agent articulates the selection-impaired breakage the invariant prevents. negativeTransferBoundary: PASS — correctly states it is not a universal above-the-fold law and does not transfer to the search-first directory with changed viewport and measured success. reopenCondition: PARTIAL — agent's reopen framing (changed viewport/success without exposure in Projects; changed canonical source/smoke assertion) is directionally aligned with GOLD (reopen when inventory/task/viewport materially changes or another directory falsifies the need for early entity exposure). Agent explicitly rejects that 'another directory' should reopen, whereas GOLD leaves open that 'another directory falsifies the need' as a reopen trigger. The narrower reading loses the 'falsifies the need for early entity exposure' qualifier. PARTIAL. unsupportedInference=false: agent's claims are grounded in the packet and valid causal inferences (the CASE principle, KEEP, DO NOW). overgeneralized=false: agent repeatedly restricts scope and avoids universalization, so no overgeneralization.",
+          "negativeTransferBoundaryGrade": "PASS",
+          "overgeneralized": false,
+          "reopenConditionGrade": "PASS",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "FAIL",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr4:judge:development:OFR3-WEB-01:r0:e91049f1:06f6457e70cc4f35912deaec0a9c2ba7",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 825,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1152,
+              "prompt_cache_miss_tokens": 1454,
+              "prompt_tokens": 2606,
+              "prompt_tokens_details": {
+                "cached_tokens": 1152
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3431
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 24000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3431,
+          "wallTimeMs": 15781
+        },
+        "valid": true
+      },
+      "packetDigest": "sha256:e482911b10fd319884919245adcaea9e672f6e4ba9dcbaa82dd6b8271c28abf8",
+      "reopenDecisionCorrect": false,
+      "replicate": 0,
+      "semanticAccepted": true,
+      "treatment": "winner_only"
+    }
+  ]
+}

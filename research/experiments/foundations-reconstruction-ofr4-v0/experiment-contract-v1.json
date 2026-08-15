@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.foundations-reconstruction.ofr4-experiment-contract.v1",
+  "mission": "Compare frozen Agent-facing causal-theory representations by causal reconstructability per bounded Provider context, without promoting a schema or tuning on holdout results.",
+  "source": {
+    "path": "research/experiments/foundations-reconstruction-ofr3-v0/causal-reconstruction-v1.json",
+    "digest": "sha256:d6809c0c2855efa5abdfe2cf1bb2579f8e291efeeecb6105c6a94bec32ad8bc3",
+    "caseCount": 10
+  },
+  "designSplit": {
+    "development": [
+      "OFR3-RUNTIME-01",
+      "OFR3-HOST-01",
+      "OFR3-HUMAN-01",
+      "OFR3-WEB-01"
+    ],
+    "holdout": [
+      "OFR3-HARNESS-01",
+      "OFR3-WORLD-01",
+      "OFR3-FINANCE-01",
+      "OFR3-WORKSTATION-01",
+      "OFR3-SECURITY-01",
+      "OFR3-GAME-01"
+    ],
+    "rule": "Representation semantics are frozen before any live call. Development is wiring/stress only; holdout output may not change packet wording, oracle, or scoring gates."
+  },
+  "treatments": {
+    "full_eight_role": {
+      "role": "strong explicit baseline",
+      "contains": [
+        "claim_scope",
+        "rival",
+        "attraction",
+        "falsifier",
+        "retained_consequence",
+        "counterfactual",
+        "boundary",
+        "reopen",
+        "refs"
+      ]
+    },
+    "causal_kernel": {
+      "role": "compact candidate",
+      "contains": [
+        "claim_scope",
+        "rival",
+        "attraction",
+        "falsifier",
+        "counterfactual",
+        "boundary",
+        "reopen",
+        "refs"
+      ],
+      "externalizes": [
+        "retained_consequence_as_explicit_field"
+      ]
+    },
+    "minimal_causal_chain": {
+      "role": "aggressive compact candidate",
+      "contains": [
+        "claim_scope",
+        "rival",
+        "falsifier",
+        "boundary",
+        "reopen",
+        "refs"
+      ],
+      "externalizes": [
+        "attraction_as_explicit_field",
+        "retained_consequence_as_explicit_field",
+        "counterfactual_as_explicit_field"
+      ]
+    },
+    "winner_only": {
+      "role": "negative causal-history control",
+      "contains": [
+        "claim_scope",
+        "retained_consequence",
+        "refs"
+      ],
+      "externalizes": [
+        "rival",
+        "attraction",
+        "falsifier",
+        "counterfactual",
+        "boundary",
+        "reopen"
+      ]
+    }
+  },
+  "agentTask": "Given only one frozen packet and one reopen probe, reconstruct eight causal roles. Infer only when supported by the packet; otherwise return UNKNOWN. Decide REOPEN vs KEEP_CLOSED for the probe.",
+  "roles": [
+    "invariantScope",
+    "strongestRival",
+    "whyAttractive",
+    "decisiveFalsifier",
+    "retainedConsequence",
+    "counterfactualBreakage",
+    "negativeTransferBoundary",
+    "reopenCondition"
+  ],
+  "livePlan": {
+    "generationModel": "deepseek-v4-flash",
+    "judgeModel": "deepseek-v4-pro",
+    "developmentReplicates": 1,
+    "holdoutReplicates": 2,
+    "maxConcurrentRuns": 6,
+    "structuredResult": true,
+    "judgeTreatmentBlind": true
+  },
+  "scoring": {
+    "roleValues": {
+      "PASS": 1.0,
+      "PARTIAL": 0.5,
+      "FAIL": 0.0
+    },
+    "criticalRoles": [
+      "strongestRival",
+      "decisiveFalsifier",
+      "counterfactualBreakage",
+      "negativeTransferBoundary",
+      "reopenCondition"
+    ],
+    "qualification": {
+      "criticalRoleMeanMin": 0.9,
+      "eachCriticalRoleMeanMin": 0.85,
+      "reopenDecisionAccuracyMin": 0.9,
+      "unsupportedInferenceRateMax": 0.05,
+      "overgeneralizationRateMax": 0.05,
+      "withinBestOverallRoleScore": 0.03
+    },
+    "selection": "Among qualifying treatments within 0.03 overall-role score of best, select lowest mean generation prompt tokens. If no compact treatment qualifies, retain the smallest qualifying treatment or NO_PROMOTION if none qualify."
+  },
+  "invalidityConditions": [
+    "Change packet text/template semantics after any live call.",
+    "Change reopen oracle after any live call.",
+    "Use treatment name in judge prompt.",
+    "Treat development preflight as holdout evidence.",
+    "Count Provider/transport/schema failures as semantic FAIL; report them separately.",
+    "Promote a Theory service/schema merely because one representation wins.",
+    "Treat Agent reconstruction as human comprehension."
+  ],
+  "authorityBoundary": "Computing owns this representation experiment only. OFR3 owner-native facts remain frozen evidence; owner repositories remain current truth authority."
+}
