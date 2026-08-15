@@ -21,7 +21,7 @@ A topic belongs here when it is already coherent enough to reuse, but still bene
 - [`computing/`](computing/) — state, memory, parallelism, data movement, and machine execution;
 - [`models/`](models/) — framework, compiler, Transformer, training, and inference-runtime concepts;
 - [`agents/`](agents/) — goals, tasks, effects, execution kernels, tools, continuity, and capability externalization;
-- [`agents/causal-responsibility-explanation.md`](agents/causal-responsibility-explanation.md) — compact owner-native causal explanations, negative proof boundaries, and the on-demand responsibility-question method validated by EX3–EX7;
+- [`agents/causal-responsibility-explanation.md`](agents/causal-responsibility-explanation.md) — compact owner-native causal explanations, negative proof boundaries, OFR3–OFR7 causal-history/navigation/compression evidence, and the rule that shared Foundations are loaded on demand rather than becoming default per-decision Context;
 - [`agents/adaptive-change-capitalization.md`](agents/adaptive-change-capitalization.md) — reusable PAL Foundations results on persistence versus value, prior bias, burden-threshold externalization, explicit variation, and latent option value; open regulation/credit/complementarity/pressure-selection questions remain Research-only;
 - [`institutions/`](institutions/) — human–Agent products, collaboration, and organization;
 - [`cases/`](cases/) — concrete systems and failures that reveal reusable abstractions.
