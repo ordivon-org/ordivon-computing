@@ -11,9 +11,6 @@ JsonValue: TypeAlias = JsonScalar | list["JsonValue"] | dict[str, "JsonValue"]
 
 _DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 _KEY_RE = re.compile(r"^[A-Za-z][A-Za-z0-9_.-]{0,127}$")
-_NAMESPACED_KIND_RE = re.compile(
-    r"^[a-z][a-z0-9]*(?:[.-][a-z0-9][a-z0-9_-]*)+$"
-)
 _FORBIDDEN_EXACT_KEYS = {
     "authorization",
     "api_key",
@@ -141,7 +138,35 @@ def digest(value: Any, *, label: str) -> str:
 
 def namespaced_kind(value: Any, *, label: str) -> str:
     text = bounded_text(value, label=label, max_bytes=256)
-    if _NAMESPACED_KIND_RE.fullmatch(text) is None:
+
+    def lower_alnum(char: str) -> bool:
+        return "a" <= char <= "z" or "0" <= char <= "9"
+
+    if not text or not ("a" <= text[0] <= "z"):
+        raise CanonicalValueError(f"{label} must be a bounded namespaced kind")
+
+    index = 1
+    while index < len(text) and lower_alnum(text[index]):
+        index += 1
+    if index >= len(text) or text[index] not in ".-":
+        raise CanonicalValueError(f"{label} must be a bounded namespaced kind")
+
+    index += 1
+    if index >= len(text) or not lower_alnum(text[index]):
+        raise CanonicalValueError(f"{label} must be a bounded namespaced kind")
+    index += 1
+
+    while index < len(text):
+        char = text[index]
+        if lower_alnum(char) or char in "_-":
+            index += 1
+            continue
+        if char == ".":
+            index += 1
+            if index >= len(text) or not lower_alnum(text[index]):
+                raise CanonicalValueError(f"{label} must be a bounded namespaced kind")
+            index += 1
+            continue
         raise CanonicalValueError(f"{label} must be a bounded namespaced kind")
     return text
 
