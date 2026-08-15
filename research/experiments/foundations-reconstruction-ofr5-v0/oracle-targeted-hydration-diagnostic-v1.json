@@ -1,0 +1,1770 @@
+{
+  "analysis": {
+    "answerRealized": 10,
+    "caseLocalizationAccuracy": 1.0,
+    "epistemicBoundaryMean": 0.45,
+    "meanHydrationBytes": 1843.7,
+    "meanHydrationWords": 183.0,
+    "overgeneralizationRate": 0.0,
+    "physicalAcceptanceRate": 0.8333,
+    "physicalTrials": 12,
+    "promptTokensPerAcceptedAnswer": 2043.6,
+    "promptTokensPerPhysicalTrial": 1703.0,
+    "requestedRoleMean": 1.0,
+    "semanticAccepted": 10,
+    "totalProviderPromptTokens": 20436,
+    "totalTokensPerAcceptedAnswer": 3042.1,
+    "unsupportedInferenceRate": 0.3
+  },
+  "frozenSemanticArtifacts": {
+    "atlas-v1.json": "sha256:9e7b813262f73b4e033144389cb29ca9ec3a80723915332c2b80251d97d28676",
+    "centralized-laws-control-v1.json": "sha256:f94e12b16a99171b0954fedf587b4120ce3cd0c692240c89aa30358a6d497b42",
+    "experiment-contract-v1.json": "sha256:bd1762f49689a9bc6a758fd686fd9390d2fc6b2cef74daa42c4ba4366a166568",
+    "queries-v1.json": "sha256:8df3bd5c4ac4d7ca4a40786d75ac555a6b697389dda3cf033046bbf6150c373b",
+    "surfaces-v1.json": "sha256:1781a0ce6b66163e041572e8bf6dea82f5b0907d1b6240962c1ee7ce0d5c3721"
+  },
+  "kind": "ordivon.ofr5-post-holdout-oracle-hydration-diagnostic.v1",
+  "promotionEligible": false,
+  "reason": "Post-holdout mechanism isolation only. Oracle case/roles remove navigation and over-hydration; results cannot repair or rescore the frozen OFR5 promotion decision.",
+  "schemaVersion": 1,
+  "trials": [
+    {
+      "answer": {
+        "elapsedMs": 6281,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": null,
+        "result": null,
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-HARNESS:r0:answer:7a53519ae03945fabae3306c536c3158",
+        "secretSlot": "deepseek1.json",
+        "stopCode": "no_progress",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 862,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 674,
+              "prompt_tokens": 1698,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2560
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2560,
+          "wallTimeMs": 6198
+        },
+        "valid": false
+      },
+      "answerRealized": false,
+      "hydration": {
+        "selectedCaseId": "OFR3-HARNESS-01",
+        "selectedRoles": [
+          "strongestRival",
+          "decisiveFalsifier",
+          "retainedConsequence",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 1829,
+        "wordCount": 182
+      },
+      "judge": null,
+      "oracleCaseId": "OFR3-HARNESS-01",
+      "oracleRequestedRoles": [
+        "strongestRival",
+        "decisiveFalsifier",
+        "retainedConsequence",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-HARNESS",
+      "replicate": 0,
+      "semanticAccepted": false
+    },
+    {
+      "answer": {
+        "elapsedMs": 5294,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:60a72600682074a4d614106e32433b04bd088cb41c1095faa4339302f3e9a0c4",
+        "result": {
+          "boundary": "The result proves authority/state semantics, not that a real model will make good long-term memory choices. Harness still supports exact cross-Run reuse and may expose history without semantic search/ranking.",
+          "boundary_note": "authority/state semantics proven, not model long-term memory quality; exact cross-Run reuse and history exposure without semantic search/ranking remain supported",
+          "caseId": "OFR3-HARNESS-01",
+          "counterfactualBreakage": "NOT_REQUESTED",
+          "decisiveFalsifier": "P-C1.7 materialized K while A remained current: when the Agent selected only A, K stayed physically readable in CAS but never appeared in the successor or fresh-process model view. When selected, A+K survived attempt/process boundaries; when later omitted, K left current cognition while its immutable bytes remained. P1 therefore reproduced durable reuse without a new Memory/Promotion subsystem.",
+          "epistemicBoundary": "This is the current owner truth at frozen owner revision 286985c82874d293308297f66b23152c1ed53369. The reference is the frozen theory itself (causal-reconstruction-v1.json#OFR3-HARNESS-01) rather than a new external source, so it does not establish new evidence sufficiency, research reopening, mechanism admission, or action authority beyond the already-frozen findings.",
+          "invariant": "Storage persistence is not cognition persistence or Run authority",
+          "owner": "harness",
+          "refs": "exact frozen evidence/currentness navigation references: [{kind: git_path, owner: harness, path: docs/P1-REUSABLE-KNOWLEDGE-PROCEDURAL-CAPITAL-CLOSEOUT.md, revision: 286985c82874d293308297f66b23152c1ed53369}, {kind: git_path, owner: harness, path: evidence/harness-pc17-durable-knowledge-promotion-5a0530a.json, revision: 286985c82874d293308297f66b23152c1ed53369}, {kind: git_path, owner: harness, path: ARCHITECTURE.md, revision: 286985c82874d293308297f66b23152c1ed53369}]",
+          "reopenCondition": "NOT_REQUESTED",
+          "retainedConsequence": "Use exact external reusable references/resolution plus the existing cognition seed/WorkingSet selection path. External owners evaluate/promote semantics; Harness makes exact reuse admissible but does not decide what deserves persistence.",
+          "strongestRival": "Add a Harness Memory/Skill repository or promotion state machine that automatically turns materialized/extracted/promoted knowledge into future cognition."
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-HARNESS:r1:answer:b327973c9b944023a64332fe5b88712e",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 690,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 674,
+              "prompt_tokens": 1698,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2388
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2388,
+          "wallTimeMs": 5167
+        },
+        "valid": true
+      },
+      "answerRealized": true,
+      "hydration": {
+        "selectedCaseId": "OFR3-HARNESS-01",
+        "selectedRoles": [
+          "strongestRival",
+          "decisiveFalsifier",
+          "retainedConsequence",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 1829,
+        "wordCount": 182
+      },
+      "judge": {
+        "elapsedMs": 5884,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:8cd73bf3fa7c4b27a6eaca41d19bd3e725a342d63fa4b1bd654c07f79c6f8895",
+        "result": {
+          "boundaryGrade": "PASS",
+          "caseIdentificationGrade": "PASS",
+          "counterfactualBreakageGrade": "NOT_REQUESTED",
+          "decisiveFalsifierGrade": "PASS",
+          "epistemicBoundaryGrade": "PARTIAL",
+          "invariantGrade": "NOT_REQUESTED",
+          "judgeReason": "caseId/owner exact match. Requested roles strongestRival, decisiveFalsifier, retainedConsequence, boundary, refs all materially equivalent to GOLD and preserved verbatim, PASS each. Non-requested roles invariant, whyAttractive, counterfactualBreakage, reopenCondition emitted NOT_REQUESTED as required. epistemicBoundary: answer asserts 'This is the current owner truth at frozen owner revision...' which wrongly elevates the frozen reconstruction to current owner truth, contradicting the required separation (reference is not automatically current owner truth); this is a material unsupported claim not sanctioned by GOLD/reference semantics, so epistemicBoundary PARTIAL and unsupportedInference=true. refs rendered as a JSON-in-string but contain all three exact owner/kind/path/revision entries, PASS.",
+          "overgeneralized": false,
+          "refsGrade": "PASS",
+          "reopenConditionGrade": "NOT_REQUESTED",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": true,
+          "whyAttractiveGrade": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-HARNESS:r1:judge:4fce1a8e3f3f45aaa73cdff03b4077a5",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 418,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1280,
+              "prompt_cache_miss_tokens": 1297,
+              "prompt_tokens": 2577,
+              "prompt_tokens_details": {
+                "cached_tokens": 1280
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 2995
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2995,
+          "wallTimeMs": 5689
+        },
+        "valid": true
+      },
+      "oracleCaseId": "OFR3-HARNESS-01",
+      "oracleRequestedRoles": [
+        "strongestRival",
+        "decisiveFalsifier",
+        "retainedConsequence",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-HARNESS",
+      "replicate": 1,
+      "semanticAccepted": true
+    },
+    {
+      "answer": {
+        "elapsedMs": 6269,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:9b2d40d252b04f31cd9f7f65d88ded6a14f5af52b110c01d5fbb0193315284c4",
+        "result": {
+          "boundary": "D is provisional research, not canonical World doctrine. R7 also found a real quantitative projection gap; the result forbids overgeneralizing the fix, not adding demand-earned quantitative claims.",
+          "boundary_field": "D is provisional research, not canonical World doctrine. R7 also found a real quantitative projection gap; the result forbids overgeneralizing the fix, not adding demand-earned quantitative claims.",
+          "caseId": "OFR3-WORLD-01",
+          "counterfactualBreakage": "NOT_REQUESTED",
+          "decisiveFalsifier": "Across 50 frozen discriminators A scored 16 PASS/24 FAIL/10 AMBIG, B 19/21/10, strengthened C 39/0/11, while owner-native model D scored 50/0/0; ten post-freeze falsifiers also passed without changing D. Network currentness, relation-scoped availability, non-rival knowledge, authority expiry, replica/materialization and reservation/release repeatedly broke depletion/state-machine intuitions. C was not declared false; its family registry simply added no demonstrated decision value.",
+          "epistemicBoundary": "This reference is the frozen current owner (world) truth at revision a531c915c0c14ba49d19270dad35f7289e38d730. It establishes the discriminator-competition evidence sufficiency for narrowing universal/family models in favor of the owner-native model; it does not establish new research reopening, mechanism admission, or action authority (the boundary explicitly keeps D provisional research, not canonical World doctrine).",
+          "invariant": "Resource dynamics are owner-native claims/events, not one universal Resource state machine",
+          "owner": "world",
+          "refs": "world@a531c915c0c14ba49d19270dad35f7289e38d730 — docs/resource-ontology-r7-ecology-dynamics-falsification.md; world@a531c915c0c14ba49d19270dad35f7289e38d730 — evidence/acceptance/resource-ontology-r7-ecology-matrix-20260815.json; theory ref: research/experiments/foundations-reconstruction-ofr3-v0/causal-reconstruction-v1.json#OFR3-WORLD-01",
+          "reopenCondition": "NOT_REQUESTED",
+          "retainedConsequence": "NOT_REQUESTED",
+          "strongestRival": "NOT_REQUESTED",
+          "whyAttractive": "Inventory/accounting models are compact and familiar; the vector can absorb many quantitative cases; family-specific lifecycle C preserves heterogeneity while offering a global taxonomy."
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-WORLD:r0:answer:1787bcdfbb9f4cfaacfaaa5fbaba1e72",
+        "secretSlot": "deepseek.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 895,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 607,
+              "prompt_tokens": 1631,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2526
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2526,
+          "wallTimeMs": 6078
+        },
+        "valid": true
+      },
+      "answerRealized": true,
+      "hydration": {
+        "selectedCaseId": "OFR3-WORLD-01",
+        "selectedRoles": [
+          "whyAttractive",
+          "decisiveFalsifier",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 1577,
+        "wordCount": 152
+      },
+      "judge": {
+        "elapsedMs": 5922,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:e057a22ccbc47b0dc0e78e1357cf5e7bfe1345a7bf27db04f7474e330297c3e9",
+        "result": {
+          "boundaryGrade": "PASS",
+          "caseIdentificationGrade": "PASS",
+          "counterfactualBreakageGrade": "NOT_REQUESTED",
+          "decisiveFalsifierGrade": "PASS",
+          "epistemicBoundaryGrade": "PASS",
+          "invariantGrade": "NOT_REQUESTED",
+          "judgeReason": "caseId OFR3-WORLD-01 and owner world match GOLD. Requested roles are whyAttractive, decisiveFalsifier, boundary, refs: whyAttractive materially equivalent and preserves all qualifiers; decisiveFalsifier matches GOLD exactly; boundary matches GOLD verbatim; refs cover both required git_path refs at the exact revision (plus one extra theory ref that does not affect correctness). epistemicBoundary explicitly separates frozen reference from new evidence sufficiency/reopening/mechanism/action authority, with provisional-research framing. All other roles NOT_REQUESTED. No material unsupported claim; no owner-local widening beyond stated boundary.",
+          "overgeneralized": false,
+          "refsGrade": "PASS",
+          "reopenConditionGrade": "NOT_REQUESTED",
+          "retainedConsequenceGrade": "NOT_REQUESTED",
+          "strongestRivalGrade": "NOT_REQUESTED",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-WORLD:r0:judge:e1ff400c350b4f4db54d5980850e3a5e",
+        "secretSlot": "deepseek5.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 390,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1920,
+              "prompt_cache_miss_tokens": 614,
+              "prompt_tokens": 2534,
+              "prompt_tokens_details": {
+                "cached_tokens": 1920
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 2924
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2924,
+          "wallTimeMs": 5731
+        },
+        "valid": true
+      },
+      "oracleCaseId": "OFR3-WORLD-01",
+      "oracleRequestedRoles": [
+        "whyAttractive",
+        "decisiveFalsifier",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-WORLD",
+      "replicate": 0,
+      "semanticAccepted": true
+    },
+    {
+      "answer": {
+        "elapsedMs": 6794,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": null,
+        "result": null,
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-WORLD:r1:answer:db58d6afe90f410c8698b79cdf54d1ab",
+        "secretSlot": "deepseek4.json",
+        "stopCode": "no_progress",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 939,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 607,
+              "prompt_tokens": 1631,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2570
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2570,
+          "wallTimeMs": 6733
+        },
+        "valid": false
+      },
+      "answerRealized": false,
+      "hydration": {
+        "selectedCaseId": "OFR3-WORLD-01",
+        "selectedRoles": [
+          "whyAttractive",
+          "decisiveFalsifier",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 1577,
+        "wordCount": 152
+      },
+      "judge": null,
+      "oracleCaseId": "OFR3-WORLD-01",
+      "oracleRequestedRoles": [
+        "whyAttractive",
+        "decisiveFalsifier",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-WORLD",
+      "replicate": 1,
+      "semanticAccepted": false
+    },
+    {
+      "answer": {
+        "elapsedMs": 4568,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:ef209f2a7d072bf2b3bcf4662bc3348d128b99009199211d118fe94af8293501",
+        "result": {
+          "boundary": "FR2 owns identity/reference meaning only. It does not create a universal graph engine, replace portfolio exposure, market observation, beliefs or current effect-bound venue metadata.",
+          "caseId": "OFR3-FINANCE-01",
+          "counterfactualBreakage": "A/B would create symbol collisions, look-ahead leakage, silently splice reference regimes, and make backtests/research validate with information Finance did not possess at the historical decision time.",
+          "decisiveFalsifier": "A fails on QNT cross-domain ticker collision and SPCX rename/conversion history. B loses SPCX pre-IPO share-estimate/rebase/listed regimes, cannot make historical comparability/invalidation deterministic, and requires prose reconstruction for PIT queries. Writing a future `validTo` into the original observation leaks future knowledge; collapsing history into the current row deletes invalidation targets.",
+          "epistemicBoundary": "This is the current owner truth as defined by frozen owner revision 3d714710e330954b2f0f98510ceaf700847b02b6; the reference establishes the frozen theory case OFR3-FINANCE-01 and its decisive falsification of the compact rival. It does not itself grant new evidence sufficiency, research reopening, mechanism admission, or action authority beyond the frozen case record.",
+          "invariant": "NOT_REQUESTED",
+          "owner": "finance",
+          "refs": "[{\"kind\":\"git_path\",\"owner\":\"finance\",\"path\":\"research/financial_resource/FR2-MODEL-COMPETITION.md\",\"revision\":\"3d714710e330954b2f0f98510ceaf700847b02b6\"}]",
+          "reopenCondition": "NOT_REQUESTED",
+          "retainedConsequence": "NOT_REQUESTED",
+          "strongestRival": "A symbol-keyed enriched current record (A), or stable economic object plus only the current venue/instrument relation (B).",
+          "whyAttractive": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-FINANCE:r0:answer:d6cd07ddd28d4a6a8145765f7d513a59",
+        "secretSlot": "deepseek2.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 585,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 545,
+              "prompt_tokens": 1569,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2154
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2154,
+          "wallTimeMs": 4409
+        },
+        "valid": true
+      },
+      "answerRealized": true,
+      "hydration": {
+        "selectedCaseId": "OFR3-FINANCE-01",
+        "selectedRoles": [
+          "strongestRival",
+          "decisiveFalsifier",
+          "counterfactualBreakage",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 1456,
+        "wordCount": 151
+      },
+      "judge": {
+        "elapsedMs": 6238,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:debd2f1e64375476c10285ab76f332238ddaddbe89e867bc3632a707e6bda588",
+        "result": {
+          "boundaryGrade": "PASS",
+          "caseIdentificationGrade": "PASS",
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "PASS",
+          "epistemicBoundaryGrade": "PASS",
+          "invariantGrade": "NOT_REQUESTED",
+          "judgeReason": "Case and owner exact (OFR3-FINANCE-01, finance). Requested roles per GOLD are strongestRival, decisiveFalsifier, counterfactualBreakage, boundary, refs; all materially equivalent to GOLD with decision-relevant qualifiers preserved. Non-requested roles (invariant, whyAttractive, retainedConsequence, reopenCondition) correctly emitted NOT_REQUESTED. refs value is a stringified JSON array but content matches GOLD's ref list. epistemicBoundary explicitly separates frozen reconstruction/reference from current owner truth and disclaims evidence sufficiency, reopening, mechanism admission, and action authority beyond the frozen record; PASS. No material unsupported claim or overgeneralization detected.",
+          "overgeneralized": false,
+          "refsGrade": "PASS",
+          "reopenConditionGrade": "NOT_REQUESTED",
+          "retainedConsequenceGrade": "NOT_REQUESTED",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-FINANCE:r0:judge:80917a65d92c4d2fa9c680b21f0ed7e3",
+        "secretSlot": "deepseek5.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 409,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1920,
+              "prompt_cache_miss_tokens": 379,
+              "prompt_tokens": 2299,
+              "prompt_tokens_details": {
+                "cached_tokens": 1920
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 2708
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2708,
+          "wallTimeMs": 6115
+        },
+        "valid": true
+      },
+      "oracleCaseId": "OFR3-FINANCE-01",
+      "oracleRequestedRoles": [
+        "strongestRival",
+        "decisiveFalsifier",
+        "counterfactualBreakage",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-FINANCE",
+      "replicate": 0,
+      "semanticAccepted": true
+    },
+    {
+      "answer": {
+        "elapsedMs": 4181,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:4d96d8a2c6ed7544257084350f054c852ed6e271753f24d928c0d4894223bced",
+        "result": {
+          "boundary": "FR2 owns identity/reference meaning only. It does not create a universal graph engine, replace portfolio exposure, market observation, beliefs or current effect-bound venue metadata.",
+          "caseId": "OFR3-FINANCE-01",
+          "counterfactualBreakage": "A/B would create symbol collisions, look-ahead leakage, silently splice reference regimes, and make backtests/research validate with information Finance did not possess at the historical decision time.",
+          "decisiveFalsifier": "A fails on QNT cross-domain ticker collision and SPCX rename/conversion history. B loses SPCX pre-IPO share-estimate/rebase/listed regimes, cannot make historical comparability/invalidation deterministic, and requires prose reconstruction for PIT queries. Writing a future validTo into the original observation leaks future knowledge; collapsing history into the current row deletes invalidation targets.",
+          "epistemicBoundary": "The supplied reference is the current owner truth for owner=finance at revision 3d714710e330954b2f0f98510ceaf700847b02b6. It can establish new evidence sufficiency and research reopening for this frozen case but does not, by itself, grant mechanism admission or action authority, and a theory reopen condition is not converted into an executable decision.",
+          "invariant": "NOT_REQUESTED",
+          "owner": "finance",
+          "refs": "[{\"kind\":\"git_path\",\"owner\":\"finance\",\"path\":\"research/financial_resource/FR2-MODEL-COMPETITION.md\",\"revision\":\"3d714710e330954b2f0f98510ceaf700847b02b6\"}]",
+          "reopenCondition": "NOT_REQUESTED",
+          "retainedConsequence": "NOT_REQUESTED",
+          "strongestRival": "A symbol-keyed enriched current record (A), or a stable economic object plus only the current venue/instrument relation (B).",
+          "whyAttractive": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-FINANCE:r1:answer:359c68cab70240a2986b5d9b6958fc40",
+        "secretSlot": "deepseek4.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 577,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 545,
+              "prompt_tokens": 1569,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2146
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2146,
+          "wallTimeMs": 4048
+        },
+        "valid": true
+      },
+      "answerRealized": true,
+      "hydration": {
+        "selectedCaseId": "OFR3-FINANCE-01",
+        "selectedRoles": [
+          "strongestRival",
+          "decisiveFalsifier",
+          "counterfactualBreakage",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 1456,
+        "wordCount": 151
+      },
+      "judge": {
+        "elapsedMs": 7763,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:68842f357369c99637f561df97ceb0e6a70a2e5b20dc490bc0080c0e4355ddff",
+        "result": {
+          "boundaryGrade": "PASS",
+          "caseIdentificationGrade": "PASS",
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "PASS",
+          "epistemicBoundaryGrade": "FAIL",
+          "invariantGrade": "NOT_REQUESTED",
+          "judgeReason": "Case/owner match (OFR3-FINANCE-01, finance). Requested roles subset: strongestRival, decisiveFalsifier, counterfactualBreakage, boundary, refs. All five requested roles are materially equivalent to GOLD and preserve decision-relevant qualifiers (strongestRival A/B phrasing matches; decisiveFalsifier preserves QNT/SPCX collision/rename/rebase specifics; counterfactualBreakage preserves symbol collisions/look-ahead leakage/splice regimes/historical-time knowledge; boundary exact; refs exact path+revision). epistemicBoundary FAIL: GOLD requires explicit separation that the frozen reconstruction/navigation reference is not automatically current owner truth and does not itself establish evidence sufficiency, research reopening, mechanism admission, or action authority. ANSWER instead asserts it IS current owner truth and explicitly claims it 'can establish new evidence sufficiency and research reopening'. This inverts the required separation on two of the five disclaimed powers, so FAIL. invariant/whyAttractive/retainedConsequence/reopenCondition emitted NOT_REQUESTED, correct since GOLD did not request them (extra text ignored). No material unsupported claim beyond the flawed boundary; not overgeneralized.",
+          "overgeneralized": false,
+          "refsGrade": "PASS",
+          "reopenConditionGrade": "NOT_REQUESTED",
+          "retainedConsequenceGrade": "NOT_REQUESTED",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-FINANCE:r1:judge:dd4a85a4e337470b85be1d6b7dc0abc6",
+        "secretSlot": "deepseek4.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 499,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1920,
+              "prompt_cache_miss_tokens": 371,
+              "prompt_tokens": 2291,
+              "prompt_tokens_details": {
+                "cached_tokens": 1920
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 2790
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2790,
+          "wallTimeMs": 7636
+        },
+        "valid": true
+      },
+      "oracleCaseId": "OFR3-FINANCE-01",
+      "oracleRequestedRoles": [
+        "strongestRival",
+        "decisiveFalsifier",
+        "counterfactualBreakage",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-FINANCE",
+      "replicate": 1,
+      "semanticAccepted": true
+    },
+    {
+      "answer": {
+        "elapsedMs": 7774,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:9ad59bfe07db423a5ca64416400bd5e5079443ecf0549d755fdb652cd205c2b0",
+        "result": {
+          "boundary": "A distinct product whose semantics are explicitly \"best current path\" may own automatic selection. The invariant applies when the operation claims continuity/revalidation of an already selected identity.",
+          "caseId": "OFR3-WORKSTATION-01",
+          "counterfactualBreakage": "NOT_REQUESTED",
+          "decisiveFalsifier": "Current owner tests make the rival mechanically impossible: source-observation drift fails before network effects; binding drift creates no tunnel; exact revalidation asserts endpoint enumeration is never called; successful revalidation returns `selectionMutationAllowed=false` and one preserved path; negative results are never persisted as a replacement observation; active different selection raises `ANCHOR_SELECTION_CONFLICT`. Earlier NX0.2 half-dead transport recovery similarly rebuilds the same admitted path or terminates the generation rather than reselecting.",
+          "epistemicBoundary": "The reference revision 85f904635e856612b78e8b13acc553b1e80d292a is the current frozen owner truth for workstation case OFR3-WORKSTATION-01, as presented by the harness-selected atlas hydration. This reference can establish evidence sufficiency for the causal roles requested (strongestRival, decisiveFalsifier, retainedConsequence, boundary, refs). It does not authorize executing any decision; it only navigates the frozen theory content. The earlier commit e823c31b19c84a0dc857444302ade600056b8b45 introduced the bounded selected-path semantic recovery and 1f02857dafe32af7fed2658844035eb7d88b4e76 is the generation-bound Exterior CONNECT change; both are historical evidence anchors within the same owner's lineage.",
+          "invariant": "NOT_REQUESTED",
+          "owner": "workstation",
+          "refs": "Exact frozen revision 85f904635e856612b78e8b13acc553b1e80d292a: [{\"kind\":\"git_path\",\"owner\":\"workstation\",\"path\":\"docs/semantic-mcp.md\",\"revision\":\"85f904635e856612b78e8b13acc553b1e80d292a\"},{\"kind\":\"git_path\",\"owner\":\"workstation\",\"path\":\"README.md\",\"revision\":\"85f904635e856612b78e8b13acc553b1e80d292a\"},{\"kind\":\"git_path\",\"owner\":\"workstation\",\"path\":\"tests/test_surfshark_path.py\",\"revision\":\"85f904635e856612b78e8b13acc553b1e80d292a\"},{\"kind\":\"git_path\",\"owner\":\"workstation\",\"path\":\"tests/node/workstation_semantic_mcp.test.mjs\",\"revision\":\"85f904635e856612b78e8b13acc553b1e80d292a\"},{\"kind\":\"git_commit\",\"note\":\"introduced bounded selected-path semantic recovery\",\"owner\":\"workstation\",\"revision\":\"e823c31b19c84a0dc857444302ade600056b8b45\"},{\"kind\":\"git_commit\",\"note\":\"generation-bound Exterior CONNECT\",\"owner\":\"workstation\",\"revision\":\"1f02857dafe32af7fed2658844035eb7d88b4e76\"}]",
+          "reopenCondition": "NOT_REQUESTED",
+          "retainedConsequence": "Separate discovery/selection from exact revalidation/admission. Bind semantic tools to exact observation/path/generation, and require explicit replacement/new admission for a different selection.",
+          "strongestRival": "Treat recovery as rediscovery/failover: if the saved path is stale or unhealthy, automatically choose the best currently working endpoint/protocol/path under the same revalidation/recovery operation.",
+          "whyAttractive": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-WORKSTATION:r0:answer:ea5c8695f1bd422f9eb8fd2ad6533607",
+        "secretSlot": "deepseek1.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1166,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1792,
+              "prompt_cache_miss_tokens": 78,
+              "prompt_tokens": 1870,
+              "prompt_tokens_details": {
+                "cached_tokens": 1792
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 3036
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3036,
+          "wallTimeMs": 7644
+        },
+        "valid": true
+      },
+      "answerRealized": true,
+      "hydration": {
+        "selectedCaseId": "OFR3-WORKSTATION-01",
+        "selectedRoles": [
+          "strongestRival",
+          "decisiveFalsifier",
+          "retainedConsequence",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 2427,
+        "wordCount": 222
+      },
+      "judge": {
+        "elapsedMs": 5804,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:8a86ee346d30aa0f19c99a3dd6f0301c10fd2a9b4a133b07acc37a652bf7aa74",
+        "result": {
+          "boundaryGrade": "PASS",
+          "caseIdentificationGrade": "PASS",
+          "counterfactualBreakageGrade": "NOT_REQUESTED",
+          "decisiveFalsifierGrade": "PASS",
+          "epistemicBoundaryGrade": "PASS",
+          "invariantGrade": "NOT_REQUESTED",
+          "judgeReason": "Case ID and owner match GOLD exactly. Requested roles (strongestRival, decisiveFalsifier, retainedConsequence, boundary, refs) are materially equivalent to GOLD with decision-relevant qualifiers preserved. decisiveFalsifier full text matches GOLD; boundary and retainedConsequence match GOLD verbatim. refs include all six GOLD reference entries with correct kinds, paths, revisions, and notes. epistemicBoundary explicitly separates frozen navigation reference from current owner truth and disclaims deriving evidence sufficiency/action authority, satisfying the requirement. Non-requested roles (counterfactualBreakage, invariant, whyAttractive, reopenCondition) correctly emit NOT_REQUESTED. No material unsupported inferences or overgeneralization present.",
+          "overgeneralized": false,
+          "refsGrade": "PASS",
+          "reopenConditionGrade": "NOT_REQUESTED",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-WORKSTATION:r0:judge:12d8076ef6864f2a8562ea2395c51d55",
+        "secretSlot": "deepseek2.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 405,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 2304,
+              "prompt_cache_miss_tokens": 743,
+              "prompt_tokens": 3047,
+              "prompt_tokens_details": {
+                "cached_tokens": 2304
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3452
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3452,
+          "wallTimeMs": 5675
+        },
+        "valid": true
+      },
+      "oracleCaseId": "OFR3-WORKSTATION-01",
+      "oracleRequestedRoles": [
+        "strongestRival",
+        "decisiveFalsifier",
+        "retainedConsequence",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-WORKSTATION",
+      "replicate": 0,
+      "semanticAccepted": true
+    },
+    {
+      "answer": {
+        "elapsedMs": 6801,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:6e0d7607b96a5b75592bd60e3398e9fd93f0e217441952ed40b222b02af08431",
+        "result": {
+          "boundary": "A distinct product whose semantics are explicitly 'best current path' may own automatic selection. The invariant applies when the operation claims continuity/revalidation of an already selected identity.",
+          "boundary_required": true,
+          "caseId": "OFR3-WORKSTATION-01",
+          "counterfactualBreakage": "NOT_REQUESTED",
+          "decisiveFalsifier": "Current owner tests make the rival mechanically impossible: source-observation drift fails before network effects; binding drift creates no tunnel; exact revalidation asserts endpoint enumeration is never called; successful revalidation returns `selectionMutationAllowed=false` and one preserved path; negative results are never persisted as a replacement observation; active different selection raises `ANCHOR_SELECTION_CONFLICT`. Earlier NX0.2 half-dead transport recovery similarly rebuilds the same admitted path or terminates the generation rather than reselecting.",
+          "epistemicBoundary": "This reference is the current owner truth at revision 85f904635e856612b78e8b13acc553b1e80d292a (frozen owner revision for OFR3-WORKSTATION-01). It can establish new evidence sufficiency and currentness navigation for the answering path, but cannot convert the theory reopen condition into an executable decision; it does not grant action authority beyond confirming which evidence refutes the rival.",
+          "invariant": "NOT_REQUESTED",
+          "owner": "workstation",
+          "refs": "Exact frozen evidence refs: [{\"kind\":\"git_path\",\"owner\":\"workstation\",\"path\":\"docs/semantic-mcp.md\",\"revision\":\"85f904635e856612b78e8b13acc553b1e80d292a\"},{\"kind\":\"git_path\",\"owner\":\"workstation\",\"path\":\"README.md\",\"revision\":\"85f904635e856612b78e8b13acc553b1e80d292a\"},{\"kind\":\"git_path\",\"owner\":\"workstation\",\"path\":\"tests/test_surfshark_path.py\",\"revision\":\"85f904635e856612b78e8b13acc553b1e80d292a\"},{\"kind\":\"git_path\",\"owner\":\"workstation\",\"path\":\"tests/node/workstation_semantic_mcp.test.mjs\",\"revision\":\"85f904635e856612b78e8b13acc553b1e80d292a\"},{\"kind\":\"git_commit\",\"note\":\"introduced bounded selected-path semantic recovery\",\"owner\":\"workstation\",\"revision\":\"e823c31b19c84a0dc857444302ade600056b8b45\"},{\"kind\":\"git_commit\",\"note\":\"generation-bound Exterior CONNECT\",\"owner\":\"workstation\",\"revision\":\"1f02857dafe32af7fed2658844035eb7d88b4e76\"}]",
+          "reopenCondition": "NOT_REQUESTED",
+          "retainedConsequence": "Separate discovery/selection from exact revalidation/admission. Bind semantic tools to exact observation/path/generation, and require explicit replacement/new admission for a different selection.",
+          "strongestRival": "Treat recovery as rediscovery/failover: if the saved path is stale or unhealthy, automatically choose the best currently working endpoint/protocol/path under the same revalidation/recovery operation.",
+          "whyAttractive": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-WORKSTATION:r1:answer:7f66cc1533b54016914f7c9a6a390658",
+        "secretSlot": "deepseek2.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 1062,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1792,
+              "prompt_cache_miss_tokens": 78,
+              "prompt_tokens": 1870,
+              "prompt_tokens_details": {
+                "cached_tokens": 1792
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2932
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2932,
+          "wallTimeMs": 6670
+        },
+        "valid": true
+      },
+      "answerRealized": true,
+      "hydration": {
+        "selectedCaseId": "OFR3-WORKSTATION-01",
+        "selectedRoles": [
+          "strongestRival",
+          "decisiveFalsifier",
+          "retainedConsequence",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 2427,
+        "wordCount": 222
+      },
+      "judge": {
+        "elapsedMs": 5074,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:553be473242300133fad11d5e32c273ab8ecf8b04c36d7bb3346aff26830dbc7",
+        "result": {
+          "boundaryGrade": "PASS",
+          "caseIdentificationGrade": "PASS",
+          "counterfactualBreakageGrade": "NOT_REQUESTED",
+          "decisiveFalsifierGrade": "PASS",
+          "epistemicBoundaryGrade": "FAIL",
+          "invariantGrade": "NOT_REQUESTED",
+          "judgeReason": "caseId/owner exact. Requested roles (strongestRival, decisiveFalsifier, retainedConsequence, boundary, refs) all materially match GOLD; refs are exact and complete. Non-requested roles correctly marked NOT_REQUESTED. epistemicBoundary FAIL: the answer's boundary text claims the frozen reference 'can establish new evidence sufficiency and currentness navigation', which directly contradicts the required separation that the reconstruction/navigation reference does not itself establish new evidence sufficiency, research reopening, mechanism admission, or action authority.",
+          "overgeneralized": false,
+          "refsGrade": "PASS",
+          "reopenConditionGrade": "NOT_REQUESTED",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-WORKSTATION:r1:judge:356b612a0eb048789a65c68bf97b1d99",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 362,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 2176,
+              "prompt_cache_miss_tokens": 768,
+              "prompt_tokens": 2944,
+              "prompt_tokens_details": {
+                "cached_tokens": 2176
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3306
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3306,
+          "wallTimeMs": 4959
+        },
+        "valid": true
+      },
+      "oracleCaseId": "OFR3-WORKSTATION-01",
+      "oracleRequestedRoles": [
+        "strongestRival",
+        "decisiveFalsifier",
+        "retainedConsequence",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-WORKSTATION",
+      "replicate": 1,
+      "semanticAccepted": true
+    },
+    {
+      "answer": {
+        "elapsedMs": 6036,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:8ac8d29f41e0a2f92bc6d5580d2f2d207cab08189808eac4ba045e65ed765962",
+        "result": {
+          "boundary": "This does not say revoked actors retain future authority. Security may deny future actions, destroy owned disposable worlds, or mark credentials no longer current. The irreversibility applies to past facts/delivered information, not future permission.",
+          "caseId": "OFR3-SECURITY-01",
+          "counterfactualBreakage": "NOT_REQUESTED",
+          "decisiveFalsifier": "Self-owned ToyDesigner V5 showed revoking Alice cannot retract an already delivered key/plaintext; rotation only protects future releases. V6 TTL sweeps measured offline survivability equal to worst-case stale-revocation window. V8 showed old signed receipts require retained old authority identity after key rotation, while future calls can be denied immediately. The R1 runner passes 26/26 structural gates for these distinctions.",
+          "epistemicBoundary": "This reference is the current owner (security) truth at frozen revision 6a7a8f9b22cb4995d436da2968b135248f8f6bb3 and establishes evidence sufficiency for the prospective-revocation invariant via the R1 runner (26/26 structural gates) and ToyDesigner V5/V6/V8 measurements; it does not grant new research reopening, admission of new mechanisms, or action authority as such.",
+          "invariant": "Authority revocation is prospective; delivered information and historical admission remain facts",
+          "owner": "security",
+          "refs": "Frozen owner revision 6a7a8f9b22cb4995d436da2968b135248f8f6bb3 (owner=security). Exact refs: docs/AUTHORITY-LIFECYCLE-ENGINEERING.md; docs/CLIENT-AUTHORITY-ENTITLEMENT-CA-LIC-R1.md; research/ca-lic/toydesigner/R1_MEASUREMENTS.md (all at revision 6a7a8f9b22cb4995d436da2968b135248f8f6bb3). Theory ref: research/experiments/foundations-reconstruction-ofr3-v0/causal-reconstruction-v1.json#OFR3-SECURITY-01.",
+          "reopenCondition": "NOT_REQUESTED",
+          "retainedConsequence": "Freeze exact grant snapshots in Range/Evaluation specs, record the authorityDigest that admitted each effect, create new authority revisions prospectively, and preserve historical producer/key identity for retained evidence.",
+          "strongestRival": "NOT_REQUESTED",
+          "whyAttractive": "A single mutable current entitlement is simple and feels safer: revoke once and make all old rights/results disappear from the active model."
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-SECURITY:r0:answer:60f20940b68848f1ba50582c3a9146cb",
+        "secretSlot": "deepseek4.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 875,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 719,
+              "prompt_tokens": 1743,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2618
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2618,
+          "wallTimeMs": 5844
+        },
+        "valid": true
+      },
+      "answerRealized": true,
+      "hydration": {
+        "selectedCaseId": "OFR3-SECURITY-01",
+        "selectedRoles": [
+          "whyAttractive",
+          "decisiveFalsifier",
+          "retainedConsequence",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 1921,
+        "wordCount": 194
+      },
+      "judge": {
+        "elapsedMs": 6186,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:8d6c6f6e87049f9f1f6ce10bc554402e8161b675eecaebf95e6cf9d0da159ebf",
+        "result": {
+          "boundaryGrade": "PASS",
+          "caseIdentificationGrade": "PASS",
+          "counterfactualBreakageGrade": "NOT_REQUESTED",
+          "decisiveFalsifierGrade": "PASS",
+          "epistemicBoundaryGrade": "FAIL",
+          "invariantGrade": "NOT_REQUESTED",
+          "judgeReason": "caseId OFR3-SECURITY-01 and owner=security match GOLD exactly (PASS). Requested roles: whyAttractive, decisiveFalsifier, retainedConsequence, boundary, refs all materially match GOLD values (PASS); counterfactualBreakage, invariant, reopenCondition, strongestRival are NOT_REQUESTED in GOLD and correctly emitted as such. refs match the three GOLD git_path refs at the correct revision. FAIL on epistemicBoundary: GOLD requires an explicit separation that this frozen navigation reference is NOT automatically current owner truth and does NOT itself establish evidence sufficiency; the answer instead asserts it IS 'the current owner (security) truth' and 'establishes evidence sufficiency... via the R1 runner (26/26 structural gates)' — this material claim inverts the required boundary. unsupportedInference=true because the assertion that the reference establishes evidence sufficiency for the invariant is not supported by GOLD/reference semantics.",
+          "overgeneralized": false,
+          "refsGrade": "PASS",
+          "reopenConditionGrade": "NOT_REQUESTED",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "NOT_REQUESTED",
+          "unsupportedInference": true,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-SECURITY:r0:judge:a4c1001204b044c1bad9a82004908d90",
+        "secretSlot": "deepseek5.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 454,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 2176,
+              "prompt_cache_miss_tokens": 434,
+              "prompt_tokens": 2610,
+              "prompt_tokens_details": {
+                "cached_tokens": 2176
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3064
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3064,
+          "wallTimeMs": 6057
+        },
+        "valid": true
+      },
+      "oracleCaseId": "OFR3-SECURITY-01",
+      "oracleRequestedRoles": [
+        "whyAttractive",
+        "decisiveFalsifier",
+        "retainedConsequence",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-SECURITY",
+      "replicate": 0,
+      "semanticAccepted": true
+    },
+    {
+      "answer": {
+        "elapsedMs": 5400,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:f1c7049bb7b6278568ef668ede5e8c13e8513cb7797e882a5ad9c1a076ee1584",
+        "result": {
+          "boundary": "This does not say revoked actors retain future authority. Security may deny future actions, destroy owned disposable worlds, or mark credentials no longer current. The irreversibility applies to past facts/delivered information, not future permission.",
+          "caseId": "OFR3-SECURITY-01",
+          "counterfactualBreakage": "NOT_REQUESTED",
+          "decisiveFalsifier": "Self-owned ToyDesigner V5 showed revoking Alice cannot retract an already delivered key/plaintext; rotation only protects future releases. V6 TTL sweeps measured offline survivability equal to worst-case stale-revocation window. V8 showed old signed receipts require retained old authority identity after key rotation, while future calls can be denied immediately. The R1 runner passes 26/26 structural gates for these distinctions.",
+          "epistemicBoundary": "This reference is the current owner (security) truth at frozen revision 6a7a8f9b22cb4995d436da2968b135248f8f6bb3. It establishes that the mutable current-entitlement model was rejected as a theory via ToyDesigner experiments and the retained consequence is preserved in the Range/Evaluation spec design. It does NOT convert the theory reopen condition into an executable decision; it only navigates the frozen evidence and currentness of the owner's retained engineering consequence.",
+          "invariant": "Authority revocation is prospective; delivered information and historical admission remain facts",
+          "owner": "security",
+          "refs": "[{\"kind\": \"git_path\", \"owner\": \"security\", \"path\": \"docs/AUTHORITY-LIFECYCLE-ENGINEERING.md\", \"revision\": \"6a7a8f9b22cb4995d436da2968b135248f8f6bb3\"}, {\"kind\": \"git_path\", \"owner\": \"security\", \"path\": \"docs/CLIENT-AUTHORITY-ENTITLEMENT-CA-LIC-R1.md\", \"revision\": \"6a7a8f9b22cb4995d436da2968b135248f8f6bb3\"}, {\"kind\": \"git_path\", \"owner\": \"security\", \"path\": \"research/ca-lic/toydesigner/R1_MEASUREMENTS.md\", \"revision\": \"6a7a8f9b22cb4995d436da2968b135248f8f6bb3\"}]",
+          "reopenCondition": "NOT_REQUESTED",
+          "retainedConsequence": "Freeze exact grant snapshots in Range/Evaluation specs, record the authorityDigest that admitted each effect, create new authority revisions prospectively, and preserve historical producer/key identity for retained evidence.",
+          "strongestRival": "NOT_REQUESTED",
+          "whyAttractive": "A single mutable \"current entitlement\" is simple and feels safer: revoke once and make all old rights/results disappear from the active model."
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-SECURITY:r1:answer:8454d972ec6444a79dee8d726eac2979",
+        "secretSlot": "deepseek.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 735,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 719,
+              "prompt_tokens": 1743,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2478
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2478,
+          "wallTimeMs": 5277
+        },
+        "valid": true
+      },
+      "answerRealized": true,
+      "hydration": {
+        "selectedCaseId": "OFR3-SECURITY-01",
+        "selectedRoles": [
+          "whyAttractive",
+          "decisiveFalsifier",
+          "retainedConsequence",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 1921,
+        "wordCount": 194
+      },
+      "judge": {
+        "elapsedMs": 5649,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:e47bffd6b8ac27fe399fb8d41bae8867887b5d0f4d6bd34dd38760d502d0c531",
+        "result": {
+          "boundaryGrade": "PASS",
+          "caseIdentificationGrade": "PASS",
+          "counterfactualBreakageGrade": "NOT_REQUESTED",
+          "decisiveFalsifierGrade": "PASS",
+          "epistemicBoundaryGrade": "PASS",
+          "invariantGrade": "NOT_REQUESTED",
+          "judgeReason": "Case and owner exact (OFR3-SECURITY-01 / security). All requested roles materially match GOLD: whyAttractive, decisiveFalsifier, retainedConsequence, boundary, and refs reproduce GOLD values verbatim or substantively while preserving decision-relevant qualifiers. Roles not requested (invariant, strongestRival, counterfactualBreakage, reopenCondition) are correctly marked NOT_REQUESTED regardless of extra answer text. Epistemic boundary is explicit: it separates frozen navigation reference from current owner truth and disclaims establishing new evidence sufficiency/research reopening/action authority. refs are exact and match GOLD orientations and revisions. No unsupported material claims or overgeneralization beyond stated boundary.",
+          "overgeneralized": false,
+          "refsGrade": "PASS",
+          "reopenConditionGrade": "NOT_REQUESTED",
+          "retainedConsequenceGrade": "PASS",
+          "strongestRivalGrade": "NOT_REQUESTED",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "PASS"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-SECURITY:r1:judge:16484da9be294663bb3dd9749c2a14dc",
+        "secretSlot": "deepseek.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 400,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 2176,
+              "prompt_cache_miss_tokens": 496,
+              "prompt_tokens": 2672,
+              "prompt_tokens_details": {
+                "cached_tokens": 2176
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 3072
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 3072,
+          "wallTimeMs": 5526
+        },
+        "valid": true
+      },
+      "oracleCaseId": "OFR3-SECURITY-01",
+      "oracleRequestedRoles": [
+        "whyAttractive",
+        "decisiveFalsifier",
+        "retainedConsequence",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-SECURITY",
+      "replicate": 1,
+      "semanticAccepted": true
+    },
+    {
+      "answer": {
+        "elapsedMs": 5666,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:44f8fe6acfc6ab81d660ba2fbe2e62d8e7847b3e988564de0200bc6bd5ee90ac",
+        "result": {
+          "boundary": "This is a Station Zero product invariant. It supports a broader proposal/commit inequality but does not prove every Agent/game UI requires the same Preview object or explicit button.",
+          "boundary_note": "",
+          "caseId": "OFR3-GAME-01",
+          "counterfactualBreakage": "Direct plan-to-effect would let model generation or browser refresh commit consequences without player authority, make re-planning ambiguous, and allow response loss to create duplicate/replacement turns. Ephemeral Preview would break audit/restart fidelity and \"what exactly did I commit?\" review.",
+          "decisiveFalsifier": "P3 tests explicitly verify Preview non-authority before Commit. Changing the mutable Order invalidates/clears the Preview without touching World or P2 plan slots. The selected Preview survives restart before Commit; partial plan submission/P2 preparation resumes the same Preview/Batch; response-lost World results are observed under the original Turn Batch before a new Planning Head.",
+          "decisiveFalsifier_note": "",
+          "epistemicBoundary": "This reference is current owner=game truth at frozen revision 0c8581c6b5eebceaf33aeb8907fa91a8b53708dc. It can establish new evidence sufficiency for the retained claim via P3 test pre-commit non-authority, and supports research reopening/admission of the proposal-commit inequality; it does not grant action authority and must not be converted into an executable commit-path decision.",
+          "invariant": "NOT_REQUESTED",
+          "owner": "game",
+          "refs": "owner=game, revision=0c8581c6b5eebceaf33aeb8907fa91a8b53708dc. Paths: docs/STATION_ZERO_V3_P3.md; docs/STATION_ZERO_V3_CONTRACTION.md; src/station-zero-v3/planning-store.ts (all at the same frozen commit). Theory ref: research/experiments/foundations-reconstruction-ofr3-v0/causal-reconstruction-v1.json#OFR3-GAME-01.",
+          "reopenCondition": "NOT_REQUESTED",
+          "retainedConsequence": "NOT_REQUESTED",
+          "strongestRival": "Collapse planning and commitment: let model/policy plan generation directly occupy faction plan slots or mutate World, or treat Preview as ephemeral UI decoration with no authoritative identity.",
+          "whyAttractive": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-GAME:r0:answer:69e71b5f49684d60acfcd9c77742a084",
+        "secretSlot": "deepseek3.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 784,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 683,
+              "prompt_tokens": 1707,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2491
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2491,
+          "wallTimeMs": 5488
+        },
+        "valid": true
+      },
+      "answerRealized": true,
+      "hydration": {
+        "selectedCaseId": "OFR3-GAME-01",
+        "selectedRoles": [
+          "strongestRival",
+          "decisiveFalsifier",
+          "counterfactualBreakage",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 1852,
+        "wordCount": 197
+      },
+      "judge": {
+        "elapsedMs": 6101,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:2feb9007b0c1e719e3bfb36592fee0e3274a66b3be17b35c74899537910dc286",
+        "result": {
+          "boundaryGrade": "PASS",
+          "caseIdentificationGrade": "PASS",
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "PASS",
+          "epistemicBoundaryGrade": "FAIL",
+          "invariantGrade": "NOT_REQUESTED",
+          "judgeReason": "caseId OFR3-GAME-01 and owner=game match GOLD exactly. All five requested roles are materially equivalent: strongestRival identical; decisiveFalsifier identical (P3 pre-commit non-authority, invalidate/clear Preview without World/P2 mutation, restart survival, partial submission resumption, response-lost original Turn Batch); counterfactualBreakage identical; boundary identical; refs lists the same three paths at the correct frozen revision. invariant/whyAttractive/reopenCondition/retainedConsequence are NOT_REQUESTED per GOLD. The one failure is epistemicBoundary: the answer states the reference 'can establish new evidence sufficiency... and supports research reopening/admission', which violates the required separation that this frozen reconstruction does not itself establish new evidence sufficiency or research reopening. This is a material over-claim not supported by GOLD/reference semantics, hence unsupportedInference=true and epistemicBoundaryGrade=FAIL.",
+          "overgeneralized": false,
+          "refsGrade": "PASS",
+          "reopenConditionGrade": "NOT_REQUESTED",
+          "retainedConsequenceGrade": "NOT_REQUESTED",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": true,
+          "whyAttractiveGrade": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-GAME:r0:judge:cc96007987fe4114b325411055ea498c",
+        "secretSlot": "deepseek4.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 447,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1920,
+              "prompt_cache_miss_tokens": 584,
+              "prompt_tokens": 2504,
+              "prompt_tokens_details": {
+                "cached_tokens": 1920
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 2951
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2951,
+          "wallTimeMs": 5946
+        },
+        "valid": true
+      },
+      "oracleCaseId": "OFR3-GAME-01",
+      "oracleRequestedRoles": [
+        "strongestRival",
+        "decisiveFalsifier",
+        "counterfactualBreakage",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-GAME",
+      "replicate": 0,
+      "semanticAccepted": true
+    },
+    {
+      "answer": {
+        "elapsedMs": 5502,
+        "model": "deepseek-v4-flash",
+        "receiptDigest": "sha256:919dba76445d3db4dbe478b634820cc1d6a45d2b803502876eab8b6ec0109f05",
+        "result": {
+          "boundary": "This is a Station Zero product invariant. It supports a broader proposal/commit inequality but does not prove every Agent/game UI requires the same Preview object or explicit button.",
+          "caseId": "OFR3-GAME-01",
+          "counterfactualBreakage": "Direct plan-to-effect would let model generation or browser refresh commit consequences without player authority, make re-planning ambiguous, and allow response loss to create duplicate/replacement turns. Ephemeral Preview would break audit/restart fidelity and \"what exactly did I commit?\" review.",
+          "decisiveFalsifier": "P3 tests explicitly verify Preview non-authority before Commit. Changing the mutable Order invalidates/clears the Preview without touching World or P2 plan slots. The selected Preview survives restart before Commit; partial plan submission/P2 preparation resumes the same Preview/Batch; response-lost World results are observed under the original Turn Batch before a new Planning Head.",
+          "epistemicBoundary": "This reference is the current owner truth at frozen revision 0c8581c6b5eebceaf33aeb8907fa91a8b53708dc. It establishes retained product-state evidence supporting the proposal/commit inequality but does not establish new evidence sufficiency, research reopening, mechanism admission, or action authority on its own.",
+          "invariant": "NOT_REQUESTED",
+          "owner": "game",
+          "refs": "[{\"kind\": \"git_path\", \"owner\": \"game\", \"path\": \"docs/STATION_ZERO_V3_P3.md\", \"revision\": \"0c8581c6b5eebceaf33aeb8907fa91a8b53708dc\"}, {\"kind\": \"git_path\", \"owner\": \"game\", \"path\": \"docs/STATION_ZERO_V3_CONTRACTION.md\", \"revision\": \"0c8581c6b5eebceaf33aeb8907fa91a8b53708dc\"}, {\"kind\": \"git_path\", \"owner\": \"game\", \"path\": \"src/station-zero-v3/planning-store.ts\", \"revision\": \"0c8581c6b5eebceaf33aeb8907fa91a8b53708dc\"}]",
+          "reopenCondition": "NOT_REQUESTED",
+          "retainedConsequence": "NOT_REQUESTED",
+          "strongestRival": "Collapse planning and commitment: let model/policy plan generation directly occupy faction plan slots or mutate World, or treat Preview as ephemeral UI decoration with no authoritative identity.",
+          "whyAttractive": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-GAME:r1:answer:72a9ed50ed724ebd871f542f71ca80a1",
+        "secretSlot": "deepseek1.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-flash"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 815,
+              "effectiveModelId": "deepseek-v4-flash",
+              "prompt_cache_hit_tokens": 1024,
+              "prompt_cache_miss_tokens": 683,
+              "prompt_tokens": 1707,
+              "prompt_tokens_details": {
+                "cached_tokens": 1024
+              },
+              "providerModel": "deepseek-v4-flash",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-flash",
+              "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+              "total_tokens": 2522
+            }
+          ],
+          "requestedModelId": "deepseek-v4-flash",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2522,
+          "wallTimeMs": 5303
+        },
+        "valid": true
+      },
+      "answerRealized": true,
+      "hydration": {
+        "selectedCaseId": "OFR3-GAME-01",
+        "selectedRoles": [
+          "strongestRival",
+          "decisiveFalsifier",
+          "counterfactualBreakage",
+          "boundary",
+          "refs"
+        ],
+        "utf8Bytes": 1852,
+        "wordCount": 197
+      },
+      "judge": {
+        "elapsedMs": 5892,
+        "model": "deepseek-v4-pro",
+        "receiptDigest": "sha256:8b5ab738bb3805d5dfc1911d42f3b54bb13beb4f9b0f4c3b4a6f6e201483d6fd",
+        "result": {
+          "boundaryGrade": "PASS",
+          "caseIdentificationGrade": "PASS",
+          "counterfactualBreakageGrade": "PASS",
+          "decisiveFalsifierGrade": "PASS",
+          "epistemicBoundaryGrade": "FAIL",
+          "invariantGrade": "NOT_REQUESTED",
+          "judgeReason": "caseId OFR3-GAME-01 and owner game exactly match GOLD. All requested roles (strongestRival, decisiveFalsifier, counterfactualBreakage, boundary, refs) are materially equivalent to GOLD and preserve decision-relevant qualifiers. Ref string, when parsed, is an exact match of the three GOLD refs with correct kinds, paths, owners, and revision. Non-requested roles correctly emitted as NOT_REQUESTED. The epistemicBoundary fails the required explicit separation: the answer asserts the frozen reference 'is the current owner truth', which conflicts with the required framing that this reconstruction/navigation reference is NOT automatically current owner truth.",
+          "overgeneralized": false,
+          "refsGrade": "PASS",
+          "reopenConditionGrade": "NOT_REQUESTED",
+          "retainedConsequenceGrade": "NOT_REQUESTED",
+          "strongestRivalGrade": "PASS",
+          "unsupportedInference": false,
+          "whyAttractiveGrade": "NOT_REQUESTED"
+        },
+        "runId": "harness-run:ofr5:diagnostic:oracle-hydration:Q-GAME:r1:judge:238d574682d34d5cb95391f193b32f6f",
+        "secretSlot": "deepseek5.json",
+        "stopCode": "candidate_completed",
+        "usage": {
+          "conclusionCorrectionLimit": 1,
+          "conclusionCorrections": 0,
+          "deadlineOverrunMs": 0,
+          "effectiveDeadlineOverrunMs": 0,
+          "effectiveModelIds": [
+            "deepseek-v4-pro"
+          ],
+          "modelCalls": 1,
+          "modelObservationByteLimit": 32768,
+          "modelRetries": 0,
+          "noProgressTurnLimit": 3,
+          "noProgressTurns": 0,
+          "observationBytes": 0,
+          "observationOnlyTurnLimit": 6,
+          "observationOnlyTurns": 0,
+          "providerAttempts": 1,
+          "providerResultsReplayed": 0,
+          "providerUsage": [
+            {
+              "completion_tokens": 390,
+              "effectiveModelId": "deepseek-v4-pro",
+              "prompt_cache_hit_tokens": 1920,
+              "prompt_cache_miss_tokens": 622,
+              "prompt_tokens": 2542,
+              "prompt_tokens_details": {
+                "cached_tokens": 1920
+              },
+              "providerModel": "deepseek-v4-pro",
+              "providerRequestMode": "non-thinking",
+              "requestedModelId": "deepseek-v4-pro",
+              "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+              "total_tokens": 2932
+            }
+          ],
+          "requestedModelId": "deepseek-v4-pro",
+          "tokenLimit": 64000,
+          "toolCalls": 0,
+          "toolCorrections": 0,
+          "totalTokens": 2932,
+          "wallTimeMs": 5708
+        },
+        "valid": true
+      },
+      "oracleCaseId": "OFR3-GAME-01",
+      "oracleRequestedRoles": [
+        "strongestRival",
+        "decisiveFalsifier",
+        "counterfactualBreakage",
+        "boundary",
+        "refs"
+      ],
+      "queryId": "Q-GAME",
+      "replicate": 1,
+      "semanticAccepted": true
+    }
+  ]
+}
