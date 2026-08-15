@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.resource-utilization-audit",
+  "series": [
+    "RU0",
+    "RU1",
+    "RU2",
+    "RU3",
+    "RU4",
+    "RU5",
+    "RU6",
+    "RU7",
+    "RU8",
+    "RU9",
+    "RU10"
+  ],
+  "principles": {
+    "globalRegistryPromoted": false,
+    "capabilityManagerPromoted": false,
+    "universalScorePromoted": false,
+    "resourceCountIsCapability": false,
+    "nodeCountIsRedundancy": false,
+    "availableCapabilityIsExpandedUsefulWork": false,
+    "ownerNativeTruthRequired": true,
+    "currentnessRequiredAtUse": true
+  },
+  "resourceCards": [
+    {
+      "id": "compute-wsl",
+      "owner": "Runtime/host OS",
+      "stage": "R4-current-local-linux-capability",
+      "consumer": "ordinary Runtime Linux execution",
+      "evidence": [
+        "8 WSL logical CPUs",
+        "~7.76 GiB WSL RAM",
+        "RTX 5060 8151 MiB visible",
+        "~1.08 TB root block device"
+      ],
+      "deletionEffect": "Linux Runtime execution and current research/build/test workload capacity would materially contract.",
+      "bottleneck": "memory/concurrency rather than raw CPU discovery",
+      "complements": [
+        "RAM",
+        "thermal headroom",
+        "workload parallelism"
+      ],
+      "revalidateAtUse": true
+    },
+    {
+      "id": "compute-windows-native",
+      "owner": "Runtime + Windows provider",
+      "stage": "R4-restored-windows-native-capability",
+      "consumer": "Runtime windows_native execution",
+      "evidence": [
+        "initial live windows_native admission failed on stale v2 providerContract/current-Core mismatch",
+        "current-main launcher passed full Windows launcher acceptance",
+        "deployed launcher realigned to content-addressed current-main binary sha256:fca183ab88f0567818ec06c7b758928ff81e93a2e9964ed77d70cf2206241ca5",
+        "post-repair real windows_native Job succeeded",
+        "host re-observed Bellator N176 / Ryzen 9 8940HX / 16C32T / 16412348416 bytes RAM"
+      ],
+      "deletionEffect": "Loss of this bridge would remove reliable Agent access to native Windows tools and host resources.",
+      "bottleneck": "currently closed; release/provider alignment must remain exact",
+      "complements": [
+        "Windows host CPU",
+        "professional Windows tools",
+        "limited-token provider"
+      ],
+      "revalidateAtUse": true
+    },
+    {
+      "id": "gpu-rtx5060",
+      "owner": "host/WSL GPU stack",
+      "stage": "R2-actionable-resource",
+      "consumer": "candidate Studio/Game/Security/Computing workloads",
+      "evidence": [
+        "nvidia-smi visible from WSL",
+        "8151 MiB VRAM",
+        "0% utilization at observation"
+      ],
+      "deletionEffect": "GPU-accelerated workloads would disappear, but current ordinary Ordivon effect loss is not yet fully measured.",
+      "bottleneck": "ordinary consumer integration, not discovery",
+      "complements": [
+        "RAM",
+        "GPU-aware workload",
+        "media/ML software"
+      ],
+      "revalidateAtUse": true
+    },
+    {
+      "id": "finance-okx-egress",
+      "owner": "Workstation",
+      "stage": "R4-restored-single-member-current-capability",
+      "consumer": "Finance executor and authenticated venue observation",
+      "evidence": [
+        "stable profile digest unchanged",
+        "fresh JP/Tokyo WireGuard path qualified on native-b",
+        "surf-okx-b-r3 re-admitted with new generation",
+        "finance-okx-b AVAILABLE on 19085",
+        "finance-okx pool AVAILABLE on 19083 with finance-okx-b eligible",
+        "Finance executor currentEgressMatches=true",
+        "authenticated fixed-GET account observe succeeded with zero write-like tools"
+      ],
+      "deletionEffect": "Removing the sole current eligible member would again block authenticated OKX observation/execution path.",
+      "bottleneck": "residual member redundancy: finance-okx-a absent after fresh Singapore/OpenVPN qualification failures",
+      "complements": [
+        "Workstation observation authority",
+        "Finance venue authority",
+        "current provider path"
+      ],
+      "revalidateAtUse": true
+    },
+    {
+      "id": "professional-equipment",
+      "owner": "Studio and native applications",
+      "stage": "R3-R4-bounded-capabilities",
+      "consumer": "ordinary Studio/Game/Web production",
+      "evidence": [
+        "prior Blender native scene/render/GLB dogfood",
+        "prior REAPER ReaScript/project/render dogfood",
+        "prior OBS authenticated scene observe/mutate/recover dogfood"
+      ],
+      "deletionEffect": "specific native media production options disappear; ordinary downstream effect frequency remains low.",
+      "bottleneck": "ordinary workload consumption",
+      "complements": [
+        "GPU",
+        "editable source protocols",
+        "render/perception review"
+      ],
+      "revalidateAtUse": true
+    },
+    {
+      "id": "structured-public-data",
+      "owner": "external providers + consuming domains",
+      "stage": "R2-R3-qualified-information-options",
+      "consumer": "Computing/Finance/Security/World research",
+      "evidence": [
+        "OpenAlex/Crossref/SEC EDGAR/OSV/CISA KEV/NVD previously machine-observed"
+      ],
+      "deletionEffect": "loss of structured/reproducible discovery options; real downstream decision loss still requires ordinary-consumer evidence.",
+      "bottleneck": "research integration and semantic consumption",
+      "complements": [
+        "Harness/model query capability",
+        "owner-specific hypothesis/falsification workflows"
+      ],
+      "revalidateAtUse": true
+    },
+    {
+      "id": "model-ecology",
+      "owner": "Harness/providers/consumer tasks",
+      "stage": "R3-R4-heterogeneous-intelligence-options",
+      "consumer": "generation/review/falsification/coding/synthesis",
+      "evidence": [
+        "multiple model/provider families previously consumed in cross-model experiments"
+      ],
+      "deletionEffect": "loss of error diversity/cost/performance options; no static model is universally dominant.",
+      "bottleneck": "workload-derived specialization and strong-baseline comparison",
+      "complements": [
+        "Harness",
+        "structured evidence",
+        "hidden/owner-native evaluators"
+      ],
+      "revalidateAtUse": true
+    },
+    {
+      "id": "host-knowledge-capital",
+      "owner": "Host + repository owners",
+      "stage": "R2-R3-historical-knowledge-resource",
+      "consumer": "Computing on concrete retrieval pressure",
+      "evidence": [
+        "post-recovery Host: 224 Tasks",
+        "1120 Events",
+        "2221 validated objects"
+      ],
+      "deletionEffect": "past search trajectories/failures/continuity evidence would be harder or impossible to reuse.",
+      "bottleneck": "selective retrieval tied to real future decisions",
+      "complements": [
+        "Computing analysis",
+        "exact provenance",
+        "current owner re-observation"
+      ],
+      "revalidateAtUse": false
+    },
+    {
+      "id": "human-attention-judgment",
+      "owner": "Human participant",
+      "stage": "scarce-participant-resource",
+      "consumer": "purpose/boundary/high-consequence judgment",
+      "evidence": [
+        "Human model treats attention cost and retained capability as first-class constraints"
+      ],
+      "deletionEffect": "joint system loses value/goal authority, long-timescale integration and real-world participant control.",
+      "bottleneck": "misallocation to routine mechanical supervision",
+      "complements": [
+        "Agent execution",
+        "Host continuity",
+        "compact evidence/review surfaces"
+      ],
+      "revalidateAtUse": true
+    }
+  ],
+  "priorities": [
+    {
+      "rank": 1,
+      "level": "P1",
+      "action": "dogfood structured information sources in ordinary research",
+      "reason": "largest qualified information universe still has weak semantic-consumption evidence"
+    },
+    {
+      "rank": 2,
+      "level": "P1",
+      "action": "consume GPU/professional equipment only under real workloads",
+      "reason": "high latent capacity but utilization percentage alone is not an outcome"
+    },
+    {
+      "rank": 3,
+      "level": "P1",
+      "action": "restore a second finance-okx member only from a freshly qualified path or real redundancy pressure",
+      "reason": "current capability is restored; remaining gap is optionality, not availability"
+    },
+    {
+      "rank": 4,
+      "level": "P2",
+      "action": "mine Host history on concrete duplicated-work/repeated-friction pressure",
+      "reason": "high knowledge capital; avoid creating an ambient intelligence layer"
+    },
+    {
+      "rank": 5,
+      "level": "P2",
+      "action": "re-evaluate WSL CPU/RAM allocation under measured real workloads",
+      "reason": "16C32T host capacity is proven but RAM and contention can dominate marginal value"
+    }
+  ],
+  "nonPromotions": [
+    "Global Resource Registry",
+    "Capability Manager",
+    "universal resource value score",
+    "automatic resource scheduler",
+    "node/tool/provider cardinality as value",
+    "manufactured failures to prove option value"
+  ]
+}
