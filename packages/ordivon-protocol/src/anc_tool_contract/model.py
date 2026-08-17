@@ -12,6 +12,7 @@ _ALLOWED_SCHEMA = {
     "properties",
     "required",
     "additionalProperties",
+    "patternProperties",
     "const",
     "enum",
     "minimum",
@@ -82,12 +83,16 @@ def _strip_schema(value: Any, *, path: str = "$") -> JsonValue:
     for key, item in value.items():
         if key in _PRESENTATION:
             continue
-        if path.endswith(".properties") or path.endswith(".$defs"):
+        if (
+            path.endswith(".properties")
+            or path.endswith(".$defs")
+            or path.endswith(".patternProperties")
+        ):
             result[key] = _strip_schema(item, path=f"{path}.{key}")
             continue
         if key not in _ALLOWED_SCHEMA:
             raise ValueError(f"unsupported JSON Schema keyword {key} at {path}")
-        if key in {"properties", "$defs"}:
+        if key in {"properties", "$defs", "patternProperties"}:
             if not isinstance(item, dict):
                 raise ValueError(f"{key} must be an object")
             result[key] = {

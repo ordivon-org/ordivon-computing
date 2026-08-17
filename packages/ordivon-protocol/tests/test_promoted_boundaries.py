@@ -20,6 +20,7 @@ from anc_tool_contract import (
     CompletionKind as ContractCompletionKind,
     ContractChange,
     ExecutionKind as ContractExecutionKind,
+    normalize_mcp_tool_contract,
 )
 from ordivon_protocol import SCHEMA_FILES, VECTOR_FILES, schema_text, vector_text
 
@@ -90,6 +91,75 @@ class PromotedBoundaryTests(unittest.TestCase):
             }
             self.assertTrue(project_imports.issubset(permitted), (package, project_imports))
 
+
+    def test_mcp_contract_normalizer_preserves_pattern_properties_semantics(self) -> None:
+        semantics = {
+            "semanticAction": "runtime.execute",
+            "execution": "asynchronous",
+            "completion": "terminal-observation",
+            "effectClass": "opaque",
+            "idempotencySupport": "keyed",
+            "correlation": "stable-key",
+            "cancellation": "supported",
+            "evidence": ["execution-result"],
+            "capabilityClass": "runtime-exec",
+        }
+        contract = normalize_mcp_tool_contract(
+            {
+                "name": "workspace.exec",
+                "description": "presentation only",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "env": {
+                            "type": "object",
+                            "patternProperties": {
+                                "^[A-Z_][A-Z0-9_]*$": {
+                                    "type": "string",
+                                    "description": "presentation only",
+                                }
+                            },
+                            "additionalProperties": False,
+                        }
+                    },
+                },
+            },
+            provider_id="runtime:test",
+            revision="runtime:test",
+            semantics=semantics,
+        )
+        env = contract.input_schema["properties"]["env"]
+        self.assertEqual(
+            env["patternProperties"],
+            {"^[A-Z_][A-Z0-9_]*$": {"type": "string"}},
+        )
+        self.assertFalse(env["additionalProperties"])
+
+    def test_mcp_contract_normalizer_still_rejects_unknown_schema_keywords(self) -> None:
+        semantics = {
+            "semanticAction": "runtime.execute",
+            "execution": "asynchronous",
+            "completion": "terminal-observation",
+            "effectClass": "opaque",
+            "idempotencySupport": "keyed",
+            "correlation": "stable-key",
+            "cancellation": "supported",
+            "evidence": ["execution-result"],
+            "capabilityClass": "runtime-exec",
+        }
+        with self.assertRaisesRegex(ValueError, "unsupported JSON Schema keyword"):
+            normalize_mcp_tool_contract(
+                {
+                    "name": "workspace.exec",
+                    "inputSchema": {
+                        "type": "object",
+                        "unevaluatedProperties": False,
+                    },
+                },
+                provider_id="runtime:test",
+                revision="runtime:test",
+                semantics=semantics,
+            )
 
 class SourceChangeProtocolTests(unittest.TestCase):
     def test_source_change_effect_is_semantic_and_repository_bound(self) -> None:
