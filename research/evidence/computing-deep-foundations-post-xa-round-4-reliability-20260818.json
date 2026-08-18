@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "id": "computing.deep-foundations.post-xa.round-4.reliability.evidence",
+  "date": "2026-08-18",
+  "status": "round-complete",
+  "route": "Reliable / Fault-Tolerant / Self-Stabilizing Computation under explicit Fault / Perturbation Models",
+  "hypothesis": "ComputationalReliabilityAndResilienceUnderFaultsResponsibility",
+  "hypothesis_disposition": "REJECTED_AS_CLEAN_INDEPENDENT_SIBLING",
+  "derived_profile": "ComputationalFaultResilienceProfile",
+  "foundation_admission": "NONE",
+  "whole_computing_closure": "NOT_CLAIMED",
+  "cdf0": "NOT_ADMITTED",
+  "numbered_cdf_count": 0,
+  "next_cdf": "UNKNOWN",
+  "regimes": [
+    {
+      "id": "noisy_boolean_formulas",
+      "pressure": "randomly failing gates impose tolerable-fault limits and extra depth/slowdown for reliable computation",
+      "factorization": ["C","F","B","I","H-conditional"]
+    },
+    {
+      "id": "nonprobabilistic_quantum_noise",
+      "pressure": "fault tolerance can be proved under general noise not necessarily represented as a probability distribution",
+      "factorization": ["H","C","K","B","I","F-conditional","D-conditional"]
+    },
+    {
+      "id": "quantum_threshold_fault_tolerance",
+      "pressure": "ideal logical computation, encoded/noisy realization, fault-tolerant operations, threshold and overhead remain separable",
+      "factorization": ["H","C","K","B","I","F-conditional","D-conditional"]
+    },
+    {
+      "id": "self_stabilization",
+      "pressure": "convergence to a legitimate state can be guaranteed from arbitrary initial states without a known valid checkpoint",
+      "factorization": ["C","G","A","B","I","J-conditional"]
+    },
+    {
+      "id": "byzantine_arbitrary_faults",
+      "pressure": "arbitrary/traitorous participant behavior is distinct from crash and changes coordination guarantees",
+      "factorization": ["G","I","B","Security-external"]
+    },
+    {
+      "id": "crash_restart_recovery",
+      "pressure": "recovery mechanisms use retention/reconstruction and concrete lifecycle truth but are not fault tolerance by identity",
+      "factorization": ["J","A","C","B","Runtime-external"]
+    },
+    {
+      "id": "replicated_redundant_computation",
+      "pressure": "replication only improves reliability under typed agreement/correlation/fault assumptions",
+      "factorization": ["G","C","F-conditional","K-conditional","B","H-external-physical"]
+    },
+    {
+      "id": "correlated_common_mode_faults",
+      "pressure": "more replicas do not necessarily lower failure probability without dependence/common-mode assumptions",
+      "factorization": ["F-conditional","H","World-external","Hardware-external","Security-conditional"]
+    },
+    {
+      "id": "fault_model_plurality",
+      "pressure": "fail-stop, omission, corruption, timing, state perturbation and arbitrary faults are typed behavioral models rather than one scalar severity",
+      "factorization": ["A","B","C","G","H"]
+    },
+    {
+      "id": "approximate_graceful_degradation_negative_control",
+      "pressure": "contract-valid approximation can occur without a fault and therefore is not fault tolerance by identity",
+      "factorization": ["D","C","B","F-conditional"]
+    },
+    {
+      "id": "intermittent_runtime_control",
+      "pressure": "logical continuation across physically disconnected execution episodes reduces to Runtime recovery/idempotency/retention/resource structure rather than a new Runtime root",
+      "factorization": ["Runtime-external","J","A","B"]
+    },
+    {
+      "id": "agent_provider_tool_control",
+      "pressure": "provider/tool/run/context failures are Harness/Runtime operational truths; Computing consumes only abstract failure/resource/acceptance models",
+      "factorization": ["Harness-external","Runtime-external","A","B","C","D-conditional","F-conditional","I"]
+    }
+  ],
+  "anti_collapse_laws": [
+    "Fault != Error != Failure",
+    "Reliability != Availability",
+    "Reliability != CorrectnessByIdentity",
+    "CorrectUnderNominalModel != CorrectUnderDeclaredFaultModel",
+    "FaultTolerance != Recovery",
+    "FaultTolerance != Redundancy",
+    "FaultTolerance != ErrorCorrection",
+    "FaultTolerance != Replication",
+    "FaultTolerance != SelfStabilization",
+    "FaultModel != FailureProbability",
+    "FaultModel != ProbabilityDistribution",
+    "Masking != Detection != Correction != Recovery",
+    "GracefulDegradation != ExactFaultTolerance",
+    "ThresholdCondition != ResourceBudget",
+    "FaultContainment != FaultElimination",
+    "ObservedSuccessDespiteFault != GeneralFaultToleranceGuarantee",
+    "GateFailureProbability != FormulaFailureProbability",
+    "ReliableComputationWithNoisyGates != ErrorCorrectingCodingByIdentity",
+    "QuantumComputation != FaultTolerantQuantumComputation",
+    "PhysicalQuantumRealization != ReliabilityUnderNoise",
+    "QuantumErrorCorrection != WholeFaultTolerantComputationByIdentity",
+    "EncodedStateProtection != FaultTolerantLogicalOperationByIdentity",
+    "RecoveryFromKnownRetainedState != SelfStabilizationFromAdmissibleArbitraryState",
+    "CoordinationFailureModel != GenericComputationalFaultModel",
+    "CrashFailure != ByzantineFailure != OmissionFailure != CorruptionFault",
+    "MoreReplicas != LowerFailureProbabilityByNecessity",
+    "RedundancyCount != ReliabilityGuarantee",
+    "ApproximationError != FaultInducedFailureByIdentity"
+  ],
+  "burden_deletion": {
+    "TargetComputationContract": ["C","A-conditional","I-conditional"],
+    "FaultOrPerturbationModel": ["A","F-conditional","G-conditional","H-conditional","C-conditional","external-owner-conditional"],
+    "FaultyPrimitiveOrRealizationModel": ["B","H-conditional","G-conditional","C"],
+    "ResilienceConstructionOrTransformation": ["C","I/Algorithmics","K/J/G-conditional"],
+    "PreservationOrRecoveryCriterion": ["C","J-conditional","D-conditional","G-conditional"],
+    "ReliabilityGuarantee": ["C","F-conditional","G-conditional","A-conditional"],
+    "OverheadOrThresholdOrFeasibilityClaim": ["B","I","F/H/C-model-inputs"]
+  },
+  "independent_reliability_burden_after_subtraction": "EMPTY_AT_CURRENT_EVIDENCE_FRONTIER",
+  "rival_verdicts": {
+    "RF-M1_reliability_is_ordinary_correctness": "REJECTED_IDENTITY",
+    "RF-M2_fault_tolerance_is_error_correction_coding": "REJECTED",
+    "RF-M3_fault_tolerance_is_state_recovery": "REJECTED",
+    "RF-M4_fault_tolerance_is_stochastic_risk_control": "REJECTED_AS_UNIVERSAL",
+    "RF-M5_fault_tolerance_is_coordination_under_failures": "REJECTED_AS_UNIVERSAL",
+    "RF-M6_reliability_is_model_indexed_composition": "STRONG_SURVIVOR",
+    "RF-M7_independent_reliability_responsibility": "REJECTED_AS_CLEAN_SIBLING"
+  },
+  "architecture_effects": {
+    "A": "STRENGTHENED_MODEL_ENVIRONMENT_CONTINUATION_REFERENCE__NOT_REOPENED",
+    "B": "STRENGTHENED_THRESHOLD_OVERHEAD_MODEL_FEASIBILITY__NOT_REOPENED",
+    "C": "STRENGTHENED_MODEL_INDEXED_PRESERVATION_SPECIFICATION__NOT_REOPENED",
+    "D": "CONDITIONAL_TYPED_ERROR_VALIDATION_ONLY__NOT_REOPENED",
+    "F": "CONDITIONAL_STOCHASTIC_FAULT_RISK_ONLY__NOT_REOPENED",
+    "G": "STRENGTHENED_COORDINATION_SPECIFIC_FAILURE_SAFETY_PROGRESS__NOT_FALSIFIED",
+    "H": "STRENGTHENED_PHYSICAL_NOISE_REALIZATION_INTERFACE__NOT_FALSIFIED",
+    "I": "STRENGTHENED_CONSTRUCTION_EXISTENCE_UNDER_MODEL__NOT_FALSIFIED",
+    "J": "NARROWED_RECOVERY_RETENTION_NOT_ALL_RESILIENCE__NOT_REOPENED",
+    "K": "NARROWED_CODING_RECOVERABILITY_NOT_ALL_FAULT_TOLERANCE__NOT_REOPENED"
+  },
+  "owner_boundary": {
+    "new_owner_boundary": "NONE",
+    "Runtime": "actual execution/restart/checkpoint/retry/interruption truth",
+    "Network": "actual delivery/reachability/partition/transport failure",
+    "World": "actual physical/environmental causal fault truth",
+    "Hardware": "concrete device/gate/memory fault modes and measured error rates",
+    "Security": "actual malicious compromise/authority/integrity/confidentiality truth",
+    "Harness": "Agent/provider/tool/run/context operational failure semantics"
+  },
+  "primary_anchors": {
+    "pippenger_1988": "reliable Boolean formulas under randomly occurring gate failures have a tolerable-failure limit and require greater depth",
+    "dijkstra_1974": "self-stabilizing distributed systems can converge from arbitrary initial state to legitimate global state under stated move/daemon model",
+    "aharonov_ben_or_1999": "quantum threshold fault tolerance works under sufficiently low error and includes general not-necessarily-probabilistic noise",
+    "lamport_shostak_pease_1982": "Byzantine/arbitrary participant behavior creates coordination guarantees distinct from crash behavior",
+    "dependability_taxonomy": "fault/error/failure and reliability/availability/fault-tolerance concepts are distinct in dependable-computing taxonomy"
+  },
+  "consolidation_sequence": [
+    "J_STATE_MEMORY_CONSOLIDATION",
+    "K_INFORMATION_CODING_CONSOLIDATION",
+    "X-A_ACCESS_REVELATION_CHANGE_CONSOLIDATION",
+    "R4_RELIABLE_FAULT_TOLERANT_SELF_STABILIZING_CONSOLIDATION"
+  ],
+  "stopping_rule_evaluation": {
+    "NewSibling": "NONE",
+    "B_G_H_I_Falsified": "NONE",
+    "A_C_D_F_J_K_Reopened": "NONE",
+    "NewOwnerBoundary": "NONE",
+    "result": "TRIGGER_FORMAL_WHOLE_COMPUTING_COVERAGE_SATURATION_TEST"
+  },
+  "final_state": {
+    "round_4": "COMPLETED",
+    "information_gain": "VERY_HIGH_CONSOLIDATING",
+    "whole_computing_closure": "NOT_CLAIMED",
+    "cdf0": "NOT_ADMITTED",
+    "numbered_cdf_count": 0,
+    "next_cdf": "UNKNOWN",
+    "next_computing_research_phase": "FORMAL_WHOLE_COMPUTING_COVERAGE_SATURATION_TEST"
+  }
+}
