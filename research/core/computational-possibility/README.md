@@ -12,7 +12,8 @@ Computational Possibility is a **theory-first, falsification-driven, zero-Founda
 2. [THEORY-MAP](THEORY-MAP.md) — eight-axis Computational Situation and the project-wide theory navigation map.
 3. [CORE-THEORY](CORE-THEORY.md) — canonical theorem-neutral statement of the computational situation, admissible-witness semantics, achievability, complexity, transformation and power.
 4. [GENEALOGY-AND-CURRENTNESS](GENEALOGY-AND-CURRENTNESS.md) — Broad Computing/T/Algorithmics/AlgF0 lineage, supersession rules and current recovery order.
-5. [FORMATION-CONTRACT](FORMATION-CONTRACT.md) — project-formation phases, research lifecycle, specialist admission and v0.1 recovery criteria.
+5. [SPECIALIST-ROUTE-INDEX](SPECIALIST-ROUTE-INDEX.md) — falsification-oriented route registry: strongest attacks, surviving derived results, status and reopen conditions.
+6. [FORMATION-CONTRACT](FORMATION-CONTRACT.md) — project-formation phases, research lifecycle, specialist admission and v0.1 recovery criteria.
 
 ## Current invariants
 
@@ -29,7 +30,6 @@ Computational Possibility is a **theory-first, falsification-driven, zero-Founda
 - [OWNER-AND-STATUS](OWNER-AND-STATUS.md)
 - [ZERO-FOUNDATION-DERIVED-THEORY-BASIS](ZERO-FOUNDATION-DERIVED-THEORY-BASIS.md)
 - [DERIVED-CROSS-REGIME-LAWS](DERIVED-CROSS-REGIME-LAWS.md)
-- [SPECIALIST-ROUTE-INDEX](SPECIALIST-ROUTE-INDEX.md)
 - [APPLICABILITY-THEOREM-TRANSPORT-BRIDGE](APPLICABILITY-THEOREM-TRANSPORT-BRIDGE.md)
 - [ENGINEERING-CONSUMPTION-INDEX](ENGINEERING-CONSUMPTION-INDEX.md)
 - [CROSS-OWNER-BOUNDARIES](CROSS-OWNER-BOUNDARIES.md)
