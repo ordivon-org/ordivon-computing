@@ -20,8 +20,10 @@ Current source-fenced invariants:
 - [CF-v0.1 Canonical Falsification Corpus](CF-v0.1-CANONICAL-FALSIFICATION-CORPUS.md) — exact positive / near-miss / hostile fixtures.
 - [External Theory Mappings](EXTERNAL-THEORY-MAPPINGS.md) — reuse-before-invent framework mappings.
 - [SCDF Responsibility Matrix v0.1](SCDF-RESPONSIBILITY-MATRIX-v0.1.md) — per-SCDF reuse, integration role, gap pressure and owner boundary.
-- [G2/G4 Negative Closeout v0.1](GAP-INVESTIGATIONS-G2-G4-v0.1.md) — targeted gap subtraction; AFCM/TCC survive only as integration profiles.
-- [G1 Negative Closeout v0.1](GAP-INVESTIGATION-G1-v0.1.md) — multi-framework formal-gap claim rejected; project-level responsibility architecture retained.
+- [G2/G4 Negative Closeout v0.1](GAP-INVESTIGATIONS-G2-G4-v0.1.md) — AFCM/TCC survive only as integration profiles.
+- [G1 Negative Closeout v0.1](GAP-INVESTIGATION-G1-v0.1.md) — multi-framework formal-gap claim rejected.
+- [G3 Negative Closeout v0.1](GAP-INVESTIGATION-G3-v0.1.md) — universal DescriptionIdentity claim rejected in favor of typed relations.
+- [Formal-Gap Campaign Closeout v0.1](FORMAL-GAP-CAMPAIGN-CLOSEOUT-v0.1.md) — G1–G4 all rejected as independent missing formal theories; speculative gap expansion stops here.
 
 ## Interpretation rule
 
