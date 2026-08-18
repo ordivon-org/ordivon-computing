@@ -13,7 +13,8 @@ Computational Possibility is a **theory-first, falsification-driven, zero-Founda
 3. [CORE-THEORY](CORE-THEORY.md) — canonical theorem-neutral statement of the computational situation, admissible-witness semantics, achievability, complexity, transformation and power.
 4. [GENEALOGY-AND-CURRENTNESS](GENEALOGY-AND-CURRENTNESS.md) — Broad Computing/T/Algorithmics/AlgF0 lineage, supersession rules and current recovery order.
 5. [SPECIALIST-ROUTE-INDEX](SPECIALIST-ROUTE-INDEX.md) — falsification-oriented route registry: strongest attacks, surviving derived results, status and reopen conditions.
-6. [FORMATION-CONTRACT](FORMATION-CONTRACT.md) — project-formation phases, research lifecycle, specialist admission and v0.1 recovery criteria.
+6. [APPLICABILITY-SUBSYSTEM](APPLICABILITY-SUBSYSTEM.md) — first-class formal-to-actual theorem-transport boundary, owner authority map and thin engineering-consumption path.
+7. [FORMATION-CONTRACT](FORMATION-CONTRACT.md) — project-formation phases, research lifecycle, specialist admission and v0.1 recovery criteria.
 
 ## Current invariants
 
