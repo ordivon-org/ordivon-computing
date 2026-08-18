@@ -922,7 +922,7 @@ The next conversation should first reconstruct the current unexplored-space map 
 Suggested procedure:
 
 ```text
-1. Read this closeout and the current Host handoff task.
+1. Read this closeout as the canonical research handoff.
 2. Sample A–K artifacts only as needed; do not replay them.
 3. Re-map the whole Computing referent:
    - deeply explored/frozen research history
@@ -946,9 +946,6 @@ Suggested procedure:
 
 1.
 research/COMPUTING-DEEP-FOUNDATIONS-WHOLE-DOMAIN-A-K-CLOSEOUT-AND-OPEN-HANDOFF-20260818.md
-
-2.
-task:computing-deep-foundations-post-ak-open-handoff-20260818
 
 如果需要核查某个具体结论，再按需读取 A–K 的对应 research artifacts / evidence；不要从头重做 A–K。
 
