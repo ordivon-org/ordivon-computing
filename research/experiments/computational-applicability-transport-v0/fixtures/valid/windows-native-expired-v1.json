@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.computational-applicability-transport",
+  "recordId": "windows-native-expired-v1",
+  "claimScope": {
+    "formalClaimRef": "cp:claim:windows-native-implementability",
+    "theoremKind": "constructive-achievability",
+    "regimeRef": "cp:regime:windows-native-provider-contract",
+    "obligationRef": "runtime:obligation:windows-native-limited-execution",
+    "quantification": {"scopeKind": "bounded-domain", "domainRef": "runtime:windows-native:declared-contract", "aggregation": "none"}
+  },
+  "targetScope": {
+    "owner": "runtime",
+    "targetIdentity": "windows-native-provider",
+    "targetRevision": "provider-drift-20260815",
+    "configurationRef": "runtime:windows-native:deployed"
+  },
+  "transportBurden": {
+    "direction": "formal-to-actual-implementation",
+    "witnessRelationRef": "cp:transport:windows-native-provider-binding",
+    "semanticPreservationRefs": ["scd:bridge:provider-contract-binding-preservation"]
+  },
+  "premiseEvidence": [
+    {
+      "owner": "runtime",
+      "claimRef": "runtime:windows-native-provider-compatible",
+      "evidenceRef": "task:runtime:windows-native-provider-drift-20260815@2",
+      "scopeRef": "runtime:windows-native:older-activation",
+      "localStatus": "stale"
+    }
+  ],
+  "verdict": {
+    "status": "EXPIRED",
+    "consequence": "The earlier applicability claim does not survive the current decoder/provider/environment drift without renewed preservation evidence.",
+    "basisRefs": [],
+    "blockers": ["provider/current Runtime compatibility evidence is stale for the target revision"]
+  }
+}

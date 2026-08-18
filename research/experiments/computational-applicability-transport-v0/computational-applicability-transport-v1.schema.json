@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordivon.com/research/computational-applicability-transport-v1.schema.json",
+  "title": "Ordivon Computational Applicability / Transport Artifact v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "kind", "recordId", "claimScope", "targetScope", "transportBurden", "premiseEvidence", "verdict"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "kind": {"const": "ordivon.computing.computational-applicability-transport"},
+    "recordId": {"type": "string", "minLength": 1, "maxLength": 512},
+    "claimScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["formalClaimRef", "theoremKind", "regimeRef", "obligationRef", "quantification"],
+      "properties": {
+        "formalClaimRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "theoremKind": {"enum": ["constructive-achievability", "upper-bound", "impossibility", "lower-bound"]},
+        "regimeRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "obligationRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "constraintFunctionalRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "quantification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scopeKind", "domainRef", "aggregation"],
+          "properties": {
+            "scopeKind": {"enum": ["instance", "bounded-domain", "family", "asymptotic-family"]},
+            "domainRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+            "aggregation": {"enum": ["none", "per-instance", "worst-case", "amortized", "expected", "tail", "distribution-indexed", "cumulative", "regret"]}
+          }
+        }
+      }
+    },
+    "targetScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "targetIdentity", "targetRevision"],
+      "properties": {
+        "owner": {"type": "string", "minLength": 1, "maxLength": 256},
+        "targetIdentity": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "targetRevision": {"type": ["string", "integer"]},
+        "configurationRef": {"type": "string", "minLength": 1, "maxLength": 2048}
+      }
+    },
+    "transportBurden": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["direction", "witnessRelationRef", "semanticPreservationRefs"],
+      "properties": {
+        "direction": {"enum": ["formal-to-actual-implementation", "actual-to-formal-coverage"]},
+        "witnessRelationRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "semanticPreservationRefs": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 2048}
+        },
+        "quantitative": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["resourceFunctionalRef", "aggregation", "relationKind", "relationClaimRef", "measurementInterpretationRefs"],
+          "properties": {
+            "resourceFunctionalRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+            "aggregation": {"enum": ["per-instance", "worst-case", "amortized", "expected", "tail", "distribution-indexed", "cumulative", "regret"]},
+            "relationKind": {"enum": ["upper-domination", "lower-reflection"]},
+            "relationClaimRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+            "measurementInterpretationRefs": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 64,
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1, "maxLength": 2048}
+            }
+          }
+        }
+      }
+    },
+    "premiseEvidence": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["owner", "claimRef", "evidenceRef", "scopeRef", "localStatus"],
+        "properties": {
+          "owner": {"type": "string", "minLength": 1, "maxLength": 256},
+          "claimRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+          "evidenceRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+          "scopeRef": {"type": "string", "minLength": 1, "maxLength": 2048},
+          "localStatus": {"enum": ["discharged", "unresolved", "stale", "falsified"]}
+        }
+      }
+    },
+    "verdict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "consequence", "basisRefs", "blockers"],
+      "properties": {
+        "status": {"enum": ["APPLIES", "DOES_NOT_APPLY", "UNRESOLVED", "EXPIRED"]},
+        "consequence": {"type": "string", "minLength": 1, "maxLength": 4096},
+        "basisRefs": {"type": "array", "maxItems": 128, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 2048}},
+        "blockers": {"type": "array", "maxItems": 128, "uniqueItems": true, "items": {"type": "string", "minLength": 1, "maxLength": 2048}}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"claimScope": {"properties": {"theoremKind": {"enum": ["constructive-achievability", "upper-bound"]}}}}},
+      "then": {"properties": {"transportBurden": {"properties": {"direction": {"const": "formal-to-actual-implementation"}}}}}
+    },
+    {
+      "if": {"properties": {"claimScope": {"properties": {"theoremKind": {"enum": ["impossibility", "lower-bound"]}}}}},
+      "then": {"properties": {"transportBurden": {"properties": {"direction": {"const": "actual-to-formal-coverage"}}}}}
+    },
+    {
+      "if": {"properties": {"claimScope": {"properties": {"theoremKind": {"const": "upper-bound"}}}}},
+      "then": {"properties": {
+        "claimScope": {"required": ["constraintFunctionalRef"]},
+        "transportBurden": {"required": ["quantitative"], "properties": {"quantitative": {"properties": {"relationKind": {"const": "upper-domination"}}}}}
+      }}
+    },
+    {
+      "if": {"properties": {"claimScope": {"properties": {"theoremKind": {"const": "lower-bound"}}}}},
+      "then": {"properties": {
+        "claimScope": {"required": ["constraintFunctionalRef"]},
+        "transportBurden": {"required": ["quantitative"], "properties": {"quantitative": {"properties": {"relationKind": {"const": "lower-reflection"}}}}}
+      }}
+    },
+    {
+      "if": {"properties": {"claimScope": {"properties": {"theoremKind": {"enum": ["constructive-achievability", "impossibility"]}}}}},
+      "then": {"properties": {"transportBurden": {"not": {"required": ["quantitative"]}}}}
+    },
+    {
+      "if": {"properties": {"verdict": {"properties": {"status": {"const": "APPLIES"}}}}},
+      "then": {"properties": {
+        "premiseEvidence": {"items": {"properties": {"localStatus": {"const": "discharged"}}}},
+        "verdict": {"properties": {"basisRefs": {"minItems": 1}, "blockers": {"maxItems": 0}}}
+      }}
+    },
+    {
+      "if": {"properties": {"verdict": {"properties": {"status": {"const": "UNRESOLVED"}}}}},
+      "then": {"properties": {
+        "premiseEvidence": {"contains": {"type": "object", "required": ["localStatus"], "properties": {"localStatus": {"const": "unresolved"}}}},
+        "verdict": {"properties": {"blockers": {"minItems": 1}}}
+      }}
+    },
+    {
+      "if": {"properties": {"verdict": {"properties": {"status": {"const": "EXPIRED"}}}}},
+      "then": {"properties": {
+        "premiseEvidence": {"contains": {"type": "object", "required": ["localStatus"], "properties": {"localStatus": {"const": "stale"}}}},
+        "verdict": {"properties": {"blockers": {"minItems": 1}}}
+      }}
+    },
+    {
+      "if": {"properties": {"verdict": {"properties": {"status": {"const": "DOES_NOT_APPLY"}}}}},
+      "then": {"properties": {"verdict": {"properties": {"blockers": {"minItems": 1}}}}}
+    }
+  ]
+}

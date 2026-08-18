@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.computational-applicability-transport",
+  "recordId": "backward-lower-bound-applies-v1",
+  "claimScope": {
+    "formalClaimRef": "cp:claim:communication-to-streaming-lower-bound",
+    "theoremKind": "lower-bound",
+    "regimeRef": "cp:regime:communication-source-model",
+    "obligationRef": "algorithmics:obligation:translated-streaming-contract",
+    "constraintFunctionalRef": "cp:constraint:communication-or-streaming-cost",
+    "quantification": {"scopeKind": "family", "domainRef": "algorithmics:streaming-family", "aggregation": "worst-case"}
+  },
+  "targetScope": {
+    "owner": "algorithmics",
+    "targetIdentity": "streaming-witness-family",
+    "targetRevision": "d1-rev6"
+  },
+  "transportBurden": {
+    "direction": "actual-to-formal-coverage",
+    "witnessRelationRef": "algorithmics:d1:target-witness-coverage",
+    "semanticPreservationRefs": ["algorithmics:d1:contract-translation-preservation"],
+    "quantitative": {
+      "resourceFunctionalRef": "cp:resource:communication-or-streaming-cost",
+      "aggregation": "worst-case",
+      "relationKind": "lower-reflection",
+      "relationClaimRef": "algorithmics:d1:translator-gamma-distortion",
+      "measurementInterpretationRefs": ["algorithmics:d1:resource-interpretation"]
+    }
+  },
+  "premiseEvidence": [
+    {
+      "owner": "algorithmics",
+      "claimRef": "algorithmics:d1:target-witness-coverage",
+      "evidenceRef": "task:algorithmics-distributed-information-topology-d1-20260818@6",
+      "scopeRef": "algorithmics:d1:rev6",
+      "localStatus": "discharged"
+    }
+  ],
+  "verdict": {
+    "status": "APPLIES",
+    "consequence": "The source lower bound transports to the declared target witness family under the referenced coverage, contract translation, and resource reflection.",
+    "basisRefs": ["algorithmics:d1:translator-gamma-distortion"],
+    "blockers": []
+  }
+}

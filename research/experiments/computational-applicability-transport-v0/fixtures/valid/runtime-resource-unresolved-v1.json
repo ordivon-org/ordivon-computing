@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.computational-applicability-transport",
+  "recordId": "runtime-resource-unresolved-v1",
+  "claimScope": {
+    "formalClaimRef": "cp:claim:runtime-resource-upper",
+    "theoremKind": "upper-bound",
+    "regimeRef": "cp:regime:declared-runtime-resource-model",
+    "obligationRef": "runtime:obligation:bounded-scheduled-execution",
+    "constraintFunctionalRef": "cp:constraint:runtime-time-capacity-vector",
+    "quantification": {"scopeKind": "bounded-domain", "domainRef": "runtime:deployment-workload:unknown-current", "aggregation": "worst-case"}
+  },
+  "targetScope": {
+    "owner": "runtime",
+    "targetIdentity": "runtime-scheduler-current",
+    "targetRevision": "unresolved-current",
+    "configurationRef": "runtime:resource-state:current"
+  },
+  "transportBurden": {
+    "direction": "formal-to-actual-implementation",
+    "witnessRelationRef": "cp:transport:runtime-resource-implementation",
+    "semanticPreservationRefs": ["scd:bridge:runtime-execution-obligation-preservation"],
+    "quantitative": {
+      "resourceFunctionalRef": "cp:resource:runtime-time-capacity-vector",
+      "aggregation": "worst-case",
+      "relationKind": "upper-domination",
+      "relationClaimRef": "cp:transport:runtime-resource-upper-domination",
+      "measurementInterpretationRefs": ["runtime:measurement:resource-attribution-required"]
+    }
+  },
+  "premiseEvidence": [
+    {
+      "owner": "runtime",
+      "claimRef": "runtime:current-resource-feasibility",
+      "evidenceRef": "runtime:evidence:not-currently-discharged",
+      "scopeRef": "runtime:current",
+      "localStatus": "unresolved"
+    }
+  ],
+  "verdict": {
+    "status": "UNRESOLVED",
+    "consequence": "No current deployed Runtime resource upper bound is transported until actual resource and measurement premises are discharged.",
+    "basisRefs": [],
+    "blockers": ["current Runtime resource feasibility/measurement premise is unresolved"]
+  }
+}

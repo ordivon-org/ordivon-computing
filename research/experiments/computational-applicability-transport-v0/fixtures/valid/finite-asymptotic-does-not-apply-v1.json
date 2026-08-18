@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.computational-applicability-transport",
+  "recordId": "finite-asymptotic-does-not-apply-v1",
+  "claimScope": {
+    "formalClaimRef": "cp:claim:asymptotic-time-ordering",
+    "theoremKind": "upper-bound",
+    "regimeRef": "cp:regime:asymptotic-family-model",
+    "obligationRef": "workstation:obligation:bounded-project-run",
+    "constraintFunctionalRef": "cp:constraint:asymptotic-time",
+    "quantification": {"scopeKind": "asymptotic-family", "domainRef": "cp:domain:n>=n0", "aggregation": "worst-case"}
+  },
+  "targetScope": {
+    "owner": "workstation",
+    "targetIdentity": "finite-web-game-dogfood",
+    "targetRevision": "85f9046",
+    "configurationRef": "workstation:bounded-runs"
+  },
+  "transportBurden": {
+    "direction": "formal-to-actual-implementation",
+    "witnessRelationRef": "cp:transport:formal-to-finite-runtime",
+    "semanticPreservationRefs": ["scd:bridge:project-command-behavior-preservation"],
+    "quantitative": {
+      "resourceFunctionalRef": "cp:resource:formal-time",
+      "aggregation": "worst-case",
+      "relationKind": "upper-domination",
+      "relationClaimRef": "cp:transport:formal-to-finite-runtime",
+      "measurementInterpretationRefs": ["workstation:timing:finite-run-interpretation"]
+    }
+  },
+  "premiseEvidence": [
+    {
+      "owner": "workstation",
+      "claimRef": "workstation:finite-timing-observations",
+      "evidenceRef": "task:workstation:dependency-materialization-continuity-20260815@3",
+      "scopeRef": "workstation:finite-observations",
+      "localStatus": "discharged"
+    }
+  ],
+  "verdict": {
+    "status": "DOES_NOT_APPLY",
+    "consequence": "The asymptotic family ordering is not transported into a finite deployment ordering for the observed bounded runs.",
+    "basisRefs": [],
+    "blockers": ["target domain does not discharge the asymptotic-family quantifier/threshold"]
+  }
+}
