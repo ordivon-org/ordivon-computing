@@ -17,3 +17,7 @@ Current invariants:
 - Canonical architecture: typed responsibility hypergraph, not a rooted Foundation tree.
 
 Start with [OWNER-BOUNDARY-AND-STATUS](OWNER-BOUNDARY-AND-STATUS.md) and [SCDF-REGISTRY-AND-STANDING](SCDF-REGISTRY-AND-STANDING.md).
+
+## Engineering consumption
+
+- [ENGINEERING-CONSUMPTION-INDEX](ENGINEERING-CONSUMPTION-INDEX.md) — owner-specific boundary for semantic compatibility/refinement/preservation claims in Protocol/Tool/representation engineering.
