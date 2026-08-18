@@ -17,3 +17,5 @@ Current invariants:
 - Canonical architecture: typed responsibility hypergraph, not a rooted Foundation tree.
 
 Start with [OWNER-BOUNDARY-AND-STATUS](OWNER-BOUNDARY-AND-STATUS.md) and [SCDF-REGISTRY-AND-STANDING](SCDF-REGISTRY-AND-STANDING.md).
+
+Post-Constitution formalization and falsification work is deliberately separated from Foundation truth under [formalization/](formalization/README.md).
