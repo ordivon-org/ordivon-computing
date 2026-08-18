@@ -19,3 +19,5 @@ Current invariants:
 Start with [OWNER-BOUNDARY-AND-STATUS](OWNER-BOUNDARY-AND-STATUS.md) and [SCDF-REGISTRY-AND-STANDING](SCDF-REGISTRY-AND-STANDING.md).
 
 Post-Constitution formalization and falsification work is deliberately separated from Foundation truth under [formalization/](formalization/README.md).
+
+Consumer falsification / dogfood evidence is separately retained under [applied/](applied/README.md).
