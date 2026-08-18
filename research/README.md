@@ -26,6 +26,14 @@ related:
 
 Research stores open questions, competing hypotheses, prototypes, experiments, immutable evidence manifests, and unresolved evidence.
 
+## Owner-native research cores
+
+- [`core/semantics-of-computational-descriptions/`](core/semantics-of-computational-descriptions/) — canonical research-core projection for **Semantics of Computational Descriptions (SCD)**.
+- [`core/computational-possibility/`](core/computational-possibility/) — canonical research-core projection for **Computational Possibility**.
+- [`core/shared-computing-history/`](core/shared-computing-history/) — Broad Computing / historical S-T / Algorithmics provenance and recovery navigation only; it is not a semantic owner.
+
+SCD and Computational Possibility are independent semantic owners even though they share this repository.
+
 ## Purpose
 
 - [`world-model-loop-v2.json`](world-model-loop-v2.json) — current machine-readable closed loop with explicit historical-observation/currentness separation for project-evidence assimilation, cross-project comparison, shared world-model revision, and project re-test;
