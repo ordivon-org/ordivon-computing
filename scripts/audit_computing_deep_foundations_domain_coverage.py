@@ -1,0 +1,52 @@
+import json
+from pathlib import Path
+
+p = Path('research/evidence/computing-deep-foundations-domain-coverage-atlas-20260818.json')
+data = json.loads(p.read_text())
+checks = []
+def check(name, cond): checks.append((name, bool(cond)))
+
+check('cdf0-not-admitted', data['routeAdmission']['cdf0'] is False)
+check('numbered-foundation-not-admitted', data['routeAdmission']['numberedFoundation'] is False)
+check('next-cdf-unknown', data['routeAdmission']['nextCdf'] == 'UNKNOWN')
+check('next-route-unknown', data['routeAdmission']['nextComputingRoute'] == 'UNKNOWN')
+check('deep-local-agent-era', any('Agent-era responsibility' in x for x in data['deepLocal']))
+check('deep-local-pal', any('Persistent Adaptive Loop' in x for x in data['deepLocal']))
+check('parallelism-moderate', 'parallelism and data movement' in data['moderateKnowledge'])
+check('partial-state-memory', 'state and memory' in data['partial'])
+check('partial-database', 'databases and transactions' in data['partial'])
+check('sixteen-underexplored', len(data['underexplored']) >= 16)
+check('computability-underexplored', any(x.startswith('computability') for x in data['underexplored']))
+check('complexity-underexplored', any(x.startswith('complexity') for x in data['underexplored']))
+check('interactive-underexplored', any(x.startswith('interactive') for x in data['underexplored']))
+check('pl-semantics-underexplored', any(x.startswith('formal languages') for x in data['underexplored']))
+check('probabilistic-underexplored', any(x.startswith('probabilistic') for x in data['underexplored']))
+check('numerical-underexplored', any(x.startswith('numerical') for x in data['underexplored']))
+check('streaming-underexplored', any(x.startswith('online / streaming') for x in data['underexplored']))
+check('concurrency-underexplored', any(x.startswith('concurrency') for x in data['underexplored']))
+check('distributed-underexplored', any(x.startswith('distributed') for x in data['underexplored']))
+check('reversible-underexplored', any(x.startswith('reversible') for x in data['underexplored']))
+check('analog-underexplored', any(x.startswith('analog') for x in data['underexplored']))
+check('neuromorphic-underexplored', any(x.startswith('biological') for x in data['underexplored']))
+check('quantum-underexplored', any(x.startswith('quantum') for x in data['underexplored']))
+check('five-highest-ig', len(data['highestExpectedInformationGain']) >= 5)
+for owner in ['Runtime','Harness','Network','World','Human','Security']:
+    check(f'owner-boundary-{owner.lower()}', owner in data['ownerBoundaries'])
+check('seven-rival-models', len(data['rivalModels']) == 7)
+check('function-rival', data['rivalModels'][0].startswith('M1 Function'))
+check('interactive-rival', any(x.startswith('M6 Interactive') for x in data['rivalModels']))
+check('physical-rival', any(x.startswith('M7 Physical') for x in data['rivalModels']))
+check('three-external-pressure-cases', len(data['externalPressureCases']) >= 3)
+check('ptm-pressure', any('Persistent Turing' in x['case'] for x in data['externalPressureCases']))
+check('flp-pressure', any('FLP' in x['case'] for x in data['externalPressureCases']))
+check('bennett-pressure', any('Bennett' in x['case'] for x in data['externalPressureCases']))
+check('lexical-scan-caveat', 'heuristic' in data['lexicalScanCaveat'])
+check('whole-computing-not-established', data['wholeComputingCoverage'] == 'NOT_ESTABLISHED')
+check('foundation-v1-not-existent', data['computingFoundationV1'] == 'NOT_EXISTENT')
+check('current-conclusion-undercovered', 'WHOLE_COMPUTING_FOUNDATIONS_ARE_HIGHLY_UNDERCOVERED' in data['currentConclusion'])
+
+for name, ok in checks:
+    print(('PASS' if ok else 'FAIL'), name)
+failed = [x for x in checks if not x[1]]
+print(f'SUMMARY {len(checks)-len(failed)}/{len(checks)} passed')
+raise SystemExit(1 if failed else 0)
