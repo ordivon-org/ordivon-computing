@@ -6,6 +6,8 @@ Historical aliases: owner line T; Algorithmics is a historical/derived research-
 
 Computational Possibility is a **theory-first, falsification-driven, zero-Foundation semantic research project**. It studies formal regime-relative computational achievability, impossibility, transformation and constraint structure over constituted computational obligations.
 
+`ProjectFormationV0_1 = COMPLETE`.
+
 ## Start here
 
 1. [PROJECT-CONSTITUTION](PROJECT-CONSTITUTION.md) — project identity, referent, five constitutional laws, owner boundaries, standing and reopen discipline.
@@ -14,7 +16,8 @@ Computational Possibility is a **theory-first, falsification-driven, zero-Founda
 4. [GENEALOGY-AND-CURRENTNESS](GENEALOGY-AND-CURRENTNESS.md) — Broad Computing/T/Algorithmics/AlgF0 lineage, supersession rules and current recovery order.
 5. [SPECIALIST-ROUTE-INDEX](SPECIALIST-ROUTE-INDEX.md) — falsification-oriented route registry: strongest attacks, surviving derived results, status and reopen conditions.
 6. [APPLICABILITY-SUBSYSTEM](APPLICABILITY-SUBSYSTEM.md) — first-class formal-to-actual theorem-transport boundary, owner authority map and thin engineering-consumption path.
-7. [FORMATION-CONTRACT](FORMATION-CONTRACT.md) — project-formation phases, research lifecycle, specialist admission and v0.1 recovery criteria.
+7. [PROJECT-FORMATION-CLOSEOUT](PROJECT-FORMATION-CLOSEOUT.md) — 12-question v0.1 recovery audit and formation stop boundary.
+8. [FORMATION-CONTRACT](FORMATION-CONTRACT.md) — project-formation phases, research lifecycle, specialist admission and v0.1 recovery criteria.
 
 ## Current invariants
 
@@ -25,6 +28,7 @@ Computational Possibility is a **theory-first, falsification-driven, zero-Founda
 - `WholeComputationalPossibilityClosure = ESTABLISHED` as local architectural saturation, not mathematical exhaustion.
 - historical `AlgF0` admission is preserved but current numbered-Foundation status is **WITHDRAWN / SUPERSEDED**.
 - semantic project independence does **not** currently require a standalone repository.
+- project formation v0.1 is complete; future expansion requires a separate falsifier/consumer/migration/public-packaging trigger.
 
 ## Canonical research surfaces
 
