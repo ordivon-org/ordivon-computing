@@ -21,6 +21,7 @@ Current source-fenced invariants:
 - [External Theory Mappings](EXTERNAL-THEORY-MAPPINGS.md) — reuse-before-invent framework mappings.
 - [SCDF Responsibility Matrix v0.1](SCDF-RESPONSIBILITY-MATRIX-v0.1.md) — per-SCDF reuse, integration role, gap pressure and owner boundary.
 - [G2/G4 Negative Closeout v0.1](GAP-INVESTIGATIONS-G2-G4-v0.1.md) — targeted gap subtraction; AFCM/TCC survive only as integration profiles.
+- [G1 Negative Closeout v0.1](GAP-INVESTIGATION-G1-v0.1.md) — multi-framework formal-gap claim rejected; project-level responsibility architecture retained.
 
 ## Interpretation rule
 
