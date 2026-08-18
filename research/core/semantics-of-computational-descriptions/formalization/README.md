@@ -20,6 +20,7 @@ Current source-fenced invariants:
 - [CF-v0.1 Canonical Falsification Corpus](CF-v0.1-CANONICAL-FALSIFICATION-CORPUS.md) — exact positive / near-miss / hostile fixtures.
 - [External Theory Mappings](EXTERNAL-THEORY-MAPPINGS.md) — reuse-before-invent framework mappings.
 - [SCDF Responsibility Matrix v0.1](SCDF-RESPONSIBILITY-MATRIX-v0.1.md) — per-SCDF reuse, integration role, gap pressure and owner boundary.
+- [G2/G4 Negative Closeout v0.1](GAP-INVESTIGATIONS-G2-G4-v0.1.md) — targeted gap subtraction; AFCM/TCC survive only as integration profiles.
 
 ## Interpretation rule
 
