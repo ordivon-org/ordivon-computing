@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.deep-foundations.round-d",
+  "date": "2026-08-18",
+  "question": "Numerical / approximate / finite-precision computation",
+  "routeAdmission": {
+    "cdf0": false,
+    "numberedFoundation": false,
+    "nextCdf": "UNKNOWN",
+    "nextComputingRoute": "UNKNOWN"
+  },
+  "probes": [
+    {"id":"D-F1","result":"RealAlgebraicEquivalence != FloatingPointSemanticEquivalenceByNecessity"},
+    {"id":"D-F2","result":"ExactDenotationalEquality != FinitePrecisionBehavioralEquivalence"},
+    {"id":"D-F3","result":"SameAlgorithmicStructure != SameFiniteArithmeticBehaviorAcrossPrecisions"},
+    {"id":"D-F4","result":"PrecisionCanBeRoundBResourceDimension"},
+    {"id":"D-F5","result":"PrecisionResourceRole != PrecisionSemanticRoleByIdentity"},
+    {"id":"D-F6","result":"NumericalError != RoundoffErrorByIdentity"},
+    {"id":"D-F7","result":"ExactDiscreteSolution != ExactContinuousTargetByIdentity"},
+    {"id":"D-F8","result":"ForwardErrorDefinedAgainstReferenceTargetUnderDeclaredMetric"},
+    {"id":"D-F9","result":"ForwardError != BackwardErrorByIdentity"},
+    {"id":"D-F10","result":"ProblemConditioning != AlgorithmStabilityByIdentity"},
+    {"id":"D-F11","result":"StableAlgorithm != AccurateResultByIdentity"},
+    {"id":"D-F12","result":"ConditionNumberWithoutPerturbationOutputMetricSemanticsIsUnderspecified"},
+    {"id":"D-F13","result":"BackwardStability != SmallForwardErrorByIdentity"},
+    {"id":"D-F14","result":"ObservedAccuracyOnOneInstance != AlgorithmStabilityTheorem"},
+    {"id":"D-F15","result":"SmallResidual != SmallForwardErrorByIdentity"},
+    {"id":"D-F16","result":"ResidualIsEvidenceDiagnosticNotUniversalAccuracyScalar"},
+    {"id":"D-F17","result":"AbsoluteError != RelativeError"},
+    {"id":"D-F18","result":"NormwiseError != ComponentwiseErrorByIdentity"},
+    {"id":"D-F19","result":"OneUniversalNumericalDistanceIsRejected"},
+    {"id":"D-F20","result":"ApproximateResult != IncorrectResultByIdentity"},
+    {"id":"D-F21","result":"Tolerance != ErrorByIdentity"},
+    {"id":"D-F22","result":"ToleranceSatisfied != UniversallyUsefulOrAccurateByIdentity"},
+    {"id":"D-F23","result":"MethodConvergesAsymptotically != CurrentIterateAccurateByIdentity"},
+    {"id":"D-F24","result":"CurrentIterateAccuracy != GeneralConvergenceTheorem"},
+    {"id":"D-F25","result":"ExactArithmeticConvergence != FinitePrecisionRunConvergenceByNecessity"},
+    {"id":"D-F26","result":"Stopped != ConvergedByIdentity"},
+    {"id":"D-F27","result":"SmallStep != SmallTargetErrorByIdentity"},
+    {"id":"D-F28","result":"DominantWorkingPrecision != FinalAccuracyByIdentity"},
+    {"id":"D-F29","result":"ComputationPrecisionMayBeOperationPhaseRoleTyped"},
+    {"id":"D-F30","result":"MoreArithmeticPrecision != BetterProblemConditioningByIdentity"},
+    {"id":"D-F31","result":"MoreArithmeticPrecision != LowerTotalErrorByIdentity"},
+    {"id":"D-F32","result":"HigherPrecision != AlgorithmicStabilityByIdentity"},
+    {"id":"D-F33","result":"NumericalResult != PointEstimateByIdentity"},
+    {"id":"D-F34","result":"ApparentNumericPrecision != CertifiedAccuracyByIdentity"},
+    {"id":"D-F35","result":"NarrowInterval != ValidEnclosureByIdentity"},
+    {"id":"D-F36","result":"ExceptionalArithmeticOutcome != OrdinaryApproximationErrorByIdentity"},
+    {"id":"D-F37","result":"SameMathematicalTarget != BitwiseReproducibleResultByIdentity"},
+    {"id":"D-F38","result":"BitwiseEquality != NumericalCorrectnessRequirementByNecessity"},
+    {"id":"D-F39","result":"ApproximationQualityRequiresDeclaredPropertyMetricAcceptanceSemantics"}
+  ],
+  "deletedUniversalPrimitives": [
+    "ExactResult",
+    "Error",
+    "RoundoffError",
+    "Precision",
+    "Tolerance",
+    "Residual",
+    "ConditionNumber",
+    "Stability",
+    "Accuracy",
+    "Convergence",
+    "IterationCount",
+    "PointEstimate",
+    "BitwiseEquality"
+  ],
+  "survivor": {
+    "name":"ComputationalApproximationErrorAndValidationResponsibility",
+    "classification":"STRONG_CROSS_CUTTING_FOUNDATIONAL_CANDIDATE__REFACTORS_ROUND_C__PARTIALLY_COUPLES_ROUND_B__STRENGTHENS_ROUND_A__NOT_INDEPENDENT_UNIVERSAL_ESSENCE__NOT_CDF0__NOT_ROUTE_SELECTED",
+    "burden":[
+      "ReferenceTargetOrProblem",
+      "ArithmeticRepresentationAndPrecisionRegime",
+      "ApproximationOrComparisonRelation",
+      "ErrorOrUncertaintyDecompositionWhenMaterial",
+      "ConditioningOrSensitivityClaim",
+      "AlgorithmicStabilityOrBackwardRelation",
+      "ConvergenceAndStoppingSemantics",
+      "ErrorBoundCertificationEnclosureOrEvidence",
+      "AcceptanceOrValidityConsequence"
+    ]
+  },
+  "roundARelation": {
+    "status":"STRENGTHENED",
+    "laws":["Stopped != Converged","ExactArithmeticConvergence != FinitePrecisionRunConvergence","MethodConverges != CurrentIterateAccurate"],
+    "effect":"ContinuationOrTerminationSemantics must preserve stopping basis for iterative numerical computations"
+  },
+  "roundBRelation": {
+    "status":"PARTIALLY_COUPLED_NOT_ABSORBED",
+    "law":"ResourceProfile != ErrorProfile",
+    "coupling":"precision and iteration budgets can affect both computational cost and finite arithmetic/error behavior"
+  },
+  "roundCRelation": {
+    "status":"REFACTORED",
+    "effect":"Equivalence/refinement vocabulary must generalize to metric approximation, backward relation, enclosure and error-bound semantics",
+    "law":"ExactDenotationalEquality != FinitePrecisionBehavioralEquivalence"
+  },
+  "ownerSubtraction": {
+    "Runtime":"actual execution, values, exceptions, precision configuration and iteration evidence",
+    "WorldDomain":"physical/domain truth, measurement truth, model adequacy and experimental uncertainty",
+    "Hardware":"physical floating-point realization, energy and device behavior",
+    "Human":"subjective usefulness/preferences and human-chosen tolerances unless admitted into an explicit specification",
+    "Harness":"current model/tool numerical operation implementation facts"
+  },
+  "externalPressure": [
+    "IEEE 754-2019 floating-point arithmetic semantics",
+    "Wilkinson rounding/backward-error analysis",
+    "Rice 1966 theory of condition",
+    "Goldberg 1991 floating-point systems exposition",
+    "Carson-Higham 2018 three-precision iterative refinement",
+    "Moore interval arithmetic and interval analysis"
+  ],
+  "verdict": {
+    "exactResultUniversal":"REJECTED",
+    "oneErrorScalar":"REJECTED",
+    "precisionOnlyResource":"REJECTED",
+    "precisionOnlySemantic":"REJECTED",
+    "toleranceEqualsAccuracy":"REJECTED",
+    "residualEqualsSolutionError":"REJECTED",
+    "stabilityEqualsAccuracy":"REJECTED",
+    "convergenceEqualsFiniteRunCorrectness":"REJECTED",
+    "informationGain":"VERY_HIGH",
+    "candidateSurvives":true,
+    "candidateIndependentUniversalSibling":false
+  }
+}
