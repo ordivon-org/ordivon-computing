@@ -15,7 +15,7 @@ This file is generated from [`registry.yaml`](registry.yaml), Computing's non-ex
 | `ordivon-security` | strategic-adversarial-agent-research-experiments-and-evaluation | https://github.com/zycxfyh/ordivon-security |
 | `ordivon-finance` | agent-first-capital-research-decision-execution-and-reconciliation-laboratory | https://github.com/zycxfyh/ordivon-finance |
 | `ordivon-human` | problem-driven-human-life-trajectory-and-change-research | https://github.com/zycxfyh/ordivon-human |
-| `ordivon-studio` | creative-technology-expression-research-and-multimedium-production | https://github.com/zycxfyh/ordivon-studio |
+| `ordivon-media` | structured-mediation-expression-and-studio-production-capability | https://github.com/zycxfyh/ordivon-media |
 | `ordivon-web` | public-memory-publication-and-project-navigation | https://github.com/zycxfyh/ordivon-web |
 
 This projection deliberately excludes current semantic owner identity/name/authority/currentness as well as mutable maturity, deployment, Task, service, and live-state claims. For current semantic ownership, follow owner-native authority; use Atlas generated owner/current-recovery projections where covered. Historical packaging identities may remain for Computing lineage. Regenerate with `python3 scripts/generate_project_family.py --write`; verify with `--check`.

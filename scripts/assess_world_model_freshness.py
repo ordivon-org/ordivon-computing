@@ -11,7 +11,6 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import re
 import subprocess
 from typing import Any
 
@@ -19,7 +18,6 @@ from frontier_freshness import classify_revision_relation
 
 ROOT = Path(__file__).resolve().parents[1]
 
-REGISTRY = ROOT / "projects/registry.yaml"
 FRONTIER = ROOT / "research/world-model-frontier.json"
 PROJECT_ROOT = Path("/root/projects")
 
@@ -42,25 +40,35 @@ def head(repository: Path) -> str:
         ["git", "-C", str(repository), "rev-parse", "HEAD"],
         text=True,
         encoding="utf-8",
+        stderr=subprocess.PIPE,
     ).strip()
 
 
 def assess() -> dict[str, Any]:
     frontier = json.loads(FRONTIER.read_text(encoding="utf-8"))
     observed = {item["projectId"]: item["observedRevision"] for item in frontier["projects"]}
-    registry_ids = re.findall(
-        r"^  - id: (ordivon-[a-z0-9-]+)$",
-        REGISTRY.read_text(encoding="utf-8"),
-        re.MULTILINE,
-    )
-    expected = [item for item in registry_ids if item != "ordivon-computing"]
-    if set(expected) != set(observed):
-        raise RuntimeError("world-model frontier project set differs from registry")
     rows = []
     counts: dict[str, int] = {}
-    for project_id in sorted(expected):
+    for project_id in sorted(observed):
         repository = PROJECT_ROOT / project_id
-        current = head(repository)
+        try:
+            current = head(repository)
+        except (OSError, subprocess.CalledProcessError):
+            state = "local_repository_unavailable"
+            counts[state] = counts.get(state, 0) + 1
+            rows.append(
+                {
+                    "projectId": project_id,
+                    "observedRevision": observed[project_id],
+                    "localHeadRevision": None,
+                    "freshnessState": state,
+                    "commitsAhead": None,
+                    "commitsBehind": None,
+                    "current": False,
+                    "observationBoundary": "local checkout unavailable; this is not evidence that the semantic owner/project is absent",
+                }
+            )
+            continue
         relation = classify_revision_relation(repository, observed[project_id], current)
         counts[relation.state] = counts.get(relation.state, 0) + 1
         rows.append(
@@ -79,12 +87,12 @@ def assess() -> dict[str, Any]:
         "kind": "ordivon.world-model-frontier-freshness-assessment",
         "frontierRef": "research/world-model-frontier.json",
         "policyId": "git_relation_freshness_v2",
-        "sourceBasis": "local owner Git HEAD at assessment execution",
+        "sourceBasis": "local Git checkout HEAD when available; unavailable historical checkouts remain explicit non-current observations",
         "projectCount": len(rows),
         "allCurrent": all(row["current"] for row in rows),
         "counts": dict(sorted(counts.items())),
         "projects": rows,
-        "inferenceBoundary": "revision relation is freshness/review pressure only; it does not imply a shared world-model revision",
+        "inferenceBoundary": "revision relation or local-checkout unavailability is freshness/review pressure only; it does not imply owner absence or a shared world-model revision",
     }
     result["integrity"] = {
         "algorithm": "sha256",

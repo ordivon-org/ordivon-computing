@@ -68,6 +68,7 @@ These records own cross-project decision rationale. They do not own implementati
 | --- | --- | --- |
 | [`agent-first-infrastructure-promotion.md`](agent-first-infrastructure-promotion.md) | accepted | Agents first inherit mature mechanisms, then add only thin local Agent-facing adaptations; a new Ordivon abstraction or repository requires repeated evidence for an independent durable semantic responsibility. |
 | [`host-harness-independent-persistence-and-observation.md`](host-harness-independent-persistence-and-observation.md) | accepted | Host and Harness become independently durable; committed owner events feed a non-authoritative automatic observation plane before formal repeated Trials. |
+| [`media-owner-and-studio-packaging-transition.md`](media-owner-and-studio-packaging-transition.md) | accepted | Current Computing packaging/navigation follows Ordivon Media; Studio remains a Media-local capability and historical identity without transferring old world-model standing. |
 | [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) | historical review | Historical Studio production-support admission reasoning is preserved; current semantic owner/navigation is Ordivon Media and must be resolved from Media authority rather than this review. |
 
 ## Reopen conditions

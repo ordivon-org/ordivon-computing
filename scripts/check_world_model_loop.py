@@ -11,7 +11,6 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 LOOP = ROOT / "research" / "world-model-loop-v2.json"
 FRONTIER = ROOT / "research" / "world-model-frontier.json"
-REGISTRY = ROOT / "projects" / "registry.yaml"
 FOUNDATIONS = ROOT / "core" / "foundations.md"
 ROUND_PATTERN = "world-model-assimilation-round-*.json"
 
@@ -148,21 +147,13 @@ def check() -> list[str]:
             "accepted round and frontier loop binding differ",
         )
 
-    registry_ids = [
-        match.group(1)
-        for line in REGISTRY.read_text(encoding="utf-8").splitlines()
-        if (match := re.fullmatch(r"  - id: (ordivon-[a-z0-9-]+)", line))
-    ]
     project_ids = [
         item.get("projectId")
         for item in frontier.get("projects", [])
         if isinstance(item, dict)
     ]
     req(len(project_ids) == len(set(project_ids)), "world-model frontier has duplicate projects")
-    req(
-        set(project_ids) == set(registry_ids) - {"ordivon-computing"},
-        "world-model frontier project set differs from registry",
-    )
+    req("ordivon-computing" not in project_ids, "historical owner-observation frontier may not contain Computing itself")
     allowed = set(frontier.get("allowedStates", []))
     for item in frontier.get("projects", []):
         if not isinstance(item, dict):
@@ -182,8 +173,6 @@ def check() -> list[str]:
     req("## A1 — Inherit mature mechanism owners" in foundations, "A1 provider-first revision is missing")
     req("this burden is comparative" in foundations, "A11 comparative retention test is missing")
 
-    for required in ("ordivon-finance", "ordivon-studio"):
-        req(required in registry_ids, f"stable project registry is missing {required}")
     return issues
 
 
