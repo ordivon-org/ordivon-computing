@@ -49,7 +49,7 @@ Seven epochs without a clean contradiction raises the HD9 burden: attack quantif
 
 After remaining embargoed from Pass A and primary Pass B, **R1–R8 all recur in HD7 and now have seven-epoch recurrence**. None is promoted before HD9.
 
-Selective updates: HD2-N1 temporal durability reaches a sixth observed epoch; HD2-N2 latent option value after declared-objective failure gets a clean sixth-epoch instance from Constellation; HD2-N3 receives no clean new increment; HD4-N1 deadline-conditioned frontier value reaches a fourth epoch through COTS/ISS; HD4-N2 receives no clean increment; HD5-N1 bottleneck migration and HD5-N2 evaluator handoff both reach the three-epoch HD9-review threshold; HD6-N1 open-interface diffusion/control tradeoff reaches a second epoch but remains plausibly derivable from R1/R4/R7/R8.
+Selective updates: HD2-N1 temporal durability reaches a sixth observed epoch; HD2-N2 latent option value after declared-objective failure is deliberately **not** incremented because the lightweight Constellation control bundle does not establish component option value strongly enough; HD2-N3 also receives no clean new increment; HD4-N1 deadline-conditioned frontier value reaches a fourth epoch through COTS/ISS; HD4-N2 parallel redundancy under high-consequence uncertainty reaches a third-epoch review threshold from the Deep-Anchor COTS multi-provider evidence; HD5-N1 bottleneck migration and HD5-N2 evaluator handoff both reach the three-epoch HD9-review threshold; HD6-N1 open-interface diffusion/control tradeoff reaches a second epoch but remains plausibly derivable from R1/R4/R7/R8.
 
 HD7 deliberately adds **no new irreducible residual**. Apparent modern patterns around shared datasets/benchmarks and platform governance are currently explainable by existing observability/representation/institution/local-vs-general structures. Contraction is preferred to novelty inflation.
 
@@ -60,3 +60,7 @@ HD7 strengthens these distinctions: discovery/validation does not equal durable 
 ## Disposition
 
 No frozen-theory mutation. No residual promotion. One-time independent-coder/replay apparatus is archived by digest and removed from the active experiment tree. HD8 receives the unchanged hypotheses and the same history-first/source-lock-before-theory rule. HD9 remains the only place allowed to revise the frozen historical theory.
+
+## Closeout evidence
+
+See `confirmation-bias-audit-v0.json` for the seven-epoch falsifiability pressure and `residual-promotion-gate-v0.json` for current selective recurrence standing.
