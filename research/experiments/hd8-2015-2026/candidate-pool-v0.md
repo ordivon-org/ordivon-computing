@@ -1,0 +1,126 @@
+# HD8 Candidate Pool — 2015–2026
+
+Status: source-native discovery pool; no frozen-theory or historical-residual labels were used during candidate construction.
+
+The pool intentionally mixes successful transformations, failures, delayed routes, standards, safety corrections, institutional changes, and enabling substrates. Exact source contracts are required only after roster freeze.
+
+- C001 | `biology_medicine_public_health` | mRNA vaccines: modified nucleosides to pandemic-scale deployment
+- C002 | `biology_computational` | AlphaFold2 and protein-structure prediction at database scale
+- C003 | `computing_information` | Transformer architecture to large foundation models
+- C004 | `biology_medicine_public_health` | CRISPR editing to approved sickle-cell therapy
+- C005 | `aerospace_transport` | Falcon 9 recovery and orbital-class booster reflight
+- C006 | `manufacturing_materials` | EUV lithography into high-volume semiconductor manufacturing
+- C007 | `energy_power` | Solar PV plus battery-storage scale-up and grid-flexibility bottlenecks
+- C008 | `physics_instrumentation` | LIGO direct gravitational-wave detection and observing network
+- C009 | `biology_public_health` | SARS-CoV-2 genomic surveillance to global pathogen-genomics strategy
+- C010 | `aerospace_instrumentation` | JWST deployment, commissioning and science operations
+- C011 | `energy_physics` | NIF fusion ignition and repeatability/commercialization gap
+- C012 | `biology_medicine` | Semaglutide GLP-1 therapy from diabetes class to chronic obesity treatment
+- C013 | `biology_instrumentation` | Human Cell Atlas and single-cell reference mapping
+- C014 | `biology_medicine` | CAR-T personalized cell therapy from clinical proof to regulated product
+- C015 | `computing_physics` | Quantum error correction below the surface-code threshold
+- C016 | `computing_standards` | RISC-V open instruction-set standard and ecosystem
+- C017 | `computing_infrastructure` | Kubernetes and cloud-native orchestration
+- C018 | `computing_standards` | WebAssembly as portable low-level Web standard
+- C019 | `communications_standards` | 3GPP Release 15 and 5G system standardization
+- C020 | `earth_environment_energy` | Direct-air-capture technology to regional demonstration hubs
+- C021 | `materials_energy` | Perovskite-silicon tandem solar-cell efficiency frontier
+- C022 | `transport_energy` | EV and stationary battery manufacturing/cost scale-up
+- C023 | `biology_computational` | Computational de novo protein design maturation
+- C024 | `aerospace_institutions` | NASA Commercial Crew public-private transportation model
+- C025 | `agriculture_biotech` | Gene-edited crop regulation and commercialization pathways
+- C026 | `biology_instrumentation` | Nanopore long-read sequencing platform diffusion
+- C027 | `biology_public_health` | Malaria vaccine recommendation and implementation
+- C028 | `physics_instrumentation` | Event Horizon Telescope black-hole imaging
+- C029 | `communications_failed` | Project Loon stratospheric internet balloons
+- C030 | `medicine_measurement_failed` | Theranos diagnostic analyzer claims, evaluator failure and collapse
+- C031 | `energy_industrial_failed` | Kemper County coal-gasification/CCS route, cost escalation and gasifier suspension
+- C032 | `biology_parallel` | Parallel COVID-19 vaccine platform development
+- C033 | `aerospace_parallel` | Boeing and SpaceX parallel Commercial Crew providers
+- C034 | `biology_delayed` | Long-fuse mRNA platform before COVID-19 deployment
+- C035 | `biology_delayed` | Long GLP-1 development arc to obesity indication
+- C036 | `communications_standard` | 3GPP Release 15 standalone/non-standalone 5G standard
+- C037 | `computing_standard` | WebAssembly W3C Recommendation
+- C038 | `transport_safety` | Boeing 737 MAX grounding, redesign and return to service
+- C039 | `transport_environment_safety` | Volkswagen diesel defeat-device emissions-evaluator evasion and regulatory correction
+- C040 | `computing_complement` | AI-scale supercomputing/accelerator/datacenter substrate
+- C041 | `biology` | Organoids as experimental disease/development models
+- C042 | `biology` | Spatial transcriptomics and tissue-scale molecular maps
+- C043 | `biotechnology` | Base editing technology
+- C044 | `biotechnology` | Prime editing technology
+- C045 | `medicine` | AAV gene-therapy wave and safety corrections
+- C046 | `medicine` | RSV vaccines after long development history
+- C047 | `public_health` | rapid COVID antigen-test manufacturing and deployment
+- C048 | `public_health` | wastewater genomic epidemiology
+- C049 | `public_health` | digital contact tracing protocols
+- C050 | `public_health` | global vaccine cold-chain expansion
+- C051 | `computing` | OpenAI ChatGPT consumer diffusion
+- C052 | `computing` | diffusion image generation
+- C053 | `computing` | reinforcement learning from human feedback at scale
+- C054 | `computing` | AI coding assistants
+- C055 | `computing` | Mixture-of-experts large-model scaling
+- C056 | `computing` | large-scale AI accelerator clusters
+- C057 | `manufacturing` | HBM memory for AI accelerators
+- C058 | `manufacturing` | advanced semiconductor packaging/chiplets
+- C059 | `manufacturing` | TSMC 5nm/3nm process ramps
+- C060 | `manufacturing` | High-NA EUV first systems
+- C061 | `computing` | Apple silicon ARM transition
+- C062 | `computing` | open-source Linux container ecosystem
+- C063 | `computing_standards` | OCI container standards
+- C064 | `computing` | service mesh adoption
+- C065 | `computing` | serverless/FaaS platforms
+- C066 | `computing` | edge computing platforms
+- C067 | `communications` | LEO broadband constellations
+- C068 | `communications` | Wi-Fi 6/6E standard transition
+- C069 | `communications` | private 5G networks
+- C070 | `communications` | Open RAN ecosystem
+- C071 | `transport` | electric-vehicle mass-market scaling
+- C072 | `manufacturing` | Tesla gigafactory battery manufacturing
+- C073 | `energy` | LFP battery chemistry resurgence
+- C074 | `energy` | sodium-ion battery commercialization
+- C075 | `energy` | solid-state battery development
+- C076 | `energy` | grid-forming inverter development
+- C077 | `energy` | long-duration energy-storage demonstrations
+- C078 | `energy` | offshore wind scale-up and supply-chain bottlenecks
+- C079 | `energy` | green hydrogen electrolyzer scale-up
+- C080 | `energy` | heat-pump deployment acceleration
+- C081 | `environment` | carbon capture and storage hubs
+- C082 | `environment` | methane satellite monitoring
+- C083 | `earth_science` | satellite climate-observation constellations
+- C084 | `earth_science` | wildfire satellite detection systems
+- C085 | `earth_science` | attribution science for extreme weather
+- C086 | `earth_science` | COVID-era rapid meteorological/air-quality data integration
+- C087 | `aerospace` | Mars Perseverance sample caching
+- C088 | `aerospace` | Ingenuity powered flight on Mars
+- C089 | `aerospace` | Artemis I lunar test flight
+- C090 | `aerospace` | OSIRIS-REx asteroid sample return
+- C091 | `aerospace` | DART planetary-defence kinetic impact
+- C092 | `aerospace` | Starship integrated-flight-test iteration
+- C093 | `aerospace` | private lunar landers
+- C094 | `aerospace` | small-satellite launch proliferation
+- C095 | `aerospace_standards` | CubeSat science standardization
+- C096 | `physics_computing` | quantum supremacy/random-circuit sampling claim
+- C097 | `physics` | quantum sensing maturation
+- C098 | `physics` | optical atomic clocks
+- C099 | `astronomy` | fast radio burst localization
+- C100 | `astronomy` | multi-messenger neutron-star astronomy
+- C101 | `astronomy` | DESI cosmology survey
+- C102 | `astronomy` | dark-energy survey instrumentation
+- C103 | `physics_failed` | room-temperature superconductivity false claims and correction
+- C104 | `materials_failed` | LK-99 replication episode
+- C105 | `science_institutions` | reproducibility reforms in psychology/biomedicine
+- C106 | `science_institutions` | registered reports
+- C107 | `science_institutions` | open-science mandates and data repositories
+- C108 | `science_institutions` | preprint infrastructure during COVID-19
+- C109 | `science_institutions` | large collaborative biomedical consortia
+- C110 | `medicine_institutions` | adaptive platform clinical trials
+- C111 | `medicine` | RECOVERY trial rapid therapeutic evaluation
+- C112 | `medicine` | AI-assisted drug discovery
+- C113 | `biology_computational` | protein-language models
+- C114 | `food_biotech` | precision fermentation
+- C115 | `food_biotech` | cultivated-meat regulatory approvals
+- C116 | `agriculture_biotech` | CRISPR crop improvement
+- C117 | `agriculture` | autonomous agricultural robotics
+- C118 | `agriculture` | satellite precision agriculture
+- C119 | `food` | alternative-protein scale-up
+- C120 | `logistics` | supply-chain digital twins
