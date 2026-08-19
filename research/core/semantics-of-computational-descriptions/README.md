@@ -17,3 +17,7 @@ Current invariants:
 - Canonical architecture: typed responsibility hypergraph, not a rooted Foundation tree.
 
 Start with [OWNER-BOUNDARY-AND-STATUS](OWNER-BOUNDARY-AND-STATUS.md) and [SCDF-REGISTRY-AND-STANDING](SCDF-REGISTRY-AND-STANDING.md).
+
+Current derived-theory candidate research:
+
+- [TRAA — Derived-Theory Candidate / Live Dogfood Closeout — 2026-08-19](TRAA-DERIVED-THEORY-CANDIDATE-LIVE-DOGFOOD-20260819.md) — transformation-relative semantic substitutability, live Agent bridge-attractor dogfood, cross-owner replication, falsified rivals, and novelty boundary. `CANDIDATE / NOT_FROZEN`; does not alter the SCDF registry.
