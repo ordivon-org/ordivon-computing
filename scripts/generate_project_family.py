@@ -49,12 +49,16 @@ def outputs() -> tuple[str, str]:
     payload = {
         "schemaVersion": 1,
         "kind": "ordivon.project-family-system-map",
-        "truthRole": "generated-stable-project-identity-projection",
+        "truthRole": "generated-computing-project-family-packaging-projection",
         "source": "projects/registry.yaml",
         "sourceDigest": "sha256:" + hashlib.sha256(REGISTRY.read_bytes()).hexdigest(),
         "projectCount": len(projects),
         "projects": projects,
         "doesNotOwn": [
+            "current semantic owner identity",
+            "current owner display name",
+            "owner authority",
+            "owner semantic currentness",
             "current implementation state",
             "deployment state",
             "research maturity",
@@ -68,15 +72,15 @@ def outputs() -> tuple[str, str]:
     )
     md_text = (
         "# Generated Project-Family System Map\n\n"
-        "This file is generated from [`registry.yaml`](registry.yaml). "
-        "Do not hand-maintain project counts or stable roles here.\n\n"
-        f"**Registered owner projects: {len(projects)}**\n\n"
-        "| Project | Stable role | Repository |\n"
+        "This file is generated from [`registry.yaml`](registry.yaml), Computing's non-exhaustive project-family packaging/compatibility roster. "
+        "It is not a current semantic-owner registry; do not hand-maintain packaging counts or recorded roles here.\n\n"
+        f"**Registered Computing packaging identities: {len(projects)}**\n\n"
+        "| Packaging identity | Recorded role | Repository |\n"
         "| --- | --- | --- |\n"
         f"{rows}\n\n"
-        "This projection deliberately excludes mutable maturity, deployment, Task, service, "
-        "and live-state claims. For those facts, follow the owning repository or native runtime "
-        "authority. Regenerate with `python3 scripts/generate_project_family.py --write`; "
+        "This projection deliberately excludes current semantic owner identity/name/authority/currentness as well as mutable maturity, deployment, Task, service, and live-state claims. "
+        "For current semantic ownership, follow owner-native authority; use Atlas generated owner/current-recovery projections where covered. "
+        "Historical packaging identities may remain for Computing lineage. Regenerate with `python3 scripts/generate_project_family.py --write`; "
         "verify with `--check`.\n"
     )
     return json_text, md_text

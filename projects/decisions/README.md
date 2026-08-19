@@ -42,13 +42,13 @@ what pressure was observed
 
 ## Start here
 
-Read [`agent-first-infrastructure-promotion.md`](agent-first-infrastructure-promotion.md) for the default rule that mature infrastructure and thin Agent-facing adaptations precede any new Ordivon abstraction or repository. Read [`host-harness-independent-persistence-and-observation.md`](host-harness-independent-persistence-and-observation.md) for the accepted Host/Harness authority and automatic-observation boundary. Read [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) for the current review of production support and the possible `ordivon-studio` boundary. Use the rules below before adding another cross-project decision.
+Read [`agent-first-infrastructure-promotion.md`](agent-first-infrastructure-promotion.md) for the default rule that mature infrastructure and thin Agent-facing adaptations precede any new Ordivon abstraction or repository. Read [`host-harness-independent-persistence-and-observation.md`](host-harness-independent-persistence-and-observation.md) for the accepted Host/Harness authority and automatic-observation boundary. [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) is preserved as the historical production-support / `ordivon-studio` admission review; it is not current Media owner authority. Use the rules below before adding another cross-project packaging decision.
 
 ## Current boundary
 
 These records own cross-project decision rationale. They do not own implementation facts, product maturity, deployment state, or changing task progress.
 
-- [`../registry.yaml`](../registry.yaml) remains the only stable project-identity registry.
+- [`../registry.yaml`](../registry.yaml) is only Computing's bounded project-family packaging/compatibility roster; it is non-exhaustive and is not current semantic-owner identity/currentness authority.
 - An implementation repository remains authoritative for its code, interfaces, tests, releases, and runtime state.
 - GitHub Issues own changing work, dependencies, and execution status.
 - A decision with `lifecycle: review` does not authorize a repository extraction or register a new project.
@@ -58,7 +58,7 @@ These records own cross-project decision rationale. They do not own implementati
 1. Connect a new record from this index and from the project-family map when it affects current navigation.
 2. Use `review` while alternatives or admission evidence remain unresolved; use `accepted` only after the exact boundary and consequences are agreed.
 3. Do not silently rewrite a materially changed rationale. Append review evidence, or create a superseding record and link it through metadata.
-4. An accepted admission, merge, extraction, or retirement decision must update `projects/registry.yaml`, [`../README.md`](../README.md), and any affected repository authority documents in the same change set or an explicitly linked implementation issue.
+4. An accepted Computing packaging admission, merge, extraction, or retirement decision must update `projects/registry.yaml` and [`../README.md`](../README.md) when that packaging/navigation roster actually changes. A semantic owner admission, rename, or authority transition does **not** require a new Computing registry row unless a concrete Computing consumer needs that packaging identity; owner-native authority remains primary.
 5. A rejected candidate remains as an archived record when its reasoning is likely to recur.
 6. Record evidence and triggers, not meeting transcripts or exhaustive chronology.
 
@@ -68,7 +68,7 @@ These records own cross-project decision rationale. They do not own implementati
 | --- | --- | --- |
 | [`agent-first-infrastructure-promotion.md`](agent-first-infrastructure-promotion.md) | accepted | Agents first inherit mature mechanisms, then add only thin local Agent-facing adaptations; a new Ordivon abstraction or repository requires repeated evidence for an independent durable semantic responsibility. |
 | [`host-harness-independent-persistence-and-observation.md`](host-harness-independent-persistence-and-observation.md) | accepted | Host and Harness become independently durable; committed owner events feed a non-authoritative automatic observation plane before formal repeated Trials. |
-| [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) | review | Production support is identified as a distinct responsibility; admission of `ordivon-studio` remains conditional. |
+| [`product-and-production-support-boundary.md`](product-and-production-support-boundary.md) | historical review | Historical Studio production-support admission reasoning is preserved; current semantic owner/navigation is Ordivon Media and must be resolved from Media authority rather than this review. |
 
 ## Reopen conditions
 

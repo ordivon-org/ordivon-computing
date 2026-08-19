@@ -1,10 +1,10 @@
 # Generated Project-Family System Map
 
-This file is generated from [`registry.yaml`](registry.yaml). Do not hand-maintain project counts or stable roles here.
+This file is generated from [`registry.yaml`](registry.yaml), Computing's non-exhaustive project-family packaging/compatibility roster. It is not a current semantic-owner registry; do not hand-maintain packaging counts or recorded roles here.
 
-**Registered owner projects: 11**
+**Registered Computing packaging identities: 11**
 
-| Project | Stable role | Repository |
+| Packaging identity | Recorded role | Repository |
 | --- | --- | --- |
 | `ordivon-computing` | plural-intelligence-persistence-coordination-research-protocol-reference-and-conformance | https://github.com/zycxfyh/ordivon-computing |
 | `ordivon-runtime` | trusted-local-durable-execution-and-recovery-plane | https://github.com/zycxfyh/ordivon-runtime |
@@ -18,4 +18,4 @@ This file is generated from [`registry.yaml`](registry.yaml). Do not hand-mainta
 | `ordivon-studio` | creative-technology-expression-research-and-multimedium-production | https://github.com/zycxfyh/ordivon-studio |
 | `ordivon-web` | public-memory-publication-and-project-navigation | https://github.com/zycxfyh/ordivon-web |
 
-This projection deliberately excludes mutable maturity, deployment, Task, service, and live-state claims. For those facts, follow the owning repository or native runtime authority. Regenerate with `python3 scripts/generate_project_family.py --write`; verify with `--check`.
+This projection deliberately excludes current semantic owner identity/name/authority/currentness as well as mutable maturity, deployment, Task, service, and live-state claims. For current semantic ownership, follow owner-native authority; use Atlas generated owner/current-recovery projections where covered. Historical packaging identities may remain for Computing lineage. Regenerate with `python3 scripts/generate_project_family.py --write`; verify with `--check`.

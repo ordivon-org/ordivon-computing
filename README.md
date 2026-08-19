@@ -131,7 +131,7 @@ A proposed shared layer should survive four questions: **what recurring pressure
 
 ## Current project family
 
-Use [`projects/README.md`](projects/README.md) to locate current owners. Stable roles include Computing, Host, Harness, Runtime, World, Finance, Security, Game, Human, Studio, and Web. They compose around responsibility boundaries rather than forming one compulsory stack. Product maturity stays with each owner.
+Use [`projects/README.md`](projects/README.md) for Computing's bounded project-family packaging/history navigation, not as an exhaustive current semantic-owner registry. Resolve current owner identity, current display name, authority and currentness from the owner-native authority surface; use Atlas generated owner/current-recovery projections where covered. Historical packaging names such as Studio remain recoverable without overriding the current Media owner. Projects compose around responsibility boundaries rather than forming one compulsory stack.
 
 ## Start here
 

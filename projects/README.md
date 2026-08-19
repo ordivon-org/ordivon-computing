@@ -1,6 +1,6 @@
 # Projects
 
-The Ordivon project family is a set of **owner-native responsibility boundaries**, not a pipeline that every request must traverse.
+This page is a **Computing-owned, non-exhaustive project-family packaging and navigation view**, not a registry of all current semantic owners and not a pipeline that every request must traverse. Current semantic owner identity, display name, authority and currentness remain owner-native; Atlas may provide generated current-recovery projections where covered.
 
 Follow the missing fact:
 
@@ -23,8 +23,8 @@ what does the evidence mean for capital/security/game/human work?
 same residual responsibility recurs across different owners?
 → Computing may test/promote a shared contract
 
-source-owned facts need expression/public encounter?
-→ Studio / Web without transferring factual authority
+source-owned facts need structured mediation/public encounter?
+→ Media / Web without transferring factual authority
 ```
 
 This map is current packaging, not an eternal architecture.
@@ -42,7 +42,7 @@ This map is current packaging, not an eternal architecture.
 | [Security](https://github.com/zycxfyh/ordivon-security) | authorized adversarial autonomy, scoped authority, independent consequence evidence | [Security authority](https://github.com/zycxfyh/ordivon-security/blob/main/docs/authority.md) |
 | [Game](https://github.com/zycxfyh/ordivon-game) | authoritative playable game World/rules/action/replay | [Game authority](https://github.com/zycxfyh/ordivon-game/blob/main/docs/authority.md) |
 | [Human](https://github.com/zycxfyh/ordivon-human) | human research, practical paths, evidence/ethics/privacy limits | [Human authority](https://github.com/zycxfyh/ordivon-human/blob/main/docs/authority.md) |
-| Studio | Art & Expression research and multi-medium production from source facts | Studio owner repository |
+| Media | structured mediation, expression and multi-medium production without source-truth transfer | [Media owner repository](https://github.com/zycxfyh/ordivon-media) |
 | [Web](https://github.com/zycxfyh/ordivon-web) | public orientation, publication, encounter, dated interpretation | [Web authority](https://github.com/zycxfyh/ordivon-web/blob/main/content/editorial/authority.md) |
 
 Use [ordivon.com/projects](https://ordivon.com/projects) for public orientation. Use the owning repository for current implementation/research facts.
@@ -63,7 +63,7 @@ Historical evidence remains bound to its revision and observation time. A System
 
 ## Stable identity and mutable state
 
-[`registry.yaml`](registry.yaml) owns stable project identity/role/navigation. It does not own mutable maturity or deployment state. [`SYSTEM-MAP.md`](SYSTEM-MAP.md) and [`system-map.json`](system-map.json) are generated projections of that registry so project counts and stable roles cannot drift through hand-maintained prose; they deliberately exclude live implementation, deployment, Task, service, and maturity state. [`conformance.toml`](conformance.toml) declares protocol/conformance relationships without making Computing a product controller.
+[`registry.yaml`](registry.yaml) owns only Computing's bounded project-family packaging/compatibility roster and historical navigation identities. It is intentionally non-exhaustive: it does not own current semantic owner identity, current display name, owner authority, currentness, maturity or deployment state. Historical packaging IDs may remain when Computing's world-model/conformance lineage depends on them; for example, `ordivon-studio` is retained as historical packaging lineage while the current semantic owner is **Ordivon Media**. [`SYSTEM-MAP.md`](SYSTEM-MAP.md) and [`system-map.json`](system-map.json) are generated packaging projections of that roster, not owner registries. [`conformance.toml`](conformance.toml) declares protocol/conformance relationships without making Computing a product controller.
 
 Cross-project ownership/admission/extraction/merge/retirement rationale lives under [`decisions/README.md`](decisions/README.md). A record under review does not create a project.
 
