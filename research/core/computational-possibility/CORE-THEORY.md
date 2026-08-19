@@ -46,9 +46,13 @@ The declared abstract resource/performance constraints and their algebra: scalar
 
 A marker that actual capability, execution, physical realization, connectivity, orchestration and other current operational facts remain externally authoritative. `A_ext` prevents formal computational possibility from being silently identified with actual realization.
 
-The eight coordinates are a current coverage schema, not eight Foundations or eight universal data fields. Internal representations may refine or combine them provided the theorem-independent distinctions remain recoverable.
+The eight coordinates are a current coverage schema, not eight Foundations, proven orthogonal/minimal dimensions, or eight universal data fields. Internal representations may refine, combine or refactor them provided the theorem-independent distinctions remain recoverable through an appropriate preservation/transport argument.
 
-## 3. Admissible witness space
+## 3. Claim formation and admissible witness space
+
+`Achievable` is formed only for an already constituted computational situation. A useful judgment is `C : ConstitutedComputationalSituation`; underconstituted descriptions do not become computational impossibility claims merely because no witness can yet be stated or found.
+
+Constitution is load-bearing but does not require eight fixed fields. Only the semantic, obligation, witness, information/process, quantifier and resource distinctions that affect the theorem must be explicit/recoverable.
 
 For a declared situation `C`, let `Adm(C)` denote the witnesses admitted by its representation, information, witness-grammar, process and other formal conditions.
 
@@ -65,6 +69,8 @@ Dynamic or self-modifying computation is permitted when the changing state/rules
 The central derived relation is ordinary typed witness existence:
 
 `Achievable(C)  iff  exists w in Adm(C) such that w satisfies O and Phi under the constituted semantics of C.`
+
+This outer existential is a guarded strategy normal form, not permission to hide load-bearing quantifier, role, uniformity, visibility, probability or causal-dependency structure inside an opaque satisfaction predicate. Such structure must remain explicit/recoverable through the constituted situation.
 
 Where a problem/regime/constraint notation is useful, the historical style
 
@@ -84,6 +90,8 @@ Impossibility therefore introduces no second primitive. The negative claim is on
 
 Permanent controls:
 
+- `Underconstituted != Impossible`.
+- `NoWitnessFound != NoWitnessExists`.
 - `ProofMethodBarrier != ComputationalLowerBound`.
 - `ProxyModelBarrier != TargetRegimeComputationalBarrier`.
 
@@ -108,19 +116,28 @@ From these constraint-indexed achievability sets arise:
 
 No universal scalar resource, total order, attained optimum, or single cost semantics is assumed.
 
-## 7. Transformations, reductions and simulations
+## 7. Transformations, reductions, simulations and capability substitution
 
-A reduction/simulation/translation is a typed higher-order computational witness or transformer between declared situations.
+A reduction/simulation/translation is a typed higher-order computational witness or transformer between declared situations. The translated object kind must be clear where direction matters: an instance/obligation map and a solver/witness/capability lift may run in opposite directions.
 
-At minimum, a useful transformer claim identifies:
+At minimum, a useful transformer claim identifies, where load-bearing:
 
-- source and target obligations/situations;
-- admitted access to source capabilities/witnesses;
-- the witness transformation or simulation;
+- source and target obligations/situations/scopes;
+- the object being translated (instance, obligation, witness, capability, interaction contract or related typed object);
+- admitted access to source/target capabilities or witnesses;
+- the parametric witness/capability transformation or simulation;
+- promise/domain, solution and candidate coverage needed by the theorem family;
 - semantic/contract preservation references where required;
-- resource/performance overhead or distortion where claimed.
+- information/dependency/causal and contextual preservation where required;
+- resource/performance overhead, domination, reflection or distortion where claimed.
 
-Thus reduction existence is itself an achievability claim. Transformation soundness may depend on SCD/source-owned preservation facts, which are referenced rather than redefined by CP.
+Higher-order capabilities may require a constituted interaction contract covering role/input assumptions, allowed behavior/laws, history/state/consistency, visibility/causality, operational envelope and stochastic/liveness structure where theorem-bearing. Pointwise output validity alone is not a universal capability semantics.
+
+Transport composition is partial and typed: a produced middle contract must satisfy/refine the contract consumed by the next transport. Syntactic function composition or a shared middle label is insufficient without the relevant semantic, admissibility, scope, dependency, behavior and quantitative compatibility.
+
+A sound witness-preserving transport from `C1` to `C2` yields `Achievable(C1) -> Achievable(C2)` and, by contraposition over constituted scope-aligned claims, `Impossible(C2) -> Impossible(C1)`. Quantitative upper transport requires forward domination; quantitative lower transport requires suitable reverse candidate coverage/reflection.
+
+Thus reduction existence is itself an achievability claim. Transformation soundness may depend on SCD/source-owned preservation facts, which are referenced rather than redefined by CP. Full derived laws are materialized in `DERIVED-TRANSPORT-CAPABILITY-CALCULUS.md`.
 
 ## 8. Comparative computational power
 
@@ -166,9 +183,17 @@ A unified existential engine does not identify computational situations that dif
 - `Randomized != Deterministic` when witness/interface/resource structure differs;
 - `Offline != Online/Causal` when revelation/causal availability differs;
 - exact represented output, effective arbitrary-precision approximation and convergence-only obligations when their representation/guarantees differ;
-- formal achievability and actual realization.
+- formal achievability and actual realization;
+- `QuantifierStructure != OpaqueSatisfactionPredicate`;
+- `ComponentwiseAchievability != CompositionalAchievability`;
+- `ValidOutputRelation != SelectionSemantics`;
+- `PointwiseValidity != HistoryValidity`;
+- `PerCallMarginals != JointLaw`;
+- `AssumptionStrength != ObligationStrength`;
+- `RegimePowerOrder != ContractDemandOrder`;
+- `ContractDemandOrder != ComputationalHardnessOrder`.
 
-The research task is to locate the responsible coordinate, not to erase the distinction or invent a new existential primitive for every case.
+The research task is to locate the responsible coordinate and derived transport/admissibility law, not to erase the distinction or invent a new existential primitive for every case.
 
 ## 12. Actual applicability
 

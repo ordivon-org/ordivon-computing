@@ -10,5 +10,5 @@ Preserved negative results include:
 - D3 Proof Search has no inherited next-route priority;
 - ComputationalRegime may not be theorem-stuffed;
 - applicability transport is not a timeless owner-state cache;
-- CP does not absorb SCD, Runtime, Network, World, Harness, Security, statistical, or source-domain authority;
+- CP does not absorb SCD, Runtime, Interlocus, World, Harness, Security, statistical, or source-domain authority;
 - thin Engineering Consumption does not justify a service/registry/theorem engine without a new consumer falsifier.

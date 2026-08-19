@@ -8,9 +8,9 @@ Meaning, interpretation, equivalence/refinement, and preservation are imported f
 
 Runtime owns actual execution, attempt lifecycle, persistence, actual resource availability/consumption, and operational evidence. CP owns abstract regime-relative possibility and resource/performance theorems conditional on declared projections.
 
-## Network
+## Interlocus
 
-Network owns actual reachability, topology, routing, bandwidth, and communication capability. CP may model communication constraints only through an explicit regime/interface projection.
+Interlocus owns actual reachability, topology, routing, bandwidth, and communication capability. CP may model communication constraints only through an explicit regime/interface projection.
 
 ## World
 

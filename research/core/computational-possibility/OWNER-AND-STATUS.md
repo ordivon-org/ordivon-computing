@@ -10,7 +10,7 @@ Computational Possibility owns formal, regime-relative truth about:
 
 It reasons conditionally over constituted source semantics and declared regime/interface structure.
 
-It does not own actual Runtime execution/resources, actual Network capability, World physical realizability, Harness orchestration, Security authority/adversarial truth, statistical validity, or source-domain value/authority.
+It does not own actual Runtime execution/resources, actual Interlocus capability, World physical realizability, Harness orchestration, Security authority/adversarial truth, statistical validity, or source-domain value/authority.
 
 Current status:
 

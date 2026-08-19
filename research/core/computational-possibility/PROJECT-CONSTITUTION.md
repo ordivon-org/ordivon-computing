@@ -30,9 +30,9 @@ Zero numbered Foundations is a positive architectural result. It does not mean n
 
 ## 4. Constitutional laws
 
-### CP-C1 — Regime relativity
+### CP-C1 — Regime relativity and claim formation
 
-Computational possibility is never asserted without a declared computational situation. Relevant source/target representation, information access, witness grammar, process/interaction structure, obligation/quantifiers, transformation assumptions and resource structure must be explicit where load-bearing.
+Computational possibility is never asserted without an already constituted computational situation. Relevant source/target representation, information access, witness grammar, process/interaction structure, obligation/quantifiers, transformation assumptions and resource structure must be explicit where load-bearing. Underconstituted descriptions fail CP claim formation; they are not computational impossibility results.
 
 ### CP-C2 — Theorem independence / anti-stuffing
 
@@ -45,7 +45,7 @@ Computational Possibility reasons conditionally over imported truths; it does no
 - denotation, representation meaning and semantic preservation remain source/SCD/shared-owner truth;
 - proof validity and proof-object semantics remain Proof/Logic/source truth;
 - actual execution, resource availability and attempt lifecycle remain Runtime truth;
-- actual reachability, topology, routing and communication capability remain Network truth;
+- actual reachability, topology, routing and communication capability remain Interlocus truth;
 - physical/substrate realizability remains World truth;
 - concrete orchestration remains Harness truth;
 - strategic/payoff/incentive semantics remain Game/Mechanism/source truth;
@@ -83,7 +83,7 @@ Core derived families include:
 
 - achievability and impossibility;
 - constraint-indexed complexity, upper/lower bounds and frontiers;
-- typed reduction, simulation, translation and transfer;
+- typed reduction, simulation, translation, capability substitution and transfer;
 - comparative computational power over an explicit obligation universe;
 - induced hardness, completeness and degree structures;
 - uniform/nonuniform, advice, preprocessing, dynamic, trajectory and meta variants.

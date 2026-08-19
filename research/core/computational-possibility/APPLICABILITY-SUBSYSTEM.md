@@ -56,7 +56,7 @@ Examples:
 
 - meaning/equivalence/preservation -> SCD/source owners;
 - actual execution/resource availability -> Runtime;
-- actual reachability/topology/bandwidth -> Network;
+- actual reachability/topology/bandwidth -> Interlocus;
 - physical realizability -> World;
 - concrete orchestration/provisioning -> Harness;
 - security/authority/adversarial truth -> Security;

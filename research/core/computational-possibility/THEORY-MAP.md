@@ -4,9 +4,9 @@
 
 The project is organized around one general pattern:
 
-`Computational Situation -> Admissible Witness Space -> Witness Existence -> Derived Computational Structure`.
+`Claim Formation -> Constituted Computational Situation -> Admissible Witness / Interaction Structure -> Quantified Satisfaction -> Achievability -> Derived Computational Structure`.
 
-The core is not a numbered Foundation. It is a theorem-independent typed description of the computational situation plus ordinary typed/higher-order quantification over admissible witnesses.
+The core is not a numbered Foundation. It is a theorem-independent typed description of the computational situation plus ordinary typed/higher-order quantification over admissible witnesses. The outer existential remains a guarded strategy normal form: theorem-bearing role, quantifier, dependency, visibility, interaction and probability structure must remain recoverable.
 
 ## 2. Eight-axis computational-situation coverage schema
 
@@ -34,7 +34,7 @@ What success requires: decision, search, realization, semidecision, approximatio
 
 ### Axis 6 — Transformation / Transport
 
-How witnesses, obligations, representations or regimes may be translated, reduced, simulated or otherwise transformed, including preservation and distortion assumptions.
+How instances, obligations, witnesses, capabilities, representations or regimes may be translated, reduced, simulated or otherwise transformed, including preservation and distortion assumptions. Instance/obligation translation and witness/capability lifting may run in opposite directions and must be typed where theorem direction depends on that distinction.
 
 ### Axis 7 — Resource / Performance Structure, Composition & Aggregation
 
@@ -42,7 +42,7 @@ Declared resource/performance coordinates and their algebra: scalar/vector/preor
 
 ### Axis 8 — Actual Realization External Owner
 
-Whether formal capabilities are actually available or realized is not CP-owned truth. Runtime, Network, World, Harness and other owners supply authoritative actual-state evidence. CP owns only the conditional formal claim and the derived transport burden.
+Whether formal capabilities are actually available or realized is not CP-owned truth. Runtime, Interlocus, World, Harness and other owners supply authoritative actual-state evidence. CP owns only the conditional formal claim and the derived transport burden.
 
 ## 3. Existential engine
 
@@ -68,9 +68,9 @@ Historical `CExists_R(O; Gamma)` expressed the same idea. It remains useful deri
 
 Complexity is constraint-indexed achievability. Upper/lower bounds and Pareto/frontier structures arise by varying declared resource/performance constraints rather than by introducing a universal scalar cost.
 
-### Reduction / simulation / translation
+### Reduction / simulation / translation / capability substitution
 
-A reduction or simulation is a typed higher-order transformer whose admissibility, access, preservation and overhead/distortion conditions are explicit. Reduction existence is itself an achievability claim.
+A reduction or simulation is a typed higher-order transformer whose admissibility, access, scope/coverage, parametricity, preservation and overhead/distortion conditions are explicit. Higher-order use may consume a constituted capability interaction contract rather than a single witness; provider choice/history/law semantics and assumption/guarantee substitution are declared only where theorem-bearing. Reduction existence is itself an achievability claim. Full derived laws are in `DERIVED-TRANSPORT-CAPABILITY-CALCULUS.md`.
 
 ### Computational power
 
@@ -94,10 +94,20 @@ Unification does not erase distinctions. The project preserves, where the declar
 - Offline != Online/Causal.
 - Exact represented output != weaker convergence-only obligations.
 - FormalAchievability != ActualRealization.
+- Underconstituted != Impossible.
+- NoWitnessFound != NoWitnessExists.
+- QuantifierStructure != OpaqueSatisfactionPredicate.
+- ComponentwiseAchievability != CompositionalAchievability.
+- ValidOutputRelation != SelectionSemantics.
+- PointwiseValidity != HistoryValidity.
+- PerCallMarginals != JointLaw.
+- AssumptionStrength != ObligationStrength.
+- RegimePowerOrder != ContractDemandOrder.
+- ContractDemandOrder != ComputationalHardnessOrder.
 - ProofMethodBarrier != ComputationalLowerBound.
 - ProxyModelBarrier != TargetRegimeComputationalBarrier.
 
-The goal is to locate the coordinate responsible for the distinction rather than create a new existential primitive for every phenomenon.
+The goal is to locate the coordinate and derived admissibility/transport law responsible for the distinction rather than create a new existential primitive for every phenomenon.
 
 ## 6. Specialist-route validation map
 
