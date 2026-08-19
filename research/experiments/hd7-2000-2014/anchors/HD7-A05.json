@@ -1,0 +1,84 @@
+{
+  "title": "Warehouse-scale data processing from cluster substrate through MapReduce to Hadoop/YARN",
+  "timeBounds": "2003-2014",
+  "domain": "communications_electronics_and_computing",
+  "geographies": [
+    "United States",
+    "global"
+  ],
+  "pressure": "Internet-scale services generated data volumes and failure rates that made single-machine and manually managed parallel processing poor fits for routine analysis.",
+  "preExistingWorldModel": "Parallel computing and distributed filesystems existed, but Google workloads ran on large commodity clusters with frequent component failure and application-specific data processing needs.",
+  "candidateRoutes": [
+    "specialized high-end shared-memory machines",
+    "explicit distributed programming",
+    "fault-tolerant commodity clusters",
+    "restricted programming model that hides partitioning/scheduling/failure",
+    "open ecosystem reimplementation"
+  ],
+  "observationsAndInstruments": [
+    "Google described commodity clusters with fault-tolerant software at large scale in 2003.",
+    "GFS explicitly revised older distributed-filesystem assumptions based on application workload and commodity hardware.",
+    "MapReduce in 2004 let users specify map/reduce functions while the runtime handled partitioning, scheduling, failures and communication.",
+    "Apache Hadoop operationalized open HDFS/MapReduce implementations; Hadoop 2 added YARN to separate resource management from the original MapReduce execution model."
+  ],
+  "decisiveTests": [
+    "can commodity clusters sustain large data workloads despite frequent failures",
+    "can a restricted abstraction express enough real workloads to repay hidden machinery",
+    "does an open implementation survive broader organizations/workloads and eventually require architectural decomposition"
+  ],
+  "technicalOrScientificTransition": "The key capability shifted from owning many machines to exposing a constrained programming/data substrate that compiled user work onto failure-prone distributed infrastructure.",
+  "complements": [
+    "commodity clusters",
+    "distributed filesystem",
+    "scheduler",
+    "data locality",
+    "failure recovery",
+    "job monitoring",
+    "open-source ecosystem",
+    "resource manager"
+  ],
+  "rivalsAndFailures": [
+    "The simplified model did not eliminate workload limits or the underlying operational machinery.",
+    "Hadoop 2/YARN shows that the first combined resource/execution architecture did not remain the final platform boundary."
+  ],
+  "diffusionAndScaling": "The Google ideas were reimplemented in an open ecosystem and then decomposed as the workload and platform scope expanded.",
+  "standardsAndInstitutions": "Google papers published design knowledge; Apache governance and contributors owned the open implementation evolution.",
+  "externalitiesAndCorrections": "Abstraction improves accessibility while risking hidden costs, skew and workload mismatch; later interfaces must expose enough control for new workloads.",
+  "secondOrderEffects": "Data-processing infrastructure became a substrate for search, analytics and later machine-learning workloads, shifting bottlenecks toward data quality, scheduling and higher-level systems.",
+  "sourceNativeSummary": "Warehouse-scale data processing combined a physical cluster substrate with abstractions that deliberately hid low-level distribution; open diffusion later forced new resource-management boundaries rather than preserving the initial form unchanged.",
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd7-source-native-anchor",
+  "status": "source_locked_before_lw0_coding",
+  "codingState": "source_locked",
+  "trajectoryId": "HD7-A05",
+  "sourceBundle": [
+    {
+      "tier": "T0_primary",
+      "title": "Google cluster architecture 2003",
+      "url": "https://research.google/pubs/web-search-for-a-planet-the-google-cluster-architecture/",
+      "supports": "source-native chronology, mechanism/realization transition and stated boundary"
+    },
+    {
+      "tier": "T0_primary",
+      "title": "Google File System 2003",
+      "url": "https://research.google/pubs/the-google-file-system/",
+      "supports": "source-native chronology, mechanism/realization transition and stated boundary"
+    },
+    {
+      "tier": "T0_primary",
+      "title": "MapReduce 2004",
+      "url": "https://research.google/pubs/mapreduce-simplified-data-processing-on-large-clusters/",
+      "supports": "source-native chronology, mechanism/realization transition and stated boundary"
+    },
+    {
+      "tier": "T0_independent_open_project",
+      "title": "Apache Hadoop 2.0/YARN release",
+      "url": "https://hadoop.apache.org/release/2.0.0-alpha.html",
+      "supports": "source-native chronology, mechanism/realization transition and stated boundary"
+    }
+  ],
+  "unresolvedHistoricalQuestions": [
+    "Which complement or institution was rate-limiting at each lifecycle phase?",
+    "Which later success narrative compresses rival, failure or distributed contribution?"
+  ]
+}

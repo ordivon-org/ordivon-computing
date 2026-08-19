@@ -1,0 +1,913 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd7-historical-replay-live",
+  "status": "complete_original_trials_preserved",
+  "treatment": "affordance",
+  "evidenceRole": "harness_and_leakage_calibration",
+  "records": [
+    {
+      "replayId": "HR7-A02",
+      "hiddenTrajectoryId": "HD7-A02",
+      "cutoff": "2011, after a bacterial RNA-guided nuclease system and two required RNA components are known, before the 2012 programmable single-guide cleavage result",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "The minimal programmable mechanism is unresolved because no purified system has yet demonstrated that the large nuclease plus the two small RNAs are sufficient to cleave a chosen DNA target in a sequence-directed manner.",
+        "routes": [
+          {
+            "route": "Purified-component in-vitro RNA-guided cleavage",
+            "decision": "continue",
+            "reason": "Directly tests sufficiency of the known components and makes the programmable recognition mechanism accessible to biochemical dissection."
+          },
+          {
+            "route": "Design and test a single-guide RNA chimera",
+            "decision": "continue",
+            "reason": "If the two-RNA reaction is reconstituted, fusing the trans-acting RNA to the target guide simplifies transfer and can be validated in the same cleavage assay."
+          },
+          {
+            "route": "Heterologous plasmid-interference assay in E. coli",
+            "decision": "defer",
+            "reason": "Defer until in-vitro cleavage is shown, because host interference cannot distinguish direct nuclease activity from accessory bacterial factors."
+          },
+          {
+            "route": "Mismatch-panel specificity mapping",
+            "decision": "continue",
+            "reason": "Quantifying cleavage against a panel of single- and multi-base mismatches is essential before claiming sequence-specific programmable cleavage."
+          },
+          {
+            "route": "ZFN/TALEN-based cellular editing comparison",
+            "decision": "defer",
+            "reason": "Transfection of cultured cells should wait until a molecular RNA-guided cleavage operation is reproducibly established outside cells."
+          }
+        ],
+        "topRoute": "Purified-component in-vitro RNA-guided cleavage",
+        "nextDiscriminatingTest": "Incubate recombinant large nuclease with in-vitro transcribed or chemically synthesized crRNA and tracrRNA and a linearized plasmid containing the complementary protospacer, then analyze for site-specific cleavage products by gel electrophoresis; include no-RNA, non-target guide, and tracrRNA-only negative controls.",
+        "requiredComplements": [
+          "recombinant expression and purification of the large nuclease",
+          "in-vitro transcribed or synthetic crRNA and tracrRNA",
+          "cloned linearized target DNA with a known protospacer-adjacent motif if the system requires one",
+          "denaturing or agarose gel readout for cleavage fragments",
+          "mismatched target controls to evaluate specificity"
+        ],
+        "mainFailureRisks": [
+          "nucleolytic activity may require an unanticipated bacterial cofactor absent from the purified system",
+          "the two RNA components may require post-transcriptional processing or a specific processing nuclease",
+          "the large nuclease may be insoluble or require special buffer and ion conditions",
+          "cleavage may be observed only at high concentrations or with slow kinetics, making transfer impractical",
+          "in-vitro DNA cleavage may not predict safe or efficient editing in eukaryotic cells"
+        ],
+        "generalizationBoundary": "Reconstituted RNA-guided cleavage in vitro supports a programmable nuclease mechanism, but does not by itself claim genome-editing safety, cellular delivery, or repair outcomes in eukaryotic cells.",
+        "unresolvedUnknowns": [
+          "minimum sequence and structural requirements of each RNA and nuclease",
+          "whether a protospacer-adjacent motif or other flanking-sequence constraint determines target selection",
+          "whether the system cuts both DNA strands and if cleavage is staggered or blunt",
+          "which divalent metal ions and buffer conditions support maximal activity",
+          "how off-target tolerance scales with guide length and mismatches",
+          "whether heterologous expression in non-native hosts preserves activity"
+        ],
+        "capabilityComplianceNote": "Proposed tests use only microbial genetics and sequencing, component purification, RNA synthesis and modification, in-vitro cleavage assays, and the stated contemporary editing baseline; no unavailable future tools are assumed."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "promptTokens": 797,
+        "completionTokens": 2882,
+        "totalTokens": 3679,
+        "elapsedMs": 30631
+      },
+      "attempts": [],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A02",
+      "hiddenTrajectoryId": "HD7-A02",
+      "cutoff": "2011, after a bacterial RNA-guided nuclease system and two required RNA components are known, before the 2012 programmable single-guide cleavage result",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Biochemical specificity is unproven, blocking any transferable programmable-nuclease claim.",
+        "routes": [
+          {
+            "route": "Reconstitute programmable slicing in vitro",
+            "decision": "continue",
+            "reason": "This directly tests whether the nuclease and two RNAs are sufficient for complementarity-dependent cleavage, which is the core unresolved claim."
+          },
+          {
+            "route": "Minimal genetic system transfer in a heterologous bacterium",
+            "decision": "defer",
+            "reason": "This introduces host-factor assumptions and is less diagnostic than biochemistry until the purified minimal reaction is established."
+          },
+          {
+            "route": "Chimeric guide engineering for altered targets",
+            "decision": "defer",
+            "reason": "Guide modularity should be tested only after the native reaction is reconstituted; early failures could be due to misfolding or missing cofactors rather than design principles."
+          },
+          {
+            "route": "Structure-function mutagenesis of nuclease/RNA domains",
+            "decision": "defer",
+            "reason": "This is mechanistically informative but requires a defined cleavage assay first to score mutants reliably."
+          },
+          {
+            "route": "Compare to ZF/TALEN editing after nuclease operation",
+            "decision": "defer",
+            "reason": "Transfection and genome editing are premature until molecular cleavage specificity is established and the system is transferred into a cellular context safely."
+          }
+        ],
+        "topRoute": "Reconstitute programmable slicing in vitro",
+        "nextDiscriminatingTest": "Run in vitro cleavage assays with purified nuclease, cognate trans-acting RNA, and synthetic target-derived guide RNA; test complementarity-dependent cleavage and scrambled/mismatched target controls.",
+        "requiredComplements": [
+          "Purify recombinant nuclease",
+          "Synthesize guide and trans-acting RNAs",
+          "Use radiolabeled or fluorescent DNA/RNA substrates",
+          "Verify guide-trans-RNA-nuclease complex assembly by native gel",
+          "Include divalent metal and buffer conditions suitable for nuclease activity"
+        ],
+        "mainFailureRisks": [
+          "The nuclease requires an unknown bacterial factor absent in the purified system",
+          "The trans-acting RNA may adopt a different conformation in vitro",
+          "The native target is RNA rather than DNA, so the chosen substrate is wrong",
+          "Cleavage occurs but is poorly sequence-specific, undermining programmability"
+        ],
+        "generalizationBoundary": "Any demonstrated cleavage applies only to this reconstituted locus with synthetic components in vitro; it does not establish genome-editing safety, cellular repair outcomes, or generalizability to other loci.",
+        "unresolvedUnknowns": [
+          "Whether the trans-acting RNA is a scaffold, an allosteric activator, or a guide-processing factor",
+          "Whether there is a protospacer-adjacent motif or secondary structure requirement",
+          "Whether the natural target is DNA, RNA, or both",
+          "How off-target cleavage and cellular repair would behave in mammalian cells"
+        ],
+        "capabilityComplianceNote": "All proposed actions stay within the listed capabilities: microbial genetics, protein/RNA purification, RNA synthesis, in vitro cleavage assays, and ZF/TALEN baseline comparisons; cell transfection is deferred until molecular specificity is established."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 2,
+        "transportRetries": 0,
+        "schemaRetries": 1,
+        "promptTokens": 1621,
+        "completionTokens": 4809,
+        "totalTokens": 6430,
+        "elapsedMs": 66152
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "validationError": "topRoute not exact route",
+          "raw": "{\n  \"dominantBottleneck\": \"Lack of direct biochemical evidence that the purified large nuclease plus the two RNA components are sufficient for programmable, sequence-complementarity-dependent cleavage; unknown PAM/cofactor requirements block any broader transfer.\",\n  \"routes\": [\n    {\n      \"route\": \"In vitro reconstitution: purify the large nuclease, synthesize guide and scaffold RNAs, and test cleavage of labeled DNA/RNA targets with matched vs mismatched complementarity.\",\n      \"decision\": \"continue\",\n      \"reason\": \"This isolates the core mechanism from host factors and directly tests the minimal programmable unit, generating specificity data required before transfer.\"\n    },\n    {\n      \"route\": \"Heterologous minimal-locus expression in E. coli: clone the nuclease, two RNAs, and a test spacer; challenge with a plasmid/phage carrying the matching protospacer and measure interference.\",\n      \"decision\": \"continue\",\n      \"reason\": \"In-vivo reconstitution can reveal required host factors and spacer requirements even if purified components are initially inactive.\"\n    },\n    {\n      \"route\": \"Native-locus co-immunoprecipitation and RNA-seq: identify proteins and processed RNA species associated with the nuclease under inducing conditions.\",\n      \"decision\": \"defer\",\n      \"reason\": \"Useful for accessory factors and RNA maturation, but it depends on native bacterial genetics and does not itself prove minimal programmability.\"\n    },\n    {\n      \"route\": \"Protospacer/PAM mapping by plasmid depletion or in-vitro cleavage of a randomized flanking library.\",\n      \"decision\": \"continue\",\n      \"reason\": \"Defining the PAM and protospacer length is necessary to design targets and to avoid false conclusions about absence of cleavage.\"\n    },\n    {\n      \"route\": \"Benchmark against zinc-finger/TALEN cleavage on the same target to calibrate specificity and editing potential.\",\n      \"decision\": \"defer\",\n      \"reason\": \"This is useful for translation claims but premature until the RNA-guided activity is confirmed and characterized in vitro.\"\n    }\n  ],\n  \"topRoute\": \"In vitro reconstitution of purified nuclease with synthetic chimeric RNA and complementary DNA/RNA targets, including matched/mismatched and PAM controls.\",\n  \"nextDiscriminatingTest\": \"Incubate purified nuclease with a chimeric guide RNA (scaffold plus 20-nt target complement) and a 5' radiolabeled linear dsDNA containing the predicted protospacer with flanking randomized or candidate PAM; PAGE analysis should show a cleavage product only with matched guide and a PAM-like flank, while mismatched guide or no guide yields no cleavage.\",\n  \"requiredComplements\": [\n    \"purified nuclease protein with an affinity tag from a recombinant/native expression system consistent with the packet\",\n    \"synthetic or in-vitro transcribed tracrRNA-like scaffold RNA and target-complementary guide RNA\",\n    \"defined dsDNA/ssDNA/RNA substrates with fluorescent or radioactive labels\",\n    \"PAM-flanked, mismatched, and no-target negative controls\",\n    \"parallel in-vitro cleavage assays using zinc-finger/TALEN as specificity baseline\"\n  ],\n  \"mainFailureRisks\": [\n    \"Purified nuclease alone may be inactive without an unknown bacterial cofactor, post-translational modification, or RNA-processing enzyme.\",\n    \"The true PAM/protospacer rules may be unknown, so the chosen substrate may not be cleaved even if the system works.\",\n    \"The two RNA components may need maturation (e.g., processing by host RNases) before they can load into the nuclease.\",\n    \"The nuclease may cleave single-stranded DNA/RNA rather than dsDNA, limiting its utility as an editing platform.\",\n    \"Observed cleavage could be non-specific nuclease contamination, requiring all-substrate controls and product verification.\"\n  ],\n  \"generalizationBoundary\": \"At this step, claims are limited to RNA-guided, complementarity-dependent cleavage in vitro by the specific nuclease and RNA pair under defined buffer/PAM conditions; this is not yet genome editing, is not shown to operate in eukaryotic cells, and is not a general platform until PAM, cofactor, and specificity landscapes are mapped.\",\n  \"unresolvedUnknowns\": [\n    \"The exact protospacer-adjacent motif (PAM) recognized by the nuclease\",\n    \"Whether the large nuclease alone or a complex with host factors performs catalytic cleavage\",\n    \"Which RNA species is the mature guide and which is the scaffold in the loaded complex\",\n    \"Whether the natural substrate is single-stranded DNA, double-stranded DNA, or RNA\",\n    \"Off-target tolerance and cellular DNA-repair outcomes if the system is later adapted for editing\"\n  ],\n  \"capabilityComplianceNote\": \"All proposed tests use only the listed capabilities: microbial genetics/sequencing, protein/RNA purification and reconstitution, synthetic RNA modification, in-vitro cleavage assays, and ZF/TALEN benchmarking; no cultured-cell transfection is proposed until the molecular operation is demonstrated.\"\n}"
+        }
+      ],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A02",
+      "hiddenTrajectoryId": "HD7-A02",
+      "cutoff": "2011, after a bacterial RNA-guided nuclease system and two required RNA components are known, before the 2012 programmable single-guide cleavage result",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "The minimal programmable mechanism is unresolved: it is unknown whether the large nuclease plus the two RNA components are sufficient to specify sequence-targeted cleavage, or whether additional bacterial factors and RNA processing steps are required.",
+        "routes": [
+          {
+            "route": "In vitro minimal reconstitution",
+            "decision": "continue",
+            "reason": "Purify the large nuclease, synthesize crRNA and tracrRNA, and test sequence-specific cleavage of a DNA substrate in a defined biochemical system to establish the core mechanism."
+          },
+          {
+            "route": "Native-locus genetic dissection",
+            "decision": "continue",
+            "reason": "Use microbial genetics in the natural host to confirm which components are necessary and to identify accessible mutants that perturb RNA processing or nuclease activity."
+          },
+          {
+            "route": "Accessory-factor co-purification",
+            "decision": "continue",
+            "reason": "If minimal reconstitution fails, identify additional bacterial factors by pulling down the nuclease-RNA complex or using genetic suppressors to restore activity."
+          },
+          {
+            "route": "RNA maturation and minimal guide mapping",
+            "decision": "continue",
+            "reason": "Test whether the two RNAs require processing by host RNases, and define the minimal functional regions of each RNA for guide loading and target recognition."
+          },
+          {
+            "route": "Cell-culture transfer attempt",
+            "decision": "defer",
+            "reason": "Defer transfection into cultured cells until a biochemical operation is demonstrated; otherwise off-target and repair artifacts cannot be interpreted."
+          }
+        ],
+        "topRoute": "In vitro minimal reconstitution",
+        "nextDiscriminatingTest": "In vitro cleavage assay: incubate purified large nuclease with in vitro-transcribed crRNA containing a designed target-complementary sequence, tracrRNA, and a linear or supercoiled DNA substrate containing the matching protospacer plus a candidate PAM; assay for site-specific cleavage by gel electrophoresis against non-complementary and no-RNA controls. If cleavage is absent, supplement with native host lysate or candidate accessory factors to discriminate between intrinsic nuclease activity and host-factor dependence.",
+        "requiredComplements": [
+          "Define the PAM or target-adjacent sequence requirement by screening small randomized libraries",
+          "Map minimal functional domains of crRNA and tracrRNA through truncation and mutation series",
+          "Validate programmability by swapping guide sequences to cleave multiple distinct targets",
+          "Confirm cleavage products by denaturing gel and Sanger sequencing",
+          "Use a catalytically inactivated nuclease mutant as a binding-only control",
+          "Test whether a single fused guide RNA can replace the two-RNA system"
+        ],
+        "mainFailureRisks": [
+          "The nuclease may be inactive when expressed heterologously without a bacterial chaperone or post-translational modification",
+          "The two RNAs may require in vivo processing by host RNases, making in vitro transcribed RNAs non-functional",
+          "Target recognition may depend on an unknown PAM-like motif, causing false-negative cleavage results",
+          "The nuclease may cleave non-specifically or have high off-target activity, complicating later cellular use",
+          "Cleavage alone may not lead to editing if cellular DNA repair pathways do not yield the desired outcome",
+          "Accessory proteins may be strictly required, preventing transfer to foreign hosts"
+        ],
+        "generalizationBoundary": "A successful in vitro reconstitution would establish programmable RNA-guided DNA cleavage by the purified nuclease and two RNAs in a defined biochemical setting, but it would not establish safe or efficient genome editing in eukaryotic cells, low off-target activity, or delivery efficacy in living systems.",
+        "unresolvedUnknowns": [
+          "Whether bacterial accessory factors are required for guide loading or target cleavage",
+          "The exact PAM or target-adjacent sequence required for cleavage",
+          "Whether the two-RNA system can be simplified to a single guide RNA",
+          "How the system behaves on chromatinized or eukaryotic DNA templates",
+          "What DNA repair pathways dominate after cleavage in different cell types",
+          "Off-target tolerance and specificity determinants beyond seed complementarity"
+        ],
+        "capabilityComplianceNote": "All proposed actions stay within available capabilities: microbial genetics and sequencing, protein purification/reconstitution, RNA synthesis and modification, in-vitro cleavage assays, and ZF/TALEN as a baseline. Cultured-cell transfection is deferred until a molecular operation is biochemically established, respecting the stated constraints."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "promptTokens": 797,
+        "completionTokens": 2954,
+        "totalTokens": 3751,
+        "elapsedMs": 32837
+      },
+      "attempts": [],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A05",
+      "hiddenTrajectoryId": "HD7-A05",
+      "cutoff": "late 2003, after large commodity clusters and a fault-tolerant distributed filesystem are described, before the MapReduce publication",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Repeated reinvention of distributed execution logic: partitioning, scheduling, data movement, retries, and straggler handling are rebuilt by each application team.",
+        "routes": [
+          {
+            "route": "Build a map/reduce runtime with automatic partitioning, scheduling, retries, and locality-aware placement.",
+            "decision": "continue",
+            "reason": "Directly targets the bottleneck by giving programmers only custom map and reduce functions while the runtime handles distribution, failure, and locality."
+          },
+          {
+            "route": "Extend the distributed filesystem with server-side aggregation/merge operations.",
+            "decision": "defer",
+            "reason": "Could reduce data movement for simple aggregate cases but couples storage semantics to job logic and makes custom record transformations harder to express."
+          },
+          {
+            "route": "Adopt a relational SQL-style cluster query engine with user-defined functions.",
+            "decision": "defer",
+            "reason": "Relational abstraction may be too rigid for append-heavy scans, custom map-style transformations, and non-relational data formats; benchmark a representative job before committing."
+          },
+          {
+            "route": "Provide a reusable library for manual pipeline management.",
+            "decision": "abandon",
+            "reason": "A library still leaves programmers responsible for machine assignment, retries, data movement, and stragglers; it relieves symptoms rather than eliminating the reinvention burden."
+          },
+          {
+            "route": "Design a general multi-stage dataflow DAG with explicit operators.",
+            "decision": "defer",
+            "reason": "More expressive for complex pipelines but significantly harder to build and debug; first validate whether a simple map/reduce model captures enough production workloads."
+          }
+        ],
+        "topRoute": "Build a map/reduce runtime with automatic partitioning, scheduling, retries, and locality-aware placement.",
+        "nextDiscriminatingTest": "Run a controlled comparison on a large production-like scan-and-aggregate job using three implementations: the map/reduce runtime, a minimal SQL-over-cluster prototype, and the existing manual pipeline; inject random worker failures, measure end-to-end time, local vs remote bytes read, restart overhead, and programmer lines of code, then check whether map/reduce meets locality and failure tolerance without custom scheduling logic.",
+        "requiredComplements": [
+          "fault-tolerant distributed filesystem with block locality information",
+          "job scheduler and worker process management",
+          "partition and group/aggregate runtime components",
+          "failure detection and task retry mechanisms",
+          "straggler detection and backup task execution",
+          "representative production batch workloads and metrics collection"
+        ],
+        "mainFailureRisks": [
+          "map/reduce is too restrictive for iterative or multi-stage jobs, forcing inefficient job chaining",
+          "materializing intermediate map outputs may add overhead that outweighs locality savings",
+          "data skew on hot keys can create stragglers that simple backup tasks cannot fix",
+          "awkward interaction with global state or multi-step joins may break the abstraction",
+          "failure recovery may still be too slow for short jobs with frequent node outages",
+          "locality may be poor when filesystem replication placement and task scheduling are not coordinated"
+        ],
+        "generalizationBoundary": "The abstraction is intended for batch jobs expressible as per-record transformations followed by grouping/aggregation; it may not generalize well to streaming data, iterative graph algorithms, interactive queries, or pipelines requiring fine-grained multi-stage coordination without composing multiple map/reduce jobs.",
+        "unresolvedUnknowns": [
+          "Can map/reduce match or approach manual pipeline performance on locality-sensitive production jobs?",
+          "How should intermediate data be partitioned and scheduled to preserve locality under node failure?",
+          "Does the simple map/reduce model cover a large enough fraction of team workloads to justify centralizing it?",
+          "How should key skew and load imbalance be handled robustly without programmer intervention?",
+          "What is the right division of responsibility between the distributed filesystem and the map/reduce runtime?"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only commodity Linux clusters, the existing fault-tolerant distributed filesystem, custom batch schedulers and workers, partition/group/aggregate code, and measurement of production-like jobs; no unavailable technologies or future named outcomes are assumed."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "promptTokens": 816,
+        "completionTokens": 2493,
+        "totalTokens": 3309,
+        "elapsedMs": 28086
+      },
+      "attempts": [],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A05",
+      "hiddenTrajectoryId": "HD7-A05",
+      "cutoff": "late 2003, after large commodity clusters and a fault-tolerant distributed filesystem are described, before the MapReduce publication",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Programmers repeatedly rebuild partitioning, scheduling, failure handling, and straggler management for each batch job, preventing reuse and underutilizing the distributed filesystem's locality and fault-tolerance features.",
+        "routes": [
+          {
+            "route": "MapReduce-style two-phase abstraction",
+            "decision": "continue",
+            "reason": "Closely matches the observed scan, transform, and group/aggregate workload pattern and naturally leverages the fault-tolerant distributed filesystem for locality and restartable tasks."
+          },
+          {
+            "route": "SQL/relational layer over the cluster",
+            "decision": "defer",
+            "reason": "High-level but forces declarative queries and type schemas that do not cover custom transformation code; postpone until the simpler abstraction is characterized."
+          },
+          {
+            "route": "Shared scheduler but app-managed dataflow",
+            "decision": "defer",
+            "reason": "Would improve resource sharing but leave per-job partitioning, movement, retries, and straggler logic in the applications, failing to remove the main duplication."
+          },
+          {
+            "route": "Distributed shared-memory style object store",
+            "decision": "abandon",
+            "reason": "Does not match coarse-grained batch scans/aggregations on large files and would impose too much fine-grained coordination overhead."
+          }
+        ],
+        "topRoute": "MapReduce-style two-phase abstraction",
+        "nextDiscriminatingTest": "Implement a minimal MapReduce-style runtime using the existing fault-tolerant distributed filesystem and compare it against three hand-written production-like batch jobs, measuring end-to-end throughput, data locality hit rate, and recovery latency under randomized worker failure injection.",
+        "requiredComplements": [
+          "read-only input partitioning from the distributed filesystem",
+          "deterministic intermediate-materialization and atomic task output",
+          "master-worker scheduling with on-failure reexecution",
+          "straggler detection and duplicate-task dispatch",
+          "combiner/partial aggregation to reduce shuffle volume",
+          "cluster health heartbeat and blacklisting",
+          "instrumentation for throughput, locality, and failure-recovery metrics"
+        ],
+        "mainFailureRisks": [
+          "Two-phase map/group abstraction may not express multi-stage joins and iterative algorithms without forceful and inefficient chaining",
+          "Forcing all workloads through the same abstraction can overpay reruns or create unnecessary serialization barriers",
+          "Locality may degrade if filesystem block placement is not aligned with task scheduling decisions",
+          "User-defined transformations with side effects or nondeterminism can break retry-based failure recovery",
+          "The overhead of coordination and intermediate write may not be repaid for small or short-running jobs",
+          "A single phase of grouping may create skew when one key dominates the aggregation"
+        ],
+        "generalizationBoundary": "The abstraction is intended for acyclic batch workloads expressible as one parallel map step followed by a grouping/aggregation step; it is not claimed suitable for low-latency serving, multi-pass iterative computations, or rich relational join planning without extension.",
+        "unresolvedUnknowns": [
+          "What fraction of existing production jobs naturally fit the two-phase map/group shape",
+          "How to efficiently chain multiple MapReduce stages for more complex transformations",
+          "Whether the fault-tolerant filesystem's block granularity will yield sufficient locality when tasks are dynamically scheduled",
+          "How to define failure semantics when user code is not perfectly deterministic",
+          "What threshold of job size or runtime makes abstraction overhead acceptable",
+          "How to handle key skew and load imbalance without breaking the abstraction"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only commodity Linux clusters, the existing fault-tolerant distributed filesystem, custom scheduler/worker processes, and measurement instrumentation; no unavailable tools or future outcomes are assumed."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "promptTokens": 816,
+        "completionTokens": 1780,
+        "totalTokens": 2596,
+        "elapsedMs": 21326
+      },
+      "attempts": [],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A05",
+      "hiddenTrajectoryId": "HD7-A05",
+      "cutoff": "late 2003, after large commodity clusters and a fault-tolerant distributed filesystem are described, before the MapReduce publication",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Application teams are spending most of their effort re-implementing distributed batch infrastructure: partitioning, scheduling, failure recovery, and locality-aware movement are duplicated in every job, obscuring the common map/aggregate structure inside bespoke systems code.",
+        "routes": [
+          {
+            "route": "Build a MapReduce-style batch abstraction with automatic partitioning, scheduling, retries, and locality-aware execution on top of the existing distributed filesystem.",
+            "decision": "continue",
+            "reason": "The evidence strongly suggests most jobs are local transformations followed by grouping or aggregation, and a centralized runtime can hide failure handling while exploiting block locality and custom user functions."
+          },
+          {
+            "route": "Build a SQL-like declarative layer over the same cluster filesystem, reusing relational optimization and joins.",
+            "decision": "defer",
+            "reason": "Relational systems offer advanced optimization but impose schema/query constraints and do not directly match custom record-at-a-time transformations in many web-scale batch jobs; revisit after map-style pilots reveal expression gaps."
+          },
+          {
+            "route": "Build a general DAG dataflow engine with arbitrary user-defined operators and explicit edges.",
+            "decision": "defer",
+            "reason": "More expressive, but the scheduling, checkpointing, and execution semantics are far larger design surface; first test whether the restricted MapReduce-style pattern covers the actual workload before expanding generality."
+          },
+          {
+            "route": "Provide a shared scheduler and retry library without imposing a processing abstraction.",
+            "decision": "abandon",
+            "reason": "It reduces duplicate retry logic but leaves partitioning and data-flow assembly to each team, so the core bottleneck of per-application distributed data plumbing remains."
+          }
+        ],
+        "topRoute": "Build a MapReduce-style batch abstraction with automatic partitioning, scheduling, retries, and locality-aware execution on top of the existing distributed filesystem.",
+        "nextDiscriminatingTest": "Implement a minimal MapReduce-style runtime and run three production-representative jobs (an inverted indexer, a large-scale grep/count, and a distributed sort) on a 500-node commodity cluster; compare end-to-end latency, data-locality hit rate, user-code size, and recovery time against the same jobs manually implemented with the existing scheduler and filesystem, while injecting 5% random worker failures to observe straggler and retry behavior.",
+        "requiredComplements": [
+          "Fault-tolerant distributed filesystem with block replication and locality-aware reads",
+          "Cluster batch scheduler that can place tasks on machines holding relevant input data",
+          "Task status and retry service that re-executes failed or in-progress tasks",
+          "A shuffle/partitioning mechanism to group intermediate key-value pairs",
+          "User-defined function API for custom map and reduce logic",
+          "Instrumentation for measuring locality, throughput, straggler distribution, and recovery cost"
+        ],
+        "mainFailureRisks": [
+          "MapReduce-style abstraction may be too narrow: multi-stage joins, iterative algorithms, and some transformations do not fit naturally, pushing users into awkward compositions.",
+          "Runtime overhead from sorting, serialization, and intermediate data materialization may dominate for small or simple jobs, making the abstraction not repay its cost.",
+          "Input/output side effects in user functions can cause duplicate writes or inconsistent results when tasks are re-executed after failures.",
+          "Data skew may create stragglers that undermine locality benefits; simple backup tasks may not always recover performance.",
+          "Measuring programmer effort is subjective and hard to quantify, so the claimed reduction in duplicated logic may not be empirically clean."
+        ],
+        "generalizationBoundary": "The proposed abstraction is intended for large-scale, one-shot batch workloads over record-oriented files where processing can be expressed as an independent map phase followed by key-based grouping and aggregation; it is not claimed to cover low-latency interactive queries, strict multi-way joins with cost-based optimization, ACID transactions, iterative graph algorithms, or streaming-forever computations unless later extended with composable operators and incremental update mechanisms.",
+        "unresolvedUnknowns": [
+          "What fraction of the existing production job mix actually fits the map/group/aggregate shape?",
+          "Can one runtime reach near-manual performance for locality and failure recovery without extensive per-job tuning?",
+          "How should multi-stage pipelines be expressed and optimized while keeping fault-tolerance simple?",
+          "How does the abstraction handle non-key-value workloads such as branching, side outputs, or random-access updates?",
+          "What straggler mitigation strategies are robust under different skew distributions?",
+          "Does sequential file I/O and bulk recomputation remain acceptable for jobs that need small incremental updates?"
+        ],
+        "capabilityComplianceNote": "All proposed next actions use only commodity Linux clusters, the existing fault-tolerant distributed filesystem, locally implemented batch schedulers and worker processes, and standard job throughput/locality/failure measurements; no unavailable future tools or named post-cutoff outcomes are assumed."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "promptTokens": 816,
+        "completionTokens": 3194,
+        "totalTokens": 4010,
+        "elapsedMs": 36193
+      },
+      "attempts": [],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A06",
+      "hiddenTrajectoryId": "HD7-A06",
+      "cutoff": "2010, after programmable GPUs and ImageNet are available, before the 2012 AlexNet result",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Optimizing and regularizing deep CNNs at ImageNet scale with bounded compute; conventional features still dominate, so it is unclear whether deep learning can produce held-out gains.",
+        "routes": [
+          {
+            "route": "End-to-end deep CNN on ImageNet with heavy regularization",
+            "decision": "continue",
+            "reason": "Directly confronts the core uncertainty: can a deep supervised network beat established hand-crafted features on a large-scale held-out benchmark within practical compute limits."
+          },
+          {
+            "route": "Unsupervised pretraining and fine-tuning",
+            "decision": "defer",
+            "reason": "Pretraining is a plausible complement, but its value is unproven and it consumes compute; first measure the supervised CNN baseline without it to avoid conflating factors."
+          },
+          {
+            "route": "Strong hand-crafted feature baseline as primary system",
+            "decision": "abandon",
+            "reason": "This is the incumbent approach with limited improvement headway; it should serve as an evaluation control, not the main research bet."
+          },
+          {
+            "route": "Hybrid CNN features plus linear SVM",
+            "decision": "defer",
+            "reason": "Useful later to separate feature quality from end-to-end training benefits, but not the primary route because it may underuse backpropagation for joint optimization."
+          },
+          {
+            "route": "Bounded multi-GPU distributed CNN training",
+            "decision": "continue",
+            "reason": "Necessary to scale experiments under practical time constraints; it enables the primary route rather than being an independent alternative."
+          }
+        ],
+        "topRoute": "End-to-end deep CNN on ImageNet with heavy regularization",
+        "nextDiscriminatingTest": "On a randomly sampled 100-class ImageNet subset, train a deep CNN and a shallow CNN with matched data augmentation/dropout and GPU computation, then compare held-out top-5 accuracy against a strong SIFT/FV/SVM baseline. If the deep CNN clearly beats both the shallow CNN and the conventional baseline, scale to full ImageNet; if not, diagnose whether the gap comes from architecture depth, regularization, or optimization before further scaling.",
+        "requiredComplements": [
+          "Fast CUDA convolution and pooling kernels",
+          "Stochastic gradient descent with learning-rate schedule",
+          "Data augmentation and dropout",
+          "Strong SIFT/FV/SVM baseline",
+          "Validation-set monitoring and early stopping",
+          "Multi-GPU scaling harness"
+        ],
+        "mainFailureRisks": [
+          "Training the deep CNN may exceed practical experiment time or GPU memory",
+          "The model may overfit the held-out set despite regularization",
+          "The conventional baseline may remain superior, leaving no benchmark win",
+          "Any gains may be narrow to ImageNet's 1,000 classes and not show human-level robustness",
+          "Comparisons could be confounded by differences in hyperparameter tuning or compute budget"
+        ],
+        "generalizationBoundary": "A benchmark improvement on ImageNet would show only that deep CNNs can surpass hand-crafted features for large, clean, single-label object recognition; it would not establish robustness to domain shift, low-label regimes, fine-grained distinctions, or non-object-centric imagery.",
+        "unresolvedUnknowns": [
+          "Optimal depth/width/architecture for the compute budget",
+          "How much of any gain comes from supervised end-to-end learning vs capacity/regularization",
+          "Whether the model is limited by GPU memory/throughput before reaching true capacity",
+          "How to separate overfitting from underfitting when training error is high or low",
+          "Whether learned features transfer to object classes/tasks outside the benchmark",
+          "Whether unsupervised pretraining would have helped once a supervised baseline is established"
+        ],
+        "capabilityComplianceNote": "The proposed routes and discriminating test use only the available capabilities: backprop-trained CNNs, CUDA GPU programming, ImageNet-scale data and held-out evaluation, contemporary regularization/augmentation, conventional baselines, and bounded multi-GPU/distributed experiments."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "promptTokens": 799,
+        "completionTokens": 4946,
+        "totalTokens": 5745,
+        "elapsedMs": 45166
+      },
+      "attempts": [],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A06",
+      "hiddenTrajectoryId": "HD7-A06",
+      "cutoff": "2010, after programmable GPUs and ImageNet are available, before the 2012 AlexNet result",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Training deep convolutional networks at ImageNet scale under severe compute, memory, and overfitting constraints is the primary challenge; optimization and regularization remain unresolved.",
+        "routes": [
+          {
+            "route": "End-to-end supervised deep CNN with ReLU activations, dropout, data augmentation, and multi-GPU parallel SGD",
+            "decision": "continue",
+            "reason": "Directly leverages available GPUs, backprop, and large labeled data; most promising path to outperform hand-crafted feature pipelines if optimization and regularization can be tamed."
+          },
+          {
+            "route": "Unsupervised layerwise pretraining followed by supervised fine-tuning of a deep CNN",
+            "decision": "defer",
+            "reason": "May help with optimization and initialization but adds complexity and compute overhead; keep as fallback if direct supervised training stalls."
+          },
+          {
+            "route": "Conventional hand-crafted features (e.g., SIFT/Fisher vectors) with linear or kernel SVM as a strong baseline",
+            "decision": "continue",
+            "reason": "Needed as a rigorous baseline to quantify whether deep models genuinely surpass the established vision pipeline; also cheap to run and useful for comparison."
+          },
+          {
+            "route": "Curriculum-style training with progressive image resizing and learning-rate scheduling",
+            "decision": "continue",
+            "reason": "May improve convergence and final accuracy, but depends on efficient multi-GPU implementation; should be tested after core model works."
+          },
+          {
+            "route": "Model ensembling and test-time augmentation for final benchmark submission",
+            "decision": "defer",
+            "reason": "Known to boost accuracy but expensive; only adopt after a single strong model is validated and compute budget permits."
+          }
+        ],
+        "topRoute": "End-to-end supervised deep CNN with ReLU activations, dropout, data augmentation, and multi-GPU parallel SGD",
+        "nextDiscriminatingTest": "Train a moderate-depth CNN (e.g., 5 conv + 3 fully-connected layers) on a 100-class ImageNet subset using the same training data and held-out evaluation as a Fisher vector/SVM baseline; measure top-5 validation error and training-time scaling curves to see if CNN clearly outperforms the baseline and justifies full-scale investment.",
+        "requiredComplements": [
+          "Data augmentation (random crops, flips, color jitter)",
+          "Dropout in fully-connected layers",
+          "Learning-rate decay schedule",
+          "Careful weight initialization",
+          "Multi-GPU data parallelism",
+          "Validation-based early stopping and hyperparameter tuning",
+          "Ensembling and test-time augmentation only at final submission"
+        ],
+        "mainFailureRisks": [
+          "Overfitting on the training set despite large data",
+          "Optimization difficulties like vanishing gradients or slow convergence",
+          "Excessive training time exceeding practical experiment limits",
+          "Hyperparameter sensitivity leading to failure without extensive tuning",
+          "Benchmark-specific overfitting that does not generalize broadly"
+        ],
+        "generalizationBoundary": "Success on ImageNet held-out classes would demonstrate strong visual recognition within a similar natural-image distribution, but it would not prove broad visual or semantic generality; robustness to domain shift, adversarial inputs, or unseen object types remains unaddressed.",
+        "unresolvedUnknowns": [
+          "Optimal depth, width, and layer architecture",
+          "Appropriate dropout rate and other regularization strengths",
+          "Whether supervised SGD alone converges reliably versus needing pretraining",
+          "How well the model transfers to non-ImageNet tasks or datasets",
+          "Exact compute budget and time needed to train at full scale"
+        ],
+        "capabilityComplianceNote": "All proposed actions stay within available capabilities: CUDA GPU programming, ImageNet-scale data, backpropagation, contemporary regularization/data augmentation, held-out evaluation, and bounded multi-GPU experiments; no unavailable future tools or named post-cutoff outcomes are assumed."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "promptTokens": 799,
+        "completionTokens": 1515,
+        "totalTokens": 2314,
+        "elapsedMs": 15721
+      },
+      "attempts": [],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A06",
+      "hiddenTrajectoryId": "HD7-A06",
+      "cutoff": "2010, after programmable GPUs and ImageNet are available, before the 2012 AlexNet result",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Practical large-scale supervised training of deep convolutional networks without overfitting, constrained by compute, optimization difficulty, and limited generalization to held-out benchmark data.",
+        "routes": [
+          {
+            "route": "Supervised deep CNN with aggressive data augmentation and dropout",
+            "decision": "continue",
+            "reason": "This directly targets the core bottleneck: with ImageNet-scale data and GPU compute, end-to-end supervised CNN training with modern regularization is the most promising path to a benchmark win."
+          },
+          {
+            "route": "Unsupervised deep pretraining followed by supervised fine-tuning",
+            "decision": "defer",
+            "reason": "Pretraining may help optimization, but its additive value over supervised training with augmentation and dropout is uncertain; test later on a subset if the supervised-only route stalls."
+          },
+          {
+            "route": "Conventional feature encoding (Fisher vectors / sparse coding) with linear SVM",
+            "decision": "continue",
+            "reason": "Must be kept as a strong baseline for comparison, since conventional vision systems dominate benchmarks and may outperform deep models at this scale."
+          },
+          {
+            "route": "Hybrid CNN features plus linear classifier",
+            "decision": "defer",
+            "reason": "Potentially useful if deep features underperform in the final classifier, but premature until the supervised CNN itself is evaluated."
+          },
+          {
+            "route": "Multi-GPU parallel synchronous SGD with learning-rate annealing",
+            "decision": "continue",
+            "reason": "Needed to make deep CNN training practical within experiment time; careful synchronous SGD preserves reproducibility and allows scaling to the full dataset."
+          }
+        ],
+        "topRoute": "Supervised deep CNN with aggressive data augmentation and dropout",
+        "nextDiscriminatingTest": "Compare held-out top-5 accuracy on a 100-class / 100k-image subset between the supervised deep CNN and the conventional feature baseline, with matched training time budgets and the same evaluation protocol; if CNN is competitive or better, scale to full benchmark.",
+        "requiredComplements": [
+          "GPU-optimized convolution kernels",
+          "Data augmentation pipeline (crops, flips, color jitter)",
+          "Dropout and weight decay",
+          "Learning-rate schedule with validation-based early stopping",
+          "Held-out evaluation harness for the benchmark"
+        ],
+        "mainFailureRisks": [
+          "Deep CNN fails to converge due to poor initialization or unstable learning dynamics",
+          "Overfitting on the training set despite regularization, hurting held-out accuracy",
+          "Training time on the deep CNN exceeds practical experiment budgets",
+          "The selected subset benchmark is not predictive of performance on the full benchmark",
+          "Unsupervised pretraining, if deferred, turns out to be necessary and requires costly rework"
+        ],
+        "generalizationBoundary": "A strong result on this benchmark demonstrates high-capacity image classification on natural images with one thousand classes; it does not imply broad visual or semantic generalization across domains, tasks, or unseen label distributions.",
+        "unresolvedUnknowns": [
+          "Optimal network depth, filter sizes, and layer width",
+          "Whether unsupervised pretraining provides significant benefit for supervised CNNs at scale",
+          "How to set augmentation and dropout intensities to maximize validation accuracy",
+          "How closely subset scaling curves extrapolate to million-scale training data"
+        ],
+        "capabilityComplianceNote": "All proposed actions stay within availableCapabilities: training CNNs with backprop, programming contemporary CUDA GPUs, using ImageNet-scale data with held-out evaluation, applying regularization/data augmentation, and comparing against conventional vision baselines."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "promptTokens": 799,
+        "completionTokens": 1646,
+        "totalTokens": 2445,
+        "elapsedMs": 17188
+      },
+      "attempts": [],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A09",
+      "hiddenTrajectoryId": "HD7-A09",
+      "cutoff": "2005, after inhibitory immune receptors and early CTLA-4 clinical translation are known, before PD-1 phase-I development and later multi-tumor response evidence",
+      "treatment": "affordance",
+      "replicate": 1,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "Distinguishing durable anti-tumor benefit from early shrinkage while managing autoimmune toxicity",
+        "routes": [
+          {
+            "route": "Develop CTLA-4 blockade as lead candidate",
+            "decision": "continue",
+            "reason": "Strong animal evidence supports anti-tumor efficacy; next step is independent clinical and biomarker evaluation with durability endpoints."
+          },
+          {
+            "route": "Develop PD-1-pathway blockade as parallel candidate",
+            "decision": "continue",
+            "reason": "Strong biological rationale in exhaustion and peripheral tolerance; needs head-to-head comparison with CTLA-4 for safety and durability."
+          },
+          {
+            "route": "Develop combination CTLA-4 plus PD-1 blockade",
+            "decision": "defer",
+            "reason": "Potential for greater efficacy but higher autoimmune risk and added complexity; should follow lead-candidate identification."
+          }
+        ],
+        "topRoute": "Develop CTLA-4 blockade as lead candidate",
+        "nextDiscriminatingTest": "In animal tumor models, compare CTLA-4 and PD-1 blockade head-to-head for durable tumor control and autoimmune severity before choosing a lead.",
+        "requiredComplements": [
+          "Independent safety and efficacy evaluation in early-phase trials",
+          "Measurement of survival and durability separately from early shrinkage",
+          "Autoimmune toxicity monitoring in animal models and patients",
+          "Tumor-type-specific response analysis",
+          "Biomarker/immunology assays to identify responsive populations"
+        ],
+        "mainFailureRisks": [
+          "Severe immune-related adverse events undermining risk-benefit",
+          "Tumor types responding differently, limiting broad applicability",
+          "Early tumor shrinkage not translating into durable survival benefit",
+          "Combination regimens amplifying toxicity without proportional efficacy gain"
+        ],
+        "generalizationBoundary": "Findings from selected animal tumor models may not generalize across all tumor types or to combination dosing schedules in humans.",
+        "unresolvedUnknowns": [
+          "Which pathway is more central in human tumor immune evasion",
+          "Optimal sequencing or scheduling of checkpoint blockade",
+          "Predictive biomarkers for durable response versus toxicity"
+        ],
+        "capabilityComplianceNote": "All proposed actions use listed capabilities only: antibody production, animal tumor/autoimmunity models, early-phase trials, and biomarker assays; no future tools or post-cutoff outcomes are assumed."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 2,
+        "transportRetries": 0,
+        "schemaRetries": 1,
+        "promptTokens": 1635,
+        "completionTokens": 4059,
+        "totalTokens": 5694,
+        "elapsedMs": 62752
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "validationError": "topRoute not exact route",
+          "raw": "{\n  \"dominantBottleneck\": \"The dominant bottleneck is that early tumor shrinkage and immune toxicity are unreliable surrogates for durable clinical benefit, and tumor-type heterogeneity makes it difficult to decide which checkpoint blockade strategy to prioritize.\",\n  \"routes\": [\n    {\n      \"route\": \"Independent monotherapy development of CTLA-4 blockade\",\n      \"decision\": \"continue\",\n      \"reason\": \"Strong animal evidence supports anti-tumor activity, and monotherapy provides a clear safety/efficacy attribution in early trials.\"\n    },\n    {\n      \"route\": \"Independent monotherapy development of PD-1-pathway blockade\",\n      \"decision\": \"continue\",\n      \"reason\": \"PD-1 is implicated in immune tolerance and exhaustion, suggesting a potentially distinct and favorable efficacy-toxicity profile that should be evaluated separately.\"\n    },\n    {\n      \"route\": \"Combination CTLA-4 + PD-1 blockade\",\n      \"decision\": \"defer\",\n      \"reason\": \"Combination may improve efficacy but also risks serious immune adverse events; defer until monotherapy dose, safety, and biomarker data are available.\"\n    },\n    {\n      \"route\": \"Vaccine-based immune stimulation approaches\",\n      \"decision\": \"abandon\",\n      \"reason\": \"Prior immune stimulation/vaccine approaches have frequently disappointed, and available capabilities are better suited to checkpoint blockade.\"\n    },\n    {\n      \"route\": \"Autoimmunity-risk stratified dosing and management\",\n      \"decision\": \"continue\",\n      \"reason\": \"Serious immune adverse events are plausible; proactive biomarkers and management protocols are essential for all checkpoint blockade routes.\"\n    },\n    {\n      \"route\": \"Tumor-type-specific expansion cohorts\",\n      \"decision\": \"continue\",\n      \"reason\": \"Different tumor types may respond differently, so parallel evaluation across histologies is needed to avoid missing responsive patient populations.\"\n    }\n  ],\n  \"topRoute\": \"Independent monotherapy development of PD-1-pathway blockade with rigorous durable-response and immune-toxicity assessment\",\n  \"nextDiscriminatingTest\": \"A randomized early-phase expansion trial in melanoma and non-small-cell lung cancer comparing anti-CTLA-4 monotherapy, anti-PD-1/PD-L1 monotherapy, and their combination, using pre-specified 6-month durable response and grade 3+ immune-related adverse event rate as co-primary endpoints.\",\n  \"requiredComplements\": [\n    \"Independent data safety monitoring board\",\n    \"Pre-specified immune-related adverse event management algorithms\",\n    \"Serial biomarker collection including autoantibodies, cytokines, and T-cell subsets\",\n    \"Tumor-type-specific cohorts with predefined response and survival criteria\",\n    \"Regulatory interaction for patient selection and toxicity reporting\"\n  ],\n  \"mainFailureRisks\": [\n    \"Severe autoimmune toxicity from cumulative checkpoint blockade\",\n    \"Early tumor regression without durable survival benefit\",\n    \"Heterogeneous tumor responses leading to false conclusions if one histology dominates\",\n    \"Combination toxicity overwhelming efficacy\",\n    \"Lack of validated predictive biomarkers to guide patient selection\"\n  ],\n  \"generalizationBoundary\": \"Results should be generalized only to the specific tumor types, disease stages, doses, and schedules tested; they should not be extrapolated to all cancers, to combinations not directly evaluated, or to agents outside the tested monoclonal antibody platforms.\",\n  \"unresolvedUnknowns\": [\n    \"Relative contribution of CTLA-4 and PD-1 pathways to human anti-tumor immunity\",\n    \"Optimal dose and schedule for each monoclonal antibody\",\n    \"Whether baseline or on-treatment biomarkers can predict severe toxicity\",\n    \"Durability of responses beyond six months\",\n    \"Whether sequential therapy can restore responsiveness after progression\",\n    \"Relevance of checkpoint blockade across different tumor histologies\"\n  ],\n  \"capabilityComplianceNote\": \"All proposed actions use only the listed capabilities: producing monoclonal antibodies, running animal models, conducting early-phase oncology trials, measuring tumor response/survival/durability and immune toxicity separately, developing CTLA-4 and PD-1 blockade independently, and applying biomarker/immunology assays available at the cutoff.\"\n}"
+        }
+      ],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A09",
+      "hiddenTrajectoryId": "HD7-A09",
+      "cutoff": "2005, after inhibitory immune receptors and early CTLA-4 clinical translation are known, before PD-1 phase-I development and later multi-tumor response evidence",
+      "treatment": "affordance",
+      "replicate": 2,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "The lack of validated clinical/biological decision rules to distinguish durable survival benefit from early tumor shrinkage and to predict serious immune toxicity in small early-phase trials.",
+        "routes": [
+          {
+            "route": "Parallel single-agent development of anti-CTLA-4 and anti-PD-1/PD-L1 in advanced cancers",
+            "decision": "continue",
+            "reason": "Both checkpoints have independent biological rationale; parallel evaluation preserves candidate diversity and allows direct comparison of antitumor durability and immune toxicity without confounding."
+          },
+          {
+            "route": "Combination blockade of CTLA-4 and PD-1/PD-L1 as initial phase I/II strategy",
+            "decision": "defer",
+            "reason": "Combining two unproven immunotherapies before understanding single-agent activity and toxicity risks overlapping autoimmunity and prevents attribution of benefit or harm to either pathway."
+          },
+          {
+            "route": "Biomarker-restricted enrollment based on tumor PD-L1 expression or T-cell infiltration",
+            "decision": "defer",
+            "reason": "The predictive value of such biomarkers is not yet validated; restricting enrollment early may miss responsive biomarker-negative patients and delay toxicity/safety profiling."
+          },
+          {
+            "route": "Preclinical autoimmunity and therapeutic-index screening to select a single lead candidate",
+            "decision": "abandon",
+            "reason": "Animal autoimmunity models are unlikely to predict human immune-related adverse events or antitumor efficacy, so further animal prioritization would not resolve the principal clinical bottleneck."
+          },
+          {
+            "route": "Combining checkpoint blockade with vaccine/cytokine immune stimulation",
+            "decision": "abandon",
+            "reason": "Prior vaccine/immune-stimulation approaches have frequently disappointed, and adding such agents to checkpoint blockade would complicate attribution and toxicity without strong evidence in the packet."
+          }
+        ],
+        "topRoute": "Parallel single-agent development of anti-CTLA-4 and anti-PD-1/PD-L1 in advanced cancers",
+        "nextDiscriminatingTest": "Randomized phase II trial in advanced melanoma and non-small-cell lung cancer assigning patients to anti-CTLA-4 or anti-PD-1/PD-L1 monotherapy, with mandatory baseline tumor biopsies, standardized immune toxicity management, co-primary endpoints of 6-month durable response and grade 3-4 immune-toxicity rate, and pre-planned go/no-go rules for advancing the superior arm or later testing combination.",
+        "requiredComplements": [
+          "Standardized immune-related response criteria that capture delayed/atypical responses after initial progression",
+          "Pre-specified immune adverse event management algorithms and independent safety monitoring",
+          "Mandatory baseline and on-treatment tumor and blood biospecimens for biomarker/immunology correlatives",
+          "Prospective definition of durable survival (e.g., landmark survival at 12-24 months) before unblinding",
+          "Pre-planned decision rules to move from single-agent signals to a randomized combination trial only after observed single-agent toxicity/activity"
+        ],
+        "mainFailureRisks": [
+          "Serious immune adverse events leading to treatment-related deaths or trial termination",
+          "Low or absent objective responses in unselected patients causing premature abandonment of an active agent",
+          "Heterogeneous tumor biology across histologies obscures a true signal present in one subset",
+          "Early tumor shrinkage misleads while durable survival is not improved, or vice versa",
+          "Biomarker-correlative assays are not analytically validated and yield non-reproducible results",
+          "Combination therapy, if eventually tested, produces overlapping/unacceptable autoimmunity without meaningful added efficacy"
+        ],
+        "generalizationBoundary": "Results should be generalized only to the specific tumor types, patient populations, and anti-CTLA-4/anti-PD-1/PD-L1 antibody clones tested; they cannot be extrapolated to all cancers, other checkpoint molecules, combination sequences, or unmeasured long-term autoimmune sequelae.",
+        "unresolvedUnknowns": [
+          "Whether PD-1/PD-L1 blockade is clinically active in humans with acceptable safety",
+          "Optimal dose, schedule, and serum exposure for each antibody candidate",
+          "Which patients are most likely to derive durable benefit versus severe toxicity",
+          "Relationship between baseline tumor PD-L1 expression or T-cell infiltration and clinical outcomes",
+          "Whether durable responses can be achieved without continuous dosing and with manageable autoimmune off-tumor effects",
+          "Mechanisms of primary and acquired resistance to single-agent checkpoint blockade",
+          "Whether combination blockade has additive efficacy without prohibitive autoimmunity"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only listed capabilities: monoclonal antibody production, animal tumor/autoimmunity models, early-phase oncology trials, independent response/survival/toxicity measurement, separate CTLA-4 and PD-1-pathway candidates, and biomarker/immunology assays; no unlisted future tools or post-cutoff outcomes are assumed."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 1,
+        "transportRetries": 0,
+        "schemaRetries": 0,
+        "promptTokens": 804,
+        "completionTokens": 4495,
+        "totalTokens": 5299,
+        "elapsedMs": 59388
+      },
+      "attempts": [],
+      "model": "deepseek-v4-flash"
+    },
+    {
+      "replayId": "HR7-A09",
+      "hiddenTrajectoryId": "HD7-A09",
+      "cutoff": "2005, after inhibitory immune receptors and early CTLA-4 clinical translation are known, before PD-1 phase-I development and later multi-tumor response evidence",
+      "treatment": "affordance",
+      "replicate": 3,
+      "valid": true,
+      "bet": {
+        "dominantBottleneck": "The dominant bottleneck is the uncertain safety-efficacy trade-off between available checkpoint targets; strong preclinical efficacy for one inhibitory receptor does not ensure a manageable autoimmune profile, and early response may not predict durable benefit.",
+        "routes": [
+          {
+            "route": "Develop PD-1-pathway blockade as monotherapy",
+            "decision": "continue",
+            "reason": "The PD-1 pathway is implicated in peripheral immune tolerance and T-cell exhaustion, and its distinct biology may provide a better therapeutic index than CTLA-4 blockade; monotherapy data will establish a safety and activity baseline."
+          },
+          {
+            "route": "Develop CTLA-4 blockade as monotherapy",
+            "decision": "defer",
+            "reason": "CTLA-4 has strong animal anti-tumor data but carries a high risk of severe autoimmunity; hold as a single agent until head-to-head animal therapeutic-index data justify its advancement."
+          },
+          {
+            "route": "Combine CTLA-4 and PD-1 blockade upfront",
+            "decision": "defer",
+            "reason": "Combination could improve efficacy but may amplify immune toxicity and cannot be rationally designed without independent monotherapy safety and activity data from the same model system."
+          },
+          {
+            "route": "Develop biomarker-guided patient selection for PD-1-pathway blockade",
+            "decision": "continue",
+            "reason": "Biomarkers such as baseline immune infiltration or exhaustion markers measurable by available assays may separate responders from non-responders and should be incorporated from the earliest trials."
+          }
+        ],
+        "topRoute": "Develop PD-1-pathway blockade as monotherapy",
+        "nextDiscriminatingTest": "Run parallel animal tumor/autoimmunity studies comparing PD-1-pathway blockade versus CTLA-4 blockade, measuring anti-tumor response and autoimmune severity separately, to verify that PD-1-pathway blockade offers a superior therapeutic index before expanding human trials.",
+        "requiredComplements": [
+          "Independent data safety monitoring board for early-phase oncology trials",
+          "Preclinical combination toxicity study before any CTLA-4/PD-1 combination",
+          "Companion biomarker assay for tumor PD-L1 and immune infiltration using available immunology tools",
+          "Prespecified durability endpoints such as progression-free survival and overall survival, separate from objective response rate"
+        ],
+        "mainFailureRisks": [
+          "Severe autoimmune adverse events requiring treatment discontinuation",
+          "No durable benefit despite early objective responses",
+          "Low response rates in tumor types lacking pre-existing immune infiltration",
+          "Resistance via alternative immune checkpoints or immunosuppressive cells"
+        ],
+        "generalizationBoundary": "Any efficacy and safety conclusions apply only to the tumor types and biomarker-defined patient subgroups studied; they should not be generalized to all cancers without independent validation.",
+        "unresolvedUnknowns": [
+          "Optimal dose and schedule for PD-1-pathway blockade",
+          "Predictive biomarkers beyond PD-L1 and immune infiltration",
+          "Long-term durability and survival impact",
+          "Whether combination with CTLA-4 can be made safe and more effective",
+          "Mechanisms of primary and acquired resistance"
+        ],
+        "capabilityComplianceNote": "All proposed actions use only listed capabilities: monoclonal antibody production, animal tumor/autoimmunity models, early-phase oncology trials, independent measurement of tumor response/survival/durability/toxicity, independent CTLA-4/PD-1 candidates, and available biomarker/immunology assays."
+      },
+      "validationError": null,
+      "usage": {
+        "providerCalls": 2,
+        "transportRetries": 0,
+        "schemaRetries": 1,
+        "promptTokens": 1635,
+        "completionTokens": 6082,
+        "totalTokens": 7717,
+        "elapsedMs": 64174
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "validationError": "topRoute not exact route",
+          "raw": "{\n  \"dominantBottleneck\": \"Discriminating durable anti-tumor efficacy from immune-mediated toxicity and non-durable responses across target pathways.\",\n  \"routes\": [\n    {\n      \"route\": \"Develop CTLA-4 blockade as an independent clinical candidate with toxicity monitoring.\",\n      \"decision\": \"continue\",\n      \"reason\": \"Strong animal evidence supports anti-tumor activity; independent evaluation is needed to assess therapeutic index.\"\n    },\n    {\n      \"route\": \"Develop PD-1-pathway blockade as an independent clinical candidate.\",\n      \"decision\": \"continue\",\n      \"reason\": \"Implicated in peripheral tolerance and exhaustion; may offer a different efficacy-toxicity balance that deserves direct testing.\"\n    },\n    {\n      \"route\": \"Run head-to-head preclinical comparison in tumor/autoimmunity models.\",\n      \"decision\": \"continue\",\n      \"reason\": \"Directly compares durability of tumor control versus autoimmune pathology before committing to expensive human trials.\"\n    },\n    {\n      \"route\": \"Pursue combination blockade of CTLA-4 and PD-1 pathways.\",\n      \"decision\": \"defer\",\n      \"reason\": \"Combination may increase efficacy but carries higher autoimmunity risk; it should wait for single-agent therapeutic index data.\"\n    },\n    {\n      \"route\": \"Refocus on immune stimulation/vaccine approaches.\",\n      \"decision\": \"abandon\",\n      \"reason\": \"Prior immune stimulation/vaccine approaches have frequently disappointed, so checkpoint blockade is the more promising route.\"\n    }\n  ],\n  \"topRoute\": \"Run head-to-head preclinical comparison of CTLA-4 and PD-1-pathway blockade with efficacy and toxicity endpoints.\",\n  \"nextDiscriminatingTest\": \"In animal tumor models, compare anti-CTLA-4 and anti-PD-1-pathway antibodies measuring tumor growth, survival, autoimmune pathology, and immune activation markers separately to select the target with the best efficacy-to-toxicity ratio.\",\n  \"requiredComplements\": [\n    \"Independent safety and efficacy evaluation\",\n    \"Regulatory engagement for early-phase trial design\",\n    \"Biomarker/immunology assays to stratify patients by response and toxicity\",\n    \"Tumor-type-specific preclinical models to assess differential responsiveness\"\n  ],\n  \"mainFailureRisks\": [\n    \"Serious immune adverse events may outweigh any tumor benefit\",\n    \"Early tumor shrinkage may not predict durable survival benefit\",\n    \"Benefit may be limited to specific tumor types\",\n    \"Combination blockade could amplify toxicity without additional durable benefit\"\n  ],\n  \"generalizationBoundary\": \"Findings apply to checkpoint blockade in oncology at this cutoff; do not generalize to all immunotherapies or infer durable benefit without survival and toxicity endpoints.\",\n  \"unresolvedUnknowns\": [\n    \"Which receptor pathway is dominant in human tumor immunity\",\n    \"Whether immune toxicity can be predicted by baseline biomarkers\",\n    \"Whether response durability differs across tumor types\",\n    \"Whether combination therapy is tolerable and truly additive\"\n  ],\n  \"capabilityComplianceNote\": \"All proposed actions use only listed capabilities: monoclonal antibody production, animal tumor/autoimmunity models, early-phase oncology trials, separate efficacy/toxicity measurement, CTLA-4 or PD-1-pathway candidates, and available biomarker assays.\"\n}"
+        }
+      ],
+      "model": "deepseek-v4-flash"
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.hd7-historical-replay-packets",
+  "status": "frozen_pre_outcome",
+  "evidenceRole": "harness_and_memory_leakage_calibration_not_counterfactual_discovery",
+  "identityLeakageWarning": "HD7 topics are modern and heavily represented in pretrained corpora. De-identification reduces explicit labels but cannot remove historical-memory leakage. Outcome-shaped specificity must be retained as evidence.",
+  "cases": [
+    {
+      "replayId": "HR7-A02",
+      "hiddenTrajectoryId": "HD7-A02",
+      "cutoff": "2011, after a bacterial RNA-guided nuclease system and two required RNA components are known, before the 2012 programmable single-guide cleavage result",
+      "packet": {
+        "pressure": "A bacterial antiviral locus stores variable target-related sequences and uses a nuclease plus two RNA components. The system cleaves invading nucleic acid, but the minimal programmable mechanism and its transferability are unresolved.",
+        "availableEvidence": [
+          "Genetic evidence indicates the locus participates in adaptive microbial immunity.",
+          "A large nuclease protein is required for one subtype.",
+          "A small trans-acting RNA and a target-derived guide RNA both participate in nuclease maturation/function.",
+          "Sequence complementarity appears central to target recognition.",
+          "Existing engineered nucleases can edit genomes but require protein engineering for each new target."
+        ],
+        "liveRoutes": [
+          "continue descriptive microbial-immunity studies without engineering the nuclease",
+          "reconstitute the nuclease plus both RNAs in vitro and vary target/guide sequences",
+          "fuse or simplify the two RNA components into one engineered guide and test whether changing its target-matching segment redirects cleavage",
+          "move directly into mammalian cells before reconstructing the minimal cleavage mechanism",
+          "continue zinc-finger/TALEN-like protein-engineered nuclease development as the main programmable route"
+        ],
+        "constraints": [
+          "biochemical specificity must be demonstrated before broad transfer claims",
+          "the nuclease may require additional bacterial factors not represented in the current packet",
+          "sequence-specific cleavage is not equivalent to safe genome editing",
+          "off-target and cellular repair outcomes are unresolved"
+        ]
+      },
+      "hiddenOutcome": "Biochemical reconstruction showed dual-RNA-guided sequence-specific Cas9 cleavage; an engineered single guide RNA made targeting programmable, followed rapidly by genome editing in eukaryotic cells."
+    },
+    {
+      "replayId": "HR7-A05",
+      "hiddenTrajectoryId": "HD7-A05",
+      "cutoff": "late 2003, after large commodity clusters and a fault-tolerant distributed filesystem are described, before the MapReduce publication",
+      "packet": {
+        "pressure": "A web-scale operator repeatedly runs large scans, indexing, aggregation and transformation jobs over data distributed across thousands of commodity machines. Individual application teams keep rebuilding partitioning, scheduling and failure logic.",
+        "availableEvidence": [
+          "Large clusters of inexpensive machines can deliver high throughput if software handles frequent component failure.",
+          "A distributed filesystem optimized for large files, append-heavy workloads and application-controlled replication/locality is in production.",
+          "Many data jobs naturally apply a local transformation to records and then aggregate/group intermediate values.",
+          "Programmers currently manage machine assignment, data movement, retries and stragglers explicitly.",
+          "Relational database systems provide higher-level data processing but do not directly match all current web-scale batch workloads or cluster assumptions."
+        ],
+        "liveRoutes": [
+          "keep writing application-specific distributed job code",
+          "build a general batch scheduler but leave partitioning/data movement to applications",
+          "define a deliberately restricted map/partition then group/reduce programming model and let a runtime own partitioning, scheduling, locality and retries",
+          "move all workloads into a conventional parallel relational database",
+          "build reusable libraries for failure recovery and data movement without constraining the application programming model"
+        ],
+        "constraints": [
+          "must tolerate ordinary machine failure",
+          "must exploit data locality",
+          "programmers should still express custom computation",
+          "the runtime overhead must repay itself across many jobs",
+          "the abstraction cannot assume every workload fits perfectly"
+        ]
+      },
+      "hiddenOutcome": "MapReduce exposed map/reduce functions while the runtime handled partitioning, scheduling, data movement and failures; the abstraction diffused through Hadoop and later required broader resource-management boundaries such as YARN."
+    },
+    {
+      "replayId": "HR7-A06",
+      "hiddenTrajectoryId": "HD7-A06",
+      "cutoff": "2010, after programmable GPUs and ImageNet are available, before the 2012 AlexNet result",
+      "packet": {
+        "pressure": "Visual recognition systems remain far from human-level robustness. Hand-engineered features plus conventional classifiers dominate strong benchmarks, while deeper neural networks are expensive and difficult to train at image scale.",
+        "availableEvidence": [
+          "Backpropagation and convolutional neural networks are established techniques but have mixed large-scale performance histories.",
+          "Programmable GPUs expose very high parallel numerical throughput for non-graphics computation.",
+          "A new labeled image dataset contains millions of examples across roughly one thousand object classes and supports a large public recognition benchmark.",
+          "Unsupervised/deep pretraining has renewed interest in deeper representations.",
+          "Compute, memory, optimization and overfitting remain major constraints."
+        ],
+        "liveRoutes": [
+          "continue improving hand-engineered visual descriptors and strong conventional classifiers",
+          "train a substantially larger convolutional network on the large labeled dataset using GPU acceleration and regularization",
+          "focus on unsupervised pretraining before any supervised large-scale model",
+          "distribute a much larger neural network across many machines immediately",
+          "reduce dataset/model size to keep experiments inexpensive and iterate on architecture first"
+        ],
+        "constraints": [
+          "evaluation must use held-out benchmark data",
+          "training must finish within practical experiment time",
+          "model capacity must not be judged only by training error",
+          "a benchmark win would not prove broad visual or semantic generality"
+        ]
+      },
+      "hiddenOutcome": "A deep convolutional network trained on GPUs over ImageNet achieved a large held-out error reduction in 2012 and accelerated broad adoption of deep representation learning."
+    },
+    {
+      "replayId": "HR7-A09",
+      "hiddenTrajectoryId": "HD7-A09",
+      "cutoff": "2005, after inhibitory immune receptors and early CTLA-4 clinical translation are known, before PD-1 phase-I development and later multi-tumor response evidence",
+      "packet": {
+        "pressure": "Many cancer immunotherapies produce weak or inconsistent benefit. Animal evidence suggests tumors may exploit inhibitory immune checkpoints, but removing immune brakes can also cause severe autoimmunity.",
+        "availableEvidence": [
+          "One inhibitory T-cell receptor has strong animal evidence that antibody blockade can enhance anti-tumor immunity.",
+          "Another inhibitory receptor/pathway has been characterized and is implicated in peripheral immune tolerance/exhaustion.",
+          "Monoclonal antibody manufacturing and early human oncology trials are feasible.",
+          "Prior immune stimulation/vaccine approaches have frequently disappointed.",
+          "Tumor shrinkage, survival, durability and immune toxicity can diverge."
+        ],
+        "liveRoutes": [
+          "continue tumor-specific vaccines and cytokine stimulation as the main strategy",
+          "push the first checkpoint-blocking antibody through controlled clinical trials with explicit immune-toxicity management",
+          "develop blockade against the second inhibitory receptor/pathway and test it independently",
+          "combine multiple checkpoint blocks immediately before each has an interpretable single-agent evidence base",
+          "abandon systemic immune activation because autoimmune toxicity makes the mechanism unusable"
+        ],
+        "constraints": [
+          "serious immune adverse events are plausible",
+          "early tumor shrinkage is not sufficient evidence of durable benefit",
+          "different tumor types may respond differently",
+          "clinical development requires independent safety/efficacy evaluation and regulatory admission"
+        ]
+      },
+      "hiddenOutcome": "Checkpoint blockade against CTLA-4 and later PD-1/PD-L1 produced durable clinical responses in subsets of patients across multiple cancers while retaining serious immune-related toxicity as a separate outcome axis."
+    }
+  ]
+}
