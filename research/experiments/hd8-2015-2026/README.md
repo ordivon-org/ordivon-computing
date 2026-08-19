@@ -1,11 +1,17 @@
 # HD8 — 2015–2026 Historical Theory Dogfood
 
-Status: **COMPLETE / EIGHT CHRONOLOGICAL WAVES COMPLETE / HD9 REQUIRED**.
+Status: **COMPLETE / THICK-SOURCE CURRENTNESS REPAIRED / EIGHT CHRONOLOGICAL WAVES COMPLETE / HD9 REQUIRED**.
 
-HD8 closes the chronology under the unchanged HD0 protocol: 120 candidates → exact 40 source-locked trajectories → 12 Deep Anchors → frozen Primary Pass B → blind independent coding → three-treatment replay calibration → anti-case / confirmation-bias / residual audits.
+HD8 closes the chronology under the unchanged HD0 theory boundary. An initial shallow representation was detected as below the HD1–HD7 causal-trajectory source contract and is preserved under `superseded-pre-audit-v0/`; it is not current HD8 adjudication evidence.
 
-Frozen hypothesis digest remains `sha256:ee79a2865cae1c6828e6a191e3117bac73992d7baeba3cd4cc8ae665bf42f186`. No direct contradiction is adjudicated. Blind exact agreement is 37.5%, coarse applicability 55.0%, and 53/120 blind judgments are `INSUFFICIENT_EVIDENCE`. R1–R8 recur for an eighth epoch but remain unpromoted pending HD9.
+Current standing:
 
-Modern replay is a negative benchmark result: future-specific knowledge still leaks through unscaffolded and affordance-bounded conditions.
+- 120 candidates → exact 40 roster;
+- 12 current thick Deep Anchors + 28 lightweight breadth/control trajectories;
+- current Primary Pass B = 400 judgments, with all 280 lightweight breadth/control cells conservatively `INSUFFICIENT_EVIDENCE`;
+- current blind Deep-Anchor agreement = **77/120 (64.2%) exact, 98/120 (81.7%) coarse**;
+- one raw S5 contradiction is adjudicated as a polarity/applicability error, leaving zero direct contradictions;
+- R1–R8 retain eighth-epoch recurrence from current thick Deep-Anchor evidence, with no promotion before HD9;
+- final `THICK_CUTOFF_V1` replay = 36/36 structured-valid, with six `BCL11A` future-knowledge marker hits. It remains temporal-leakage calibration, not discovery evidence.
 
-See `HD8-FINAL-REPORT.md`, `confirmation-bias-audit-v0.json`, `residual-promotion-gate-v0.json`, `replay-evaluation-v0.json`, `anti-case-audit-v0.json` and `apparatus-archive-v0.json`.
+The shallow 45/120 exact / 66/120 coarse result remains valuable as a **representation-depth ablation**. See `currentness-reconciliation-v0.json` and `representation-depth-ablation-v0.json`.
