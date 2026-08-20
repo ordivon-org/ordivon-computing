@@ -70,15 +70,15 @@ F14 remains open and must not be scored early.
 
 ### F14 early field data
 
-Three natural post-cutoff owner changes have already been inspected: Computing's Agent Situation P3 closeout, Game's tactical-situation presentation change, and Studio's first ordinary Production card. None contains exact use, acquisition, or blocking evidence for any of the 12 frozen capability cards:
+Four natural post-cutoff owner changes have now been inspected. The first three — Computing Agent Situation P3, Game tactical-situation presentation, and Studio first ordinary Production card — contained no exact frozen-card demand. The fourth, the 2026-08-20 Workstation scoped-network recovery, is the first qualifying event: it restored the frozen `scoped-egress-finance-okx` capability and then completed an authenticated GET-only live OKX observation through the stable `finance-okx` pool.
 
 ```text
-inspected post-t0 owner events = 3
-qualifying capability demand   = 0
-matched frozen capabilities    = 0
+inspected post-t0 owner events = 4
+qualifying capability demand   = 1
+matched frozen capabilities    = 1  (scoped-egress-finance-okx)
 ```
 
-This is **zero realized demand so far**, not evidence that `CURRENT_ONLY`, `ACTUAL_T0`, or `KEEP_ALL_FEASIBLE` is optimal. Carrying-versus-reacquisition regret remains unresolved until a qualifying demand arrives or the field window closes.
+This establishes **realized future demand**, but still does not rank the policies. At `t0`, `ACTUAL_T0`, `CURRENT_ONLY`, and `KEEP_ALL_FEASIBLE` all froze `scoped-egress-finance-okx` as `carry`, so the event creates no reacquisition/blocking divergence among them. Real maintenance/recovery burden exists, but no scalar regret is backfilled without a frozen measurement basis. F14 remains open for a demand event on which the frozen policies actually differ, or for the frozen window/stop rule.
 
 ## 3. Complementarity remains real but narrow
 
@@ -158,24 +158,20 @@ A pressure earns value only when its predeclared decisive probe is actually admi
 
 F17 remains open for future owner/external events.
 
-### F17 early field data
+### F17 field data through Event 008
 
-Reality supplied three post-cutoff owner events without manufacturing a benchmark:
+Reality has now supplied eight source-fenced post-cutoff events. E001–E003 are the original Computing/Game/Studio controls. E004 is Computing's bounded shadow-authority contraction, E005 the Harness structured-result conformance repair, E006 the Workstation scoped-netns projection repair, and E007 a pre-frozen Windows OEM-maintenance false-promotion control. Those four added real repair/churn events all remained `NO_OP` on every valid slot. E004 Flash/Direct made its Provider call but the runner lost the returned result because the output parent directory did not exist; that slot is retained as apparatus-invalid and was not rerun.
 
-1. Computing Agent Situation P3 — a substantial owner-local capability/closeout plus deletion of closed ACS apparatus;
-2. Game tactical-situation presentation — a presentation-only change with no domain/reducer/policy/evaluator delta;
-3. Studio first ordinary Production card — a confirming ordinary-consumption event whose owner concluded the existing Production path was sufficient.
-
-The frozen Flash/Pro campaign produced 12 model-treatment slots:
+E008 was selected before treatment outcomes by a mechanical rule: among four current 2026-08-20 independent open-world READY continuities, choose the oldest-created non-PAL line. This selected the open-world equivalence/mobility W24 frontier. It produced the first treatment-aligned divergence:
 
 | Treatment | slots | valid | invalid | PRESSURE | NO_OP |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| `DIRECT_FULL_REVIEW` | 6 | 6 | 0 | 0 | 6 |
-| `PRESSURE_CERTIFICATE` | 6 | 5 | 1 | 0 | 5 |
+| `DIRECT_FULL_REVIEW` | 16 | 15 | 1 | 2 | 13 |
+| `PRESSURE_CERTIFICATE` | 16 | 15 | 1 | 0 | 15 |
 
-All 11 valid decisions refrained from inventing shared PAL pressure from these owner-local/confirming controls. The single invalid row is the Flash certificate run on Event 001, which terminated as `invalid_model_output` before an accepted model call; it is retained as treatment cost and is not rerun.
+Both Direct E008 rows proposed a shared PAL pressure around the source owner's repair-representation/no-go aliasing result; both Certificate rows returned `NO_OP` because the owner already listed the corresponding formalization/theorem/search actions as active work and no independent PAL decision lever was identified. Current PAL-owner adjudication supports the certificate on this event: C6's old pressure selector is rejected, Wave 4 currently consists of F14/F17, and no PAL no-go/repair-classifier architecture exists whose decision would flip under the Direct probe. The two Direct pressures are therefore **not admitted at current standing**; this does not diminish the source owner's live result.
 
-This does **not** establish that direct review is superior or that the certificate is useless. So far there is no positive-pressure event, hence no downstream decisive probe whose decision-changing value can discriminate the treatments. Certificate benefit remains unresolved while one structured-validity cost is already observed.
+This is F17's first bounded **specificity** signal: on one natural live-research event the certificate avoided duplicating an owner frontier that Direct promoted into a non-existent current PAL decision. It is not a global winner. No F17-selected pressure has yet been admitted, run, and changed a downstream decision, so true-positive recall and comparative discovery value remain unresolved. The historical Certificate `invalid_model_output` on E001 and Direct apparatus-result-loss on E004 leave both treatments at 15/16 valid slots.
 
 ## 6. Prior revalidation received a natural positive
 
