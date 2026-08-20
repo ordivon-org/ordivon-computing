@@ -9,3 +9,6 @@ The primary objective is causal reconstructability per generation-context cost, 
 ## Result
 
 OFR4 completed as a no-promotion falsification round. See `OFR4-RESULTS.md`, `OFR4-MEASUREMENT-DIAGNOSIS.md`, `analysis-v1.json`, and `OFR4-CLOSEOUT.md`. The raw selector preferred the full eight-role packet among semantic survivors, but measurement invalidity plus representation-correlated generation missingness blocks product/Knowledge/Core promotion.
+## Apparatus retention
+
+The closed live runner/diagnostic scripts are no longer part of the current executable research surface. Their exact bytes remain Git-recoverable from the bounded archive receipt [`computer-contraction-c5-post-closeout-apparatus-archive-20260821.json`](../../../evidence/computer-contraction-c5-post-closeout-apparatus-archive-20260821.json); result, closeout, contract, and evidence records remain here.

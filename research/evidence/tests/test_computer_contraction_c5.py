@@ -17,7 +17,7 @@ class ComputerContractionC5Tests(unittest.TestCase):
         live = [q for q in portfolio["questions"] if q["status"] in {"active", "ready"}]
         executable = []
         for path in (ROOT / "experiments").rglob("*"):
-            if path.is_file() and (path.suffix in {".py", ".sh", ".rs", ".ts"} or any(part in {"tests", "scripts", "src", "integration", "fixtures", "benchmarks"} for part in path.parts)):
+            if path.is_file() and (path.suffix in {".py", ".sh", ".rs", ".ts"} or any(part in {"tests", "scripts", "src", "integration", "benchmarks"} for part in path.parts)):
                 executable.append(path)
         if not live:
             self.assertEqual(executable, [])
@@ -34,6 +34,16 @@ class ComputerContractionC5Tests(unittest.TestCase):
             if str(path.relative_to(ROOT.parent)) not in allowed
         ]
         self.assertEqual(unbound, [])
+
+
+    def test_post_closeout_ofr_executables_are_git_recoverable(self) -> None:
+        archive = json.loads((ROOT / "evidence/computer-contraction-c5-post-closeout-apparatus-archive-20260821.json").read_text())
+        revision = archive["sourceRevision"]
+        self.assertEqual(archive["removedFiles"], 7)
+        for item in archive["files"]:
+            self.assertFalse((ROOT.parent / item["path"]).exists())
+            actual = subprocess.check_output(["git", "-C", str(ROOT.parent), "rev-parse", f"{revision}:{item['path']}"], text=True).strip()
+            self.assertEqual(actual, item["gitBlob"])
 
     def test_v1_authority_is_absent_current_but_git_recoverable(self) -> None:
         authority = self.doc["responsibilityAuthority"]

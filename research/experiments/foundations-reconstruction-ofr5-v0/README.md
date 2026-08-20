@@ -7,3 +7,6 @@ Controls are eager full-context, the same index without hydration, and OFR2 cros
 ## Result
 
 OFR5 is complete with frozen disposition `NO_ATLAS_PROMOTION`. The two-stage progressive candidate failed reliability/cost gates, while post-holdout diagnostics isolated a narrower surviving pattern: compact case index + complete case hydration + mechanical truth/currentness/authority metadata + exact owner escape hatch. These diagnostics do not repair the frozen promotion result. See `OFR5-RESULTS.md`, `OFR5-DESIGN-DIAGNOSIS.md`, `analysis-v1.json`, and `OFR5-CLOSEOUT.md`.
+## Apparatus retention
+
+The closed live runner/diagnostic scripts are no longer part of the current executable research surface. Their exact bytes remain Git-recoverable from the bounded archive receipt [`computer-contraction-c5-post-closeout-apparatus-archive-20260821.json`](../../../evidence/computer-contraction-c5-post-closeout-apparatus-archive-20260821.json); result, closeout, contract, and evidence records remain here.
