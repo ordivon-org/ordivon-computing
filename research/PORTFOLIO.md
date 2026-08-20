@@ -2,11 +2,11 @@
 
 > Generated from [`portfolio.json`](portfolio.json). Edit the JSON source, then rerun `python3 scripts/render_research_portfolio.py`.
 
-- **As of:** `2026-08-10`
+- **As of:** `2026-08-21`
 - **Active research-line limit:** `2`
 - **Current active lines:** `1`
 
-`portfolio.json` is the single source of truth for research status, maturity, blockers, next falsifier, and Ready Frontier. This generated document is a review projection; question pages preserve stable hypotheses and experiment contracts, while Issues preserve discussion and execution history.
+`portfolio.json` is the single source of truth for **Computing-local** research status, question-evidence maturity, blockers, next falsifier, and WIP allocation. It does not own external project currentness or value. External-owner P0-P3 allocation requires an exact same-cut observation; otherwise the row remains reference-only.
 
 ## Active research lines
 
@@ -18,41 +18,41 @@
 
 ### Reference
 
-| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+| ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-STACK-001 | M5 | reference | ordivon-computing | — | — | — | Use as the admission test; reopen only on contradictory evidence. | A cross-workload failure reveals a necessary responsibility absent from the current substrate/overlay split. |
 | ANC-HARNESS-002 | M5 | reference | ordivon-harness | — | 5a42afdf5e01 | — | Retain and localize the current public DomainToolLoopRunner as an evidence-backed bounded bare-model Tool-cognition surface. In the corrected P0 live group H was accepted 3/5 and produced 4/5 verifier-passing candidates versus S at 0/5 and 0/5, at about 7.93x the average Provider-token cost. Do not expand HarnessAgentRun for this benchmark; keep H2 advanced/internal and reopen broader composition only for a natural independent consumer. | A materially different workload or strong Provider-native Harness matches the bounded repository-repair and current independent-consumer needs with equal correctness, recovery and evidence quality at materially lower recurring cost, eliminating the remaining reason to retain the public bare-model Tool loop. |
 
 ### Active
 
-| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+| ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-ADAPT-001 | M5 | P1 | ordivon-computing | PAL-FIELD-001 | — | — | Continue only from natural post-t0 reality. Append qualifying F14 demand and F17 owner/external events under their frozen contracts; do not manufacture positive cases, change policy cards/prompts, or score either field study early. When both stop rules resolve, compress stable findings and remove f17_run.py from the active tree. | F14 must accumulate real post-t0 capability demand or close at its frozen window so ACTUAL_T0/CURRENT_ONLY/KEEP_ALL_FEASIBLE can be compared by realized carry/reacquisition/blocking regret; F17 must encounter genuine positive-pressure owner/external events whose predeclared decisive probes change a downstream research/design decision, allowing DIRECT_FULL_REVIEW versus PRESSURE_CERTIFICATE to be compared beyond no-op controls. |
 
 ### Blocked
 
-| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+| ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
-| ANC-SECURITY-005 | M0 | P3 | ordivon-security | — | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-MULTI-001 | No implementation until single-actor strategic and opponent-model hypotheses survive. | Ordinary Host delegation and branch/join plus domain-local trust fields explain the first compromise scenario. |
-| ANC-SECURITY-006 | M0 | P3 | ordivon-security | — | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-SECURITY-005, ANC-VERIFY-001, ordivon-security#20 | No platform or training loop until the unit of strategic evaluation is proven. | Held-out static-opponent evaluation predicts the same architecture decisions as coevolution with lower cost. |
+| ANC-SECURITY-005 | M0 | reference | ordivon-security | — | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-MULTI-001 | Historical Computing priority P3 is not current owner authority. Before reactivation or resource allocation, recover the current ordivon-security standing, admit an exact same-cut externalObservation, and then reassess this Computing question against its retained falsifier. | Ordinary Host delegation and branch/join plus domain-local trust fields explain the first compromise scenario. |
+| ANC-SECURITY-006 | M0 | reference | ordivon-security | — | — | ANC-SECURITY-003, ANC-SECURITY-004, ANC-SECURITY-005, ANC-VERIFY-001, ordivon-security#20 | Historical Computing priority P3 is not current owner authority. Before reactivation or resource allocation, recover the current ordivon-security standing, admit an exact same-cut externalObservation, and then reassess this Computing question against its retained falsifier. | Held-out static-opponent evaluation predicts the same architecture decisions as coevolution with lower cost. |
 
 ### Deferred
 
-| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+| ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-COMPILER-002 | M1 | P1 | ordivon-computing | — | — | ANC-HARNESS-002, ANC-VERIFY-001 | Retain only the live question, strong transcript/compaction/retrieval baseline, falsifiers, and exact source audit. Do not preserve the historical TCG architecture narrative in the active tree. After Harness and evaluation prerequisites pass, run only the minimum single-Actor comparison; Prime/RLM, Child Runs, graph storage, Runtime Worker, and continual Harness remain conditional. | A transcript-centered Harness with bounded compaction or retrieval, current Artifacts, and ordinary Host Task semantics matches or exceeds the Temporal Cognitive Graph on verified outcome, false completion, continuation, token cost, repeated reads, and operator review with fewer durable objects. |
 | ANC-COMPILER-001 | M1 | P2 | ordivon-computing | — | — | — | Do not implement an Agent VM; revisit only after a minimal branch/join failure. | An ordinary Host Task Graph, queue, reducer, and workflow backend express the first branch/join workload without an Agent VM. |
 | ANC-MULTI-001 | M4 | P2 | ordivon-computing | — | — | — | Do not build a Multi-Agent framework. P4 observed development-only gain and holdout error decorrelation but no strict holdout superiority; current Host primitives expressed the full minimum branch/Artifact/Join pattern. Reopen only for a materially different consumer/workload with an explicit selection hypothesis. | A materially different workload with natural independent hypotheses shows a reproducible strict holdout advantage for independent participants over a strong sequential-reflection plus verifier baseline, or exposes a repeated coordination responsibility that current Goal/Task/Artifact/Verification composition cannot express. |
 | ANC-ORG-001 | M1 | P3 | ordivon-computing | — | — | ANC-MULTI-001, real-operator-attention-traces | Remain an umbrella; derive objects only from real operator and multi-Agent trajectories. | Host-local DecisionRequests and ordinary Task/participant relations explain observed coordination without a new organization layer. |
-| ANC-GAME-002 | M1 | P1 | ordivon-game | — | — | — | Finish the Station Zero first playable, then run G-PLAY-001 with scripted, decorative-Agent, and consequential-Agent cells; do not build a general society or world platform. | One small non-mission Agent activity fails to produce greater return, surprise, attachment, expression, consequential history, or meaningful choice than a scripted baseline at comparable total cost. |
-| ANC-SECURITY-001 | M1 | P2 | ordivon-security | — | — | — | Keep as a deferred umbrella. Round 1 completed the minimum dynamic-opponent method and rejected Campaign promotion; resume only through the narrower Security #10 and #20 experiments after current WIP frees. | Mature simulation, MARL, cyber evaluation, and thin adapters express the strategic distinctions without a new shared layer. |
-| ANC-SECURITY-003 | M4 | P2 | ordivon-security | — | — | — | Round 1 completed the minimum local and CAGE dynamic-opponent method but did not earn Campaign state. Defer the next test to held-out policies and Host/Context replacement through Security #10. | A scripted or ordinary Goal/Task policy matches explicit Campaign state on policy-switch and held-out-opponent cases. |
-| ANC-SECURITY-004 | M4 | P2 | ordivon-security | — | — | — | Round 1 found diagnostic and information-state value but no objective-success or transfer benefit. Defer the next transcript-versus-compiled-hypothesis test to Security #10 under held-out policies and deliberate Context loss. | A reactive policy without explicit opponent hypotheses matches held-out policy-switch performance and evidence quality. |
+| ANC-GAME-002 | M1 | reference | ordivon-game | — | — | — | Historical Computing priority P1 is not current owner authority. Before reactivation or resource allocation, recover the current ordivon-game standing, admit an exact same-cut externalObservation, and then reassess this Computing question against its retained falsifier. | One small non-mission Agent activity fails to produce greater return, surprise, attachment, expression, consequential history, or meaningful choice than a scripted baseline at comparable total cost. |
+| ANC-SECURITY-001 | M1 | reference | ordivon-security | — | — | — | Historical Computing priority P2 is not current owner authority. Before reactivation or resource allocation, recover the current ordivon-security standing, admit an exact same-cut externalObservation, and then reassess this Computing question against its retained falsifier. | Mature simulation, MARL, cyber evaluation, and thin adapters express the strategic distinctions without a new shared layer. |
+| ANC-SECURITY-003 | M4 | reference | ordivon-security | — | — | — | Historical Computing priority P2 is not current owner authority. Before reactivation or resource allocation, recover the current ordivon-security standing, admit an exact same-cut externalObservation, and then reassess this Computing question against its retained falsifier. | A scripted or ordinary Goal/Task policy matches explicit Campaign state on policy-switch and held-out-opponent cases. |
+| ANC-SECURITY-004 | M4 | reference | ordivon-security | — | — | — | Historical Computing priority P2 is not current owner authority. Before reactivation or resource allocation, recover the current ordivon-security standing, admit an exact same-cut externalObservation, and then reassess this Computing question against its retained falsifier. | A reactive policy without explicit opponent hypotheses matches held-out policy-switch performance and evidence quality. |
 | ANC-SECURITY-007 | M1 | P2 | ordivon-computing | — | — | — | Retain the completed comparative study and Security e37cc70 observation as reference. Admit no implementation until a disposable dynamic-software backend or Agent-child lineage experiment exposes an authority, identity, revocation, residual, or propagation failure that existing owners cannot represent. | Artifact provenance, process trees, Host delegation, Harness/Runtime identity, Evaluation Trial evidence, Contest evidence, and classical epidemic or game models express software, Agent, descendant, population, organization, and Campaign claims without a shared Execution Entity relation. |
 
 ### Completed
 
-| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+| ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-IR-001 | M5 | reference | ordivon-computing | — | — | — | Use EffectEnvelope v1 as historical evidence; extend only when a new cross-backend failure cannot remain in Host, Runtime, or an adapter. | A second interface family cannot preserve Effect meaning with the current envelope and Binding projection. |
 | ANC-MEMORY-001 | M4 | reference | ordivon-computing | — | — | — | Use TaskCapsule evidence; do not create a general memory runtime. | A materially different workload cannot continue from bounded semantic state without transcript or Provider Session state. |
@@ -67,7 +67,7 @@
 
 ### Superseded
 
-| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+| ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-SECURITY-002 | M2 | reference | ordivon-computing | — | — | — | Use only as historical substrate evidence. | None; historical comparison is retained. |
 | ANC-EDGE-001 | M2 | reference | ordivon-computing | — | — | — | Historical narrative is Git-only; successor and disposition remain in the portfolio. | None; the split was an intermediate derivation. |
@@ -76,28 +76,28 @@
 
 ### Frozen
 
-| ID | Maturity | Priority | Owner | Active line | Observed revision | Blocked by | Next action | Next falsifier |
+| ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-KERNEL-001 | M5 | reference | ordivon-computing | — | — | — | Accept only bug fixes, regression evidence, or newly demonstrated universal invariants. | A cross-framework failure requires a universal invariant that cannot remain in Host, Runtime, Tool contracts, or a domain World. |
 
 ## Programs
 
-| Program | Issue | Kind | Status | Disposition | Next action |
+| Program | Issue | Kind | Status | Disposition | Computing next action |
 |---|---|---|---|---|---|
 | ANC-MACHINE-V0 | #1 | research_program | active | retain_as_parent | Use the generated portfolio as the Ready Frontier. |
 | PERSONAL-DEVELOPER-RELIABILITY | #44 | operational_program | active | retain_as_operational_program | Continue only work that removes repeated operating friction. |
-| STRATEGIC-ADVERSARIAL-SYSTEMS | #46 | research_program | deferred | retain_as_deferred_umbrella | Round 1 completed the minimal dynamic-opponent method and rejected Campaign promotion; defer Round 2 until held-out policy, Context-loss, and Host-replacement experiments are admitted. |
+| STRATEGIC-ADVERSARIAL-SYSTEMS | #46 | research_program | deferred | retain_as_deferred_umbrella | Retain this as a deferred Computing research umbrella. Before any renewed Security-facing experiment or resource allocation, recover current Security owner standing and admit a fresh bounded consumer; the historical Round 2 conditions are not a current Security roadmap. |
 | EXTERNAL-BASELINE-VALIDATION | #56 | research_method_program | completed | absorb_into_research_method | Close after Round A; child Issues retain unfinished experiments. |
 | PLURAL-INTELLIGENCE-ALIGNMENT | #63 | alignment_program | completed | absorb_into_core_registry_and_children | Close after Round A; remaining implementation stays in owning repositories. |
 
 ## Studies
 
-| Study | Status | Role | Next action |
+| Study | Status | Role | Computing next action |
 |---|---|---|---|
 | 2026-adaptive-acceleration | reference | published normative position | Revise only after substantive evidence, critique, or position change. |
-| 2026-agent-native-adversarial-systems | deferred | Round 1 evidence and deferred strategic Security research source | Consume the completed Round 1 method and negative abstraction result; resume only with held-out opponent policies, deliberate Context loss, and Host/Harness replacement. |
+| 2026-agent-native-adversarial-systems | deferred | Round 1 evidence and deferred strategic Security research source | Retain the completed Round 1 method and negative abstraction result as historical Computing evidence. Any renewed adversarial-system work must first recover current Security/Harness owner standing and admit a fresh bounded question; this study does not direct their current roadmaps. |
 | 2026-execution-entity-adversarial-ecology | reference | cross-disciplinary foundation for software, Agent, lineage, population, organization, Campaign, control, resilience, and adversarial-ecology evaluation | Consume through ANC-SECURITY-007; do not create a shared Execution Entity protocol until a disposable-software or Agent-child workload exposes a reproduced cross-project failure. |
-| 2026-agent-native-game-worlds | completed | bounded thesis and research program for intrinsic play, creation, persistent Agent participation, and plural Game verticals | Consume through ANC-GAME-002; finish the Station Zero alpha, then run G-PLAY-001 before constructing any generic social, habitat, or world platform. |
+| 2026-agent-native-game-worlds | completed | bounded thesis and research program for intrinsic play, creation, persistent Agent participation, and plural Game verticals | Retain this completed thesis/program as historical Computing evidence. Any renewed Game allocation must re-enter through ANC-GAME-002 only after current Game owner standing is recovered and an exact same-cut observation is admitted; this study does not direct current Game product work. |
 
 ## Evidence maturity
 
@@ -111,10 +111,13 @@
 
 ## Governance rules
 
+- **Portfolio cut:** `asOf` dates the current Computing portfolio judgment only. It does not make an external owner current; external-owner currentness requires an exact owner observation admitted for that same review cut.
+- **Question evidence maturity:** M0-M6 describe evidence/experiment maturity of the tracked Computing research question. They do not measure owner product maturity, importance, realized value, or engineering priority.
+- **Priority scope:** P0-P3 are Computing-local WIP allocation judgments, not owner priority or value. An externally owned question may carry P0-P3 only when an exact externalObservation is admitted at the portfolio asOf cut and its evidence binds that revision; otherwise its priority must be reference.
 - **Promotion:** No shared layer or repository without a reproduced failure, a second materially different consumer, explicit ownership, measured net benefit, and a deletion test.
 - **Judgment:** The portfolio limits WIP and records reasons; it does not mechanically decide what matters. Identifiable participants remain responsible for priority, exception, revision, and deletion, and the portfolio itself must be narrowed or removed if its recurring cost exceeds the drift it prevents.
 - **New question admission:** A new question must replace, block, or materially refine an existing item and name its first falsifier, minimum workload, deletion outcome, and consuming repository.
-- **External observations:** An active or ready question owned outside ordivon-computing binds the exact observed repository revision and local immutable evidence. The binding records observation freshness; it does not override the product repository as implementation authority.
+- **External observations:** An externalObservation is an exact historical source fence, not timeless current owner truth. An externally owned active/ready question or any externally owned P0-P3 priority requires an exact observation at the portfolio asOf cut with local immutable evidence binding that repository revision. Without that same-cut fence, retain the question only as reference priority until owner standing is revalidated.
 - **Source identity:** Cross-repository current-state audits must record local HEAD, upstream or published release revision, and consumed dependency pins as distinct facts. None may substitute for another, and historical receipts remain bound to their original revisions.
 - Every completed experiment ends in one of: `retain`, `localize`, `shrink`, `defer`, or `delete`.
 - `active` is a WIP state, not a statement of importance. `deferred` preserves a valid question without consuming current execution bandwidth.

@@ -53,6 +53,9 @@ def check_portfolio(root: Path = ROOT, path: Path | None = None) -> list[str]:
     _require(bool(policy.get("judgmentRule")), "portfolio judgmentRule is missing", issues)
     _require(bool(policy.get("externalObservationRule")), "portfolio externalObservationRule is missing", issues)
     _require(bool(policy.get("sourceIdentityRule")), "portfolio sourceIdentityRule is missing", issues)
+    _require(bool(policy.get("asOfRule")), "portfolio asOfRule is missing", issues)
+    _require(bool(policy.get("maturityRule")), "portfolio maturityRule is missing", issues)
+    _require(bool(policy.get("priorityRule")), "portfolio priorityRule is missing", issues)
 
     map_path = root / "research" / "map.yaml"
     map_text = map_path.read_text(encoding="utf-8") if map_path.is_file() else ""
@@ -130,6 +133,8 @@ def check_portfolio(root: Path = ROOT, path: Path | None = None) -> list[str]:
         for evidence in question.get("evidence", []):
             _require((root / evidence).exists(), f"evidence reference is missing: {question_id} -> {evidence}", issues)
         observation = question.get("externalObservation")
+        external_owner = question.get("owner") != "ordivon-computing"
+        decision_priority = question.get("priority") in {"P0", "P1", "P2", "P3"}
         if observation is not None:
             _require(isinstance(observation, dict), f"externalObservation must be an object: {question_id}", issues)
             if isinstance(observation, dict):
@@ -153,10 +158,12 @@ def check_portfolio(root: Path = ROOT, path: Path | None = None) -> list[str]:
                                 evidence_document, str(observation.get("repositoryId")), str(observation.get("revision"))
                             ):
                                 bound = True
-                    if live_status and question.get("owner") != "ordivon-computing":
+                    if external_owner and (live_status or decision_priority):
                         _require(bound, f"externalObservation evidence does not bind exact revision: {question_id}", issues)
-        if question.get("status") in {"active", "ready"} and question.get("owner") != "ordivon-computing":
-            _require(isinstance(observation, dict), f"externally owned live question lacks an exact observation: {question_id}", issues)
+        if external_owner and (question.get("status") in {"active", "ready"} or decision_priority):
+            _require(isinstance(observation, dict), f"externally owned decision-bearing question lacks an exact observation: {question_id}", issues)
+            if isinstance(observation, dict):
+                _require(observation.get("observedAt") == document.get("asOf"), f"external decision observation is not at portfolio asOf cut: {question_id}", issues)
 
     file_question_ids: set[str] = set()
     for question_path in (root / "research" / "questions").glob("*.md"):

@@ -7,3 +7,6 @@ The key comparison is `POST_OFR6_FULL` versus the already-strong `PRE_OFR6_FULL`
 ## Result
 
 OFR7 completed with a strong-baseline ceiling rather than a semantic win. DIRECT, PRE_OFR6_FULL and POST_OFR6_FULL all reached 1.0 primary and blinded causal accuracy on the 20-case holdout across Flash and Pro; POST_FULL produced zero paired corrections over PRE_FULL and zero regressions, so marginal OFR6 decision value was not established. DIRECT was the Pareto winner on this corpus because it achieved the same semantic ceiling with the smallest Context. The focused current surface formally qualified versus POST_FULL under the frozen aggregate rule, but does not earn default promotion because DIRECT dominates it and the primary holdout retains one structured-realization failure. See `OFR7-RESULTS.md`, `OFR7-MEASUREMENT-DIAGNOSIS.md`, `analysis-v1.json`, `disposition-v1.json`, and `validation-v1.json`.
+## Apparatus retention
+
+The closed live runner/diagnostic scripts are no longer part of the current executable research surface. Their exact bytes remain Git-recoverable from the bounded archive receipt [`computer-contraction-c5-post-closeout-apparatus-archive-20260821.json`](../../../evidence/computer-contraction-c5-post-closeout-apparatus-archive-20260821.json); result, closeout, contract, and evidence records remain here.

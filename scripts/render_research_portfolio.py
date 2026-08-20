@@ -37,7 +37,7 @@ def render(document: dict[str, Any]) -> str:
         f"- **Active research-line limit:** `{policy['activeLineLimit']}`",
         f"- **Current active lines:** `{len(document['activeLines'])}`",
         "",
-        "`portfolio.json` is the single source of truth for research status, maturity, blockers, next falsifier, and Ready Frontier. This generated document is a review projection; question pages preserve stable hypotheses and experiment contracts, while Issues preserve discussion and execution history.",
+        "`portfolio.json` is the single source of truth for **Computing-local** research status, question-evidence maturity, blockers, next falsifier, and WIP allocation. It does not own external project currentness or value. External-owner P0-P3 allocation requires an exact same-cut observation; otherwise the row remains reference-only.",
         "",
         "## Active research lines",
         "",
@@ -69,16 +69,16 @@ def render(document: dict[str, Any]) -> str:
             ]
             for item in selected
         ]
-        lines.extend(_table(["ID", "Maturity", "Priority", "Owner", "Active line", "Observed revision", "Blocked by", "Next action", "Next falsifier"], rows))
+        lines.extend(_table(["ID", "Question evidence maturity", "Computing priority", "Owner", "Active line", "Owner observation", "Blocked by", "Computing next action", "Next falsifier"], rows))
         lines.append("")
 
     lines += ["## Programs", ""]
     rows = [[p["id"], f"#{p['issue']}", p["kind"], p["status"], p["disposition"], p["nextAction"]] for p in document["programs"]]
-    lines.extend(_table(["Program", "Issue", "Kind", "Status", "Disposition", "Next action"], rows))
+    lines.extend(_table(["Program", "Issue", "Kind", "Status", "Disposition", "Computing next action"], rows))
 
     lines += ["", "## Studies", ""]
     rows = [[s["id"], s["status"], s["role"], s["nextAction"]] for s in document["studies"]]
-    lines.extend(_table(["Study", "Status", "Role", "Next action"], rows))
+    lines.extend(_table(["Study", "Status", "Role", "Computing next action"], rows))
 
     lines += ["", "## Evidence maturity", ""]
     for maturity, meaning in policy["maturityLevels"].items():
@@ -88,6 +88,9 @@ def render(document: dict[str, Any]) -> str:
         "",
         "## Governance rules",
         "",
+        f"- **Portfolio cut:** {policy['asOfRule']}",
+        f"- **Question evidence maturity:** {policy['maturityRule']}",
+        f"- **Priority scope:** {policy['priorityRule']}",
         f"- **Promotion:** {policy['promotionRule']}",
         f"- **Judgment:** {policy['judgmentRule']}",
         f"- **New question admission:** {policy['newQuestionRule']}",
