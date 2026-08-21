@@ -25,3 +25,4 @@ Current derived-theory candidate research:
 Consumption-oriented navigation:
 
 - [Consumption-Oriented Map](CONSUMPTION-ORIENTED-MAP.md) — non-authoritative consumer view over current SCD owner standing, firewalls, negative history, TRAA claim ceilings, reopen gates, and candidate consumption order. It does not alter the SCDF registry or Foundation standing.
+- [Environment / Habitat Census — Round 1](ENVIRONMENT-HABITAT-CENSUS.md) — empirical non-authoritative census of real description-mediated judgement boundaries, admitted positive habitats, already-sunk negative controls, candidates and reopen-only regimes. It does not define a habitat ontology or production SCD environment.
