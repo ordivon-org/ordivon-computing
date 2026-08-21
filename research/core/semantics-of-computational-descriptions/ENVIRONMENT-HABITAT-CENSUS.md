@@ -1,4 +1,4 @@
-# SCD Environment / Habitat Census — Round 1
+# SCD Environment / Habitat Census — Rounds 1–2
 
 Status: **EMPIRICAL / EXPLANATORY / NON-AUTHORITATIVE**.
 
@@ -171,3 +171,79 @@ Round 1 does not justify:
 - a shared habitat schema inferred from H1 alone.
 
 The next experiment must start from a **current named consumer gap**. The strongest default search target is an Agent-facing exact judgement boundary where a consumer-local owner-qualified standing projection can be deleted against a strong baseline without embedding the answer. If no such natural gap exists, the correct result is to retain the current sparse field rather than manufacture coverage.
+
+
+## 13. Round 2 — H7 cross-owner description adequacy for normative judgement
+
+Class: **ADMITTED NATURAL POSITIVE**, with current disposition **owner-local preservation / NO NEW SCD COMPONENT**.
+
+Round 2 consumed the independent current Normative actual-consumption line rather than constructing an SCD-specific fixture. Three heterogeneous practical consumers now reproduce the same description-adequacy pressure while retaining their own owner semantics.
+
+### H7-A — protected-artifact mutation
+
+A physical action may remain extensionally the same:
+
+`Delete(x)` over the same path/object bytes,
+
+while the relevant institutional world differs in protected status, owner, role, currentness or provenance. Physical identity, filesystem capability and operation success therefore do not determine whether the deletion is permitted, prohibited or currently unsupported. If the consumer projection preserves only physical identity/action mechanics and deletes the institutional distinctions required by the normative query, it merges source situations that can require different prospective normative standings.
+
+### H7-B — Finance external commitment/currentness
+
+A fresh read-only Finance observation established an owner-native semantic effect contract with `effectClass=READ_ONLY`, no credential access, no environment mutation, no external financial write, no financial submission and no authority mutation. The executor is disabled, the configured venue profile remains `finance-okx`, and the current egress observation is `UNKNOWN` / not-current (`listenerReachable=false`, `watchdogDisposition=no-eligible-member`, `currentEgressMatches=false`).
+
+The load-bearing separations are:
+
+- `CannotCurrentlyObserve(permission) != NoPermission`;
+- `CannotCurrentlyObserve(permission) != Prohibited`;
+- `CannotSubmitNow != MayNotSubmit`;
+- configured venue capability/authorization does not establish a user/domain mandate for a particular action.
+
+Collapsing these states into one boolean permission field would change the justified normative judgement.
+
+### H7-C — Harness delegation/currentness
+
+Current Harness architecture distinguishes Mandate, Strategy, RunContract, Receipt, CompletionProposal and independent StrategyEvidence. Exact prior-attempt evidence is bound to the exact Mandate digest, so a changed same-named Mandate cannot silently inherit historical receipts.
+
+This proves historical delegation/admission/execution lineage but does not establish continued authority after a later revocation or authority change. The current public Harness surface intentionally does not manufacture a first-class Agent-to-Agent revocation lifecycle. Therefore:
+
+- `HistoricalAuthorityEvidence != CurrentStanding`;
+- `Capability/Grant != NormativePermission`;
+- `Occurrence != ContinuedAuthority`.
+
+When current revocation/authority lineage is absent, a query such as `May Agent B continue?` must remain `UNKNOWN/UNSUPPORTED` rather than inherit permission or prohibition from historical evidence.
+
+### SCD boundary
+
+H7 does **not** make Normative truth SCD-owned. SCD's role is narrower: whether the consumed action/object/authority description preserves the semantic distinctions required for the target judgement. Normative continues to own permission/obligation/prohibition standing; Finance, Harness, Runtime and artifact/domain owners retain their own source truth.
+
+The three consumers therefore establish a second natural positive SCD habitat family without requiring an SCD-branded runtime object.
+
+## 14. Judgement-relative anti-collapse criterion
+
+H1 and H7 share a stable explanatory shape, but current evidence does not justify a shared wire schema.
+
+Let `s` denote a source situation, `J` a named consumer judgement/use contract, and `p(s)` the description/projection actually supplied to the consumer. Let `Gamma_J(s)` denote the target standing/consequence information that is justified for `J` from the full source situation.
+
+A strong exact-standing sufficiency condition is:
+
+`p(s1) = p(s2)  =>  Gamma_J(s1) = Gamma_J(s2)`.
+
+If two source situations are collapsed by the projection while supporting materially different target standings, the projection is semantically too coarse for that judgement unless a guaranteed pre-decision refinement/recovery route can restore the missing distinction.
+
+This is only an explanatory judgement-relative anti-collapse criterion. It is compatible with TRAA, abstraction/refinement traditions, sufficient-state ideas and prior system-level control-distinction conservation; it is **not** claimed as a new SCD theorem, Foundation or novelty result.
+
+H1 instantiates the failure through source-authority/currentness/target-standing recovery. H7 instantiates it through institutional status, effect role, availability/currentness and authority lineage feeding a Normative judgement.
+
+The important consequence is:
+
+`SemanticRequirement != UniversalFieldName`.
+
+A load-bearing distinction may be carried by a caller binding, digest fence, authority pointer, Tool Grant, owner-native currentness observation, negative boundary field, verifier contract or consumer-local institutionalization step. What matters is preservation before the target judgement, not representational uniformity.
+
+## 15. Round-2 ceiling and third-habitat gate
+
+Round 2 does not admit a common SCD/Normative `FactEnvelope`, QRNA ownership transfer, a global currentness schema or any shared standing service. The current Normative line itself freezes QRNA as a consumer-local pull-first pattern and rejects a shared canonical FactEnvelope at present evidence.
+
+Representation-sensitive Computational Possibility research is a strong **candidate pressure**: the same semantic referent can have different computational possibility under different operational presentations or access regimes, and theorem transport requires relation strength appropriate to the target computability/complexity/deployment claim. But the current CP branch has not yet reached its first named actual consumer, so it is not counted here as a third positive SCD habitat.
+
+The next admission gate remains strict: require a current named consumer, exact target judgement/consequence and a natural deletion/control discriminator. If no third independent consumer exists, Environment Formation should phase-hold with H1 and H7 rather than standardize their common shape prematurely.
