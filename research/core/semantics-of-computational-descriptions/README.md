@@ -21,3 +21,7 @@ Start with [OWNER-BOUNDARY-AND-STATUS](OWNER-BOUNDARY-AND-STATUS.md) and [SCDF-R
 Current derived-theory candidate research:
 
 - [TRAA — Derived-Theory Candidate / Live Dogfood Closeout — 2026-08-19](TRAA-DERIVED-THEORY-CANDIDATE-LIVE-DOGFOOD-20260819.md) — transformation-relative semantic substitutability, live Agent bridge-attractor dogfood, cross-owner replication, falsified rivals, and novelty boundary. `CANDIDATE / NOT_FROZEN`; does not alter the SCDF registry.
+
+Consumption-oriented navigation:
+
+- [Consumption-Oriented Map](CONSUMPTION-ORIENTED-MAP.md) — non-authoritative consumer view over current SCD owner standing, firewalls, negative history, TRAA claim ceilings, reopen gates, and candidate consumption order. It does not alter the SCDF registry or Foundation standing.
