@@ -1,28 +1,14 @@
-# Semantics of Computational Descriptions — Research Core
+# Semantics of Computational Descriptions — moved
 
-Canonical owner/project: **Semantics of Computational Descriptions (SCD)**.
+This path is a **non-authoritative migration tombstone**.
 
-Historical alias: owner line S.
+Current standalone physical home: [`zycxfyh/ordivon-scd`](https://github.com/zycxfyh/ordivon-scd)
 
-Current invariants:
+- semantic owner: `research-owner:semantics-of-computational-descriptions`
+- authority: `authority:ordivon:research-owner:semantics-of-computational-descriptions`
+- current migration authority version: `sha256:f98fef8a3389b9234d95dc5f1e3ce8a18f34045e117bd7c2cf267ec5351a07ba`
+- source split fence: `ordivon-computing@1b3c46defc2bd5acb9a5f923b49500645f78fa1c`
+- source subtree tree: `ce33cbe599e231a8c9a804f7eb972e70c550e10f`
+- Atlas live-source cutover: `ordivon-atlas@ba71026766742a7b688b4a1ef1a40ace4e7dc456`
 
-- `Foundation0 = NONE`; `SCDF0` does not exist.
-- `SCDF1–SCDF10` are immutable registry identities; number encodes identity only.
-- FROZEN: `SCDF1`, `SCDF3`, `SCDF6`, `SCDF7`, `SCDF8`, `SCDF9`, `SCDF10`.
-- OPEN at individual Foundation depth: `SCDF2`, `SCDF4`, `SCDF5`.
-- `SCDF2 ↔ SCDF5 ↔ SCDF10 Boundary Architecture v1` is FROZEN.
-- `FamilyMapLocalClosure = ADMITTED`.
-- `WholeSExhaustiveComplete = UNKNOWN`.
-- `ResearchOrderSCDF = UNKNOWN`.
-- Canonical architecture: typed responsibility hypergraph, not a rooted Foundation tree.
-
-Start with [OWNER-BOUNDARY-AND-STATUS](OWNER-BOUNDARY-AND-STATUS.md) and [SCDF-REGISTRY-AND-STANDING](SCDF-REGISTRY-AND-STANDING.md).
-
-Current derived-theory candidate research:
-
-- [TRAA — Derived-Theory Candidate / Live Dogfood Closeout — 2026-08-19](TRAA-DERIVED-THEORY-CANDIDATE-LIVE-DOGFOOD-20260819.md) — transformation-relative semantic substitutability, live Agent bridge-attractor dogfood, cross-owner replication, falsified rivals, and novelty boundary. `CANDIDATE / NOT_FROZEN`; does not alter the SCDF registry.
-
-Consumption-oriented navigation:
-
-- [Consumption-Oriented Map](CONSUMPTION-ORIENTED-MAP.md) — non-authoritative consumer view over current SCD owner standing, firewalls, negative history, TRAA claim ceilings, reopen gates, and candidate consumption order. It does not alter the SCDF registry or Foundation standing.
-- [Environment / Habitat Census — Round 1](ENVIRONMENT-HABITAT-CENSUS.md) — empirical non-authoritative census of real description-mediated judgement boundaries, admitted positive habitats, already-sunk negative controls, candidates and reopen-only regimes. It does not define a habitat ontology or production SCD environment.
+The former body remains recoverable from Git history. No current authority publication lives at this path after the physical split.

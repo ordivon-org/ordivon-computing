@@ -1,47 +1,14 @@
-# Computational Possibility — Research Project
+# Computational Possibility — moved
 
-Canonical owner/project: **Computational Possibility**.
+This path is a **non-authoritative migration tombstone**.
 
-Historical aliases: owner line T; Algorithmics is a historical/derived research-program name, not a sibling owner.
+Current standalone physical home: [`zycxfyh/ordivon-computational-possibility`](https://github.com/zycxfyh/ordivon-computational-possibility)
 
-Computational Possibility is a **theory-first, falsification-driven, zero-Foundation semantic research project**. It studies formal regime-relative computational achievability, impossibility, transformation and constraint structure over constituted computational obligations.
+- semantic owner: `research-owner:computational-possibility`
+- authority: `authority:ordivon:research-owner:computational-possibility`
+- current migration authority version: `sha256:8cc27d02b72f19884994a0bf555d1c6e9795ada40fb40a108457dc1225f99ffe`
+- source split fence: `ordivon-computing@1b3c46defc2bd5acb9a5f923b49500645f78fa1c`
+- source subtree tree: `156415e36ac8dfa7dc9d226cd20d8eee93d1b555`
+- Atlas live-source cutover: `ordivon-atlas@ba71026766742a7b688b4a1ef1a40ace4e7dc456`
 
-`ProjectFormationV0_1 = COMPLETE`.
-
-## Start here
-
-1. [PROJECT-CONSTITUTION](PROJECT-CONSTITUTION.md) — project identity, referent, five constitutional laws, owner boundaries, standing and reopen discipline.
-2. [THEORY-MAP](THEORY-MAP.md) — eight-axis Computational Situation and the project-wide theory navigation map.
-3. [CORE-THEORY](CORE-THEORY.md) — canonical theorem-neutral statement of the computational situation, admissible-witness semantics, achievability, complexity, transformation and power.
-4. [GENEALOGY-AND-CURRENTNESS](GENEALOGY-AND-CURRENTNESS.md) — Broad Computing/T/Algorithmics/AlgF0 lineage, supersession rules and current recovery order.
-5. [SPECIALIST-ROUTE-INDEX](SPECIALIST-ROUTE-INDEX.md) — falsification-oriented route registry: strongest attacks, surviving derived results, status and reopen conditions.
-6. [RESEARCH-PRODUCTS](RESEARCH-PRODUCTS.md) — owner-level research-product topology, consumer boundaries and current dogfood-backed practical value.
-7. [APPLICABILITY-SUBSYSTEM](APPLICABILITY-SUBSYSTEM.md) — first-class formal-to-actual theorem-transport boundary, owner authority map and thin engineering-consumption path.
-8. [PROJECT-FORMATION-CLOSEOUT](PROJECT-FORMATION-CLOSEOUT.md) — 12-question v0.1 recovery audit and formation stop boundary.
-9. [FORMATION-CONTRACT](FORMATION-CONTRACT.md) — project-formation phases, research lifecycle, specialist admission and v0.1 recovery criteria.
-
-## Current invariants
-
-- `NumberedFoundationCount = 0`.
-- `Foundation0 = NOT_ADMITTED`.
-- zero Foundation **does not mean** no core, no theory, or incomplete project.
-- canonical core = non-numbered **Derived-Theory Basis**.
-- `WholeComputationalPossibilityClosure = ESTABLISHED` as local architectural saturation, not mathematical exhaustion.
-- historical `AlgF0` admission is preserved but current numbered-Foundation status is **WITHDRAWN / SUPERSEDED**.
-- semantic project independence does **not** currently require a standalone repository.
-- project formation v0.1 is complete; future expansion requires a separate falsifier/consumer/migration/public-packaging trigger.
-
-## Canonical research surfaces
-
-- [OWNER-AND-STATUS](OWNER-AND-STATUS.md)
-- [ZERO-FOUNDATION-DERIVED-THEORY-BASIS](ZERO-FOUNDATION-DERIVED-THEORY-BASIS.md)
-- [DERIVED-CROSS-REGIME-LAWS](DERIVED-CROSS-REGIME-LAWS.md)
-- [APPLICABILITY-THEOREM-TRANSPORT-BRIDGE](APPLICABILITY-THEOREM-TRANSPORT-BRIDGE.md)
-- [ENGINEERING-CONSUMPTION-INDEX](ENGINEERING-CONSUMPTION-INDEX.md)
-- [CROSS-OWNER-BOUNDARIES](CROSS-OWNER-BOUNDARIES.md)
-- [CLOSURE-REOPEN](CLOSURE-REOPEN.md)
-- [ALGORITHMICS-ALGF0-HISTORY](ALGORITHMICS-ALGF0-HISTORY.md)
-- [NEGATIVE-SUPERSEDED](NEGATIVE-SUPERSEDED.md)
-- [PROVENANCE](PROVENANCE.md)
-
-The shared `ordivon-computing` repository is a physical durability/navigation container. It does not merge Computational Possibility with Semantics of Computational Descriptions and does not define semantic authority by repository location.
+The former body remains recoverable from Git history. No current authority publication lives at this path after the physical split.

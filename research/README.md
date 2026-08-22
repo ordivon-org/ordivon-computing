@@ -13,7 +13,7 @@ audience:
   - researcher
   - builder
   - agent
-updated: 2026-08-10
+updated: 2026-08-22
 summary: Canonical entry to the Agent-first research method, active questions, portfolio state, experiments, evidence, and construction rules.
 evidence_status: not_applicable
 readiness: READY
@@ -28,11 +28,13 @@ Research stores open questions, competing hypotheses, prototypes, experiments, i
 
 ## Owner-native research cores
 
-- [`core/semantics-of-computational-descriptions/`](core/semantics-of-computational-descriptions/) — canonical research-core projection for **Semantics of Computational Descriptions (SCD)**.
-- [`core/computational-possibility/`](core/computational-possibility/) — canonical research-core projection for **Computational Possibility**.
+SCD and Computational Possibility are independent semantic owners with standalone physical homes:
+
+- [Semantics of Computational Descriptions / `ordivon-scd`](https://github.com/zycxfyh/ordivon-scd)
+- [Computational Possibility / `ordivon-computational-possibility`](https://github.com/zycxfyh/ordivon-computational-possibility)
 - [`core/shared-computing-history/`](core/shared-computing-history/) — Broad Computing / historical S-T / Algorithmics provenance and recovery navigation only; it is not a semantic owner.
 
-SCD and Computational Possibility are independent semantic owners even though they share this repository.
+The former `research/core/...` owner paths now contain only non-authoritative migration tombstones. Repository co-location no longer exists for these owners.
 
 ## Purpose
 

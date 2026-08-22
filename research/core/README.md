@@ -1,13 +1,13 @@
 # Computing Research Core Materialization
 
-This directory exposes the current owner-native research entry points for the shared `ordivon-computing` repository.
+SCD and Computational Possibility were physically separated into standalone repositories on 2026-08-22.
 
 ## Current semantic owners
 
-- [Semantics of Computational Descriptions](semantics-of-computational-descriptions/README.md) — computational-description semantics. Historical alias: owner line S.
-- [Computational Possibility](computational-possibility/README.md) — regime-relative computational possibility, methods, reductions, comparative power, and abstract resource limits. Historical alias: owner line T / Algorithmics lineage.
+- [Semantics of Computational Descriptions (`ordivon-scd`)](https://github.com/zycxfyh/ordivon-scd)
+- [Computational Possibility (`ordivon-computational-possibility`)](https://github.com/zycxfyh/ordivon-computational-possibility)
 
-These are independent semantic owners. Sharing one Git repository does not merge their authority.
+The local directories `semantics-of-computational-descriptions/` and `computational-possibility/` are migration tombstones only and contain no current authority publication.
 
 ## Shared history
 
@@ -17,4 +17,4 @@ Broad Computing is not a current semantic owner. `ComputationalRole` / `Computat
 
 ## Materialization boundary
 
-This tree is navigation and authority projection over already-established research. It creates no Foundation, changes no Foundation standing, and does not replace Host continuity or owner-native evidence.
+This tree is historical/navigation material for Computing. Current owner-native truth is resolved from the standalone repositories. The split changes physical topology only; it creates no Foundation, changes no Foundation standing, and does not replace Host continuity or owner-native evidence.

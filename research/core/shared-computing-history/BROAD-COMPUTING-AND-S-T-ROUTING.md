@@ -12,4 +12,4 @@ Canonical decomposition outcome:
 
 Historical broad research remains valuable for decomposition evidence, negative results, bridge discovery, and recovery. It must not overwrite owner-native current truth.
 
-Historical Algorithmics belongs to the Computational Possibility lineage; see `../computational-possibility/ALGORITHMICS-ALGF0-HISTORY.md`.
+Historical Algorithmics belongs to the Computational Possibility lineage; see [`ALGORITHMICS-ALGF0-HISTORY.md` in `ordivon-computational-possibility`](https://github.com/zycxfyh/ordivon-computational-possibility/blob/main/ALGORITHMICS-ALGF0-HISTORY.md).
