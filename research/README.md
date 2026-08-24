@@ -13,7 +13,7 @@ audience:
   - researcher
   - builder
   - agent
-updated: 2026-08-22
+updated: 2026-08-25
 summary: Canonical entry to the Agent-first research method, active questions, portfolio state, experiments, evidence, and construction rules.
 evidence_status: not_applicable
 readiness: READY
@@ -43,6 +43,7 @@ The former `research/core/...` owner paths now contain only non-authoritative mi
 - [`WORLD-MODEL-LOOP.md`](WORLD-MODEL-LOOP.md) — human-readable projection of the world-model loop;
 - [`world-model-assimilation-round-001.json`](world-model-assimilation-round-001.json) and [`WORLD-MODEL-ASSIMILATION-001.md`](WORLD-MODEL-ASSIMILATION-001.md) — first accepted return pass from current project practice into shared Core claims;
 - [`WORLD-MODEL-SEDIMENTATION-AUDIT-20260824.md`](WORLD-MODEL-SEDIMENTATION-AUDIT-20260824.md) — current cross-owner audit of `Research Result != World Model != Persistent Environment`, including responsibility-relative primacy, external-solution preservation, promotion/lineage/first-look debt, seven-standing S0–S6 diagnostics, and the bounded current method repair;
+- [`BOOK-V05-INTEGRATION-AUDIT-20260825.md`](BOOK-V05-INTEGRATION-AUDIT-20260825.md) — source-fenced coverage audit of the current five-chapter Ordivon Book against the wider research/domain portfolio; distinguishes functional decision coverage from textual/project-name coverage, identifies Result/Achievement/Value as the strongest implicit compression debt, and keeps Chapter 6 unadmitted pending a real consumer failure or stronger cross-owner standing;
 - [`experiments/world-model-a6-cross-domain-v0/`](experiments/world-model-a6-cross-domain-v0/) — first lower-half world-model re-test: Finance evidence tests Agent-owned source selection against full and caller-preselected views, including scale and campaign-recovery pressure;
 - [`experiments/world-model-a10-time-scope-v0/`](experiments/world-model-a10-time-scope-v0/) — Security-grounded A10 re-test of historical/current truth admission; retains A10, rejects premature freshness standardization, and records evaluator-authority pressure;
 - [`experiments/world-model-a10-world-presence-v0/`](experiments/world-model-a10-world-presence-v0/) — second-domain A10 re-test using World Presence; confirms the shared semantic distinction while rejecting a shared temporal relation-index mechanism in the bounded workload;
