@@ -42,6 +42,7 @@ The former `research/core/...` owner paths now contain only non-authoritative mi
 - [`world-model-frontier.json`](world-model-frontier.json) — historical Round-001 assimilation frontier; currentness is assessed separately by [`world-model-freshness-p2.json`](world-model-freshness-p2.json) and `scripts/assess_world_model_freshness.py`;
 - [`WORLD-MODEL-LOOP.md`](WORLD-MODEL-LOOP.md) — human-readable projection of the world-model loop;
 - [`world-model-assimilation-round-001.json`](world-model-assimilation-round-001.json) and [`WORLD-MODEL-ASSIMILATION-001.md`](WORLD-MODEL-ASSIMILATION-001.md) — first accepted return pass from current project practice into shared Core claims;
+- [`WORLD-MODEL-SEDIMENTATION-AUDIT-20260824.md`](WORLD-MODEL-SEDIMENTATION-AUDIT-20260824.md) — current cross-owner audit of `Research Result != World Model != Persistent Environment`, including responsibility-relative primacy, external-solution preservation, promotion/lineage/first-look debt, seven-standing S0–S6 diagnostics, and the bounded current method repair;
 - [`experiments/world-model-a6-cross-domain-v0/`](experiments/world-model-a6-cross-domain-v0/) — first lower-half world-model re-test: Finance evidence tests Agent-owned source selection against full and caller-preselected views, including scale and campaign-recovery pressure;
 - [`experiments/world-model-a10-time-scope-v0/`](experiments/world-model-a10-time-scope-v0/) — Security-grounded A10 re-test of historical/current truth admission; retains A10, rejects premature freshness standardization, and records evaluator-authority pressure;
 - [`experiments/world-model-a10-world-presence-v0/`](experiments/world-model-a10-world-presence-v0/) — second-domain A10 re-test using World Presence; confirms the shared semantic distinction while rejecting a shared temporal relation-index mechanism in the bounded workload;
@@ -78,6 +79,7 @@ Research may contain alternatives, failed experiments, changing terminology, and
 
 ## Start here
 
+- [`../knowledge/research-methods/ordivon-research-method-and-paradigm-canon.md`](../knowledge/research-methods/ordivon-research-method-and-paradigm-canon.md) is the reusable cross-owner research-method first look. In particular, recover the strongest applicable internal **and external** standing before opening/closing a route; keep novelty subtraction separate from usable solution-domain knowledge; and adjudicate the surviving result's destination before declaring a materially changed line closed.
 - [`world-model-loop-v2.json`](world-model-loop-v2.json) defines how owner-native project evidence can challenge and revise the shared world model while separating historical observation validity from currentness.
 - [`experiment-contract-v1.json`](experiment-contract-v1.json) defines only the declarations every bounded experiment must freeze. It does not choose the hypothesis, evaluator truth, or correct answer, and it carries no product authority.
 - [`RSI-LAB.md`](RSI-LAB.md) defines the current thin scientific-instrument surface for owner evidence packing, mechanical matrices, DuckDB/Parquet analysis, and revision pressure without scientific or product authority.

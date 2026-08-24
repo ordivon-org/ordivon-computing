@@ -141,7 +141,7 @@ Use [`projects/README.md`](projects/README.md) for Computing's bounded project-f
 | responsibility placement and deletion test | [`core/stack.md`](core/stack.md) |
 | owner/proof/meaning distinctions | [`knowledge/agents/causal-responsibility-explanation.md`](knowledge/agents/causal-responsibility-explanation.md) |
 | current Computing research state | [`research/PORTFOLIO.md`](research/PORTFOLIO.md) |
-| research/world-model revision method | [`research/README.md`](research/README.md) and [`research/WORLD-MODEL-LOOP.md`](research/WORLD-MODEL-LOOP.md) |
+| research/world-model revision method | [`knowledge/research-methods/ordivon-research-method-and-paradigm-canon.md`](knowledge/research-methods/ordivon-research-method-and-paradigm-canon.md), [`research/README.md`](research/README.md), and [`research/WORLD-MODEL-LOOP.md`](research/WORLD-MODEL-LOOP.md) |
 | project owner / truth hierarchy | [`projects/README.md`](projects/README.md) |
 | Computing document authority | [`docs/authority.md`](docs/authority.md) |
 

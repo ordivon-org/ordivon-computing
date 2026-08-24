@@ -10,6 +10,66 @@ For Agent systems the useful question is therefore not which subsystem name soun
 
 Externalization is a candidate optimization, not a default architectural good. Stronger future models should increase the amount of work that can remain cognitive. Ordivon should retain only external structures whose responsibility remains valuable even when the model, Provider, Context window, and reasoning quality improve materially.
 
+## Responsibility-relative primacy
+
+The mature world-model rule is not `Human-first` or `Agent-first`, and not a static partition where Human, Agent, database and compiler each receive a permanent territory.
+
+A better working principle is:
+
+> **For each relation and responsibility, place it with the entity or mechanism whose current capability, evidence relation, authority relation, precision/recovery properties and coupling to Reality make it structurally best suited; let observed consequence judge the resulting composition.**
+
+`first` here means first **for that responsibility/claim/operation under the current relation**, not globally supreme. The relevant boundary can change with current state, owner delegation, available mechanisms, consequence cost, or Reality evidence.
+
+```text
+Human-first != universal rule
+Agent-first != universal rule
+Coordinator != truth owner
+Best evidence source != action authority
+Tool availability != responsibility ownership
+Automation != responsibility reassignment
+```
+
+For explanation, the placement question can be indexed by a tuple such as:
+
+```text
+(responsibility, claim, operation, relation, current state, environment)
+```
+
+This is not a global optimization score. Heterogeneous properties are often non-comparable: one actor may be the best evidence source while another owns authority and a third supplies exact mechanics. The correct composition may therefore split a historical role bundle rather than select one universal winner.
+
+### Prior art and non-novelty
+
+Function allocation between humans and machines has a long history. Fitts's 1951 comparative-function list, later levels-of-automation work, Bainbridge's analysis of automation ironies, and joint/distributed-cognition traditions all reject the assumption that one actor should simply perform every function. Ordivon should consume these as positive solution-domain knowledge, not re-prove the general idea of function allocation and not erase the larger problem because the idea is old.
+
+The Ordivon-specific residual is narrower: current systems combine replaceable Agents, owner-local truth, explicit currentness, separately owned authority, deterministic substrate, recoverable external effects and dynamic consumer interfaces. Responsibility placement must preserve those non-equivalences while allowing the carrier of a responsibility to change. This is a cross-owner synthesis and design prior, not a claim of unprecedented theory.
+
+### Finance as a pressure case
+
+A historical `portfolio manager` role can bundle information search, evidence synthesis, numerical calculation, constraint solving, capital-state truth, decision, execution, reconciliation, monitoring and owner consent because a Human used to be the only sufficiently general cross-interface substrate. That historical bundle is not itself an invariant.
+
+A responsibility-relative decomposition may instead place:
+
+- open-world search and semantic synthesis with an Agent or retrieval/cognition system;
+- exact arithmetic and constraints with deterministic mathematics/solvers;
+- canonical accounting state with ledger/database mechanisms;
+- current provider/market facts with venue-native observation;
+- bounded physical/economic submission with an executor;
+- external-effect truth with provider evidence plus reconciliation;
+- owner-specific preference or legally required consent with the actual relevant owner/authority mechanism.
+
+The Primary Agent can coordinate semantic work without becoming the owner of every fact, calculation, permission or effect. If a future Agent, solver, provider or institution changes the structural fit, placement should be re-opened rather than defended by role history.
+
+### Sedimentation and challengeability
+
+When a responsibility placement survives repeated consumer pressure, it may sediment into a semantic operation, default Context, Tool boundary, adapter, admission rule, test, or ordinary workflow. This can remove repeated reconstruction from finite cognition. It must not make the placement unchallengeable: changed capability, owner/currentness, new evidence or harmful consequence can re-open the assignment.
+
+Thus:
+
+```text
+RepeatedPlacement -> candidate environmentalization
+EnvironmentalizedPlacement != eternal placement
+```
+
 ## Future-model robustness test
 
 A shared Ordivon responsibility is durable when at least one of these remains true for a much stronger model:

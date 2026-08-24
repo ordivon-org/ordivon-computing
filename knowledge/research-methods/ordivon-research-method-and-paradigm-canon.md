@@ -68,6 +68,32 @@ Preferred sequence:
 
 A mature result may remain a derived theory, operational protocol, architecture, or bridge. Computational Possibility and Ordivon Normative both demonstrate that `NumberedFoundationCount = 0` can be a positive mature architecture.
 
+## 3A. Start from an informed baseline; subtraction does not delete usable knowledge
+
+A knowledge need does not imply a rediscovery need. Before opening or closing a research route, recover the strongest applicable current internal **and external** standing that is already available, and treat admitted mature results as positive solution-domain content rather than merely as obstacles to an Ordivon novelty claim.
+
+```text
+NeedKnowledge != NeedToRediscoverKnowledge
+Originality != TruthUseAdmission
+PriorArtAbsorbed != ReferentResolved
+SubtractFromNovelty != SubtractFromSolutionDomain
+SolvedSubspace != DeletedProblemDomain
+```
+
+For an imported result, distinguish five questions instead of re-proving it by default:
+
+1. is the source/result sufficiently established for the claim being used?
+2. do its scope and assumptions transport to the current target?
+3. does composition with other imported or owner-local standings require an additional bridge?
+4. is any local implementation faithful to those assumptions?
+5. does Ordivon need new architecture/materialization, or can existing owners/consumers use the result directly?
+
+These gates are independent. External prior art may eliminate an originality claim while leaving the referent question open; conversely, mature theory may resolve the current referent and justify `NO_CHANGE` or `STOP`. Do not continue research merely to make an imported solution Ordivon-origin.
+
+At closeout, preserve any load-bearing imported solution components, scope/applicability conditions, competing accounts and composition assumptions needed by future consumers. A `REDUCED`, `ABSORBED`, `NO_NEW_*`, prior-art, or owner-sufficient verdict must not erase the positive knowledge that made that verdict possible.
+
+This is a research-practice guard, not a global external-knowledge registry, consumer graph, or automatic authority transfer. Source/owner authority and currentness remain claim-native.
+
 ## 4. Fresh whole-space search beats residual inertia
 
 A residual list is historical evidence, not a roadmap.
@@ -227,7 +253,7 @@ When the same distinction independently survives in multiple owners, Computer ma
 
 A shared reform must return to independent projects for re-test. One project accepting an implementation choice does not make that choice universal.
 
-## 19. Promotion ladder
+## 19. Promotion ladder and bounded closeout destination test
 
 ```text
 Research
@@ -238,6 +264,62 @@ Research
 ```
 
 Importance alone is insufficient. Many valuable architectures should remain project-local or Knowledge-level indefinitely.
+
+Closing a Task or rejecting a new theory does not itself decide where the surviving result should live. Before a materially changed research line is closed, perform one bounded **destination adjudication** over the surviving content; the answer may be split across destinations and may legitimately be `no new durable materialization`.
+
+```text
+TaskCloseout != DestinationAdjudicated
+NoNewTheory != NoReusableKnowledge
+ReusableKnowledge != CoreAuthority
+PromotionDecision != MaterializationOrDelivery
+```
+
+Use the smallest truthful destination:
+
+- **owner-local truth / current domain semantics** → owning project or owner-native research/knowledge surface;
+- **still-open conditional claim / unresolved falsifier** → Research;
+- **stable reusable explanation, method, cross-owner comparison, or imported-solution composition** → Knowledge, preserving source/applicability boundaries;
+- **compact stable cross-workload responsibility** → Core only after stronger deletion, independent-consumer, and classical-baseline gates;
+- **implementation-only invariant** → implementation/project docs or tests that own it;
+- **failed, superseded, or negative route with future control value** → typed history/negative memory;
+- **nothing with material downstream reuse value** → no additional materialization.
+
+Do not require every closeout to create a Knowledge page, and do not use recurrence/test count alone as promotion authority. The purpose is to prevent both forms of Promotion Debt: under-promotion that causes rediscovery and over-promotion that turns local success into doctrine. Source-neutral imported knowledge can earn a Knowledge destination when its reusable composition/application is the result; it does not need Ordivon-origin novelty.
+
+### 19A. Sedimentation is stronger than preservation
+
+For audit purposes, distinguish these stages without turning them into a new global lifecycle schema:
+
+```text
+S0 Result exists
+→ S1 durable Standing
+→ S2 canonical Representation
+→ S3 discoverable / first-look reachable
+→ S4 bound to a real future consumer
+→ S5 changes a default, routine, interface, admission rule or responsibility placement
+→ S6 future consequence is independently observed or a justified NO_CHANGE is demonstrated
+```
+
+The non-equivalences are load-bearing:
+
+```text
+Preserved != Discoverable
+Discoverable != Consumed
+Consumed != Environmentalized
+Environmentalized != Beneficial
+HistoricallyIntegrated != CurrentlyInhabited
+```
+
+Not every result should progress to S5/S6. Before claiming that a reusable standing has become part of Ordivon's persistent environment, ask:
+
+1. which current owner/source represents it canonically?
+2. which ordinary first-look or recovery path makes it reachable when relevant?
+3. which concrete future consumer is supposed to use it?
+4. should it change default Context, Tool exposure, routine, admission, responsibility placement, test, or nothing at all?
+5. what challenge/re-grounding path prevents the sedimented default from becoming shadow authority?
+6. what future observation would show benefit, harm, stale use, or justified `NO_CHANGE`?
+
+A document, Host checkpoint, Atlas pointer, or successful promotion decision proves only its own stage. Do not infer later stages from earlier ones.
 
 ## 20. Canonical case library
 
