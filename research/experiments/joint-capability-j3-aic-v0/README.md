@@ -30,7 +30,7 @@ Computing does not mint any of the above source truths.
 
 ### S0 — deterministic semantic falsification
 
-`aic_semantic_falsify.py` runs paired state-aliasing cases plus randomized property/replay stress. Required gates include:
+`aic_semantic_falsify.py.txt` preserves the byte-identical closed apparatus that ran paired state-aliasing cases plus randomized property/replay stress. Required gates include:
 
 - lawful succession and credential usurpation can share the same naïve final state while requiring different authority standing;
 - valid amendment and physical configuration tamper can share the same naïve final state while requiring different normative rule standing;

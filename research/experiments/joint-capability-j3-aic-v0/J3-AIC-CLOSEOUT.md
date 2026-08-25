@@ -346,3 +346,11 @@ Reopen AIC-specific research when at least one of the following occurs:
 5. a natural owner-subset factorial becomes possible, enabling a real higher-order irreducibility test.
 
 Do not reopen merely to increase synthetic complexity.
+
+## 13. Closed apparatus contraction
+
+After semantic closeout, Computing conformance correctly rejected the directory because 26 executable `.py` research surfaces remained while the track was no longer active WIP. The apparatus was therefore contracted rather than rebound as live research.
+
+All 26 scripts were renamed byte-identically from `*.py` to `*.py.txt`. `APPARATUS-ARCHIVE-MAP.json` records original path, archive path, SHA-256 and byte length for every file. Historical evidence/contracts may retain the original execution path because they describe the run-time apparatus that actually executed; the archive map is the current recovery bridge.
+
+This contraction changes no experiment outcome or semantic standing. It removes unnecessary active executability while preserving exact reproducibility bytes.
