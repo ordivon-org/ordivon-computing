@@ -2,7 +2,7 @@
 
 ## Status
 
-`ACTIVE` Computing research question. J0 calibration/candidate selection is complete and J1 is READY. This is a material refinement of the complementarity/coalition-credit frontier inside `ANC-ADAPT-001` and of the completed cross-project convergence study. It does not replace owner-local research and does not create a Composition Owner.
+`ACTIVE` Computing research question. J0 calibration is complete and J1 is CLOSED with no deletion-essentiality established. The programme remains active only to select at most one next natural cross-owner candidate from the independent exploration frontier; J1 itself must not be repeated or rescued by adding owners. This is a material refinement of the complementarity/coalition-credit frontier inside `ANC-ADAPT-001` and of the completed cross-project convergence study. It does not replace owner-local research and does not create a Composition Owner.
 
 Canonical programme charter: [`../JOINT-CAPABILITY-PROGRAMME-20260825.md`](../JOINT-CAPABILITY-PROGRAMME-20260825.md).
 
@@ -24,21 +24,17 @@ A stronger hypothesis is that higher-order owner interactions may be a source of
 - Cross-project convergence demonstrates repeated owner-level laws without earning one shared framework.
 - Current SCD, Computational Possibility, Interlocus, World, Security and Normative boundaries are sufficiently distinct that their combination can now be tested without first centralizing their truth.
 
-## J0 result and current falsifier
+## J0/J1 result and current frontier
 
-J0 completed successfully. `research/experiments/joint-capability-j0-v0/J0-CLOSEOUT.md` records the result: F12 calibrated as scoped complementarity, F15 as current-world non-identifiability, and the initial candidate tournament selected a narrowed Interlocus × Security J1 design while excluding World by subtraction.
+J0 completed successfully. `research/experiments/joint-capability-j0-v0/J0-CLOSEOUT.md` records the calibration: F12 as scoped complementarity, F15 as current-world non-identifiability, and a narrowed Interlocus × Security J1 design with World excluded by subtraction.
 
-The current falsifier is J1, frozen at `research/experiments/joint-capability-j1-adversarial-interlocus-v0/experiment-contract.json`. J1 compares a strong Security-local baseline with the same Security world/evidence plus a bounded Interlocus-qualified binding/currentness/migration projection. The candidate fails if the control is equivalent or simpler, Security already preserves the distinctions, or the projection embeds the answer.
+J1 is now complete. `research/experiments/joint-capability-j1-adversarial-interlocus-v0/J1-CLOSEOUT.md` records four executed campaigns (160 planned trials; 156 valid structured results). The focused N2 replication found 3/20 Security-control versus 1/20 Interlocus-treatment safety errors, all in the weaker Flash model; Pro solved both arms 10/10. An adaptive four-arm mechanism ablation then found raw/generic-fence/epoch-structure/full-Interlocus safety counts of `1/2/0/0`, which disfavors a generic caution-text explanation and retains **structured relation epoch/currentness geometry** as an error-shaping mechanism candidate. Because the mechanism evidence is adaptive/same-packet, the full treatment was not perfect across campaigns, the stronger model did not need it, and treatment adds representation cost, J1 does not establish deletion-essential composition.
 
-The original J0 admission discipline was:
+Current disposition:
 
-1. reproduce F12 as the positive mechanical calibration;
-2. reproduce F15's non-identifiability disposition as the negative calibration;
-3. inspect the current owner frontier for natural candidate compositions;
-4. reject any candidate whose proper-subset failure must be manufactured by disabling an otherwise available path/capability;
-5. freeze at least one next experiment only if a real owner-native target, feasible subset interventions and a non-tautological joint hypothesis exist.
+`NO_DELETION_ESSENTIALITY_WITH_EPOCH_STRUCTURE_ERROR_SHAPING_CANDIDATE`
 
-The question is initially falsified as a *useful programme direction* if two consecutive natural-candidate rounds find no identifiable non-additive candidate and owner-local work already exposes the relevant compositions with lower cost. In that case, close COJC as an explicit programme and retain F12/F15 plus the interaction map as historical research method evidence.
+Therefore the current falsifier moves up one level. The next physical COJC candidate must come from a **new natural owner-native consumer** and survive strong owner-local/external baselines without manufactured failure. If the next natural candidate also collapses to owner sufficiency or optional representation convenience, COJC should be downgraded or closed as an active programme. Interlocus × Security may reopen only under a materially different consumer. World may enter that route only when an independently authoritative external trajectory makes Security+Interlocus views non-identifying for actions that differ by reality.
 
 ## Minimum evidence for stronger labels
 
@@ -68,6 +64,10 @@ A single binary gating experiment may not be called a phase transition.
 - `research/experiments/pal-foundations-v0/f15-disposition-v0.json`
 - `research/RESOURCE-UTILIZATION-RU0-RU10.md`
 - `studies/2026-cross-project-convergence/README.md`
+- `research/experiments/joint-capability-j1-adversarial-interlocus-v0/J1-CLOSEOUT.md`
+- `research/experiments/joint-capability-j1-adversarial-interlocus-v0/result-summary-v1.json`
+- `research/experiments/joint-capability-j1-adversarial-interlocus-v0/n2-mechanism-ablation-contract.json`
+- `research/experiments/joint-capability-j1-adversarial-interlocus-v0/evidence-n2-mechanism-ablation-v1.json`
 
 ## Non-claims
 

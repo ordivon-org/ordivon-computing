@@ -294,13 +294,15 @@ using PAL F12 as positive calibration, PAL F15 as negative calibration, and a cu
 
 Canonical experiment: `research/experiments/joint-capability-j0-v0/`. Closeout: `J0-CLOSEOUT.md`. The initial tournament selected Interlocus × Security for J1 and deliberately excluded World until an external trajectory creates a real residual responsibility.
 
-### J1 — Adversarial Interlocus Consumption — READY
+### J1 — Adversarial Interlocus Consumption — CLOSED
 
-Candidate owners: Interlocus × Security × World, with Harness/Runtime/Host only where they act as carriers/continuity owners.
+Disposition: `NO_DELETION_ESSENTIALITY_WITH_EPOCH_STRUCTURE_ERROR_SHAPING_CANDIDATE`.
 
-Pressure: a legitimate capability is rebound/migrated while a deceiver produces stale or false relation evidence. The Agent must preserve the target capability without promoting reachability, identity, receipt or historical binding into authority/current truth.
+J1 physically executed the Security × Interlocus subtraction programme across labelled, neutral-label, focused-replication and adaptive mechanism-ablation campaigns. The strongest bounded result is not missing Security truth: raw Security evidence was sufficient in the stronger tested model. Instead, explicit relation epoch/currentness structure changed the weaker finite consumer's action-error geometry. A generic caution sentence did not reproduce that mechanism, but the full Interlocus treatment was not deletion-essential, was not perfect across campaigns, and carried additional representation cost.
 
-Primary question: does the composition create a recovery/continuation capability unavailable from any proper owner subset?
+Canonical closeout: `research/experiments/joint-capability-j1-adversarial-interlocus-v0/J1-CLOSEOUT.md`. Machine summary: `result-summary-v1.json`.
+
+World remains subtracted. Reopen this relation route only from a genuinely new natural consumer or from an external trajectory satisfying the non-identifiability gate; do not add World or more N2 replicas to manufacture a positive coalition.
 
 ### J2 — Representation-Sensitive Possibility
 
@@ -344,13 +346,16 @@ Contract or stop COJC if:
 
 ## 11. Immediate frontier
 
-J0 is complete. The immediate frontier is J1:
+J0 calibration is complete and J1 is closed negative for deletion-essentiality. The first Interlocus × Security route therefore **does not advance** to factorial complementarity or higher-order testing.
 
-1. materialize one owned Security adversarial rebinding treatment with a frozen strong Security-local control;
-2. compile the smallest source-fenced Interlocus projection that preserves binding epoch/migration/currentness distinctions without embedding an action;
-3. run identical Agent/model/tool/budget conditions across control/treatment;
-4. classify the result as `NO_CHANGE`, positive deletion/consumption value, or apparatus failure;
-5. only after positive deletion evidence consider a factorial/higher-order successor. World remains excluded until external effect/reconciliation pressure requires it.
+The immediate COJC frontier is now candidate selection from the already-open independent explorations, not automatic J1 extension:
+
+1. retain J1's epoch/currentness error-shaping mechanism as a bounded representation hypothesis, not a shared capability;
+2. require the next candidate to begin from a natural owner-native consumer/failure, with strong owner-local and mature-external baselines restored before intervention;
+3. choose at most one next physical COJC experiment after subtraction shows an identifiable owner contribution that does not require manufacturing a missing baseline;
+4. keep the current independent candidate families—representation-sensitive possibility, continuity, institutional worlds, capital decisions and other cross-owner combinations—as research search space rather than architecture;
+5. reopen Interlocus × Security only on a materially new consumer, or add World only when external-effect/trajectory evidence satisfies the formal non-identifiability re-entry condition;
+6. if the next natural-candidate round again reduces to owner sufficiency / representation convenience without deletion-positive outcome, downgrade or close COJC as an active P0 programme rather than rewarding continued search.
 
 The intended long-run change is not more cross-project bureaucracy. It is a new research reflex:
 
