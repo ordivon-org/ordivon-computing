@@ -48,6 +48,8 @@ A concept becomes a layer only when it has a stable contract, can fail independe
 
 The current reusable derivation is [`../../knowledge/agents/capability-externalization-and-responsibility-placement.md`](../../knowledge/agents/capability-externalization-and-responsibility-placement.md). The longer pre-compression study remains recoverable from Git at the revision bound by [`../evidence/agent-first-historical-research-compression-f95d721.json`](../evidence/agent-first-historical-research-compression-f95d721.json).
 
+The causal history of this question — from the 2026-07-24 rebuild-the-stack question through Semantic Core, classical-overlay contraction, the removal-first Existence Gauntlet, owner-qualified Situation, First Interface and the current Representation Environment frontier — is preserved in [`../COMPUTER-AGENT-NATIVE-LINEAGE-20260724-20260825.md`](../COMPUTER-AGENT-NATIVE-LINEAGE-20260724-20260825.md). That page is historical evidence, not current architecture authority; its purpose is to preserve why earlier answers looked necessary and which later evidence changed them.
+
 ## Admission criteria for a Core change
 
 A result may enter `core/` only when:
