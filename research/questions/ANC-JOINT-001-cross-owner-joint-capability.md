@@ -40,6 +40,8 @@ The initial campaign therefore closes with **no current physical COJC survivor**
 
 A late concurrent detached Representation transfer (`5021e8f`) is retained as a currentness correction, not as a reopen: it produced a strong scoped generic operation-projection effect (`FULL 93/120`, projection `111/120`, paired wins `3/3`, prompt tokens `-74.31%`). Follow-up provenance audit (`4d2fd6b`) found Media and SCD experimental roles NULL and Harness carrier-only. It therefore sharpens `MatureBaselineResidual` to include fair Generic Composition Subtraction and establishes the guard `DeletionEssential != JointIrreducible`; it does not establish Media×SCD×Harness JOINT_CAPABILITY or create a new physical experiment queue.
 
+Canonical cross-world reconciliation now preserves that positive lineage beside negative N1 and shows why both can be true: the positive workload is dominated by dispersed multi-source downstream-relation joins, while N1 is more source-local and detail-sensitive. This is retained only as a pre-treatment moderator hypothesis (`join/search burden removed` versus `local scoped distinctions lost`), not as a new COJC candidate. `ANC-REPRESENTATION-001` remains completed/reference and future reopen requires a frozen workload-geometry prediction rather than another formatting treatment.
+
 ## Minimum evidence for stronger labels
 
 - `composition`: deletion changes a real owner-native outcome;
@@ -74,6 +76,8 @@ A single binary gating experiment may not be called a phase transition.
 - `research/experiments/joint-capability-j1-adversarial-interlocus-v0/evidence-n2-mechanism-ablation-v1.json`
 - `research/experiments/representation-natural-n1-v0/CLOSEOUT.md`
 - `research/COJC-INITIAL-CAMPAIGN-CLOSEOUT-20260825.md`
+- `research/experiments/representation-cross-world-reconciliation-v0/CROSS-WORLD-PPD-SYNTHESIS.md`
+- `research/experiments/representation-cross-world-reconciliation-v0/moderator-map-v0.json`
 
 ## Non-claims
 
