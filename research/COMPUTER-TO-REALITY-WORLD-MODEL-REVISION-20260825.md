@@ -728,3 +728,33 @@ The stronger current model is:
 > **A finite intelligence's effective computational capability is partly constituted by the representations, instruments, authority boundaries, continuity structures, and physical interfaces through which it can observe and intervene in Reality. Ordivon Computer should study and stress-test this computational embodiment while continuing to inherit mature mechanics and refusing universal ownership without evidence.**
 
 The future laboratory is therefore not merely an expansion below the software layer. It is a candidate environment in which Ordivon's existing research on Reality, representation, currentness, consequence, evidence, continuity, Security, and Computational Possibility can become directly testable against the physical world.
+
+
+---
+
+## Post-revision PPD correction — capability environment and infrastructure capital
+
+The subsequent Constructive Capability Environment closeout narrows several speculative parts of this working revision. The full evidence map and falsifiers live in [`CONSTRUCTIVE-CAPABILITY-ENVIRONMENT-CLOSEOUT-20260825.md`](CONSTRUCTIVE-CAPABILITY-ENVIRONMENT-CLOSEOUT-20260825.md).
+
+The most important corrections are:
+
+```text
+EnvironmentChange != CapabilityChange
+FrontierExpansion != InfrastructureCapital
+LatentAffordance != RealizedCapability
+MoreRawActions != MoreValidCapability
+AssetExists != CurrentCapability(target,time)
+CapabilityInstance != CapabilityProductionMechanism != ReconstructibleOption
+```
+
+The Atlas × Host × Harness continuity hypothesis was reduced by a strong generic control: indexed retrieval plus a generic typed policy compiler reproduced the tested successor advantage at 33/33. The surviving lesson is not a unique persistent-intelligence substrate but **responsibility-preserving reactivation**: recover current load-bearing premises from their owners, retain history without lifting it into current authority, preserve unresolved effects/obligations, and recompile the next affordance.
+
+The strongest positive infrastructure lineage is instead Workstation `isolated-equipment`: later Game workloads reused and adapted the same signed isolated construction mechanism while individual Security/Game roots were allowed to expire. This supports a reconfigurable-capital model in which durable value may sit in the trustworthy ability to form an environment again, rather than in permanently active instances.
+
+A current Game deletion probe also confirms that constraints can be capability-enabling: Team policy removes a primitive-legal Security pickup that would strand the only sealant on an Actor without `seal_hull`, preserving future joint reachability. Classical safe-state/deadlock-avoidance theory absorbs the general mechanism, so this does not admit a new institutional or Normative theory.
+
+For the laboratory horizon, the resulting correction is:
+
+> **Prefer the smallest trustworthy, source-neutral way to create the observation/action/evidence environment required by the current Reality pressure. Let repeated heterogeneous use decide which reconfiguration, calibration, fixture, fabrication, continuity, or control mechanisms deserve durable infrastructure standing. Allow target-specific realizations to expire when current Reality no longer justifies their carrying cost.**
+
+This correction does not create a Lab owner, Capability Registry, Instrument Graph, global currentness service, or physical-control layer.
