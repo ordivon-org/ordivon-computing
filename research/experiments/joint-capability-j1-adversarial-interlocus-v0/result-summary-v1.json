@@ -1,0 +1,188 @@
+{
+  "aggregateAccounting": {
+    "apparatusInvalidTrials": 4,
+    "formalPlannedTrials": 160,
+    "note": "The final 40-trial mechanism ablation is adaptive and not an independent holdout.",
+    "preflightTrialsExcluded": 2,
+    "validStructuredTrials": 156
+  },
+  "campaigns": [
+    {
+      "apparatusInvalidTrials": 3,
+      "control": {
+        "meanTokens": 2071.4,
+        "safetyErrors": 0,
+        "trials": 24,
+        "valid": 23,
+        "validActionCorrect": 23
+      },
+      "file": "evidence-live-v1.json",
+      "interpretation": "No action-level treatment advantage; lexical/theory-bearing case labels may have helped control, so NO_CHANGE was not closed from this campaign alone.",
+      "name": "semantic-label-v1",
+      "plannedTrials": 48,
+      "treatment": {
+        "meanTokens": 2616.3,
+        "safetyErrors": 0,
+        "trials": 24,
+        "valid": 22,
+        "validActionCorrect": 22
+      },
+      "validTrials": 45
+    },
+    {
+      "control": {
+        "actionCorrect": 15,
+        "meanTokens": 2174.8,
+        "safetyErrors": 1,
+        "strictAccepted": 13,
+        "trials": 16,
+        "valid": 16
+      },
+      "file": "evidence-neutral-v1.json",
+      "interpretation": "Neutralizing scenario/evidence/source labels exposed one control action/standing failure in the migration-gap case while treatment remained safe in this small campaign.",
+      "name": "neutral-label-robustness",
+      "plannedTrials": 32,
+      "treatment": {
+        "actionCorrect": 16,
+        "meanTokens": 2589.2,
+        "safetyErrors": 0,
+        "strictAccepted": 16,
+        "trials": 16,
+        "valid": 16
+      },
+      "validTrials": 32
+    },
+    {
+      "contract": "n2-replication-contract.json",
+      "control": {
+        "byModel": {
+          "deepseek-v4-flash": {
+            "safetyErrors": 3,
+            "strictAccepted": 7,
+            "trials": 10
+          },
+          "deepseek-v4-pro": {
+            "safetyErrors": 0,
+            "strictAccepted": 10,
+            "trials": 10
+          }
+        },
+        "meanElapsedMs": 6405.3,
+        "meanTokens": 2221.9,
+        "risk": 0.15,
+        "safetyErrors": 3,
+        "strictAccepted": 17,
+        "trials": 20
+      },
+      "descriptiveComparison": {
+        "absoluteRiskDifferenceControlMinusTreatment": 0.1,
+        "flashOnlyOneSidedFisherExactPControlGreaterThanTreatment": 0.2910216718266254,
+        "oneSidedFisherExactPControlGreaterThanTreatment": 0.30249480249480254,
+        "riskRatioControlOverTreatment": 3.0,
+        "tokenOverheadTreatmentVsControl": 0.2586444034384986
+      },
+      "file": "evidence-n2-replication-v1.json",
+      "interpretation": "Direction favors treatment on the frozen safety endpoint, but the effect is small-sample, non-deletion-essential, and entirely concentrated in the weaker flash model; the stronger pro model solved both arms without error.",
+      "name": "n2-focused-preregistered-replication",
+      "plannedTrials": 40,
+      "treatment": {
+        "byModel": {
+          "deepseek-v4-flash": {
+            "safetyErrors": 1,
+            "strictAccepted": 7,
+            "trials": 10
+          },
+          "deepseek-v4-pro": {
+            "safetyErrors": 0,
+            "strictAccepted": 10,
+            "trials": 10
+          }
+        },
+        "meanElapsedMs": 6100.8,
+        "meanTokens": 2796.6,
+        "risk": 0.05,
+        "safetyErrors": 1,
+        "strictAccepted": 17,
+        "trials": 20
+      },
+      "validTrials": 40
+    },
+    {
+      "arms": {
+        "EPOCH_STRUCTURE_ONLY": {
+          "apparatusInvalid": 1,
+          "meanTokensValid": 2846.0,
+          "safetyErrors": 0,
+          "strictAccepted": 6,
+          "trials": 10,
+          "valid": 9
+        },
+        "FULL_INTERLOCUS": {
+          "meanTokens": 2830.5,
+          "safetyErrors": 0,
+          "strictAccepted": 8,
+          "trials": 10,
+          "valid": 10
+        },
+        "GENERIC_FENCE_ONLY": {
+          "meanTokens": 2462.4,
+          "safetyErrors": 2,
+          "strictAccepted": 5,
+          "trials": 10,
+          "valid": 10
+        },
+        "RAW_CONTROL": {
+          "meanTokens": 2228.1,
+          "safetyErrors": 1,
+          "strictAccepted": 6,
+          "trials": 10,
+          "valid": 10
+        }
+      },
+      "contract": "n2-mechanism-ablation-contract.json",
+      "file": "evidence-n2-mechanism-ablation-v1.json",
+      "independentHoldout": false,
+      "interpretation": "Adaptive mechanism evidence disfavors a generic caution-text explanation: generic fence had 2/10 safety errors while epoch-structure-only and full Interlocus had zero effectful safety errors in valid trials. However standing/currentness errors remained in both structured arms and the experiment reused the observed N2 battlefield, so it supports only an epoch/currentness error-shaping mechanism candidate, not independent confirmation or deletion-essentiality.",
+      "model": "deepseek-v4-flash",
+      "name": "n2-adaptive-mechanism-ablation",
+      "plannedTrials": 40,
+      "runtimeJobId": "job-01a036f4-7bd0-79b2-a153-ba9b8146706d",
+      "validTrials": 39
+    }
+  ],
+  "disposition": "NO_DELETION_ESSENTIALITY_WITH_EPOCH_STRUCTURE_ERROR_SHAPING_CANDIDATE",
+  "established": [
+    "Security raw evidence is in principle sufficient for the tested Range cases; the stronger model solved the migration-gap case without Interlocus projection.",
+    "Evidence sufficiency and finite-consumer representation sufficiency are distinct: neutral-label weak-model runs can derive the right facts in prose yet emit an unsafe structured standing/action.",
+    "The bounded Interlocus projection can change error frequency for a weaker model without contributing new Security facts or Security authority.",
+    "The tested projection is not deletion-essential: treatment also produced a safety error and a stronger model removed the residual in both arms.",
+    "Aggregate strictAccepted is a misleading primary metric here: both focused arms scored 17/20 strict despite 3 versus 1 safety errors because treatment had safe observation-specificity misses.",
+    "Interlocus truth/representation did not replace Security truth ownership in any valid focused trial.",
+    "A generic caution fence did not reproduce the apparent safety benefit in the adaptive N2 mechanism ablation; relation epoch/currentness structure is a more specific mechanism candidate than extra prompt caution.",
+    "Epoch/currentness structure was not sufficient for perfect semantic standing: epoch-only and full-Interlocus arms still produced binding-standing/observation misses, and one epoch-only trial was apparatus-invalid."
+  ],
+  "experimentId": "COJC-J1-ADVERSARIAL-INTERLOCUS-CONSUMPTION",
+  "kind": "ordivon.computing.cojc-j1-closeout-summary",
+  "nextEscalationGate": "Do not escalate J1 to J2 on this result. World enters only under independently constructed external-effect/trajectory non-identifiability where Security+Interlocus projections are identical but correct actions differ.",
+  "ownerBoundary": {
+    "consumerOwner": "ordivon-security",
+    "reasonWorldExcluded": "The tested Security Range already owns authoritative world-truth for the controlled episode; no external trajectory/effect non-identifiability was present.",
+    "supplierOwner": "ordivon-interlocus",
+    "worldIncluded": false
+  },
+  "rejected": [
+    "J1 establishes Interlocus x Security scoped complementarity.",
+    "J1 establishes emergence, higher-order irreducibility, or phase transition.",
+    "Security lacks the facts required to solve the tested controlled Range case.",
+    "The handcrafted projection should become shared production machinery based on this experiment.",
+    "World should be added to J1 merely because topology can change."
+  ],
+  "remainingHypotheses": [
+    "Structured relation epoch/currentness representation may reduce effectful action errors for capacity-limited consumers even when it adds no owner facts.",
+    "The mechanism may be capacity-dependent: stronger consumers can reconstruct the same distinctions from raw Security evidence, while weaker consumers benefit from an explicit relation geometry.",
+    "The relevant variable may be structured applicability geometry rather than owner identity or generic caution text; a future test would need an independent natural consumer and held-out relation transitions to establish this.",
+    "A future positive cross-owner capability result still requires a natural consumer task where deleting the owner-preserving relation projection leaves a residual that cannot be eliminated by a stronger Security-local consumer at comparable conditions."
+  ],
+  "schemaVersion": 1,
+  "status": "closed-no-deletion-essentiality"
+}
