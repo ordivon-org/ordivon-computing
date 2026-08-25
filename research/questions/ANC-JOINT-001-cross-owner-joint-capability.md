@@ -4,6 +4,8 @@
 
 `COMPLETED` initial Computing screening question with **dormant natural-pressure reopen**. J0 calibration and J1 are closed; the required next materially different natural candidate was consumed by the N1 representation falsifier and did not reproduce the candidate benefit. Cross-branch subtraction then found no current candidate that simultaneously survives natural-pressure, mature-baseline, identifiable-deletion and independent-consequence gates. COJC therefore no longer consumes active P0 WIP. Historical evidence and reopen predicates remain; this does not claim that cross-owner joint capability is impossible and does not create a Composition Owner.
 
+Canonical first-look sedimentation: [`../COJC-SEDIMENTATION-CANON-20260825.md`](../COJC-SEDIMENTATION-CANON-20260825.md).
+
 Canonical programme charter: [`../JOINT-CAPABILITY-PROGRAMME-20260825.md`](../JOINT-CAPABILITY-PROGRAMME-20260825.md).
 
 ## Problem
@@ -75,6 +77,8 @@ A single binary gating experiment may not be called a phase transition.
 - `research/experiments/joint-capability-j1-adversarial-interlocus-v0/n2-mechanism-ablation-contract.json`
 - `research/experiments/joint-capability-j1-adversarial-interlocus-v0/evidence-n2-mechanism-ablation-v1.json`
 - `research/experiments/representation-natural-n1-v0/CLOSEOUT.md`
+- `research/COJC-SEDIMENTATION-CANON-20260825.md`
+- `research/cojc-sedimentation-canon-v1.json`
 - `research/COJC-INITIAL-CAMPAIGN-CLOSEOUT-20260825.md`
 - `research/experiments/representation-cross-world-reconciliation-v0/CROSS-WORLD-PPD-SYNTHESIS.md`
 - `research/experiments/representation-cross-world-reconciliation-v0/moderator-map-v0.json`

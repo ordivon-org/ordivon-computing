@@ -202,6 +202,30 @@ shared distinction != shared service
 cross-project convergence != centralized infrastructure
 ```
 
+## 11A. Deletion proves contribution, not joint novelty
+
+Removal/deletion is necessary for many causal and existence claims, but a deletion-positive component can still be an ordinary serial or modular dependency. After identifying a real contribution, allow the strongest fair mature composition over the **same admitted primitives, information and authority** to compete before promoting a new joint mechanism or capability.
+
+```text
+Participation != CausalContribution
+DeletionEssential != JointIrreducible
+Interaction != NovelCapability
+Complementarity != Emergence
+```
+
+A fair generic-composition control may use mature workflow, planning, policy/authorization, indexing/materialized views, protocols/choreography, adapters/reconciliation and ordinary information architecture when those mechanisms are applicable. It must not receive hidden answers, future outcomes, extra authority or primitives unavailable to the candidate, and it must pay its own construction/currentness/maintenance/recovery cost.
+
+```text
+DeletionPositive
+AND MatureParityCompositionMatches
+→ retain scoped contribution/complementarity
+→ do not promote joint novelty
+```
+
+Only a residual that changes a qualified reachable outcome, strategy, recovery mode or other predeclared consequence under parity survives this subtraction. Even then, stronger `emergence` or threshold/phase-transition labels require the additional transfer, neighboring-regime and stability evidence appropriate to those claims.
+
+This is a **promotion guard**, not a reason to discard useful mature composition or a mandate to build one universal baseline engine. Construct the strongest workload-relative control locally and preserve owner-native truth/authority.
+
 ## 12. Structure the control boundary, not the thought process
 
 Structure data where silent mutation/deletion changes research meaning: identity, owner/authority, scope, proposition/rival disposition, evidence binding, falsifier/evaluator, result standing, currentness, residual/reopen, and recovery.
