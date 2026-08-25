@@ -2,7 +2,7 @@
 
 > Generated from [`portfolio.json`](portfolio.json). Edit the JSON source, then rerun `python3 scripts/render_research_portfolio.py`.
 
-- **As of:** `2026-08-21`
+- **As of:** `2026-08-25`
 - **Active research-line limit:** `2`
 - **Current active lines:** `1`
 
@@ -28,6 +28,12 @@
 | ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-ADAPT-001 | M5 | P1 | ordivon-computing | PAL-FIELD-001 | — | — | Continue only from natural post-t0 reality. Append qualifying F14 demand and F17 owner/external events under their frozen contracts; do not manufacture positive cases, change policy cards/prompts, or score either field study early. When both stop rules resolve, compress stable findings and remove f17_run.py from the active tree. | F14 must accumulate real post-t0 capability demand or close at its frozen window so ACTUAL_T0/CURRENT_ONLY/KEEP_ALL_FEASIBLE can be compared by realized carry/reacquisition/blocking regret; F17 must encounter genuine positive-pressure owner/external events whose predeclared decisive probes change a downstream research/design decision, allowing DIRECT_FULL_REVIEW versus PRESSURE_CERTIFICATE to be compared beyond no-op controls. |
+
+### Ready
+
+| ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
+|---|---|---|---|---|---|---|---|---|
+| ANC-REPRESENTATION-001 | M4 | P1 | ordivon-computing | — | — | — | Do not build a service or run another synthetic treatment. Wait for a materially different natural Computing research-audit workload, freeze source revisions/oracle/admission before model runs, and compare exact full source against the smallest source-bound target/claim + evidence + challenge + boundary projection. If value does not reproduce, close this question and remove the Book representation verifier scripts from the active research tree; if it reproduces, require another consumer/operation before any shared mechanism. | On one new natural research-audit workload materially different from the current six-artifact packet and containing at least six current owner artifacts spanning negative objective closure, bounded comparison, downstream use or explicit non-use, attributed consequence, and an unsupported broader-promotion temptation, a frozen target/claim + evidence + challenge + boundary projection must improve source-robust judgment or justified context/recovery cost over exact full owner source; otherwise the representation candidate is rejected. |
 
 ### Blocked
 
