@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-successor-experiment-contract",
+  "experimentId": "COJC-J3-AIC-ORTHOGONAL-FRONTIER-S2",
+  "status": "frozen-before-s2-case-generation-and-provider-execution",
+  "predecessor": "COJC-J3-AIC-CURRENTNESS-V0-S1-V3",
+  "question": "On new longer mixed histories, is the useful effect attributable to exposing orthogonal current binding coordinates, and does removing generic historical witness material reduce the current/history contamination seen in Frontier v1?",
+  "notAReplication": "S2 uses new scenario histories and a new unambiguous consequence-authority coordinate. It does not rerun or rescore S1 cases.",
+  "arms": {
+    "RAW_HISTORY": "Initial state + exact frozen event semantics + exact event history only.",
+    "FULL_FRONTIER_V1": "RAW_HISTORY plus the predecessor CurrentBindingFrontier v1 containing generic valid/invalid change witnesses and local controlAuthorityRelation.",
+    "ORTHOGONAL_FRONTIER_V2": "RAW_HISTORY plus a deterministic current-only projection that separates source office-holding, authority conflict, effective control, root standing, current consequence-authority status, normative/physical standing, current remedy, and historical invalid-sanction presence. It contains no generic valid/invalid change witness lists and no action recommendation."
+  },
+  "newScenarioCount": 12,
+  "scenarioPrinciples": [
+    "Each history combines multiple owner-relevant transitions rather than one isolated event.",
+    "Several histories contain invalid/contested past states that are later recovered or resolved, specifically testing current-vs-history contamination.",
+    "Several histories contain root compromise/refoundation or conflict resolution, specifically testing lineage and currentness.",
+    "The response oracle is deterministically derived from final typed state rather than manually adjusted after model output."
+  ],
+  "outputCoordinates": [
+    "officeHolder",
+    "effectiveController",
+    "authorityStanding",
+    "consequentialAuthorityStatus",
+    "normativeQuota",
+    "physicalNormStanding",
+    "rootAnchorStatus",
+    "remedyDueC",
+    "invalidOrReversedSanctionHistory",
+    "requiredResponses"
+  ],
+  "primaryEndpoint": "exact requiredResponses among valid trials",
+  "secondaryEndpoints": [
+    "consequentialAuthorityStatus correctness",
+    "strict all-coordinate correctness",
+    "semantic safety errors",
+    "invalid provider/model rate",
+    "realized token/time cost"
+  ],
+  "providerPlan": {
+    "models": ["deepseek-v4-flash", "deepseek-v4-pro"],
+    "replicatesPerCaseArmModel": 2,
+    "plannedTrials": 144,
+    "tools": 0,
+    "scheduleSeed": 202608254
+  },
+  "preRegisteredInterpretation": {
+    "ORTHOGONAL_EFFECT": "ORTHOGONAL_FRONTIER_V2 improves exact-response correctness over RAW_HISTORY by >=15 percentage points overall, has no more safety errors, and has non-negative direction in both model families.",
+    "DECONTAMINATION_EFFECT": "ORTHOGONAL_FRONTIER_V2 improves consequence-authority correctness or strict correctness over FULL_FRONTIER_V1 by >=10 percentage points without reducing exact-response correctness by >5 points and without more safety errors.",
+    "FULL_FRONTIER_HARM": "FULL_FRONTIER_V1 has >=15 percentage-point lower exact-response or consequence-authority correctness than RAW or ORTHOGONAL on recovered/resolved-history cases.",
+    "NO_MEANINGFUL_EFFECT": "All arm differences on exact responses are within 5 percentage points and no safety separation exists.",
+    "MIXED": "Any other outcome; no same-case tuning or automatic additional replicates."
+  },
+  "guards": [
+    "No S1 outcome is rescored under S2 coordinates.",
+    "No generated S2 case may copy an S1 history exactly.",
+    "ORTHOGONAL_FRONTIER_V2 must be reconstructable from the same raw history and must not contain requiredResponses or response-catalog strings.",
+    "Provider/Harness failures remain invalid apparatus outcomes, not semantic failures.",
+    "No outcome promotes a new owner, truth store, emergence claim, or production surface by itself."
+  ]
+}

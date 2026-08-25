@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-agent-metamorphic-contract",
+  "experimentId": "COJC-J3-AIC-METAMORPHIC-S4B",
+  "status": "frozen-before-case-generation-and-provider-execution",
+  "predecessor": "COJC-J3-AIC-METAMORPHIC-S4",
+  "question": "When two histories are proven metamorphically equivalent with respect to actionable institutional currentness, does a fresh Agent preserve the same correct currentness/response behavior, and does an orthogonal frontier reduce history-induced instability?",
+  "arms": {
+    "RAW_HISTORY": "Exact event history plus frozen semantics only.",
+    "RAW_PLUS_ORTHOGONAL_FRONTIER": "The same exact event history and semantics plus deterministic Orthogonal Frontier v2 derived from that history. The frontier contains no response recommendation."
+  },
+  "pairCount": 8,
+  "relations": [
+    "MR1 invalid-election insertion",
+    "MR4 root-compromise order",
+    "MR6 transient contest creation-and-clear",
+    "MR7 failed in-band rotation before independent refoundation",
+    "MR8 restitution partition",
+    "MR9 repeated invalidation idempotence",
+    "MR11 election/control-transfer commutation",
+    "MR12 no-op physical tamper"
+  ],
+  "models": ["deepseek-v4-flash", "deepseek-v4-pro"],
+  "replicatesPerPairSideArmModel": 2,
+  "plannedTrials": 128,
+  "plannedPairComparisonsPerArm": 32,
+  "scheduleSeed": 202608257,
+  "primaryPairEndpoints": [
+    "pairBothResponsesCorrect",
+    "pairResponseInvariant",
+    "oneSideOnlyResponseCorrect"
+  ],
+  "secondaryPairEndpoints": [
+    "pairBothStrict",
+    "pairDecisionSignatureInvariant",
+    "pairConsequenceInvariant",
+    "pairAnySafetyError",
+    "realized token/time cost"
+  ],
+  "preRegisteredInterpretation": {
+    "METAMORPHIC_ROBUSTNESS_EFFECT": "RAW_PLUS_ORTHOGONAL_FRONTIER improves pair-both-response-correct by >=15 percentage points over RAW_HISTORY, reduces one-side-only response correctness by >=10 percentage points, and has no more pair-level safety errors.",
+    "FRONTIER_STABILIZATION": "RAW_PLUS_ORTHOGONAL_FRONTIER reduces one-side-only response correctness by >=10 percentage points without reducing pair-both-response-correct by >5 points and without more pair-level safety errors.",
+    "RAW_HISTORY_SENSITIVITY": "RAW_HISTORY has one-side-only response correctness in >=10% of valid pair comparisons or pair-response-invariance below 90%.",
+    "NO_MEANINGFUL_METAMORPHIC_EFFECT": "Arm differences in pair-both-response-correct and one-side-only response correctness are each <=5 percentage points and pair-level safety counts do not separate.",
+    "MIXED": "Any other result. No same-pair tuning or automatic replicate extension."
+  },
+  "guards": [
+    "Every pair must pass S4A relation-specific deterministic equality before provider execution.",
+    "Pair members must have different histories but identical frozen final oracle and identical orthogonal current core when occurrenceDigest/eventCount are excluded.",
+    "No pair is generated from an S1-S3 model failure after seeing its output; pair design is relation-driven.",
+    "Invalid provider/Harness trials remain apparatus-invalid and are not retried.",
+    "A pair can be invariant but jointly wrong; pair-both-correct and invariance are therefore separate endpoints.",
+    "S4B cannot promote a new truth owner or production surface by itself."
+  ]
+}

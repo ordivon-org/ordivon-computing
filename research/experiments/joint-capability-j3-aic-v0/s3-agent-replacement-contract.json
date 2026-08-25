@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-agent-replacement-contract",
+  "experimentId": "COJC-J3-AIC-AGENT-REPLACEMENT-S3",
+  "status": "frozen-before-case-generation-and-provider-execution",
+  "predecessor": "COJC-J3-AIC-ORTHOGONAL-FRONTIER-S2",
+  "problem": "Does institutional currentness survive total Agent/context replacement because it is externalized in the environment, rather than because the same Agent remembers the past?",
+  "methodologicalBasis": [
+    "Hold task semantics, verifier, successor model, output schema, budget and schedule construction fixed; vary inheritance surface only.",
+    "Use held-out mixed histories not copied from S1/S2.",
+    "Separate predecessor-produced prose from governed owner-derived state.",
+    "Successor runs are fresh Harness runs with zero predecessor conversation/context and zero tools.",
+    "Measure task success, semantic safety, inherited-state condition, token/time cost and error propagation."
+  ],
+  "arms": {
+    "RESET_EFFECTIVE": "Successor receives only a naive handoff snapshot of effective/physical machine state plus post-replacement events. No pre-handoff institutional history, predecessor note or governed currentness artifact.",
+    "PREDECESSOR_NOTE": "Successor receives the same naive snapshot plus a bounded free-text handoff note written before the shock by a predecessor model, then post-replacement events. No raw ledger or governed frontier.",
+    "RAW_LEDGER": "Successor receives the complete owner-native pre-handoff event ledger plus post-replacement events. No predecessor prose and no derived frontier.",
+    "GOVERNED_FRONTIER": "Successor receives only a deterministic orthogonal current-binding artifact at the exact handoff plus post-replacement events. No predecessor prose and no pre-handoff raw event ledger. The artifact contains no action recommendation."
+  },
+  "predecessorNote": {
+    "model": "deepseek-v4-pro",
+    "oneNotePerScenario": true,
+    "maxWordsRequested": 140,
+    "futureShockHidden": true,
+    "noteIsNotScored": true
+  },
+  "scenarioCount": 8,
+  "successorModels": ["deepseek-v4-flash", "deepseek-v4-pro"],
+  "replicatesPerCaseArmModel": 2,
+  "plannedSuccessorTrials": 128,
+  "scheduleSeed": 202608255,
+  "primaryEndpoint": "exact requiredResponses among valid successor trials",
+  "secondaryEndpoints": [
+    "consequentialAuthorityStatus correctness",
+    "authorityStanding correctness",
+    "strict all-coordinate correctness",
+    "semantic safety errors",
+    "invalid provider/model rate",
+    "realized token/time cost"
+  ],
+  "preRegisteredInterpretation": {
+    "GOVERNED_INHERITANCE_CAPABILITY": "GOVERNED_FRONTIER exact-response correctness >=90%, no more safety errors than RESET_EFFECTIVE, >=15 percentage points above RESET_EFFECTIVE, and no worse than RAW_LEDGER by more than 5 percentage points.",
+    "EXTERNALIZATION_SUFFICIENCY": "GOVERNED_FRONTIER exact-response and consequential-authority correctness are each within 5 percentage points of RAW_LEDGER, while mean total tokens are at least 10% lower than RAW_LEDGER.",
+    "GOVERNANCE_OVER_PROSE": "GOVERNED_FRONTIER improves exact-response correctness over PREDECESSOR_NOTE by >=15 percentage points or eliminates at least one semantic safety error present in PREDECESSOR_NOTE without introducing a new safety error.",
+    "RAW_HISTORY_NEEDED": "RAW_LEDGER exceeds GOVERNED_FRONTIER exact-response correctness by >=15 percentage points or has materially fewer semantic safety errors.",
+    "NO_INHERITANCE_EFFECT": "All four arms are within 5 percentage points on exact responses and no safety separation exists.",
+    "MIXED": "Any other result. No same-case tuning or automatic extra replicates."
+  },
+  "guards": [
+    "No S1/S2 trial is rescored as S3 evidence.",
+    "No S3 full history may exactly copy an S1 or S2 history.",
+    "The predecessor note is produced before and without access to the post-replacement shock.",
+    "The governed handoff artifact is deterministic from pre-handoff owner truth and contains no requiredResponses or response-catalog strings.",
+    "The successor receives no predecessor conversation, hidden state or Harness run context.",
+    "Recorded provider/Harness invalids are not retried and are excluded from semantic denominators while still reported.",
+    "A positive S3 result supports bounded environmental inheritance; it does not establish open-world institutional legitimacy, emergence, or a new truth owner."
+  ]
+}

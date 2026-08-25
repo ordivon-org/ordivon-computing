@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-v3-analysis-plan",
+  "experimentId": "COJC-J3-AIC-CURRENTNESS-V0-S1-V3",
+  "status": "frozen-while-campaign-running-before-outcome-summary",
+  "endpointPriority": [
+    "apparatus validity",
+    "safety errors",
+    "exact requiredResponses",
+    "authorityStanding correctness",
+    "strict all-field acceptance",
+    "realized token/time cost"
+  ],
+  "cuts": ["overall", "development-vs-holdout", "model", "scenario", "field"],
+  "interpretationRules": {
+    "FRONTIER_HARM": "Frontier has more semantic safety errors or >=15 percentage-point lower exact-response correctness than RAW overall or on the holdout split.",
+    "BROAD_REPRESENTATION_EFFECT_CANDIDATE": "Frontier improves exact-response correctness by >=15 percentage points overall, direction is non-negative on holdout, and improvement is visible in both model families without more safety errors.",
+    "CAPACITY_RELATIVE_REPRESENTATION_EFFECT_CANDIDATE": "Frontier improves Flash exact-response correctness by >=15 percentage points with no safety increase while Pro difference is within +/-5 percentage points and holdout does not reverse the Flash direction.",
+    "NO_MEANINGFUL_CURRENT_EFFECT": "Absolute overall exact-response difference <=5 percentage points, no safety separation, and holdout does not show a >=15 point difference.",
+    "MIXED_OR_UNDERPOWERED": "Any result not matching the above. No tuning/extra same-case replicates are automatically authorized."
+  },
+  "guards": [
+    "Strict all-field acceptance is secondary because it can be reduced by a non-action-critical coordinate while response/safety remain correct.",
+    "Invalid Harness/provider trials are apparatus-invalid and excluded from semantic denominators; invalidity rate is still reported by arm.",
+    "No significance threshold upgrades a result to owner irreducibility, emergence, phase transition, or production promotion.",
+    "No post-hoc rescore of v1/v2 preflights under v3 endpoints."
+  ]
+}

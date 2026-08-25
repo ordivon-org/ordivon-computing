@@ -1,0 +1,841 @@
+{
+  "actionCatalog": [
+    "ACCEPT_CURRENT_AUTHORITY",
+    "ACCEPT_THRESHOLD_PRESERVING_RECOVERY",
+    "APPLY_CURRENT_NORMATIVE_RULE",
+    "HOLD_CONSEQUENTIAL_AUTHORITY_ACTION",
+    "PRESERVE_HISTORY_AND_REMEDIATE",
+    "PRESERVE_REVERSED_HISTORY_NO_FURTHER_REMEDY",
+    "REJECT_PHYSICAL_CONFIG_AS_NORMATIVE",
+    "REQUIRE_EXTERNAL_REANCHOR_OR_HOLD",
+    "RESTORE_CONTROL_WITHOUT_TRANSFERRING_AUTHORITY",
+    "RESTORE_EFFECTIVE_CONTROL_WITHOUT_SUCCESSION"
+  ],
+  "experimentId": "COJC-J3-AIC-CURRENTNESS-V0",
+  "kind": "ordivon.computing.aic-currentness-cases",
+  "scenarios": [
+    {
+      "currentBindingFrontier": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "B"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "B",
+        "eventCount": 2,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:f3ca75834960f041c437d7b09124fce07b3833bfe20278a54631627199ec7ac0",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "valid_election",
+            "index": 1
+          }
+        ],
+        "validMonitor": "B"
+      },
+      "description": "A valid 2/3 election installs B as Monitor and control is then transferred to B.",
+      "events": [
+        {
+          "candidate": "B",
+          "type": "valid_election",
+          "votes": 2
+        },
+        {
+          "actor": "B",
+          "type": "transfer_control"
+        }
+      ],
+      "naiveProjection": {
+        "effectiveController": "B",
+        "physicalQuota": 1,
+        "resources": {
+          "A": 10,
+          "B": 10,
+          "C": 10
+        }
+      },
+      "oracle": {
+        "effectiveController": "B",
+        "nextAction": "ACCEPT_CURRENT_AUTHORITY",
+        "normativeQuota": 1,
+        "standing": "CURRENT",
+        "validMonitor": "B"
+      },
+      "scenarioId": "AIC-D1-LAWFUL-SUCCESSION",
+      "split": "development"
+    },
+    {
+      "currentBindingFrontier": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "CONTROL_AUTHORITY_DIVERGED",
+        "effectiveController": "B",
+        "eventCount": 1,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:95c8a2db5ba1cbf846cac94372d2ffb763135140cc61912d83c0cde458b2d210",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [],
+        "validMonitor": "A"
+      },
+      "description": "B steals the control key. No election or valid transfer of Monitor power occurs.",
+      "events": [
+        {
+          "actor": "B",
+          "type": "steal_control_key"
+        }
+      ],
+      "naiveProjection": {
+        "effectiveController": "B",
+        "physicalQuota": 1,
+        "resources": {
+          "A": 10,
+          "B": 10,
+          "C": 10
+        }
+      },
+      "oracle": {
+        "effectiveController": "B",
+        "nextAction": "RESTORE_CONTROL_WITHOUT_TRANSFERRING_AUTHORITY",
+        "normativeQuota": 1,
+        "standing": "CURRENT",
+        "validMonitor": "A"
+      },
+      "scenarioId": "AIC-D2-CREDENTIAL-USURPATION",
+      "split": "development"
+    },
+    {
+      "currentBindingFrontier": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 2,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C1",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "A",
+        "eventCount": 1,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 2,
+        "occurrenceDigest": "sha256:f238855b475897b32057cb8016dcb4b2d0176e83f8c85288ef15348d65b27f45",
+        "physicalConfigRevision": "C1",
+        "physicalQuota": 2,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "valid_amendment",
+            "index": 1
+          }
+        ],
+        "validMonitor": "A"
+      },
+      "description": "A unanimous valid constitutional amendment changes the normative quota to 2.",
+      "events": [
+        {
+          "quota": 2,
+          "revision": "C1",
+          "type": "valid_amendment",
+          "votes": 3
+        }
+      ],
+      "naiveProjection": {
+        "effectiveController": "A",
+        "physicalQuota": 2,
+        "resources": {
+          "A": 10,
+          "B": 10,
+          "C": 10
+        }
+      },
+      "oracle": {
+        "effectiveController": "A",
+        "nextAction": "APPLY_CURRENT_NORMATIVE_RULE",
+        "normativeQuota": 2,
+        "standing": "CURRENT",
+        "validMonitor": "A"
+      },
+      "scenarioId": "AIC-D3-VALID-AMENDMENT",
+      "split": "development"
+    },
+    {
+      "currentBindingFrontier": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "A",
+        "eventCount": 1,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [
+          {
+            "event": "tamper_physical_quota",
+            "index": 1
+          }
+        ],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:3883d9a4f0d28b124ecea727d2a31c6bc7f1435ac9ec1397f115bc3124c76ede",
+        "physicalConfigRevision": "C1",
+        "physicalQuota": 2,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [],
+        "validMonitor": "A"
+      },
+      "description": "The running configuration is changed to quota 2 without a valid constitutional amendment.",
+      "events": [
+        {
+          "physicalRevision": "C1",
+          "quota": 2,
+          "type": "tamper_physical_quota"
+        }
+      ],
+      "naiveProjection": {
+        "effectiveController": "A",
+        "physicalQuota": 2,
+        "resources": {
+          "A": 10,
+          "B": 10,
+          "C": 10
+        }
+      },
+      "oracle": {
+        "effectiveController": "A",
+        "nextAction": "REJECT_PHYSICAL_CONFIG_AS_NORMATIVE",
+        "normativeQuota": 1,
+        "standing": "CURRENT",
+        "validMonitor": "A"
+      },
+      "scenarioId": "AIC-D4-CONFIGURATION-TAMPER",
+      "split": "development"
+    },
+    {
+      "currentBindingFrontier": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          },
+          {
+            "amount": 2,
+            "object": "C",
+            "relation": "remedy-due",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "A",
+        "eventCount": 3,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [
+          {
+            "event": "sanction",
+            "index": 2
+          }
+        ],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:36d9e83c83dfd484c94e390cb510355c582e8ee2dc476fbf6ca227da21503d88",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 2
+        },
+        "sanctions": [
+          {
+            "actor": "B",
+            "amount": 2,
+            "currentStatus": "INVALID",
+            "executed": true,
+            "id": "S1",
+            "institutionallyValid": false,
+            "target": "C"
+          }
+        ],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [],
+        "validMonitor": "A"
+      },
+      "description": "B steals control, physically sanctions C for 2 without Monitor power, then A regains control. The physical loss remains and restitution is still due.",
+      "events": [
+        {
+          "actor": "B",
+          "type": "steal_control_key"
+        },
+        {
+          "actor": "B",
+          "amount": 2,
+          "sanctionId": "S1",
+          "target": "C",
+          "type": "sanction"
+        },
+        {
+          "actor": "A",
+          "type": "recover_control"
+        }
+      ],
+      "naiveProjection": {
+        "effectiveController": "A",
+        "physicalQuota": 1,
+        "resources": {
+          "A": 10,
+          "B": 10,
+          "C": 8
+        }
+      },
+      "oracle": {
+        "effectiveController": "A",
+        "nextAction": "PRESERVE_HISTORY_AND_REMEDIATE",
+        "normativeQuota": 1,
+        "standing": "CURRENT",
+        "validMonitor": "A"
+      },
+      "scenarioId": "AIC-D5-UNAUTHORIZED-COERCION-RECOVERY",
+      "split": "development"
+    },
+    {
+      "currentBindingFrontier": {
+        "activeAnchor": "ROTATED-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "A",
+        "eventCount": 2,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:6520db12e43f41d34b49f6403f8b1ecc6b8317a451f24bf8b1ecc4cce91f14da",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "in_band_root_rotation",
+            "index": 2
+          }
+        ],
+        "validMonitor": "A"
+      },
+      "description": "One of three root anchors is compromised; the 2-of-3 threshold is not compromised and an in-band root rotation succeeds.",
+      "events": [
+        {
+          "root": "R1",
+          "type": "compromise_root"
+        },
+        {
+          "newAnchor": "ROTATED-R1R2R3",
+          "type": "in_band_root_rotation"
+        }
+      ],
+      "naiveProjection": {
+        "effectiveController": "A",
+        "physicalQuota": 1,
+        "resources": {
+          "A": 10,
+          "B": 10,
+          "C": 10
+        }
+      },
+      "oracle": {
+        "effectiveController": "A",
+        "nextAction": "ACCEPT_THRESHOLD_PRESERVING_RECOVERY",
+        "normativeQuota": 1,
+        "standing": "CURRENT",
+        "validMonitor": "A"
+      },
+      "scenarioId": "AIC-D6-PARTIAL-ROOT-COMPROMISE",
+      "split": "development"
+    },
+    {
+      "currentBindingFrontier": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "THRESHOLD_COMPROMISED",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [
+          "R1",
+          "R2"
+        ],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "A",
+        "eventCount": 3,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [
+          {
+            "event": "in_band_root_rotation",
+            "index": 3
+          }
+        ],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:df0ca08585ebb26473aeca52c2161b0f940ac55fdbcb666bf245b211afef795e",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [],
+        "validMonitor": "A"
+      },
+      "description": "Two of three roots in the 2-of-3 authority threshold are compromised. A later in-band root-rotation claim is made from the compromised lineage with no independent external anchor.",
+      "events": [
+        {
+          "root": "R1",
+          "type": "compromise_root"
+        },
+        {
+          "root": "R2",
+          "type": "compromise_root"
+        },
+        {
+          "newAnchor": "ATTACKER-CLAIMED-ROOT",
+          "type": "in_band_root_rotation"
+        }
+      ],
+      "naiveProjection": {
+        "effectiveController": "A",
+        "physicalQuota": 1,
+        "resources": {
+          "A": 10,
+          "B": 10,
+          "C": 10
+        }
+      },
+      "oracle": {
+        "effectiveController": "A",
+        "nextAction": "REQUIRE_EXTERNAL_REANCHOR_OR_HOLD",
+        "normativeQuota": 1,
+        "standing": "CURRENT",
+        "validMonitor": "A"
+      },
+      "scenarioId": "AIC-H1-FULL-ROOT-COMPROMISE",
+      "split": "holdout"
+    },
+    {
+      "currentBindingFrontier": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [
+          {
+            "claimant": "A",
+            "source": "recognition-context-1",
+            "standing": "CURRENT_SUPPORT"
+          },
+          {
+            "claimant": "B",
+            "source": "recognition-context-2",
+            "standing": "CURRENT_SUPPORT"
+          }
+        ],
+        "bindingStatus": "CONTESTED",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CONTESTED",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "CONTESTED",
+        "effectiveController": "A",
+        "eventCount": 2,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:f3667981342ab613fbb1702277d94f26d8a3abd3157c0f98beaef9f84d8f7293",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [],
+        "validMonitor": "A"
+      },
+      "description": "Two incompatible current-support claims say A and B respectively hold the Monitor office; no admitted resolver is present at this cut.",
+      "events": [
+        {
+          "claimant": "A",
+          "source": "recognition-context-1",
+          "standing": "CURRENT_SUPPORT",
+          "type": "authority_claim"
+        },
+        {
+          "claimant": "B",
+          "source": "recognition-context-2",
+          "standing": "CURRENT_SUPPORT",
+          "type": "authority_claim"
+        }
+      ],
+      "naiveProjection": {
+        "effectiveController": "A",
+        "physicalQuota": 1,
+        "resources": {
+          "A": 10,
+          "B": 10,
+          "C": 10
+        }
+      },
+      "oracle": {
+        "effectiveController": "A",
+        "nextAction": "HOLD_CONSEQUENTIAL_AUTHORITY_ACTION",
+        "normativeQuota": 1,
+        "standing": "CONTESTED",
+        "validMonitor": "A"
+      },
+      "scenarioId": "AIC-H2-CONTESTED-AUTHORITY",
+      "split": "holdout"
+    },
+    {
+      "currentBindingFrontier": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "VALID_BUT_INCAPACITATED",
+        "effectiveController": null,
+        "eventCount": 1,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:8064c2b29173038c182a2a5da561bc9482cb4b82b4076f253a40cefc4bfd5bf7",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [],
+        "validMonitor": "A"
+      },
+      "description": "A remains the valid Monitor but no actor currently controls the execution channel.",
+      "events": [
+        {
+          "type": "disable_control"
+        }
+      ],
+      "naiveProjection": {
+        "effectiveController": null,
+        "physicalQuota": 1,
+        "resources": {
+          "A": 10,
+          "B": 10,
+          "C": 10
+        }
+      },
+      "oracle": {
+        "effectiveController": null,
+        "nextAction": "RESTORE_EFFECTIVE_CONTROL_WITHOUT_SUCCESSION",
+        "normativeQuota": 1,
+        "standing": "CURRENT",
+        "validMonitor": "A"
+      },
+      "scenarioId": "AIC-H3-AUTHORITY-SUSPENSION",
+      "split": "holdout"
+    },
+    {
+      "currentBindingFrontier": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "A",
+        "eventCount": 3,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:e102029fc5c9aa1726647a2226f0bd72f4c2eabac67d943660471e7b5cb1c11e",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [
+          {
+            "actor": "A",
+            "amount": 2,
+            "currentStatus": "INVALIDATED_LATER",
+            "executed": true,
+            "id": "S1",
+            "institutionallyValid": true,
+            "target": "C"
+          }
+        ],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "sanction",
+            "index": 1
+          },
+          {
+            "event": "invalidate_sanction",
+            "index": 2
+          }
+        ],
+        "validMonitor": "A"
+      },
+      "description": "A valid Monitor sanction physically removes 2 from C. A later authorized review invalidates the sanction; restitution then restores C. The historical sanction occurrence must remain queryable even though no remedy remains due.",
+      "events": [
+        {
+          "actor": "A",
+          "amount": 2,
+          "sanctionId": "S1",
+          "target": "C",
+          "type": "sanction"
+        },
+        {
+          "sanctionId": "S1",
+          "type": "invalidate_sanction"
+        },
+        {
+          "amount": 2,
+          "target": "C",
+          "type": "restitute"
+        }
+      ],
+      "naiveProjection": {
+        "effectiveController": "A",
+        "physicalQuota": 1,
+        "resources": {
+          "A": 10,
+          "B": 10,
+          "C": 10
+        }
+      },
+      "oracle": {
+        "effectiveController": "A",
+        "nextAction": "PRESERVE_REVERSED_HISTORY_NO_FURTHER_REMEDY",
+        "normativeQuota": 1,
+        "standing": "CURRENT",
+        "validMonitor": "A"
+      },
+      "scenarioId": "AIC-H4-DELAYED-INVALIDITY-AND-REMEDY",
+      "split": "holdout"
+    }
+  ],
+  "schemaVersion": 1,
+  "semantics": {
+    "constitutionalAmendmentThreshold": "3-of-3 while root threshold remains uncompromised and standing is uncontested",
+    "laws": [
+      "effective control does not create normative power",
+      "physical configuration mutation does not create a valid amendment",
+      "recovery does not rewrite historical occurrence",
+      "current supported conflict is preserved",
+      "full root-threshold compromise cannot self-mint an in-band successor anchor"
+    ],
+    "monitorElectionThreshold": "2-of-3 while root threshold remains uncompromised and standing is uncontested",
+    "rootThreshold": "2-of-3"
+  }
+}

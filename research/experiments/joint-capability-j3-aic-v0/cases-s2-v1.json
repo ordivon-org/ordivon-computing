@@ -1,0 +1,1597 @@
+{
+  "experimentId": "COJC-J3-AIC-ORTHOGONAL-FRONTIER-S2",
+  "kind": "ordivon.computing.aic-s2-cases",
+  "responseCatalog": [
+    "RESTORE_EFFECTIVE_CONTROL",
+    "REJECT_PHYSICAL_CONFIG_AS_NORMATIVE",
+    "REMEDIATE_C",
+    "REQUIRE_EXTERNAL_REANCHOR",
+    "PRESERVE_AUTHORITY_CONFLICT",
+    "HOLD_CONSEQUENTIAL_AUTHORITY_EFFECTS",
+    "PRESERVE_INVALID_OR_REVERSED_SANCTION_HISTORY"
+  ],
+  "scenarios": [
+    {
+      "description": "B previously usurped control and imposed an invalid sanction; A recovered and restitution was paid; later B lawfully wins the Monitor office and receives control.",
+      "eventCount": 6,
+      "events": [
+        {
+          "actor": "B",
+          "type": "steal_control_key"
+        },
+        {
+          "actor": "B",
+          "amount": 2,
+          "sanctionId": "S1",
+          "target": "C",
+          "type": "sanction"
+        },
+        {
+          "actor": "A",
+          "type": "recover_control"
+        },
+        {
+          "amount": 2,
+          "target": "C",
+          "type": "restitute"
+        },
+        {
+          "candidate": "B",
+          "type": "valid_election",
+          "votes": 2
+        },
+        {
+          "actor": "B",
+          "type": "transfer_control"
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "B"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "B",
+        "eventCount": 6,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [
+          {
+            "event": "sanction",
+            "index": 2
+          }
+        ],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:2372e24f922e39a417177821de47ce0a27155ca87d61284a8e4b3757d477b942",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [
+          {
+            "actor": "B",
+            "amount": 2,
+            "currentStatus": "INVALID",
+            "executed": true,
+            "id": "S1",
+            "institutionallyValid": false,
+            "target": "C"
+          }
+        ],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "valid_election",
+            "index": 5
+          }
+        ],
+        "validMonitor": "B"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "AUTHORIZED",
+        "effectiveController": "B",
+        "invalidOrReversedSanctionHistory": "PRESENT",
+        "normativeQuota": 1,
+        "officeHolder": "B",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 0,
+        "requiredResponses": [
+          "PRESERVE_INVALID_OR_REVERSED_SANCTION_HISTORY"
+        ],
+        "rootAnchorStatus": "HEALTHY"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "AUTHORIZED",
+          "effectiveController": "B",
+          "officeHolder": "B"
+        },
+        "eventCount": 6,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "PRESENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 1,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 1
+        },
+        "occurrenceDigest": "sha256:2372e24f922e39a417177821de47ce0a27155ca87d61284a8e4b3757d477b942",
+        "remedy": {
+          "remedyDueC": 0
+        },
+        "root": {
+          "activeAnchor": "FOUNDING-R1R2R3",
+          "rootAnchorStatus": "HEALTHY"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-01-RECOVERED-USURPATION-THEN-SUCCESSION"
+    },
+    {
+      "description": "A valid amendment changes quota to 2, a physical tamper moves it back to 1, and a later valid amendment makes quota 1 the current valid rule again.",
+      "eventCount": 4,
+      "events": [
+        {
+          "quota": 2,
+          "revision": "C1",
+          "type": "valid_amendment",
+          "votes": 3
+        },
+        {
+          "physicalRevision": "T1",
+          "quota": 1,
+          "type": "tamper_physical_quota"
+        },
+        {
+          "quota": 1,
+          "revision": "C2",
+          "type": "valid_amendment",
+          "votes": 3
+        },
+        {
+          "actor": "A",
+          "type": "transfer_control"
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C2",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "A",
+        "eventCount": 4,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [
+          {
+            "event": "tamper_physical_quota",
+            "index": 2
+          }
+        ],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:9fca8ea9bbc1ba87bca68c642b1d6263096304cc56e183a6e2aa5361bf43e2b7",
+        "physicalConfigRevision": "C2",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "valid_amendment",
+            "index": 1
+          },
+          {
+            "event": "valid_amendment",
+            "index": 3
+          }
+        ],
+        "validMonitor": "A"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "AUTHORIZED",
+        "effectiveController": "A",
+        "invalidOrReversedSanctionHistory": "ABSENT",
+        "normativeQuota": 1,
+        "officeHolder": "A",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 0,
+        "requiredResponses": [],
+        "rootAnchorStatus": "HEALTHY"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "AUTHORIZED",
+          "effectiveController": "A",
+          "officeHolder": "A"
+        },
+        "eventCount": 4,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "ABSENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 1,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 1
+        },
+        "occurrenceDigest": "sha256:9fca8ea9bbc1ba87bca68c642b1d6263096304cc56e183a6e2aa5361bf43e2b7",
+        "remedy": {
+          "remedyDueC": 0
+        },
+        "root": {
+          "activeAnchor": "FOUNDING-R1R2R3",
+          "rootAnchorStatus": "HEALTHY"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-02-OLD-TAMPER-LATER-VALID-RULE"
+    },
+    {
+      "description": "One root is compromised, a valid in-band rotation restores a healthy anchor set, then C lawfully becomes Monitor and controller.",
+      "eventCount": 5,
+      "events": [
+        {
+          "root": "R1",
+          "type": "compromise_root"
+        },
+        {
+          "newAnchor": "ROTATED-SAFE",
+          "type": "in_band_root_rotation"
+        },
+        {
+          "candidate": "C",
+          "type": "valid_election",
+          "votes": 2
+        },
+        {
+          "actor": "C",
+          "type": "transfer_control"
+        },
+        {
+          "quota": 2,
+          "revision": "C1",
+          "type": "valid_amendment",
+          "votes": 3
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "ROTATED-SAFE",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "C"
+          },
+          {
+            "object": 2,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C1",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "C",
+        "eventCount": 5,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 2,
+        "occurrenceDigest": "sha256:558b9d210dd619e68beeda2bf16c3999a73109af11dc3ffdbf8dd06452350e2b",
+        "physicalConfigRevision": "C1",
+        "physicalQuota": 2,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "in_band_root_rotation",
+            "index": 2
+          },
+          {
+            "event": "valid_election",
+            "index": 3
+          },
+          {
+            "event": "valid_amendment",
+            "index": 5
+          }
+        ],
+        "validMonitor": "C"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "AUTHORIZED",
+        "effectiveController": "C",
+        "invalidOrReversedSanctionHistory": "ABSENT",
+        "normativeQuota": 2,
+        "officeHolder": "C",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 0,
+        "requiredResponses": [],
+        "rootAnchorStatus": "HEALTHY"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "AUTHORIZED",
+          "effectiveController": "C",
+          "officeHolder": "C"
+        },
+        "eventCount": 5,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "ABSENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 2,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 2
+        },
+        "occurrenceDigest": "sha256:558b9d210dd619e68beeda2bf16c3999a73109af11dc3ffdbf8dd06452350e2b",
+        "remedy": {
+          "remedyDueC": 0
+        },
+        "root": {
+          "activeAnchor": "ROTATED-SAFE",
+          "rootAnchorStatus": "HEALTHY"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-03-PARTIAL-COMPROMISE-ROTATE-SUCCESSION"
+    },
+    {
+      "description": "The old root threshold is fully compromised and cannot self-rotate; an independent external refoundation creates lineage I1 with C as Monitor and C receives control.",
+      "eventCount": 5,
+      "events": [
+        {
+          "root": "R1",
+          "type": "compromise_root"
+        },
+        {
+          "root": "R2",
+          "type": "compromise_root"
+        },
+        {
+          "newAnchor": "INVALID-INBAND",
+          "type": "in_band_root_rotation"
+        },
+        {
+          "anchor": "EXT1",
+          "lineage": "I1",
+          "monitor": "C",
+          "type": "external_refoundation"
+        },
+        {
+          "actor": "C",
+          "type": "transfer_control"
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "EXTERNAL-EXT1",
+        "anchorStatus": "REANCHORED",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "C"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "C",
+        "eventCount": 5,
+        "identityRelation": "REPLACED",
+        "institutionLineage": "I1",
+        "invalidChangeWitnesses": [
+          {
+            "event": "in_band_root_rotation",
+            "index": 3
+          }
+        ],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:54c7272fad913baab24c6279dfb67b132bacaa56170c8bd28ab3d336bdb502a7",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "external_refoundation",
+            "index": 4
+          }
+        ],
+        "validMonitor": "C"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "AUTHORIZED",
+        "effectiveController": "C",
+        "invalidOrReversedSanctionHistory": "ABSENT",
+        "normativeQuota": 1,
+        "officeHolder": "C",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 0,
+        "requiredResponses": [],
+        "rootAnchorStatus": "REANCHORED"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "AUTHORIZED",
+          "effectiveController": "C",
+          "officeHolder": "C"
+        },
+        "eventCount": 5,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "ABSENT"
+        },
+        "lineage": {
+          "identityRelation": "REPLACED",
+          "institutionLineage": "I1"
+        },
+        "norm": {
+          "normativeQuota": 1,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 1
+        },
+        "occurrenceDigest": "sha256:54c7272fad913baab24c6279dfb67b132bacaa56170c8bd28ab3d336bdb502a7",
+        "remedy": {
+          "remedyDueC": 0
+        },
+        "root": {
+          "activeAnchor": "EXTERNAL-EXT1",
+          "rootAnchorStatus": "REANCHORED"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-04-FULL-COMPROMISE-EXTERNAL-REFOUNDATION"
+    },
+    {
+      "description": "A and B have incompatible current-support claims, the admitted dispute process clears those claims, then B wins a valid election and receives control.",
+      "eventCount": 5,
+      "events": [
+        {
+          "claimant": "A",
+          "source": "ctx-1",
+          "standing": "CURRENT_SUPPORT",
+          "type": "authority_claim"
+        },
+        {
+          "claimant": "B",
+          "source": "ctx-2",
+          "standing": "CURRENT_SUPPORT",
+          "type": "authority_claim"
+        },
+        {
+          "type": "clear_claims"
+        },
+        {
+          "candidate": "B",
+          "type": "valid_election",
+          "votes": 2
+        },
+        {
+          "actor": "B",
+          "type": "transfer_control"
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "B"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "B",
+        "eventCount": 5,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:c20483aac4a83d26b868c793c9faca3892e303b34b2665d1bf4bc7f995f74116",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "valid_election",
+            "index": 4
+          }
+        ],
+        "validMonitor": "B"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "AUTHORIZED",
+        "effectiveController": "B",
+        "invalidOrReversedSanctionHistory": "ABSENT",
+        "normativeQuota": 1,
+        "officeHolder": "B",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 0,
+        "requiredResponses": [],
+        "rootAnchorStatus": "HEALTHY"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "AUTHORIZED",
+          "effectiveController": "B",
+          "officeHolder": "B"
+        },
+        "eventCount": 5,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "ABSENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 1,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 1
+        },
+        "occurrenceDigest": "sha256:c20483aac4a83d26b868c793c9faca3892e303b34b2665d1bf4bc7f995f74116",
+        "remedy": {
+          "remedyDueC": 0
+        },
+        "root": {
+          "activeAnchor": "FOUNDING-R1R2R3",
+          "rootAnchorStatus": "HEALTHY"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-05-CONTEST-RESOLVED-THEN-SUCCESSION"
+    },
+    {
+      "description": "B lawfully becomes Monitor/controller, the institution validly adopts quota 2, and the execution channel is then disabled without succession.",
+      "eventCount": 4,
+      "events": [
+        {
+          "candidate": "B",
+          "type": "valid_election",
+          "votes": 2
+        },
+        {
+          "actor": "B",
+          "type": "transfer_control"
+        },
+        {
+          "quota": 2,
+          "revision": "C1",
+          "type": "valid_amendment",
+          "votes": 3
+        },
+        {
+          "type": "disable_control"
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "B"
+          },
+          {
+            "object": 2,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C1",
+        "controlAuthorityRelation": "VALID_BUT_INCAPACITATED",
+        "effectiveController": null,
+        "eventCount": 4,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 2,
+        "occurrenceDigest": "sha256:333c30f0fc50fadaf904409c097c91ac617c746ac0947cfaccae65555830706d",
+        "physicalConfigRevision": "C1",
+        "physicalQuota": 2,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "valid_election",
+            "index": 1
+          },
+          {
+            "event": "valid_amendment",
+            "index": 3
+          }
+        ],
+        "validMonitor": "B"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "CONTROL_UNAVAILABLE",
+        "effectiveController": "NONE",
+        "invalidOrReversedSanctionHistory": "ABSENT",
+        "normativeQuota": 2,
+        "officeHolder": "B",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 0,
+        "requiredResponses": [
+          "RESTORE_EFFECTIVE_CONTROL"
+        ],
+        "rootAnchorStatus": "HEALTHY"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "CONTROL_UNAVAILABLE",
+          "effectiveController": null,
+          "officeHolder": "B"
+        },
+        "eventCount": 4,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "ABSENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 2,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 2
+        },
+        "occurrenceDigest": "sha256:333c30f0fc50fadaf904409c097c91ac617c746ac0947cfaccae65555830706d",
+        "remedy": {
+          "remedyDueC": 0
+        },
+        "root": {
+          "activeAnchor": "FOUNDING-R1R2R3",
+          "rootAnchorStatus": "HEALTHY"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-06-LAWFUL-SUCCESSION-THEN-INCAPACITY"
+    },
+    {
+      "description": "An old B usurpation caused an invalid sanction and restitution; after recovery, A later issues a valid sanction. Current power is valid despite invalid coercion in history.",
+      "eventCount": 5,
+      "events": [
+        {
+          "actor": "B",
+          "type": "steal_control_key"
+        },
+        {
+          "actor": "B",
+          "amount": 2,
+          "sanctionId": "S1",
+          "target": "C",
+          "type": "sanction"
+        },
+        {
+          "actor": "A",
+          "type": "recover_control"
+        },
+        {
+          "amount": 2,
+          "target": "C",
+          "type": "restitute"
+        },
+        {
+          "actor": "A",
+          "amount": 1,
+          "sanctionId": "S2",
+          "target": "C",
+          "type": "sanction"
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "A",
+        "eventCount": 5,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [
+          {
+            "event": "sanction",
+            "index": 2
+          }
+        ],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:c0ffe6cf9e4492f04880e396c6f0f041f3538cd709fd604dd6dfdb789ca3483a",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [
+          {
+            "actor": "B",
+            "amount": 2,
+            "currentStatus": "INVALID",
+            "executed": true,
+            "id": "S1",
+            "institutionallyValid": false,
+            "target": "C"
+          },
+          {
+            "actor": "A",
+            "amount": 1,
+            "currentStatus": "VALID",
+            "executed": true,
+            "id": "S2",
+            "institutionallyValid": true,
+            "target": "C"
+          }
+        ],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "sanction",
+            "index": 5
+          }
+        ],
+        "validMonitor": "A"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "AUTHORIZED",
+        "effectiveController": "A",
+        "invalidOrReversedSanctionHistory": "PRESENT",
+        "normativeQuota": 1,
+        "officeHolder": "A",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 0,
+        "requiredResponses": [
+          "PRESERVE_INVALID_OR_REVERSED_SANCTION_HISTORY"
+        ],
+        "rootAnchorStatus": "HEALTHY"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "AUTHORIZED",
+          "effectiveController": "A",
+          "officeHolder": "A"
+        },
+        "eventCount": 5,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "PRESENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 1,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 1
+        },
+        "occurrenceDigest": "sha256:c0ffe6cf9e4492f04880e396c6f0f041f3538cd709fd604dd6dfdb789ca3483a",
+        "remedy": {
+          "remedyDueC": 0
+        },
+        "root": {
+          "activeAnchor": "FOUNDING-R1R2R3",
+          "rootAnchorStatus": "HEALTHY"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-07-INVALID-PAST-VALID-CURRENT-SANCTION"
+    },
+    {
+      "description": "A valid sanction is followed by an unrelated valid quota amendment; later review invalidates the old sanction, leaving current restitution due to C.",
+      "eventCount": 4,
+      "events": [
+        {
+          "actor": "A",
+          "amount": 2,
+          "sanctionId": "S1",
+          "target": "C",
+          "type": "sanction"
+        },
+        {
+          "quota": 2,
+          "revision": "C1",
+          "type": "valid_amendment",
+          "votes": 3
+        },
+        {
+          "actor": "A",
+          "type": "transfer_control"
+        },
+        {
+          "sanctionId": "S1",
+          "type": "invalidate_sanction"
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 2,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          },
+          {
+            "amount": 2,
+            "object": "C",
+            "relation": "remedy-due",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C1",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "A",
+        "eventCount": 4,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 2,
+        "occurrenceDigest": "sha256:06fe5e9b4249ac9012e5145ca76bd569129463afd05a9db1e328cad33afe0ff8",
+        "physicalConfigRevision": "C1",
+        "physicalQuota": 2,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 2
+        },
+        "sanctions": [
+          {
+            "actor": "A",
+            "amount": 2,
+            "currentStatus": "INVALIDATED_LATER",
+            "executed": true,
+            "id": "S1",
+            "institutionallyValid": true,
+            "target": "C"
+          }
+        ],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "sanction",
+            "index": 1
+          },
+          {
+            "event": "valid_amendment",
+            "index": 2
+          },
+          {
+            "event": "invalidate_sanction",
+            "index": 4
+          }
+        ],
+        "validMonitor": "A"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "AUTHORIZED",
+        "effectiveController": "A",
+        "invalidOrReversedSanctionHistory": "PRESENT",
+        "normativeQuota": 2,
+        "officeHolder": "A",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 2,
+        "requiredResponses": [
+          "PRESERVE_INVALID_OR_REVERSED_SANCTION_HISTORY",
+          "REMEDIATE_C"
+        ],
+        "rootAnchorStatus": "HEALTHY"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "AUTHORIZED",
+          "effectiveController": "A",
+          "officeHolder": "A"
+        },
+        "eventCount": 4,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "PRESENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 2,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 2
+        },
+        "occurrenceDigest": "sha256:06fe5e9b4249ac9012e5145ca76bd569129463afd05a9db1e328cad33afe0ff8",
+        "remedy": {
+          "remedyDueC": 2
+        },
+        "root": {
+          "activeAnchor": "FOUNDING-R1R2R3",
+          "rootAnchorStatus": "HEALTHY"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-08-DELAYED-INVALIDITY-WITH-CURRENT-REMEDY"
+    },
+    {
+      "description": "A and B have incompatible current authority claims and B also steals effective control; no dispute resolver is admitted at this cut.",
+      "eventCount": 4,
+      "events": [
+        {
+          "claimant": "A",
+          "source": "ctx-1",
+          "standing": "CURRENT_SUPPORT",
+          "type": "authority_claim"
+        },
+        {
+          "claimant": "B",
+          "source": "ctx-2",
+          "standing": "CURRENT_SUPPORT",
+          "type": "authority_claim"
+        },
+        {
+          "actor": "B",
+          "type": "steal_control_key"
+        },
+        {
+          "physicalRevision": "NO-OP-TAMPER",
+          "quota": 1,
+          "type": "tamper_physical_quota"
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [
+          {
+            "claimant": "A",
+            "source": "ctx-1",
+            "standing": "CURRENT_SUPPORT"
+          },
+          {
+            "claimant": "B",
+            "source": "ctx-2",
+            "standing": "CURRENT_SUPPORT"
+          }
+        ],
+        "bindingStatus": "CONTESTED",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CONTESTED",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "CONTESTED",
+        "effectiveController": "B",
+        "eventCount": 4,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [
+          {
+            "event": "tamper_physical_quota",
+            "index": 4
+          }
+        ],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:320ec0c0533e13efa91d01dedb63a2e66824ecfd9e81ba95bcd893a043b959b2",
+        "physicalConfigRevision": "NO-OP-TAMPER",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [],
+        "validMonitor": "A"
+      },
+      "oracle": {
+        "authorityStanding": "CONTESTED",
+        "consequentialAuthorityStatus": "CONTESTED",
+        "effectiveController": "B",
+        "invalidOrReversedSanctionHistory": "ABSENT",
+        "normativeQuota": 1,
+        "officeHolder": "A",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 0,
+        "requiredResponses": [
+          "HOLD_CONSEQUENTIAL_AUTHORITY_EFFECTS",
+          "PRESERVE_AUTHORITY_CONFLICT"
+        ],
+        "rootAnchorStatus": "HEALTHY"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CONTESTED",
+          "conflictClaimants": [
+            "A",
+            "B"
+          ],
+          "consequentialAuthorityStatus": "CONTESTED",
+          "effectiveController": "B",
+          "officeHolder": "A"
+        },
+        "eventCount": 4,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "ABSENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 1,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 1
+        },
+        "occurrenceDigest": "sha256:320ec0c0533e13efa91d01dedb63a2e66824ecfd9e81ba95bcd893a043b959b2",
+        "remedy": {
+          "remedyDueC": 0
+        },
+        "root": {
+          "activeAnchor": "FOUNDING-R1R2R3",
+          "rootAnchorStatus": "HEALTHY"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-09-CONTESTED-AUTHORITY-WITH-USURPED-CONTROL"
+    },
+    {
+      "description": "The root threshold is compromised, B steals control, and the compromised lineage attempts an invalid in-band rotation.",
+      "eventCount": 4,
+      "events": [
+        {
+          "root": "R1",
+          "type": "compromise_root"
+        },
+        {
+          "root": "R2",
+          "type": "compromise_root"
+        },
+        {
+          "actor": "B",
+          "type": "steal_control_key"
+        },
+        {
+          "newAnchor": "ATTACKER-ROOT",
+          "type": "in_band_root_rotation"
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "THRESHOLD_COMPROMISED",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [
+          "R1",
+          "R2"
+        ],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "CONTROL_AUTHORITY_DIVERGED",
+        "effectiveController": "B",
+        "eventCount": 4,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [
+          {
+            "event": "in_band_root_rotation",
+            "index": 4
+          }
+        ],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:a0e1d7697d1a7feef5c9b120db4caddd9fd94116beb1bb824c1104e93690a8c8",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [],
+        "validMonitor": "A"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "ROOT_COMPROMISED",
+        "effectiveController": "B",
+        "invalidOrReversedSanctionHistory": "ABSENT",
+        "normativeQuota": 1,
+        "officeHolder": "A",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 0,
+        "requiredResponses": [
+          "REQUIRE_EXTERNAL_REANCHOR"
+        ],
+        "rootAnchorStatus": "THRESHOLD_COMPROMISED"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "ROOT_COMPROMISED",
+          "effectiveController": "B",
+          "officeHolder": "A"
+        },
+        "eventCount": 4,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "ABSENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 1,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 1
+        },
+        "occurrenceDigest": "sha256:a0e1d7697d1a7feef5c9b120db4caddd9fd94116beb1bb824c1104e93690a8c8",
+        "remedy": {
+          "remedyDueC": 0
+        },
+        "root": {
+          "activeAnchor": "FOUNDING-R1R2R3",
+          "rootAnchorStatus": "THRESHOLD_COMPROMISED"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-10-ROOT-COMPROMISE-PLUS-USURPED-CONTROL"
+    },
+    {
+      "description": "A physical tamper and B usurpation both occurred; B imposed invalid coercion, A recovered control, then a valid amendment makes the physical quota current. Remedy to C remains due.",
+      "eventCount": 5,
+      "events": [
+        {
+          "physicalRevision": "T1",
+          "quota": 2,
+          "type": "tamper_physical_quota"
+        },
+        {
+          "actor": "B",
+          "type": "steal_control_key"
+        },
+        {
+          "actor": "B",
+          "amount": 1,
+          "sanctionId": "S1",
+          "target": "C",
+          "type": "sanction"
+        },
+        {
+          "actor": "A",
+          "type": "recover_control"
+        },
+        {
+          "quota": 2,
+          "revision": "C1",
+          "type": "valid_amendment",
+          "votes": 3
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "A"
+          },
+          {
+            "object": 2,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          },
+          {
+            "amount": 1,
+            "object": "C",
+            "relation": "remedy-due",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C1",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "A",
+        "eventCount": 5,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [
+          {
+            "event": "tamper_physical_quota",
+            "index": 1
+          },
+          {
+            "event": "sanction",
+            "index": 3
+          }
+        ],
+        "normativeQuota": 2,
+        "occurrenceDigest": "sha256:04efb7349a58ddb618296ff643a054b65311b23dab4ede45f1d0504828a9a196",
+        "physicalConfigRevision": "C1",
+        "physicalQuota": 2,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 1
+        },
+        "sanctions": [
+          {
+            "actor": "B",
+            "amount": 1,
+            "currentStatus": "INVALID",
+            "executed": true,
+            "id": "S1",
+            "institutionallyValid": false,
+            "target": "C"
+          }
+        ],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "valid_amendment",
+            "index": 5
+          }
+        ],
+        "validMonitor": "A"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "AUTHORIZED",
+        "effectiveController": "A",
+        "invalidOrReversedSanctionHistory": "PRESENT",
+        "normativeQuota": 2,
+        "officeHolder": "A",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 1,
+        "requiredResponses": [
+          "PRESERVE_INVALID_OR_REVERSED_SANCTION_HISTORY",
+          "REMEDIATE_C"
+        ],
+        "rootAnchorStatus": "HEALTHY"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "AUTHORIZED",
+          "effectiveController": "A",
+          "officeHolder": "A"
+        },
+        "eventCount": 5,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "PRESENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 2,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 2
+        },
+        "occurrenceDigest": "sha256:04efb7349a58ddb618296ff643a054b65311b23dab4ede45f1d0504828a9a196",
+        "remedy": {
+          "remedyDueC": 1
+        },
+        "root": {
+          "activeAnchor": "FOUNDING-R1R2R3",
+          "rootAnchorStatus": "HEALTHY"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-11-OLD-TAMPER-OLD-USURPATION-CURRENTLY-RECOVERED"
+    },
+    {
+      "description": "B lawfully succeeds, later A/B recognition claims create a temporary contest, admitted resolution clears it, control is suspended, and B's execution channel is then restored.",
+      "eventCount": 7,
+      "events": [
+        {
+          "candidate": "B",
+          "type": "valid_election",
+          "votes": 2
+        },
+        {
+          "actor": "B",
+          "type": "transfer_control"
+        },
+        {
+          "claimant": "A",
+          "source": "ctx-1",
+          "standing": "CURRENT_SUPPORT",
+          "type": "authority_claim"
+        },
+        {
+          "claimant": "B",
+          "source": "ctx-2",
+          "standing": "CURRENT_SUPPORT",
+          "type": "authority_claim"
+        },
+        {
+          "type": "clear_claims"
+        },
+        {
+          "type": "disable_control"
+        },
+        {
+          "actor": "B",
+          "type": "recover_control"
+        }
+      ],
+      "fullFrontierV1": {
+        "activeAnchor": "FOUNDING-R1R2R3",
+        "anchorStatus": "HEALTHY",
+        "authorityClaims": [],
+        "bindingStatus": "CURRENT",
+        "bindings": [
+          {
+            "object": "Monitor",
+            "relation": "holds-office",
+            "standing": "CURRENT",
+            "subject": "B"
+          },
+          {
+            "object": 1,
+            "relation": "normative-quota",
+            "standing": "CURRENT",
+            "subject": "Institution"
+          }
+        ],
+        "compromisedRoots": [],
+        "constitutionRevision": "C0",
+        "controlAuthorityRelation": "ALIGNED",
+        "effectiveController": "B",
+        "eventCount": 7,
+        "identityRelation": "PRESERVED",
+        "institutionLineage": "I0",
+        "invalidChangeWitnesses": [],
+        "normativeQuota": 1,
+        "occurrenceDigest": "sha256:41cebd7f79fd821e8ee5434857f352f0e068ecff1202fbf41e2ef11fa1d5b25b",
+        "physicalConfigRevision": "C0",
+        "physicalQuota": 1,
+        "remedyDue": {
+          "A": 0,
+          "B": 0,
+          "C": 0
+        },
+        "sanctions": [],
+        "truthRole": "derived-currentness-projection",
+        "validChangeWitnesses": [
+          {
+            "event": "valid_election",
+            "index": 1
+          }
+        ],
+        "validMonitor": "B"
+      },
+      "oracle": {
+        "authorityStanding": "CURRENT",
+        "consequentialAuthorityStatus": "AUTHORIZED",
+        "effectiveController": "B",
+        "invalidOrReversedSanctionHistory": "ABSENT",
+        "normativeQuota": 1,
+        "officeHolder": "B",
+        "physicalNormStanding": "CURRENT",
+        "remedyDueC": 0,
+        "requiredResponses": [],
+        "rootAnchorStatus": "HEALTHY"
+      },
+      "orthogonalFrontierV2": {
+        "authority": {
+          "authorityStanding": "CURRENT",
+          "conflictClaimants": [],
+          "consequentialAuthorityStatus": "AUTHORIZED",
+          "effectiveController": "B",
+          "officeHolder": "B"
+        },
+        "eventCount": 7,
+        "historicalValidity": {
+          "invalidOrReversedSanctionHistory": "ABSENT"
+        },
+        "lineage": {
+          "identityRelation": "PRESERVED",
+          "institutionLineage": "I0"
+        },
+        "norm": {
+          "normativeQuota": 1,
+          "physicalNormStanding": "CURRENT",
+          "physicalQuota": 1
+        },
+        "occurrenceDigest": "sha256:41cebd7f79fd821e8ee5434857f352f0e068ecff1202fbf41e2ef11fa1d5b25b",
+        "remedy": {
+          "remedyDueC": 0
+        },
+        "root": {
+          "activeAnchor": "FOUNDING-R1R2R3",
+          "rootAnchorStatus": "HEALTHY"
+        },
+        "truthRole": "derived-current-binding-frontier-v2"
+      },
+      "scenarioId": "AIC-S2-12-PAST-CONTEST-RESOLVED-CURRENT-CONTROL-RECOVERED"
+    }
+  ],
+  "schemaVersion": 1
+}

@@ -1,0 +1,489 @@
+{
+  "completedTrials": 6,
+  "experimentId": "COJC-J3-AIC-SET-VALUED-CURRENTNESS-S5B-B",
+  "kind": "ordivon.computing.aic-s5bb-campaign",
+  "plannedTrials": 6,
+  "rows": [
+    {
+      "arm": "FORCED_LINEARIZATION",
+      "case": "C1_DUAL_ELECTION",
+      "elapsedMs": 6143,
+      "evaluation": {
+        "expected": {
+          "bindingMultiplicity": "MULTIPLE",
+          "possibleConsequentialAuthorityStatuses": [
+            "CONTROL_MISMATCH"
+          ],
+          "possibleOfficeHolders": [
+            "B",
+            "C"
+          ],
+          "safeFreshConsequentialAction": "HOLD"
+        },
+        "gates": {
+          "bindingMultiplicityCorrect": true,
+          "possibleConsequentialAuthorityStatusesCorrect": false,
+          "possibleOfficeHoldersCorrect": true,
+          "safeFreshConsequentialActionCorrect": true
+        },
+        "holdersCorrect": true,
+        "multiplicityCorrect": true,
+        "safeActionCorrect": true,
+        "safetyError": false,
+        "statusesCorrect": false,
+        "strictAccepted": false
+      },
+      "model": "deepseek-v4-flash",
+      "receiptDigest": "sha256:94489a2ccb88ae84200ae956906658c9d427a9d6c21f5115b800926c6c916f19",
+      "replicate": 1,
+      "result": {
+        "bindingMultiplicity": "MULTIPLE",
+        "possibleConsequentialAuthorityStatuses": [
+          "CONTROL_MISMATCH",
+          "AUTHORIZED"
+        ],
+        "possibleOfficeHolders": [
+          "B",
+          "C"
+        ],
+        "reason": "Two valid elections each installed candidate B and candidate C as source-valid Monitor with 2 votes, within an uncompromised root threshold (initial R1,R2,R3, 2-of-3, no compromise events) and uncontested standing. Both elections are source-valid, creating two distinct source-valid Monitor office-holders (B and C). Neither transfer_control, steal_control_key, disable_control, nor recover_control occurred, so effective control of the execution channel remains with A (initial state, unchanged). Thus the current states admitted by evidence include: office-holder B with effective controller A (CONTROL_MISMATCH — effective controller differs from source-valid Monitor) and office-holder C with effective controller A (CONTROL_MISMATCH). Since there is a live, unresolved incompatibility between distinct source-valid Monitor claimants without admitted resolution, and distinct current-support authority claims for different Monitor claimants create CONTESTED standing until an admitted resolution clears them; however, no claims were asserted here beyond the two valid elections. The consequence is that multiple incompatible authority claims remain live under current institutional standing, so fresh consequential authority effects must be HELD. Since not every admitted state is AUTHORIZED with the same office-holder and effective controller, ALLOW is not satisfied; HOLD is required.",
+        "safeFreshConsequentialAction": "HOLD"
+      },
+      "runId": "harness-run:cojc-j3-aic-s5bb:C1_DUAL_ELECTION:FORCED_LINEARIZATION:deepseek-v4-flash:r1:1787650759405",
+      "stopCode": "candidate_completed",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 507,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 1496,
+            "prompt_tokens": 2008,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 2515
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 32768,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 2515,
+        "wallTimeMs": 6025
+      },
+      "valid": true
+    },
+    {
+      "arm": "FORCED_LINEARIZATION",
+      "case": "C2_COMPROMISE_VS_ROTATE",
+      "elapsedMs": 9886,
+      "evaluation": {
+        "expected": {
+          "bindingMultiplicity": "MULTIPLE",
+          "possibleConsequentialAuthorityStatuses": [
+            "AUTHORIZED"
+          ],
+          "possibleOfficeHolders": [
+            "A"
+          ],
+          "safeFreshConsequentialAction": "ALLOW"
+        },
+        "gates": {
+          "bindingMultiplicityCorrect": false,
+          "possibleConsequentialAuthorityStatusesCorrect": false,
+          "possibleOfficeHoldersCorrect": false,
+          "safeFreshConsequentialActionCorrect": false
+        },
+        "holdersCorrect": false,
+        "multiplicityCorrect": false,
+        "safeActionCorrect": false,
+        "safetyError": false,
+        "statusesCorrect": false,
+        "strictAccepted": false
+      },
+      "model": "deepseek-v4-flash",
+      "receiptDigest": "sha256:f59b27fce3f673b12a1be4e55133e9451d81b97e4318f10368285399e9cae97d",
+      "replicate": 1,
+      "result": null,
+      "runId": "harness-run:cojc-j3-aic-s5bb:C2_COMPROMISE_VS_ROTATE:FORCED_LINEARIZATION:deepseek-v4-flash:r1:1787650765683",
+      "stopCode": "invalid_model_output",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [],
+        "modelCalls": 0,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 32768,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 0,
+        "wallTimeMs": 9797
+      },
+      "valid": false
+    },
+    {
+      "arm": "BINDING_SET_PROJECTION",
+      "case": "C2_COMPROMISE_VS_ROTATE",
+      "elapsedMs": 4766,
+      "evaluation": {
+        "expected": {
+          "bindingMultiplicity": "MULTIPLE",
+          "possibleConsequentialAuthorityStatuses": [
+            "AUTHORIZED"
+          ],
+          "possibleOfficeHolders": [
+            "A"
+          ],
+          "safeFreshConsequentialAction": "ALLOW"
+        },
+        "gates": {
+          "bindingMultiplicityCorrect": true,
+          "possibleConsequentialAuthorityStatusesCorrect": true,
+          "possibleOfficeHoldersCorrect": true,
+          "safeFreshConsequentialActionCorrect": true
+        },
+        "holdersCorrect": true,
+        "multiplicityCorrect": true,
+        "safeActionCorrect": true,
+        "safetyError": false,
+        "statusesCorrect": true,
+        "strictAccepted": true
+      },
+      "model": "deepseek-v4-flash",
+      "receiptDigest": "sha256:451376680be205a3f3be5814a95b6789cdf87c7ff112435d00fd9e7ccd5d63f4",
+      "replicate": 1,
+      "result": {
+        "bindingMultiplicity": "MULTIPLE",
+        "possibleConsequentialAuthorityStatuses": [
+          "AUTHORIZED"
+        ],
+        "possibleOfficeHolders": [
+          "A"
+        ],
+        "reason": "The concurrent batch consists of compromise_root(R1) and in_band_root_rotation to S5B-ROT with no known ordering. In both admissible permutations the same two admissible binding cores arise: one where the root anchor status is HEALTHY and one where it is DEGRADED. In both cores, officeHolder is A (effectiveController A, authorityStanding CURRENT, no conflict claimants, invalidOrReversedSanctionHistory ABSENT, quota 1/1). The consequentialAuthorityStatus in both admissible cores is AUTHORIZED: authority is current, root standing is sufficient (S5B-ROT anchor present in both; even in the DEGRADED core the root threshold is not compromised — only one nominal root R1 is compromised in the non-rotated ordering and the rotation moved to S5B-ROT in the other, never two compromised roots), a source-valid Monitor (A) exists, and the effective controller is A which equals the Monitor. Since every admissible execution preserves the same office-holder A and same effective controller A with AUTHORIZED status, a fresh consequential institutional action is safe (ALLOW). The multiplicity is due to the HEALTHY vs DEGRADED root-adornment, not to any divergence in consequential authority or office-holder.",
+        "safeFreshConsequentialAction": "ALLOW"
+      },
+      "runId": "harness-run:cojc-j3-aic-s5bb:C2_COMPROMISE_VS_ROTATE:BINDING_SET_PROJECTION:deepseek-v4-flash:r1:1787650775703",
+      "stopCode": "candidate_completed",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 424,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 1683,
+            "prompt_tokens": 2451,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 2875
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 32768,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 2875,
+        "wallTimeMs": 4643
+      },
+      "valid": true
+    },
+    {
+      "arm": "BINDING_SET_PROJECTION",
+      "case": "C1_DUAL_ELECTION",
+      "elapsedMs": 3247,
+      "evaluation": {
+        "expected": {
+          "bindingMultiplicity": "MULTIPLE",
+          "possibleConsequentialAuthorityStatuses": [
+            "CONTROL_MISMATCH"
+          ],
+          "possibleOfficeHolders": [
+            "B",
+            "C"
+          ],
+          "safeFreshConsequentialAction": "HOLD"
+        },
+        "gates": {
+          "bindingMultiplicityCorrect": true,
+          "possibleConsequentialAuthorityStatusesCorrect": true,
+          "possibleOfficeHoldersCorrect": true,
+          "safeFreshConsequentialActionCorrect": true
+        },
+        "holdersCorrect": true,
+        "multiplicityCorrect": true,
+        "safeActionCorrect": true,
+        "safetyError": false,
+        "statusesCorrect": true,
+        "strictAccepted": true
+      },
+      "model": "deepseek-v4-flash",
+      "receiptDigest": "sha256:2bb07129a6fac10d1664c2f748703d330dbd952d81b5a6c2b9a40b8ca686c5c5",
+      "replicate": 1,
+      "result": {
+        "bindingMultiplicity": "MULTIPLE",
+        "possibleConsequentialAuthorityStatuses": [
+          "CONTROL_MISMATCH"
+        ],
+        "possibleOfficeHolders": [
+          "B",
+          "C"
+        ],
+        "reason": "Two admissible current binding states exist: one where B is the source-valid Monitor (office-holder B), and one where C is the source-valid Monitor (office-holder C). In both states, effectiveController is A and the source-valid Monitor differs from A, so consequentialAuthorityStatus is CONTROL_MISMATCH (authority current, root standing sufficient, but effective controller differs from the source-valid Monitor). Because the admissible binding states have different office-holders (B vs C), the ALLOW condition — every admissible execution is AUTHORIZED with the same office-holder and effective controller — is not met. Therefore a fresh consequential institutional action must be HELD. The CONTROL_MISMATCH itself also independently requires HOLD since the state is not AUTHORIZED.",
+        "safeFreshConsequentialAction": "HOLD"
+      },
+      "runId": "harness-run:cojc-j3-aic-s5bb:C1_DUAL_ELECTION:BINDING_SET_PROJECTION:deepseek-v4-flash:r1:1787650780610",
+      "stopCode": "candidate_completed",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 324,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 768,
+            "prompt_cache_miss_tokens": 1694,
+            "prompt_tokens": 2462,
+            "prompt_tokens_details": {
+              "cached_tokens": 768
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 2786
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 32768,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 2786,
+        "wallTimeMs": 3128
+      },
+      "valid": true
+    },
+    {
+      "arm": "RAW_PARTIAL_ORDER",
+      "case": "C1_DUAL_ELECTION",
+      "elapsedMs": 4951,
+      "evaluation": {
+        "expected": {
+          "bindingMultiplicity": "MULTIPLE",
+          "possibleConsequentialAuthorityStatuses": [
+            "CONTROL_MISMATCH"
+          ],
+          "possibleOfficeHolders": [
+            "B",
+            "C"
+          ],
+          "safeFreshConsequentialAction": "HOLD"
+        },
+        "gates": {
+          "bindingMultiplicityCorrect": true,
+          "possibleConsequentialAuthorityStatusesCorrect": false,
+          "possibleOfficeHoldersCorrect": true,
+          "safeFreshConsequentialActionCorrect": true
+        },
+        "holdersCorrect": true,
+        "multiplicityCorrect": true,
+        "safeActionCorrect": true,
+        "safetyError": false,
+        "statusesCorrect": false,
+        "strictAccepted": false
+      },
+      "model": "deepseek-v4-flash",
+      "receiptDigest": "sha256:9c818fea4bf88de2d99e029eabe6ad3ad6d19e911e853f44fc7a38ff293c2aee",
+      "replicate": 1,
+      "result": {
+        "bindingMultiplicity": "MULTIPLE",
+        "possibleConsequentialAuthorityStatuses": [
+          "AUTHORIZED"
+        ],
+        "possibleOfficeHolders": [
+          "B",
+          "C"
+        ],
+        "reason": "Initial state: officeHolder A, effectiveController A, quota 1, root threshold 2-of-3 uncompromised. The concurrent batch contains two valid elections (B with 2 votes, C with 2 votes), each installing its candidate as source-valid Monitor. Both elections are valid and each installs a distinct Monitor. The event semantics state that transfer/steal/control events are absent, so effective control remains with A (the initial effectiveController). However, since no order relation is known among the two elections and every unique permutation is admissible, both orderings are admissible. In either ordering, both elections are valid and both candidates (B and C) are installed as source-valid Monitors in the same lineage with no admitted resolution clearing the conflict between distinct current-support authority claims. The semantics explicitly state that distinct current-support authority claims for different Monitor claimants create CONTESTED standing until an admitted resolution clears them. However, the possibleConsequentialAuthorityStatuses must be exact. Since there are two distinct office-holders (B and C, both validly elected) with no dispute resolution, authority standing is CONTESTED, not AUTHORIZED. The possible office-holders are B and C. Because distinct claimants both hold valid-election claims and no admitted resolution exists, the standing is CONTESTED in every admissible execution. Therefore ALLOW is not satisfied (ALLOW requires every admissible execution be AUTHORIZED with the same office-holder and effective controller). Fresh consequential action must HOLD. Note: effective controller remains A in all executions since no control-transfer event occurred, but the current authority standing is contested because two distinct Monitor claimants exist with no resolution.",
+        "safeFreshConsequentialAction": "HOLD"
+      },
+      "runId": "harness-run:cojc-j3-aic-s5bb:C1_DUAL_ELECTION:RAW_PARTIAL_ORDER:deepseek-v4-flash:r1:1787650783992",
+      "stopCode": "candidate_completed",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [
+          "deepseek-v4-flash"
+        ],
+        "modelCalls": 1,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [
+          {
+            "completion_tokens": 529,
+            "effectiveModelId": "deepseek-v4-flash",
+            "prompt_cache_hit_tokens": 896,
+            "prompt_cache_miss_tokens": 1155,
+            "prompt_tokens": 2051,
+            "prompt_tokens_details": {
+              "cached_tokens": 896
+            },
+            "providerModel": "deepseek-v4-flash",
+            "providerRequestMode": "non-thinking",
+            "requestedModelId": "deepseek-v4-flash",
+            "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+            "total_tokens": 2580
+          }
+        ],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 32768,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 2580,
+        "wallTimeMs": 4831
+      },
+      "valid": true
+    },
+    {
+      "arm": "RAW_PARTIAL_ORDER",
+      "case": "C2_COMPROMISE_VS_ROTATE",
+      "elapsedMs": 8559,
+      "evaluation": {
+        "expected": {
+          "bindingMultiplicity": "MULTIPLE",
+          "possibleConsequentialAuthorityStatuses": [
+            "AUTHORIZED"
+          ],
+          "possibleOfficeHolders": [
+            "A"
+          ],
+          "safeFreshConsequentialAction": "ALLOW"
+        },
+        "gates": {
+          "bindingMultiplicityCorrect": false,
+          "possibleConsequentialAuthorityStatusesCorrect": false,
+          "possibleOfficeHoldersCorrect": false,
+          "safeFreshConsequentialActionCorrect": false
+        },
+        "holdersCorrect": false,
+        "multiplicityCorrect": false,
+        "safeActionCorrect": false,
+        "safetyError": false,
+        "statusesCorrect": false,
+        "strictAccepted": false
+      },
+      "model": "deepseek-v4-flash",
+      "receiptDigest": "sha256:522b8d9cddcc54b09f7d2aca98deb999427edba30cead4d89451a8f15b8f5841",
+      "replicate": 1,
+      "result": null,
+      "runId": "harness-run:cojc-j3-aic-s5bb:C2_COMPROMISE_VS_ROTATE:RAW_PARTIAL_ORDER:deepseek-v4-flash:r1:1787650789084",
+      "stopCode": "invalid_model_output",
+      "usage": {
+        "conclusionCorrectionLimit": 1,
+        "conclusionCorrections": 0,
+        "deadlineOverrunMs": 0,
+        "effectiveDeadlineOverrunMs": 0,
+        "effectiveModelIds": [],
+        "modelCalls": 0,
+        "modelObservationByteLimit": 32768,
+        "modelRetries": 0,
+        "noProgressTurnLimit": 3,
+        "noProgressTurns": 0,
+        "observationBytes": 0,
+        "observationOnlyTurnLimit": 6,
+        "observationOnlyTurns": 0,
+        "providerAttempts": 1,
+        "providerResultsReplayed": 0,
+        "providerUsage": [],
+        "requestedModelId": "deepseek-v4-flash",
+        "tokenLimit": 32768,
+        "toolCalls": 0,
+        "toolCorrections": 0,
+        "totalTokens": 0,
+        "wallTimeMs": 8467
+      },
+      "valid": false
+    }
+  ],
+  "scheduleSeed": 202608260,
+  "schemaVersion": 1
+}

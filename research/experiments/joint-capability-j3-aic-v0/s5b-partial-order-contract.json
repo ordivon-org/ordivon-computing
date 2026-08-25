@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-partial-order-contract",
+  "experimentId": "COJC-J3-AIC-PARTIAL-ORDER-S5B-A",
+  "status": "frozen-before-execution",
+  "predecessor": "COJC-J3-AIC-FUTURE-SUFFICIENCY-S5A",
+  "problem": "When institutional events are concurrent or their order is not yet established, is there a unique actionable Now, a visible set of competing bindings, or latent transition ambiguity hidden behind one current projection?",
+  "methodologicalAnalogy": "Jepsen-style history generation/fault pressure plus an independent enumerating checker. The apparatus does not assume one arrival order is authoritative: every permutation consistent with the frozen concurrent batch is an admissible sequentialization.",
+  "historyModel": {
+    "base": "A sequential prefix with known order.",
+    "concurrentBatch": "2-3 events with no order relation inside the batch.",
+    "admissibleExecutions": "All unique permutations of the concurrent batch appended to the base.",
+    "bindingSet": "Unique Orthogonal Frontier cores produced by admissible executions.",
+    "continuationSet": "Unique owner-side ContinuationKernel v0 states produced by admissible executions."
+  },
+  "classifications": {
+    "DETERMINATE": "one binding core and one continuation kernel",
+    "VISIBLE_BINDING_AMBIGUITY": "more than one binding core",
+    "LATENT_CONTINUATION_AMBIGUITY": "one binding core but more than one continuation kernel"
+  },
+  "targetedRaces": [
+    "two concurrent lawful elections for different office-holders",
+    "root compromise concurrent with in-band root rotation",
+    "sanction invalidation concurrent with restitution",
+    "lawful succession concurrent with predecessor sanction",
+    "single authority claim concurrent with clear_claims",
+    "external refoundation concurrent with root compromise",
+    "valid amendment concurrent with physical tamper",
+    "transfer_control concurrent with control theft"
+  ],
+  "randomBaseCount": 50000,
+  "randomConcurrentBatches": 50000,
+  "seed": 202608259,
+  "primaryEndpoints": [
+    "fraction determinate",
+    "fraction visible binding ambiguity",
+    "fraction latent continuation ambiguity",
+    "fraction action-relevant ambiguity",
+    "ambiguity dimensions: authority/root/remedy/norm/control/history"
+  ],
+  "safeConsequenceRule": "Fresh consequential institutional action is ALLOW only if every admissible execution yields consequentialAuthorityStatus=AUTHORIZED with the same office-holder and effective controller. Otherwise the conservative result is HOLD.",
+  "guards": [
+    "The checker reports a set of admissible results; it must never choose a preferred linearization without evidence.",
+    "LATENT_CONTINUATION_AMBIGUITY is not exposed as current binding disagreement, but it blocks claiming the projection is transition-determinate.",
+    "A sequentialization-dependent result is not automatically a bug in the institution; it may indicate missing ordering/coordination/decision procedure.",
+    "This stage is deterministic substrate research. Agent behavior is deferred until representative ambiguity classes are frozen."
+  ]
+}

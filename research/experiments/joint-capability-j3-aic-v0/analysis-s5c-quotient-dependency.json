@@ -1,0 +1,2521 @@
+{
+  "dynamicIndependence": {
+    "classificationCounts": {
+      "context-dependent": 30,
+      "observed-always-commutative": 85,
+      "observed-never-commutative": 5
+    },
+    "contextDependentExamples": [
+      {
+        "classification": "context-dependent",
+        "commute": 1115,
+        "commutePct": 46.09,
+        "exampleCommute": {
+          "base": [
+            {
+              "actor": "B",
+              "type": "recover_control"
+            },
+            {
+              "type": "disable_control"
+            },
+            {
+              "candidate": "C",
+              "type": "invalid_election",
+              "votes": 1
+            },
+            {
+              "claimant": "A",
+              "source": "ctx-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "claimant": "A",
+              "source": "ctx-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "actor": "B",
+              "type": "steal_control_key"
+            }
+          ],
+          "events": [
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "type": "clear_claims"
+            },
+            {
+              "actor": "A",
+              "type": "transfer_control"
+            }
+          ],
+          "events": [
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            }
+          ]
+        },
+        "noncommute": 1304,
+        "pair": "election_C | sanction_A"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 1059,
+        "commutePct": 44.7,
+        "exampleCommute": {
+          "base": [
+            {
+              "candidate": "B",
+              "type": "invalid_election",
+              "votes": 1
+            },
+            {
+              "physicalRevision": "T2",
+              "quota": 1,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "S0",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "amount": 3,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            },
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            }
+          ],
+          "events": [
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "amount": 2,
+              "target": "C",
+              "type": "restitute"
+            }
+          ],
+          "events": [
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            }
+          ]
+        },
+        "noncommute": 1310,
+        "pair": "election_B | sanction_A"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 993,
+        "commutePct": 43.1,
+        "exampleCommute": {
+          "base": [
+            {
+              "type": "disable_control"
+            },
+            {
+              "amount": 3,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "quota": 2,
+              "revision": "C2",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "type": "clear_claims"
+            }
+          ],
+          "events": [
+            {
+              "sanctionId": "DS",
+              "type": "invalidate_sanction"
+            },
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "actor": "B",
+              "amount": 2,
+              "sanctionId": "S2",
+              "target": "C",
+              "type": "sanction"
+            }
+          ],
+          "events": [
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "sanctionId": "DS",
+              "type": "invalidate_sanction"
+            }
+          ]
+        },
+        "noncommute": 1311,
+        "pair": "invalidate_DS | sanction_A"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 998,
+        "commutePct": 41.17,
+        "exampleCommute": {
+          "base": [
+            {
+              "newAnchor": "ROT-B",
+              "type": "in_band_root_rotation"
+            },
+            {
+              "actor": "A",
+              "type": "transfer_control"
+            },
+            {
+              "sanctionId": "S1",
+              "type": "invalidate_sanction"
+            },
+            {
+              "type": "clear_claims"
+            },
+            {
+              "actor": "C",
+              "type": "transfer_control"
+            }
+          ],
+          "events": [
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "actor": "B",
+              "type": "transfer_control"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "physicalRevision": "T1",
+              "quota": 1,
+              "type": "tamper_physical_quota"
+            }
+          ],
+          "events": [
+            {
+              "actor": "B",
+              "type": "transfer_control"
+            },
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            }
+          ]
+        },
+        "noncommute": 1426,
+        "pair": "sanction_A | transfer_B"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 932,
+        "commutePct": 39.74,
+        "exampleCommute": {
+          "base": [
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            },
+            {
+              "type": "clear_claims"
+            },
+            {
+              "claimant": "A",
+              "source": "ctx-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "quota": 2,
+              "revision": "C2",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "amount": 3,
+              "target": "C",
+              "type": "restitute"
+            }
+          ],
+          "events": [
+            {
+              "type": "disable_control"
+            },
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [],
+          "events": [
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "type": "disable_control"
+            }
+          ]
+        },
+        "noncommute": 1413,
+        "pair": "disable_control | sanction_A"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 920,
+        "commutePct": 39.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "actor": "C",
+              "type": "transfer_control"
+            },
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "actor": "C",
+              "type": "transfer_control"
+            }
+          ],
+          "events": [
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            },
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [],
+          "events": [
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            }
+          ]
+        },
+        "noncommute": 1439,
+        "pair": "sanction_A | theft_C"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2092,
+        "commutePct": 89.52,
+        "exampleCommute": {
+          "base": [
+            {
+              "candidate": "C",
+              "type": "invalid_election",
+              "votes": 0
+            },
+            {
+              "sanctionId": "S0",
+              "type": "invalidate_sanction"
+            },
+            {
+              "physicalRevision": "T1",
+              "quota": 1,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "actor": "A",
+              "type": "steal_control_key"
+            },
+            {
+              "claimant": "A",
+              "source": "ctx-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ],
+          "events": [
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "quota": 1,
+              "revision": "C1",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "claimant": "B",
+              "source": "ctx-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "actor": "C",
+              "type": "recover_control"
+            },
+            {
+              "quota": 1,
+              "revision": "C3",
+              "type": "valid_amendment",
+              "votes": 2
+            },
+            {
+              "candidate": "C",
+              "type": "invalid_election",
+              "votes": 0
+            }
+          ],
+          "events": [
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "noncommute": 245,
+        "pair": "claim_A | election_C"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2019,
+        "commutePct": 89.73,
+        "exampleCommute": {
+          "base": [],
+          "events": [
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "claimant": "B",
+              "source": "dyn-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "newAnchor": "ROT-A",
+              "type": "in_band_root_rotation"
+            },
+            {
+              "actor": "C",
+              "amount": 1,
+              "sanctionId": "S0",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "claimant": "A",
+              "source": "ctx-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "physicalRevision": "T2",
+              "quota": 2,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "actor": "A",
+              "type": "steal_control_key"
+            }
+          ],
+          "events": [
+            {
+              "claimant": "B",
+              "source": "dyn-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "noncommute": 231,
+        "pair": "amend_q2 | claim_B"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2030,
+        "commutePct": 89.78,
+        "exampleCommute": {
+          "base": [
+            {
+              "type": "disable_control"
+            },
+            {
+              "actor": "B",
+              "type": "recover_control"
+            }
+          ],
+          "events": [
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "root": "R3",
+              "type": "compromise_root"
+            },
+            {
+              "claimant": "C",
+              "source": "ctx-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "candidate": "B",
+              "type": "invalid_election",
+              "votes": 0
+            },
+            {
+              "actor": "A",
+              "type": "transfer_control"
+            },
+            {
+              "sanctionId": "S1",
+              "type": "invalidate_sanction"
+            }
+          ],
+          "events": [
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "noncommute": 231,
+        "pair": "amend_q2 | compromise_R1"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2105,
+        "commutePct": 90.15,
+        "exampleCommute": {
+          "base": [
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            }
+          ],
+          "events": [
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "root": "R2",
+              "type": "compromise_root"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "candidate": "A",
+              "type": "valid_election",
+              "votes": 1
+            },
+            {
+              "type": "clear_claims"
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "physicalRevision": "T2",
+              "quota": 1,
+              "type": "tamper_physical_quota"
+            }
+          ],
+          "events": [
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "root": "R2",
+              "type": "compromise_root"
+            }
+          ]
+        },
+        "noncommute": 230,
+        "pair": "compromise_R2 | election_B"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2084,
+        "commutePct": 90.37,
+        "exampleCommute": {
+          "base": [],
+          "events": [
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "claimant": "B",
+              "source": "dyn-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "newAnchor": "ROT-A",
+              "type": "in_band_root_rotation"
+            },
+            {
+              "actor": "A",
+              "amount": 2,
+              "sanctionId": "S0",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "newAnchor": "ROT-A",
+              "type": "in_band_root_rotation"
+            },
+            {
+              "claimant": "A",
+              "source": "ctx-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ],
+          "events": [
+            {
+              "claimant": "B",
+              "source": "dyn-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "noncommute": 222,
+        "pair": "claim_B | election_B"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2071,
+        "commutePct": 90.48,
+        "exampleCommute": {
+          "base": [
+            {
+              "candidate": "C",
+              "type": "invalid_election",
+              "votes": 0
+            },
+            {
+              "quota": 2,
+              "revision": "C2",
+              "type": "valid_amendment",
+              "votes": 2
+            },
+            {
+              "candidate": "A",
+              "type": "invalid_election",
+              "votes": 0
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "physicalRevision": "T2",
+              "quota": 2,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "actor": "A",
+              "type": "steal_control_key"
+            }
+          ],
+          "events": [
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "root": "R3",
+              "type": "compromise_root"
+            },
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            },
+            {
+              "actor": "A",
+              "type": "recover_control"
+            }
+          ],
+          "events": [
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            }
+          ]
+        },
+        "noncommute": 218,
+        "pair": "compromise_R1 | election_C"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2141,
+        "commutePct": 90.49,
+        "exampleCommute": {
+          "base": [
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            }
+          ],
+          "events": [
+            {
+              "root": "R2",
+              "type": "compromise_root"
+            },
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "root": "R3",
+              "type": "compromise_root"
+            }
+          ],
+          "events": [
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "root": "R2",
+              "type": "compromise_root"
+            }
+          ]
+        },
+        "noncommute": 225,
+        "pair": "compromise_R2 | election_C"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2115,
+        "commutePct": 90.66,
+        "exampleCommute": {
+          "base": [],
+          "events": [
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "root": "R2",
+              "type": "compromise_root"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "actor": "B",
+              "type": "recover_control"
+            },
+            {
+              "sanctionId": "S2",
+              "type": "invalidate_sanction"
+            },
+            {
+              "amount": 2,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            }
+          ],
+          "events": [
+            {
+              "root": "R2",
+              "type": "compromise_root"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "noncommute": 218,
+        "pair": "amend_q2 | compromise_R2"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2160,
+        "commutePct": 90.68,
+        "exampleCommute": {
+          "base": [
+            {
+              "sanctionId": "S0",
+              "type": "invalidate_sanction"
+            }
+          ],
+          "events": [
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "actor": "B",
+              "type": "recover_control"
+            },
+            {
+              "amount": 3,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "newAnchor": "ROT-B",
+              "type": "in_band_root_rotation"
+            },
+            {
+              "root": "R3",
+              "type": "compromise_root"
+            },
+            {
+              "claimant": "B",
+              "source": "ctx-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "candidate": "C",
+              "type": "invalid_election",
+              "votes": 1
+            }
+          ],
+          "events": [
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            }
+          ]
+        },
+        "noncommute": 222,
+        "pair": "compromise_R1 | election_B"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2069,
+        "commutePct": 90.75,
+        "exampleCommute": {
+          "base": [
+            {
+              "candidate": "C",
+              "type": "invalid_election",
+              "votes": 0
+            },
+            {
+              "quota": 2,
+              "revision": "C2",
+              "type": "valid_amendment",
+              "votes": 2
+            },
+            {
+              "candidate": "A",
+              "type": "invalid_election",
+              "votes": 0
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "physicalRevision": "T2",
+              "quota": 2,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "actor": "A",
+              "type": "steal_control_key"
+            }
+          ],
+          "events": [
+            {
+              "claimant": "B",
+              "source": "dyn-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "quota": 1,
+              "revision": "C2",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "claimant": "C",
+              "source": "ctx-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "actor": "B",
+              "type": "transfer_control"
+            },
+            {
+              "sanctionId": "S1",
+              "type": "invalidate_sanction"
+            },
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            }
+          ],
+          "events": [
+            {
+              "claimant": "B",
+              "source": "dyn-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "noncommute": 211,
+        "pair": "claim_B | election_C"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2187,
+        "commutePct": 90.82,
+        "exampleCommute": {
+          "base": [
+            {
+              "claimant": "A",
+              "source": "ctx-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ],
+          "events": [
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "root": "R3",
+              "type": "compromise_root"
+            },
+            {
+              "claimant": "C",
+              "source": "ctx-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "candidate": "B",
+              "type": "invalid_election",
+              "votes": 0
+            },
+            {
+              "actor": "A",
+              "type": "transfer_control"
+            },
+            {
+              "sanctionId": "S1",
+              "type": "invalidate_sanction"
+            }
+          ],
+          "events": [
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "noncommute": 221,
+        "pair": "amend_q2 | claim_A"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2109,
+        "commutePct": 91.14,
+        "exampleCommute": {
+          "base": [
+            {
+              "newAnchor": "ROT-B",
+              "type": "in_band_root_rotation"
+            },
+            {
+              "actor": "B",
+              "amount": 1,
+              "sanctionId": "S0",
+              "target": "C",
+              "type": "sanction"
+            }
+          ],
+          "events": [
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "quota": 1,
+              "revision": "C2",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "claimant": "C",
+              "source": "ctx-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "actor": "B",
+              "type": "transfer_control"
+            },
+            {
+              "sanctionId": "S1",
+              "type": "invalidate_sanction"
+            },
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            }
+          ],
+          "events": [
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "noncommute": 205,
+        "pair": "claim_A | election_B"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2296,
+        "commutePct": 94.37,
+        "exampleCommute": {
+          "base": [
+            {
+              "actor": "A",
+              "type": "steal_control_key"
+            },
+            {
+              "actor": "A",
+              "type": "recover_control"
+            },
+            {
+              "root": "R2",
+              "type": "compromise_root"
+            },
+            {
+              "actor": "C",
+              "type": "transfer_control"
+            },
+            {
+              "candidate": "C",
+              "type": "invalid_election",
+              "votes": 1
+            }
+          ],
+          "events": [
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "root": "R2",
+              "type": "compromise_root"
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "candidate": "A",
+              "type": "invalid_election",
+              "votes": 0
+            },
+            {
+              "claimant": "C",
+              "source": "ctx-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "claimant": "C",
+              "source": "ctx-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "quota": 1,
+              "revision": "C3",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ],
+          "events": [
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            }
+          ]
+        },
+        "noncommute": 137,
+        "pair": "restitute_C | sanction_A"
+      },
+      {
+        "classification": "context-dependent",
+        "commute": 2224,
+        "commutePct": 94.56,
+        "exampleCommute": {
+          "base": [
+            {
+              "quota": 1,
+              "revision": "C1",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "claimant": "B",
+              "source": "ctx-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "actor": "C",
+              "type": "recover_control"
+            },
+            {
+              "quota": 1,
+              "revision": "C3",
+              "type": "valid_amendment",
+              "votes": 2
+            },
+            {
+              "candidate": "C",
+              "type": "invalid_election",
+              "votes": 0
+            }
+          ],
+          "events": [
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "exampleNoncommute": {
+          "base": [
+            {
+              "actor": "A",
+              "type": "steal_control_key"
+            },
+            {
+              "claimant": "C",
+              "source": "ctx-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "quota": 1,
+              "revision": "C2",
+              "type": "valid_amendment",
+              "votes": 2
+            },
+            {
+              "actor": "A",
+              "type": "transfer_control"
+            }
+          ],
+          "events": [
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            }
+          ]
+        },
+        "noncommute": 128,
+        "pair": "claim_A | sanction_A"
+      }
+    ],
+    "contexts": 50000,
+    "observedAlwaysExamples": [
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2409,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "root": "R3",
+              "type": "compromise_root"
+            }
+          ],
+          "events": [
+            {
+              "type": "disable_control"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "amend_q2 | disable_control"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2353,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "type": "clear_claims"
+            },
+            {
+              "candidate": "A",
+              "type": "valid_election",
+              "votes": 1
+            },
+            {
+              "actor": "A",
+              "type": "recover_control"
+            },
+            {
+              "type": "clear_claims"
+            },
+            {
+              "candidate": "A",
+              "type": "valid_election",
+              "votes": 3
+            }
+          ],
+          "events": [
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "candidate": "B",
+              "type": "valid_election",
+              "votes": 2
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "amend_q2 | election_B"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2245,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [],
+          "events": [
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 2
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "amend_q2 | election_C"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2356,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "actor": "A",
+              "type": "steal_control_key"
+            },
+            {
+              "actor": "A",
+              "type": "recover_control"
+            },
+            {
+              "root": "R2",
+              "type": "compromise_root"
+            },
+            {
+              "actor": "C",
+              "type": "transfer_control"
+            },
+            {
+              "candidate": "C",
+              "type": "invalid_election",
+              "votes": 1
+            }
+          ],
+          "events": [
+            {
+              "sanctionId": "DS",
+              "type": "invalidate_sanction"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "amend_q2 | invalidate_DS"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2311,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "sanctionId": "S0",
+              "type": "invalidate_sanction"
+            },
+            {
+              "quota": 2,
+              "revision": "C3",
+              "type": "valid_amendment",
+              "votes": 2
+            },
+            {
+              "amount": 3,
+              "target": "C",
+              "type": "restitute"
+            }
+          ],
+          "events": [
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "amend_q2 | restitute_C"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2396,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "candidate": "B",
+              "type": "invalid_election",
+              "votes": 1
+            },
+            {
+              "physicalRevision": "T2",
+              "quota": 1,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "S0",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "amount": 3,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            },
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            }
+          ],
+          "events": [
+            {
+              "newAnchor": "ROT-DYN",
+              "type": "in_band_root_rotation"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "amend_q2 | rotate"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2299,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "newAnchor": "ROT-A",
+              "type": "in_band_root_rotation"
+            },
+            {
+              "actor": "A",
+              "type": "steal_control_key"
+            },
+            {
+              "claimant": "C",
+              "source": "ctx-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "amount": 2,
+              "target": "C",
+              "type": "restitute"
+            }
+          ],
+          "events": [
+            {
+              "actor": "A",
+              "amount": 1,
+              "sanctionId": "DS",
+              "target": "C",
+              "type": "sanction"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "amend_q2 | sanction_A"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2294,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "physicalRevision": "T1",
+              "quota": 1,
+              "type": "tamper_physical_quota"
+            }
+          ],
+          "events": [
+            {
+              "physicalRevision": "TX",
+              "quota": 2,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "amend_q2 | tamper_q2"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2351,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "amount": 2,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "physicalRevision": "T1",
+              "quota": 2,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "quota": 1,
+              "revision": "C1",
+              "type": "valid_amendment",
+              "votes": 2
+            },
+            {
+              "actor": "B",
+              "amount": 1,
+              "sanctionId": "S1",
+              "target": "C",
+              "type": "sanction"
+            }
+          ],
+          "events": [
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "amend_q2 | theft_C"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2347,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "type": "disable_control"
+            },
+            {
+              "actor": "B",
+              "type": "recover_control"
+            }
+          ],
+          "events": [
+            {
+              "actor": "B",
+              "type": "transfer_control"
+            },
+            {
+              "quota": 2,
+              "revision": "DX",
+              "type": "valid_amendment",
+              "votes": 3
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "amend_q2 | transfer_B"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2353,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "sanctionId": "S1",
+              "type": "invalidate_sanction"
+            }
+          ],
+          "events": [
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "claimant": "B",
+              "source": "dyn-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "claim_A | claim_B"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2391,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "quota": 2,
+              "revision": "C1",
+              "type": "valid_amendment",
+              "votes": 3
+            },
+            {
+              "actor": "A",
+              "type": "recover_control"
+            },
+            {
+              "type": "clear_claims"
+            }
+          ],
+          "events": [
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "claim_A | compromise_R1"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2269,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [],
+          "events": [
+            {
+              "root": "R2",
+              "type": "compromise_root"
+            },
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "claim_A | compromise_R2"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2324,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [],
+          "events": [
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "type": "disable_control"
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "claim_A | disable_control"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2333,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [],
+          "events": [
+            {
+              "sanctionId": "DS",
+              "type": "invalidate_sanction"
+            },
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "claim_A | invalidate_DS"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2340,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [],
+          "events": [
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "amount": 1,
+              "target": "C",
+              "type": "restitute"
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "claim_A | restitute_C"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2450,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [],
+          "events": [
+            {
+              "newAnchor": "ROT-DYN",
+              "type": "in_band_root_rotation"
+            },
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "claim_A | rotate"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2393,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "candidate": "A",
+              "type": "invalid_election",
+              "votes": 1
+            },
+            {
+              "physicalRevision": "T2",
+              "quota": 1,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "sanctionId": "S1",
+              "type": "invalidate_sanction"
+            }
+          ],
+          "events": [
+            {
+              "physicalRevision": "TX",
+              "quota": 2,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "claim_A | tamper_q2"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2369,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "candidate": "A",
+              "type": "invalid_election",
+              "votes": 1
+            },
+            {
+              "physicalRevision": "T2",
+              "quota": 1,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "sanctionId": "S1",
+              "type": "invalidate_sanction"
+            }
+          ],
+          "events": [
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            },
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "claim_A | theft_C"
+      },
+      {
+        "classification": "observed-always-commutative",
+        "commute": 2312,
+        "commutePct": 100.0,
+        "exampleCommute": {
+          "base": [
+            {
+              "actor": "C",
+              "type": "transfer_control"
+            },
+            {
+              "claimant": "A",
+              "source": "ctx-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ],
+          "events": [
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "actor": "B",
+              "type": "transfer_control"
+            }
+          ]
+        },
+        "exampleNoncommute": null,
+        "noncommute": 0,
+        "pair": "claim_A | transfer_B"
+      }
+    ],
+    "observedNeverExamples": [
+      {
+        "classification": "observed-never-commutative",
+        "commute": 0,
+        "commutePct": 0.0,
+        "exampleCommute": null,
+        "exampleNoncommute": {
+          "base": [
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "candidate": "C",
+              "type": "valid_election",
+              "votes": 1
+            }
+          ],
+          "events": [
+            {
+              "claimant": "A",
+              "source": "dyn-a",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            },
+            {
+              "type": "clear_claims"
+            }
+          ]
+        },
+        "noncommute": 2235,
+        "pair": "claim_A | clear_claims"
+      },
+      {
+        "classification": "observed-never-commutative",
+        "commute": 0,
+        "commutePct": 0.0,
+        "exampleCommute": null,
+        "exampleNoncommute": {
+          "base": [
+            {
+              "amount": 2,
+              "target": "C",
+              "type": "restitute"
+            },
+            {
+              "physicalRevision": "T1",
+              "quota": 2,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "quota": 1,
+              "revision": "C1",
+              "type": "valid_amendment",
+              "votes": 2
+            },
+            {
+              "actor": "B",
+              "amount": 1,
+              "sanctionId": "S1",
+              "target": "C",
+              "type": "sanction"
+            }
+          ],
+          "events": [
+            {
+              "type": "clear_claims"
+            },
+            {
+              "claimant": "B",
+              "source": "dyn-b",
+              "standing": "CURRENT_SUPPORT",
+              "type": "authority_claim"
+            }
+          ]
+        },
+        "noncommute": 2414,
+        "pair": "claim_B | clear_claims"
+      },
+      {
+        "classification": "observed-never-commutative",
+        "commute": 0,
+        "commutePct": 0.0,
+        "exampleCommute": null,
+        "exampleNoncommute": {
+          "base": [
+            {
+              "actor": "B",
+              "amount": 2,
+              "sanctionId": "S2",
+              "target": "C",
+              "type": "sanction"
+            }
+          ],
+          "events": [
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            },
+            {
+              "type": "disable_control"
+            }
+          ]
+        },
+        "noncommute": 2309,
+        "pair": "disable_control | theft_C"
+      },
+      {
+        "classification": "observed-never-commutative",
+        "commute": 0,
+        "commutePct": 0.0,
+        "exampleCommute": null,
+        "exampleNoncommute": {
+          "base": [],
+          "events": [
+            {
+              "type": "disable_control"
+            },
+            {
+              "actor": "B",
+              "type": "transfer_control"
+            }
+          ]
+        },
+        "noncommute": 2239,
+        "pair": "disable_control | transfer_B"
+      },
+      {
+        "classification": "observed-never-commutative",
+        "commute": 0,
+        "commutePct": 0.0,
+        "exampleCommute": null,
+        "exampleNoncommute": {
+          "base": [
+            {
+              "candidate": "C",
+              "type": "invalid_election",
+              "votes": 0
+            },
+            {
+              "quota": 2,
+              "revision": "C2",
+              "type": "valid_amendment",
+              "votes": 2
+            },
+            {
+              "candidate": "A",
+              "type": "invalid_election",
+              "votes": 0
+            },
+            {
+              "root": "R1",
+              "type": "compromise_root"
+            },
+            {
+              "physicalRevision": "T2",
+              "quota": 2,
+              "type": "tamper_physical_quota"
+            },
+            {
+              "actor": "A",
+              "type": "steal_control_key"
+            }
+          ],
+          "events": [
+            {
+              "actor": "C",
+              "type": "steal_control_key"
+            },
+            {
+              "actor": "B",
+              "type": "transfer_control"
+            }
+          ]
+        },
+        "noncommute": 2341,
+        "pair": "theft_C | transfer_B"
+      }
+    ],
+    "pairSamplesPerContext": 6,
+    "pairTypeCount": 120
+  },
+  "experimentId": "COJC-J3-AIC-QUOTIENT-DEPENDENCY-S5C",
+  "kind": "ordivon.computing.aic-s5c-quotient-dependency-result",
+  "quotient": {
+    "collisionClasses": {
+      "action": 138,
+      "frontier": 795,
+      "kernel": 4599
+    },
+    "compressionRatios": {
+      "frontierPerActionSignature": 7.421,
+      "historyPerKernel": 8.978,
+      "kernelPerFrontier": 9.714
+    },
+    "examples": {
+      "distinctHistoriesSameKernel": {
+        "left": [
+          {
+            "quota": 2,
+            "revision": "C1",
+            "type": "valid_amendment",
+            "votes": 3
+          },
+          {
+            "sanctionId": "S1",
+            "type": "invalidate_sanction"
+          },
+          {
+            "actor": "C",
+            "amount": 2,
+            "sanctionId": "S0",
+            "target": "C",
+            "type": "sanction"
+          },
+          {
+            "candidate": "A",
+            "type": "invalid_election",
+            "votes": 0
+          },
+          {
+            "physicalRevision": "T2",
+            "quota": 2,
+            "type": "tamper_physical_quota"
+          },
+          {
+            "actor": "A",
+            "type": "transfer_control"
+          }
+        ],
+        "right": [
+          {
+            "quota": 2,
+            "revision": "C1",
+            "type": "valid_amendment",
+            "votes": 3
+          },
+          {
+            "sanctionId": "S1",
+            "type": "invalidate_sanction"
+          },
+          {
+            "actor": "B",
+            "amount": 2,
+            "sanctionId": "S0",
+            "target": "C",
+            "type": "sanction"
+          }
+        ]
+      },
+      "sameActionDifferentFrontier": {
+        "left": [
+          {
+            "quota": 2,
+            "revision": "C1",
+            "type": "valid_amendment",
+            "votes": 3
+          },
+          {
+            "sanctionId": "S1",
+            "type": "invalidate_sanction"
+          },
+          {
+            "actor": "C",
+            "amount": 2,
+            "sanctionId": "S0",
+            "target": "C",
+            "type": "sanction"
+          },
+          {
+            "candidate": "A",
+            "type": "invalid_election",
+            "votes": 0
+          },
+          {
+            "physicalRevision": "T2",
+            "quota": 2,
+            "type": "tamper_physical_quota"
+          },
+          {
+            "actor": "A",
+            "type": "transfer_control"
+          }
+        ],
+        "right": [
+          {
+            "physicalRevision": "T2",
+            "quota": 1,
+            "type": "tamper_physical_quota"
+          },
+          {
+            "actor": "C",
+            "type": "recover_control"
+          },
+          {
+            "sanctionId": "S1",
+            "type": "invalidate_sanction"
+          },
+          {
+            "type": "clear_claims"
+          },
+          {
+            "actor": "B",
+            "type": "steal_control_key"
+          },
+          {
+            "actor": "A",
+            "type": "recover_control"
+          },
+          {
+            "newAnchor": "ROT-B",
+            "type": "in_band_root_rotation"
+          }
+        ]
+      },
+      "sameFrontierDifferentKernel": {
+        "left": [
+          {
+            "quota": 2,
+            "revision": "C1",
+            "type": "valid_amendment",
+            "votes": 3
+          },
+          {
+            "sanctionId": "S1",
+            "type": "invalidate_sanction"
+          },
+          {
+            "actor": "C",
+            "amount": 2,
+            "sanctionId": "S0",
+            "target": "C",
+            "type": "sanction"
+          },
+          {
+            "candidate": "A",
+            "type": "invalid_election",
+            "votes": 0
+          },
+          {
+            "physicalRevision": "T2",
+            "quota": 2,
+            "type": "tamper_physical_quota"
+          },
+          {
+            "actor": "A",
+            "type": "transfer_control"
+          }
+        ],
+        "right": [
+          {
+            "quota": 2,
+            "revision": "C2",
+            "type": "valid_amendment",
+            "votes": 3
+          }
+        ]
+      }
+    },
+    "refinementViolations": {
+      "frontierToAction": null,
+      "kernelToFrontier": null
+    },
+    "uniqueContinuationKernels": 11463,
+    "uniqueFrontierCores": 1180,
+    "uniqueHistories": 102919,
+    "uniqueImmediateActionSignatures": 159
+  },
+  "schemaVersion": 1
+}

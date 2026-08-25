@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-consequence-envelope-contract",
+  "experimentId": "COJC-J3-AIC-CONSEQUENCE-ENVELOPE-S5D",
+  "status": "frozen-before-execution",
+  "predecessors": ["COJC-J3-AIC-PARTIAL-ORDER-S5B-A", "COJC-J3-AIC-QUOTIENT-DEPENDENCY-S5C"],
+  "problem": "What is the smallest currentness projection sufficient for immediate consequential-action safety under a set of admissible institutional bindings?",
+  "bindingSet": "All unique current binding cores across admissible linearizations of a partial-order batch.",
+  "consequenceEnvelope": {
+    "possibleConsequentialAuthorityStatuses": "set over admissible bindings",
+    "possibleOfficeHolders": "set over admissible bindings",
+    "possibleEffectiveControllers": "set over admissible bindings"
+  },
+  "safeRule": "ALLOW iff status set == {AUTHORIZED}, office-holder set is singleton, controller set is the same singleton; otherwise HOLD.",
+  "candidateLaws": [
+    "binding multiplicity != immediate action safety",
+    "MULTIPLE does not imply HOLD",
+    "ONE does not imply ALLOW",
+    "safe actions under uncertainty are monotone under information refinement: if ALLOW over a binding set, every nonempty subset is also ALLOW",
+    "consequence envelope is a coarser quotient than binding set but sufficient for the frozen immediate-action rule"
+  ],
+  "randomPartialOrderBatches": 100000,
+  "seed": 202608263,
+  "guards": [
+    "ConsequenceEnvelope is derived and owns no source truth.",
+    "Immediate-action sufficiency does not imply future transition sufficiency.",
+    "Synthetic generator frequencies are not real-world prevalence.",
+    "No provider/model calls are used."
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-order-witness-contract",
+  "experimentId": "COJC-J3-AIC-ORDER-WITNESS-S6A",
+  "status": "frozen-before-execution",
+  "predecessor": "COJC-J3-AIC-PARTIAL-ORDER-S5B-A",
+  "problem": "What evidence is sufficient to refine a partial-order institutional history into an authoritative precedence relation?",
+  "candidateLaw": "Occurrence/arrival/timestamp evidence does not become institutional precedence merely by existing or being authentic; precedence requires an admitted ordering policy/witness for the relevant institutional claim scope.",
+  "orderLayers": [
+    "physical/causal happened-before",
+    "observation or log arrival order",
+    "authenticated order/time evidence",
+    "institutionally admitted precedence"
+  ],
+  "witnessArms": {
+    "NO_WITNESS": "all unique permutations of the concurrent batch remain admissible",
+    "ARRIVAL_ONLY": "a recorded arrival order is supplied but explicitly has no authority role; admissible set must not shrink",
+    "AUTHENTIC_NONADMITTED": "the order evidence is authentic, but current institutional policy does not admit that evidence role for precedence; admissible set must not shrink",
+    "ADMITTED_PRECEDENCE": "an authenticated order witness is admitted by current policy for this event scope; admissible executions are filtered to orders consistent with the witness"
+  },
+  "targetedRaces": "the nine S5B-A targeted concurrent races",
+  "properties": [
+    "ARRIVAL_ONLY preserves the no-witness binding/continuation sets",
+    "AUTHENTIC_NONADMITTED preserves the no-witness binding/continuation sets",
+    "ADMITTED_PRECEDENCE selects exactly the witnessed linearization in the two-event targeted races",
+    "admitted order may remove ambiguity but does not guarantee the selected resulting state is safe for consequential action",
+    "authenticity and authority are distinct"
+  ],
+  "guards": [
+    "S6A is a checker-layer experiment; it does not add a new global clock/order truth owner.",
+    "The selected witness order is one already admissible linearization; S6A does not permit a witness to contradict known happened-before constraints.",
+    "Institutional precedence policy is scope/role-relative, consistent with existing Interlocus authority-policy/currentness theory.",
+    "No provider/model calls are used."
+  ]
+}

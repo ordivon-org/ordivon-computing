@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-future-sufficiency-contract",
+  "experimentId": "COJC-J3-AIC-FUTURE-SUFFICIENCY-S5A",
+  "status": "frozen-before-execution",
+  "predecessor": "COJC-J3-AIC-METAMORPHIC-S4B",
+  "problem": "Is Orthogonal Frontier v2 a transition-sufficient institutional state, or only an Agent-facing currentness summary? If it is insufficient, what latent owner-state residual is future-relevant?",
+  "formalCriterion": "For an abstraction F to be transition-congruent over the admitted event language, F(h1)=F(h2) should imply F(h1·f)=F(h2·f) for every common admissible future suffix f, relative to the institutional observables under test.",
+  "importantBoundary": "The experiment does NOT assume every owner-internal transition field belongs on the Agent-facing Frontier. A Frontier counterexample may establish the need for an owner-side continuation kernel or query boundary rather than a larger prompt surface.",
+  "abstractions": {
+    "ORTHOGONAL_FRONTIER_V2_CORE": "Orthogonal Frontier v2 excluding occurrenceDigest/eventCount.",
+    "CONTINUATION_KERNEL_V0": "A deterministic owner-side transition kernel containing current office/controller/norm/lineage, exact compromised-root set, current-support claimant set, current remedy, and sanction transition registry needed by the current event semantics; it excludes event log and generic valid/invalid witness lists."
+  },
+  "targetedCounterexampleFamilies": [
+    "hidden exact compromised-root identity under the same DEGRADED frontier",
+    "hidden single current-support authority claimant under an uncontested frontier",
+    "hidden sanction identity/status registry under otherwise identical current frontier"
+  ],
+  "randomHistoryCount": 120000,
+  "randomFutureChecks": 150000,
+  "maxHistoryLength": 8,
+  "maxFutureLength": 3,
+  "seed": 202608258,
+  "registeredInterpretation": {
+    "FRONTIER_IS_TRANSITION_SUFFICIENT_CANDIDATE": "No targeted or random future-divergence counterexample is found for ORTHOGONAL_FRONTIER_V2_CORE.",
+    "FRONTIER_IS_CURRENT_SUMMARY_NOT_STATE": "At least one valid pair with equal Frontier core diverges under a common future suffix.",
+    "CONTINUATION_KERNEL_SURVIVES_GENERATIVE_TEST": "No divergence is found among equal CONTINUATION_KERNEL_V0 pairs under the frozen random search budget.",
+    "LATENT_OWNER_STATE_NEEDED": "A minimal counterexample is attributable to a field intentionally omitted from the Agent-facing Frontier but retained in CONTINUATION_KERNEL_V0."
+  },
+  "guards": [
+    "A divergence must be measured on institutional observables, not merely occurrenceDigest/eventCount.",
+    "Targeted pair members must have identical Frontier core before the suffix and distinct histories.",
+    "For the sanction-registry targeted pair, brute resource state must also be equal before the common suffix so the counterexample is not a World-state alias.",
+    "Random kernel equivalence is a bounded falsification result, not a proof of minimality or completeness.",
+    "A Frontier failure does not automatically justify exposing owner-transition internals to Agents.",
+    "No S1-S4 model evidence is retroactively rescored."
+  ]
+}

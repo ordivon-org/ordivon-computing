@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-quotient-dependency-contract",
+  "experimentId": "COJC-J3-AIC-QUOTIENT-DEPENDENCY-S5C",
+  "status": "frozen-before-execution",
+  "predecessors": [
+    "COJC-J3-AIC-FUTURE-SUFFICIENCY-S5A",
+    "COJC-J3-AIC-PARTIAL-ORDER-S5B-A"
+  ],
+  "problem": "What is the correct hierarchy between history, owner continuation state, Agent-facing currentness, and immediate action semantics; and which institutional events are dynamically independent versus order-sensitive?",
+  "quotientHypothesis": "ContinuationKernel is a finer equivalence than FrontierCore, which is finer than ImmediateActionSignature. Distinct histories should often collapse at each layer without requiring one universal state representation.",
+  "refinementProperties": [
+    "equal ContinuationKernel => equal FrontierCore",
+    "equal FrontierCore => equal ImmediateActionSignature",
+    "there exist distinct histories with equal ContinuationKernel",
+    "there exist equal FrontierCore histories with distinct ContinuationKernel (already expected from S5A)",
+    "there exist equal ImmediateActionSignature histories with distinct FrontierCore"
+  ],
+  "historyTrials": 150000,
+  "seed": 202608262,
+  "dynamicIndependence": {
+    "definition": "Two concrete events a,b are independent at state s iff replay(s;a;b) and replay(s;b;a) yield equal ContinuationKernel and equal current institutional observables.",
+    "contextSamples": 50000,
+    "pairSamplesPerContext": 6,
+    "classification": [
+      "observed-always-commutative",
+      "context-dependent",
+      "observed-never-commutative"
+    ],
+    "warning": "Observed rates are properties of the synthetic generator and event sampler, not real-world probabilities or proofs of universal commutativity."
+  },
+  "architecturalQuestion": "Should Ordivon expose one maximal state object, or maintain owner transition state and derive consumer/horizon-relative quotients?",
+  "guards": [
+    "ActionSignature is not allowed to redefine current truth; it is a consumer-oriented coarser projection.",
+    "Equal current action does not imply equal future transition behavior.",
+    "Dynamic independence is state-relative; do not promote event-type commutativity from finite sampling to a universal law.",
+    "No provider/model calls are used in S5C."
+  ]
+}

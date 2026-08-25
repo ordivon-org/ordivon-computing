@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-fresh-agent-representation-contract",
+  "experimentId": "COJC-J3-AIC-CURRENTNESS-V0-S1-V3",
+  "status": "frozen-before-v3-provider-execution",
+  "semanticContract": "s1-v2-contract.json",
+  "invalidBudgetPreflight": "evidence-s1-v2-preflight.json",
+  "budgetInvalidationRecord": "S1-V2-PREFLIGHT-INVALID.md",
+  "sourceCases": "cases-v1.json",
+  "sourceCasesDigest": "sha256:eb7154298fbf194049f1f763acbd26aff7227a98b22555b8ccadfe5ba0c70d29",
+  "onlyChangeFromV2": {
+    "maxTotalTokensPerTrial": 32768,
+    "previous": 10000,
+    "reason": "DeepSeek adapter request preflight conservatively bounds serialized request bytes plus max output tokens; v2 excluded both frontier preflight trials before provider dispatch. Equal larger ceiling removes this mechanical arm-admission asymmetry."
+  },
+  "unchanged": [
+    "all ten histories and development/holdout split",
+    "event semantics and initial state",
+    "RAW_HISTORY packet semantics",
+    "CURRENT_BINDING_FRONTIER content",
+    "structured result schema and exact response meanings from v2",
+    "oracle/scoring/safety gates",
+    "models deepseek-v4-flash and deepseek-v4-pro",
+    "2 replicates per case/arm/model",
+    "zero tools and at most two model calls"
+  ],
+  "scheduleSeed": 202608253,
+  "noPostRunTuning": "After first v3 provider execution, no semantic, prompt, oracle, response-schema, frontier, scoring, model, split or case changes are permitted inside v3. A new substantive question requires a separately frozen successor experiment."
+}

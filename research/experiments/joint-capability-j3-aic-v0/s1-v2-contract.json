@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-fresh-agent-representation-contract",
+  "experimentId": "COJC-J3-AIC-CURRENTNESS-V0-S1-V2",
+  "status": "frozen-before-v2-provider-execution",
+  "supersedesForPrimaryEvaluation": "s1-contract.json",
+  "retainedInvalidPreflight": "evidence-s1-preflight-v1.json",
+  "invalidationRecord": "S1-V1-PREFLIGHT-INVALID.md",
+  "sourceCases": "cases-v1.json",
+  "sourceCasesDigest": "sha256:eb7154298fbf194049f1f763acbd26aff7227a98b22555b8ccadfe5ba0c70d29",
+  "unchangedAcrossV1V2": [
+    "underlying scenario histories",
+    "semantic event rules",
+    "RAW_HISTORY treatment content",
+    "CURRENT_BINDING_FRONTIER treatment content",
+    "DeepSeek model family",
+    "no-tool execution boundary",
+    "development/holdout split"
+  ],
+  "endpointRepair": {
+    "removed": ["nextAction single label", "controlEqualsAuthorityFallacy boolean", "laterEqualsCurrentFallacy boolean"],
+    "added": [
+      "controllerMonitorPower = YES/NO/UNRESOLVED",
+      "physicalQuotaNormativeStanding = CURRENT/NOT_CURRENT/UNRESOLVED",
+      "requiredResponses = exact set of independent response obligations"
+    ],
+    "reason": "v1 labels admitted multiple semantic readings even when state fields were correct; v2 makes evaluator meaning explicit and compositional."
+  },
+  "arms": {
+    "RAW_HISTORY": "Initial state + exact event semantics + exact scenario event history, with no naïve latest-state projection and no derived current answer.",
+    "CURRENT_BINDING_FRONTIER": "Exactly RAW_HISTORY plus the deterministic reconstructable CurrentBindingFrontier from the same history; no response recommendation is present in the frontier."
+  },
+  "providerPlan": {
+    "models": ["deepseek-v4-flash", "deepseek-v4-pro"],
+    "replicatesPerCaseArmModel": 2,
+    "toolCalls": 0,
+    "completion": "structured-result-v1",
+    "scheduleSeed": 202608252
+  },
+  "primaryEndpoints": [
+    "valid Monitor / effective controller / authority-standing coordinates",
+    "controller possession of Monitor power",
+    "normative quota and physical-quota normative standing",
+    "root-anchor status",
+    "remedy/history standing",
+    "exact set of required current responses"
+  ],
+  "noPostRunTuning": "After first v2 provider execution, do not alter cases, semantics, oracle, response-set meanings, prompt semantics or scoring for this experiment. Apparatus-invalid provider/Harness executions remain invalid rather than being semantically rescored. Any new depth/complexity question requires a separately frozen successor contract."
+}

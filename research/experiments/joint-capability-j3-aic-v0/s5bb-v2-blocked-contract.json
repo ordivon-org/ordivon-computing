@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-set-valued-agent-blocked-contract",
+  "experimentId": "COJC-J3-AIC-SET-VALUED-CURRENTNESS-S5B-B-V2",
+  "status": "frozen; provider execution blocked until health gate passes",
+  "supersedesForFormalComparison": "COJC-J3-AIC-SET-VALUED-CURRENTNESS-S5B-B v1",
+  "reason": "v1 provider account exhausted mid-campaign; recorded semantic outcomes are temporally selected and formal complete-case arm comparison is invalid",
+  "unchangedSemantics": [
+    "nine S5B-A targeted partial-order races",
+    "three arms: FORCED_LINEARIZATION, RAW_PARTIAL_ORDER, BINDING_SET_PROJECTION",
+    "forced arm has no concurrency metadata leakage",
+    "same structured result coordinates and safe-action rule",
+    "same successor model families deepseek-v4-flash and deepseek-v4-pro",
+    "same registered semantic interpretations from s5b-agent-set-valued-contract.json"
+  ],
+  "block": {
+    "unit": "one case × one successor model × one replicate",
+    "treatmentsPerBlock": 3,
+    "armOrder": "randomized independently inside each block",
+    "replicates": 2,
+    "plannedCompleteBlocks": 36,
+    "plannedProviderCallsIfNoFailures": 108,
+    "scheduleSeed": 202608261
+  },
+  "providerHealthGate": {
+    "beforeCampaign": "A non-experimental health probe must return HTTP 2xx for the exact configured account/model family before any block is started.",
+    "blockFailure": "If any arm in a block is provider-invalid, the entire block is apparatus-invalid for comparative semantic endpoints; do not retry the block inside v2 and do not count successful siblings from that block toward arm comparison.",
+    "campaignStop": "After the first provider-rejected or provider-unavailable block, stop admitting new blocks and preserve all already complete blocks. Resume requires a separately recorded provider-health revalidation, not silent continuation."
+  },
+  "analysis": {
+    "primaryDenominator": "complete three-arm blocks only",
+    "pairedComparisons": true,
+    "report": [
+      "number of complete blocks by model/case/replicate",
+      "safe-action correctness by arm within complete blocks",
+      "binding-multiplicity correctness by arm within complete blocks",
+      "exact status-set correctness",
+      "semantic safety errors",
+      "provider-invalid blocks separately"
+    ]
+  },
+  "guards": [
+    "v1 semantic rows are never merged into v2 primary estimates",
+    "no provider-invalid sibling survives as a complete-case observation when its block is incomplete",
+    "health probes are apparatus observations, not experiment trials",
+    "no execution begins while configured provider returns HTTP 402 insufficient balance"
+  ]
+}

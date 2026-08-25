@@ -1,0 +1,205 @@
+{
+  "experimentId": "COJC-J3-AIC-METAMORPHIC-S4",
+  "failureCount": 2,
+  "interpretation": "A failed relation is a substrate/domain-model counterexample candidate, not an Agent failure. Repair and refreeze semantics before S4B provider testing.",
+  "kind": "ordivon.computing.aic-s4a-metamorphic-result",
+  "mandatoryPass": false,
+  "randomBaseTrials": 100000,
+  "relations": [
+    {
+      "checked": 100000,
+      "counterexample": null,
+      "ok": true,
+      "relation": "MR1_INVALID_ELECTION_INSERTION"
+    },
+    {
+      "checked": 79542,
+      "counterexample": null,
+      "ok": true,
+      "relation": "MR2_REDUNDANT_RECOVERY"
+    },
+    {
+      "checked": 24972,
+      "counterexample": null,
+      "ok": true,
+      "relation": "MR3_REDUNDANT_ROOT_COMPROMISE"
+    },
+    {
+      "checked": 100000,
+      "counterexample": null,
+      "ok": true,
+      "relation": "MR4_ROOT_COMPROMISE_ORDER"
+    },
+    {
+      "checked": 100000,
+      "counterexample": null,
+      "ok": true,
+      "relation": "MR5_CLAIM_ORDER"
+    },
+    {
+      "checked": 100000,
+      "counterexample": {
+        "base": [
+          {
+            "claimant": "A",
+            "source": "random",
+            "standing": "CURRENT_SUPPORT",
+            "type": "authority_claim"
+          },
+          {
+            "claimant": "C",
+            "source": "random",
+            "standing": "CURRENT_SUPPORT",
+            "type": "authority_claim"
+          }
+        ],
+        "leftCore": {
+          "authority": {
+            "authorityStanding": "CONTESTED",
+            "conflictClaimants": [
+              "A",
+              "C"
+            ],
+            "consequentialAuthorityStatus": "CONTESTED",
+            "effectiveController": "A",
+            "officeHolder": "A"
+          },
+          "historicalValidity": {
+            "invalidOrReversedSanctionHistory": "ABSENT"
+          },
+          "lineage": {
+            "identityRelation": "PRESERVED",
+            "institutionLineage": "I0"
+          },
+          "norm": {
+            "normativeQuota": 1,
+            "physicalNormStanding": "CURRENT",
+            "physicalQuota": 1
+          },
+          "remedy": {
+            "remedyDueC": 0
+          },
+          "root": {
+            "activeAnchor": "FOUNDING-R1R2R3",
+            "rootAnchorStatus": "HEALTHY"
+          },
+          "truthRole": "derived-current-binding-frontier-v2"
+        },
+        "rightCore": {
+          "authority": {
+            "authorityStanding": "CURRENT",
+            "conflictClaimants": [],
+            "consequentialAuthorityStatus": "AUTHORIZED",
+            "effectiveController": "A",
+            "officeHolder": "A"
+          },
+          "historicalValidity": {
+            "invalidOrReversedSanctionHistory": "ABSENT"
+          },
+          "lineage": {
+            "identityRelation": "PRESERVED",
+            "institutionLineage": "I0"
+          },
+          "norm": {
+            "normativeQuota": 1,
+            "physicalNormStanding": "CURRENT",
+            "physicalQuota": 1
+          },
+          "remedy": {
+            "remedyDueC": 0
+          },
+          "root": {
+            "activeAnchor": "FOUNDING-R1R2R3",
+            "rootAnchorStatus": "HEALTHY"
+          },
+          "truthRole": "derived-current-binding-frontier-v2"
+        }
+      },
+      "ok": false,
+      "relation": "MR6_TRANSIENT_CONTEST_CLEAR"
+    },
+    {
+      "checked": 92496,
+      "counterexample": null,
+      "ok": true,
+      "relation": "MR11_ELECTION_TRANSFER_COMMUTE"
+    },
+    {
+      "checked": 100000,
+      "counterexample": null,
+      "ok": true,
+      "relation": "MR12_NOOP_PHYSICAL_TAMPER"
+    },
+    {
+      "checked": 1,
+      "counterexample": null,
+      "ok": true,
+      "relation": "MR7_FAILED_INBAND_BEFORE_REFOUNDATION"
+    },
+    {
+      "checked": 4,
+      "counterexample": null,
+      "ok": true,
+      "relation": "MR8_RESTITUTION_PARTITION"
+    },
+    {
+      "checked": 1,
+      "counterexample": {
+        "coreEqual": true,
+        "once": [
+          {
+            "actor": "A",
+            "amount": 2,
+            "sanctionId": "MR9-S1",
+            "target": "C",
+            "type": "sanction"
+          },
+          {
+            "sanctionId": "MR9-S1",
+            "type": "invalidate_sanction"
+          }
+        ],
+        "onceRemedy": {
+          "A": 0,
+          "B": 0,
+          "C": 2
+        },
+        "onceStatus": "INVALIDATED_LATER",
+        "twice": [
+          {
+            "actor": "A",
+            "amount": 2,
+            "sanctionId": "MR9-S1",
+            "target": "C",
+            "type": "sanction"
+          },
+          {
+            "sanctionId": "MR9-S1",
+            "type": "invalidate_sanction"
+          },
+          {
+            "sanctionId": "MR9-S1",
+            "type": "invalidate_sanction"
+          }
+        ],
+        "twiceRemedy": {
+          "A": 0,
+          "B": 0,
+          "C": 2
+        },
+        "twiceStatus": "INVALID"
+      },
+      "ok": false,
+      "relation": "MR9_REPEAT_INVALIDATION_IDEMPOTENT"
+    },
+    {
+      "checked": 1,
+      "counterexample": null,
+      "ok": true,
+      "relation": "MR10_EXTRA_RESTITUTION_AFTER_ZERO"
+    }
+  ],
+  "schemaVersion": 1,
+  "seed": 202608256,
+  "semanticSourceDigest": "sha256:dd7fe02de4cffe0f3efb31748292164d32e753a91c8e74d3efcde46980b858ef"
+}

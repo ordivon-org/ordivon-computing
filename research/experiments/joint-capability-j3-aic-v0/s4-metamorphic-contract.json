@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.aic-metamorphic-contract",
+  "experimentId": "COJC-J3-AIC-METAMORPHIC-S4",
+  "status": "frozen-before-execution",
+  "predecessor": "COJC-J3-AIC-AGENT-REPLACEMENT-S3",
+  "problem": "Do AIC continuity laws remain invariant under transformations that alter history/representation while preserving the relevant current institutional semantics?",
+  "method": "Deterministic property-fuzzer plus relation-specific counterexample shrinking. This environment does not have Hypothesis installed, so the experiment implements the same property-first / generated-input discipline directly rather than adding a new dependency.",
+  "layers": {
+    "S4A": "Semantic substrate metamorphic falsification. Test the state machine/current-binding projection before any provider/model run.",
+    "S4B": "Only after S4A surviving relations are frozen, expose selected equivalent pairs to fresh Agents and measure cross-pair behavioral invariance."
+  },
+  "currentProjectionUnderTest": "ORTHOGONAL_FRONTIER_V2 stripped only of occurrenceDigest/eventCount; history-sensitive sanction presence remains part of current continuity semantics.",
+  "relations": [
+    "MR1 invalid-election insertion must not alter current binding",
+    "MR2 redundant recovery by the already-effective controller must not alter current binding",
+    "MR3 redundant compromise of an already-compromised root must not alter current binding",
+    "MR4 order of independent root-compromise events must not alter current binding",
+    "MR5 order of simultaneous current-support authority claims must not alter the resulting contested current binding",
+    "MR6 an immediately created-and-cleared transient contest must not contaminate later current binding",
+    "MR7 a failed in-band root-rotation attempt before independent external refoundation must not alter the final re-founded current binding",
+    "MR8 splitting a fixed restitution amount into equivalent installments must preserve final current binding/resources/remedy/history standing",
+    "MR9 repeating invalidation of an already-invalidated sanction must be current-state idempotent and must not reclassify the historical reason for invalidity",
+    "MR10 extra restitution after remedy reaches zero must not alter current binding/resources",
+    "MR11 lawful election and matching control transfer commute when root/standing preconditions are unchanged and no consequential event intervenes",
+    "MR12 inserting a no-op physical tamper to the already-running quota may add invalid history but must not alter orthogonal current binding"
+  ],
+  "randomBaseTrials": 100000,
+  "seed": 202608256,
+  "failureRule": "Any relation violation is a semantic counterexample candidate. Shrink to a minimal reproducer before interpreting it. No LLM/provider experiment may use a relation that has not survived S4A or been explicitly repaired and re-frozen.",
+  "guards": [
+    "Metamorphic equality is relation-relative: occurrence digest/event count are excluded only for relations intentionally changing history.",
+    "No relation may erase a genuinely current remedy, live authority conflict, lineage replacement, root compromise, normative difference, or invalid/reversed sanction standing.",
+    "A substrate counterexample is treated as an apparatus/domain-model defect candidate, not as an Agent capability failure.",
+    "Repairs require a new semantic digest and rerunning all prior deterministic gates plus S4A; old S1-S3 model evidence is not retroactively rescored."
+  ]
+}
