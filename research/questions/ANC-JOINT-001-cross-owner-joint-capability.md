@@ -2,7 +2,7 @@
 
 ## Status
 
-`ACTIVE` Computing research question. J0 calibration is complete and J1 is CLOSED with no deletion-essentiality established. The programme remains active only to select at most one next natural cross-owner candidate from the independent exploration frontier; J1 itself must not be repeated or rescued by adding owners. This is a material refinement of the complementarity/coalition-credit frontier inside `ANC-ADAPT-001` and of the completed cross-project convergence study. It does not replace owner-local research and does not create a Composition Owner.
+`COMPLETED` initial Computing screening question with **dormant natural-pressure reopen**. J0 calibration and J1 are closed; the required next materially different natural candidate was consumed by the N1 representation falsifier and did not reproduce the candidate benefit. Cross-branch subtraction then found no current candidate that simultaneously survives natural-pressure, mature-baseline, identifiable-deletion and independent-consequence gates. COJC therefore no longer consumes active P0 WIP. Historical evidence and reopen predicates remain; this does not claim that cross-owner joint capability is impossible and does not create a Composition Owner.
 
 Canonical programme charter: [`../JOINT-CAPABILITY-PROGRAMME-20260825.md`](../JOINT-CAPABILITY-PROGRAMME-20260825.md).
 
@@ -34,7 +34,9 @@ Current disposition:
 
 `NO_DELETION_ESSENTIALITY_WITH_EPOCH_STRUCTURE_ERROR_SHAPING_CANDIDATE`
 
-Therefore the current falsifier moves up one level. The next physical COJC candidate must come from a **new natural owner-native consumer** and survive strong owner-local/external baselines without manufactured failure. If the next natural candidate also collapses to owner sufficiency or optional representation convenience, COJC should be downgraded or closed as an active programme. Interlocus × Security may reopen only under a materially different consumer. World may enter that route only when an independently authoritative external trajectory makes Security+Interlocus views non-identifying for actions that differ by reality.
+The predeclared next-candidate gate has now been consumed. The materially different N1 natural representation workload returned `MIXED_N1_NOT_REPRODUCED`: a source-bound CECB projection reduced payload bytes by 80.3% and mean prompt tokens by 67.6% but scored 75/90 relation judgments versus 79/90 for full source and regressed protected judgment families, so the reusable cross-artifact representation candidate was deleted rather than rescued. Independent Continuity work then subtracted raw-history replay, indexed retrieval and operation compilation against mature controls: generic indexed retrieval + typed policy combination reproduced the H=256 multi-stage ratchet at 33/33 across three fresh replicates; a 16-world recursive-state control was generically equivalent with zero mismatches; and source-native currentness reuse showed revision-only/coarse evidence is insufficient while claim-relative owner-native evidence can support bounded provenance rebind without minting currentness. These are useful bounded mechanisms, not deletion-positive joint capability.
+
+The initial campaign therefore closes with **no current physical COJC survivor**. Future reopen is pressure-first, not owner-combination-first: a candidate must begin from a materially new natural blocked owner outcome and simultaneously pass `NaturalPressure ∧ MatureBaselineResidual ∧ IdentifiableDeletion ∧ IndependentConsequence`. Interlocus × Security, representation-sensitive possibility, continuity, institutional worlds and capital-decision combinations remain dormant scientific search space only; none is an active experiment queue.
 
 ## Minimum evidence for stronger labels
 
@@ -68,6 +70,8 @@ A single binary gating experiment may not be called a phase transition.
 - `research/experiments/joint-capability-j1-adversarial-interlocus-v0/result-summary-v1.json`
 - `research/experiments/joint-capability-j1-adversarial-interlocus-v0/n2-mechanism-ablation-contract.json`
 - `research/experiments/joint-capability-j1-adversarial-interlocus-v0/evidence-n2-mechanism-ablation-v1.json`
+- `research/experiments/representation-natural-n1-v0/CLOSEOUT.md`
+- `research/COJC-INITIAL-CAMPAIGN-CLOSEOUT-20260825.md`
 
 ## Non-claims
 

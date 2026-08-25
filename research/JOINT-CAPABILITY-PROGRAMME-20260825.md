@@ -4,7 +4,7 @@
 **Working nickname:** Capability Ecology
 **Research question:** `ANC-JOINT-001`
 **Research owner:** `ordivon-computing`
-**Status:** ACTIVE programme, 2026-08-25
+**Status:** INITIAL SCREENING COMPLETED; dormant natural-pressure reopen, 2026-08-25
 **Canonical Host continuity:** `task:ordivon-cross-owner-joint-capability-emergence-20260825`
 
 ## 1. Why this programme exists
@@ -304,23 +304,23 @@ Canonical closeout: `research/experiments/joint-capability-j1-adversarial-interl
 
 World remains subtracted. Reopen this relation route only from a genuinely new natural consumer or from an external trajectory satisfying the non-identifiability gate; do not add World or more N2 replicas to manufacture a positive coalition.
 
-### J2 — Representation-Sensitive Possibility
+### J2 — Representation-Sensitive Possibility — DORMANT
 
 Candidate owners: SCD × Computational Possibility × Media/Harness.
 
 Pressure: keep semantic referent and model fixed while changing operational representation/access. Measure whether the joint semantic + possibility + observer-relative treatment changes feasible methods or effective Agent capability beyond simple information-volume effects.
 
-### J3 — Authoritative Synthetic Institutional World
+### J3 — Authoritative Synthetic Institutional World — DORMANT
 
 Candidate owners: Game × Security × Normative, later Media/Human only when needed.
 
 Pressure: create a bounded interactive world where resources, authority, deception, communication and institutional rules co-determine reachable strategies. Game remains authoritative for game-world transition; Security and Normative retain their own semantics.
 
-### J4 — Fidelity / Reality Transfer
+### J4 — Fidelity / Reality Transfer — CONDITIONAL
 
 Move one accepted synthetic joint-capability result through controlled Security/VM/container substrate toward a World-owned external trajectory. Test what survives and what was merely a Game/Range artifact.
 
-### J5 — Natural Domain Consumption
+### J5 — Natural Domain Consumption — CONDITIONAL
 
 Use Finance/Web/Media/Human or another ordinary owner only when a real live workload naturally requires the composition. High-consequence domains begin read-only or reversible.
 
@@ -344,25 +344,35 @@ Contract or stop COJC if:
 - owner-local consumer work discovers useful combinations more cheaply than Computing can;
 - `emergence` becomes a rhetorical reward rather than a stricter evidence label.
 
-## 11. Immediate frontier
+## 11. Initial campaign closeout and dormant frontier
 
-J0 calibration is complete and J1 is closed negative for deletion-essentiality. The first Interlocus × Security route therefore **does not advance** to factorial complementarity or higher-order testing.
+The initial active screening campaign is complete. J0 calibrated the method, J1 closed without deletion-essentiality, and the programme then consumed the predeclared next materially different natural candidate rather than automatically extending J1. The N1 natural representation workload returned `MIXED_N1_NOT_REPRODUCED`: large context reduction did not preserve protected judgment quality, and the generic cross-artifact representation candidate was deleted.
 
-The immediate COJC frontier is now candidate selection from the already-open independent explorations, not automatic J1 extension:
-
-1. retain J1's epoch/currentness error-shaping mechanism as a bounded representation hypothesis, not a shared capability;
-2. require the next candidate to begin from a natural owner-native consumer/failure, with strong owner-local and mature-external baselines restored before intervention;
-3. choose at most one next physical COJC experiment after subtraction shows an identifiable owner contribution that does not require manufacturing a missing baseline;
-4. keep the current independent candidate families—representation-sensitive possibility, continuity, institutional worlds, capital decisions and other cross-owner combinations—as research search space rather than architecture;
-5. reopen Interlocus × Security only on a materially new consumer, or add World only when external-effect/trajectory evidence satisfies the formal non-identifiability re-entry condition;
-6. if the next natural-candidate round again reduces to owner sufficiency / representation convenience without deletion-positive outcome, downgrade or close COJC as an active P0 programme rather than rewarding continued search.
-
-The intended long-run change is not more cross-project bureaucracy. It is a new research reflex:
+Cross-branch PPD subtraction then tested whether another already-open candidate justified taking the vacated physical-experiment slot. None passed all four gates:
 
 ```text
-owner depth
-↔ owner-preserving composition
-↔ Reality pressure
+Natural pressure now?
+∧ residual beyond strong mature-generic + owner-local baseline?
+∧ admissible same-cut deletion/intervention without manufacturing failure?
+∧ independent owner-native downstream consequence?
 ```
 
-so that Ordivon searches not only for better parts, but for **new capabilities created by relations among already-good parts**.
+Continuity was the strongest residual and was therefore attacked rather than promoted. Generic indexed retrieval plus generic typed policy combination reproduced the prior compiled H=256 multi-stage ratchet at `33/33` across three fresh replicates. A 16-world Recursive Successor State control converged in every world and was generically equivalent with zero mismatches; an affordance-only negative confirmed only that one-step action sufficiency is not recursive state sufficiency. A source-native currentness reuse study showed revision-only evidence yields `UNKNOWN`, coarse diffs can prematurely mint currentness, and claim-relative load-bearing owner evidence supports bounded provenance rebind. The surviving discipline is responsibility-preserving reactivation under independently changing owner truth/currentness/effect/obligation, but no natural deletion-positive Atlas×Host×Harness downstream capability is established. Host continuity task `task:cojc-atlas-host-harness-continuity-capability-20260825@9` is therefore completed with dormant reopen only.
+
+Other current candidates remain below admission: Finance×Interlocus/World/CP is not identified under current deletion boundaries; SCD×Computational Possibility lacks a natural deletion witness after mature diagnosis/repair subtraction; Game×Security×Normative lacks a natural Normative-standing→Game bridge; Security×Interlocus is already closed on J1; generic Media×SCD×Harness representation is closed by N1. No owner combination is scheduled merely because it remains intellectually interesting.
+
+The programme's durable search law is now pressure-first:
+
+```text
+NaturalBlockedOutcome
+→ binding Actionability / responsibility cut
+→ responsible owner(s)
+→ strongest mature-generic + owner-local baseline
+→ smallest admissible deletion
+→ independent consequence
+→ only then ask whether a joint capability exists
+```
+
+A future reopen must satisfy all four gates above before consuming an active Computing line. Owner count, conceptual synergy, representation elegance, a synthetic factorial shape, or an isolated performance gain are insufficient. Historical J0/J1/N1/Continuity evidence remains recoverable and may be reused without re-running closed campaigns.
+
+Canonical closeout: `research/COJC-INITIAL-CAMPAIGN-CLOSEOUT-20260825.md`.

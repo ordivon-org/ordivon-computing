@@ -4,7 +4,7 @@
 
 - **As of:** `2026-08-25`
 - **Active research-line limit:** `2`
-- **Current active lines:** `2`
+- **Current active lines:** `1`
 
 `portfolio.json` is the single source of truth for **Computing-local** research status, question-evidence maturity, blockers, next falsifier, and WIP allocation. It does not own external project currentness or value. External-owner P0-P3 allocation requires an exact same-cut observation; otherwise the row remains reference-only.
 
@@ -13,7 +13,6 @@
 | Line | Priority | Question | Items | Implementation | Exit criterion |
 |---|---|---|---|---|---|
 | PAL-FIELD-001 | P1 | PAL prospective option-value and pressure-formation field studies | ANC-ADAPT-001 | — | F14 and F17 reach their frozen stop rules; results are scored from realized future evidence, stable findings are compressed, and no closed PAL executable remains in the active tree. |
-| COJC-001 | P0 | Cross-Owner Joint Capability / Capability Ecology | ANC-JOINT-001 | — | J1 is closed with no deletion-essentiality. Keep COJC active only while one next natural candidate is selected from the independent exploration frontier under a frozen consumer/falsifier; downgrade or close the line if the next natural candidate again reduces to owner sufficiency, representation convenience, or manufactured-baseline dependence. |
 
 ## Question and track portfolio
 
@@ -29,7 +28,6 @@
 | ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-ADAPT-001 | M5 | P1 | ordivon-computing | PAL-FIELD-001 | — | — | Continue only from natural post-t0 reality. Append qualifying F14 demand and F17 owner/external events under their frozen contracts; do not manufacture positive cases, change policy cards/prompts, or score either field study early. When both stop rules resolve, compress stable findings and remove f17_run.py from the active tree. | F14 must accumulate real post-t0 capability demand or close at its frozen window so ACTUAL_T0/CURRENT_ONLY/KEEP_ALL_FEASIBLE can be compared by realized carry/reacquisition/blocking regret; F17 must encounter genuine positive-pressure owner/external events whose predeclared decisive probes change a downstream research/design decision, allowing DIRECT_FULL_REVIEW versus PRESSURE_CERTIFICATE to be compared beyond no-op controls. |
-| ANC-JOINT-001 | M4 | P0 | ordivon-computing | COJC-001 | — | — | Do not rerun or rescue J1. Synthesize the already-open independent COJC explorations and admit at most one next physical experiment only after a natural owner-native consumer, exact source fences, strong baseline and deletion criterion are frozen. Retain J1 epoch/currentness geometry as a bounded representation mechanism candidate. World remains excluded from the J1 route unless a materially new external trajectory satisfies the non-identifiability re-entry gate. | Select one materially new natural cross-owner consumer after J1. The candidate must show an identifiable deletion/consumption consequence beyond a strong owner-local and mature-external baseline without manufacturing failure. If the next natural candidate also collapses to owner sufficiency or optional representation convenience, downgrade or close active COJC. |
 
 ### Blocked
 
@@ -66,6 +64,7 @@
 | ANC-EFFECT-001 | M5 | reference | ordivon-computing | — | — | — | Retain stable semantic identity, explicit UNKNOWN, opaque backend correlation, reconcile-before-redispatch, and independent verification. Keep provider request schemas, digest algorithms, Receipt semantics, and contract adaptation inside each adapter; reopen only on a reproduced multi-Binding failure. | One live semantic Effect has multiple provider or Tool Binding candidates whose compatibility, selection, or migration cannot remain in Host and adapter-local contracts. |
 | ANC-VERIFY-001 | M4 | reference | ordivon-computing | — | — | — | P0-A is closed on this workload. Five valid pairs establish a scoped retain/localize decision: H accepted 3/5 and produced 4/5 verifier-passing candidates; S accepted 0/5 and produced 0/5, while H used about 7.93x the average Provider tokens. Run no more replicas on this fixture. Durable continuation/reconciliation remains a separate value dimension and should be reopened only by a concrete failure or new consumer. | A materially different frozen workload or mature Provider-native path removes the measured correctness advantage of the current public DomainToolLoopRunner while preserving equivalent recovery/evidence value at lower permanent cost. |
 | ANC-HUMAN-001 | M2 | reference | ordivon-human | — | aa5a7af51e36 | — | Consume the revised Human model as a reference: diagnose unsupported transitions, smallest binding sets, and the relevant engine while preserving life quality, recoverability, obligations, control, and maintenance. Reopen only on contradictory real evidence; do not create a person model, score, financial authority, or automatic successor. | A simpler model explains concrete Ordivon cases without separate terminal outcomes, three economic engines, cross-cutting rails, ownership and leverage quality, coupled constraints, attention cost, human–AI retained capability, or autonomy distinctions; or those distinctions do not change a design or evaluation. |
+| ANC-JOINT-001 | M5 | reference | ordivon-computing | — | — | — | Retain the initial COJC campaign as historical screening evidence. Do not rerun/rescue J1, N1, or Continuity synthetic controls and do not select another owner combination merely to preserve programme momentum. Future COJC work begins pressure-first from a natural blocked owner outcome, then identifies the smallest responsibility cut and mature baseline before any physical experiment. | Reopen only when a materially new natural cross-owner consumer simultaneously passes four gates: current natural pressure, residual beyond a strong mature-generic and owner-local baseline, an admissible same-cut deletion/intervention that does not manufacture failure, and an independent owner-native downstream consequence. Owner combinations alone are not a reopen trigger. |
 | ANC-GAME-001 | M4 | reference | ordivon-game | — | — | — | Host convergence and authority cutover are closed. Game #58 serves R-A as the deterministic paired laboratory; Game #59 preserves deferred Session/compaction ablations after Harness v0. | A second game family requires a generic responsibility absent from one Host plus Game-owned World and replay semantics. |
 
 ### Superseded
