@@ -25,6 +25,22 @@ Continuity was the strongest remaining candidate and received the final destruct
 
 The surviving bounded discipline is **responsibility-preserving reactivation under independently changing owner truth/currentness/effect/obligation**: after discontinuity, preserve history but rehydrate only operation-relevant premises from their current owners; keep outstanding obligations and ambiguous effects explicit; recompile actionability after owner-local revalidation. This is not presently deletion-positive Atlas×Host×Harness joint capability.
 
+## Late concurrent Representation evidence correction
+
+A source-fenced detached Computing lineage that was not visible to the first closeout cut produced a later positive natural Representation result before this programme was fully terminalized. Exact chronology matters: N1 closeout `607d7de` was recorded at 16:23–16:25, detached natural-transfer closeout `5021e8f` at 16:44, this initial closeout `af70dcf` at 17:32, and its generic-composition provenance audit `4d2fd6b` at 17:37. The positive transfer and current main are divergent descendants of merge-base `90b7bc3`; the detached experiment is therefore retained as separately source-fenced evidence rather than silently merged as current authority.
+
+The v2 natural transfer is a strong **scoped operation-relative Representation effect**: `FULL_SOURCE=93/120`, `OPERATION_PROJECTION=111/120`, projection wins `3/3` paired semantic replicates, Provider prompt tokens fall `28236→7253` (`-74.31%`), and false broad promotion remains `0→0`. Its own closeout requires a second materially different consumer/operation before shared materialization.
+
+Mechanism-provenance audit bounds the COJC attribution. The successful `target/claim + evidence + challenge + boundary` projection was hand-authored inside Computing research from frozen source cards; Media experimental role was `NULL`, SCD experimental role was `NULL`, and Harness was carrier/measurement. Thus this result does **not** reopen Media×SCD×Harness joint capability and does not contradict the N1 deletion of reusable CECB. It instead sharpens the mature-baseline gate:
+
+```text
+DeletionEssential != JointIrreducible
+Interaction != NovelCapability
+Complementarity != Emergence
+```
+
+A fair generic-composition baseline may use the same owner-native primitives, facts, authority and mature workflow/policy/indexing/protocol/reconciliation/information-architecture mechanisms, but may not receive hidden answers or future labels and must pay construction/currentness/maintenance/recovery cost. If that baseline reproduces the qualified outcome, the standing is operational composition / scoped interaction rather than JOINT_CAPABILITY. The detached `4d2fd6b` research branch is retained as method evidence only; its full theory surface is not promoted to canonical main because no second natural consumer currently requires it.
+
 ## Candidate survivorship
 
 A candidate may consume future physical COJC WIP only if all four gates are true:
@@ -42,7 +58,7 @@ Current disposition:
 | Candidate | Natural pressure | Mature residual | Same-cut deletion | Independent consequence | Disposition |
 |---|---|---|---|---|---|
 | Security × Interlocus | bounded experimental pressure | weak/representation-shaped | no deletion-essential treatment | no | CLOSED J1 |
-| Media × SCD × Harness generic representation | natural N1 | no reusable generic advantage | closed by required replication | no protected benefit | CLOSED N1 |
+| Media × SCD × Harness attribution | natural N1 plus late scoped transfer | generic operation projection explains the late effect; Media/SCD treatment roles NULL, Harness carrier | no Media/SCD deletion-essential treatment | no joint owner-native consequence | CLOSED as joint candidate; scoped Representation effect retained |
 | Finance × Interlocus/World/CP | partial | four-owner residual not identified | not currently identifiable without manufacturing | no | HOLD / REJECT CURRENT IDENTIFIABILITY |
 | SCD × Computational Possibility | no current natural DSW | mature diagnosis/repair explains generic route | no | no | DORMANT |
 | Game × Security × Normative | no current natural bridge | unresolved | no admissible bridge | no | HOLD |
@@ -86,5 +102,7 @@ Until then, individual owners continue their own research. Interesting owner com
 - `research/experiments/joint-capability-j1-adversarial-interlocus-v0/result-summary-v1.json`
 - `research/experiments/representation-natural-n1-v0/CLOSEOUT.md`
 - Host `task:cojc-atlas-host-harness-continuity-capability-20260825@9`
+- Detached natural Representation transfer `5021e8f139f88465e08fdbaa5ed722cfe024a9b5` and generic-composition provenance audit `4d2fd6b51382abb8aacc68262bbfc6fb81de8753`
+- Host `task:cojc-generic-composition-subtraction-joint-irreducibility-20260825`
 
 Closed experiments remain historical evidence; they are not to be rerun merely to seek a positive stronger label.

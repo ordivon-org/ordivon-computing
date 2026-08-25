@@ -38,6 +38,8 @@ The predeclared next-candidate gate has now been consumed. The materially differ
 
 The initial campaign therefore closes with **no current physical COJC survivor**. Future reopen is pressure-first, not owner-combination-first: a candidate must begin from a materially new natural blocked owner outcome and simultaneously pass `NaturalPressure ∧ MatureBaselineResidual ∧ IdentifiableDeletion ∧ IndependentConsequence`. Interlocus × Security, representation-sensitive possibility, continuity, institutional worlds and capital-decision combinations remain dormant scientific search space only; none is an active experiment queue.
 
+A late concurrent detached Representation transfer (`5021e8f`) is retained as a currentness correction, not as a reopen: it produced a strong scoped generic operation-projection effect (`FULL 93/120`, projection `111/120`, paired wins `3/3`, prompt tokens `-74.31%`). Follow-up provenance audit (`4d2fd6b`) found Media and SCD experimental roles NULL and Harness carrier-only. It therefore sharpens `MatureBaselineResidual` to include fair Generic Composition Subtraction and establishes the guard `DeletionEssential != JointIrreducible`; it does not establish Media×SCD×Harness JOINT_CAPABILITY or create a new physical experiment queue.
+
 ## Minimum evidence for stronger labels
 
 - `composition`: deletion changes a real owner-native outcome;
