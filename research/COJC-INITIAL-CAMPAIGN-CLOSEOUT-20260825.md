@@ -156,3 +156,16 @@ Until then, individual owners continue their own research. Interesting owner com
 - Host `task:cojc-generic-composition-subtraction-joint-irreducibility-20260825`
 
 Closed experiments remain historical evidence; they are not to be rerun merely to seek a positive stronger label.
+
+## Post-closeout source-fenced note — J3-AIC
+
+A later detached J3-AIC synthetic institutional-currentness branch has been reconciled into the programme as historical evidence. It does not change this closeout's four-gate reopen predicate and does not reopen the initial campaign.
+
+Its bounded contribution is a currentness/representation result, not a joint-owner irreducibility result: forced linearization can collapse unresolved institutional order into an unsafe fictitious unique Now; compiled admissible Binding Sets materially improved finite-Agent action recovery in the repaired paired-block experiment; Agent-facing currentness remains distinct from owner-side transition-sufficient state; and authenticated order evidence remains distinct from institutionally admitted precedence.
+
+See:
+
+- `research/experiments/joint-capability-j3-aic-v0/J3-AIC-CLOSEOUT.md`
+- `research/J3-AIC-INSTITUTIONAL-CURRENTNESS-STANDING-20260825.md`
+
+The synthetic branch does not satisfy NaturalPressure ∧ MatureBaselineResidual ∧ IdentifiableDeletion ∧ IndependentConsequence, so programme status remains dormant.

@@ -95,3 +95,27 @@ This question does not establish that:
 - pairwise interaction maps are sufficient for higher-order systems;
 - one cross-owner success transfers across domains;
 - owner boundaries should be weakened to make composition easier.
+
+## Late source-fenced reconciliation — J3-AIC institutional currentness
+
+A later detached Programme Track J3 branch, `research/experiments/joint-capability-j3-aic-v0/`, completed a bounded synthetic institutional-currentness campaign after the initial screening programme had already become dormant. It is admitted here as **historical source-fenced evidence**, not as a reopen of active COJC candidate search.
+
+The branch's strongest result is not Game × Security × Normative irreducibility. It established a set of currentness/representation laws under a synthetic authority/control/validity/partial-order workload:
+
+- Agent-facing currentness is not transition-sufficient owner state;
+- a unique current binding can hide future-relevant continuation ambiguity;
+- forced event linearization can invent a unique institutional Now unsupported by the evidence and can produce semantic safety errors;
+- raw exposure of a partial order is not equivalent to a compiled admissible Binding Set for finite Agents;
+- occurrence order, observation order, authenticated order evidence and institutionally admitted precedence remain distinct;
+- immediate action safety depends on the admissible consequence envelope, not on uncertainty cardinality alone.
+
+In repaired S5B-B v2, 34 complete three-arm paired blocks yielded 94.1% safe-action correctness and zero semantic safety errors for `BINDING_SET_PROJECTION`, versus 67.6% / 3 errors for forced linearization and 61.8% / 1 error for raw partial-order exposure. The only frozen pre-registered disposition earned was `LINEARIZATION_COLLAPSE_HARM`; the stronger `SET_VALUED_CURRENTNESS_EFFECT` label was not earned because multiplicity correctness was 88.2%, below its 90% gate.
+
+This evidence does **not** satisfy the current four-gate COJC reopen predicate. No natural blocked owner-native consumer, same-cut owner deletion or independent joint owner-native consequence was established. It therefore strengthens Computing's representation/currentness world model and future transfer hypotheses without reviving owner-combination-first search.
+
+Canonical evidence:
+
+- `research/experiments/joint-capability-j3-aic-v0/J3-AIC-CLOSEOUT.md`
+- `research/experiments/joint-capability-j3-aic-v0/J3-AIC-STANDING.json`
+- `research/experiments/joint-capability-j3-aic-v0/EVIDENCE-MANIFEST.sha256.json`
+- `research/J3-AIC-INSTITUTIONAL-CURRENTNESS-STANDING-20260825.md`

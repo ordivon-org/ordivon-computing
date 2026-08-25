@@ -382,3 +382,31 @@ NaturalBlockedOutcome
 A future reopen must satisfy all four gates above before consuming an active Computing line. Owner count, conceptual synergy, representation elegance, a synthetic factorial shape, or an isolated performance gain are insufficient. Historical J0/J1/N1/Continuity evidence remains recoverable and may be reused without re-running closed campaigns.
 
 Canonical closeout: `research/COJC-INITIAL-CAMPAIGN-CLOSEOUT-20260825.md`.
+
+## Late source-fenced Programme Track J3 reconciliation — J3-AIC
+
+After the initial screening campaign closed, a detached bounded J3-AIC branch completed the synthetic institutional-currentness line originally motivated by Game × Security × Normative. It is incorporated as historical programme evidence without changing the programme's dormant natural-pressure status.
+
+The branch did **not** run the natural proper-subset owner factorial required for COJC evidence-level `J3 higher-order irreducibility`. It therefore earns no emergence or phase-transition label and creates no Institution/AIC owner.
+
+What survived is narrower and reusable:
+
+```text
+owner-native history/state
+→ query-relative continuation composition
+→ current binding / admissible BindingSet
+→ action-relative ConsequenceEnvelope
+→ finite consumer decision
+```
+
+The experimental record shows that representation horizon matters: an Agent-facing currentness projection can improve decision robustness while still being too coarse to serve as future transition state; partial-order currentness may remain set-valued; forced linearization can cause safety errors; and an authenticated order witness does not become institutional precedence unless current policy admits that role.
+
+The repaired three-arm S5B-B v2 produced 34 complete paired blocks with zero provider-invalid blocks. `BINDING_SET_PROJECTION` reached 94.1% safe-action correctness with zero semantic safety errors, while forced linearization reached 67.6% with three errors and raw partial-order exposure reached 61.8% with one error. Only `LINEARIZATION_COLLAPSE_HARM` crossed its frozen promotion gate.
+
+Programme disposition remains unchanged: **no active COJC candidate is admitted merely from this synthetic result.** The next meaningful use is transfer falsification in a materially different natural consumer that already satisfies the programme's four gates.
+
+Canonical J3-AIC sources:
+
+- `research/experiments/joint-capability-j3-aic-v0/J3-AIC-CLOSEOUT.md`
+- `research/experiments/joint-capability-j3-aic-v0/J3-AIC-STANDING.json`
+- `research/J3-AIC-INSTITUTIONAL-CURRENTNESS-STANDING-20260825.md`
