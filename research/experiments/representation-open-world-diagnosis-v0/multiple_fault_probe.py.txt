@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+"""Reiter-style conflict/hitting-set counterexample to single-fault attribution."""
+from itertools import combinations
+COMP=("source","G","evaluator")
+# Each conflict says not all listed components can be healthy under the observation.
+CONFLICTS=[{"source","G"},{"G","evaluator"}]
+
+def hits(candidate, conflict): return bool(candidate & conflict)
+
+def all_hitting_sets():
+    out=[]
+    for r in range(1,len(COMP)+1):
+        for xs in combinations(COMP,r):
+            s=set(xs)
+            if all(hits(s,c) for c in CONFLICTS): out.append(s)
+    return out
+
+def minimal(sets):
+    return [s for s in sets if not any(t < s for t in sets)]
+
+mins=minimal(all_hitting_sets())
+print("# Multiple-fault diagnosis counterexample\n")
+print("conflicts:",CONFLICTS)
+print("minimal diagnoses:",mins)
+# Minimal diagnoses are {G} OR {source,evaluator}. Single-fault-only reasoning would force G.
+assert {frozenset(x) for x in mins} == {frozenset({"G"}),frozenset({"source","evaluator"})}
+single=[s for s in mins if len(s)==1]
+print("single-fault-only surviving diagnosis:",single)
+print("\nPASS: a single-fault assumption discards a valid multi-fault explanation and can force a representation diagnosis even when a source+evaluator combination equally explains the evidence.")

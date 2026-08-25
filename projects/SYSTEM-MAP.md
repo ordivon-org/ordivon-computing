@@ -2,7 +2,7 @@
 
 This file is generated from [`registry.yaml`](registry.yaml), Computing's non-exhaustive project-family packaging/compatibility roster. It is not a current semantic-owner registry; do not hand-maintain packaging counts or recorded roles here.
 
-**Registered Computing packaging identities: 11**
+**Registered Computing packaging identities: 15**
 
 | Packaging identity | Recorded role | Repository |
 | --- | --- | --- |
@@ -17,5 +17,9 @@ This file is generated from [`registry.yaml`](registry.yaml), Computing's non-ex
 | `ordivon-human` | problem-driven-human-life-trajectory-and-change-research | https://github.com/zycxfyh/ordivon-human |
 | `ordivon-media` | structured-mediation-expression-and-studio-production-capability | https://github.com/zycxfyh/ordivon-media |
 | `ordivon-web` | public-memory-publication-and-project-navigation | https://github.com/zycxfyh/ordivon-web |
+| `ordivon-scd` | semantics-of-computational-descriptions-research-owner | https://github.com/zycxfyh/ordivon-scd |
+| `ordivon-computational-possibility` | regime-relative-computational-achievability-and-impossibility-research-owner | https://github.com/zycxfyh/ordivon-computational-possibility |
+| `ordivon-interlocus` | cross-locus-capability-composition-binding-and-reachability-research-owner | https://github.com/zycxfyh/ordivon-interlocus |
+| `ordivon-normative` | context-relative-constitutive-and-normative-admission-research-owner | https://github.com/zycxfyh/ordivon-normative |
 
 This projection deliberately excludes current semantic owner identity/name/authority/currentness as well as mutable maturity, deployment, Task, service, and live-state claims. For current semantic ownership, follow owner-native authority; use Atlas generated owner/current-recovery projections where covered. Historical packaging identities may remain for Computing lineage. Regenerate with `python3 scripts/generate_project_family.py --write`; verify with `--check`.

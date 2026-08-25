@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+"""Safe active diagnosis: hard admission before information gain.
+
+Three candidate faults and three probes. The maximally discriminating probe is unauthorized;
+a cheap probe is nondiscriminating; the admissible middle probe is selected. This connects
+active diagnosis with Ordivon authority/safety/currentness boundaries.
+"""
+from math import log2
+H=("source","G","R")
+PROB={h:1/3 for h in H}
+PROBES={
+    # outcome predictions per hypothesis
+    "p1_write_live_system": {"pred":{"source":"S","G":"G","R":"R"},"authorized":False,"safe":False,"cost":1},
+    "p2_read_only_crosscheck": {"pred":{"source":"bad-source","G":"source-ok","R":"source-ok"},"authorized":True,"safe":True,"cost":2},
+    "p3_ping": {"pred":{"source":"up","G":"up","R":"up"},"authorized":True,"safe":True,"cost":0},
+}
+
+def entropy(dist):
+    return -sum(p*log2(p) for p in dist if p>0)
+
+def expected_posterior_entropy(probe):
+    pred=PROBES[probe]["pred"]
+    buckets={}
+    for h,p in PROB.items(): buckets.setdefault(pred[h],[]).append((h,p))
+    e=0.0
+    for members in buckets.values():
+        mass=sum(p for _,p in members)
+        posterior=[p/mass for _,p in members]
+        e += mass*entropy(posterior)
+    return e
+
+def info_gain(probe): return entropy(PROB.values())-expected_posterior_entropy(probe)
+
+print("# Safe active-probe selection\n")
+for p,spec in PROBES.items():
+    print(p,"info_gain=",round(info_gain(p),6),"authorized=",spec["authorized"],"safe=",spec["safe"],"cost=",spec["cost"])
+
+naive=max(PROBES,key=info_gain)
+admissible=[p for p,s in PROBES.items() if s["authorized"] and s["safe"]]
+chosen=max(admissible,key=lambda p:(info_gain(p),-PROBES[p]["cost"]))
+print("naive max-information probe:",naive)
+print("hard-gated chosen probe:",chosen)
+assert naive=="p1_write_live_system"
+assert chosen=="p2_read_only_crosscheck"
+assert info_gain("p3_ping")==0
+print("\nPASS: diagnostic information value never creates action authority. Hard safety/authority/currentness admission precedes active-probe optimization; the best admissible probe can be less informative than an unavailable one.")

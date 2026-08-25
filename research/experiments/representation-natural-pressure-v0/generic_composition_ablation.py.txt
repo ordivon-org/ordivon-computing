@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+"""Ablation: can generic Research/PAL apparatus + question-local nextFalsifier replace a
+Representation-specific trigger classifier?
+
+The comparison is intentionally at the *research action* level, not label identity. It reuses the
+same retrospective/control case descriptions as eligibility_audit.py but strips G/R/A/N1/N2/N3
+fields from the generic decision path. The branch-local reopen match is treated as question-owned
+semantics, analogous to research/portfolio.json nextFalsifier, not a new global schema.
+"""
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class AuditCase:
+    case_id: str
+    natural: bool
+    targeted_fixture: bool
+    answer_revealed_before_freeze: bool
+    owner_local_or_mechanically_resolved: bool
+    shared_decision_lever: bool
+    branch_reopen_condition_matches: bool
+    owner_local_research_question: bool = False
+    expected_action: str = ""
+
+
+def generic_research_action(c: AuditCase) -> str:
+    if c.targeted_fixture or not c.natural:
+        return "OWNER_LOCAL_RESEARCH_ONLY" if c.owner_local_research_question else "METHOD_EVIDENCE_ONLY"
+    if c.answer_revealed_before_freeze:
+        return "RETROSPECTIVE_ONLY"
+    if c.owner_local_or_mechanically_resolved or not c.shared_decision_lever:
+        return "NO_SHARED_REPRESENTATION_ACTION"
+    if c.branch_reopen_condition_matches:
+        return "FREEZE_LOCAL_PROSPECTIVE_EXPERIMENT"
+    return "NO_SHARED_REPRESENTATION_ACTION"
+
+CASES=[
+    AuditCase("book-six-artifact-natural-audit", True, False, True, False, True, False, False, "RETROSPECTIVE_ONLY"),
+    AuditCase("harness-current-no-tool-regression", True, False, True, True, False, False, False, "RETROSPECTIVE_ONLY"),
+    # Note: because this audit asks evidence class before owner route, already-answer-revealed wins.
+    # The owner-local interpretation is still preserved in the source case record.
+    AuditCase("scd-traa-illicit-bridge-dogfood", False, True, False, False, True, False, True, "OWNER_LOCAL_RESEARCH_ONLY"),
+    AuditCase("computing-c6-owner-pressure-selection", False, True, False, False, True, False, False, "METHOD_EVIDENCE_ONLY"),
+    AuditCase("pal-f17-e008-open-world-equivalence", True, False, False, True, False, False, False, "NO_SHARED_REPRESENTATION_ACTION"),
+    AuditCase("pal-f14-i004-workstation-finance-okx-demand", True, False, False, True, True, False, False, "NO_SHARED_REPRESENTATION_ACTION"),
+    AuditCase("pal-f18-natural-harness-support-shift", True, False, False, True, True, False, False, "NO_SHARED_REPRESENTATION_ACTION"),
+    AuditCase("future-n1-boundary-positive-control", True, False, False, False, True, True, False, "FREEZE_LOCAL_PROSPECTIVE_EXPERIMENT"),
+    AuditCase("future-n2-boundary-positive-control", True, False, False, False, True, True, False, "FREEZE_LOCAL_PROSPECTIVE_EXPERIMENT"),
+    AuditCase("future-n3-source-contract-suffices-control", True, False, False, False, True, False, False, "NO_SHARED_REPRESENTATION_ACTION"),
+    AuditCase("future-n3-unique-scd-boundary-positive-control", True, False, False, False, True, True, False, "FREEZE_LOCAL_PROSPECTIVE_EXPERIMENT"),
+]
+
+print("# Generic apparatus + local nextFalsifier ablation\n")
+failed=[]
+for c in CASES:
+    got=generic_research_action(c)
+    ok=got==c.expected_action
+    print(f"{c.case_id}: {got} :: {'PASS' if ok else 'FAIL expected='+c.expected_action}")
+    if not ok: failed.append((c.case_id,c.expected_action,got))
+assert not failed, failed
+
+print("\nPermanent generic decision inputs used:")
+print("- natural/targeted evidence class")
+print("- contamination: answer-revealing inspection before freeze")
+print("- owner-local/shared decision lever")
+print("- branch-local nextFalsifier/reopen-condition match")
+print("\nPASS: the selected audit/control decisions do not require a Representation-specific global trigger taxonomy. Generic prospective-research apparatus plus question-local reopen semantics reproduces the needed research actions on this audit set. This is an architecture/deletion result, not proof that future triggers will never need richer local fields.")

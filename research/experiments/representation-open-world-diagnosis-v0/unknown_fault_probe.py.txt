@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+"""Closed-set forcing vs open-world UNKNOWN/MODEL_INADEQUATE.
+
+Known hypotheses predict two-bit signatures. The observation is outside all known signatures.
+A forced nearest classifier fabricates a familiar diagnosis; an open-set policy preserves UNKNOWN.
+A later owner-qualified probe motivates adding a new hypothesis.
+"""
+KNOWN={
+    "H_source": (1,0,0),
+    "H_G":      (0,1,0),
+    "H_R":      (0,0,1),
+    "H_A":      (1,1,0),
+}
+OBS=(0,1,1)
+
+def hamming(a,b): return sum(x!=y for x,y in zip(a,b))
+
+def forced_closed_set(obs):
+    return min(KNOWN, key=lambda h:(hamming(KNOWN[h],obs),h))
+
+def open_set(obs):
+    exact=[h for h,s in KNOWN.items() if s==obs]
+    return exact[0] if exact else "UNKNOWN_MODEL_INADEQUATE"
+
+print("# Unknown-fault counterexample\n")
+print("observation:",OBS)
+print("known predictions:",KNOWN)
+print("forced closed-set diagnosis:",forced_closed_set(OBS),"distance=",hamming(KNOWN[forced_closed_set(OBS)],OBS))
+print("open-set standing:",open_set(OBS))
+assert open_set(OBS)=="UNKNOWN_MODEL_INADEQUATE"
+
+# Later evidence supports a previously unmodeled evaluator/protocol fault.
+EXPANDED=dict(KNOWN)
+EXPANDED["H_evaluator_protocol"]=(0,1,1)
+exact=[h for h,s in EXPANDED.items() if s==OBS]
+print("after model expansion from new owner-qualified evidence:",exact)
+assert exact==["H_evaluator_protocol"]
+print("\nPASS: a diagnosis system that cannot express unknown/model-inadequate causes will confidently misclassify novel failure signatures into familiar representation categories.")

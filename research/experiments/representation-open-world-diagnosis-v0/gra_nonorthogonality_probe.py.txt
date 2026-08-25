@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""G/R/A non-orthogonality and outcome-identifiability counterexample.
+
+Research-only construct. Three different mechanism paths produce the same bounded target success:
+G: reorder/localize the target;
+R: introduce a direct address/query operator;
+A: external filtering computes the relevant subset for the observer.
+A fourth realistic intervention (change-highlighting) necessarily combines G and A because the
+system must compute a delta and then alter its salience. Therefore outcome improvement does not
+identify a unique G/R/A mechanism, and some interventions have no natural single coordinate.
+"""
+TARGET="item-73"
+ITEMS=[f"item-{i}" for i in range(100)]
+BUDGET=1
+
+
+def baseline():
+    inspected=ITEMS[:BUDGET]
+    return TARGET in inspected
+
+
+def g_reorder():
+    # Encounter Geometry: same items/operators, target localized first.
+    view=[TARGET]+[x for x in ITEMS if x!=TARGET]
+    return TARGET in view[:BUDGET]
+
+
+def r_direct_address():
+    # Operational Grammar: a query/addressing operation makes target lookup direct.
+    index={x:x for x in ITEMS}
+    return index.get(TARGET)==TARGET
+
+
+def a_external_filter():
+    # Responsibility Allocation: environment performs relevance filtering before encounter.
+    filtered=[x for x in ITEMS if x==TARGET]
+    return TARGET in filtered[:BUDGET]
+
+
+def ga_change_highlight(old,new):
+    # To show a changed item first, the environment computes the diff (A) and changes
+    # observer salience/order (G). The intervention cannot be honestly single-labelled.
+    changed=[k for k in new if old.get(k)!=new.get(k)]
+    unchanged=[k for k in new if k not in changed]
+    return changed+unchanged
+
+print("# G/R/A outcome non-identifiability\n")
+print("baseline success:",baseline())
+print("G-only path success:",g_reorder())
+print("R-only path success:",r_direct_address())
+print("A-only path success:",a_external_filter())
+assert not baseline()
+assert g_reorder() and r_direct_address() and a_external_filter()
+
+old={"A":1,"B":2,"C":3}
+new={"A":1,"B":5,"C":3}
+view=ga_change_highlight(old,new)
+print("\ncombined change-highlighting view:",view)
+print("mechanism signature:",{"G":True,"R":False,"A":True})
+assert view[0]=="B"
+
+print("\nPASS: identical target improvement can be realized through distinct G, R, or A mechanisms, while realistic interventions can intrinsically span multiple coordinates. G/R/A therefore cannot be inferred from outcome and should not be treated as orthogonal canonical axes; use explicit intervention signatures and deletion controls.")

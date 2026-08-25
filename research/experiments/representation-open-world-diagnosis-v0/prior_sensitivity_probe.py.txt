@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+"""Arbitrary priors can manufacture an active-diagnosis preference.
+
+Two probes isolate different hypotheses. With no justified fault probabilities, choosing by Shannon
+information gain under an arbitrary prior can reverse as the prior changes. Set-based worst-case
+partition quality remains a different, explicit objective.
+"""
+from math import log2
+H=("source","G","R")
+PROBES={
+    "isolate_source":{"source":"S","G":"other","R":"other"},
+    "isolate_R":{"source":"other","G":"other","R":"R"},
+}
+PRIORS={
+    "source_likely":{"source":0.8,"G":0.1,"R":0.1},
+    "R_likely":{"source":0.1,"G":0.1,"R":0.8},
+    "uniform":{"source":1/3,"G":1/3,"R":1/3},
+}
+
+def entropy(ps): return -sum(p*log2(p) for p in ps if p>0)
+def info_gain(probe,prior):
+    pred=PROBES[probe]
+    buckets={}
+    for h,p in prior.items(): buckets.setdefault(pred[h],[]).append((h,p))
+    post=0.0
+    for members in buckets.values():
+        mass=sum(p for _,p in members)
+        post += mass*entropy([p/mass for _,p in members])
+    return entropy(prior.values())-post
+
+def worst_case_remaining(probe):
+    buckets={}
+    for h in H: buckets.setdefault(PROBES[probe][h],[]).append(h)
+    return max(len(v) for v in buckets.values())
+
+print("# Prior sensitivity in active diagnosis\n")
+for pname,prior in PRIORS.items():
+    gains={p:info_gain(p,prior) for p in PROBES}
+    best=max(gains,key=gains.get)
+    print(pname,"gains=",{k:round(v,6) for k,v in gains.items()},"best=",best)
+
+print("set-based worst-case remaining:",{p:worst_case_remaining(p) for p in PROBES})
+assert max(PROBES,key=lambda p:info_gain(p,PRIORS["source_likely"]))=="isolate_source"
+assert max(PROBES,key=lambda p:info_gain(p,PRIORS["R_likely"]))=="isolate_R"
+assert worst_case_remaining("isolate_source")==worst_case_remaining("isolate_R")==2
+print("\nPASS: active-probe ranking by expected information is prior-relative. When priors are not owner/evidence-grounded, preserve set-based ambiguity instead of fabricating a uniform probability model.")

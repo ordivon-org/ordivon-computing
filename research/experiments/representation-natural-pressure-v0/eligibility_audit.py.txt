@@ -1,0 +1,184 @@
+#!/usr/bin/env python3
+"""Research-only audit of a thin Representation natural-pressure eligibility lens.
+
+This does NOT monitor owners, create a registry, or infer causal truth. It only asks whether a
+case that has already entered ordinary Research/owner evidence would be eligible for one of the
+frozen residual studies N1/N2/N3/O4/O5, retrospective-only, or should remain outside this branch.
+Historical labels below are method-audit expectations, not rescored scientific evidence.
+"""
+from dataclasses import dataclass
+from typing import FrozenSet
+
+@dataclass(frozen=True)
+class Case:
+    case_id: str
+    natural: bool
+    already_answer_revealed: bool
+    synthetic_or_targeted_fixture: bool
+    representation_plausible: bool
+    non_rep_rival_plausible: bool
+    mechanically_owner_resolved: bool
+    shared_decision_lever: bool
+    materially_new_workload: bool
+    operation_relative_audit: bool = False
+    semantic_reconfiguration: bool = False
+    unique_scd_discriminant_pressure: bool = False
+    traа_support_closure_owner_question: bool = False
+    longitudinal_support_removal: bool = False
+    expected: str = ""
+
+
+def classify(c: Case) -> str:
+    # Synthetic/targeted fixtures remain useful method/owner evidence but cannot become a
+    # prospective natural trigger merely because they concern representation.
+    if c.synthetic_or_targeted_fixture or not c.natural:
+        if c.traа_support_closure_owner_question:
+            return "OWNER_LOCAL_O4_TARGETED_RESEARCH"
+        return "SYNTHETIC_OR_TARGETED_METHOD_EVIDENCE"
+
+    # A mechanically resolved owner-local fault should not be reopened as Representation pressure.
+    if c.mechanically_owner_resolved and not c.shared_decision_lever:
+        return "OWNER_LOCAL_NO_REPRESENTATION_PRESSURE"
+
+    # Natural event but no live representation causal/intervention question.
+    if not c.representation_plausible:
+        return "NATURAL_NEGATIVE_CONTROL_NO_REPRESENTATION_PRESSURE"
+
+    # No branch-relevant decision lever: preserve as a natural no-op/control, not pressure.
+    if not c.shared_decision_lever:
+        return "NATURAL_NO_SHARED_REPRESENTATION_PRESSURE"
+
+    # Once answer-revealing implementation/history was inspected, the case can still inform
+    # hypothesis generation/postmortem but cannot serve as prospective causal evidence.
+    if c.already_answer_revealed:
+        return "ELIGIBLE_RETROSPECTIVE_ONLY_CONTAMINATED"
+
+    if c.operation_relative_audit:
+        return "ELIGIBLE_N1_OPERATION_RELATIVE_PROSPECTIVE" if c.materially_new_workload else "N1_REPEAT_MORPHOLOGY_NOT_ELIGIBLE"
+
+    if c.semantic_reconfiguration:
+        if c.unique_scd_discriminant_pressure:
+            return "ELIGIBLE_N3_SCD_SEMANTIC_RECONFIGURATION_PROSPECTIVE"
+        return "N3_DEFAULT_NULL_SOURCE_CONTRACT_PLUS_HARNESS"
+
+    if c.longitudinal_support_removal:
+        return "ELIGIBLE_O5_LONGITUDINAL_SUPPORT_REMOVAL_PROSPECTIVE"
+
+    # N2 requires at least one non-representation rival to avoid pre-attributing the failure.
+    if c.non_rep_rival_plausible:
+        return "ELIGIBLE_N2_AMBIGUOUS_FAILURE_PROSPECTIVE"
+
+    return "INSUFFICIENT_COMPETING_CAUSAL_PRESSURE"
+
+CASES = [
+    Case(
+        "book-six-artifact-natural-audit",
+        natural=True, already_answer_revealed=True, synthetic_or_targeted_fixture=False,
+        representation_plausible=True, non_rep_rival_plausible=False,
+        mechanically_owner_resolved=False, shared_decision_lever=True,
+        materially_new_workload=False, operation_relative_audit=True,
+        expected="ELIGIBLE_RETROSPECTIVE_ONLY_CONTAMINATED",
+    ),
+    Case(
+        "harness-current-no-tool-regression",
+        natural=True, already_answer_revealed=True, synthetic_or_targeted_fixture=False,
+        representation_plausible=False, non_rep_rival_plausible=True,
+        mechanically_owner_resolved=True, shared_decision_lever=False,
+        materially_new_workload=True,
+        expected="OWNER_LOCAL_NO_REPRESENTATION_PRESSURE",
+    ),
+    Case(
+        "scd-traa-illicit-bridge-dogfood",
+        natural=False, already_answer_revealed=False, synthetic_or_targeted_fixture=True,
+        representation_plausible=True, non_rep_rival_plausible=False,
+        mechanically_owner_resolved=False, shared_decision_lever=True,
+        materially_new_workload=True, traа_support_closure_owner_question=True,
+        expected="OWNER_LOCAL_O4_TARGETED_RESEARCH",
+    ),
+    Case(
+        "computing-c6-owner-pressure-selection",
+        natural=False, already_answer_revealed=False, synthetic_or_targeted_fixture=True,
+        representation_plausible=True, non_rep_rival_plausible=True,
+        mechanically_owner_resolved=False, shared_decision_lever=True,
+        materially_new_workload=True,
+        expected="SYNTHETIC_OR_TARGETED_METHOD_EVIDENCE",
+    ),
+    Case(
+        "pal-f17-e008-open-world-equivalence",
+        natural=True, already_answer_revealed=False, synthetic_or_targeted_fixture=False,
+        representation_plausible=True, non_rep_rival_plausible=True,
+        mechanically_owner_resolved=False, shared_decision_lever=False,
+        materially_new_workload=True,
+        expected="NATURAL_NO_SHARED_REPRESENTATION_PRESSURE",
+    ),
+    Case(
+        "pal-f14-i004-workstation-finance-okx-demand",
+        natural=True, already_answer_revealed=False, synthetic_or_targeted_fixture=False,
+        representation_plausible=False, non_rep_rival_plausible=True,
+        mechanically_owner_resolved=False, shared_decision_lever=True,
+        materially_new_workload=True,
+        expected="NATURAL_NEGATIVE_CONTROL_NO_REPRESENTATION_PRESSURE",
+    ),
+    Case(
+        "pal-f18-natural-harness-support-shift",
+        natural=True, already_answer_revealed=False, synthetic_or_targeted_fixture=False,
+        representation_plausible=False, non_rep_rival_plausible=False,
+        mechanically_owner_resolved=False, shared_decision_lever=True,
+        materially_new_workload=True,
+        expected="NATURAL_NEGATIVE_CONTROL_NO_REPRESENTATION_PRESSURE",
+    ),
+    # Boundary-positive controls are hypothetical protocol tests only; they are not evidence.
+    Case(
+        "future-n1-boundary-positive-control",
+        natural=True, already_answer_revealed=False, synthetic_or_targeted_fixture=False,
+        representation_plausible=True, non_rep_rival_plausible=False,
+        mechanically_owner_resolved=False, shared_decision_lever=True,
+        materially_new_workload=True, operation_relative_audit=True,
+        expected="ELIGIBLE_N1_OPERATION_RELATIVE_PROSPECTIVE",
+    ),
+    Case(
+        "future-n2-boundary-positive-control",
+        natural=True, already_answer_revealed=False, synthetic_or_targeted_fixture=False,
+        representation_plausible=True, non_rep_rival_plausible=True,
+        mechanically_owner_resolved=False, shared_decision_lever=True,
+        materially_new_workload=True,
+        expected="ELIGIBLE_N2_AMBIGUOUS_FAILURE_PROSPECTIVE",
+    ),
+    Case(
+        "future-n3-source-contract-suffices-control",
+        natural=True, already_answer_revealed=False, synthetic_or_targeted_fixture=False,
+        representation_plausible=True, non_rep_rival_plausible=False,
+        mechanically_owner_resolved=False, shared_decision_lever=True,
+        materially_new_workload=True, semantic_reconfiguration=True,
+        unique_scd_discriminant_pressure=False,
+        expected="N3_DEFAULT_NULL_SOURCE_CONTRACT_PLUS_HARNESS",
+    ),
+    Case(
+        "future-n3-unique-scd-boundary-positive-control",
+        natural=True, already_answer_revealed=False, synthetic_or_targeted_fixture=False,
+        representation_plausible=True, non_rep_rival_plausible=False,
+        mechanically_owner_resolved=False, shared_decision_lever=True,
+        materially_new_workload=True, semantic_reconfiguration=True,
+        unique_scd_discriminant_pressure=True,
+        expected="ELIGIBLE_N3_SCD_SEMANTIC_RECONFIGURATION_PROSPECTIVE",
+    ),
+]
+
+print("# Representation natural-pressure thin-lens retrospective method audit\n")
+failures=[]
+for c in CASES:
+    got=classify(c)
+    ok=got==c.expected
+    print(f"{c.case_id}: {got} :: {'PASS' if ok else 'FAIL expected='+c.expected}")
+    if not ok:
+        failures.append((c.case_id,c.expected,got))
+
+historical=[c for c in CASES if not c.case_id.startswith("future-")]
+historical_admitted=[classify(c) for c in historical if classify(c).startswith("ELIGIBLE_N")]
+print("\nhistorical prospective representation admissions:",historical_admitted)
+print("historical case count:",len(historical))
+print("positive controls are protocol boundary tests only, not empirical support")
+
+assert not failures, failures
+assert historical_admitted == []
+print("\nPASS: the thin lens rejects/contains all seven historical controls as retrospective, targeted, owner-local, or natural no-op cases; it admits only hypothetical boundary-positive controls. This demonstrates specificity of the rule on the selected audit set, not sensitivity on future real Representation pressures.")

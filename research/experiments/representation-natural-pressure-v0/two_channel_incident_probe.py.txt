@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+"""Prospective causal evidence and incident/postmortem learning are complementary channels.
+
+Research-only construct. Owner mitigation/repair always has priority. Missing the prospective freeze
+lowers the causal claim ceiling but does not make the incident scientifically useless: direct
+incident observations, timelines, contributing causes, recovery and action items can still generate
+or challenge hypotheses. Retrospective postmortem evidence cannot be relabeled confirmatory.
+"""
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Incident:
+    name: str
+    consequence_significant: bool
+    freeze_before_answering_action: bool
+    owner_repair_performed: bool
+    direct_timeline_retained: bool
+    intervention_contrast_predeclared: bool
+
+
+def channels(x: Incident):
+    prospective=(x.freeze_before_answering_action and x.intervention_contrast_predeclared)
+    postmortem=(x.consequence_significant and x.direct_timeline_retained)
+    if prospective and postmortem:
+        return "PROSPECTIVE_PLUS_POSTMORTEM"
+    if prospective:
+        return "PROSPECTIVE_ONLY"
+    if postmortem:
+        return "POSTMORTEM_EXPLORATORY_ONLY"
+    return "ORDINARY_OWNER_RECORD_ONLY"
+
+cases=[
+    Incident("urgent-owner-repair-before-freeze",True,False,True,True,False),
+    Incident("freeze-then-immediate-owner-repair",True,True,True,True,True),
+    Incident("small-noncritical-event-with-predeclared-shadow-study",False,True,False,True,True),
+    Incident("unretained-minor-churn",False,False,False,False,False),
+]
+expected=[
+    "POSTMORTEM_EXPLORATORY_ONLY",
+    "PROSPECTIVE_PLUS_POSTMORTEM",
+    "PROSPECTIVE_ONLY",
+    "ORDINARY_OWNER_RECORD_ONLY",
+]
+print("# Prospective / postmortem dual-channel boundary\n")
+for c,e in zip(cases,expected):
+    got=channels(c)
+    print(c.name,":",got)
+    assert got==e
+
+print("\nPASS: owner repair and incident learning do not need to wait for prospective research. Missing the freeze changes the evidence class/claim ceiling, not the legitimacy of repair or postmortem learning. A later postmortem may generate a future nextFalsifier but cannot backdate a confirmatory treatment contrast.")

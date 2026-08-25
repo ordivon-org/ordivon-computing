@@ -15,7 +15,7 @@ RepresentationEffect
 Start here:
 
 1. [`RESULTS.md`](RESULTS.md) — integrated result and destination decision.
-2. [`verify.py`](verify.py) — mechanical reconstruction of retained headline statistics.
+2. Historical verifier note — the former executable `verify.py` was removed from the active research tree after the required ANC-REPRESENTATION-001 natural replication failed; its exact historical bytes remain Git-recoverable.
 3. [`SOURCE-FENCE.json`](SOURCE-FENCE.json) — exact owner/input cut.
 4. [`EXTERNAL-PRESSURE.md`](EXTERNAL-PRESSURE.md) — external solution-domain constraints.
 5. [`A-model-variant/`](A-model-variant/) — same frozen reconstruction workload under current DeepSeek provider variants.

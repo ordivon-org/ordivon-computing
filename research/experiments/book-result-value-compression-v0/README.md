@@ -16,7 +16,7 @@ Start here:
 8. [`composite-cases.json`](composite-cases.json) — eight multi-label cases and oracle.
 9. [`followup-raw-runs.json`](followup-raw-runs.json) — exploratory structured Agent results.
 10. [`COMPACT-MAP.md`](COMPACT-MAP.md) — treatment representation only; not Book or owner authority.
-11. [`verify.py`](verify.py) — mechanical reconstruction of the retained headline statistics.
+11. Historical verifier note — the former executable `verify.py` was removed from the active research tree after the required ANC-REPRESENTATION-001 natural replication failed; its exact historical bytes remain Git-recoverable.
 
 Current standing:
 

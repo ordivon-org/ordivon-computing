@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+"""Mitigation != diagnosis != root-cause repair.
+
+Two unresolved hypotheses both make write action unsafe. A read-only degradation safely contains
+consequence without discriminating them. This is useful action under diagnostic uncertainty, not
+proof of either cause.
+"""
+HYPOTHESES={"source_fault","representation_G_fault"}
+DIAGNOSTIC_SET=set(HYPOTHESES)
+
+def write_safe(h): return False  # both candidate failures can corrupt a write decision
+
+def read_only_safe(h): return True
+
+print("# Mitigation without diagnosis\n")
+print("diagnostic set before mitigation:",sorted(DIAGNOSTIC_SET))
+print("write safe for all live hypotheses:",all(write_safe(h) for h in DIAGNOSTIC_SET))
+print("read-only degradation safe for all live hypotheses:",all(read_only_safe(h) for h in DIAGNOSTIC_SET))
+# Mitigation does not update the diagnostic set because its outcome is predicted under both.
+after=set(DIAGNOSTIC_SET)
+print("diagnostic set after successful containment:",sorted(after))
+assert not all(write_safe(h) for h in DIAGNOSTIC_SET)
+assert all(read_only_safe(h) for h in DIAGNOSTIC_SET)
+assert after==DIAGNOSTIC_SET
+print("\nPASS: safety-preserving containment/degradation can be justified before root cause is identifiable. Successful mitigation does not identify the fault and should not be mislabeled as diagnosis or repair of the cause.")

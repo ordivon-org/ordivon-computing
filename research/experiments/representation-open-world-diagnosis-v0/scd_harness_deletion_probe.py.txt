@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+"""Research-only deletion counterexample for generic SCD × Harness attribution.
+
+Harness-style preservation is parameterized by externally supplied use obligations U. If the source
+owner can directly state the decisive semantic obligation, a generic U-preservation checker rejects
+an unsafe fallback without any SCD-specific derivation. Labeling the same obligation 'from SCD'
+changes provenance but not the mechanical result. Therefore SCD becomes causally necessary only if
+its semantic reasoning derives a discriminant/obligation unavailable at equal standing from the
+source/use-contract owner.
+"""
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class View:
+    name: str
+    current: bool
+    preserves_unknown: bool
+    authority_ok: bool
+
+safe = View("safe-fallback", True, True, True)
+unsafe = View("fluent-unsafe-fallback", True, False, True)
+
+# U may be supplied by a domain/source owner or by an SCD-qualified derivation.
+U_SOURCE={"current":True,"preserves_unknown":True,"authority_ok":True}
+U_SCD=dict(U_SOURCE)
+
+
+def preserves_U(view,U):
+    return all(getattr(view,k)==v for k,v in U.items())
+
+print("# SCD × Harness deletion counterexample\n")
+for view in (safe,unsafe):
+    print(view.name,
+          "source-U=",preserves_U(view,U_SOURCE),
+          "SCD-U=",preserves_U(view,U_SCD))
+
+assert U_SOURCE==U_SCD
+assert preserves_U(safe,U_SOURCE)==preserves_U(safe,U_SCD)==True
+assert preserves_U(unsafe,U_SOURCE)==preserves_U(unsafe,U_SCD)==False
+print("\nPASS: when the decisive semantic obligation is already source-owned and directly supplied in U, SCD-specific participation is not deletion-essential to Harness-style preservation. A future SCD×Harness joint-capability claim therefore requires an SCD-derived semantic discriminant whose deletion changes the recovery/reconfiguration decision.")

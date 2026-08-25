@@ -1,0 +1,83 @@
+#!/usr/bin/env python3
+"""Delete-or-retain audit for a Representation-specific natural-trigger first interface.
+
+The question is not whether the dormant falsifier exists, but whether each consumer context already
+gets enough of it without a new cross-owner recommender. This is a research-only decision table.
+"""
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Context:
+    name: str
+    representation_question_already_selected: bool
+    computing_research_entry: bool
+    host_task_continuation: bool
+    active_bounded_field_study: bool
+    ordinary_owner_work_only: bool
+
+
+def current_composition(c: Context):
+    if c.host_task_continuation:
+        return {"frontier":True,"next":True,"falsifier_reachable":True,"cross_owner_injection":False}
+    if c.computing_research_entry:
+        # research/README -> current PORTFOLIO/portfolio -> question page
+        return {"frontier":True,"next":True,"falsifier_reachable":True,"cross_owner_injection":False}
+    if c.active_bounded_field_study:
+        # field contract/event admission owns the prospective sampling question
+        return {"frontier":True,"next":True,"falsifier_reachable":True,"cross_owner_injection":False}
+    if c.ordinary_owner_work_only:
+        # Deliberately do not inject Computing semantics into an owner-local operation.
+        return {"frontier":False,"next":False,"falsifier_reachable":False,"cross_owner_injection":False}
+    return {"frontier":False,"next":False,"falsifier_reachable":c.representation_question_already_selected,"cross_owner_injection":False}
+
+
+def global_representation_question_card(c: Context):
+    # Hypothetical global card surfaces dormant Computing semantics everywhere.
+    state=current_composition(c).copy()
+    state["falsifier_reachable"]=True
+    if c.ordinary_owner_work_only and not c.representation_question_already_selected:
+        state["cross_owner_injection"]=True
+    return state
+
+
+def scoped_card_after_question_selection(c: Context):
+    # Once the question is already selected, this is only a smaller rendering of information
+    # already reachable through Host or portfolio/question. It can improve convenience but cannot
+    # be credited with trigger discovery.
+    state=current_composition(c).copy()
+    if c.representation_question_already_selected:
+        state["falsifier_reachable"]=True
+    return state
+
+contexts=[
+    Context("resume-this-cojc-task",True,False,True,False,False),
+    Context("fresh-agent-enters-computing-research",False,True,False,False,False),
+    Context("active-f17-like-field-study",False,False,False,True,False),
+    Context("ordinary-harness-owner-repair",False,False,False,False,True),
+    Context("ordinary-finance-owner-work",False,False,False,False,True),
+]
+
+print("# First-interface deletion audit\n")
+for c in contexts:
+    cur=current_composition(c)
+    glob=global_representation_question_card(c)
+    scoped=scoped_card_after_question_selection(c)
+    print(c.name)
+    print("  current=",cur)
+    print("  global-card=",glob)
+    print("  selected-question-scoped-card=",scoped)
+
+# Positive consumption boundaries already work.
+assert current_composition(contexts[0])["falsifier_reachable"]
+assert current_composition(contexts[1])["falsifier_reachable"]
+assert current_composition(contexts[2])["falsifier_reachable"]
+# Owner-local ordinary work intentionally has no Computing research injection.
+assert not current_composition(contexts[3])["falsifier_reachable"]
+assert not current_composition(contexts[4])["falsifier_reachable"]
+# A global card fixes 'visibility' only by violating the intended owner boundary.
+assert global_representation_question_card(contexts[3])["cross_owner_injection"]
+assert global_representation_question_card(contexts[4])["cross_owner_injection"]
+# A scoped card after question selection is causally redundant for discovery.
+assert scoped_card_after_question_selection(contexts[0])==current_composition(contexts[0])
+
+print("\nPASS: task-local resume, Computing Research first-look, and active field-study contexts already make the relevant frontier/falsifier recoverable. The only context where a global Representation card adds discovery is ordinary owner-local work, where that addition is precisely an owner-independent semantic research injection. A scoped card after the question is selected may be a convenience rendering, but is not deletion-essential to trigger discovery on this audit model.")

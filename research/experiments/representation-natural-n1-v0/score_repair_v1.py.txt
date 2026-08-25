@@ -1,0 +1,61 @@
+from __future__ import annotations
+import hashlib,json,statistics
+from pathlib import Path
+EXP=Path(__file__).resolve().parent
+FIELDS=['objectiveAchievement','boundedImprovement','currentConsumption','realizedBenefit','broaderPromotion']
+ARMS=['FULL_SOURCE','SOURCE_BOUND_CECB']
+IDS=['F15','F16','F17','F18','F19','ACS9']
+
+def sha(p): return 'sha256:'+hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def score_run(run,oracle):
+  counts={f:0 for f in FIELDS}; wrong=[]
+  for i in IDS:
+    for f in FIELDS:
+      got=run['result'][i][f]; want=oracle['items'][i][f]
+      if got==want: counts[f]+=1
+      else: wrong.append({'id':i,'field':f,'got':got,'want':want})
+  return counts,wrong
+
+def main():
+  oracle=json.loads((EXP/'oracle.json').read_text())
+  rows=[]
+  for arm in ARMS:
+    for rep in (1,2,3):
+      p=EXP/'runs'/f'{arm.lower()}-r{rep}.json'
+      r=json.loads(p.read_text()); c,w=score_run(r,oracle)
+      rows.append({'arm':arm,'replicate':rep,'correctByField':c,'correctTotal':sum(c.values()),'wrong':w,'usage':r['usage'],'payloadBytes':r['payloadBytes'],'runDigest':sha(p)})
+  summary={}
+  for arm in ARMS:
+    rs=[r for r in rows if r['arm']==arm]
+    field_totals={f:sum(r['correctByField'][f] for r in rs) for f in FIELDS}
+    prompt=[r['usage'].get('prompt_tokens',r['usage'].get('promptTokens')) for r in rs]
+    total=[r['usage'].get('total_tokens',r['usage'].get('totalTokens')) for r in rs]
+    false_promotions=sum(1 for r in rs for w in r['wrong'] if w['field']=='broaderPromotion' and w['got']=='ESTABLISHED')
+    summary[arm]={
+      'fieldCorrectTotalsOutOf18':field_totals,
+      'correctTotalOutOf90':sum(field_totals.values()),
+      'exactArtifactJudgmentsOutOf18':0,  # repaired convenience field; recomputed below from frozen runs
+      'promptTokens':prompt,'promptTokensMean':statistics.mean(prompt),
+      'totalTokens':total,'totalTokensMean':statistics.mean(total),
+      'payloadBytes':rs[0]['payloadBytes'],'falseBroaderPromotions':false_promotions,
+    }
+  # compute exact-artifact count correctly from source run files
+  for arm in ARMS:
+    exact=0
+    for rep in (1,2,3):
+      rr=json.loads((EXP/'runs'/f'{arm.lower()}-r{rep}.json').read_text())
+      for i in IDS:
+        if all(rr['result'][i][f]==oracle['items'][i][f] for f in FIELDS): exact+=1
+    summary[arm]['exactArtifactJudgmentsOutOf18']=exact
+  b=summary['FULL_SOURCE']; c=summary['SOURCE_BOUND_CECB']
+  protected_nonreg=all(c['fieldCorrectTotalsOutOf18'][f]>=b['fieldCorrectTotalsOutOf18'][f] for f in FIELDS)
+  promotion_nonreg=c['falseBroaderPromotions']<=b['falseBroaderPromotions']
+  context_strict=(c['payloadBytes']<b['payloadBytes'] and c['promptTokensMean']<b['promptTokensMean'])
+  strict_judgment=any(c['fieldCorrectTotalsOutOf18'][f]>b['fieldCorrectTotalsOutOf18'][f] for f in FIELDS)
+  if protected_nonreg and promotion_nonreg and context_strict and (strict_judgment or context_strict): verdict='REPRODUCED_BOUNDED_SECOND_NATURAL_WORKLOAD'
+  elif not protected_nonreg or not promotion_nonreg: verdict='MIXED_N1_NOT_REPRODUCED'
+  else: verdict='N1_NOT_REPRODUCED'
+  out={'schemaVersion':1,'kind':'ordivon.representation-natural-n1-score','oracleDigest':sha(EXP/'oracle.json'),'rows':rows,'summary':summary,'pareto':{'protectedFamilyNonRegression':protected_nonreg,'falsePromotionNonRegression':promotion_nonreg,'contextStrictReduction':context_strict,'strictJudgmentGain':strict_judgment},'verdict':verdict}
+  (EXP/'score.json').write_text(json.dumps(out,indent=2)+'\n')
+  print(json.dumps(out,indent=2))
+if __name__=='__main__': main()

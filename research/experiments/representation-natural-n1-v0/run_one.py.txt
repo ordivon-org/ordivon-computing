@@ -1,0 +1,90 @@
+from __future__ import annotations
+import argparse, hashlib, json, os, sys, time
+from pathlib import Path
+
+EXP=Path(__file__).resolve().parent
+ROOT=EXP.parents[2]
+HARNESS_SRC=Path('/var/lib/ordivon/runtime/workspaces/rep-n1-harness-current-20260825/src')
+if str(HARNESS_SRC) not in sys.path: sys.path.insert(0,str(HARNESS_SRC))
+
+from ordivon_harness.completion import STRUCTURED_COMPLETION_MODE
+from ordivon_harness.ordivon.deepseek import DeepSeekSettings, DeepSeekTurnAdapter
+from ordivon_harness.ordivon.model import AgentTurnRequest
+from ordivon_harness.structured_result_conformance import (
+    LOCAL_JSON_SCHEMA_DRAFT_2020_12_PROFILE_V1,
+    validate_structured_result_instance,
+    validate_structured_result_schema_policy,
+)
+
+ARMS={
+ 'FULL_SOURCE':'full-source-packet.txt',
+ 'SOURCE_BOUND_CECB':'source-bound-cecb.md',
+}
+
+def digest(p:Path)->str: return 'sha256:'+hashlib.sha256(p.read_bytes()).hexdigest()
+
+def verify_freeze():
+    m=json.loads((EXP/'source-manifest.json').read_text())
+    for row in m['sources']:
+        p=ROOT/row['path']; assert digest(p)==row['sha256'],(p,digest(p),row['sha256'])
+    for row in m['generated']:
+        p=EXP/row['path']; assert digest(p)==row['sha256'],(p,digest(p),row['sha256'])
+    return m
+
+def main():
+    ap=argparse.ArgumentParser(); ap.add_argument('arm',choices=ARMS); ap.add_argument('replicate',type=int,choices=[1,2,3]); args=ap.parse_args()
+    verify_freeze()
+    outdir=EXP/'runs'; outdir.mkdir(exist_ok=True)
+    out=outdir/f'{args.arm.lower()}-r{args.replicate}.json'
+    if out.exists(): raise SystemExit(f'refusing to overwrite existing run: {out}')
+    schema=json.loads((EXP/'result-schema.json').read_text())
+    completion={
+      'mode':STRUCTURED_COMPLETION_MODE,
+      'resultKind':'ordivon-representation-natural-n1-judgment',
+      'resultSchema':schema,
+      'conformancePolicy':LOCAL_JSON_SCHEMA_DRAFT_2020_12_PROFILE_V1,
+    }
+    validate_structured_result_schema_policy(completion)
+    task=(EXP/'task-prompt.txt').read_text()
+    payload=(EXP/ARMS[args.arm]).read_text()
+    message=task+'\n\n===== FROZEN TREATMENT PAYLOAD =====\n'+payload
+    settings=DeepSeekSettings.from_secret_file(timeout_seconds=90,max_output_tokens=4096)
+    if settings.model!='deepseek-v4-flash': raise RuntimeError(f'effective configured model differs: {settings.model}')
+    adapter=DeepSeekTurnAdapter(settings,completion_contract=completion)
+    ctx='sha256:'+hashlib.sha256(message.encode()).hexdigest()
+    request=AgentTurnRequest(
+       harness_run_id=f'harness-run:rep-n1:{args.arm.lower()}:r{args.replicate}',
+       turn_id=f'turn:rep-n1:{args.arm.lower()}:r{args.replicate}:1', sequence=1,
+       assignment_id=f'assignment:rep-n1:{args.arm.lower()}:r{args.replicate}',
+       context_digest=ctx,
+       tool_catalog_digest='sha256:'+('0'*64),
+       messages=({'role':'user','content':message},), tools=(),
+       remaining_budget={'modelCalls':1,'toolCalls':0,'totalTokens':100000,'wallTimeMs':90000},
+    )
+    req_digest=adapter.provider_request_digest(request)
+    t0=time.time_ns()
+    result=adapter.invoke(request)
+    elapsed_ms=(time.time_ns()-t0)//1_000_000
+    if result.effective_model_id not in {None,'deepseek-v4-flash'} or result.model_id!='deepseek-v4-flash':
+        raise RuntimeError(f'model identity mismatch: {result.model_id}/{result.effective_model_id}')
+    if result.conclusion is None or result.conclusion.structured_result is None:
+        raise RuntimeError('missing structured conclusion carrier')
+    value=result.conclusion.structured_result.value
+    validate_structured_result_instance(completion,value)
+    record={
+      'schemaVersion':1,'kind':'ordivon.representation-natural-n1-run',
+      'arm':args.arm,'replicate':args.replicate,
+      'adapterId':adapter.adapter_id,'requestedModelId':'deepseek-v4-flash',
+      'modelId':result.model_id,'effectiveModelId':result.effective_model_id,
+      'providerRequestDigest':req_digest,'rawResponseDigest':result.raw_response_digest,
+      'finishReason':result.finish_reason,'usage':result.usage,'elapsedMs':elapsed_ms,
+      'payloadPath':ARMS[args.arm],'payloadDigest':digest(EXP/ARMS[args.arm]),'payloadBytes':len(payload.encode()),
+      'taskDigest':digest(EXP/'task-prompt.txt'),'schemaDigest':digest(EXP/'result-schema.json'),
+      'result':value,
+    }
+    tmp=out.with_suffix('.tmp')
+    tmp.write_text(json.dumps(record,indent=2,ensure_ascii=False)+'\n')
+    os.replace(tmp,out)
+    print(json.dumps({'ok':True,'run':str(out.relative_to(ROOT)),'arm':args.arm,'replicate':args.replicate,'usage':result.usage,'elapsedMs':elapsed_ms,'rawResponseDigest':result.raw_response_digest},ensure_ascii=False))
+
+if __name__=='__main__': main()

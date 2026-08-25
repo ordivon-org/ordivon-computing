@@ -2,7 +2,7 @@
 
 ## Status
 
-`READY` Computing research question. This is a **material narrowing of the representation/context part of `ANC-COMPILER-002`**, not a reactivation of the historical Temporal Cognitive Graph architecture.
+`COMPLETED` Computing research question. The precommitted second natural workload returned **`MIXED_N1_NOT_REPRODUCED`**, so the reusable cross-artifact operation-relative representation candidate is closed. This remains historical evidence about representation/context, not a reactivation of the historical Temporal Cognitive Graph architecture.
 
 ## Problem
 
@@ -72,6 +72,25 @@ If the first materially different natural workload does not reproduce useful val
 
 If the candidate reproduces, the next burden is still another consumer/operation before any persistent shared mechanism is considered.
 
+## Natural falsifier closeout — 2026-08-25
+
+The required materially different natural workload was found in current PAL/ACS research rather than manufactured: F15, F16, F17, F18, F19 and ACS9. Source cut, oracle, task definitions and both treatments were frozen before six fresh `deepseek-v4-flash` Provider calls.
+
+Primary result:
+
+```text
+FULL_SOURCE       = 79/90 relation judgments; 9/18 exact artifacts; 10,952 mean prompt tokens
+SOURCE_BOUND_CECB = 75/90 relation judgments; 5/18 exact artifacts;  3,546 mean prompt tokens
+```
+
+CECB reduced payload bytes by 80.3% and prompt tokens by 67.6%, preserved all broader-promotion boundaries, and improved the `RealizedBenefit` family by one judgment. But it regressed on protected `ObjectiveAchievement` (15<16), `BoundedImprovement` (9<12), and `CurrentConsumption` (17<18). Under the pre-run Pareto non-regression rule, token savings cannot compensate for those regressions.
+
+Verdict: **`MIXED_N1_NOT_REPRODUCED`**. Post-primary sensitivity still fails non-regression after removing the most arguable F15/F17 bounded-improvement cells and F16 negative-closure cell.
+
+The deletion outcome above is therefore consumed: close this question, retain the experiments as historical evidence only, remove the Book representation executable verifiers from the active tree, and do not preserve the candidate by creating a service/schema/registry/new Harness layer/Chapter 6.
+
+Exact closeout: `research/experiments/representation-natural-n1-v0/CLOSEOUT.md`.
+
 ## Consumer and ownership
 
 - research owner: `ordivon-computing`;
@@ -84,11 +103,12 @@ If the candidate reproduces, the next burden is still another consumer/operation
 ## Evidence
 
 - `research/experiments/book-result-value-compression-v0/RESULTS.md`
-- `research/experiments/book-result-value-compression-v0/verify.py`
 - `research/experiments/book-representation-effect-v0/RESULTS.md`
-- `research/experiments/book-representation-effect-v0/verify.py`
 - `research/experiments/book-representation-effect-v0/C-natural-result-audit/evidence-cards.json`
 - `research/experiments/book-representation-effect-v0/D-human-protocol/PROTOCOL-DRAFT.md`
+- `research/experiments/representation-natural-n1-v0/CLOSEOUT.md`
+- `research/experiments/representation-natural-n1-v0/result.json`
+- `research/experiments/representation-natural-n1-v0/score.json`
 
 ## Non-claims
 

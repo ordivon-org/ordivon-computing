@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+"""Ambiguous now != diagnosable later != non-diagnosable under current admissible interface.
+
+Two hypotheses produce identical outcomes for every authorized/safe probe. A hypothetical privileged
+probe could separate them, but it is not admissible. The correct current standing is therefore
+model-relative NON_DIAGNOSABLE_UNDER_ADMISSIBLE_INTERFACE, not low confidence forced attribution.
+"""
+H=("source_transform_fault","representation_transform_fault")
+PROBES={
+    "read_final_output":{"admissible":True,"pred":{H[0]:"bad",H[1]:"bad"}},
+    "read_cached_digest":{"admissible":True,"pred":{H[0]:"same",H[1]:"same"}},
+    "privileged_internal_tap":{"admissible":False,"pred":{H[0]:"upstream-bad",H[1]:"upstream-good"}},
+}
+
+def separates(p):
+    values={PROBES[p]["pred"][h] for h in H}
+    return len(values)>1
+
+admissible=[p for p,s in PROBES.items() if s["admissible"]]
+separating_admissible=[p for p in admissible if separates(p)]
+all_separating=[p for p in PROBES if separates(p)]
+print("# Diagnosability under an admissible observation/probe interface\n")
+print("admissible probes:",admissible)
+print("admissible separating probes:",separating_admissible)
+print("all separating probes, including unavailable:",all_separating)
+standing="NON_DIAGNOSABLE_UNDER_ADMISSIBLE_INTERFACE" if not separating_admissible else "DIAGNOSABLE"
+print("standing:",standing)
+assert standing=="NON_DIAGNOSABLE_UNDER_ADMISSIBLE_INTERFACE"
+assert all_separating==["privileged_internal_tap"]
+print("\nPASS: diagnosability is model- and interface-relative. More passive observations of the same projection cannot identify a cause if all live hypotheses are observationally equivalent under every admissible probe.")

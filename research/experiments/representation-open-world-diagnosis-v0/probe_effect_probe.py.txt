@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+"""A probe that changes multiple suspect components can destroy diagnostic information.
+
+A combined restart+rebuild operation repairs either of two causes, so observing success afterward
+cannot discriminate the root cause. Surgical probes preserve more attribution value.
+"""
+H=("transient_tool_fault","stale_representation")
+
+def combined_restart_rebuild(h):
+    # Repairs both fault classes by touching both loci.
+    return "PASS"
+
+def tool_only_restart(h):
+    return "PASS" if h=="transient_tool_fault" else "FAIL"
+
+def rep_only_rebuild(h):
+    return "PASS" if h=="stale_representation" else "FAIL"
+
+def partition(probe):
+    buckets={}
+    for h in H: buckets.setdefault(probe(h),[]).append(h)
+    return buckets
+
+print("# Probe-effect / evidence-erasure counterexample\n")
+print("combined restart+rebuild predictions:",partition(combined_restart_rebuild))
+print("tool-only predictions:",partition(tool_only_restart))
+print("representation-only predictions:",partition(rep_only_rebuild))
+assert len(partition(combined_restart_rebuild))==1
+assert len(partition(tool_only_restart))==2
+assert len(partition(rep_only_rebuild))==2
+print("\nPASS: a successful broad recovery intervention can erase the evidence needed for root-cause attribution. Diagnostic probes are state-changing Effects unless proven observational; probe lineage and changed loci matter.")

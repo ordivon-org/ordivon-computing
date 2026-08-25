@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+"""No-trigger periods: denominator/model discipline.
+
+A dormant reopen condition has no enumerated exposure denominator, so zero noticed triggers has no
+frequency interpretation. A bounded prospective field window can report inspected/admitted event
+counts, but a probability/rate claim still requires a defensible sampling/stochastic model.
+"""
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Window:
+    name: str
+    exposure_units_defined: bool
+    sampling_model_justified: bool
+    inspected_events: int | None
+    qualifying_triggers: int
+
+
+def inference(w: Window):
+    if not w.exposure_units_defined or w.inspected_events is None:
+        return "NO_FREQUENCY_INFERENCE_DORMANT_MODE"
+    if not w.sampling_model_justified:
+        return f"DESCRIPTIVE_ONLY_{w.qualifying_triggers}_OF_{w.inspected_events}_INSPECTED"
+    return f"MODEL_BASED_RATE_INFERENCE_PERMITTED_{w.qualifying_triggers}_OF_{w.inspected_events}"
+
+windows=[
+    Window("dormant-nextFalsifier-for-30-days",False,False,None,0),
+    Window("bounded-field-window-11-mechanically-sampled-events",True,False,11,0),
+    Window("hypothetical-exchangeable-event-stream",True,True,50,0),
+]
+expected=[
+    "NO_FREQUENCY_INFERENCE_DORMANT_MODE",
+    "DESCRIPTIVE_ONLY_0_OF_11_INSPECTED",
+    "MODEL_BASED_RATE_INFERENCE_PERMITTED_0_OF_50",
+]
+print("# No-trigger inference boundary\n")
+for w,e in zip(windows,expected):
+    got=inference(w)
+    print(w.name,":",got)
+    assert got==e
+
+print("\nPASS: `NoTriggerObserved != TriggerAbsent`. Dormant reopen conditions generate no exposure denominator. Even bounded event counts remain descriptive unless the sampling/stochastic assumptions needed for a rate model are justified. Sparse/no-event windows should normally close as insufficient evidence rather than as proof that the residual mechanism does not exist.")

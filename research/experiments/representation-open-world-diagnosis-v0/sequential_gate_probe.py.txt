@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+"""Counterexample to a sequential Representation-Causality Gate.
+
+Research-only construct. A passive symptom is compatible with source fault, geometry fault,
+or both. A shallow `source available?` gate falsely clears the source and over-attributes G.
+An active source-bypass probe separates some hypotheses, but a multi-fault case still requires
+set-valued diagnosis.
+"""
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class H:
+    name: str
+    source_bad: bool
+    geometry_bad: bool
+
+HYPOTHESES = [
+    H("H_source", True, False),
+    H("H_G", False, True),
+    H("H_source+G", True, True),
+]
+
+def passive_failure(h):
+    return h.source_bad or h.geometry_bad
+
+def shallow_source_availability_probe(h):
+    # Source is present/available in all cases; this does not test correctness.
+    return "AVAILABLE"
+
+def raw_source_crosscheck(h):
+    return "MISMATCH" if h.source_bad else "MATCH"
+
+def geometry_bypass_probe(h):
+    # Same source, but bypass the suspect encounter geometry.
+    return "FAIL" if h.source_bad else "PASS"
+
+def consistent(obs):
+    out=[]
+    for h in HYPOTHESES:
+        if passive_failure(h) != obs["failure"]: continue
+        if "raw" in obs and raw_source_crosscheck(h) != obs["raw"]: continue
+        if "bypass" in obs and geometry_bypass_probe(h) != obs["bypass"]: continue
+        out.append(h.name)
+    return out
+
+print("# Sequential-gate counterexample\n")
+initial={"failure": True}
+print("passive candidates:", consistent(initial))
+print("shallow source probe under true H_source:", shallow_source_availability_probe(HYPOTHESES[0]))
+print("A sequential gate that treats AVAILABLE as source-correct would next attribute the failure to G, which is wrong for H_source.")
+
+obs_source={"failure":True,"raw":"MISMATCH"}
+obs_g={"failure":True,"raw":"MATCH"}
+print("after raw crosscheck MISMATCH:", consistent(obs_source))
+print("after raw crosscheck MATCH:", consistent(obs_g))
+
+# In the MISMATCH case, H_source and H_source+G remain observationally equivalent until
+# a geometry-specific probe is added.
+assert set(consistent(initial)) == {"H_source","H_G","H_source+G"}
+assert set(consistent(obs_source)) == {"H_source","H_source+G"}
+assert consistent(obs_g) == ["H_G"]
+obs_multi={"failure":True,"raw":"MISMATCH","bypass":"FAIL"}
+assert set(consistent(obs_multi)) == {"H_source","H_source+G"}
+print("after MISMATCH + geometry bypass FAIL:", consistent(obs_multi))
+print("\nPASS: passive failure and shallow layer-by-layer gates can over-attribute representation. Diagnosis must preserve competing and multi-fault hypotheses until a discriminating probe exists; some states remain non-identifiable under the current probes.")

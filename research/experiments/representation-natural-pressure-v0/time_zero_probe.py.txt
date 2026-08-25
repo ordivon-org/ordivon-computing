@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+"""Prospective eligibility time-zero under natural Representation pressure.
+
+Research-only construct inspired by target-trial alignment: do not define eligibility using evidence
+obtained after the answer-revealing intervention/history inspection. A natural event may become
+eligible *later than event onset* after bounded non-answering triage, provided freeze occurs before
+answer-revealing inspection/repair. Urgent owner repair is never delayed; if repair precedes freeze,
+the scientific case is downgraded to retrospective rather than the owner action being blocked.
+"""
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Moment:
+    t: int
+    event_observed: bool
+    representation_plausible: bool
+    non_rep_rival_plausible: bool
+    shared_decision_lever: bool
+    answer_revealing_inspection_done: bool
+    owner_repair_done: bool
+
+
+def first_eligible_time(timeline):
+    for m in timeline:
+        if (m.event_observed and m.representation_plausible and m.non_rep_rival_plausible
+            and m.shared_decision_lever and not m.answer_revealing_inspection_done
+            and not m.owner_repair_done):
+            return m.t
+    return None
+
+
+def disposition(timeline):
+    t0=first_eligible_time(timeline)
+    if t0 is not None:
+        return ("PROSPECTIVE_FREEZE_AT_FIRST_ELIGIBILITY", t0)
+    # If only later, post-answer evidence made the case look Representation-relevant, prospective
+    # standing cannot be backdated.
+    if any(m.event_observed and (m.answer_revealing_inspection_done or m.owner_repair_done) for m in timeline):
+        return ("RETROSPECTIVE_OR_POSTMORTEM_ONLY", None)
+    return ("NOT_YET_ELIGIBLE", None)
+
+CASES={
+    "eligibility-at-event-onset":[
+        Moment(0,True,True,True,True,False,False),
+        Moment(1,True,True,True,True,True,False),
+    ],
+    "eligibility-after-safe-triage":[
+        Moment(0,True,False,False,False,False,False),
+        # read-only triage reveals two live loci without showing root cause
+        Moment(1,True,True,True,True,False,False),
+        Moment(2,True,True,True,True,True,False),
+    ],
+    "posthoc-after-history-inspection":[
+        Moment(0,True,False,False,False,False,False),
+        Moment(1,True,True,False,True,True,False),
+        # only after seeing code/history does a non-representation rival get reconstructed
+        Moment(2,True,True,True,True,True,False),
+    ],
+    "urgent-repair-before-freeze":[
+        Moment(0,True,False,False,False,False,False),
+        Moment(1,True,True,True,True,False,True),
+    ],
+}
+EXPECTED={
+    "eligibility-at-event-onset":("PROSPECTIVE_FREEZE_AT_FIRST_ELIGIBILITY",0),
+    "eligibility-after-safe-triage":("PROSPECTIVE_FREEZE_AT_FIRST_ELIGIBILITY",1),
+    "posthoc-after-history-inspection":("RETROSPECTIVE_OR_POSTMORTEM_ONLY",None),
+    "urgent-repair-before-freeze":("RETROSPECTIVE_OR_POSTMORTEM_ONLY",None),
+}
+
+print("# Natural-pressure eligibility/time-zero probe\n")
+for name,tl in CASES.items():
+    got=disposition(tl)
+    print(name,":",got)
+    assert got==EXPECTED[name],(name,EXPECTED[name],got)
+
+print("\nPASS: event onset and scientific time-zero are not necessarily identical. Time-zero is the first moment the frozen eligibility/contrast can be constituted from pre-answer evidence. Eligibility must not be backdated using implementation/history learned later. Urgent owner repair may legitimately destroy prospective eligibility; the research case is downgraded rather than repair delayed.")
