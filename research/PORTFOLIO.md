@@ -4,7 +4,7 @@
 
 - **As of:** `2026-08-25`
 - **Active research-line limit:** `2`
-- **Current active lines:** `1`
+- **Current active lines:** `2`
 
 `portfolio.json` is the single source of truth for **Computing-local** research status, question-evidence maturity, blockers, next falsifier, and WIP allocation. It does not own external project currentness or value. External-owner P0-P3 allocation requires an exact same-cut observation; otherwise the row remains reference-only.
 
@@ -13,6 +13,7 @@
 | Line | Priority | Question | Items | Implementation | Exit criterion |
 |---|---|---|---|---|---|
 | PAL-FIELD-001 | P1 | PAL prospective option-value and pressure-formation field studies | ANC-ADAPT-001 | — | F14 and F17 reach their frozen stop rules; results are scored from realized future evidence, stable findings are compressed, and no closed PAL executable remains in the active tree. |
+| COJC-001 | P0 | Cross-Owner Joint Capability / Capability Ecology | ANC-JOINT-001 | — | J1 reaches a valid deletion/consumption result. A negative/equivalent result closes or narrows the first composition route; a positive result may only authorize a later factorial/higher-order successor under the programme evidence ladder, not emergence or shared machinery by default. |
 
 ## Question and track portfolio
 
@@ -28,6 +29,7 @@
 | ID | Question evidence maturity | Computing priority | Owner | Active line | Owner observation | Blocked by | Computing next action | Next falsifier |
 |---|---|---|---|---|---|---|---|---|
 | ANC-ADAPT-001 | M5 | P1 | ordivon-computing | PAL-FIELD-001 | — | — | Continue only from natural post-t0 reality. Append qualifying F14 demand and F17 owner/external events under their frozen contracts; do not manufacture positive cases, change policy cards/prompts, or score either field study early. When both stop rules resolve, compress stable findings and remove f17_run.py from the active tree. | F14 must accumulate real post-t0 capability demand or close at its frozen window so ACTUAL_T0/CURRENT_ONLY/KEEP_ALL_FEASIBLE can be compared by realized carry/reacquisition/blocking regret; F17 must encounter genuine positive-pressure owner/external events whose predeclared decisive probes change a downstream research/design decision, allowing DIRECT_FULL_REVIEW versus PRESSURE_CERTIFICATE to be compared beyond no-op controls. |
+| ANC-JOINT-001 | M3 | P0 | ordivon-computing | COJC-001 | — | — | Materialize and execute only J1 next: identical Security world/deceiver/model/tools/budget across arms; vary only the bounded Interlocus-qualified projection. Keep Ordivon World excluded unless a later independently authoritative external effect creates residual trajectory/reconciliation pressure. Do not claim complementarity/emergence from a positive deletion result alone. | Execute COJC J1 in the same owned adversarial Security Range with a strong Security-local control versus an Interlocus-qualified binding/currentness/migration projection. The cross-owner candidate is falsified if the control reaches equivalent target closure at lower complexity, Security already preserves every decisive distinction (NO_CHANGE), or the treatment embeds the answer or worsens legitimate continuation. |
 
 ### Ready
 
