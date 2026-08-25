@@ -453,3 +453,49 @@ protect the five-chapter core
 - Copeland, B. J., **The Church–Turing Thesis**, *Stanford Encyclopedia of Philosophy* — used only as classical background that computational achievability/computability is a distinct formal question; no Ordivon-specific computational theory is inferred from it.
 
 These sources bound claims and supply solved subspaces. They do not become Ordivon owner truth merely by being cited here.
+
+
+## 14. Post-audit resolution: Result / Value compression falsifier
+
+The strongest targeted revision candidate from §9.1 / §11 was subsequently tested rather than directly promoted.
+
+Current experiment:
+
+- [`experiments/book-result-value-compression-v0/`](experiments/book-result-value-compression-v0/)
+- primary results: [`experiments/book-result-value-compression-v0/RESULTS.md`](experiments/book-result-value-compression-v0/RESULTS.md)
+
+The confirmatory A/B used five accepted fresh Agent replicates per arm over 22 frozen classification/transfer cases:
+
+```text
+Book only      = 110 / 110 correct
+Map + Book     = 110 / 110 correct
+accuracy delta = 0
+```
+
+The explicit compact map added 776 prompt tokens/run and produced no fresh-Agent decision-correctness gain. Therefore the earlier status:
+
+```text
+Result/Value compact integration = strongest targeted revision candidate
+```
+
+is now superseded for the tested Agent-correctness claim by:
+
+```text
+Result/Value core Book integration = NOT_ADMITTED_FOR_AGENT_CORRECTNESS
+Five-chapter core                   = NO_CHANGE
+Chapter 6: Result / Value           = NOT_ADMITTED
+```
+
+A post-primary exploratory multi-label reconstruction challenge did find bounded representational value: Book-only produced 28 label errors across 24 composite-case replicates, while Map+Book produced 14; exact composite cases moved from 10/24 to 12/24. The map eliminated observed missing `BOUNDED_IMPROVEMENT` / `CONSUMPTION` and extra `BOUNDED_OPTIMALITY` / `PROSPECTIVE_VALUE` errors in that workload, but did not eliminate the shared tendency to infer lifecycle `COMPLETED` from artifact existence/production.
+
+This does **not** reverse the confirmatory admission decision. It establishes a narrower standing:
+
+```text
+Decision repair value             = not demonstrated
+Explicit reconstruction value     = demonstrated in bounded exploratory Agent workload
+Human pedagogical/retention value = unknown
+Universal default injection       = not earned
+Operation-specific Result audit reference = justified
+```
+
+The resulting Book frontier is therefore more specific than the original audit: do not expand the core because a richer taxonomy exists. Test representations against the target consumer, timescale and operation. Reopen Media only on a reproduced Human/long-delay/lower-capability/ordinary-path transfer deficit or another consequential consumer failure that the compact representation prevents.
