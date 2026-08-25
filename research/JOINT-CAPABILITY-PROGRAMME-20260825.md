@@ -304,11 +304,15 @@ Canonical closeout: `research/experiments/joint-capability-j1-adversarial-interl
 
 World remains subtracted. Reopen this relation route only from a genuinely new natural consumer or from an external trajectory satisfying the non-identifiability gate; do not add World or more N2 replicas to manufacture a positive coalition.
 
-### J2 — Representation-Sensitive Possibility — DORMANT
+### J2 — Representation-Sensitive Possibility — DORMANT / GENERIC SHARED ROUTE CLOSED
 
 Candidate owners: SCD × Computational Possibility × Media/Harness.
 
 Pressure: keep semantic referent and model fixed while changing operational representation/access. Measure whether the joint semantic + possibility + observer-relative treatment changes feasible methods or effective Agent capability beyond simple information-volume effects.
+
+Two independently frozen natural workloads now bound this route. Canonical N1 (`607d7de`) reduced context strongly but regressed protected local judgement families and therefore closed the generic reusable CECB candidate. A parallel COJC relational-lineage audit was semantically frozen at `bab0395` before that canonical closeout and later produced a strong local positive (`93/120 -> 111/120`, paired wins `3/3`, prompt tokens `28,236 -> 7,253`) without increasing false broad promotion. Cross-world reconciliation preserves the exact positive lineage in canonical history and identifies a **prospective moderator hypothesis**, not a new shared mechanism: dispersed cross-source relation joins can make projection valuable, while source-local scoped-detail judgments can make the same broad representation family lossy.
+
+This heterogeneity does **not** reopen J2 as an active shared-capability route. It strengthens the narrower statement that representation can be a finite-consumer computational variable while generic reusable representation infrastructure remains unearned. `ANC-REPRESENTATION-001` remains completed/reference; future reopen requires a pre-treatment workload-geometry prediction that Reality can falsify, not another CECB formatting benchmark. No Media/SCD/Harness deletion-essential coalition, new CP primitive, graph service, Representation service or emergence label is admitted. Canonical evidence: `research/experiments/representation-cross-world-reconciliation-v0/CROSS-WORLD-PPD-SYNTHESIS.md`.
 
 ### J3 — Authoritative Synthetic Institutional World — DORMANT
 

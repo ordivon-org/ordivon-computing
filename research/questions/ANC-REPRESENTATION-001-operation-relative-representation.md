@@ -2,7 +2,7 @@
 
 ## Status
 
-`COMPLETED` Computing research question. The precommitted second natural workload returned **`MIXED_N1_NOT_REPRODUCED`**, so the reusable cross-artifact operation-relative representation candidate is closed. This remains historical evidence about representation/context, not a reactivation of the historical Temporal Cognitive Graph architecture.
+`COMPLETED` Computing research question. The canonical precommitted natural N1 workload returned **`MIXED_N1_NOT_REPRODUCED`**, so the reusable cross-artifact operation-relative representation candidate remains closed. A separately frozen parallel COJC workload later produced a strong positive operation-local result; the two worlds are retained as **heterogeneous natural evidence**, not as a reason to reopen a generic Representation service/schema or the historical Temporal Cognitive Graph architecture.
 
 ## Problem
 
@@ -91,6 +91,45 @@ The deletion outcome above is therefore consumed: close this question, retain th
 
 Exact closeout: `research/experiments/representation-natural-n1-v0/CLOSEOUT.md`.
 
+## Parallel natural-world reconciliation — heterogeneous effect, generic candidate stays closed
+
+A parallel detached COJC lineage independently froze a different natural representation workload at commit `bab0395` on 2026-08-25 16:22 +08:00, before the canonical N1 negative closeout `607d7de` was committed at 16:25 +08:00. Later carrier-only repairs preserved the frozen source packet, projection, oracle, task and primary scoring byte-identically; the final closeout is detached commit `5021e8f`. Exact evidence is archived non-executably under `research/experiments/representation-cross-world-reconciliation-v0/positive-lineage/`.
+
+That workload audited eight COJC result families whose target relations were dispersed across eleven source files. Every scored family required multiple source refs (mean `2.875`), and all eight `downstreamUse` relations were positive cross-artifact lineage claims. With the same model and zero Tools:
+
+```text
+FULL_SOURCE           = 93/120 = 77.5%; 28,236 prompt tokens / slot
+OPERATION_PROJECTION  = 111/120 = 92.5%; 7,253 prompt tokens / slot
+paired projection wins = 3/3
+false broader promotion = 0 vs 0
+```
+
+The largest field-level change was `downstreamUse: 13/24 -> 24/24`; objective closure and broader-promotion boundaries were already `24/24` in both arms. This is consistent with the projection removing a real cross-source relation-join/search burden rather than merely making the consumer more willing to close or promote claims.
+
+The canonical N1 world has different pre-treatment geometry: six scored artifacts, one primary source per item, only one positive `CurrentConsumption` relation and one positive `RealizedBenefit` relation, with protected burden concentrated in source-local `ObjectiveAchievement` and `BoundedImprovement` distinctions. Its CECB projection saved context but regressed several protected local judgments.
+
+The two natural worlds therefore reject both universal directions:
+
+```text
+SourceComplete != FiniteConsumerComplete
+TaskRelevantSummary != SufficientStatistic
+CECBPresent != ProjectionBeneficial
+CompressionMagnitude != TreatmentSign
+```
+
+Current moderator hypothesis, **not yet predictively validated**:
+
+```text
+Projection value
+    rises with cross-source join/search burden removed
+    and falls with lost local scoped distinctions
+    plus construction/currentness/recovery debt.
+```
+
+The canonical deletion outcome still controls the generic reusable candidate because useful value did not reproduce uniformly across natural workloads. `ANC-REPRESENTATION-001` therefore remains completed/reference. A future reopen must not be another generic CECB benchmark: it should freeze a pre-run workload-geometry prediction (for example high-join/low-local-detail vs low-join/high-local-detail) and let a materially different natural consumer contradict or confirm that prediction.
+
+Canonical reconciliation: `research/experiments/representation-cross-world-reconciliation-v0/CROSS-WORLD-PPD-SYNTHESIS.md`. Machine moderator map: `moderator-map-v0.json`.
+
 ## Consumer and ownership
 
 - research owner: `ordivon-computing`;
@@ -109,6 +148,11 @@ Exact closeout: `research/experiments/representation-natural-n1-v0/CLOSEOUT.md`.
 - `research/experiments/representation-natural-n1-v0/CLOSEOUT.md`
 - `research/experiments/representation-natural-n1-v0/result.json`
 - `research/experiments/representation-natural-n1-v0/score.json`
+- `research/experiments/representation-cross-world-reconciliation-v0/CROSS-WORLD-PPD-SYNTHESIS.md`
+- `research/experiments/representation-cross-world-reconciliation-v0/moderator-map-v0.json`
+- `research/experiments/representation-cross-world-reconciliation-v0/positive-lineage-archive-manifest-v0.json`
+- `research/experiments/representation-cross-world-reconciliation-v0/positive-lineage/v2/result-summary-v2.json`
+- `research/experiments/representation-cross-world-reconciliation-v0/positive-lineage/v2/V2-CLOSEOUT.md`
 
 ## Non-claims
 

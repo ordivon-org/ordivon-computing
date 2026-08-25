@@ -1,0 +1,559 @@
+{
+  "amendmentClass": "symmetric-adapter-malformed-output-reliability-protocol",
+  "carrier": {
+    "adapter": "current Ordivon Harness DeepSeekTurnAdapter",
+    "harness": "HarnessAgentRun zero-Tool surface",
+    "maxConclusionCorrections": 3,
+    "maxModelCalls": 4,
+    "maxModelRetries": 1,
+    "maxObservationBytes": 65536,
+    "maxOutputTokens": 1800,
+    "maxToolCalls": 0,
+    "maxTotalTokens": 300000,
+    "maxWallTimeMs": 240000,
+    "rationale": "The v0 FULL_SOURCE prompt had a conservative adapter request upper bound of 132291 against a 60000 aggregate budget and therefore never dispatched. 300000 admits at least two initial-size FULL_SOURCE request bounds under the same common arm budget and leaves normal conclusion-correction headroom."
+  },
+  "experimentId": "ANC-REPRESENTATION-001-NATURAL-TRANSFER-V2",
+  "frozenInvariants": [
+    "No change to source packet, projection, oracle, eligibility, task targets, audit policy, result schema, model or primary scoring thresholds.",
+    "Exact arm prompts remain v0 prompt digests.",
+    "Reliability retries are triggered by carrier malformed output only, never semantic correctness.",
+    "Every physical attempt and retry count remains evidence."
+  ],
+  "interpretation": {
+    "ifPrimarySensitivityDisagree": "Report both. A sensitivity retain cannot erase the primary record; it may establish that rejection was evaluator-bound only because the evaluator defect was source-fenced and frozen before V2 runs.",
+    "primary": "Apply the original v0 scoring thresholds byte-for-byte to first-valid semantic slot results and total per-slot Provider prompt cost.",
+    "sensitivity": "Apply the same comparison after excluding only the preregistered challenged J2 boundedComparativeImprovement field from both arms."
+  },
+  "kind": "ordivon.computing.representation-natural-transfer-reliability-amendment",
+  "oracleSensitivity": {
+    "excludeOnly": [
+      {
+        "field": "boundedComparativeImprovement",
+        "itemId": "J2"
+      }
+    ],
+    "file": "oracle-challenge-v1.json"
+  },
+  "parent": {
+    "semanticArtifactSha256": {
+      "eligibility-v1.json": "11f03c8e77509588753ff89197b6036828d5bb25132fd90e63f82680e02191cd",
+      "experiment-contract.json": "157afcf67496029c5711757f8f08555f15872f26452f002f7d690fd0447fc6cd",
+      "full-packet-v1.json": "e8de94231de5977a61d0c4cc3c2b6db33f85bcc480b4907db6184f9439ef01e7",
+      "operation-projection-v1.json": "09ec7168894b0ccabdc24c72d830e8cbe2375ffb56461fed90af67bfe73027f9",
+      "oracle-v1.json": "86bc21d9e6c1f3c208903fb4a05ac47559e7da0217202e804601805173a36647",
+      "run.py": "247309327431c6d9763f75c5b01cc453e695b8e82f59ceac648419533f67cd37"
+    },
+    "v0CloseoutCommit": "1cc27f8",
+    "v0FreezeCommit": "bab0395",
+    "v1CarrierContractSha256": "7bd750a8a0c06365b82b013ca00aa5e42a60b7ced878b4309e56c90949825326",
+    "v1CloseoutCommit": "522ce7e",
+    "v1FreezeCommit": "1215b47"
+  },
+  "primaryValidity": "All three semantic slots per arm must obtain a valid structured result within the fixed attempt protocol. Primary scores use the first valid result only; malformed attempts remain cost/reliability evidence.",
+  "reliabilityProtocol": {
+    "allPhysicalAttemptsRetained": true,
+    "costAccounting": "All Provider dispatches count. Adapter-level malformed dispatches have no returned Provider usage, so prompt-token cost is imputed from the exact same arm prompt tokenization observed stably in v1; v2 valid calls must reproduce that token count or cost analysis fails.",
+    "imputedPromptTokensPerMalformedDispatch": {
+      "FULL_SOURCE": 28236,
+      "OPERATION_PROJECTION": 7253
+    },
+    "maxPhysicalAttemptsPerSemanticSlot": 3,
+    "neverRetry": [
+      "candidate_completed wrong semantic judgement",
+      "HOLD/negative judgement",
+      "provider result that is structurally valid",
+      "any semantic score"
+    ],
+    "otherApparatusFailure": "slot remains invalid; primary validity gate fails",
+    "retryOnlyWhen": "previous physical attempt has stopCode=invalid_model_output, valid=false, Provider was physically attempted, and no structured semantic result exists",
+    "stopImmediatelyWhen": "first valid structured result exists, regardless of semantic correctness"
+  },
+  "scheduleSeed": 202608251638,
+  "schemaVersion": 1,
+  "semanticIdentity": {
+    "arms": [
+      "FULL_SOURCE",
+      "OPERATION_PROJECTION"
+    ],
+    "auditPolicy": {
+      "attributedConsequence": "ESTABLISHED only for a realized mechanical/physical/effect consequence with an attribution boundary. Model correctness, a theoretical countermodel, possible future value, or downstream citation alone is insufficient.",
+      "boundedComparativeImprovement": "ESTABLISHED only for explicit scoped compared conditions where one condition is operationally/correctness/resource safer or better; mere difference, logical non-equivalence, or uncertain directional signal is insufficient.",
+      "broaderPromotion": "AUTHORIZED only when source explicitly licenses broader/shared architecture or capability promotion now. Scoped evidence plus explicit non-claims means NOT_AUTHORIZED.",
+      "downstreamUse": "ESTABLISHED only when a named later experiment/programme/question/synthesis actually consumes the result to design, constrain, continue or stop work; EXPLICIT_NON_USE only when a named later consumer explicitly declines use; otherwise NOT_ESTABLISHED.",
+      "objectiveClosure": "ESTABLISHED only when the declared research question/experiment is explicitly closed or its objective is explicitly resolved; negative/rejection outcomes can close an objective."
+    },
+    "completionContract": {
+      "mode": "structured-result-v1",
+      "resultKind": "anc-representation-natural-transfer-audit",
+      "resultSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "ACT": {
+            "additionalProperties": false,
+            "properties": {
+              "attributedConsequence": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "boundedComparativeImprovement": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "broaderPromotion": {
+                "enum": [
+                  "AUTHORIZED",
+                  "NOT_AUTHORIZED"
+                ],
+                "type": "string"
+              },
+              "downstreamUse": {
+                "enum": [
+                  "ESTABLISHED",
+                  "EXPLICIT_NON_USE",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "objectiveClosure": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "objectiveClosure",
+              "boundedComparativeImprovement",
+              "downstreamUse",
+              "attributedConsequence",
+              "broaderPromotion"
+            ],
+            "type": "object"
+          },
+          "D1": {
+            "additionalProperties": false,
+            "properties": {
+              "attributedConsequence": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "boundedComparativeImprovement": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "broaderPromotion": {
+                "enum": [
+                  "AUTHORIZED",
+                  "NOT_AUTHORIZED"
+                ],
+                "type": "string"
+              },
+              "downstreamUse": {
+                "enum": [
+                  "ESTABLISHED",
+                  "EXPLICIT_NON_USE",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "objectiveClosure": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "objectiveClosure",
+              "boundedComparativeImprovement",
+              "downstreamUse",
+              "attributedConsequence",
+              "broaderPromotion"
+            ],
+            "type": "object"
+          },
+          "D2": {
+            "additionalProperties": false,
+            "properties": {
+              "attributedConsequence": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "boundedComparativeImprovement": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "broaderPromotion": {
+                "enum": [
+                  "AUTHORIZED",
+                  "NOT_AUTHORIZED"
+                ],
+                "type": "string"
+              },
+              "downstreamUse": {
+                "enum": [
+                  "ESTABLISHED",
+                  "EXPLICIT_NON_USE",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "objectiveClosure": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "objectiveClosure",
+              "boundedComparativeImprovement",
+              "downstreamUse",
+              "attributedConsequence",
+              "broaderPromotion"
+            ],
+            "type": "object"
+          },
+          "D2A": {
+            "additionalProperties": false,
+            "properties": {
+              "attributedConsequence": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "boundedComparativeImprovement": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "broaderPromotion": {
+                "enum": [
+                  "AUTHORIZED",
+                  "NOT_AUTHORIZED"
+                ],
+                "type": "string"
+              },
+              "downstreamUse": {
+                "enum": [
+                  "ESTABLISHED",
+                  "EXPLICIT_NON_USE",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "objectiveClosure": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "objectiveClosure",
+              "boundedComparativeImprovement",
+              "downstreamUse",
+              "attributedConsequence",
+              "broaderPromotion"
+            ],
+            "type": "object"
+          },
+          "FINREP": {
+            "additionalProperties": false,
+            "properties": {
+              "attributedConsequence": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "boundedComparativeImprovement": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "broaderPromotion": {
+                "enum": [
+                  "AUTHORIZED",
+                  "NOT_AUTHORIZED"
+                ],
+                "type": "string"
+              },
+              "downstreamUse": {
+                "enum": [
+                  "ESTABLISHED",
+                  "EXPLICIT_NON_USE",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "objectiveClosure": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "objectiveClosure",
+              "boundedComparativeImprovement",
+              "downstreamUse",
+              "attributedConsequence",
+              "broaderPromotion"
+            ],
+            "type": "object"
+          },
+          "J1": {
+            "additionalProperties": false,
+            "properties": {
+              "attributedConsequence": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "boundedComparativeImprovement": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "broaderPromotion": {
+                "enum": [
+                  "AUTHORIZED",
+                  "NOT_AUTHORIZED"
+                ],
+                "type": "string"
+              },
+              "downstreamUse": {
+                "enum": [
+                  "ESTABLISHED",
+                  "EXPLICIT_NON_USE",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "objectiveClosure": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "objectiveClosure",
+              "boundedComparativeImprovement",
+              "downstreamUse",
+              "attributedConsequence",
+              "broaderPromotion"
+            ],
+            "type": "object"
+          },
+          "J2": {
+            "additionalProperties": false,
+            "properties": {
+              "attributedConsequence": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "boundedComparativeImprovement": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "broaderPromotion": {
+                "enum": [
+                  "AUTHORIZED",
+                  "NOT_AUTHORIZED"
+                ],
+                "type": "string"
+              },
+              "downstreamUse": {
+                "enum": [
+                  "ESTABLISHED",
+                  "EXPLICIT_NON_USE",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "objectiveClosure": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "objectiveClosure",
+              "boundedComparativeImprovement",
+              "downstreamUse",
+              "attributedConsequence",
+              "broaderPromotion"
+            ],
+            "type": "object"
+          },
+          "W2": {
+            "additionalProperties": false,
+            "properties": {
+              "attributedConsequence": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "boundedComparativeImprovement": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "broaderPromotion": {
+                "enum": [
+                  "AUTHORIZED",
+                  "NOT_AUTHORIZED"
+                ],
+                "type": "string"
+              },
+              "downstreamUse": {
+                "enum": [
+                  "ESTABLISHED",
+                  "EXPLICIT_NON_USE",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              },
+              "objectiveClosure": {
+                "enum": [
+                  "ESTABLISHED",
+                  "NOT_ESTABLISHED"
+                ],
+                "type": "string"
+              }
+            },
+            "required": [
+              "objectiveClosure",
+              "boundedComparativeImprovement",
+              "downstreamUse",
+              "attributedConsequence",
+              "broaderPromotion"
+            ],
+            "type": "object"
+          },
+          "weakItems": {
+            "items": {
+              "enum": [
+                "J1",
+                "J2",
+                "W2",
+                "ACT",
+                "D1",
+                "D2",
+                "D2A",
+                "FINREP"
+              ],
+              "type": "string"
+            },
+            "maxItems": 8,
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "J1",
+          "J2",
+          "W2",
+          "ACT",
+          "D1",
+          "D2",
+          "D2A",
+          "FINREP",
+          "weakItems"
+        ],
+        "type": "object"
+      }
+    },
+    "itemIds": [
+      "J1",
+      "J2",
+      "W2",
+      "ACT",
+      "D1",
+      "D2",
+      "D2A",
+      "FINREP"
+    ],
+    "model": "deepseek-v4-flash",
+    "nonClaims": [
+      "One natural workload cannot authorize a representation service or persistent shared schema.",
+      "Projection token savings are not owner truth, Human evidence, or proof of general capability.",
+      "No post-run change to source packet, projection, oracle, audit policy or admission thresholds is allowed.",
+      "If retained, ANC-REPRESENTATION-001 still requires another materially different consumer/operation before shared mechanism promotion."
+    ],
+    "plannedSemanticSlots": 6,
+    "primaryScoring": {
+      "accuracyGain": "RETAIN if projection aggregate correct >= full + 3 and projection correct-count is greater than full in at least 2 of 3 same-index replicates, provided boundaryRegression does not fire.",
+      "aggregateJudgementsPerArm": 120,
+      "boundaryRegression": "REJECT if projection has more false broaderPromotion=AUTHORIZED judgements than full source.",
+      "costGainAtParity": "RETAIN if projection aggregate correct >= full and mean provider prompt tokens are at least 15% lower than full source, provided boundaryRegression does not fire. The 15% floor is preregistered because the prior natural evidence-card workload saved about 16.7%; a smaller saving does not justify maintaining another projection after one workload.",
+      "judgementsPerTrial": 40,
+      "otherwise": "REJECT / FULL_SOURCE_EQUIVALENT_LOWER_MAINTENANCE_COST.",
+      "projectionAccuracyLoss": "REJECT if projection aggregate correct judgements < full-source aggregate correct judgements."
+    },
+    "promptInfo": {
+      "FULL_SOURCE": {
+        "initialRequestTokenUpperBound": 132291,
+        "promptBytes": 120504,
+        "promptDigest": "sha256:94af82b594111b60966bbb395adf60dad390b01f5a9057f30fb93183063c2ba2"
+      },
+      "OPERATION_PROJECTION": {
+        "initialRequestTokenUpperBound": 29703,
+        "promptBytes": 20259,
+        "promptDigest": "sha256:668b8e8418297544afd42e8de380513867ec478f92218462cf2bcc44a7b7d596"
+      }
+    },
+    "replicatesPerArm": 3
+  },
+  "status": "frozen-before-provider-runs"
+}
