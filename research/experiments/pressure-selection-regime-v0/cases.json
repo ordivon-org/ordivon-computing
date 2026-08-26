@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "SAFE-ACTIVE-DIAGNOSIS",
+      "facts": ["Three live explanations are source fault, representation-G fault and representation-R fault.", "Probe A writes to the live system and would perfectly distinguish all three, but the current research authority does not permit that write and the effect is not safely reversible.", "Probe B is a read-only cross-check that separates source fault from the two representation faults.", "Probe C is a ping that returns the same outcome under all three explanations.", "Probe B costs more time than Probe C."],
+      "actions": {"A":"run the perfectly discriminating live write", "B":"run the read-only cross-check", "C":"run the cheap ping", "D":"stop permanently because the best-information probe is unavailable"},
+      "oracle":"B",
+      "tags":["hard-gate","information-gain","authority"]
+    },
+    {
+      "id": "PRIOR-SENSITIVITY",
+      "facts": ["Three hypotheses remain: source, G and R.", "No owner-native evidence justifies probabilities over the three hypotheses.", "Probe A splits source from {G,R}; Probe B splits R from {source,G}.", "Under an arbitrary source-heavy prior A has higher expected Shannon information; under an arbitrary R-heavy prior B has higher expected Shannon information.", "A and B have equal worst-case remaining hypothesis-set size; A is cheaper."],
+      "actions": {"A":"choose Probe A using set-based discrimination and lower cost", "B":"choose Probe B because uniform priors make it equally plausible", "C":"invent a source-heavy prior and maximize expected information", "D":"read everything before probing"},
+      "oracle":"A",
+      "tags":["unsupported-prior","set-based","cost"]
+    },
+    {
+      "id": "FINANCE-MULTI-CARRIER",
+      "facts": ["Two execution carriers are currently effect-admitted for the same Finance Decision.", "Current evidence establishes neither a complete owner preference ordering nor route-optimality/best-execution law between them.", "Both satisfy hard feasibility and authority boundaries.", "One carrier has a slightly lower quoted fee, but latency, fill quality, slippage, failure/reconciliation behavior and decision-relative preference are not yet comparable on the same cut.", "Finance explicitly rejects first/named/cheapest selection without a justified ranking relation."],
+      "actions": {"A":"select the lower-fee carrier now", "B":"select the first admitted carrier", "C":"collect comparable decision-relative execution-quality/preference evidence or remain underdetermined", "D":"build a generic smart-order router before collecting more evidence"},
+      "oracle":"C",
+      "tags":["decision-value","no-invented-weights","abstention"]
+    },
+    {
+      "id": "WORKSTATION-TILED-GUI",
+      "facts": ["Official Tiled AppImage bytes are independently digest-verified.", "A prior package-derived root is host-relative and not a proven hermetic runtime root.", "Adding one missing nested library directory did not make Tiled runnable.", "The current node has guiApplications=false and no DISPLAY/WAYLAND/Xvfb substrate.", "Game only needs Human GUI authoring if that consumer pressure becomes real; Agent-native topology authoring is a separate Game question."],
+      "actions": {"A":"recursively add more shared-library directories until it launches", "B":"silently install Xvfb so the node appears GUI-ready", "C":"when Human GUI authoring is actually required, test or route the workload on a display-capable node", "D":"rewrite Tiled functionality inside Workstation"},
+      "oracle":"C",
+      "tags":["consumer-pressure","environment","stop"]
+    },
+    {
+      "id": "LAB-F03-REALTIME",
+      "facts": ["The current Workstation is strong general compute but PREEMPT_RT is not enabled.", "No real MCU/instrument is attached yet, so deterministic local IO, controller reset behavior and actual host-jitter isolation remain physically unverified.", "Time-critical bounded IO can be localized to MCU or instrument-native timers while Workstation orchestrates.", "The E0 design can independently capture actual stimulus and response on the same instrument/sample clock.", "FPGA, PLC, host PREEMPT_RT and PTP remain available mature options if later measured pressure requires them."],
+      "actions": {"A":"convert the Workstation to PREEMPT_RT first", "B":"buy an FPGA first", "C":"attach the bounded controller/instrument path and measure actual stimulus/response timing and reset/recovery behavior", "D":"build a PTP lab clock fabric first"},
+      "oracle":"C",
+      "tags":["experimental-design","measurement","defer-complexity"]
+    },
+    {
+      "id": "COJC-NO-CANDIDATE",
+      "facts": ["The initial cross-owner joint-capability campaign has already tested several candidates.", "The current reopen law requires natural pressure, a mature-baseline residual, identifiable deletion-essential contribution and independent consequence.", "At the current cut no candidate clears all gates.", "Synthetic owner combinations can still be generated cheaply."],
+      "actions": {"A":"generate more synthetic owner combinations until one looks promising", "B":"create a composition registry to retain all combinations", "C":"stop active combination search and reopen only on a materially different natural candidate that clears the gates", "D":"lower the deletion/consequence gates so the programme continues"},
+      "oracle":"C",
+      "tags":["lawful-stop","natural-pressure","opportunity-cost"]
+    },
+    {
+      "id": "HARNESS-P4-DISCOVERY",
+      "facts": ["A prior Harness autonomy run selected 203 admitted repository observations across 204 rounds and read almost the complete source surface.", "It independently formed and falsified two target hypotheses; no source mutation was required.", "This establishes lawful no-change and substantial observation authority, but not discovery efficiency.", "The unresolved question is whether a much smaller set of high-information observations can preserve causal admission quality and stop earlier."],
+      "actions": {"A":"repeat near-complete source reading with a larger Context", "B":"build a general memory graph before another test", "C":"run a bounded observation-selection falsifier comparing high-information selection against strong full-source/retrieval baselines", "D":"force a source mutation so the loop produces progress"},
+      "oracle":"C",
+      "tags":["observation-selection","metareasoning","baseline"]
+    },
+    {
+      "id": "FIGMA-OAUTH",
+      "facts": ["Figma and its official Remote MCP endpoint are configured.", "The endpoint reaches the OAuth consent boundary.", "User consent is not complete, so no current authorized MCP design read/write exists.", "No successful design read or mutation has yet been observed."],
+      "actions": {"A":"inspect more MCP schemas before addressing authorization", "B":"complete the required authorization and then attempt the smallest bounded read before any write", "C":"build a local Figma-compatible clone", "D":"declare the MCP capability realized because the endpoint is reachable"},
+      "oracle":"B",
+      "tags":["authority","smallest-probe","currentness"]
+    },
+    {
+      "id": "EVALUATOR-UNSTABLE",
+      "facts": ["A bounded optimization campaign compares several implementation candidates.", "Repeated trials show evaluator disagreement and infrastructure instability larger than the observed candidate differences.", "The campaign contract states that only valid complete Trial groups may enter Pareto comparison and evaluator disagreement blocks promotion.", "More candidate runs are cheap to dispatch but would use the same unstable evaluator/infrastructure."],
+      "actions": {"A":"run many more candidate trials immediately", "B":"select the current fastest candidate", "C":"stop candidate comparison and repair/stabilize the evaluator/infrastructure before resuming", "D":"average all outcomes into one global score"},
+      "oracle":"C",
+      "tags":["stop","evaluator","closed-loop-cost"]
+    },
+    {
+      "id": "KNOWLEDGE-APPLICABILITY",
+      "facts": ["A mature external paper is authoritative for its original study domain.", "The current Ordivon target differs in consumer, authority and time regime.", "No assumption-transport/applicability analysis has yet been performed.", "Direct implementation would be costly; reading ten more adjacent papers is cheap but does not by itself resolve whether the existing result transports."],
+      "actions": {"A":"read ten more adjacent papers first", "B":"perform the smallest target-specific assumption-transport/applicability analysis", "C":"implement the paper directly and test later", "D":"ignore external prior art because it is not Ordivon-origin"},
+      "oracle":"B",
+      "tags":["goal-oriented-information","applicability","assimilation"]
+    }
+  ]
+}

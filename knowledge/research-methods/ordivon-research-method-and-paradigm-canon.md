@@ -134,6 +134,35 @@ Unexplored != RecommendedNext
 
 After a local closeout, rebuild the candidate space from the whole referent, subtract established coverage, compare marginal information gain and falsification value, and include a no-new-route control. This prevents HF24, FDF54, NDF6, HaF62, HDF44, new SCDF, or similar numbering from appearing by inertia.
 
+### 4A. Pressure generation does not decide pressure selection
+
+PPD and whole-space search can create many reachable questions, probes and falsifiers. That does not establish which one should consume the next unit of research budget.
+
+```text
+PressureGenerated
+!= PressureReachableFromCurrentView
+!= PressureSelectedForInspection
+!= PressureSemanticallyRecognized
+!= PressureAdmittedAsNextResearch
+```
+
+Do not turn `information gain` into a universal score. First preserve the hard owner-native boundary: authority, safety, currentness, evaluator validity and the required effect/recovery/consequence conditions are admission constraints rather than weights that a highly informative probe can purchase its way through.
+
+For the admissible set, use the mature criterion appropriate to the actual uncertainty and target:
+
+- grounded probabilities plus downstream decision utility may support Value of Information / sample-information reasoning;
+- a grounded probabilistic model plus an inferential or predictive quantity of interest may support Bayesian/optimal experimental design;
+- finite live rivals without justified probabilities call for discriminating partitions, counterexamples, worst-case elimination or set-valued diagnosis rather than fabricated priors;
+- repeated online reward/regret problems may justify bandit/information-directed criteria;
+- another internal computation/search step may be treated through value-of-computation/metareasoning;
+- no admissible discriminator, evaluator instability, or low decision-changing value can justify repair, environment construction, `UNKNOWN`, stopping, or natural-pressure wait.
+
+Closed-loop research cost may include compute, delay, material, Human attention, verification, recovery, irreversible effect risk, opportunity cost and option value. Keep it vector-valued unless the relevant owner/mission supplies a justified utility model that makes those costs comparable.
+
+The 2026-08-26 pressure-selection audit found that this doctrine does **not** earn permanent default Context: on ten heterogeneous source-derived cases, two fresh-Agent replicates per arm selected the exact next action 20/20 from raw facts and 20/20 with an added regime guide, while the guide consumed about 30.9% more tokens. Local bounded selection is therefore already strong when the relevant facts/candidates are represented. The remaining unproven capability is upstream **open-world evidence acquisition / pressure discovery** under incomplete views and downstream **prospective calibration** of research-selection priors. The earlier C6 owner-pressure experiment remains the bounded negative witness; do not reopen it by cosmetic tuning or create a selector service from this distinction.
+
+Current evidence is retained in `research/PRESSURE-SELECTION-VALUE-OF-INFORMATION-AUDIT-20260826.md` and `research/experiments/pressure-selection-regime-v0/`.
+
 ## 5. Destructive falsification must be prebound
 
 Before result visibility, freeze the proposition/rival, scope, discriminating method, falsifier, evaluator/oracle, stop condition, and material evidence bindings when those determine interpretation.
