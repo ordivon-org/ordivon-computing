@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.book-capability-far-transfer-falsifier",
+  "cases": [
+    {
+      "id": "F1",
+      "evidence": "两个竞争假设在当前传感器与当前查询下给出相同可观测预测。继续在同一接口上采更多样本只会降低方差，不会让两者预测分叉。",
+      "q": "若目标是推进研究，而不是人为挑一个假设，下一步最合理？",
+      "options": {
+        "A": "继续无限采同类样本，直到某个假设自然输掉",
+        "B": "改变测量、查询或实验接口，寻找能让两假设产生不同预测的压力",
+        "C": "选更简单的假设并宣布已证实",
+        "D": "宣布问题原则上不可研究"
+      },
+      "answer": "B"
+    },
+    {
+      "id": "F2",
+      "evidence": "一个 1 页摘要中的每个句子都是真的，但它省掉了 source fence 与“哪一步可实际执行”的路由。完整 source 有 200 页。当前任务是决定是否执行一个高代价、不可轻易回滚的操作。",
+      "q": "最合理的信息界面？",
+      "options": {
+        "A": "因为摘要每句都真，直接使用摘要执行",
+        "B": "任何高代价操作都必须把 200 页全部塞进上下文",
+        "C": "为这个 operation 构造保留 source/currentness/action routing 的投影，并保留进入完整 source 的路径",
+        "D": "放弃 representation，直接让模型猜"
+      },
+      "answer": "C"
+    },
+    {
+      "id": "F3",
+      "evidence": "一个诊断 Agent 对“某服务已被入侵”有 0.99 置信度，但它只有观察权限；隔离/删除权限属于另一个明确 owner。",
+      "q": "它现在可靠拥有的是什么？",
+      "options": {
+        "A": "高置信度自动产生隔离权限",
+        "B": "形成 scoped standing 并把证据/建议路由给有 authority 的 owner；自身不能把 standing 升成 effect authority",
+        "C": "因为没 authority，所以连 standing 也不能形成",
+        "D": "先删除再补审批"
+      },
+      "answer": "B"
+    },
+    {
+      "id": "F4",
+      "evidence": "系统从两天前的检查点恢复。历史里最后一次状态是 READY；恢复后 provider generation 已改变。已知只有三个依赖会决定当前操作能否继续。",
+      "q": "如何恢复可行动的现在？",
+      "options": {
+        "A": "因为 checkpoint 可恢复，直接沿用 READY",
+        "B": "完整重播所有两天历史后再做任何事",
+        "C": "重新验证那三个 load-bearing dependency 与当前 binding/owner，再决定 CONTINUE/WAIT/REBASE",
+        "D": "只看最近一个时间戳"
+      },
+      "answer": "C"
+    },
+    {
+      "id": "F5",
+      "evidence": "一条规则连续 50 次都成立，每次新 Agent 都花很多上下文重新推导。环境变化时错误沿用会有明显代价，而且可以定义一个可靠的变化触发信号。",
+      "q": "最合理的长期处理？",
+      "options": {
+        "A": "每次都从零推导，任何默认都危险",
+        "B": "把它写成不可挑战的永久规则",
+        "C": "把它放入合适默认/guard，并绑定明确 challenge trigger、owner 与 re-grounding 路径",
+        "D": "把它删除，因为重复推导太贵"
+      },
+      "answer": "C"
+    },
+    {
+      "id": "F6",
+      "evidence": "新 Agent 接手一个未关闭责任。前任留下大量 transcript；其中一次外部动作 response 丢失，effect 仍未 reconcile。当前 owner 可以重新观察真实状态。",
+      "q": "succession 的正确起点？",
+      "options": {
+        "A": "复制完整 transcript 并把前任最后一句当 current cognition",
+        "B": "恢复 obligation 与 qualified history，解析 current owner，先 reconcile ambiguous effect，再重新编译 action/non-action",
+        "C": "response 丢失就当 FAILURE 并 retry",
+        "D": "Agent 换人意味着旧责任自动结束"
+      },
+      "answer": "B"
+    },
+    {
+      "id": "F7",
+      "evidence": "组件 X+Y 一起完成一个任务，删除任一个都会失败；但一个与 X/Y 无关的成熟 generic workflow 也稳定完成同一 target，成本相当。",
+      "q": "目前关于“X×Y 产生新联合能力”的最强结论？",
+      "options": {
+        "A": "删除任一失败已经足够证明不可约性",
+        "B": "generic baseline 已解释 target reachability，最多保留 composition/interaction；不能据此宣称 joint irreducibility",
+        "C": "共同出现就叫 emergence",
+        "D": "创建 joint owner 后结论自然成立"
+      },
+      "answer": "B"
+    },
+    {
+      "id": "F8",
+      "evidence": "表示 A 在任务 P 上把准确率从 78% 提到 91%，但在任务 Q 上因压掉一个局部区分从 88% 降到 61%。表示 B 更长但在 Q 保留该区分。",
+      "q": "最强结论？",
+      "options": {
+        "A": "A 是全局更好的 representation",
+        "B": "更多压缩总是更强",
+        "C": "representation capability 是 operation-relative；P 可选 A，Q 需保留被压掉的 distinction，不能推出统一最优",
+        "D": "只比较 token 数即可"
+      },
+      "answer": "C"
+    },
+    {
+      "id": "F9",
+      "evidence": "当前没有任何 admissible action，但一个明确 obligation 仍 OPEN；阻塞来自一个未来可变化的外部条件。",
+      "q": "当前状态最合理？",
+      "options": {
+        "A": "COMPLETE，因为现在无动作",
+        "B": "FAILED，因为没有动作",
+        "C": "保持 OPEN/BLOCKED/WAIT，并记录 reopen condition；NoActionNow 不等于责任结束",
+        "D": "制造一个无关动作让系统看起来活跃"
+      },
+      "answer": "C"
+    },
+    {
+      "id": "F10",
+      "evidence": "一个外部 effect receipt 证明命令确实改变了系统状态，但用户目标是“降低事故率”；尚无 downstream outcome、comparator 或 attribution 证据。",
+      "q": "现在能宣称什么？",
+      "options": {
+        "A": "effect 发生，因此 benefit 已证明",
+        "B": "只能宣称 effect；benefit/consequence 仍需针对目标的独立 outcome/comparator/attribution 评价",
+        "C": "命令成功等于用户目标完成",
+        "D": "没有 benefit 证据意味着 effect 没发生"
+      },
+      "answer": "B"
+    }
+  ],
+  "answerKey": {
+    "F1": "B",
+    "F2": "C",
+    "F3": "B",
+    "F4": "C",
+    "F5": "C",
+    "F6": "B",
+    "F7": "B",
+    "F8": "C",
+    "F9": "C",
+    "F10": "B"
+  }
+}
