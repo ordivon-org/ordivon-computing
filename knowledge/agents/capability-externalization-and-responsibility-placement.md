@@ -70,6 +70,57 @@ RepeatedPlacement -> candidate environmentalization
 EnvironmentalizedPlacement != eternal placement
 ```
 
+## Origin-neutral capability assimilation
+
+Responsibility placement does not imply that every useful mechanism should be owned or implemented by Ordivon. A mature capability may remain in an operating system, open-source project, proprietary application, model Provider, exchange, public service, standard, institution, shared laboratory, contract facility, or other external owner while becoming part of Ordivon's **effective capability** through a sufficiently strong relation to the current operation.
+
+```text
+CapabilityBoundary != RepositoryBoundary
+CapabilityBoundary != OwnershipBoundary
+ExternalLocation != ExternalToCapability
+Assimilation != Ownership
+Assimilation != Copying
+Assimilation != Homogenization
+```
+
+Origin is provenance, not a preference score. Foreign authority and native semantics remain visible even when a capability is deeply consumed. Finance can use provider-native venue observations without owning venue truth; Harness can use an external model without owning its weights; Media can use Blender or Resolve without recreating their engines; Workstation can bind provider/public infrastructure without inferring host control. Conversely, installed bytes, a configured endpoint, a reachable node, a historical successful run, or a provider health check do not by themselves establish a current target capability.
+
+A useful audit question is operation-relative. For a resource `R`, consumer/Ordivon relation `O`, target operation `W`, and time `t`, ask whether the relations required by `W` are actually established in `A(O,R,t)`. Do not collapse those heterogeneous relations into one assimilation score.
+
+The 2026-08-26 cross-resource deletion work refined the minimum representation further. Separate at least:
+
+```text
+Capability Class / Mechanism
+    what operation has been demonstrated possible through this carrier/relation?
+
+Capability Binding / Instance
+    which exact source/resource/account/model/device/generation/permission relation
+    is admitted for the target?
+
+Current Availability / Consequence
+    is that exact relation usable now, and what current observation/effect/consequence
+    is actually established?
+```
+
+The distinctions are load-bearing:
+
+```text
+CapabilityMechanismProven != CurrentCapabilityInstanceBound
+CurrentCapabilityInstanceBound != CurrentAvailabilityObserved
+Materialized != RealizedCapability
+Reachability != Authorization
+ProviderHealth != ConsumerCapability
+AttemptedEffect != EstablishedConsequence
+```
+
+At the binding/operation boundary, the repeatedly important relations include enough identity/provenance to entail the target claim, target applicability, current authorized access, a finite-consumer-usable representation, the required observe/act/compose relation, appropriate currentness, and target-relative evidence. Which of these must be re-proved for each use depends on the operation and consequence boundary; the list is an audit decomposition, not a universal schema.
+
+Durability and evolutionary power are separate questions. Recovery/rebinding, substitution/exit/portability, supply/maintenance risk and reconstruction determine whether a current capability deserves durable-capital standing. Configuration, modification, forking, extension, upstream contribution and governance influence increase adaptive/co-evolutionary options. They are not universal prerequisites for current use: a proprietary NLE, open protocol, exchange or remote instrument can be a real capability without source ownership, while a long-horizon critical dependency may require stronger exit or influence rights.
+
+Prefer the strongest current carrier—internal or external—that preserves the required semantics, authority, evidence, currentness, recovery and consequence boundary at acceptable total cost. Build locally when the surviving responsibility is genuinely owner-native or when the best external carrier cannot preserve the required operation. Bind, configure, compose, extend, fork, upstream, swap or use remotely when those relations are the better construction. `custom implementation != internal-origin bias`, just as `public availability != dependency-first adoption`.
+
+This principle does not admit an Assimilation owner, global capability registry, universal resource lifecycle, or central provider router. The detailed pressure test is retained in `../../research/experiments/assimilation-relation-deletion-v0/`; owner-native truth and provider-native state remain with their actual owners.
+
 ## Future-model robustness test
 
 A shared Ordivon responsibility is durable when at least one of these remains true for a much stronger model:

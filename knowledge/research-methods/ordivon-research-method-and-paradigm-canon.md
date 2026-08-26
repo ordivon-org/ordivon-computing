@@ -94,6 +94,34 @@ At closeout, preserve any load-bearing imported solution components, scope/appli
 
 This is a research-practice guard, not a global external-knowledge registry, consumer graph, or automatic authority transfer. Source/owner authority and currentness remain claim-native.
 
+## 3B. Search the capability world, not only the idea world
+
+The same origin-neutral rule applies when the need is an executable, model, API, dataset, protocol, service, institution, instrument or physical facility rather than a proposition. Before implementing mechanism, search and qualify the strongest realistically accessible current carriers. Public/external capability is positive solution-domain content, not merely a benchmark against Ordivon novelty.
+
+```text
+ExternalLocation != ExternalToCapability
+Assimilation != Ownership
+Materialized != RealizedCapability
+Reachability != Authorization
+ProviderHealth != ConsumerCapability
+```
+
+Do not ask only whether the mechanism exists. Preserve three different claims:
+
+```text
+CapabilityMechanismProven
+!= CurrentCapabilityInstanceBound
+!= CurrentAvailabilityOrConsequenceEstablished
+```
+
+For the target operation, retain enough source/resource identity and provenance to entail the claim, test applicability, bind current authority/access, expose a usable representation to the finite consumer, preserve the required observe/act/compose relation, and obtain evidence at the appropriate consequence boundary. Foreign/provider-native semantics remain native unless a specific bridge is required; assimilation does not authorize rewriting them into Ordivon truth.
+
+The correct result may be direct use, bounded binding, composition, configuration, adaptation, extension, fork/upstream work, remote/shared use, local construction, replacement, or `NO_CHANGE`. Ownership, source modification, portability and governance influence are workload-relative control relations, not a universal assimilation ladder.
+
+A custom Ordivon implementation remains correct when a stable owner-native residual survives the best mature external/source-neutral carrier. Conversely, do not continue local mechanism work merely to make the capability Ordivon-origin. This is a research guard and destination rule, not an Assimilation owner, capability registry, provider router or mandatory resource state machine.
+
+Current pressure-test evidence and apparatus corrections are retained under `research/experiments/assimilation-relation-deletion-v0/`.
+
 ## 4. Fresh whole-space search beats residual inertia
 
 A residual list is historical evidence, not a roadmap.
