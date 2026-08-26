@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.historical-reachability-hr2-contract",
+  "status": "FROZEN_BEFORE_PROVIDER_RUN",
+  "sourceFreeze": "hr0-source-freeze-v0.json",
+  "sourceCut": "797b519d013b5de3a03bce9a8bfa5f52a3dc5ef1",
+  "question": "When the same source-native history is represented without a fixed transition taxonomy, do independent finite consumers recover a more stable causal reachability delta than HR0's label sets?",
+  "selectedTrajectories": [
+    "HD1-A01",
+    "HD1-D02",
+    "HD2-A11",
+    "HD2-F03",
+    "HD3-A08",
+    "HD5-A08",
+    "HD6-A03",
+    "HD6-A04",
+    "HD6-F01",
+    "HD8-A11"
+  ],
+  "selectionReason": "Stratified mixture of high/low HR0 label agreement, rich/source-thin records, representation/instrument/complement/scale/option/staged-realization cases. Selected before HR2 live calls.",
+  "representation": {
+    "name": "MINIMAL_CAUSAL_DELTA",
+    "fields": [
+      "beforeBlocker",
+      "basisChange",
+      "pathDelta",
+      "remainingBoundary",
+      "evidenceCeiling"
+    ],
+    "noTransitionClassLabels": true,
+    "noFutureImportancePrediction": true
+  },
+  "extraction": {
+    "model": "deepseek-v4-flash",
+    "replicates": 2,
+    "plannedTrials": 20,
+    "noTools": true
+  },
+  "pairAdjudication": {
+    "model": "deepseek-v4-flash",
+    "plannedTrials": 10,
+    "judgeSeesSource": true,
+    "judgeSeesBothReplicates": true,
+    "metrics": [
+      "beforeBlockerEquivalent",
+      "basisChangeEquivalent",
+      "pathDeltaEquivalent",
+      "remainingBoundaryEquivalent",
+      "evidenceCeilingEquivalent",
+      "replicateASourceGrounded",
+      "replicateBSourceGrounded",
+      "materialContradiction"
+    ]
+  },
+  "claimCeiling": [
+    "Semantic pair agreement is a bounded representation-stability test, not proof that the extracted causal story is unique or universally correct.",
+    "The same model family performs extraction and judging; this is not independent human validation.",
+    "Source-grounded historical representation does not mint current capability/currentness.",
+    "If minimal causal deltas are more stable than label sets, the result supports contracting the taxonomy, not creating a new mandatory schema."
+  ]
+}

@@ -819,3 +819,163 @@ important target
 ```
 
 This does not create a Reachability owner, Civilization API, global Capability Graph, procurement policy, or guarantee that every human-achievable target is currently affordable, authorized, safe, epistemically recoverable, or computationally tractable.
+
+
+---
+
+## Third post-revision correction — historical reachability and active evidence ecology
+
+A further 2026-08-26 PPD audit found that one methodological restriction had become too strong: naturally occurring Ordivon owner episodes had been treated as if they were the only sufficiently serious path to new evidence. That conflicts with both current PPD and Ordivon's own HD0–HD9 historical experiment programme.
+
+The full correction is recorded in [`HISTORICAL-REACHABILITY-EVIDENCE-ECOLOGY-REVISION-20260826.md`](HISTORICAL-REACHABILITY-EVIDENCE-ECOLOGY-REVISION-20260826.md).
+
+Current PPD already constructs discriminating pressure through external sources, controlled experiments/interventions, measurements, representation changes, hypotheses/countermodels, simulations/synthetic worlds and first-principles possibility analysis. HD0–HD9 independently tested modern Ordivon priors against **320 source-locked innovation/discovery trajectories across 1760–2026**, including 96 Deep Anchors, failed/dormant routes, standards/infrastructure cases, independent coding and representation-depth ablation.
+
+The strongest correction is therefore:
+
+```text
+NaturalPressure != OnlyAdmissiblePressure
+EvidenceEcology > SingleEvidenceRegime
+DesignedPressure != ManufacturedTruth
+```
+
+Every regime retains a claim ceiling:
+
+```text
+SyntheticMechanismEvidence != CurrentWorldFact
+ModelPossibility != PhysicalValidity
+HistoricalTrajectoryEvidence != CurrentCapability
+FieldConsequence != UniversalMechanism
+```
+
+HD9 supplies several already-established bounded transition families that are directly relevant to reachability: complementary capability formation, staged realization, observability expanding reachable question space, representations/standards as coordination substrates, scale-induced boundary dynamics, distributed causation and objective-relative frontier choice. Frozen HD0 S7 further treated metaproductivity — changing the future production function of discovery/improvement — as an explicit outcome axis; current HD9 primary coding records 204 SUPPORTS + 33 NARROWS across 320 trajectories, while retaining the claim only as an axis rather than a universal requirement.
+
+This adds one working world-model standing:
+
+### WM-COMP-R10 — Future reachability can change through basis-changing transitions, and such transitions can be actively studied
+
+For a target-relative capability basis `B_t`, current direct non-reachability does not by itself establish that no admissible sequence of prerequisite acquisition, instrumentation, representation/standard formation, composition, external carrier access, validation, reconfiguration, constraint or other basis-changing transitions can produce a later basis `B_{t+n}` under which the target is reachable.
+
+The important distinction is:
+
+```text
+PossibilityUnderCurrentBasis
+!=
+CandidateReachabilityUnderBasisChange
+```
+
+This is not a promise of monotonic progress and not a Computational Possibility primitive. Capability can also decay, lock in, become institutionally inadmissible, or move its bottleneck under scale.
+
+The corresponding PPD rule is active rather than passive:
+
+```text
+current target / blocker
+→ search current civilization carriers
+→ reconstruct relevant historical transition chains
+→ generate candidate basis changes
+→ choose the strongest discriminating evidence regime
+   (formal / historical / simulation / synthetic / intervention / field)
+→ respect that regime's claim ceiling
+→ re-contact current owner-qualified Reality before consequential action
+```
+
+This correction does not create a History owner, Reachability planner, simulation authority, universal innovation law, capability graph, or requirement to preserve raw transcripts/private reasoning.
+
+
+---
+
+## Fourth post-revision correction — HR0–HR4 experimental contraction
+
+The Historical Reachability line was not left as prose. HR0–HR4 actively tested the initial representation using the existing HD corpus, fresh model consumers, formal/synthetic countermodels and current civilization carriers. Full results live in:
+
+```text
+research/experiments/historical-reachability-hr0-hr4-v0/CLOSEOUT.md
+research/experiments/historical-reachability-hr3-formal-v0/CLOSEOUT.md
+research/experiments/historical-reachability-hr4-civilization-v0/CLOSEOUT.md
+```
+
+### The proposed transition taxonomy is rejected
+
+The initial T1–T10 labels were useful candidate generators but did not survive representation stability testing. Across 18 source-frozen historical trajectories with two independent codings:
+
+```text
+exact label-set agreement   3 / 18
+mean Jaccard                0.565
+```
+
+The labels were nonorthogonal; `VALIDATE / REALIZE STAGE` was especially absorbing. A proposed `terminalOnlyLikelySufficient` field split 19/17 and is also rejected.
+
+Therefore:
+
+```text
+BasisChangingTransition
+is a useful analysis concept
+but
+T1–T10 != persistent ontology
+```
+
+### Minimal causal delta survives better than classification
+
+When the same historical packets were represented without taxonomy or future-importance scoring, ten selected trajectories were independently reduced to:
+
+```text
+BeforeBlocker
+BasisChange
+PathDelta
+RemainingBoundary
+EvidenceCeiling
+```
+
+Both a Flash adjudication and a pre-frozen Pro replication judged all five fields semantically equivalent across all 10 extraction pairs, with both replicas source-grounded and zero material contradictions.
+
+This supports a removal-first representation rule:
+
+> **Preserve a historical/process causal delta only when it materially changes future reconstruction, rejection, reopening or route generation; do not preserve an ontology merely because the delta can be named.**
+
+### Formal countermodels make WM-COMP-R10 explicitly two-sided
+
+HR3 establishes by construction that current non-reachability is not permanent non-reachability under a changing basis, but also that basis change does not guarantee eventual success.
+
+So WM-COMP-R10 is narrowed to:
+
+```text
+CurrentNonReachability
+!=
+PermanentNonReachability
+
+CandidateMetaReachability
+!=
+GuaranteedEventualReachability
+```
+
+This remains a search/world-model correction, not an empirical prevalence claim or planning service.
+
+### Current civilization can substitute historical construction steps
+
+HR4 finds a second contraction. Historically load-bearing instruments, manufacturing processes or facilities may now be supplied by mature remote labs, contract measurement, on-demand manufacturing or electronics-assembly carriers.
+
+Thus:
+
+```text
+HistoricalImportance
+!=
+LocalOwnershipPressure
+```
+
+and:
+
+```text
+HistoricalConstructionBurden
+can migrate into
+CarrierQualificationBurden
+```
+
+A finite intelligence should use historical causal structure partly to discover what no longer needs to be rebuilt.
+
+### Final WM-COMP-R10 standing
+
+The surviving form is:
+
+> **A finite intelligence should not treat its current capability basis as fixed when judging future reachability. It may actively study and construct basis-changing possibilities using the evidence regime best suited to the uncertainty, while preserving each regime's claim ceiling. Historical/process lineage is useful when it exposes a minimal causal delta relevant to future search or reconstruction; mature civilization may substitute many historically load-bearing steps. Current owner-qualified Reality remains necessary wherever the claim is about current capability or consequence.**
+
+This final correction explicitly rejects a History owner, Reachability service/planner, fixed transition taxonomy, future-importance scalar, global capability graph and natural-event-only evidence hierarchy.
