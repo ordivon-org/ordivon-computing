@@ -428,6 +428,15 @@ scoped standing
 → bounded durable capability
 ```
 
+A later Runtime dirty-state lifecycle audit adds one bounded **carrier-level witness** to the same principle:
+
+```text
+PreserveReachability != PreserveEmbodiment
+Recoverable != Current != Claimed != Valuable != SafeToDelete
+```
+
+In the tested Workspace domain, exact staged/unstaged/untracked state could be moved into an immutable recovery carrier and the live Workspace later released under an exact Runtime fence. This does not establish a universal archival mechanism: carrier adequacy is operation-relative, and merge/rebase/sequencer or other unsupported state remains fail-closed. The methodological consequence is narrower: preservation should retain the load-bearing reachability needed for future challenge/re-entry rather than accidentally canonizing the original physical embodiment. Canonical audit: `research/DIRTY-STATE-PROVENANCE-AND-WORKSPACE-LIFECYCLE-AUDIT-20260827.md`.
+
 Current evidence establishes bounded local S6 consequence and challenge/rebind capability in selected owner-consumer chains. It does **not** establish month/year persistence, whole-Ordivon S6 coverage, independent external realized benefit, or an autonomous cumulative intelligence ratchet. Do not create a universal S6 monitor, score or consumer graph from this evidence.
 
 Canonical audit: `research/S6-LONGITUDINAL-CONSEQUENCE-AUDIT-20260826.md`.

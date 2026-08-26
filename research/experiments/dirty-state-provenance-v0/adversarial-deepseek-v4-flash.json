@@ -1,0 +1,146 @@
+[
+  {
+    "role": "TAXONOMY_SAFETY",
+    "model": "deepseek-v4-flash",
+    "summary": null,
+    "stopCode": "budget_exhausted",
+    "usage": {
+      "modelCalls": 1,
+      "toolCalls": 0,
+      "observationBytes": 0,
+      "totalTokens": 4741,
+      "tokenLimit": 180000,
+      "modelRetries": 0,
+      "toolCorrections": 0,
+      "conclusionCorrections": 1,
+      "conclusionCorrectionLimit": 2,
+      "observationOnlyTurns": 0,
+      "observationOnlyTurnLimit": 1,
+      "noProgressTurns": 0,
+      "noProgressTurnLimit": 1,
+      "modelObservationByteLimit": 32768,
+      "providerAttempts": 1,
+      "providerResultsReplayed": 0,
+      "wallTimeMs": 25761,
+      "deadlineOverrunMs": 0,
+      "effectiveDeadlineOverrunMs": 0,
+      "requestedModelId": "deepseek-v4-flash",
+      "effectiveModelIds": [
+        "deepseek-v4-flash"
+      ],
+      "providerUsage": [
+        {
+          "prompt_tokens": 2638,
+          "completion_tokens": 2103,
+          "total_tokens": 4741,
+          "prompt_tokens_details": {
+            "cached_tokens": 640
+          },
+          "prompt_cache_hit_tokens": 640,
+          "prompt_cache_miss_tokens": 1998,
+          "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking",
+          "requestedModelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash"
+        }
+      ]
+    }
+  },
+  {
+    "role": "RESPONSIBILITY_MINIMALITY",
+    "model": "deepseek-v4-flash",
+    "summary": "VERDICT: SURVIVES\n\nSTRONGEST_ATTACK: The evidence bundle's stated architecture (Runtime owns exact physical state/fences; Host checkpoints carry workspaceId/jobs/head plus free-form semantic fields; domain owner decides semantic disposition; Git provides recoverability) is a *greenfield proposed design*, not an observation of a deployed mechanism that could falsely claim legitimacy. The adversarial risk is therefore not that this design is unnecessary but that it may be *under-specified*: nothing in the current Host checkpoint fields (workspaceId, relevantJobIds, observedHeadRevision — all mechanical) can carry the semantic disposition decision that the bundle assigns to Host/domain owner. A dirty workspace whose disposition is \"unknown\" (e.g., AMBIGUOUS_CLAIMANT, RECOVERABLE_RESIDUE, UNCOMMITTED_UNIQUE_EVIDENCE) has no structured channel to record that classification, its owner, the load-bearing premises to re-derive, or the proof obligations already satisfied. The free-form semantic fields are not a sanctioned, validated surface. Consequently, the minimal change is genuinely required: a thin structured Host-side disposition field/tool is necessary to give the domain owner a place to record semantic intent that the lifecycle/close path can then honor. This is the one point where current surfaces cannot suffice. Separately, no dirty workspace is mechanically deletable: canonical roots both have staged content (staged != committed; e.g., computing's staged temporal rollback with 86 staged files and 43,765 deleted lines, media's temporal mosaic index) meaning force-close would discard uncommitted staged bytes that are not content-recoverable from a rescue ref; every sample workspace has untracked or divergent files. No deletion/force-close recommendation is admissible for any listed workspace because disposition and recoverability are not proven — the bundle itself records semanticDisposition=unknown for all samples and IndependentDiscoverabilityAudit=UNKNOWN_UNTIL_COMMITTED/RESOLVED.\n\nEARNED_DISTINCTIONS: Dirty!=Active; Staged!=CurrentIntent; DigestPreserved!=ContentRecoverable; HistoricalValidity!=CurrentClaimant; RootDirty!=WorkspaceDirty; Preservation!=Sedimentation; CannotAutoDelete!=MustRemainSemanticallyAmbiguousForever; WorkspaceExistence!=TaskContinuity; PreservedBytes!=PreservedClaim.\n\nRESPONSIBILITY: Physical fact/state/digest/fences/jobs: Runtime (authoritative, refuses dirty close by default — correct). Semantic disposition (claimant, load-bearing premises, owner, unresolved obligations, class assignment): Task/Host/domain owner ONLY; Runtime must not infer domain intent. Recoverability: Git and artifact layer provide the mechanical rescue surface (HEAD rescue ref, WIP refs like e978d4b, blob persistence); a reachable Git resolution (staged->commit, untracked->add) is the only true content recovery that survives force close. Execution (close/discard): lifecycle runs only after disposition decision + exact physical fence are both proven; preserve-don't-close remains the default until then.\n\nMINIMUM_SAFE_WORKFLOW: (1) Do nothing today: current Runtime already excludes dirty/active/pinned/unknown/orphan from automatic lifecycle removal — this is correct and should remain. (2) For each dirty workspace, produce mechanical inventory (Runtime): object/source-state digest, HEAD/index/worktree/untracked byte+mtime+mode, WIP/rescue ref reachability, per-path currentMain blob relation (exact-match/diverge/absent). (3) Surface that mechanical inventory to Host/domain owner via the NEW structured disposition field. (4) Owner answers exactly three proof questions per workspace: (a) CurrentIntent=RESOLVED (semantically superseded/abandoned) or UNRESOLVED (contains only load-bearing current premise)? (b) Which bytes are unique evidence to preserve as content (staged/untracked) vs. superseded residue? (c) Is a reachable content-preserving resolution available (Git commit ref / rescue ref / artifact archive)? (5) Discard path (only when all three answered AND a reachable content-preserving snapshot exists): Runtime close with force=true after the fence digest matches, plus explicit recorded disposition (class + superseding ref/owner). Otherwise default to preserve with no closer. No automatic lifecycle close of any dirty workspace under any age threshold (168h etc.) is admissible.\n\nNEW_MECHANISM_DECISION: Structured Host-side disposition field/tool — ONE minimal change. Current surfaces cannot suffice because: Runtime-owned physical fence fields cannot encode semantic intent without Runtime inferring domain meaning (forbidden); free-form Host semantic fields are unvalidated and unactionable by lifecycle; no existing tool lets a domain owner record \"class + owner + superseding resolution\" that a later close can mechanically check. Minimal shape: single Host checkpoint field, e.g. `semanticDisposition { class: ACTIVE_DIRTY|REVIEW_CANDIDATE|RECOVERABLE_RESIDUE|UNCOMMITTED_UNIQUE_EVIDENCE|TEMPORAL_MOSAIC|AMBIGUOUS_CLAIMANT, owner, dispositionNote, supersedingRef?, unresolvedEffectsObligations: [] }`, plus a corresponding Runtime close precondition: dispose(fenceDigest match AND semanticDisposition.class confirms discard AND supersedingRef or job-scoped commit/recovery archived exists). No new deletion authority, no force-close inference, no Runtime-side class assignment. Git-side tooling (stash-to-branch, commit WIP, rescue ref) already supplies recoverability and needs no change — any proposed \"new Git mechanism\" would be unnecessary.\n\nCANONICAL_ROOT_DECISION: Root dirty (canonical `computingMain` staged 86 / 43,765 deleted lines; `mediaMain` staged-15 temporal mosaic) differs from detached-workspace dirty in three concrete ways: (1) Root dirty is *staged in the index* (staged != CurrentIntent; index tree != any commit tree, e.g. media indexTree 2d8e6168 != WIP e978d4b), so the uncommitted bytes are lost by force-close and are NOT content-recoverable from a HEAD rescue ref alone — whereas a detached workspace's untracked files at least remain on disk independent of any index/HEAD transition risk. (2) Root dirty is on the open current line of development, so an unproven close or revert contaminates future current-main growth with either an incomplete or a contracted state (computing's capabilities/Method Canon/blobs staged-reverted to 97262c5 and results to 90b7bc3 — a loaded semantic rollback decision that cannot be inferred from bytes); a detached workspace close does not disturb active main. (3) Root dirty therefore carries a stronger proof burden BEFORE any disposition: the owner must show whether the staged contraction/ rollback IS the intended current state (commit it) or is accidental residue (commit a superseding snapshot first), whereas detached-workspace dirty must only be shown to be unique evidence or abandoned residue. Both share the same non-deletable default until disposition+recoverability proven, but root dirty additionally requires a resolution that does not silently discard the index-staged line.\n\nNEXT_FALSIFIER: Bounded natural test — pick computing-root or media-root, have the domain owner run the new minimal workflow (mechanical inventory -> disposition classification -> commit-or-resolve to a reachable content-preserving ref), then attempt lifecycle close. Falsifier: if a dirty root can be dispositioned and closed WITHOUT the new Host disposition field (i.e., current fields alone suffice) then the mechanism change is unnecessary and the attack wins. Conversely if any AMBIGUOUS_CLAIMANT workspace cannot receive a valid owner classification through current Host checkpoint surfaces, the mechanism change is confirmed necessary. Mechanical discriminator: compare currentMain blob relation (exact f695cf4 / diverge / absent) before and after the proposed close on a sample to prove content was preserved (DigestPreserved alone must fail as recoverability proof).",
+    "stopCode": "candidate_completed",
+    "usage": {
+      "modelCalls": 1,
+      "toolCalls": 0,
+      "observationBytes": 0,
+      "totalTokens": 4581,
+      "tokenLimit": 180000,
+      "modelRetries": 0,
+      "toolCorrections": 0,
+      "conclusionCorrections": 0,
+      "conclusionCorrectionLimit": 2,
+      "observationOnlyTurns": 0,
+      "observationOnlyTurnLimit": 1,
+      "noProgressTurns": 0,
+      "noProgressTurnLimit": 1,
+      "modelObservationByteLimit": 32768,
+      "providerAttempts": 1,
+      "providerResultsReplayed": 0,
+      "wallTimeMs": 23328,
+      "deadlineOverrunMs": 0,
+      "effectiveDeadlineOverrunMs": 0,
+      "requestedModelId": "deepseek-v4-flash",
+      "effectiveModelIds": [
+        "deepseek-v4-flash"
+      ],
+      "providerUsage": [
+        {
+          "prompt_tokens": 2669,
+          "completion_tokens": 1912,
+          "total_tokens": 4581,
+          "prompt_tokens_details": {
+            "cached_tokens": 640
+          },
+          "prompt_cache_hit_tokens": 640,
+          "prompt_cache_miss_tokens": 2029,
+          "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking",
+          "requestedModelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash"
+        }
+      ]
+    }
+  },
+  {
+    "role": "HISTORICAL_METHOD",
+    "model": "deepseek-v4-flash",
+    "summary": null,
+    "stopCode": "budget_exhausted",
+    "usage": {
+      "modelCalls": 1,
+      "toolCalls": 0,
+      "observationBytes": 0,
+      "totalTokens": 4883,
+      "tokenLimit": 180000,
+      "modelRetries": 0,
+      "toolCorrections": 0,
+      "conclusionCorrections": 1,
+      "conclusionCorrectionLimit": 2,
+      "observationOnlyTurns": 0,
+      "observationOnlyTurnLimit": 1,
+      "noProgressTurns": 0,
+      "noProgressTurnLimit": 1,
+      "modelObservationByteLimit": 32768,
+      "providerAttempts": 1,
+      "providerResultsReplayed": 0,
+      "wallTimeMs": 25081,
+      "deadlineOverrunMs": 0,
+      "effectiveDeadlineOverrunMs": 0,
+      "requestedModelId": "deepseek-v4-flash",
+      "effectiveModelIds": [
+        "deepseek-v4-flash"
+      ],
+      "providerUsage": [
+        {
+          "prompt_tokens": 2656,
+          "completion_tokens": 2227,
+          "total_tokens": 4883,
+          "prompt_tokens_details": {
+            "cached_tokens": 768
+          },
+          "prompt_cache_hit_tokens": 768,
+          "prompt_cache_miss_tokens": 1888,
+          "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+          "providerModel": "deepseek-v4-flash",
+          "providerRequestMode": "non-thinking",
+          "requestedModelId": "deepseek-v4-flash",
+          "effectiveModelId": "deepseek-v4-flash"
+        }
+      ]
+    }
+  }
+]

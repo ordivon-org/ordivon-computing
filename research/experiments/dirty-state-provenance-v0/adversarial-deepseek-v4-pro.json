@@ -1,0 +1,146 @@
+[
+  {
+    "role": "TAXONOMY_SAFETY",
+    "model": "deepseek-v4-pro",
+    "summary": "VERDICT: NARROWER\n\nSTRONGEST_ATTACK: The candidate class \"RECOVERABLE_RESIDUE\" is contradicted by the bundle's own runtimePolicy — forceCloseRecoverability states \"uncommitted/untracked bytes are not converted into a recoverable commit by force close; digest alone is not content recovery.\" Therefore every untracked/uncommitted workspace (the 163 dirty ones, including UNCOMMITTED_UNIQUE_EVIDENCE and the ws1 / cojc / finance samples) is categorically NOT recoverable residue; any class implying a dirty workspace is recoverable-by-reference is false unless content is actually copied to a real ref/commit/artifact. Age (defaultStaleDirtyHours=168) is purely a lifecycle pressure input, not a recovery guarantee.\n\nEARNED_DISTINCTIONS: Only two distinctions are genuinely evidence-earned rather than renaming ordinary Git mechanics: (1) Staged != CurrentIntent (proven by media/computing staged temporal mosaics whose index trees match no commit, plus wipRef e978d4b ≠ present index, and computing ConcurrentStagedIntent=UNKNOWN_UNTIL_COMMITTED); (2) Digest/Serialization != ContentRecoverable (proven by runtimePolicy). Everything else (Dirty != Active, PreservedBytes != PreservedClaim, CannotAutoDelete != MustRemainAmbiguous, RootDirty != WorkspaceDirty, WorkspaceExistence != TaskContinuity) collapses into the single operating fact that Runtime excludes dirty/active/pinned/unknown from auto-removal — i.e., \"preserved,\" not a distinct semantic class.\n\nRESPONSIBILITY: Runtime owns physical facts and the source-fences (computing/main 797b519d…, media/main 5fea6915…, runtime/current fd6765c2…); Task/Host/domain owner owns semantic disposition and currentness; Git/artifact refs provide whatever content recovery exists (none for untracked/uncommitted unless a rescue ref is actually created); lifecycle only executes close after disposition plus an exact physical fence (sourceStateDigest), never on age alone.\n\nMINIMUM_SAFE_WORKFLOW: (1) For each dirty workspace, mechanically enumerate index vs HEAD vs worktree vs untracked bytes and record sourceStateDigest — no inference, no deletion. (2) Classify only whether untracked/uncommitted bytes ALSO exist in any real reachable ref/commit (by blob hash); if no blob hash matches, mark content non-recoverable-by-reference (not \"residue\"). (3) Escalate to the Task/Host owner for semantic disposition; age is only a priority/backlog signal. (4) For canonical roots (media, computing), do NOT treat staged temporal mosaics as current intent — resolve ConcurrentStagedIntent by comparing each staged blob to known commit-era blobs (already recorded) before any commit decision. (5) Only after disposition is recorded may lifecycle close with force=true, and even then capture a rescue ref for HEAD; non-committed bytes remain lossy and must be either copied to a recoverable object or explicitly dispositioned.\n\nNEW_MECHANISM_DECISION: NO_CHANGE. No new mechanism is required; the existing sourceStateDigest + forceClose rescue-ref surface is sufficient to (a) prove dirtiness, (b) prove non-recoverability of untracked bytes, and (c) block close. What is missing is not a mechanism but a disposition gate owned by the Task/Host — the bundle already admits semanticDisposition is \"unknown\" for every sample.\n\nCANONICAL_ROOT_DECISION: Root dirty (media/computing canonical roots) is a staged temporal mosaic/rollback candidate — staged index blobs are exact-era reverts (Aug24 vs Aug25 blobs; 97262c5/90b7bc3 reverts) with ConcurrentStagedIntent genuinely UNKNOWN_UNTIL_COMMITTED, and the index matches NO commit tree (media exactCommitTreeMatch=false). This is semantically different from detached workspace dirty (untracked/modified files with unknown claimant) because a dirty index on a shared canonical root can silently contract/rollback public surface on next commit, whereas untracked files in an isolated workspace cannot change main until admitted. Root dirty therefore carries a currentness/authority risk that workspace dirty does not — this is the one legitimate claim of a distinct class.\n\nNEXT_FALSIFIER: For each dirty workspace/root, compute the blob-hash set of its uncommitted/untracked bytes and test membership against all reachable refs in the canonical root. If a nonzero fraction of a workspace's \"unique\" bytes are blob-identical to existing reachable blobs, the UNCOMMITTED_UNIQUE_EVIDENCE label is false (they were never unique) and the class collapses to ordinary unadmitted-staged content; if zero match and no owner answers disposition, the workspace is genuinely unrecoverable and must be preserved as physical bytes, not claimed as residue.",
+    "stopCode": "candidate_completed",
+    "usage": {
+      "modelCalls": 1,
+      "toolCalls": 0,
+      "observationBytes": 0,
+      "totalTokens": 3993,
+      "tokenLimit": 180000,
+      "modelRetries": 0,
+      "toolCorrections": 0,
+      "conclusionCorrections": 0,
+      "conclusionCorrectionLimit": 2,
+      "observationOnlyTurns": 0,
+      "observationOnlyTurnLimit": 1,
+      "noProgressTurns": 0,
+      "noProgressTurnLimit": 1,
+      "modelObservationByteLimit": 32768,
+      "providerAttempts": 1,
+      "providerResultsReplayed": 0,
+      "wallTimeMs": 26191,
+      "deadlineOverrunMs": 0,
+      "effectiveDeadlineOverrunMs": 0,
+      "requestedModelId": "deepseek-v4-pro",
+      "effectiveModelIds": [
+        "deepseek-v4-pro"
+      ],
+      "providerUsage": [
+        {
+          "prompt_tokens": 2638,
+          "completion_tokens": 1355,
+          "total_tokens": 3993,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          },
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 2638,
+          "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+          "providerModel": "deepseek-v4-pro",
+          "providerRequestMode": "non-thinking",
+          "requestedModelId": "deepseek-v4-pro",
+          "effectiveModelId": "deepseek-v4-pro"
+        }
+      ]
+    }
+  },
+  {
+    "role": "RESPONSIBILITY_MINIMALITY",
+    "model": "deepseek-v4-pro",
+    "summary": "VERDICT: SURVIVES\n\nSTRONGEST_ATTACK: The candidate responsibility split (\"Runtime owns physical facts... lifecycle executes close only after disposition + exact physical fence\") is only aspirational, not enforced — the current Host checkpoint carries only workspaceId/relevantJobIds/observedHeadRevision, so there is no canonical, machine-checkable field binding a semantic disposition decision to a specific source-state digest; a host that later changes HEAD or index between the disposition decision and the close would let Runtime destroy bytes under a stale/stale-digest disposition, and nothing in the current surfaces ties the disposition back to the exact bytes being discarded.\n\nEARNED_DISTINCTIONS: [Dirty != Active, DigestPreserved != ContentRecoverable, RootDirty != WorkspaceDirty, HistoricalValidity != CurrentClaimant, WorkspaceExistence != TaskContinuity]\n\nRESPONSIBILITY: Runtime owns exact physical state (HEAD/index/tracked/untracked digests, changes, jobs) and refuses dirty close by default. Host/Task/domain owner owns semantic disposition (which claims are superseded vs unique). Git/artifacts owner owns recoverability (rescue ref, commit conversion). Lifecycle (execution) may close only after (a) an owner-authored semantic disposition and (b) an exact physical fence matching the disposition to the digest. No single surface owns all three; the binding is the missing primitive.\n\nMINIMUM_SAFE_WORKFLOW: (1) Host/Task owner issues a structured disposition per workspace/repo: classification (ACTIVE_DIRTY / REVIEW_CANDIDATE / RECOVERABLE_RESIDUE / UNCOMMITTED_UNIQUE_EVIDENCE / TEMPORAL_MOSAIC / AMBIGUOUS_CLAIMANT) plus a per-path save/discard intent. (2) For any discard risk, Runtime emits the exact sourceStateDigest (HEAD/index/tracked/untracked bytes+modes) and final HEAD rescue ref so bytes are ref-convertible before close. (3) Lifecycle computes the current digest and refuses close unless it exactly equals the digest recorded at disposition time (no drift allowed). (4) Any unique-claim path or unknown-claimant path routes to recovery (rescue ref/commit) instead of force close; force close without content recovery is prohibited until semantic disposition is explicit. (5) Close executes only inside the exact physical fence; ambiguous/unknown dispositions return needs_input rather than defaulting.\n\nNEW_MECHANISM_DECISION: Minimal change required — add one Host checkpoint field linking the disposition to the exact physical fence: e.g. disposition + dispositionSourceStateDigest (plus optional per-path disposition classes). Current surfaces cannot suffice because workspaceId/relevantJobIds/observedHeadRevision records only *which* head was observed, not *which bytes* the disposition applies to; with no digest binding, Runtime cannot prove the disposition decision predates and corresponds to the exact bytes it is about to discard, so a safe dirty-close cannot be proven from current fields. Do NOT add a Runtime-side intent inference; only the structured binding field is needed.\n\nCANONICAL_ROOT_DECISION: Root dirty (media/indexTree 2d8e6168, computing/indexTree bd1ac3b4) is the staged-but-uncommitted index state of the canonical repo roots and is a temporal mosaic/rollback candidate whose ConcurrentStagedIntent is UNKNOWN_UNTIL_COMMITTED/RESOLVED; detached workspace dirty (e.g. the 4 sample workspaces) is worktree/untracked data belonging to separate workspace IDs whose semantic claimant and relation to current main are separately \"unknown/partly superseded\". Root dirty must not be auto-committed or discarded on age alone (its interim state may encode a not-yet-resolved staged intent), whereas workspace dirty requires per-workspace disposition before any close — treating root dirty and workspace dirty as the same class conflates repository index state with per-task worktree residue.\n\nNEXT_FALSIFIER: For one sample workspace (e.g. finance-owner-world-flow-coverage-20260824), record the sourceStateDigest, let the Task/Host owner file the disposition, then deliberately alter one tracked byte after disposition but before close; the minimal workflow must refuse the close (digest mismatch), while the current Host-only checkpoint alone cannot detect or prevent the destruction — demonstrating whether the new digest-binding mechanism is load-bearing beyond current surfaces.",
+    "stopCode": "candidate_completed",
+    "usage": {
+      "modelCalls": 1,
+      "toolCalls": 0,
+      "observationBytes": 0,
+      "totalTokens": 3853,
+      "tokenLimit": 180000,
+      "modelRetries": 0,
+      "toolCorrections": 0,
+      "conclusionCorrections": 0,
+      "conclusionCorrectionLimit": 2,
+      "observationOnlyTurns": 0,
+      "observationOnlyTurnLimit": 1,
+      "noProgressTurns": 0,
+      "noProgressTurnLimit": 1,
+      "modelObservationByteLimit": 32768,
+      "providerAttempts": 1,
+      "providerResultsReplayed": 0,
+      "wallTimeMs": 23115,
+      "deadlineOverrunMs": 0,
+      "effectiveDeadlineOverrunMs": 0,
+      "requestedModelId": "deepseek-v4-pro",
+      "effectiveModelIds": [
+        "deepseek-v4-pro"
+      ],
+      "providerUsage": [
+        {
+          "prompt_tokens": 2669,
+          "completion_tokens": 1184,
+          "total_tokens": 3853,
+          "prompt_tokens_details": {
+            "cached_tokens": 640
+          },
+          "prompt_cache_hit_tokens": 640,
+          "prompt_cache_miss_tokens": 2029,
+          "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+          "providerModel": "deepseek-v4-pro",
+          "providerRequestMode": "non-thinking",
+          "requestedModelId": "deepseek-v4-pro",
+          "effectiveModelId": "deepseek-v4-pro"
+        }
+      ]
+    }
+  },
+  {
+    "role": "HISTORICAL_METHOD",
+    "model": "deepseek-v4-pro",
+    "summary": "VERDICT: NARROWER\n\nSTRONGEST_ATTACK: The bundle asserts that \"preservation without disposition creates semantic/currentness debt,\" but its own runtimeBacklog shows 160/163 dirty workspaces older than 24h yet only 4 workspace samples are provided, all with semanticDisposition=\"unknown\" — so the causal claim (that dirty-preservation *causes* debt) is unsupported by evidence of what those workspaces actually contain; the most the evidence proves is \"old dirty bytes accumulate,\" not \"claims inside them are being wrongly lifted into current authority or have become semantically stale.\" The debt is unmeasured, not demonstrated.\n\nEARNED_DISTINCTIONS: Dirty != Active; Staged != CurrentIntent; PreservedBytes != PreservedClaim; DigestPreserved != ContentRecoverable; RootDirty != WorkspaceDirty; Preservation != Sedimentation; WorkspaceExistence != TaskContinuity. (The claims-fence distinctions HistoricalValidity != Currentness and CannotAutoDelete != MustRemainSemanticallyAmbiguousForever are the load-bearing two.)\n\nRESPONSIBILITY: Runtime owns physical facts and source-fences (computingMain 797b519d, mediaMain 5fea6915, runtimeCurrent fd6765c2) — i.e., \"what bytes exist and where the fence is.\" Task/Host/domain owner owns semantic disposition (active vs. review-candidate vs. recoverable-residue vs. unique-evidence vs. ambiguous-claimant). Git/artifacts own recoverability (rescue ref, committed content, index/HEAD trees). Lifecycle executes close only after disposition is decided *and* the exact physical fence is committed. Ownership of the three fences and of the four sample workspaces is asserted by the bundle but not independently demonstrated by it.\n\nMINIMUM_SAFE_WORKFLOW: (1) Runtime emits the 160-strong outstanding-dirty set with exact physical sourceStateDigest per workspace and the runtimeCurrent fence fd6765c2 — no disposition, no cleanup. (2) Disposition authority classifies each workspace into one candidate class; samples show UNKNOWN is the norm, so classification must be sourced from owners, not inferred from age. (3) For each workspace resolved as REVIEW_CANDIDATE or UNCOMMITTED_UNIQUE_EVIDENCE, create a rescue commit/ref so uncommitted/untracked bytes become recoverable content *before* any close (force-close's digest-only guarantee is insufficient for recovery). (4) Only after disposition + exact fence is a no-force close admissible; no force-close is admissible while disposition is unknown. (5) Record each disposition decision as a challengeable/deletable sedimentation entry, not immutable theory.\n\nNEW_MECHANISM_DECISION: NO_CHANGE to the loss-prevention exclusion itself (it is still solving real loss risk), but ADD one operational surface: a \"disposition ledger\" that pairs each dirty workspace with an explicit owner-declared candidate class and an optional rescue commit, so that \"cannot auto-delete\" can become \"explicitly dispositioned\" instead of \"silently ambiguous.\" Current surfaces (closeDefault refusing dirty, maintenance reason STALE_DIRTY_WORKSPACES, existingTheoryGuards) already contain the concepts but no observed surface records per-workspace disposition; the ledger is the minimal addition. No canonical-root change is warranted by this bundle.\n\nCANONICAL_ROOT_DECISION: The media canonical root is a genuine TEMPORAL_MOSAIC (indexTree 2d8e6168 is a mix of Aug24 and Aug25 blobs, later-admitted Chapters 6/7 staged-deleted, and WIP ref e978d4b preserves a *different* earlier staged state), so \"the root\" cannot be equated with \"current intent\" or any single commit tree — RootDirty != WorkspaceDirty, and the root's authoritative current claimant is unresolved pending semantic disposition by the media owner. The computing root (indexTree bd1ac3b4, ~43,765 deleted lines, revert-to-97262c5/90b7bc3 pattern) is a staged-rollback/contraction candidate whose intent remains UNKNOWN_UNTIL_COMMITTED/RESOLVED; it is recoverable (bytes exist) but not interpretable as current authority without an owner decision. A root dirty state is thus a recoverable-artifact condition with unknown claimant, distinct from a detached workspace dirty state.\n\nNEXT_FALSIFIER: For any one of the four sample workspaces, ask the domain owner for an explicit disposition and match it to a committed rescue artifact; if a sample classified \"unique evidence\" cannot be encoded into a recoverable commit (only a digest survives a force-close), the PRESERVATION-without-DISPOSITION debt claim is falsified for that case; if every old-but-untouched workspace is owner-classified as superseded/recoverable with a rescue commit, the \"debt\" is real only as an accounting backlog, not semantic staleness.\n\nREVIEW-ROLE ADDENDUM (hindsight-bias and theory-promotion audit): The old dirty-preservation policy solved a real, concrete loss-prevention problem — Git's normal safeguards plus Ordivon's explicit exclusion of dirty/active/unknown workspaces from auto-removal prevented silent destruction of uncommitted/untracked unique work, and force-close's digest-only guarantee shows the designers already knew \"preserved digest != recovered content.\" Current evidence does *not* prove this protection has become insufficient; it proves only that the backlog is large and aging (160 old dirty workspaces, 37 >2wk, workspaceBytes ~4.67GB). The claim that preservation *itself* creates semantic/currentness debt is a hindsight-flavored framing: the debt is an *unrecorded-disposition* backlog, not a causal consequence of refusing auto-delete — refusing to delete bytes cannot, by itself, elevate stale bytes into current authority unless some other surface is mislabelling them as current, which the bundle does not demonstrate. The bundle is therefore an operational-rule/case-level matter, not a Method Canon/Book/theory promotion: the candidate distinctions are useful disposition vocabulary (not physical-fact claims), and the temporal-mosaic risk is a real property of the media root (mtime 2026-08-25T20:42:47+08:00 with mixed-era blobs) that must be audited per-root, but none of this rises to a change in first-principles. Recommended practice changes: (a) replace \"preserved forever = safe\" with \"preserved + owner-dispositioned + rescue-committed where unique = safe,\" (b) add the disposition ledger, (c) keep sedimentation entries challengeable/deletable, and (d) treat canonical-root state as a recoverable-artifact-with-unknown-claimant until the owner resolves it — not as either \"clean current\" or \"garbage,\" both of which would be unproven by this evidence.",
+    "stopCode": "candidate_completed",
+    "usage": {
+      "modelCalls": 1,
+      "toolCalls": 0,
+      "observationBytes": 0,
+      "totalTokens": 4403,
+      "tokenLimit": 180000,
+      "modelRetries": 0,
+      "toolCorrections": 0,
+      "conclusionCorrections": 0,
+      "conclusionCorrectionLimit": 2,
+      "observationOnlyTurns": 0,
+      "observationOnlyTurnLimit": 1,
+      "noProgressTurns": 0,
+      "noProgressTurnLimit": 1,
+      "modelObservationByteLimit": 32768,
+      "providerAttempts": 1,
+      "providerResultsReplayed": 0,
+      "wallTimeMs": 37315,
+      "deadlineOverrunMs": 0,
+      "effectiveDeadlineOverrunMs": 0,
+      "requestedModelId": "deepseek-v4-pro",
+      "effectiveModelIds": [
+        "deepseek-v4-pro"
+      ],
+      "providerUsage": [
+        {
+          "prompt_tokens": 2656,
+          "completion_tokens": 1747,
+          "total_tokens": 4403,
+          "prompt_tokens_details": {
+            "cached_tokens": 640
+          },
+          "prompt_cache_hit_tokens": 640,
+          "prompt_cache_miss_tokens": 2016,
+          "systemFingerprint": "a307abda487cd1b463329ccb945ce396",
+          "providerModel": "deepseek-v4-pro",
+          "providerRequestMode": "non-thinking",
+          "requestedModelId": "deepseek-v4-pro",
+          "effectiveModelId": "deepseek-v4-pro"
+        }
+      ]
+    }
+  }
+]
