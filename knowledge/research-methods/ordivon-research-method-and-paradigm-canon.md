@@ -402,6 +402,36 @@ Not every result should progress to S5/S6. Before claiming that a reusable stand
 
 A document, Host checkpoint, Atlas pointer, or successful promotion decision proves only its own stage. Do not infer later stages from earlier ones.
 
+### 19B. Longitudinal consequence is challengeable persistence, not unchanged survival
+
+A pre-frozen ten-case T2 longitudinal audit (7–13 days natural exposure) now gives bounded S6 evidence across Web, Security, Host, Computing, Atlas, Harness, Finance and Media. The result is heterogeneous rather than one success rate: some standings remained useful, some deletion/`NO_CHANGE` decisions remained correct, some required rebind after source/lineage change, and some still lacked a real downstream benefit claim.
+
+Preserve:
+
+```text
+Survival != Consumption != Benefit
+MaterializedOnBranch != CurrentlyInhabited
+BeneficialAt_t0 != StillBeneficialAt_t1
+Changed != Failed
+Deletion/Demotion/Rebind can be positive consequence
+ConclusionSufficiency != ContinuationSufficiency
+```
+
+The strongest current positive pattern is not immutable persistence. It is:
+
+```text
+scoped standing
++ real consumer relation
++ owner-native consequence/evidence path
++ source/currentness re-entry
++ cheap challenge/demotion/deletion
+→ bounded durable capability
+```
+
+Current evidence establishes bounded local S6 consequence and challenge/rebind capability in selected owner-consumer chains. It does **not** establish month/year persistence, whole-Ordivon S6 coverage, independent external realized benefit, or an autonomous cumulative intelligence ratchet. Do not create a universal S6 monitor, score or consumer graph from this evidence.
+
+Canonical audit: `research/S6-LONGITUDINAL-CONSEQUENCE-AUDIT-20260826.md`.
+
 ## 20. Canonical case library
 
 The current strongest method cases include:
