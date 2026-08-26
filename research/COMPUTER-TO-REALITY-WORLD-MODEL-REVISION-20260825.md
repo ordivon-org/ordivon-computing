@@ -758,3 +758,64 @@ For the laboratory horizon, the resulting correction is:
 > **Prefer the smallest trustworthy, source-neutral way to create the observation/action/evidence environment required by the current Reality pressure. Let repeated heterogeneous use decide which reconfiguration, calibration, fixture, fabrication, continuity, or control mechanisms deserve durable infrastructure standing. Allow target-specific realizations to expire when current Reality no longer justifies their carrying cost.**
 
 This correction does not create a Lab owner, Capability Registry, Instrument Graph, global currentness service, or physical-control layer.
+
+
+---
+
+## Second post-revision correction — civilization-mediated reachability
+
+A subsequent 2026-08-26 world-model audit exposed one remaining software/locality bias that the capability-pressure law did not make explicit enough. The full bounded analysis is recorded in [`CIVILIZATION-MEDIATED-REACHABILITY-WORLD-MODEL-REVISION-20260826.md`](CIVILIZATION-MEDIATED-REACHABILITY-WORLD-MODEL-REVISION-20260826.md).
+
+The correction is not that external services are useful; the Constructive Capability Environment closeout already established source-neutral construction. The stronger correction is a search prior:
+
+```text
+Human-civilization-realized capability
+→ candidate reachability pressure
+```
+
+rather than:
+
+```text
+Human-civilization-realized capability
+→ current Ordivon capability
+```
+
+or:
+
+```text
+not locally owned / not in a current owner
+→ unreachable
+```
+
+Mature make-or-buy / transaction-cost economics, distributed-cognition work, current on-demand manufacturing and remote cloud laboratories strongly subtract novelty from the broad idea that functional capability can cross organizational and ownership boundaries. The Ordivon residual is therefore only a finite-consumer judgment discipline: before closing a target as outside the system, search for source-neutral carrier paths and identify the actual blocker.
+
+This adds one working world-model standing:
+
+### WM-COMP-R9 — Ownership/domain boundaries are not reachability boundaries
+
+For a target already robustly realized somewhere in human civilization, absence of a local implementation is weak evidence of impossibility. Treat the target as a candidate reachable capability, then distinguish:
+
+```text
+CandidateReachable
+!=
+PathQualified
+!=
+RealizedCurrentCapability
+```
+
+and classify the actual blocker: logical/physical/formal, causal-information, computational/resource, knowledge/method, capital/equipment/facility, supply/latency, precision/metrology, interface/integration, authority/safety/legal, or transaction/coordination.
+
+The revised expansion law becomes:
+
+```text
+important target
+→ reject premature domain/ownership closure
+→ search civilization-scale source-neutral carriers
+→ classify blockers
+→ choose strongest admissible current path
+→ construct only the residual
+→ verify target consequence
+→ preserve the cheapest trustworthy route back
+```
+
+This does not create a Reachability owner, Civilization API, global Capability Graph, procurement policy, or guarantee that every human-achievable target is currently affordable, authorized, safe, epistemically recoverable, or computationally tractable.
