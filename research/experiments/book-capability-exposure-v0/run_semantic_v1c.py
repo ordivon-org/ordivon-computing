@@ -10,7 +10,7 @@ from ordivon_harness.api import (
 ROOT=Path(__file__).resolve().parent
 QUESTION='你是一个第一次接触 Ordivon Book 的强 Agent。只根据下面这本 Book，回答：这套系统/有限智能现在因此能够可靠地做哪些以前不能稳定做到的事情？请优先描述已经由书中结构真正支持的 capability，而不是重复“什么不能推出”。必须保留 scope、authority、currentness、maturity 和 non-claim 边界；研究性/条件性能力必须明确标注。不要使用问题外的 Ordivon 历史，不要按章节复述，不要为了积极而夸大。重要的输出协议：你最终必须调用 submit_run_conclusion，并把完整的 700–1200 中文字符能力模型逐字放进 summary 字段；summary 不能是任务描述、元说明或一句话摘要，它本身就是完整答案。artifact_refs/evidence_refs 可以为空，unresolved_unknowns 只放真正未知。'
 def main():
-    ap=argparse.ArgumentParser(); ap.add_argument('--arm',required=True,choices=['BASELINE','REORDER','GESTALT','GESTALT_ONLY']); ap.add_argument('--replicate',type=int,required=True); args=ap.parse_args()
+    ap=argparse.ArgumentParser(); ap.add_argument('--arm',required=True,choices=['BASELINE','REORDER','GESTALT','GESTALT_ONLY','GESTALT_ONLY_NORMALIZED']); ap.add_argument('--replicate',type=int,required=True); args=ap.parse_args()
     book=(ROOT/f'{args.arm}.mdx').read_text(encoding='utf-8')
     run_id=f'harness-run:book-capexp-v1c-{args.arm.lower()}-{args.replicate}-{int(time.time()*1000)}'; created=int(time.time()*1000)
     prompt=QUESTION+'\n\n--- BEGIN BOOK ---\n'+book+'\n--- END BOOK ---'

@@ -114,3 +114,9 @@ Reject:
 ## Reopen conditions
 
 Reopen efficacy, rather than representation recovery, when a non-ceiling downstream task exists: different model family, Human reader test, low-context Agent, real operation choice with ambiguous evidence, or longitudinal evidence that capability exposure changes action selection or consequence.
+
+## Canonical EOF normalization verification
+
+The Media validation gate rejected the initially generated treatment bytes only because `git diff --check` detected a terminal blank line. The final output normalizes the file to one trailing newline. The resulting exact Book digest is `sha256:14e5e15b9223cf6beee4ce3981eebc197c837f899948140e6daf96cfca6597c4` (169,921 bytes).
+
+This exact normalized byte sequence was rerun under the corrected v1c carrier for three fresh replicates. Result: `7/7, 7/7, 7/7` capability-family recovery, all `candidate_completed`, with the same 35,194 prompt-token count. Therefore EOF normalization does not change the admitted representation effect, and `14e5e15b...` is the canonical tested Book output digest.
