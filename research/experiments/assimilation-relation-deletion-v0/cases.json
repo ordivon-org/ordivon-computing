@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "MEDIA-BLENDER-FULL",
+      "targetOperation": "Use the currently qualified Blender carrier for headless 3D scene construction and rendering.",
+      "rawFacts": ["An official Blender 5.2.0 LTS Windows portable build is present.", "Its exact bytes were SHA-256 verified.", "It was executed headlessly for a real Python-authored scene preserving geometry, camera, lights, materials and curve state.", "The run rendered a PNG and exported GLB, and artifact/state postconditions were checked because process exit alone is insufficient.", "Ordivon does not own Blender source or renderer internals."],
+      "relations": {"identityProvenance":"CURRENT_EXACT","applicability":"MATCHED","authorizedAccess":"CURRENT","representation":"USABLE_HEADLESS_API","operationRelation":"OBSERVE_AND_ACT","currentness":"CURRENT_PROFILE","consumerEvidence":"REAL_DOGFOOD","modificationRights":"NOT_REQUIRED_FOR_TARGET"},
+      "oracle": {"standing":"REALIZED","decision":"USE_BOUND_EXTERNAL","preserveNativeSemantics":true}
+    },
+    {
+      "id": "MEDIA-BLENDER-NO-IDENTITY",
+      "targetOperation": "Use the currently qualified Blender carrier for headless 3D scene construction and rendering.",
+      "rawFacts": ["A Blender executable was used successfully in an earlier experiment.", "The current executable version and digest are not established.", "The prior run rendered a PNG and exported GLB.", "No current compatibility profile has been rebound to the bytes now present."],
+      "relations": {"identityProvenance":"UNKNOWN_CURRENT","applicability":"HISTORICALLY_MATCHED","authorizedAccess":"LIKELY_LOCAL","representation":"HEADLESS_API_KNOWN","operationRelation":"POSSIBLE","currentness":"UNKNOWN","consumerEvidence":"HISTORICAL_ONLY"},
+      "oracle": {"standing":"NOT_ESTABLISHED","decision":"QUALIFY_OR_BIND","preserveNativeSemantics":true}
+    },
+    {
+      "id": "MEDIA-FIGMA-PENDING-AUTH",
+      "targetOperation": "Read and mutate the current Figma design through its official Remote MCP surface.",
+      "rawFacts": ["Figma is installed and the official Remote MCP endpoint is configured.", "The endpoint reached the OAuth consent boundary.", "User consent has not been completed.", "No successful MCP design read or write has occurred."],
+      "relations": {"identityProvenance":"KNOWN_INSTALL","applicability":"HIGH","authorizedAccess":"PENDING_OAUTH","representation":"REMOTE_MCP_AVAILABLE","operationRelation":"NOT_YET_AUTHORIZED","currentness":"CURRENT_TO_CONSENT_BOUNDARY","consumerEvidence":"NONE_FOR_READ_WRITE"},
+      "oracle": {"standing":"POTENTIAL","decision":"QUALIFY_OR_BIND","preserveNativeSemantics":true}
+    },
+    {
+      "id": "FINANCE-OKX-FULL",
+      "targetOperation": "Treat the admitted OKX venue relation as a current Finance observation/effect/reconciliation capability while keeping venue truth provider-native.",
+      "rawFacts": ["Finance binds the exact live venue/profile and official provider observations.", "Current reads are source-specific and freshness checked.", "For effects, transport/request success is not accepted as financial consequence.", "Independent venue order state, fills, bills and post-effect portfolio observations reconcile the consequence.", "Venue/provider occurrence truth remains provider-native; Finance owns financial meaning and admission."],
+      "relations": {"identityProvenance":"EXACT_VENUE_PROFILE","applicability":"MATCHED","authorizedAccess":"CURRENT_SCOPED","representation":"FINANCE_SEMANTIC_BINDING_PLUS_NATIVE_ESCAPE","operationRelation":"OBSERVE_EFFECT_RECONCILE","currentness":"FRESHNESS_FENCED","consumerEvidence":"REAL_PROVIDER_AND_RECONCILIATION"},
+      "oracle": {"standing":"REALIZED","decision":"USE_BOUND_EXTERNAL","preserveNativeSemantics":true}
+    },
+    {
+      "id": "FINANCE-OKX-NO-EVIDENCE",
+      "targetOperation": "Claim that an OKX order produced the intended financial consequence.",
+      "rawFacts": ["The authenticated order submission command returned process exit zero and an HTTP success response.", "No later exact provider order state, fills, bills or portfolio reconciliation evidence is available.", "The external effect may therefore be unresolved despite transport success."],
+      "relations": {"identityProvenance":"REQUEST_BOUND","applicability":"MATCHED","authorizedAccess":"SUBMISSION_AUTHORIZED","representation":"TRANSPORT_RESULT_ONLY","operationRelation":"SUBMIT_ONLY","currentness":"POST_EFFECT_UNKNOWN","consumerEvidence":"NO_CONSEQUENCE_EVIDENCE"},
+      "oracle": {"standing":"NOT_ESTABLISHED","decision":"HOLD","preserveNativeSemantics":true}
+    },
+    {
+      "id": "HARNESS-MODEL-FULL",
+      "targetOperation": "Use an external DeepSeek model as a bounded current cognition carrier inside one Harness Run.",
+      "rawFacts": ["The Harness Run binds exact Provider, Adapter, requested model, Tool grant, budgets and privacy authority.", "Provider-call identity and completion/failure/UNKNOWN state are durable.", "A completed provider call produced a structured result for the bounded Run.", "Harness can recover ambiguous delivery without blindly redispatching.", "Harness does not own the model weights and does not convert model completion into domain truth."],
+      "relations": {"identityProvenance":"PROVIDER_ADAPTER_MODEL_BOUND","applicability":"RUN_MATCHED","authorizedAccess":"CURRENT_CREDENTIAL_SCOPE","representation":"HARNESS_RUN_CONTRACT","operationRelation":"BOUNDED_COGNITION","currentness":"RUN_BOUND","consumerEvidence":"COMPLETED_PROVIDER_CALL"},
+      "oracle": {"standing":"REALIZED","decision":"USE_BOUND_EXTERNAL","preserveNativeSemantics":true}
+    },
+    {
+      "id": "HARNESS-MODEL-NO-IDENTITY",
+      "targetOperation": "Claim current capability specifically from deepseek-v4-flash for a bounded Harness Run.",
+      "rawFacts": ["A text response from an external model endpoint is available.", "The effective provider/model identity was not retained or rebound.", "The response can be read, but it cannot establish which current model generation produced it.", "The target claim is specifically about deepseek-v4-flash rather than generic text generation."],
+      "relations": {"identityProvenance":"EFFECTIVE_MODEL_UNKNOWN","applicability":"CONTENT_PLAUSIBLE","authorizedAccess":"UNKNOWN_CURRENT","representation":"TEXT_ONLY","operationRelation":"HISTORICAL_RESPONSE_ONLY","currentness":"UNKNOWN","consumerEvidence":"UNATTRIBUTABLE"},
+      "oracle": {"standing":"NOT_ESTABLISHED","decision":"QUALIFY_OR_BIND","preserveNativeSemantics":true}
+    },
+    {
+      "id": "WORKSTATION-SURFPATH-FULL",
+      "targetOperation": "Run a bounded process through the currently admitted external Surfshark path without making Surfshark an Ordivon network authority.",
+      "rawFacts": ["A fresh observation binds exact ingress, provider transport config digest, provider binary identity, endpoint and path digest.", "WireGuard/OpenVPN qualification requires a real transport handshake, and required destination service is independently probed.", "Effectful run revalidates the exact observation/path/current destination before executing the child.", "Transient namespace/rule state is cleaned up; provider identity remains external."],
+      "relations": {"identityProvenance":"EXACT_PATH_GENERATION","applicability":"DESTINATION_MATCHED","authorizedAccess":"CURRENT_SCOPED","representation":"PROVIDER_NEUTRAL_CAPABILITY_PLUS_NATIVE_FACTS","operationRelation":"SCOPED_EGRESS_EXECUTION","currentness":"FRESH_REVALIDATED","consumerEvidence":"REAL_HANDSHAKE_AND_DESTINATION"},
+      "oracle": {"standing":"REALIZED","decision":"USE_BOUND_EXTERNAL","preserveNativeSemantics":true}
+    },
+    {
+      "id": "WORKSTATION-PUBLIC-NODE-REACHABLE",
+      "targetOperation": "Treat a reachable public relay node as authority for arbitrary remote code execution on that host.",
+      "rawFacts": ["A public node is listed and its published relay endpoint is reachable.", "The operator publishes relay/network service only.", "No SSH, shell, arbitrary remote execution or host-admin authority has been granted.", "Reachability to the published service does not imply control of the host."],
+      "relations": {"identityProvenance":"PUBLIC_NODE_KNOWN","applicability":"ONLY_FOR_PUBLISHED_RELAY","authorizedAccess":"RELAY_ONLY","representation":"PUBLIC_SERVICE_CATALOG","operationRelation":"NO_ARBITRARY_HOST_CONTROL","currentness":"RELAY_REACHABLE","consumerEvidence":"RELAY_ONLY"},
+      "oracle": {"standing":"NOT_ESTABLISHED","decision":"HOLD","preserveNativeSemantics":true}
+    },
+    {
+      "id": "KNOWLEDGE-PRIOR-FULL",
+      "targetOperation": "Use a mature external research result as positive solution-domain knowledge in a current Ordivon research decision.",
+      "rawFacts": ["The external result is from a sufficiently established primary scholarly source for the claim being used.", "Its scope and assumptions were compared with the current target and found transportable for this decision.", "Composition assumptions with owner-local standings were made explicit.", "A later fresh-Agent research decision consumed the result to avoid rediscovery while preserving source/applicability boundaries."],
+      "relations": {"identityProvenance":"PRIMARY_SOURCE_BOUND","applicability":"ASSUMPTIONS_TRANSPORTED","authorizedAccess":"READABLE","representation":"SOURCE_PLUS_REUSABLE_SYNTHESIS","operationRelation":"DECISION_INPUT","currentness":"CLAIM_SCOPE_CURRENT","consumerEvidence":"FRESH_CONSUMER_USED"},
+      "oracle": {"standing":"REALIZED","decision":"USE_BOUND_EXTERNAL","preserveNativeSemantics":true}
+    },
+    {
+      "id": "KNOWLEDGE-PRIOR-NO-APPLICABILITY",
+      "targetOperation": "Apply a mature external research result directly to the current Ordivon target.",
+      "rawFacts": ["The external publication is authoritative for its original study domain.", "The current Ordivon target differs materially in consumer, authority and time regime.", "No assumption-transport or applicability analysis has been performed.", "The result may still be useful prior knowledge, but direct applicability is unresolved."],
+      "relations": {"identityProvenance":"PRIMARY_SOURCE_BOUND","applicability":"UNTESTED_FOR_TARGET","authorizedAccess":"READABLE","representation":"SOURCE_AVAILABLE","operationRelation":"POTENTIAL_DECISION_INPUT","currentness":"SOURCE_KNOWN","consumerEvidence":"NO_TARGET_CONSUMPTION"},
+      "oracle": {"standing":"POTENTIAL","decision":"QUALIFY_OR_BIND","preserveNativeSemantics":true}
+    },
+    {
+      "id": "DOE-FACILITY-PUBLIC-NO-ACCESS",
+      "targetOperation": "Claim that Ordivon can run a specific remote user-facility instrument experiment now.",
+      "rawFacts": ["DOE user facilities support remote users who can participate in experiments, remotely control instruments and produce data.", "Remote use requires facility registration, required permissions, a valid user agreement and an approved experiment safety form/proposal context.", "For Ordivon, no current approved proposal, permission, user agreement or instrument slot for this target is established."],
+      "relations": {"identityProvenance":"FACILITY_CLASS_ESTABLISHED","applicability":"POSSIBLE","authorizedAccess":"NOT_ESTABLISHED_FOR_ORDIVON","representation":"PUBLIC_USER_FACILITY_RULES","operationRelation":"NO_CURRENT_INSTRUMENT_BINDING","currentness":"PUBLIC_PROGRAM_CURRENT","consumerEvidence":"NONE_FOR_ORDIVON_TARGET"},
+      "oracle": {"standing":"NOT_ESTABLISHED","decision":"QUALIFY_OR_BIND","preserveNativeSemantics":true}
+    }
+  ]
+}
