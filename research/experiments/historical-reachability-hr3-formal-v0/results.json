@@ -1,0 +1,461 @@
+{
+  "cases": [
+    {
+      "afterBasisChangeReachable": true,
+      "id": "C1_DYNAMIC_BASIS",
+      "path": [
+        "access_fabrication",
+        "access_metrology"
+      ],
+      "staticReachable": false,
+      "supports": "PossibilityUnderCurrentBasis != CandidateReachabilityUnderBasisChange"
+    },
+    {
+      "afterBasisChangeReachable": false,
+      "id": "C2_HARD_CONTRADICTION",
+      "staticReachable": false,
+      "supports": "CandidateReachabilityPressure != GuaranteedReachability",
+      "target": "P AND NOT_P"
+    },
+    {
+      "currentCapabilityAfterAdmissibleClosure": true,
+      "currentCapabilityBeforeAuthority": false,
+      "id": "C3_PROVIDER_AUTHORITY",
+      "qualifiedPath": [
+        "obtain_authority",
+        "authorized_order",
+        "verify"
+      ],
+      "supplierExists": true,
+      "supports": "SupplierExists != CurrentCapability; PhysicalReachability != AuthorizedReachability"
+    },
+    {
+      "id": "C4_RAW_ACTION_NON_GAIN",
+      "rawActionCountAfter": 2,
+      "rawActionCountBefore": 1,
+      "supports": "MoreRawActions != MoreValidCapability",
+      "validReachableAfter": [
+        "evidence",
+        "sample"
+      ],
+      "validReachableBefore": [
+        "evidence",
+        "sample"
+      ]
+    },
+    {
+      "id": "C5_CONSTRAINT_ROBUSTNESS",
+      "robustAfterConstraint": true,
+      "robustWithBothActions": false,
+      "supports": "Constraint can preserve future valid reachability"
+    },
+    {
+      "externalPath": [
+        "invoke_vendor",
+        "verify"
+      ],
+      "externalSteps": 2,
+      "id": "C6_EXTERNAL_COMPRESSION",
+      "internalPath": [
+        "buy_machine",
+        "learn_process",
+        "fabricate",
+        "verify"
+      ],
+      "internalSteps": 4,
+      "supports": "External carrier can compress historical construction path without collapsing verification",
+      "verificationStillRequired": true
+    },
+    {
+      "id": "C7_SCALE_BOUNDARY",
+      "localReachable": true,
+      "path": [
+        "add_parallel_capacity",
+        "scale_safety_case"
+      ],
+      "scaledSystemQualified": true,
+      "scaledThroughputReached": true,
+      "supports": "PathQualified(target,scale1) != PathQualified(target,scale2)"
+    },
+    {
+      "afterInstrumentDistinguishable": true,
+      "beforeInstrumentDistinguishable": false,
+      "id": "C8_INSTRUMENT_DISCRIMINATION",
+      "supports": "Observation capability can change question reachability"
+    },
+    {
+      "closedInterfaceFutureCapability": false,
+      "id": "C9_LOCKIN_CONTRACTION",
+      "openInterfaceFutureCapability": true,
+      "supports": "ReachabilityGrowth != MonotonicProgress"
+    },
+    {
+      "activeCanServe": true,
+      "activePath": [
+        "serve_new_target"
+      ],
+      "dormantCanRecover": true,
+      "dormantRecoveryPath": [
+        "reconstruct_fixture",
+        "serve_new_target"
+      ],
+      "id": "C10_RECONSTRUCTIBLE_OPTION",
+      "supports": "CapabilityInstance != ReconstructibleDesignOption; inactive != zero option value"
+    }
+  ],
+  "claimCeiling": [
+    "Formal/synthetic mechanism evidence only; not current-world prevalence.",
+    "Model construction can refute an unrestricted implication by counterexample but cannot establish that a real target has the modeled transition path."
+  ],
+  "kind": "ordivon.computing.historical-reachability-hr3-formal-countermodels",
+  "randomProbe": {
+    "interpretation": "Descriptive frequency has no empirical meaning; the generated model family only demonstrates that static-unreachable => permanently-unreachable is invalid without assumptions that freeze the capability basis.",
+    "sampleCountermodels": [
+      {
+        "actions": [
+          {
+            "adds": [
+              "c2"
+            ],
+            "name": "a2",
+            "requires": [
+              "c1"
+            ]
+          },
+          {
+            "adds": [
+              "c3"
+            ],
+            "name": "a3",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c4"
+            ],
+            "name": "a4",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c5"
+            ],
+            "name": "a5",
+            "requires": [
+              "c2"
+            ]
+          },
+          {
+            "adds": [
+              "c7"
+            ],
+            "name": "a7",
+            "requires": [
+              "c0"
+            ]
+          }
+        ],
+        "initial": [
+          "c0"
+        ],
+        "path": [
+          "a3",
+          "a4",
+          "a7"
+        ],
+        "target": "c7"
+      },
+      {
+        "actions": [
+          {
+            "adds": [
+              "c1"
+            ],
+            "name": "a1",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c2"
+            ],
+            "name": "a2",
+            "requires": [
+              "c1"
+            ]
+          },
+          {
+            "adds": [
+              "c4"
+            ],
+            "name": "a4",
+            "requires": [
+              "c3"
+            ]
+          },
+          {
+            "adds": [
+              "c6"
+            ],
+            "name": "a6",
+            "requires": [
+              "c2"
+            ]
+          },
+          {
+            "adds": [
+              "c7"
+            ],
+            "name": "a7",
+            "requires": [
+              "c1"
+            ]
+          }
+        ],
+        "initial": [
+          "c0"
+        ],
+        "path": [
+          "a1",
+          "a2",
+          "a6",
+          "a7"
+        ],
+        "target": "c7"
+      },
+      {
+        "actions": [
+          {
+            "adds": [
+              "c1"
+            ],
+            "name": "a1",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c2"
+            ],
+            "name": "a2",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c3"
+            ],
+            "name": "a3",
+            "requires": [
+              "c0",
+              "c2"
+            ]
+          },
+          {
+            "adds": [
+              "c4"
+            ],
+            "name": "a4",
+            "requires": [
+              "c3"
+            ]
+          },
+          {
+            "adds": [
+              "c5"
+            ],
+            "name": "a5",
+            "requires": [
+              "c3"
+            ]
+          },
+          {
+            "adds": [
+              "c6"
+            ],
+            "name": "a6",
+            "requires": [
+              "c1"
+            ]
+          },
+          {
+            "adds": [
+              "c7"
+            ],
+            "name": "a7",
+            "requires": [
+              "c5"
+            ]
+          }
+        ],
+        "initial": [
+          "c0"
+        ],
+        "path": [
+          "a1",
+          "a2",
+          "a3",
+          "a4",
+          "a5",
+          "a6",
+          "a7"
+        ],
+        "target": "c7"
+      },
+      {
+        "actions": [
+          {
+            "adds": [
+              "c1"
+            ],
+            "name": "a1",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c3"
+            ],
+            "name": "a3",
+            "requires": [
+              "c1"
+            ]
+          },
+          {
+            "adds": [
+              "c4"
+            ],
+            "name": "a4",
+            "requires": [
+              "c0",
+              "c3"
+            ]
+          },
+          {
+            "adds": [
+              "c6"
+            ],
+            "name": "a6",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c7"
+            ],
+            "name": "a7",
+            "requires": [
+              "c4"
+            ]
+          }
+        ],
+        "initial": [
+          "c0"
+        ],
+        "path": [
+          "a1",
+          "a3",
+          "a4",
+          "a6",
+          "a7"
+        ],
+        "target": "c7"
+      },
+      {
+        "actions": [
+          {
+            "adds": [
+              "c1"
+            ],
+            "name": "a1",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c2"
+            ],
+            "name": "a2",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c3"
+            ],
+            "name": "a3",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c4"
+            ],
+            "name": "a4",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c5"
+            ],
+            "name": "a5",
+            "requires": [
+              "c0",
+              "c4"
+            ]
+          },
+          {
+            "adds": [
+              "c6"
+            ],
+            "name": "a6",
+            "requires": [
+              "c0"
+            ]
+          },
+          {
+            "adds": [
+              "c7"
+            ],
+            "name": "a7",
+            "requires": [
+              "c6"
+            ]
+          }
+        ],
+        "initial": [
+          "c0"
+        ],
+        "path": [
+          "a1",
+          "a2",
+          "a3",
+          "a4",
+          "a5",
+          "a6",
+          "a7"
+        ],
+        "target": "c7"
+      }
+    ],
+    "seed": 20260826,
+    "staticUnreachableButDynamicallyReachable": 2422,
+    "stillUnreachableAfterClosure": 2578,
+    "worlds": 5000
+  },
+  "schemaVersion": 1
+}
