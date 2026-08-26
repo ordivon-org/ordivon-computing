@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.discoverability-raw-preserving-query-ablation-contract",
+  "status": "frozen-after-T1-nonmonotonicity-before-T2-retrieval",
+  "motivation": "T1 caller-authored variants improved some owner-unknown routes but deleted two raw-English successes. Test the smallest representation repair: preserve the caller's native query alongside derived lexical projections.",
+  "T2Construction": [
+    "Variant 0 is always the exact raw user query.",
+    "Append authored variants in their already-frozen model output order.",
+    "Deduplicate exact strings without semantic rewriting.",
+    "Keep at most four total variants, matching Atlas first-look-many limit; therefore use raw + first three distinct authored variants when more exist.",
+    "No target, retrieval result, target rank or owner information may influence truncation or ordering."
+  ],
+  "preboundHypotheses": {
+    "H1": "If T1 loss was mainly caused by deleting the raw representation, T2 should recover the lost raw-success routes while retaining some T1 gains.",
+    "H2": "If T2 still loses a raw-success route, fixed-top-k merge/ranking or query-relative inspection geometry is the blocker; adding representations is not monotone under the current retrieval composition.",
+    "H3": "Chinese may benefit from English derived variants while retaining the native Chinese query as an explicit source representation, even if the raw Chinese channel contributes no lexical hit."
+  },
+  "nonAdmissions": [
+    "No semantic embedding/vector search admitted.",
+    "No LLM query router admitted.",
+    "No change to Atlas ranking or inspect-candidate implementation admitted by this experiment."
+  ]
+}

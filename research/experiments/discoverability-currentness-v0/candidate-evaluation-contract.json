@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.discoverability-candidate-evaluation-contract",
+  "status": "prefrozen-before-semantic-candidate-evaluation",
+  "purpose": "Evaluate whether bounded Atlas top-k candidates actually recover the pre-frozen owner target, rather than counting lexical non-empty results as success.",
+  "oracleBoundary": {
+    "ownerTruth": "pre-frozen exact committed owner source anchor remains authoritative",
+    "modelRole": "bounded semantic comparator only",
+    "atlasRole": "candidate generator only",
+    "currentness": "not adjudicated by the model; evaluated separately from source fences"
+  },
+  "matchClasses": {
+    "TARGET": "Candidate directly contains or faithfully states the frozen target standing.",
+    "CORRECT_SUCCESSOR": "Candidate does not state the exact historical form but faithfully resolves to the current semantic successor relevant to the same target.",
+    "RELATED_ONLY": "Candidate shares domain/theme/terms but does not recover the target standing.",
+    "NONE": "No candidate is materially relevant to the target."
+  },
+  "rules": [
+    "The evaluator must not award TARGET merely because owner/project names or broad domain words match.",
+    "If several candidates are related but none contains the target distinction, targetRank=0 and semanticRecall=false.",
+    "Use the earliest genuinely target-bearing candidate as targetRank.",
+    "Do not infer owner currentness from an Atlas currentness label or from synthesis prose.",
+    "A curated synthesis can count as semantic recall even though owner-currentness still requires a separate owner-native re-entry.",
+    "A generated owner projection can count as semantic recall only if the candidate content itself contains the target standing; owner configuration alone is not recall."
+  ]
+}

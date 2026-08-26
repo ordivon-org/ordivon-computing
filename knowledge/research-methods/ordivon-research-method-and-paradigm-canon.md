@@ -316,6 +316,53 @@ An exact historical observation may remain valid after its owner advances. There
 
 This is the epistemic principle. The concrete `CURRENT` publication, AuthorityVersionRef, Atlas ProjectionHealth, and closeout machinery are owned by the Research System and owner corpora, not by Computer.
 
+## 15A. Research discoverability is a re-entry capability, not one search score
+
+A finite successor may know the **problem** while not knowing which owner, repository, historical name or canonical vocabulary already contains the relevant standing. Anti-rediscovery therefore cannot be audited only as storage or lexical search. The bounded capability path is closer to:
+
+```text
+problem expression
+→ query representation
+→ candidate formation
+→ query-relative inspection
+→ semantic discrimination
+→ owner / successor resolution
+→ currentness re-entry
+→ authority escape
+```
+
+Preserve these non-equivalences:
+
+```text
+CandidateFound != TargetRecovered
+TargetRecovered != OwnerResolved
+OwnerResolved != Current
+Current != Authoritative
+CandidateIdentitySame != InspectionRepresentationSame
+SemanticSuccessorRecovered != CurrentnessProved
+```
+
+The 2026-08-26/27 fifteen-owner preregistered pressure test showed strong representation dependence. Against curated synthesis plus the exact existing generated snapshot, owner-known lexical-rich queries recovered 9/15 frozen current targets, while raw owner-unknown English recovered 2/15 and raw Chinese 0/15. A bounded caller-side query-authoring treatment raised English and Chinese to 4/15, but a raw-preserving merged treatment fell to 3/15 in both languages. Across three independent owner-unknown English representation lanes, the union reached 6/15 while the best single lane reached 4/15; across **all** frozen views including owner-known QK, 11/15 targets were recovered at least once.
+
+This establishes a real **representation portfolio** effect but also falsifies monotone query expansion under the current fixed top-k merge/inspection geometry:
+
+```text
+MoreQueryVariants != MoreRecall@k
+RepresentationPortfolio != OneMergedRepresentation
+InformationPresent != ComputationallyReachableForThisQuery
+ConfiguredOwner != CurrentTargetCoverage
+```
+
+Do not respond by automatically adding more query variants, every owner source, a vector index, or an LLM router. When owner-unknown recovery matters, query formation/translation, corpus coverage, ranking, query-relative inspection and currentness are separate possible failure loci. Use the smallest bounded operator that discriminates them. Multiple representations may be kept as separate lanes/fallbacks when the workload justifies the extra attention cost; do not assume one globally scored merge preserves every useful view.
+
+Currentness remains downstream of discovery. In the same audit, all 10 configured owners in the retained Atlas generated snapshot carried historical `CURRENT_TO_SOURCE` labels while 0/10 retained source revision fences equalled the then-current committed owner mains. One fresh committed-Atlas `check → refresh` attempt timed out after 120,075 ms. This is a bounded operational observation, not a universal performance claim, but it demonstrates why projection health must remain source-fenced rather than treated as a timeless property.
+
+A semantically correct synthesis/successor representation may therefore be sufficient to **find where to re-enter**, while still being insufficient to claim present currentness. Present-tense use should re-enter owner-native currentness/authority when the retained source fence is not proven current.
+
+This is a reusable research-method principle, not admission of a global Research Search service, vector/embedding stack, LLM query router, owner registry, automatic successor oracle, or requirement that every owner be materialized into Atlas by symmetry.
+
+Canonical audit: `research/DISCOVERABILITY-CURRENTNESS-AUDIT-CLOSEOUT-20260827.md`.
+
 ## 16. Recovery preserves admitted consequence identity
 
 Once an exact Effect/request/consequence identity is durably admitted, recovery should preserve and reconcile that identity rather than create a fresh consequence merely because execution was interrupted or the observer restarted.
@@ -452,6 +499,7 @@ The current strongest method cases include:
 - **Post-Host** — PHR3/PHR4 show owner failure does not imply reality/content failure.
 - **Research-System fresh dogfood** — conceptual research with zero Runtime Runs; bounded equivalence and destructive falsification both under successful execution; Host→Runtime pointer-only recovery without authority copying.
 - **Computer contraction / RSI Lab** — removal-first survival, mature deterministic substrate, and thin scientific instruments outperform permanent architecture seats where semantics do not require them.
+- **Discoverability / Currentness** — fifteen-owner frozen-target audit separates owner-known recovery, owner-unknown representation reachability, query-relative inspection, successor resolution and owner-native currentness re-entry; multi-query representation proved non-monotone under one merged top-k surface.
 
 ## Source fences
 
@@ -468,7 +516,7 @@ Primary current synthesis/control references:
 - `task:host-research-core-consolidation-branch-20260818` rev3/completed.
 - `task:post-host-referent-index-v8-20260818` rev3/completed.
 
-Repository-local Computer evidence remains in `research/WORLD-MODEL-LOOP.md`, `research/RSI-LAB.md`, `research/COMPUTER-RESPONSIBILITY-REVIEW.md`, and the experiment/evidence trees they cite.
+Repository-local Computer evidence remains in `research/WORLD-MODEL-LOOP.md`, `research/RSI-LAB.md`, `research/COMPUTER-RESPONSIBILITY-REVIEW.md`, `research/DISCOVERABILITY-CURRENTNESS-AUDIT-CLOSEOUT-20260827.md`, `research/ORDIVON-RESEARCH-CAPABILITY-ECOLOGY-AUDIT-CLOSEOUT-20260827.md`, `research/ordivon-research-capability-map-v1.json`, and the experiment/evidence trees they cite.
 
 ## Non-ownership statement
 

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.discoverability-query-authoring-ablation-contract",
+  "status": "prefrozen-before-query-authoring-model-calls",
+  "question": "Can a bounded query-authoring aid recover owner-unknown intent into Atlas's caller-authored lexical query space without being given target owner, target standing, answer-key terms, or retrieval results?",
+  "treatments": {
+    "T0_RAW_QU": "Already-run raw owner-unknown QU-E / QU-ZH query through Atlas.",
+    "T1_AUTHORED_VARIANTS": "Fresh model sees only one opaque query id, the raw user query, and Atlas retrieval-authoring-context; emits 1-4 English lexical variants. Atlas first-look-many then retrieves candidates."
+  },
+  "queryAuthoringBoundary": [
+    "No owner/project/repository id from the frozen target is supplied to the authoring model.",
+    "No frozen targetStanding or sourceAnchorQuote is supplied.",
+    "No Atlas retrieval result is supplied before variants are frozen.",
+    "The model may use ordinary language understanding and the exact generic retrieval-authoring-context exposed by Atlas.",
+    "The model is allowed to translate a Chinese user question into English lexical variants; this tests query formation, not Atlas-native cross-language retrieval.",
+    "At most four distinct non-empty English query variants may be emitted, matching Atlas's declared first-look-many limit.",
+    "Variants should preserve user intent and diversify likely lexical handles; they must not assert novelty, owner truth, or currentness."
+  ],
+  "evaluation": [
+    "Use the exact same prefrozen owner targets and semantic candidate-evaluation contract as baseline.",
+    "Run first-look-many followed by bounded inspect-candidate on the merged top-8 candidates.",
+    "Semantic recall is evaluated independently against the frozen owner-source target.",
+    "Currentness remains separately owner-source-fenced; improved semantic recall does not make stale generated projections current."
+  ],
+  "preboundInterpretation": {
+    "largeRecallGain": "Query formation / translation is a major missing relation; this does not by itself justify embedding an LLM inside Atlas.",
+    "smallOrNoGain": "Source/corpus coverage or lexical retrieval geometry remains a blocker even after better query formation.",
+    "gainOnlyForChinese": "Cross-language translation is a dominant missing relation, while English owner-unknown semantics may have a different coverage/search problem.",
+    "gainOnlyForConfiguredOwners": "Query formation helps only where owner/result coverage already exists; source coverage remains an independent ceiling."
+  },
+  "nonAdmissions": [
+    "No LLM query router is admitted as product architecture.",
+    "No vector/embedding search is admitted.",
+    "No automatic owner inference authority is admitted.",
+    "No new Atlas owner registry is admitted."
+  ]
+}
