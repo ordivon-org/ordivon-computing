@@ -15,6 +15,10 @@ An active owner SHOULD expose an executable root entrypoint at `scripts/owner-en
 
 The interface is shared for Agent discoverability; implementation remains owner-local. A repository may expose additional profiles such as `capability:cage`, `resolve`, `audit`, or live/reality tests. Expensive or authority-bearing capability dependencies need not enter the default profile. Tests that require one must bind it explicitly.
 
+## Applicability
+
+The contract is capability-driven, not a central owner allowlist. `scripts/check_owner_environment_contract.py` derives executable pressure from repository-local evidence such as a root build/package manifest, executable code roots, tests, or executable scripts. If such pressure exists, the contract is `REQUIRED`; absence of the entrypoint is a failure. A repository with no executable pressure is reported as `NOT_APPLICABLE`, not as green environment evidence. If that repository later gains code, tests, or a build surface, applicability changes automatically and it must acquire the contract. This avoids manufacturing empty virtual environments for research/representation-only owners while also avoiding a stale hand-maintained registry.
+
 ## Dependency roles
 
 Owners should distinguish at least these roles when they exist: runtime, test/dev, audit, capability-specific, system/substrate, and external-service/tool dependencies. A lock or exact immutable source pin should cover materialized software dependencies where practical. Global installation is not a substitute for an owner declaration because it masks missing dependencies in clean environments.
@@ -37,4 +41,4 @@ This proves environment reproducibility only for the selected profile and source
 
 Computing must not centralize owner dependencies. Runtime must not install domain packages merely to make Workspace tests pass. Host continuity must not imply environment readiness. A shared workstation may cache packages or toolchains, but cache presence is acceleration rather than authority.
 
-`scripts/check_owner_environment_contract.py` performs only static entrypoint discoverability. Dynamic evidence comes from each owner's `cold-start` mode.
+`scripts/check_owner_environment_contract.py` performs static applicability plus entrypoint discoverability. `DISCOVERABLE` means the required semantic surface is exposed; `NOT_APPLICABLE` means no executable pressure was detected and is not environment-readiness evidence. Dynamic reproducibility evidence comes only from each applicable owner's `cold-start` mode.

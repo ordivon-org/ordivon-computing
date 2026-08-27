@@ -14,14 +14,51 @@ import subprocess
 from pathlib import Path
 
 MODES = ("bootstrap", "doctor", "test", "cold-start")
+ROOT_MANIFESTS = (
+    "pyproject.toml", "package.json", "Cargo.toml", "go.mod", "pom.xml",
+    "build.gradle", "build.gradle.kts", "Makefile", "mise.toml",
+)
+SOURCE_ROOTS = ("src", "crates", "apps", "packages", "cmd", "lib")
+CODE_SUFFIXES = {".py", ".js", ".mjs", ".cjs", ".ts", ".tsx", ".rs", ".go", ".java", ".kt", ".c", ".cc", ".cpp", ".h", ".hpp", ".sh"}
+
+def _has_files(path: Path) -> bool:
+    return path.is_dir() and any(item.is_file() for item in path.rglob("*"))
+
+def executable_pressure(repo: Path) -> tuple[bool, list[str]]:
+    signals: list[str] = []
+    manifests = [name for name in ROOT_MANIFESTS if (repo / name).is_file()]
+    if manifests:
+        signals.append("root-manifest:" + ",".join(manifests))
+    for root_name in SOURCE_ROOTS:
+        root = repo / root_name
+        if root.is_dir() and any(item.is_file() and item.suffix in CODE_SUFFIXES for item in root.rglob("*")):
+            signals.append("code-root:" + root_name)
+    for test_name in ("tests", "test"):
+        if _has_files(repo / test_name):
+            signals.append("tests:" + test_name)
+    scripts = repo / "scripts"
+    if scripts.is_dir() and any(item.is_file() and os.access(item, os.X_OK) for item in scripts.iterdir()):
+        signals.append("executable-scripts")
+    return bool(signals), signals
 
 def inspect(repo: Path) -> dict[str, object]:
     repo = repo.resolve()
     entry = repo / "scripts" / "owner-environment"
-    result: dict[str, object] = {"repo": str(repo), "entrypoint": str(entry), "status": "FAIL", "reasons": []}
+    required, signals = executable_pressure(repo)
+    result: dict[str, object] = {
+        "repo": str(repo),
+        "entrypoint": str(entry),
+        "applicability": "REQUIRED" if required else "NOT_APPLICABLE",
+        "pressureSignals": signals,
+        "status": "FAIL" if required else "NOT_APPLICABLE",
+        "reasons": [],
+    }
     reasons: list[str] = result["reasons"]  # type: ignore[assignment]
     if not entry.is_file():
-        reasons.append("missing scripts/owner-environment")
+        if required:
+            reasons.append("executable pressure exists but scripts/owner-environment is missing")
+        else:
+            reasons.append("no executable environment pressure detected")
         return result
     if not os.access(entry, os.X_OK):
         reasons.append("scripts/owner-environment is not executable")
@@ -50,7 +87,8 @@ def main() -> int:
         for row in rows:
             suffix = "" if not row["reasons"] else " :: " + "; ".join(row["reasons"])  # type: ignore[arg-type]
             print(f"{row['status']} {row['repo']}{suffix}")
-    return 0 if all(row["status"] == "DISCOVERABLE" for row in rows) else 1
+    accepted = {"DISCOVERABLE", "NOT_APPLICABLE"}
+    return 0 if all(row["status"] in accepted for row in rows) else 1
 
 if __name__ == "__main__":
     raise SystemExit(main())
