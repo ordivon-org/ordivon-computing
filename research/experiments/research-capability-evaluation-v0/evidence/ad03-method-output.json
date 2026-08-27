@@ -1,0 +1,140 @@
+{
+  "arm": "method",
+  "experiment": "AD-03",
+  "hiddenWorldCommitment": "sha256:42c1d4072d81e4b242131f808b1e27b8d82829a5e6d47d45ee4c5e6c674cb11e",
+  "modelCalls": 3,
+  "schemaVersion": 1,
+  "stopCode": "candidate_completed",
+  "structuredResult": {
+    "identifiedRegime": null,
+    "liveRivalHistory": [
+      [
+        "V1",
+        "V2",
+        "V3",
+        "V4",
+        "V5",
+        "V6",
+        "V7",
+        "V8"
+      ],
+      [
+        "V5",
+        "V6",
+        "V7",
+        "V8"
+      ],
+      [
+        "V5",
+        "V6",
+        "V7",
+        "V8"
+      ]
+    ],
+    "observations": [
+      1,
+      2
+    ],
+    "policyJustification": "The objective requires guaranteeing unique identification for EVERY possible regime within two probes. First probe: iris splits into V1-V4 (output 0) and V5-V8 (output 1). Consider whether each branch can be separated by one remaining probe. For the iris=0 branch (V1-V4): lambda gives 0,0,0,0 (no separation), kappa gives 0,1,2,3 (separates all four uniquely!), so this branch is fine. For the iris=1 branch (V5-V8): kappa gives 0,0,0,0 (no separation), lambda gives 0,1,2,3 (separates V5-V8 uniquely!), so this branch is fine. Therefore iris is a valid guaranteeing first probe. The actual iris observation was 1, so the live set became V5-V8. Second probe on branch V5-V8: lambda separates V5=0, V6=1, V7=2, V8=3 uniquely. The second probe lambda was run but the actual observation endpoint was not reported as a distinct value in the returned content, so I cannot commit a unique identification with evidence-supported confidence. The live set remains V5-V8 (observation content for the second probe did not provide a usable observation value to further narrow the set).",
+    "probeSequence": [
+      "iris",
+      "lambda"
+    ],
+    "reasoningSummary": "Chose iris as first probe because both outcome branches (V1-V4 and V5-V8) are separable by one remaining probe (kappa for V1-V4, lambda for V5-V8). Actual first observation was 1, narrowing live set to V5-V8. Chose lambda as second probe which perfectly separates V5-V8. However, the second probe's returned observation value was not reported in the content, so I cannot commit to a unique survivor without an evidence-backed observation.",
+    "survivingRivals": [
+      "V5",
+      "V6",
+      "V7",
+      "V8"
+    ],
+    "unresolvedUnknowns": [
+      "The second probe (lambda) observation value was not returned in the run_probe content, so the unique surviving regime within V5-V8 cannot be committed with evidence support."
+    ]
+  },
+  "toolCalls": 2,
+  "toolTrace": [
+    {
+      "observation": 1,
+      "probe": "iris",
+      "stepId": "turn-1-tool-1:call_00_sw8Z3R7fRxEAM7SITK8X6713"
+    },
+    {
+      "observation": 2,
+      "probe": "lambda",
+      "stepId": "turn-2-tool-2:call_00_H3iMYQRLRPThGJ9jVqaN5439"
+    }
+  ],
+  "traceDigest": "sha256:d2ad9d57fa825b2506d56a08d7cbba6c5ae0bfec41ae6f64fa7b0e0ee9dda44c",
+  "usage": {
+    "conclusionCorrectionLimit": 1,
+    "conclusionCorrections": 0,
+    "deadlineOverrunMs": 0,
+    "effectiveDeadlineOverrunMs": 0,
+    "effectiveModelIds": [
+      "deepseek-v4-flash"
+    ],
+    "modelCalls": 3,
+    "modelObservationByteLimit": 4096,
+    "modelRetries": 0,
+    "noProgressTurnLimit": 2,
+    "noProgressTurns": 0,
+    "observationBytes": 512,
+    "observationOnlyTurnLimit": 2,
+    "observationOnlyTurns": 0,
+    "providerAttempts": 3,
+    "providerResultsReplayed": 0,
+    "providerUsage": [
+      {
+        "completion_tokens": 38,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 1280,
+        "prompt_cache_miss_tokens": 173,
+        "prompt_tokens": 1453,
+        "prompt_tokens_details": {
+          "cached_tokens": 1280
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1491
+      },
+      {
+        "completion_tokens": 38,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1546,
+        "prompt_tokens": 1546,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1584
+      },
+      {
+        "completion_tokens": 664,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1560,
+        "prompt_tokens": 1560,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 2224
+      }
+    ],
+    "requestedModelId": "deepseek-v4-flash",
+    "tokenLimit": 50000,
+    "toolCalls": 2,
+    "toolCorrections": 0,
+    "totalTokens": 5299,
+    "wallTimeMs": 10056
+  }
+}

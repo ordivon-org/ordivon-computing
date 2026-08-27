@@ -1,0 +1,136 @@
+{
+  "arm": "baseline",
+  "executionIdentity": {
+    "budget": {
+      "maxConclusionCorrections": 1,
+      "maxModelCalls": 4,
+      "maxModelObservationBytes": 4096,
+      "maxModelRetries": 0,
+      "maxNoProgressTurns": 2,
+      "maxObservationBytes": 10000,
+      "maxObservationOnlyTurns": 2,
+      "maxToolCalls": 2,
+      "maxToolCorrections": 1,
+      "maxTotalTokens": 40000,
+      "maxWallTimeMs": 120000
+    },
+    "domain": {
+      "allowedTools": [
+        "run_probe"
+      ],
+      "bridgeIdentity": {
+        "bridgeId": "bridge:active-discovery-ad01",
+        "hiddenWorldCommitment": "sha256:2dfd7504ad9dce2b361f20e50fa8e29228dd39b90566eacc6438969146cf349c",
+        "revision": "1"
+      },
+      "catalogDigest": "sha256:bf9c45e7f51f479e9366d90a6363357ab508cb595e980dd6d82a332202c60af2",
+      "catalogRevision": "matrix-v1",
+      "domainId": "domain:active-discovery-ad01",
+      "grantedCatalogDigest": "sha256:9b198b2e101a7751cd88fb68b45fc499eef25ded9f39d888bedd976c53567f51"
+    },
+    "harness": {
+      "loopRevision": "domain-tool-loop-v1",
+      "package": "ordivon-harness",
+      "schedulingMode": "sequential",
+      "version": "0.6.0"
+    },
+    "kind": "ordivon.domain-tool-loop-identity",
+    "provider": {
+      "adapterId": "deepseek.chat-completions.non-thinking.v1",
+      "requestedModelId": "deepseek-v4-flash"
+    },
+    "schemaVersion": 1
+  },
+  "experiment": "AD-01",
+  "hiddenWorldCommitment": "sha256:2dfd7504ad9dce2b361f20e50fa8e29228dd39b90566eacc6438969146cf349c",
+  "modelCalls": 2,
+  "schemaVersion": 1,
+  "stopCode": "candidate_completed",
+  "structuredResult": {
+    "identifiedRegime": "R4",
+    "observations": [
+      0,
+      1
+    ],
+    "probeSequence": [
+      "delta",
+      "echo"
+    ],
+    "reasoningSummary": "Probe delta returned 1, which rules out R1 (delta=0) and R6 (delta=0... wait, let me recheck). Actually delta=0 for R1 and R6; delta=1 for R2,R3,R4,R5. Probe echo returns 0 for all regimes, so it distinguishes nothing. So delta=1 leaves R2,R3,R4,R5 unresolved, not unique. Echo gave no information since all regimes predict 0. Thus the budget did not identify a unique regime.",
+    "survivingRivals": [],
+    "unresolvedUnknowns": [
+      "delta=1 leaves R2/R3/R4/R5; echo is non-informative (all 0). Cannot narrow further with only 2 probes."
+    ]
+  },
+  "toolCalls": 2,
+  "toolTrace": [
+    {
+      "observation": 1,
+      "probe": "delta",
+      "stepId": "turn-1-tool-1:call_00_jOyJqLaxlYqCxvys4Bw28818"
+    },
+    {
+      "observation": 0,
+      "probe": "echo",
+      "stepId": "turn-1-tool-2:call_01_3EEgbqgppPSt35XIYRtv5521"
+    }
+  ],
+  "traceDigest": "sha256:e9b32799f8be42f555df4b1b571c735d6fa67dff66cc052bb6b1f19960aa0f26",
+  "usage": {
+    "conclusionCorrectionLimit": 1,
+    "conclusionCorrections": 0,
+    "deadlineOverrunMs": 0,
+    "effectiveDeadlineOverrunMs": 0,
+    "effectiveModelIds": [
+      "deepseek-v4-flash"
+    ],
+    "modelCalls": 2,
+    "modelObservationByteLimit": 4096,
+    "modelRetries": 0,
+    "noProgressTurnLimit": 2,
+    "noProgressTurns": 0,
+    "observationBytes": 511,
+    "observationOnlyTurnLimit": 2,
+    "observationOnlyTurns": 0,
+    "providerAttempts": 2,
+    "providerResultsReplayed": 0,
+    "providerUsage": [
+      {
+        "completion_tokens": 70,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1186,
+        "prompt_tokens": 1186,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1256
+      },
+      {
+        "completion_tokens": 339,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1272,
+        "prompt_tokens": 1272,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1611
+      }
+    ],
+    "requestedModelId": "deepseek-v4-flash",
+    "tokenLimit": 40000,
+    "toolCalls": 2,
+    "toolCorrections": 0,
+    "totalTokens": 2867,
+    "wallTimeMs": 6512
+  }
+}

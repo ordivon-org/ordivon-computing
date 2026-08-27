@@ -1,0 +1,135 @@
+{
+  "arm": "baseline",
+  "experiment": "AD-03",
+  "hiddenWorldCommitment": "sha256:42c1d4072d81e4b242131f808b1e27b8d82829a5e6d47d45ee4c5e6c674cb11e",
+  "modelCalls": 3,
+  "schemaVersion": 1,
+  "stopCode": "candidate_completed",
+  "structuredResult": {
+    "identifiedRegime": null,
+    "liveRivalHistory": [
+      [
+        "V1",
+        "V2",
+        "V3",
+        "V4",
+        "V5",
+        "V6",
+        "V7",
+        "V8"
+      ],
+      [
+        "V1",
+        "V5"
+      ],
+      [
+        "V1",
+        "V5"
+      ]
+    ],
+    "observations": [
+      1,
+      0
+    ],
+    "policyJustification": "First probe iris splits regimes into four with outcome 0 (V1-V4) and four with outcome 1 (V5-V8). In the branch where iris=1 (observed), the live set is {V5,V6,V7,V8}. Second probe kappa: in this branch kappa gives V5=0, V6=0, V7=0, V8=0, so kappa cannot separate among V5-V8. The observed kappa=0 leaves {V5,V6,V7,V8} unresolved. No single second probe can uniquely separate all four rivals V5-V8 because iris and kappa are the only distinguishing probes for these regimes: checking lambda gives V5=0,V6=1,V7=2,V8=3 which separates all four, but I chose kappa which was a suboptimal policy choice. Actually, the correct guaranteeing policy: first probe iris, then in the iris=1 branch use lambda which gives V5=0,V6=1,V7=2,V8=3, uniquely separating all four. However, since the observed first probe was iris=1 and observed second probe was kappa=0, the current branch still contains {V5,V6,V7,V8}. A guaranteeing policy exists (iris then lambda in that branch), but my executed probe sequence used kappa instead, which fails the guarantee. The executed probes do not uniquely identify.",
+    "policyJustificationNote": "The claimed unique-identification objective is not met by the executed probes.",
+    "probeSequence": [
+      "iris",
+      "kappa"
+    ],
+    "reasoningSummary": "Probe iris gave observation 1, reducing live set to {V5,V6,V7,V8}. Probe kappa gave observation 0, but kappa is constant 0 across V5-V8 in this branch, so it provides no discrimination. The remaining live set after both probes is {V5,V6,V7,V8}. The policy executed (iris then kappa) does not guarantee unique identification because kappa fails to separate in this branch. A guaranteeing policy could have used lambda as the second probe (lambda values V5=0,V6=1,V7=2,V8=3 separate all four), but that was not the executed sequence.",
+    "survivingRivals": [
+      "V1",
+      "V5"
+    ],
+    "unresolvedUnknowns": [
+      "Which single regime is present remains unidentified; executed probes leave four rival regimes."
+    ]
+  },
+  "toolCalls": 2,
+  "toolTrace": [
+    {
+      "observation": 1,
+      "probe": "iris",
+      "stepId": "turn-1-tool-1:call_00_OrtqbL9RVHB61EvxKnuu5914"
+    },
+    {
+      "observation": 0,
+      "probe": "kappa",
+      "stepId": "turn-2-tool-2:call_00_xWAiwrwd6xyKNRPhOsIN7929"
+    }
+  ],
+  "traceDigest": "sha256:b16169b8ea5264093afcbb735b47b4118e226dbc0b01aa32becd2fc6c1e791f8",
+  "usage": {
+    "conclusionCorrectionLimit": 1,
+    "conclusionCorrections": 0,
+    "deadlineOverrunMs": 0,
+    "effectiveDeadlineOverrunMs": 0,
+    "effectiveModelIds": [
+      "deepseek-v4-flash"
+    ],
+    "modelCalls": 3,
+    "modelObservationByteLimit": 4096,
+    "modelRetries": 0,
+    "noProgressTurnLimit": 2,
+    "noProgressTurns": 0,
+    "observationBytes": 511,
+    "observationOnlyTurnLimit": 2,
+    "observationOnlyTurns": 0,
+    "providerAttempts": 3,
+    "providerResultsReplayed": 0,
+    "providerUsage": [
+      {
+        "completion_tokens": 38,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1370,
+        "prompt_tokens": 1370,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1408
+      },
+      {
+        "completion_tokens": 38,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1463,
+        "prompt_tokens": 1463,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1501
+      },
+      {
+        "completion_tokens": 708,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1477,
+        "prompt_tokens": 1477,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 2185
+      }
+    ],
+    "requestedModelId": "deepseek-v4-flash",
+    "tokenLimit": 50000,
+    "toolCalls": 2,
+    "toolCorrections": 0,
+    "totalTokens": 5094,
+    "wallTimeMs": 10242
+  }
+}

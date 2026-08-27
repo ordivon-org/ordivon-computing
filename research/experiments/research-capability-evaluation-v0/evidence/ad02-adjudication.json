@@ -1,0 +1,181 @@
+{
+  "evaluatorSha256": "sha256:e905ac6027d9db9958532b13f5e12d1f0bac69798030bd20a084b2b51d2394d9",
+  "experiment": "AD-02",
+  "firstProbeMetrics": {
+    "lumen": {
+      "blockSizes": [
+        3,
+        3
+      ],
+      "guaranteedTwoStepStart": true,
+      "maxRemaining": 3,
+      "partitionEntropyBits": 1.0
+    },
+    "mora": {
+      "blockSizes": [
+        4,
+        1,
+        1
+      ],
+      "guaranteedTwoStepStart": false,
+      "maxRemaining": 4,
+      "partitionEntropyBits": 1.2516
+    },
+    "nex": {
+      "blockSizes": [
+        4,
+        1,
+        1
+      ],
+      "guaranteedTwoStepStart": false,
+      "maxRemaining": 4,
+      "partitionEntropyBits": 1.2516
+    },
+    "pavo": {
+      "blockSizes": [
+        4,
+        2
+      ],
+      "guaranteedTwoStepStart": false,
+      "maxRemaining": 4,
+      "partitionEntropyBits": 0.9183
+    },
+    "quiet": {
+      "blockSizes": [
+        6
+      ],
+      "guaranteedTwoStepStart": false,
+      "maxRemaining": 6,
+      "partitionEntropyBits": 0.0
+    }
+  },
+  "kind": "ordivon.research-capability.active-discovery-adjudication",
+  "next": "AD-03 must make minimax/guaranteed-identification objective explicit to actor and evaluator before execution.",
+  "observations": {
+    "baseline": {
+      "structuredResult": {
+        "identifiedRegime": "Q5",
+        "liveRivalHistory": [
+          [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5",
+            "Q6"
+          ],
+          [
+            "Q1",
+            "Q4",
+            "Q5",
+            "Q6"
+          ],
+          [
+            "Q5"
+          ]
+        ],
+        "observations": [
+          0,
+          1
+        ],
+        "probeSequence": [
+          "mora",
+          "nex"
+        ],
+        "reasoningSummary": "First probe mora returned 0, which narrows regimes to Q1 (0), Q4 (0), Q5 (0), Q6 (0). Second probe nex returned 1, and among the surviving set only Q5 has nex=1 (Q1:0, Q4:0, Q6:2). Therefore the regime is uniquely identified as Q5.",
+        "survivingRivals": [
+          "Q5"
+        ],
+        "unresolvedUnknowns": []
+      },
+      "toolTrace": [
+        {
+          "observation": 0,
+          "probe": "mora",
+          "stepId": "turn-1-tool-1:call_00_koxiqsK81SmixEmUc2t33623"
+        },
+        {
+          "observation": 1,
+          "probe": "nex",
+          "stepId": "turn-2-tool-2:call_00_SD18y42e5LAEM9v7TbUh2004"
+        }
+      ]
+    },
+    "method": {
+      "stopCode": "invalid_model_output",
+      "structuredResult": null,
+      "toolTrace": [
+        {
+          "observation": 1,
+          "probe": "pavo",
+          "stepId": "turn-1-tool-1:call_00_sCOspJ2wfyztdIH71ugH0998"
+        },
+        {
+          "observation": 1,
+          "probe": "pavo",
+          "stepId": "turn-2-tool-2:call_00_8Ziuzmz7tE3BTxLIiA7R8519"
+        }
+      ]
+    },
+    "representation": {
+      "structuredResult": {
+        "identifiedRegime": null,
+        "liveRivalHistory": [
+          [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5",
+            "Q6"
+          ],
+          [
+            "Q1",
+            "Q4",
+            "Q5",
+            "Q6"
+          ],
+          [
+            "Q5"
+          ]
+        ],
+        "observations": [
+          0,
+          1
+        ],
+        "probeSequence": [
+          "mora",
+          "nex"
+        ],
+        "reasoningSummary": "First probe mora returned 0, which restricts to {Q1, Q4, Q5, Q6} per the mora column (mora=0 for Q1,Q4,Q5,Q6). Second probe nex returned 1, which selects Q5 (nex=1 only for Q5). The surviving set after two probes is exactly {Q5}, so the regime is uniquely identified as Q5.",
+        "survivingRivals": [
+          "Q5"
+        ],
+        "unresolvedUnknowns": []
+      },
+      "toolTrace": [
+        {
+          "observation": 0,
+          "probe": "mora",
+          "stepId": "turn-1-tool-1:call_00_b7WLUPs2x94Acdw2euqf2697"
+        },
+        {
+          "observation": 1,
+          "probe": "nex",
+          "stepId": "turn-2-tool-2:call_00_kiKFDwAquCNEkfiWyykV5447"
+        }
+      ]
+    }
+  },
+  "protocolLesson": "Research-policy evaluation must bind an explicit decision objective (e.g. worst-case guarantee, expected information, expected utility, risk-sensitive value) before scoring probe selection. Outcome success on one hidden world does not establish policy quality; ex-ante policy quality cannot be judged against a utility criterion hidden only in the evaluator.",
+  "schemaVersion": 1,
+  "standing": {
+    "episodeOutcomeBaseline": "SUCCESS_Q5",
+    "episodeOutcomeRepresentation": "SUCCESS_Q5_WITH_TERMINAL_NULL_INCONSISTENCY",
+    "guaranteedPolicyQuality": "NOT_ADJUDICABLE_CLEANLY",
+    "methodOutcome": "INVALID_MODEL_OUTPUT_AND_REDUNDANT_SAME_PROBE",
+    "reason": "Actor objective did not explicitly specify minimax/worst-case guaranteed identification, while hidden B2 evaluator did. Mora has higher partition entropy but worse worst-case branch than lumen; therefore B2 embeds an unstated utility/risk criterion.",
+    "representationIncrement": "NOT_ESTABLISHED",
+    "terminalStateConformance": "BASELINE_PASS_REPRESENTATION_FAIL_METHOD_NO_VALID_RESULT"
+  }
+}

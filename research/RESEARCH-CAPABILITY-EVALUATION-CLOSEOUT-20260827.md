@@ -178,6 +178,7 @@ The correct post-closeout frontier remains the one already owned by the broader 
 - `research/experiments/research-capability-eval-ad01-v0.json` — first interactive active-discovery negative result and positive control;
 - `research/experiments/research-capability-active-decision-surface-v0.json` — AD-01..06 dynamic-surface synthesis;
 - `research/experiments/research-capability-evaluation-standing-v1.json` — final machine standing before this closeout;
-- `research/experiments/research-capability-evaluation-closeout-v1.json` — machine-readable closeout disposition.
+- `research/experiments/research-capability-evaluation-closeout-v1.json` — machine-readable closeout disposition;
+- `research/experiments/research-capability-evaluation-v0/evidence-manifest.json` — curated 45-file / 148,619-byte source-fenced evidence bundle retaining freezes, hidden evaluators, adjudications and key semantic outputs while excluding Harness SQLite/CAS run state and redundant scratch.
 
-Raw Harness scratch/state trees are experiment carriers and are intentionally not promoted as Computing research architecture.
+Raw Harness scratch/state trees are experiment carriers and are intentionally not promoted as Computing research architecture. Exact challengeable semantic evidence is retained by the curated bundle instead.

@@ -1,0 +1,145 @@
+{
+  "arm": "baseline",
+  "experiment": "AD-05",
+  "hiddenWorldCommitment": "sha256:288cf1b62e67d2dc029ae8b3d9c42c1a95e87324c51977675c2d98e6a751297d",
+  "modelCalls": 3,
+  "schemaVersion": 1,
+  "stopCode": "candidate_completed",
+  "structuredResult": {
+    "identifiedRegime": null,
+    "liveRivalHistory": [
+      [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6",
+        "P7",
+        "P8"
+      ],
+      [
+        "P1",
+        "P2",
+        "P5",
+        "P6"
+      ],
+      [
+        "P4",
+        "P8"
+      ]
+    ],
+    "observations": [
+      0,
+      1
+    ],
+    "probeSequence": [
+      "tess",
+      "vane"
+    ],
+    "reasoningSummary": "First probed tess, observed 0. From the table, tess=0 occurs only in P1, P2, P5, P6, eliminating P3, P4, P7, P8. Then probed vane, observed 1. Among the surviving rivals P1, P2, P5, P6, the vane column is: P1=0, P2=1, P5=0, P6=1. So vane=1 is consistent with P2 or P6. Wait — let me recheck: actually tess values are P1=0, P2=0, P3=1, P4=1, P5=0, P6=0, P7=1, P8=1. Tess=0 gives P1, P2, P5, P6. Vane is P1=0, P2=1, P3=0, P4=1, P5=0, P6=1, P7=0, P8=1. Among surviving, vane=1 matches P2 or P6. That gives surviving set {P2, P6}, not {P4, P8}. I made an arithmetic error in my first pass. Rechecking carefully: tess=0 → P1,P2,P5,P6. vane=1 among those → P2 and P6 both have vane=1. So surviving set is {P2, P6}.",
+    "survivingRivals": [
+      "P4",
+      "P8"
+    ],
+    "unresolvedUnknowns": [
+      "Cannot distinguish P2 from P6 with the two probes used; remaining probes could have resolved further but budget exhausted."
+    ]
+  },
+  "toolCalls": 2,
+  "toolTrace": [
+    {
+      "liveRivalsAfter": [
+        "P1",
+        "P2",
+        "P5",
+        "P6"
+      ],
+      "observation": 0,
+      "probe": "tess",
+      "stepId": "turn-1-tool-1:call_00_5Q3xkARswqzX8HHCN9zG8593"
+    },
+    {
+      "liveRivalsAfter": [
+        "P2",
+        "P6"
+      ],
+      "observation": 1,
+      "probe": "vane",
+      "stepId": "turn-2-tool-2:call_00_IzxROpcJ8lunJvBxphEk8957"
+    }
+  ],
+  "traceDigest": "sha256:78e5da084596645c64c5b6eb278847637731e6e1ff4092da48d4a6658882865c",
+  "usage": {
+    "conclusionCorrectionLimit": 1,
+    "conclusionCorrections": 0,
+    "deadlineOverrunMs": 0,
+    "effectiveDeadlineOverrunMs": 0,
+    "effectiveModelIds": [
+      "deepseek-v4-flash"
+    ],
+    "modelCalls": 3,
+    "modelObservationByteLimit": 16000,
+    "modelRetries": 0,
+    "noProgressTurnLimit": 2,
+    "noProgressTurns": 0,
+    "observationBytes": 510,
+    "observationOnlyTurnLimit": 2,
+    "observationOnlyTurns": 0,
+    "providerAttempts": 3,
+    "providerResultsReplayed": 0,
+    "providerUsage": [
+      {
+        "completion_tokens": 39,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1263,
+        "prompt_tokens": 1263,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1302
+      },
+      {
+        "completion_tokens": 39,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1358,
+        "prompt_tokens": 1358,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1397
+      },
+      {
+        "completion_tokens": 588,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1369,
+        "prompt_tokens": 1369,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1957
+      }
+    ],
+    "requestedModelId": "deepseek-v4-flash",
+    "tokenLimit": 60000,
+    "toolCalls": 2,
+    "toolCorrections": 0,
+    "totalTokens": 4656,
+    "wallTimeMs": 11299
+  }
+}

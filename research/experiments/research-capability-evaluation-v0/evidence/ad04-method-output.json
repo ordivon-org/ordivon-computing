@@ -1,0 +1,147 @@
+{
+  "arm": "method",
+  "experiment": "AD-04",
+  "hiddenWorldCommitment": "sha256:2910ebdacfca4278f4bd1851c00fafa5db0bb86ca87856b358c4cdea56327b90",
+  "modelCalls": 3,
+  "schemaVersion": 1,
+  "stopCode": "candidate_completed",
+  "structuredResult": {
+    "identifiedRegime": null,
+    "liveRivalHistory": [
+      [
+        "W1",
+        "W2",
+        "W3",
+        "W4",
+        "W5",
+        "W6",
+        "W7",
+        "W8",
+        "W9"
+      ],
+      [
+        "W7",
+        "W8",
+        "W9"
+      ],
+      [
+        "W7",
+        "W8",
+        "W9"
+      ]
+    ],
+    "observations": [
+      2,
+      0
+    ],
+    "probeSequence": [
+      "amber",
+      "birch"
+    ],
+    "reasoningSummary": "Initial rivals W1-W9. Probe amber returned 2, so live rivals are only W7,W8,W9 (amber gives 2 only in those). Second probe birch returned 0; in the current live set birch is 0 for all W7,W8,W9, so it is redundant given amber=2 and does not discriminate. Remaining rivals W7,W8,W9 are unresolvable with the two-probe budget despite discrimination being possible (e.g. drift would separate W8/W9, ring separates W9, etc.); no further probes available. The committed live set is exactly {W7,W8,W9}.",
+    "survivingRivals": [
+      "W7",
+      "W8",
+      "W9"
+    ],
+    "unresolvedUnknowns": [
+      "Cannot distinguish W7 vs W8 vs W9 after the two probes used."
+    ]
+  },
+  "toolCalls": 2,
+  "toolTrace": [
+    {
+      "liveRivalsAfter": [
+        "W7",
+        "W8",
+        "W9"
+      ],
+      "observation": 2,
+      "probe": "amber",
+      "stepId": "turn-1-tool-1:call_00_4RvMrWxruB73mEBvEIXH2692"
+    },
+    {
+      "liveRivalsAfter": [
+        "W7",
+        "W8",
+        "W9"
+      ],
+      "observation": 0,
+      "probe": "birch",
+      "stepId": "turn-2-tool-2:call_00_GUj7o2XqrGcD1lm2oAtJ3151"
+    }
+  ],
+  "traceDigest": "sha256:d8c5d6b98dc2309e99ed179f6d0f3db8032b0037b8339ec640181ce445cf244c",
+  "usage": {
+    "conclusionCorrectionLimit": 1,
+    "conclusionCorrections": 0,
+    "deadlineOverrunMs": 0,
+    "effectiveDeadlineOverrunMs": 0,
+    "effectiveModelIds": [
+      "deepseek-v4-flash"
+    ],
+    "modelCalls": 3,
+    "modelObservationByteLimit": 16000,
+    "modelRetries": 0,
+    "noProgressTurnLimit": 2,
+    "noProgressTurns": 0,
+    "observationBytes": 512,
+    "observationOnlyTurnLimit": 2,
+    "observationOnlyTurns": 0,
+    "providerAttempts": 3,
+    "providerResultsReplayed": 0,
+    "providerUsage": [
+      {
+        "completion_tokens": 38,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 1280,
+        "prompt_cache_miss_tokens": 137,
+        "prompt_tokens": 1417,
+        "prompt_tokens_details": {
+          "cached_tokens": 1280
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1455
+      },
+      {
+        "completion_tokens": 39,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1510,
+        "prompt_tokens": 1510,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1549
+      },
+      {
+        "completion_tokens": 398,
+        "effectiveModelId": "deepseek-v4-flash",
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 1515,
+        "prompt_tokens": 1515,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "providerModel": "deepseek-v4-flash",
+        "providerRequestMode": "non-thinking",
+        "requestedModelId": "deepseek-v4-flash",
+        "systemFingerprint": "a26a7955944dc5c60445bff77fac9c8e",
+        "total_tokens": 1913
+      }
+    ],
+    "requestedModelId": "deepseek-v4-flash",
+    "tokenLimit": 60000,
+    "toolCalls": 2,
+    "toolCorrections": 0,
+    "totalTokens": 4917,
+    "wallTimeMs": 7557
+  }
+}
