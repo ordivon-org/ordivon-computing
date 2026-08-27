@@ -13,8 +13,8 @@ audience:
   - maintainer
   - builder
   - agent
-updated: 2026-08-06
-summary: Accepted boundary with independent Harness persistence implemented locally, production cutover still pending, and a reduced observation minimum core required before the first formal repeated Trials.
+updated: 2026-08-28
+summary: "Accepted authority boundary after P0 completion: Harness is independently durable and Host-free in current source; the former executable Host-backed compatibility/cutover path is retired, while the non-authoritative Observation Minimum Core remains experiment-scoped and evidence-gated."
 evidence_status: observed
 readiness: not_applicable
 applies_to:
@@ -31,9 +31,9 @@ related:
 
 ## Context
 
-The current Host already owns an independent SQLite Journal, materialized Task projection, immutable CAS, recovery, backup, and Doctor surface. The current Harness repository owns Assignment, Run, Provider-call, Tool-step, Snapshot, Trace, recovery, and completion semantics, but its durable `HostHarnessRunStore` writes those objects into the Host CAS and advances them through Host extension events.
+At this decision's 2026-08-06 evidence cut, Host already owned an independent SQLite Journal, materialized Task projection, immutable CAS, recovery, backup, and Doctor surface, while Harness still wrote durable Run state through `HostHarnessRunStore` into Host CAS/extension events. That historical arrangement motivated P0; it is no longer the current Harness implementation.
 
-That arrangement proved one Host-backed native Agent path. It does not satisfy the required future composition:
+The arrangement proved one Host-backed native Agent path but did not satisfy the required future composition:
 
 ```text
 Host → Ordivon Harness
@@ -48,6 +48,16 @@ Ordivon Harness → domain-owned Tools without Runtime
 The failure is not package location. It is durable dependency: a Harness Run cannot currently preserve its complete native continuity without a Host state root, while Host cannot observe all external Harnesses through one product-neutral binding.
 
 A second pressure is automatic evidence collection. Runtime already retains large volumes of physical Job and Artifact evidence, and product repositories retain local receipts, but there is no reliable cross-project observation path. Formal Track R records are curated projections rather than automatic collection. Adding a collector before separating authority would copy the existing Host-bound Harness lifecycle into a global system and make later correction harder.
+
+## Current implementation update — 2026-08-28
+
+P0 has crossed the boundary this decision was intended to create. Current Harness 0.6 owns its SQLite Journal/CAS and Run continuity independently; its recommended API/core path has no Host persistence dependency. Harness H3 subsequently removed the former `HarnessHost`, Host-backed `HarnessRunner`, `HostHarnessRunStore`, Host Assignment/TaskContract compatibility objects, Host CLI namespace, cutover machinery, Host dependency extra, and Host-coupled Provider drivers from active source. Historical evidence remains recoverable from Git and retained records rather than through an indefinitely executable compatibility reader.
+
+The surviving Host/Harness integration is narrower than the old co-resident lifecycle: `ordivon_harness.host_external_adapter.OrdivonHarnessExternalExecutorAdapter` is Host-free and maps a foreign execution request onto an independent Harness Run without sharing either database. Current Host likewise states that it does not proxy Harness or own a foreign-executor coordinator; foreign currentness and Run recovery remain owner-native.
+
+P1 also advanced beyond this document's original planning status. The Observation v0 Minimum Core and run-once Host/Harness/Runtime exporters were completed and used in bounded selection/formal dogfood, but production Observation authority remains intentionally inactive. Current Computing architecture retains owner-native inspect/export plus disposable non-authoritative projection; continuous collection, a daemon, or a dedicated Observation authority still requires new pressure.
+
+These implementation advances do not erase the original migration law below. They change its current standing: the compatibility reader/cutover machinery was transitional infrastructure, not a permanent responsibility.
 
 ## Decision
 
@@ -234,7 +244,7 @@ Formal Host–Harness–Runtime Trials remain designed but blocked until P0 and 
 
 ## Status
 
-Accepted as the cross-project design boundary. P0 independent Harness persistence, standalone execution, Host foreign-Run integration, response-loss recovery, and cutover control are implemented and locally tested; production state-root activation, exact release pins, scale acceptance, and final no-dual-write receipts remain open. P1 is split into a minimum experimental core and later production hardening. Only the minimum core blocks the first formal Trial. This decision does not register a new project or certify a production observation service.
+Accepted as the cross-project **authority boundary**, with its transitional implementation plan partly retired. P0 independent Harness persistence and standalone execution are now current product facts; current Harness 0.6 no longer carries the Host-backed writer/reader/cutover implementation described by the original migration plan. Host integration uses the independent Harness external-executor adapter rather than shared Run persistence. P1 Minimum Core and run-once owner exporters are complete as non-authoritative experimental infrastructure; production continuous Observation remains deliberately not admitted. This decision does not register a new project or certify a production observation service.
 
 ## Reopen conditions
 
