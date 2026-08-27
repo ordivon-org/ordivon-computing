@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+mode=${1:-}
+shift || true
+uv_bin=${UV_BIN:-$(command -v uv || true)}
+mise_bin=${MISE_BIN:-$(command -v mise || true)}
+env_dir=${ORDIVON_OWNER_ENV_DIR:-"$repo/.venv"}
+python_bin="$env_dir/bin/python"
+python_version=${ORDIVON_OWNER_PYTHON:-3.12.13}
+lock_file="$repo/requirements-conformance.lock.txt"
+
+usage() {
+  cat <<'TXT'
+usage: scripts/owner-environment bootstrap|doctor|test|cold-start [gate args...]
+
+bootstrap   materialize the exact Computing conformance environment
+doctor      verify Python and pinned conformance dependencies
+test        bootstrap, doctor, then run the deterministic T1 gate
+cold-start  prove T1 from a fresh temporary environment
+
+Environment:
+  UV_BIN                    optional uv executable override
+  MISE_BIN                  optional mise executable override
+  ORDIVON_OWNER_ENV_DIR     optional environment directory override
+  ORDIVON_OWNER_PYTHON      optional Python override (default 3.12.13)
+TXT
+}
+
+require_uv() {
+  [[ -n "$uv_bin" ]] || { echo 'Computing owner environment requires uv' >&2; exit 1; }
+}
+
+require_mise() {
+  [[ -n "$mise_bin" ]] || { echo 'Computing owner environment requires mise' >&2; exit 1; }
+}
+
+bootstrap() {
+  require_uv
+  require_mise
+  (cd "$repo" && "$mise_bin" install)
+  if [[ ! -x "$python_bin" ]]; then
+    "$uv_bin" venv --python "$python_version" "$env_dir"
+  fi
+  "$uv_bin" pip sync --python "$python_bin" "$lock_file"
+}
+
+doctor() {
+  [[ -x "$python_bin" ]] || { echo "Computing owner environment is not materialized: $python_bin" >&2; exit 1; }
+  "$python_bin" - <<'PY'
+import importlib.metadata as md
+import sys
+if sys.version_info[:2] != (3, 12):
+    raise SystemExit(f"Computing requires Python 3.12 for deterministic conformance, got {sys.version.split()[0]}")
+expected = {"jsonschema": "4.25.1", "ruff": "0.15.14"}
+for package, version in expected.items():
+    actual = md.version(package)
+    if actual != version:
+        raise SystemExit(f"{package}={actual}; expected {version}")
+print("owner environment doctor: valid profile=conformance")
+PY
+  require_mise
+  (cd "$repo" && "$mise_bin" exec -- vale --version >/dev/null)
+  (cd "$repo" && "$mise_bin" exec -- markdownlint-cli2 --version >/dev/null)
+  (cd "$repo" && "$mise_bin" exec -- cspell --version >/dev/null)
+  (cd "$repo" && "$mise_bin" exec -- lychee --version >/dev/null)
+}
+
+run_tests() {
+  bootstrap
+  doctor
+  cd "$repo"
+  "$mise_bin" exec -- "$python_bin" scripts/ordivon_conformance.py gate "$@"
+}
+
+case "$mode" in
+  bootstrap) bootstrap ;;
+  doctor) doctor ;;
+  test) run_tests "$@" ;;
+  cold-start)
+    tmp=$(mktemp -d -t ordivon-computing-owner-env-XXXXXX)
+    trap 'rm -rf "$tmp"' EXIT
+    ORDIVON_OWNER_ENV_DIR="$tmp/.venv" "$0" test "$@"
+    ;;
+  --help|-h) usage ;;
+  *) usage >&2; exit 2 ;;
+esac

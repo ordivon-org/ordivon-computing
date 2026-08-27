@@ -57,11 +57,11 @@ PYTHONPATH=../../../packages/ordivon-protocol/src:../semantic-core-v0/src:. \
 The repository root owns the canonical gate. It validates managed content paths and the content CLI, foundational documents, the Agent-first research method, the Computer responsibility map, historical-research compression recoverability, the single-source research portfolio and generated view, project and Protocol manifests, release Artifact digests, Schema/vector/implementation agreement, static checks, deterministic semantic and continuation experiments, evidence, and Rust canonical vectors.
 
 ```bash
-python3.12 scripts/ordivon_conformance.py gate \
+scripts/owner-environment test \
   --receipt /tmp/ordivon-conformance-receipt.json
 ```
 
-The command uses the active Python interpreter and installed `ruff`, `jsonschema`, and `rustc`; CI fixes these to Python 3.12, Ruff 0.15.14, JSON Schema 4.25.1, and the stable Rust toolchain. Task-continuation subprocess fixtures receive an explicit `/tmp` boundary so Runtime-specific temporary directories do not change their isolation semantics.
+The canonical T1 entrypoint materializes and validates the repository-owned Python 3.12.13 / Ruff 0.15.14 / JSON Schema 4.25.1 profile before running the gate. `scripts/owner-environment cold-start --receipt ...` proves the same gate from a fresh temporary environment. Rust remains a separately owned system/toolchain requirement checked by the gate rather than a Python dependency. Task-continuation subprocess fixtures receive an explicit `/tmp` boundary so Runtime-specific temporary directories do not change their isolation semantics.
 
 ## T2 — pull-request CI
 

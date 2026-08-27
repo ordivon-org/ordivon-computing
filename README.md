@@ -158,7 +158,7 @@ python scripts/run_conformance_gate.py \
   --receipt /tmp/ordivon-conformance-receipt.json
 ```
 
-The launcher owns the gate environment: it uses the repository-pinned Python 3.12.13 and `requirements-conformance.txt` instead of inheriting an ambient Python or dependency set.
+The launcher delegates to the repository-owned [`scripts/owner-environment`](scripts/owner-environment), which materializes the pinned Python 3.12.13 conformance profile from `requirements-conformance.lock.txt` instead of inheriting an ambient Python or dependency set. The cross-owner semantics are documented in [`docs/owner-environment-contract.md`](docs/owner-environment-contract.md); Computing does not own another repository's dependency graph.
 
 Exact revisions and historical System Snapshots prove what was compared then; they never become floating declarations of current owner state.
 
