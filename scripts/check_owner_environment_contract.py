@@ -44,6 +44,19 @@ def executable_pressure(repo: Path) -> tuple[bool, list[str]]:
 def inspect(repo: Path) -> dict[str, object]:
     repo = repo.resolve()
     entry = repo / "scripts" / "owner-environment"
+    git_probe = subprocess.run(
+        ["git", "-C", str(repo), "rev-parse", "--is-inside-work-tree"],
+        text=True, capture_output=True, check=False,
+    )
+    if git_probe.returncode != 0 or git_probe.stdout.strip() != "true":
+        return {
+            "repo": str(repo),
+            "entrypoint": str(entry),
+            "applicability": "OUT_OF_SCOPE",
+            "pressureSignals": [],
+            "status": "OUT_OF_SCOPE",
+            "reasons": ["path is not a Git worktree repository"],
+        }
     required, signals = executable_pressure(repo)
     result: dict[str, object] = {
         "repo": str(repo),
@@ -87,7 +100,7 @@ def main() -> int:
         for row in rows:
             suffix = "" if not row["reasons"] else " :: " + "; ".join(row["reasons"])  # type: ignore[arg-type]
             print(f"{row['status']} {row['repo']}{suffix}")
-    accepted = {"DISCOVERABLE", "NOT_APPLICABLE"}
+    accepted = {"DISCOVERABLE", "NOT_APPLICABLE", "OUT_OF_SCOPE"}
     return 0 if all(row["status"] in accepted for row in rows) else 1
 
 if __name__ == "__main__":
