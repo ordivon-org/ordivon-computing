@@ -566,3 +566,201 @@ The design currently favors the following minimal architecture, subject to falsi
 → actual semantic claimant/disposition
 
 No component is allowed to silently promote the previous component's evidence into stronger truth.
+
+
+---
+
+# Post-registration Result / Adjudication — 2026-08-27
+
+This section records the outcome after the design and strata above were frozen. It does not rewrite the preregistered hypotheses.
+
+## 21. Final outcome
+
+**Accepted frozen outcome: `QUERYABILITY_ONLY`.**
+
+The queryability defect was real and materially costly, but the experiment did **not** earn a semantic claimant registry, a Binding Currentness programme, a durable reverse index, an Atlas-owned live claimant relation, or a seventh Host Tool.
+
+The admitted production mechanism is **C1b: bulk current-checkpoint navigation-hint exposure**. Existing `task.list` now exposes, when present:
+
+```text
+semanticSummary.runtimeNavigationHint.workspaceId
+semanticSummary.runtimeNavigationHint.truthRole = host-retained-runtime-navigation-hint
+```
+
+The field is explicitly weak: it is a retained navigation hint from the exact current Host WorkingCheckpoint. It does not validate Runtime currentness or semantic claimant standing. Absence does not prove unclaimed state.
+
+## 22. C1a falsifier result
+
+The preregistered filtered candidate was implemented first in isolated Host Workspace `claimant-discoverability-host-c1-20260827`.
+
+Detached commit:
+
+`0b17f915404de7822a637708b94b33c6f3b74e0e`
+
+Preserved local evidence ref:
+
+`refs/experiments/workspace-claimant-discoverability/c1a-filter`
+
+It passed:
+
+- targeted discovery regression: `13/13`;
+- full MCP regression: `28/28`;
+- frozen active oracle: `51` Workspace cases / `25` READY edges / `0` mismatch;
+- frozen history controls: `6` cases / `45` current-head edges / `0` mismatch.
+
+At the final comparable Host state, filtered lookup had roughly `503 ms` median local latency, about `1.99 KB` median filtered-list payload, and about `12.28 KB` median payload after exact Task recovery. It reduced full-context burden by about `97.11%` against the manual exact-recovery baseline.
+
+C1a is therefore **not rejected as incorrect**. It is rejected as the current default because it introduces a new query parameter plus cursor-scope semantics, while a whole-inventory audit over 100+ Runtime Workspaces naturally amplifies into one Host query per Workspace. Reconsider it only if the active continuity set becomes too large for bounded bulk exposure.
+
+## 23. C1b representation result
+
+C1b was then implemented from the same Host base in isolated Workspace `claimant-discoverability-host-c1b-20260827`.
+
+Canonical Host commit:
+
+`e1fc92188918d4ecfd357f032430123e31b20596`
+
+C1b changes representation only:
+
+- no new Tool;
+- no new query parameter;
+- no new cursor semantics;
+- no new Host durable state;
+- no Runtime proxy;
+- no claimant authority promotion.
+
+The exact current checkpoint was already being read for objective/frontier discovery, so exposing the Workspace hint required no additional checkpoint/CAS read.
+
+Validation:
+
+- targeted discovery regression: `12/12 PASS`;
+- full MCP regression: `27/27 PASS`;
+- full Host suite: `158/158 PASS`;
+- frozen oracle: `51` Workspace cases / `25` READY edges / `0` mismatch;
+- precision/recall: `1.000 / 1.000`.
+
+At the final benchmark fence:
+
+- active Host continuity Tasks: `36`;
+- active Task→Workspace hint edges: `28`;
+- unique hinted Workspace IDs: `23`;
+- current Runtime open Workspace inventory: `249`;
+- C0 exact recovery: about `37` Host reads and `425 KB` model-facing structured payload;
+- C1b identity discovery: `1` Host read and about `66.0 KB`;
+- identity-stage call reduction: `97.3%`;
+- identity-stage context reduction: `84.47%`;
+- after targeted exact Task recovery: median `2` reads and about `76.37 KB`, still `82.03%` below C0 context;
+- one bulk list local latency: about `520 ms`.
+
+The larger C1b payload compared with C1a is not free, but it buys a whole-active-continuity reverse representation in one read. At the observed 249-Workspace / 36-active-Task scale, that batch property is materially closer to the original 100+ Workspace discoverability pressure than repeated per-Workspace filtering.
+
+## 24. Binding Currentness adjudication
+
+The apparent statistic `READY Task references closed/absent Workspace` initially looked like a binding-currentness defect. Representative S3 inspection falsified that promotion.
+
+Long-lived Atlas, Finance, Game, and Runtime continuity Tasks had current semantic frontiers that legitimately outlived the physical Workspace named in an older retained navigation hint. Host's `runtime.workspaceId` was never a promise of current embodiment.
+
+Therefore:
+
+`READY + WorkspaceAbsent != stale semantic binding defect`
+
+and the stronger standing is:
+
+**Continuity can outlive Embodiment.**
+
+No separate Binding Currentness programme is earned. Reopen only if real consumers repeatedly require current embodiment rather than retained navigation and cannot recover it through current authority planes.
+
+## 25. Real consumer boundary wave
+
+Three live controls preserved all protected distinctions:
+
+1. `atlas-owner-registry-invariant-repair-20260827`
+   - one READY Host reference: `task:atlas-owner-coverage-reconciliation-20260827@4`;
+   - Runtime independently confirmed the Workspace exists;
+   - result supports an R2 relation, not automatic semantic claimant truth.
+
+2. `finance-decision-currentness-integration-20260822`
+   - six READY Host references;
+   - Runtime independently returned `workspace is closed`;
+   - proves `HostWorkspaceHint != RuntimeCurrentness`.
+
+3. `claimant-discoverability-host-c1b-20260827`
+   - Runtime Workspace existed;
+   - Host had no current reference;
+   - classification remained `NO_CURRENT_HOST_REFERENCE`, never `UNCLAIMED`.
+
+No protected negative was promoted.
+
+## 26. Atlas S6 adjudication
+
+Atlas was re-fenced immediately before S6:
+
+- remote/current tested source: `6ac484d24d8622cb584917feac788b929ec35c2c`;
+- owner coverage code explicitly retains `non-authoritative-owner-coverage-*` truth roles;
+- registered owner-source references remain `not-owner-truth`.
+
+Runtime `sourceRepo` already provides the ordinary owner route, while Host now exposes the exact Task navigation relation. Atlas therefore adds no necessary marginal step to ordinary Workspace→Task recovery. It remains useful only when deeper owner/research standing adjudication is actually required.
+
+## 27. Production admission evidence
+
+C1b was fast-forwarded into clean Host `main` and remote `main` from exact base `b40c7e6a56011dad3ccb595b332ab0edf9fa200a`; no force or history rewrite was used.
+
+Canonical commit:
+
+`e1fc92188918d4ecfd357f032430123e31b20596`
+
+Host's owner-native receipt-bound deployment path was used:
+
+`prepare -> plan -> apply`
+
+Release:
+
+`e1fc92188918d4ecfd357f032430123e31b20596-a81f54009803`
+
+Receipt:
+
+`/var/lib/ordivon/host/deployments/20260827T052822Z-e1fc92188918d4ecfd357f032-603597302`
+
+The plan reported `eligible=true`, `blockers=[]`, Journal schema `5 -> 5`, and `migrationRequired=false`. Apply succeeded with the exact six-Tool catalog unchanged. Post-activation deployment status is healthy, release bytes and Python runtime match the receipt, authority schema matches the receipt, Host Doctor is healthy, CAS has zero orphans, and no leases are active.
+
+A live connected production `task.list` then returned `semanticSummary.runtimeNavigationHint` with the exact weak truth-role language, proving consumer-surface activation rather than merely source/release installation.
+
+## 28. Final responsibility map
+
+```text
+Runtime Workspace
+  -> physical existence + sourceRepo authority
+
+Host task.list
+  -> whole active continuity inventory
+  -> exact current-checkpoint retained runtimeNavigationHint
+
+Host task.resume / task.observe
+  -> exact semantic continuity for selected Task
+
+owner-native source / domain authority
+  -> current owner standing and actual semantic disposition
+
+Atlas
+  -> optional non-authoritative owner/research route assistance when deeper adjudication requires it
+```
+
+No layer may silently promote the previous layer's evidence.
+
+## 29. Reopen triggers
+
+Do not reopen merely because more Workspaces exist. Reopen the mechanism only if one of these pressures becomes observed:
+
+1. active Host continuity routinely exceeds the one-page/context budget and bulk hint exposure becomes materially expensive;
+2. real consumers repeatedly require **current embodiment**, not retained navigation, and fail to recover it;
+3. measured on-demand derivation latency/scale becomes unacceptable.
+
+Under trigger 1, C1a's preserved experimental ref is the first bounded escalation candidate. A durable reverse index remains a later option only if on-demand derivation itself is falsified.
+
+## 30. Closure standing
+
+The resolved problem was smaller than “semantic claimant ownership”:
+
+`discover relation != recover full semantics != establish claimant authority`
+
+The production change makes an already-existing relation naturally visible while keeping authority where it was. This is both the engineering result and the historical-approximation lesson: a former manual coupling lost its existence right once the underlying exact checkpoint relation became cheap to represent.

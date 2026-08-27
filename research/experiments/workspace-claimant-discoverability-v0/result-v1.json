@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.workspace-claimant-discoverability-result",
+  "observedDate": "2026-08-27",
+  "outcome": "QUERYABILITY_ONLY",
+  "standing": {
+    "queryabilityDefect": "PROVEN_AND_REPAIRED",
+    "bindingCurrentnessProgramme": "NOT_EARNED",
+    "durableReverseIndex": "REJECTED_AT_CURRENT_SCALE",
+    "atlasOrdinaryPath": "NOT_REQUIRED",
+    "semanticClaimantAuthority": "UNCHANGED_OWNER_DOMAIN_AUTHORITY"
+  },
+  "admittedMechanism": {
+    "name": "C1b_bulk_navigation_hint_exposure",
+    "hostCommit": "e1fc92188918d4ecfd357f032430123e31b20596",
+    "hostReleaseId": "e1fc92188918d4ecfd357f032430123e31b20596-a81f54009803",
+    "deploymentReceipt": "/var/lib/ordivon/host/deployments/20260827T052822Z-e1fc92188918d4ecfd357f032-603597302",
+    "field": "semanticSummary.runtimeNavigationHint",
+    "truthRole": "host-retained-runtime-navigation-hint",
+    "newTool": false,
+    "newQueryParameter": false,
+    "newCursorSemantics": false,
+    "newDurableState": false,
+    "runtimeProxy": false
+  },
+  "rejectedCurrentMechanism": {
+    "name": "C1a_workspace_filtered_task_list",
+    "commit": "0b17f915404de7822a637708b94b33c6f3b74e0e",
+    "localEvidenceRef": "refs/experiments/workspace-claimant-discoverability/c1a-filter",
+    "disposition": "ESCALATION_ONLY_IF_BULK_ACTIVE_CONTINUITY_EXCEEDS_PAGINATION_OR_CONTEXT_BUDGET",
+    "reason": "Exact and efficient for a known Workspace, but adds query/cursor state and amplifies whole-inventory census into per-Workspace Host queries at the current 100+ Workspace scale."
+  },
+  "oracle": {
+    "activeWorkspaceCases": 51,
+    "readyEdges": 25,
+    "activeMismatches": 0,
+    "historyControlCases": 6,
+    "historyEdges": 45,
+    "historyMismatches": 0,
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "cost": {
+    "activeHostTasksAtFinalBenchmark": 36,
+    "hintedTaskEdges": 28,
+    "uniqueHintedWorkspaceIds": 23,
+    "runtimeOpenWorkspaceInventory": 249,
+    "c0ExactRecoveryCalls": 37,
+    "c0ContextBytesApprox": 425000,
+    "c1bIdentityCalls": 1,
+    "c1bIdentityContextBytes": 66003,
+    "c1bIdentityCallReductionPct": 97.3,
+    "c1bIdentityContextReductionPct": 84.47,
+    "c1bFullTargetedRecoveryMedianCalls": 2,
+    "c1bFullTargetedRecoveryMedianContextBytes": 76367,
+    "c1bFullContextReductionPct": 82.03,
+    "c1bSingleListLatencyMsApprox": 520,
+    "c1aFilteredListMedianContextBytes": 1985,
+    "c1aFullTargetedRecoveryMedianContextBytes": 12282,
+    "c1aFullContextReductionPct": 97.11,
+    "c1aMedianLatencyMsApprox": 503
+  },
+  "regression": {
+    "c1aTargetedDiscovery": "13/13 PASS",
+    "c1aFullMcp": "28/28 PASS",
+    "c1bTargetedDiscovery": "12/12 PASS",
+    "c1bFullMcp": "27/27 PASS",
+    "c1bFullHost": "158/158 PASS",
+    "postDeploymentHostDoctor": "HEALTHY",
+    "postDeploymentReceiptStatus": "HEALTHY",
+    "liveConnectedTaskListHintObserved": true
+  },
+  "protectedInterpretations": [
+    "NO_CURRENT_HOST_REFERENCE != PROVEN_UNCLAIMED",
+    "TerminalReference != CurrentClaim",
+    "HostWorkspaceHint != RuntimeCurrentness",
+    "AtlasOwnerCoverage != OwnerTruth",
+    "Continuity can outlive Embodiment"
+  ],
+  "realConsumerControls": [
+    {
+      "workspaceId": "atlas-owner-registry-invariant-repair-20260827",
+      "hostReadyReferences": 1,
+      "runtime": "CURRENT",
+      "standing": "R2; semantic claimant still owner-adjudicated"
+    },
+    {
+      "workspaceId": "finance-decision-currentness-integration-20260822",
+      "hostReadyReferences": 6,
+      "runtime": "CLOSED",
+      "standing": "Host reference preserved without Runtime-current promotion"
+    },
+    {
+      "workspaceId": "claimant-discoverability-host-c1b-20260827",
+      "hostReadyReferences": 0,
+      "runtime": "CURRENT",
+      "standing": "NO_CURRENT_HOST_REFERENCE; not unclaimed"
+    }
+  ],
+  "reopenTriggers": [
+    "active Host continuity routinely exceeds one-page/context budget and bulk hint exposure becomes materially expensive",
+    "real consumers repeatedly require current embodiment rather than retained navigation and fail to recover it",
+    "on-demand derivation no longer meets measured latency/scale requirements"
+  ]
+}
