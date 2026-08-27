@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "ordivon.computing.active-research-capability-evaluation-result",
+  "experimentId": "AD-01",
+  "title": "Interactive Budgeted Rival Discrimination",
+  "claimCeiling": "SINGLE_MODEL_SINGLE_ACTIVE_FIXTURE",
+  "hiddenWorldCommitment": "sha256:2dfd7504ad9dce2b361f20e50fa8e29228dd39b90566eacc6438969146cf349c",
+  "toolBudget": 2,
+  "uniqueSufficientProbePair": ["alpha", "beta"],
+  "pairUniquenessVerified": true,
+  "preExecutionInvalidFreeze": "hand-copied commitment mismatch caught before Provider execution",
+  "arms": {
+    "baseline": {
+      "probeSequence": ["delta", "echo"],
+      "observations": [1, 0],
+      "evaluatorItems": {"A1":"PASS","A2":"FAIL","A3":"FAIL","A4":"FAIL","A5":"FAIL","A6":"FAIL"},
+      "terminalStateConsistentWithReasoning": false,
+      "identifiedRegimeField": "R4",
+      "reasoningStanding": "admits non-unique result"
+    },
+    "method": {
+      "probeSequence": ["beta", "delta"],
+      "observations": [0, 1],
+      "evaluatorItems": {"A1":"PASS","A2":"FAIL","A3":"FAIL","A4":"PASS","A5":"FAIL","A6":"FAIL"},
+      "terminalStateConsistentWithReasoning": false,
+      "identifiedRegimeField": "R1",
+      "reasoningStanding": "correctly leaves R3 and R5 live",
+      "localTreatmentEffectCandidate": "avoids zero-discrimination echo probe"
+    },
+    "positiveControl": {
+      "instruction": "execute alpha and beta",
+      "probeSequence": ["alpha", "beta"],
+      "observations": [2, 0],
+      "identifiedRegime": "R5",
+      "survivingRivals": ["R5"],
+      "apparatusValidForTargetActionPath": true
+    }
+  },
+  "standing": {
+    "activeDiscriminatorSelection": "NOT_ESTABLISHED_FAILED_IN_FIXTURE",
+    "activeEvidenceUpdate": "PARTIAL_REASONING_BUT_TERMINAL_STATE_INCONSISTENT",
+    "baseModelCanExecuteOptimalPolicyWhenGiven": true,
+    "ordivonGenericMethodIncrementalEffect": "LOCAL_POSITIVE_CANDIDATE_NOT_SUFFICIENT",
+    "autonomousResearchCapability": "NOT_ESTABLISHED",
+    "canonicalCapabilityPromotion": false
+  },
+  "newFrontier": [
+    "decision-bearing probe selection under finite budget",
+    "live-rival set maintenance across observations",
+    "terminal research state conformance to the Agent's own evidence analysis",
+    "cross-matrix transfer without hard-coded target answers"
+  ],
+  "nonAdmissions": [
+    "Do not infer autonomous research from SRE-01/02 supplied-evidence success",
+    "Do not treat AD-01 failure as Tool apparatus failure after positive control",
+    "Do not hard-code the alpha+beta answer into the research method",
+    "Do not claim a general method effect from avoidance of echo in one fixture"
+  ]
+}

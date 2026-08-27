@@ -281,6 +281,7 @@ Internal consequence evidence has strengthened. Independent external realized be
 
 - `research/DISCOVERABILITY-CURRENTNESS-AUDIT-CLOSEOUT-20260827.md`
 - `research/PRESSURE-SELECTION-VALUE-OF-INFORMATION-AUDIT-20260826.md`
+- `research/RESEARCH-CAPABILITY-EVALUATION-CLOSEOUT-20260827.md`
 - `research/S6-LONGITUDINAL-CONSEQUENCE-AUDIT-20260826.md`
 - `research/WORLD-MODEL-SEDIMENTATION-AUDIT-20260824.md`
 - `research/CONSTRUCTIVE-CAPABILITY-ENVIRONMENT-CLOSEOUT-20260825.md`
@@ -289,5 +290,20 @@ Internal consequence evidence has strengthened. Independent external realized be
 - `research/PROVIDER-FIRST-RESOURCE-ABSORPTION-PF0.md`
 - `knowledge/research-methods/ordivon-research-method-and-paradigm-canon.md`
 - `research/ordivon-research-capability-map-v1.json`
+
+## 15. Post-closeout refinement from prospective research-capability evaluation
+
+The same-day sealed/interactive evaluation does not change the 28-row map or the frontier ordering above. It sharpens one existing row: `Local bounded pressure/probe selection = STRONG` remains valid when the relevant decision surface is adequately represented, while interactive AD-01..06 shows that language-model-only experiment-design bookkeeping can be weak/variable during state transitions. A dynamically recomputed deterministic current decision surface produced replicated bounded gains on AD-03/04, survived a component-ablation full-treatment test on AD-05, and failed open under an unlisted-regime control on AD-06.
+
+The positive is deliberately narrower than a new capability family:
+
+```text
+operation-relative mechanical decision surface
+!= universal Representation service
+!= PressureSelector
+!= autonomous research
+```
+
+It begins after rival/probe formation and therefore does not alter the stronger open gaps already listed here: owner/source acquisition before decisive evidence is reachable, ordinary-path current re-entry, prospective research-bet calibration, and long-horizon external consequence. The synthetic evaluation phase is closed; promotion now requires natural consumer consequence or materially different model/provider evidence under a pre-frozen insertion/deletion control.
 
 No owner-native result is superseded by this parent synthesis.
