@@ -93,3 +93,5 @@ Do not infer readiness from purchase plans or local USB silence. Reopen physical
 A separate information-contrast gate now requires `STATIC_ONLY -> STATIC_AMBIGUOUS` before dynamic data are exposed, and requires the captured `Vin` edge to be fast enough for the simple-step `t63` classifier. Measurement validity alone is therefore not treated as information sufficiency.
 
 Current pre-arrival software standing is recorded in `LABORATORY-E0B-PREARRIVAL-SOFTWARE-READINESS-20260828.md`: likely Pico/AD3 SDK surfaces are not currently materialized in the bounded node audit, but installation is deliberately deferred because physical arrival remains the earlier blocking cut.
+
+The deeper safety/device/object/metrology/evidence derivation sources used by this contract are now available in the exact-byte physical foundation kernel reconciled by `LABORATORY-PHYSICAL-FOUNDATION-KERNEL-RECONCILIATION-20260828.md`; their dated status labels do not override this contract or current Reality evidence.
