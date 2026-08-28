@@ -70,6 +70,8 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 - [`cadquery-mechanical-authoring-reconciliation-v0/`](cadquery-mechanical-authoring-reconciliation-v0/) — current CadQuery 2.8.0 narrow P5 reconciliation: the frozen five-family CAD-v0 apparatus replays 10/10 base/revision STEP cases with historical-equivalent geometry metrics and current negative controls reject missing-hole and +2 mm length artifacts; exact apparatus bytes are retained non-executable, and no CadQuery-vs-build123d tournament winner is inferred.
 
+- [`ngspice-circuit-simulation-reconciliation-v0/`](ngspice-circuit-simulation-reconciliation-v0/) — current ngspice 47 narrow P5 carrier: the frozen RC transient fixture reproduces its historical analytic-validation receipt byte-for-byte under the current exact Workstation-bound binary; the separate KiCad→ngspice P6 bridge provides a second AC consequence without widening to arbitrary model libraries or physical truth.
+
 ## Deferred experiment families
 
 Dynamic Task dataflow, branch/join coordination, adaptation, and additional World or Security experiments remain deferred until the generated portfolio admits a concrete falsifier and consuming workload. Historical Edge/Link or generic second-backend plans are not active promises.

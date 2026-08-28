@@ -1,0 +1,11 @@
+* Ordivon Laboratory SIM-0E — RC step response
+* Intended use: prove headless circuit-simulation provider and analytic/model comparison.
+* This is synthetic evidence only; it does not establish physical component behavior.
+V1 in 0 PULSE(0 5 0 1n 1n 20m 40m)
+R1 in out 1k
+C1 out 0 1u
+.tran 2u 6m
+.meas tran t63 WHEN v(out)=3.160602794 RISE=1
+.meas tran v1ms FIND v(out) AT=1m
+.meas tran v5ms FIND v(out) AT=5m
+.end

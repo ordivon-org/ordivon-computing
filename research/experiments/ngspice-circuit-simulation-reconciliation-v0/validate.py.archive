@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import json
+import math
+import re
+import sys
+from pathlib import Path
+
+if len(sys.argv) != 3:
+    raise SystemExit("usage: validate.py NGSPICE_LOG OUTPUT_JSON")
+
+log_path = Path(sys.argv[1])
+out_path = Path(sys.argv[2])
+text = log_path.read_text(encoding="utf-8", errors="replace")
+
+
+def measure(name: str) -> float:
+    match = re.search(rf"(?mi)^\s*{re.escape(name)}\s*=\s*([+\-0-9.eE]+)", text)
+    if not match:
+        raise SystemExit(f"missing ngspice measurement: {name}")
+    return float(match.group(1))
+
+r_ohm = 1000.0
+c_f = 1e-6
+vin = 5.0
+tau_s = r_ohm * c_f
+expected_v1ms = vin * (1.0 - math.exp(-1e-3 / tau_s))
+expected_v5ms = vin * (1.0 - math.exp(-5e-3 / tau_s))
+observed = {
+    "t63_s": measure("t63"),
+    "v1ms_v": measure("v1ms"),
+    "v5ms_v": measure("v5ms"),
+}
+errors = {
+    "t63_abs_s": abs(observed["t63_s"] - tau_s),
+    "v1ms_abs_v": abs(observed["v1ms_v"] - expected_v1ms),
+    "v5ms_abs_v": abs(observed["v5ms_v"] - expected_v5ms),
+}
+passed = (
+    errors["t63_abs_s"] < 5e-6
+    and errors["v1ms_abs_v"] < 5e-3
+    and errors["v5ms_abs_v"] < 5e-3
+)
+receipt = {
+    "schemaVersion": 1,
+    "kind": "ordivon.lab.synthetic-rc-validation-receipt",
+    "provider": {"name": "ngspice", "version": "47", "mode": "headless-source-build"},
+    "model": {"R_ohm": r_ohm, "C_f": c_f, "Vin_v": vin, "tau_s": tau_s},
+    "analytic": {"v1ms_v": expected_v1ms, "v5ms_v": expected_v5ms},
+    "simulated": observed,
+    "absoluteError": errors,
+    "status": "passed" if passed else "failed",
+    "standingBoundary": "analytic/synthetic agreement only; no physical component or instrument standing inferred",
+}
+out_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+print(json.dumps(receipt, indent=2, sort_keys=True))
+raise SystemExit(0 if passed else 1)
