@@ -79,7 +79,7 @@ The full 93-commit detached side therefore remains outside current active Comput
 This reconciliation closes lineage/evidence-loss pressure only. It leaves separate current questions:
 
 1. expose already-materialized Laboratory providers through the Workstation node-local capability surface without granting domain admission;
-2. establish a fresh performance/currentness receipt for bounded deterministic EDA grammar execution instead of transporting historical timing numbers;
+2. keep the 2026-08-28 current grammar replay receipt as the timing/currentness coordinate: the 96-candidate output is byte-identical to history, while full enumeration took 58,499 ms under the current Runtime and the historical unlabeled `1200 ms` field is not transported as equivalent wall time;
 3. complete the larger non-GUI EDA responsibility chain from structured design intent through ERC/DRC, manufacturing outputs, evidence, revision and recovery;
 4. bridge electronic design intent/consequence to ngspice and later physical evidence under owner-specific admission.
 
