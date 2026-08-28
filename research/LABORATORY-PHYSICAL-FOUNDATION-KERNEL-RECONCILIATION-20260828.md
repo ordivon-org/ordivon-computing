@@ -82,3 +82,5 @@ Canonicalize derivation carrier
 ```
 
 Future restoration from detached Laboratory history should require a current consumer/source dependency, not document-count symmetry.
+
+The remaining detached Laboratory corpus is dispositioned in `LABORATORY-DETACHED-RESEARCH-CARRIER-AUDIT-CLOSEOUT-20260828.md`; historical predecessor/companion mentions are explicitly distinguished from modern load-bearing dependencies, so no recursive F01–F15 restoration is implied.
