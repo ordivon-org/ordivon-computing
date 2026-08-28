@@ -310,11 +310,24 @@ evaluator independence != domain truth authority
 
 A benchmark or model grader cannot invent a project-local truth rule. Cross-owner evaluation must bind its oracle to owner-native semantics or an explicit counterfactual law frozen as part of the investigation.
 
-## 15. Currentness requires source fences
+## 15. Currentness requires source fences and owner-operation source resolution
 
 An exact historical observation may remain valid after its owner advances. Therefore a current cross-project claim must compare the retained observation fence with the selected current owner source and classify advancement/divergence/unknown rather than infer currentness from recency.
 
-This is the epistemic principle. The concrete `CURRENT` publication, AuthorityVersionRef, Atlas ProjectionHealth, and closeout machinery are owned by the Research System and owner corpora, not by Computer.
+The selected source cannot itself be inferred from one generic Git heuristic. `refs/heads/main`, observed or freshly fetched `origin/main`, a clean Workspace `HEAD`, a publication receipt, and a live deployed revision are different relations. Some owners have no remote; some define source integration at a remote branch; and one owner may legitimately have different current identities for source integration, publication, and physical deployment. Current-sensitive work should therefore use this sequence:
+
+```text
+mechanically observe available source / worktree / deployment coordinates
+→ resolve the expected authority identity from the owner-native contract for this operation
+→ bind the consumer to that exact identity
+→ classify match / advancement / divergence / unresolved
+```
+
+Mechanical observation does not select semantic authority. A Workspace name, a `current` label, local-main equality, or remote freshness is not an authority proof. When the owner-operation rule cannot yet resolve the expected identity, retain `SOURCE_AUTHORITY_UNRESOLVED` (or the owner's equivalent UNKNOWN standing) rather than silently choosing a ref. A source-bound consumer may prove which exact revision it consumed without thereby proving that revision was the right owner authority; source selection and source binding are separate responsibilities.
+
+Computing's `scripts/foundation_currentness.py` is shared observation equipment for the first step only. It may project local-main/origin-main/worktree relations and bounded owner-native deployment evidence, but it explicitly performs no source-authority selection and claims no semantic currentness. Runtime `workspace.open` likewise remains an exact local-revision mechanism rather than a source-currentness resolver.
+
+This is the epistemic principle. The concrete `CURRENT` publication, AuthorityVersionRef, Atlas ProjectionHealth, promotion/deployment receipt, and closeout machinery are owned by the Research System and owner corpora, not by Computer.
 
 ## 15A. Research discoverability is a re-entry capability, not one search score
 
