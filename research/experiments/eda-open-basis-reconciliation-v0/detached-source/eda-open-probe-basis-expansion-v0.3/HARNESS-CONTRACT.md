@@ -1,0 +1,1 @@
+Hermes process must start with shell cwd equal to the fresh cell. Terminal and file Effects were independently owner-visibility tested before v0.2/v0.3. `--in` alone is insufficient and is not used as the binding authority.

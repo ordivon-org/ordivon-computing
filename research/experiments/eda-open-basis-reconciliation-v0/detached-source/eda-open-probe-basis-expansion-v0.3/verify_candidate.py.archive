@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+import argparse,json,re,subprocess,tempfile,hashlib
+from pathlib import Path
+K='/root/.local/share/ordivon/laboratory/providers/kicad-10.0.5-appimage-lite/bin/kicad-cli'; TARGET=['R1.1','U1.1','U1.7']
+def forms(text,marker):
+ for m in re.finditer(marker,text,re.M):
+  a=m.start();dep=0
+  for i in range(a,len(text)):
+   if text[i]=='(':dep+=1
+   elif text[i]==')':
+    dep-=1
+    if dep==0:yield text[a:i+1];break
+def nmap(text):
+ out={}
+ for b in forms(text,r'^\s*\(net\s'):
+  nm=re.search(r'\(name\s+"([^"]*)"',b)
+  if not nm:continue
+  for nb in forms(b,r'^\s*\(node\s'):
+   rr=re.search(r'\(ref\s+"([^"]+)"',nb); pp=re.search(r'\(pin\s+"([^"]+)"',nb)
+   if rr and pp:out[f'{rr.group(1)}.{pp.group(1)}']=nm.group(1)
+ return out
+def obs(P):
+ P=P.resolve(); sch=P/'ecc83-pp_v2.kicad_sch'
+ with tempfile.TemporaryDirectory(prefix='aeb-open-probe-ver-') as td:
+  td=Path(td); erc=td/'erc.json'; net=td/'net.net'; q1=subprocess.run([K,'sch','erc','--format','json','--output',str(erc),str(sch)],cwd=P,capture_output=True,text=True); q2=subprocess.run([K,'sch','export','netlist','--format','kicadsexpr','--output',str(net),str(sch)],cwd=P,capture_output=True,text=True)
+  if not erc.exists() or not net.exists(): return {'providerOk':False,'ercExit':q1.returncode,'netExit':q2.returncode,'stderr':(q1.stderr+q2.stderr)[-2000:]}
+  e=json.load(open(erc)); vs=[v for sh in e['sheets'] for v in sh.get('violations',[])]; electrical=[v for v in vs if v['type']!='footprint_link_issues']; nm=nmap(net.read_text()); vals={n:nm.get(n) for n in TARGET}; same=(None not in vals.values() and len(set(vals.values()))==1); return {'providerOk':q2.returncode==0,'electricalClean':not electrical,'electricalViolations':[v['type'] for v in electrical],'targetNets':vals,'targetSameNet':same,'targetNetName':vals[TARGET[0]] if same else None}
+def main():
+ ap=argparse.ArgumentParser(); ap.add_argument('--baseline',required=True); ap.add_argument('--candidate',required=True); ap.add_argument('--out',required=True); a=ap.parse_args(); B=Path(a.baseline); C=Path(a.candidate); bo=obs(B); co=obs(C); sch=C/'ecc83-pp_v2.kicad_sch'; proposal=C.parent/'proposal.json'; nameChanged=bool(co.get('targetSameNet') and co.get('targetNetName')!=bo.get('targetNetName')); sep=bool(co.get('providerOk') and co.get('electricalClean') and co.get('targetSameNet') and nameChanged); otherFiles=[]
+ # project file mutation boundary is checked by caller against copied baseline; this receipt records candidate source digest and proposal presence.
+ out={'schemaVersion':1,'kind':'ordivon.aeb.eda-open-probe-basis-expansion-verification','baseline':bo,'candidate':co,'targetNetNameChanged':nameChanged,'hypothesisSeparation':{'H_connectivity_semantic':'accept' if co.get('providerOk') and co.get('electricalClean') and co.get('targetSameNet') else 'reject','H_exact_net_name':'accept' if co.get('providerOk') and co.get('electricalClean') and co.get('targetSameNet') and not nameChanged else 'reject'},'separatorPass':sep,'candidateSourceSha256':'sha256:'+hashlib.sha256(sch.read_bytes()).hexdigest() if sch.exists() else None,'proposalPresent':proposal.exists()}; Path(a.out).write_text(json.dumps(out,indent=2,sort_keys=True)+'\n'); print(json.dumps(out,indent=2,sort_keys=True)); raise SystemExit(0 if sep else 11)
+if __name__=='__main__': main()

@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+import argparse,json,re,subprocess,tempfile,math,collections
+from pathlib import Path
+K='/root/.local/share/ordivon/laboratory/providers/kicad-10.0.5-appimage-lite/bin/kicad-cli'
+
+def forms(text, marker):
+ for m in re.finditer(marker,text,re.M):
+  a=m.start(); dep=0
+  for i in range(a,len(text)):
+   if text[i]=='(': dep+=1
+   elif text[i]==')':
+    dep-=1
+    if dep==0: yield a,i+1,text[a:i+1]; break
+
+def parse_netlist(text):
+ out=[]
+ for _,_,b in forms(text,r'^\s*\(net\s'):
+  nm=re.search(r'\(name\s+"([^"]*)"',b); code=re.search(r'\(code\s+"([^"]+)"',b); nodes=[]
+  for _,_,nb in forms(b,r'^\s*\(node\s'):
+   rr=re.search(r'\(ref\s+"([^"]+)"',nb); pp=re.search(r'\(pin\s+"([^"]+)"',nb)
+   if rr and pp: nodes.append(f'{rr.group(1)}.{pp.group(1)}')
+  if nm: out.append({'code':code.group(1) if code else None,'name':nm.group(1),'nodes':sorted(nodes)})
+ return out
+
+def endpoint_inventory(s):
+ pts=[]
+ for _,_,w in forms(s,r'^\s*\(wire\s'):
+  uuid=re.search(r'\(uuid\s+"([^"]+)"',w); xy=re.findall(r'\(xy\s+([\-0-9.]+)\s+([\-0-9.]+)\)',w)
+  if len(xy)>=2:
+   pts.append({'wireUuid':uuid.group(1) if uuid else None,'a':[float(xy[0][0]),float(xy[0][1])],'b':[float(xy[-1][0]),float(xy[-1][1])]})
+ return pts
+
+def symbol_pin_positions(s):
+ # Bind nested KiCad symbol unit definitions (e.g. ECC83_1_1) only to placed instances of the same unit.
+ nested={}
+ for _,_,blk in forms(s,r'^\s*\(symbol\s+"[^"]+"'):
+  head=re.match(r'\s*\(symbol\s+"([^"]+)"',blk)
+  if not head: continue
+  name=head.group(1); pins=[]
+  for _,_,pb in forms(blk,r'^\s*\(pin\s+(?:input|passive|power_in|power_out|output|bidirectional|tri_state|open_collector|open_emitter|unspecified|free|no_connect)\s+[^\s()]+'):
+   at=re.search(r'\(at\s+([\-0-9.]+)\s+([\-0-9.]+)\s+([\-0-9.]+)',pb); num=re.search(r'\(number\s+"([^"]+)"',pb)
+   if at and num: pins.append((num.group(1),float(at.group(1)),float(at.group(2))))
+  if pins: nested[name]=pins
+ placed=[]
+ for _,_,blk in forms(s,r'^\s*\(symbol\s*\n'):
+  lib=re.search(r'\(lib_id\s+"([^"]+)"',blk); at=re.search(r'\(at\s+([\-0-9.]+)\s+([\-0-9.]+)\s+([\-0-9.]+)',blk); ref=re.search(r'\(property\s+"Reference"\s+"([^"]+)"',blk); unit=re.search(r'\(unit\s+(\d+)',blk)
+  if lib and at and ref and unit:
+   placed.append({'ref':ref.group(1),'base':lib.group(1).split(':')[-1],'x':float(at.group(1)),'y':float(at.group(2)),'rot':float(at.group(3)),'unit':int(unit.group(1))})
+ result={}
+ for inst in placed:
+  # KiCad nested convention: BASE_<unit>_1 carries the electrical pin definitions for that placed unit.
+  exact=f"{inst['base']}_{inst['unit']}_1"; pins=nested.get(exact,[])
+  for num,lx,ly in pins:
+   th=math.radians(inst['rot']); gx=inst['x']+lx*math.cos(th)-ly*math.sin(th); gy=inst['y']+lx*math.sin(th)+ly*math.cos(th); pt=[round(gx,6),round(gy,6)]
+   if pt not in result.setdefault(f"{inst['ref']}.{num}",[]): result[f"{inst['ref']}.{num}"].append(pt)
+ return result
+
+def main():
+ ap=argparse.ArgumentParser(); ap.add_argument('--project',required=True); ap.add_argument('--target-node',action='append',required=True); ap.add_argument('--out',required=True); a=ap.parse_args(); P=Path(a.project).resolve(); sch=P/'ecc83-pp_v2.kicad_sch'; s=sch.read_text();
+ with tempfile.TemporaryDirectory(prefix='aeb-kicad-standing-') as td:
+  td=Path(td); erc=td/'erc.json'; net=td/'net.net'; subprocess.run([K,'sch','erc','--format','json','--output',str(erc),str(sch)],cwd=P,check=False,capture_output=True,text=True); q=subprocess.run([K,'sch','export','netlist','--format','kicadsexpr','--output',str(net),str(sch)],cwd=P,capture_output=True,text=True)
+  if q.returncode or not erc.exists() or not net.exists(): raise SystemExit('provider observation failed')
+  e=json.load(open(erc)); vs=[v for sh in e['sheets'] for v in sh.get('violations',[])]; electrical=[v for v in vs if v['type']!='footprint_link_issues']; nets=parse_netlist(net.read_text()); target=set(a.target_node); matches=[n for n in nets if target.issubset(set(n['nodes']))];
+  same=len(matches)==1; tn=matches[0] if same else None; wires=endpoint_inventory(s); pinpos=symbol_pin_positions(s)
+  # Geometric witness: report source-level wire endpoints that exactly coincide with any candidate coordinate for the target pins. This is representation standing, not a mutation proposal.
+  allends=[]
+  for w in wires:
+   allends.extend([w['a'],w['b']])
+  target_coords=[]
+  for node in a.target_node:
+   for p in pinpos.get(node,[]):
+    if p not in target_coords: target_coords.append(p)
+  incident=[]
+  for w in wires:
+   if any(w[k] in target_coords for k in ['a','b']): incident.append(w)
+  out={'schemaVersion':1,'kind':'ordivon.aeb.kicad-target-standing','provider':{'name':'KiCad','version':'10.0.5'},'projectFile':'ecc83-pp_v2.kicad_sch','ercElectricalClean':not electrical,'ercElectricalViolationTypes':sorted({v['type'] for v in electrical}),'targetNodes':a.target_node,'targetSameNet':same,'targetNet':tn,'targetPinCoordinateCandidates':{n:pinpos.get(n,[]) for n in a.target_node},'incidentWireWitnesses':incident,'sourceWireCount':len(wires),'standingBoundary':'provider-observed net membership plus source-derived geometric witnesses; no mutation operator, owner judgement, or discriminator is proposed'}; Path(a.out).write_text(json.dumps(out,indent=2,sort_keys=True)+'\n'); print(json.dumps(out,indent=2,sort_keys=True))
+if __name__=='__main__': main()
