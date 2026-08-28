@@ -329,6 +329,20 @@ Mechanical observation does not select semantic authority. A Workspace name, a `
 
 Computing's `scripts/foundation_currentness.py` is shared observation equipment for the first step only. It may project local-main/origin-main/worktree relations and bounded owner-native deployment evidence, but it explicitly performs no source-authority selection and claims no semantic currentness. Runtime `workspace.open` likewise remains an exact local-revision mechanism rather than a source-currentness resolver.
 
+A four-mode source-horizon audit now makes the failure geometry more concrete without creating a shared taxonomy service: stale Harness source lacked the current owner-publication carrier; stale Atlas source lacked the current owner-scoped currentness operation; stale SCD source carried a cryptographically valid `CURRENT.json` that was current only to that older source horizon and later explicitly superseded; stale World source retained callable Python adapters that the present integrated surface had deliberately retired, creating a phantom capability. Negative controls in Game and the Finance executor show why ref drift alone is insufficient: when the operation's load-bearing carrier is proven unchanged, an exact historical/source-bound result can remain valid after revalidation even though the repository horizon itself is not relabelled as present.
+
+Preserve the resulting non-equivalences:
+
+```text
+ExactSource != PresentSourceHorizon
+ValidCurrentPointer != PresentCurrentPointer
+HistoricalCapabilityExistence != PresentAffordance
+SourceSelection != SourceBinding
+RefDrift != SemanticStaleness
+```
+
+For present-tense work, resolve the owner-operation source horizon before consuming `CURRENT` pointers or planning against callable surfaces. If horizons differ, compare the operation's load-bearing carrier rather than using revision distance as the verdict. The diagnostic model and falsifiers are retained in `research/SOURCE-HORIZON-ADMISSION-MODEL-20260829.md`; it is a Knowledge/research-method synthesis, not a Runtime enum, global resolver, owner registry, or rule that Git `main` is truth.
+
 This is the epistemic principle. The concrete `CURRENT` publication, AuthorityVersionRef, Atlas ProjectionHealth, promotion/deployment receipt, and closeout machinery are owned by the Research System and owner corpora, not by Computer.
 
 ## 15A. Research discoverability is a re-entry capability, not one search score
