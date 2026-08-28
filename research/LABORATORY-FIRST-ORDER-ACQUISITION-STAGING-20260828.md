@@ -48,10 +48,10 @@ Historical approved carriers:
 
 ```text
 SPD4323X
-additional Pico 2 / SC1632 units up to the historical pool of four
+one additional Pico 2 / SC1632 for E0-D (two total); further units up to the historical pool of four only under parallel/spare/destructive pressure
 ```
 
-Promote when an actual consumer needs multi-rail controlled energy, power/actuator experiments, parallel fixtures, immediate spare/destructive carriers or generation-replacement semantics. `Pico ×4` is a redundancy design, not an R0 shopping requirement.
+The first concrete promotion is narrower: E0-D needs one additional same-SKU Pico, giving two total for A→B generation replacement. Promote SPD4323X only for multi-rail/power/actuator consumers, and promote Pico units 3–4 only for parallel fixtures, immediate spare/destructive carriers or broader replacement pressure. `Pico ×4` remains a historical redundancy design, not a pre-E1 requirement.
 
 ## R1C — construction / adaptation
 

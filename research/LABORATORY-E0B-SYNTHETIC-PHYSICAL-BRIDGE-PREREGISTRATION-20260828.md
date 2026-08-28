@@ -64,3 +64,5 @@ It would **not** establish general circuit-model truth, universal instrument val
 The post-delivery admission ladder is frozen separately in `LABORATORY-E0B-ARRIVAL-REENTRY-CONTRACT-20260828.md`; physical execution remains unauthorized until its arrival/identity/binding/measurement gates can be observed from real carriers.
 
 The measurement-information contrast is frozen in `LABORATORY-E0B-MEASUREMENT-INFORMATION-CONTRAST-20260828.md`: the blinded classifier must first establish `STATIC_AMBIGUOUS` before dynamic waveform evidence is exposed; otherwise the intended active-information-gain claim is falsified rather than assumed.
+
+At programme level, `LABORATORY-E0-PROGRAMME-CONTRACTION-20260828.md` treats this v0.3 bridge as the primary R0 experiment, retains E0-A/C/D for their unique contradiction/recovery/generation claims, and moves E0-E to cross-modality replication rather than mandatory closure.
