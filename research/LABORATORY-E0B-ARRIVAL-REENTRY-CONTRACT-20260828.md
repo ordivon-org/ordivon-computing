@@ -91,3 +91,5 @@ SDS824X HD, SPD4323X, soldering/exhaust, custom PCB and E1 mechanics are not pre
 Do not infer readiness from purchase plans or local USB silence. Reopen physical execution when there is actual arrival + identity evidence for the minimum set, then let the relevant owners observe current bindings and generations.
 
 A separate information-contrast gate now requires `STATIC_ONLY -> STATIC_AMBIGUOUS` before dynamic data are exposed, and requires the captured `Vin` edge to be fast enough for the simple-step `t63` classifier. Measurement validity alone is therefore not treated as information sufficiency.
+
+Current pre-arrival software standing is recorded in `LABORATORY-E0B-PREARRIVAL-SOFTWARE-READINESS-20260828.md`: likely Pico/AD3 SDK surfaces are not currently materialized in the bounded node audit, but installation is deliberately deferred because physical arrival remains the earlier blocking cut.
