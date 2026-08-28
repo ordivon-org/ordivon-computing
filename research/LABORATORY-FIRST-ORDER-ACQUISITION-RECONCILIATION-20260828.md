@@ -90,3 +90,5 @@ A large price/availability change may reopen selection; history is not a reason 
 ## Effect boundary
 
 This reconciliation grants no order/payment authority and claims no shipping or arrival. When a real first-contact carrier arrives, use `LABORATORY-E0B-ARRIVAL-REENTRY-CONTRACT-20260828.md`; broader portfolio items need equivalent exact identity, fitness and Agent-realizability receipts appropriate to their roles.
+
+Current transaction sequencing is projected separately in `LABORATORY-FIRST-ORDER-ACQUISITION-STAGING-20260828.md`; it separates the R0 first-Reality-contact minimum from later R1 portfolio expansions without refreshing stale transaction currentness.
