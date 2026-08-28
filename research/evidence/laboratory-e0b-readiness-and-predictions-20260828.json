@@ -1,5 +1,19 @@
 {
-  "canonicalComputingBase": "3fa7af0fe248004f2fb636f06ffd368c91d9f854",
+  "canonicalComputingBase": "1811eedaa9d9857c57ead7d445095ac92f6be65c",
+  "carrierDeletionAudit": {
+    "historicalPrepaymentBasisCNY": {
+      "AD3ProBundle": 3382.23,
+      "E0BMajorCarrierSubtotalExcludingCheapStock": 3787.85,
+      "Pico2WithHeadersOne": 49.62,
+      "UT61EPlus": 356.0,
+      "deferredFirstContactCapital": 4491.38,
+      "priorAD3PlusSDSPlusUT61Subtotal": 8279.23
+    },
+    "priceBoundary": "These are 2026-08-27 observed pre-payment planning figures, not current quotations and not evidence of purchase.",
+    "result": "SDS824X_HD_NOT_DELETION_ESSENTIAL_FOR_E0B_FIRST_CONTACT",
+    "retainedPortfolioRoleForSDS824XHD": "independent benchtop observer for later cross-instrument/E0-E adequacy work and higher-bandwidth consumers; not rejected from first-order long-horizon portfolio",
+    "why": "Pico 2 supplies an independent 3.3 V digital step carrier while AD3 supplies two simultaneous analog observation channels; the physical Vin waveform is captured, so neither Pico command state nor nominal 3.3 V is accepted as input truth. AD3 capability is far above the preregistered >=1 MS/s requirement for 1\u20135 ms dynamics."
+  },
   "experiment": {
     "bridgeAdmission": "A synthetic\u2194physical bridge is admitted only if exact physical carrier identity/config is retained, the physical waveform is measurement-valid for this tolerance decision, one preregistered model is selected without post-data retuning, and post-reveal object identity agrees. A mismatch is a valid negative result, not a failed apparatus to be rewritten.",
     "classification": {
@@ -17,13 +31,13 @@
     "hypotheses": [
       {
         "id": "A",
-        "network": "series R=1 kOhm, shunt C=1 uF film, observe C voltage",
+        "network": "series R=1 kOhm, shunt C=1 uF film, observe C voltage; nominal Pico 2 input 3.3 V",
         "nominalFc_hz": 159.15494309189532,
         "nominalTau_s": 0.001
       },
       {
         "id": "B",
-        "network": "series R=4.7 kOhm, same shunt C=1 uF film, observe C voltage",
+        "network": "series R=4.7 kOhm, same shunt C=1 uF film, observe C voltage; nominal Pico 2 input 3.3 V",
         "nominalFc_hz": 33.862753849339434,
         "nominalTau_s": 0.0047
       }
@@ -31,14 +45,14 @@
     "id": "laboratory-e0b-rc-hidden-resistor-v0",
     "observation": {
       "minimumSampleRate_samples_per_s": 1000000,
-      "primary": "SIGLENT SDS824X HD captures Vin and Vout simultaneously as raw waveform",
+      "primary": "Digilent Analog Discovery 3 Pro Bundle uses its two analog input channels to capture Vin and Vout simultaneously as raw waveform; Pico 2 is the separate stimulus device",
       "requiredMetadata": [
-        "instrument exact identity/serial",
-        "firmware/config",
-        "probe identity/attenuation",
-        "timebase/sample rate",
-        "vertical range/coupling",
-        "raw waveform",
+        "Pico 2 exact identity/firmware generation",
+        "AD3 exact identity/serial",
+        "WaveForms/SDK/config generation",
+        "analog input ranges/coupling",
+        "sample rate/record mode",
+        "raw Vin and Vout waveforms",
         "execution timestamps"
       ],
       "staticReference": "UNI-T UT61E+ or a separately admitted equivalent is used only after classification/reveal to verify resistor/DC plausibility"
@@ -55,14 +69,30 @@
     },
     "purpose": "First bounded synthetic\u2194physical bridge and physical evidence-production discriminator after closure of the synthetic engineering floor.",
     "stimulus": {
-      "carrier": "Analog Discovery 3 Pro Bundle AWG",
-      "command": "0 V -> 3.0 V step",
+      "carrier": "Raspberry Pi Pico 2 with headers / SC1632 GPIO",
+      "command": "digital LOW -> HIGH nominal 3.3 V step",
       "highDuration_s": 0.03,
       "period_s": 0.06,
-      "requirement": "actual Vin waveform must be captured; classification uses observed transition timing/amplitude rather than trusting command acknowledgement"
+      "programmingPath": "BOOTSEL USB mass-storage/UF2 or another separately receipted deterministic firmware path",
+      "requirement": "actual Vin waveform must be captured by the independent AD3 observer; classification never trusts GPIO command acknowledgement as physical input truth"
     },
+    "version": "0.2",
     "whyDiscriminating": "Both candidates converge to essentially the same DC output under a high-impedance observer, while the transient time constant differs by 4.7x. Active step excitation plus time-resolved observation is therefore decision-relevant."
   },
+  "externalCurrentnessSources": [
+    {
+      "observedDate": "2026-08-28",
+      "source": "Digilent Analog Discovery 3 Datasheet / product documentation",
+      "url": "https://files.digilent.com/datasheets/Analog-Discovery-3-Datasheet.pdf",
+      "usedFact": "two analog input channels; acquisition capability comfortably exceeds the 1 MS/s preregistered requirement for millisecond RC dynamics"
+    },
+    {
+      "observedDate": "2026-08-28",
+      "source": "Raspberry Pi Pico 2 Datasheet",
+      "url": "https://datasheets.raspberrypi.com/pico/pico-2-datasheet.pdf",
+      "usedFact": "GPIO is powered from fixed 3.3 V rail; BOOTSEL USB mass-storage/UF2 is a simple recovery/programming path"
+    }
+  ],
   "historicalPlanningEvidence": [
     {
       "bytes": 36179,
@@ -86,14 +116,14 @@
       "sha256": "sha256:7897bcd9cdec6526e37d2a734cf786dd410b47ffc4bf6db2b7f25d70bb67ea02"
     }
   ],
-  "kind": "ordivon.computing.laboratory-e0b-synthetic-physical-preregistration",
+  "kind": "ordivon.computing.laboratory-e0b-synthetic-physical-preregistration-v0.2",
   "minimumPhysicalCarriersBeforeExecution": [
-    "Analog Discovery 3 Pro Bundle 471-060 received and identity/binding receipted",
-    "SIGLENT SDS824X HD received and identity/config/raw-waveform path receipted",
+    "Raspberry Pi Pico 2 with headers / SC1632 received, identity-bound and deterministic firmware path receipted",
+    "Analog Discovery 3 Pro Bundle 471-060 received, identity/binding/raw-waveform path receipted",
     "independent static electrical reference such as UT61E+ received/fitness receipted",
     "breadboard and known 1% 1 kOhm / 4.7 kOhm resistors",
     "documented <=10% 1 uF film capacitor",
-    "known-good low-voltage leads/grabbers"
+    "known-good USB/data and low-voltage leads/grabbers"
   ],
   "nonClaims": [
     "does not claim any ordered item has arrived",
@@ -111,39 +141,56 @@
     "reason": "E0-B is intentionally breadboard/low-voltage and does not require soldering; the blocking gate is admitted physical carrier arrival/identity/binding, not the direct-exhaust site gate.",
     "solderFacilityNeeded": false
   },
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "standing": "PREREGISTERED_SYNTHETIC_TARGETS__PHYSICAL_EXECUTION_BLOCKED_BY_ACQUISITION_AND_RECEIPT",
+  "supersedes": {
+    "changed": [
+      "stimulus carrier AD3 AWG -> Raspberry Pi Pico 2 GPIO",
+      "observer SDS824X HD -> Analog Discovery 3 analog inputs",
+      "nominal step 3.0 V -> 3.3 V",
+      "SDS824X HD removed from minimum first-contact carrier set"
+    ],
+    "preserved": [
+      "R hypotheses 1 kOhm vs 4.7 kOhm",
+      "C=1 uF film",
+      "tau ratio 4.7",
+      "fail-closed model-or-measurement mismatch rule"
+    ],
+    "priorEvidencePath": "research/evidence/laboratory-e0b-prereg-v0",
+    "priorStanding": "PREREGISTERED_SYNTHETIC_TARGETS__PHYSICAL_EXECUTION_BLOCKED_BY_ACQUISITION_AND_RECEIPT",
+    "timing": "before any physical measurement/result"
+  },
   "syntheticPredictions": {
     "models": [
       {
         "C_f": 1e-06,
         "R_ohm": 1000.0,
-        "VinCommand_v": 3.0,
+        "VinNominal_v": 3.3,
         "analyticFc_hz": 159.15494309189532,
         "analyticTau_s": 0.001,
-        "analyticVAtTauForIdeal3V_v": 1.896361676485673,
-        "deckPath": "research/evidence/laboratory-e0b-prereg-v0/model-A.cir",
-        "deckSha256": "sha256:f00044b6a3710fdfc3537d29768d2808732ccd006d4e318ce3f4b76d6f9c0200",
-        "logPath": "research/evidence/laboratory-e0b-prereg-v0/model-A.log",
-        "logSha256": "sha256:949ed969b7b0c36d6ca53eb558a3312cc9a849e10e93f6977c23db1566a70233",
+        "analyticVAtTau_v": 2.08599784413424,
+        "deckPath": "research/evidence/laboratory-e0b-prereg-v0.2/model-A.cir",
+        "deckSha256": "sha256:041472c8f3feed611c93c3e22c95cfde27135ea1097c2c1162ecbdb08a9799d5",
+        "logPath": "research/evidence/laboratory-e0b-prereg-v0.2/model-A.log",
+        "logSha256": "sha256:ebcd86e6d3d13434929c3774d205315f7f3b2072554d1fa5439f739de9f6d7a4",
         "modelId": "A",
         "ngspiceT63_s": 0.001,
-        "ngspiceVAtTau_v": 1.89636
+        "ngspiceVAtTau_v": 2.086
       },
       {
         "C_f": 1e-06,
         "R_ohm": 4700.0,
-        "VinCommand_v": 3.0,
+        "VinNominal_v": 3.3,
         "analyticFc_hz": 33.862753849339434,
         "analyticTau_s": 0.0047,
-        "analyticVAtTauForIdeal3V_v": 1.896361676485673,
-        "deckPath": "research/evidence/laboratory-e0b-prereg-v0/model-B.cir",
-        "deckSha256": "sha256:098fa5dec739faa357eb1958e82d622faee5e8a6787359d3294efda666382b63",
-        "logPath": "research/evidence/laboratory-e0b-prereg-v0/model-B.log",
-        "logSha256": "sha256:4e5264d3acb7bc02ce9262d0906a542df71f90750913ab58582aecaa20f627b1",
+        "analyticVAtTau_v": 2.08599784413424,
+        "deckPath": "research/evidence/laboratory-e0b-prereg-v0.2/model-B.cir",
+        "deckSha256": "sha256:b368b8922a87e11d417328851c57598b4520160bf8278c5997791f2e89c85cc7",
+        "logPath": "research/evidence/laboratory-e0b-prereg-v0.2/model-B.log",
+        "logSha256": "sha256:e8086ab862cecd9a009d763a218d2743cec6153e7e6e5c18478f5b2579b0a6be",
         "modelId": "B",
         "ngspiceT63_s": 0.0047,
-        "ngspiceVAtTau_v": 1.89636
+        "ngspiceVAtTau_v": 2.086
       }
     ],
     "provider": {

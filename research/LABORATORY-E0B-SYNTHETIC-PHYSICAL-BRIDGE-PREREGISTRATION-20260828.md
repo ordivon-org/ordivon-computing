@@ -1,4 +1,4 @@
-# Laboratory E0-B Synthetic ↔ Physical Bridge Preregistration — 2026-08-28
+# Laboratory E0-B Synthetic ↔ Physical Bridge Preregistration v0.2 — 2026-08-28
 
 ## Standing
 
@@ -17,20 +17,25 @@ Model B: R = 4.7 kΩ, C = 1 µF film  -> τ = 4.7 ms
 
 The same capacitor should be used when practical. Both worlds settle to essentially the same DC output under a high-impedance observer, so passive steady-state inspection does not identify the resistor. A controlled step and time-resolved physical measurement do. This makes the probe about **evidence production and discriminability**, not instrument spectacle.
 
-Current exact ngspice 47 predictions are frozen before physical data: Model A gives `t63 = 1.000 ms`, Model B gives `t63 = 4.700 ms`. With a 1% resistor and a documented ≤10% film capacitor, the conservative preregistered τ bands are approximately `0.891–1.111 ms` and `4.188–5.222 ms`; they are intentionally far apart.
+Current exact ngspice 47 v0.2 predictions are frozen before physical data at nominal 3.3 V input: Model A gives `t63 = 1.000 ms`, Model B gives `t63 = 4.700 ms`. With a 1% resistor and a documented ≤10% film capacitor, the conservative preregistered τ bands are approximately `0.891–1.111 ms` and `4.188–5.222 ms`; they are intentionally far apart.
+
+
+## Pre-data carrier revision
+
+The first preregistration used AD3 AWG as the stimulus and SDS824X HD as the independent observer. Before any physical data existed, a deletion audit found a cheaper equally discriminating split: Pico 2 supplies the independent 3.3 V digital stimulus while AD3 supplies two-channel analog observation. The RC hypotheses, tolerance bands, classification rule and negative-result semantics are unchanged; only the carrier allocation and nominal amplitude changed. The v0.1 model artifacts remain retained and explicitly marked superseded rather than erased.
 
 ## Planned physical path
 
 ```text
-AD3 Pro AWG 0 -> 3 V step
+Pico 2 GPIO LOW -> HIGH (~3.3 V)
 → breadboard RC candidate
-→ SDS824X HD independently captures Vin + Vout raw waveforms
+→ AD3 independently captures Vin + Vout raw waveforms
 → derive normalized t63
 → classify against the frozen A/B bands
 → only then reveal/check resistor identity with UT61E+ or another admitted static reference
 ```
 
-The commanded 3 V level is not accepted as physical input truth: `Vin` must be captured alongside `Vout`. The primary statistic is `t63` computed from measured pre/post output levels, so ordinary small amplitude error does not become a false model difference.
+The commanded GPIO HIGH is not accepted as physical input truth: `Vin` must be captured alongside `Vout`. The primary statistic is `t63` computed from measured pre/post output levels, so ordinary small amplitude error does not become a false model difference.
 
 ## Fail-closed outcomes
 
@@ -42,7 +47,7 @@ The commanded 3 V level is not accepted as physical input truth: `Vin` must be c
 
 ## Minimal acquisition dependency
 
-This experiment deliberately does **not** require soldering, exhaust infrastructure, custom PCB, the programmable PSU, or E1 mechanics. The minimum physical carriers are the AD3 Pro Bundle, SDS824X HD, an independent static reference such as UT61E+, breadboard, known 1% 1 kΩ/4.7 kΩ resistors, one documented ≤10% 1 µF film capacitor and suitable leads.
+This experiment deliberately does **not** require soldering, exhaust infrastructure, custom PCB, the programmable PSU, or E1 mechanics. The minimum physical carriers are one Pico 2 with headers as stimulus, the AD3 Pro Bundle as an independent two-channel analog observer, an independent static reference such as UT61E+, breadboard, known 1% 1 kΩ/4.7 kΩ resistors, one documented ≤10% 1 µF film capacitor and suitable data/test leads. The SDS824X HD remains valuable long-horizon capital but is no longer deletion-essential to this first contact.
 
 ## What a successful bridge would mean
 
