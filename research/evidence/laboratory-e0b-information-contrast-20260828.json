@@ -1,0 +1,95 @@
+{
+  "canonicalBase": "a684360579fbe7f47e38ee983080d7a0645fe6f5",
+  "contrast": {
+    "activeCondition": {
+      "classification": [
+        "MODEL_A",
+        "MODEL_B",
+        "MODEL_OR_MEASUREMENT_MISMATCH",
+        "MEASUREMENT_NOT_ADMITTED"
+      ],
+      "evidenceAdded": [
+        "raw simultaneous Vin/Vout time series",
+        "transition timing"
+      ],
+      "inputStepFitness": "define t0 from captured Vin transition; require Vin 10-90% rise time <= 0.05 * lower edge of Model-A frozen tau band (44.55 us). If slower, return MEASUREMENT_NOT_ADMITTED for the simple-step t63 classifier unless a new pre-data contract explicitly incorporates observed input dynamics.",
+      "intervention": "Pico 2 LOW->HIGH transition",
+      "name": "ACTIVE_DYNAMIC"
+    },
+    "baselineCondition": {
+      "allowedEvidence": [
+        "opaque candidateObjectId",
+        "preregistered A/B model definitions",
+        "captured steady LOW Vin/Vout scalar summaries",
+        "captured steady HIGH Vin/Vout scalar summaries",
+        "instrument identity/config needed to judge those scalar readings"
+      ],
+      "forbiddenEvidence": [
+        "time-series/edge shape",
+        "resistor label/value/source record",
+        "preparation-side reveal record"
+      ],
+      "name": "STATIC_ONLY",
+      "requiredCommit": "STATIC_AMBIGUOUS unless the actually admitted static measurement unexpectedly provides a valid unique discriminator; such an unexpected discriminator is EXPERIMENT_ASSUMPTION_FALSIFIED and the active information-gain claim is not admitted."
+    },
+    "informationGainClaim": "Only if STATIC_ONLY commits ambiguity and ACTIVE_DYNAMIC later selects one preregistered model with an admitted waveform does E0-B support the bounded claim that time-resolved active measurement produced decision-relevant discrimination unavailable to the admitted static measurement grammar."
+  },
+  "date": "2026-08-28",
+  "externalInstrumentModel": {
+    "analogInputChannels": 2,
+    "datasheetAccuracyUsedForConservativeStaticCheck": "\u00b110 mV \u00b10.5% at scale <=0.5 V/div; the physical run must reselect/record actual range and may not inherit this planning calculation blindly",
+    "device": "Analog Discovery 3",
+    "inputImpedance": "1 MOhm || 24 pF",
+    "source": "https://files.digilent.com/datasheets/Analog-Discovery-3-Datasheet.pdf",
+    "sourceObservedDate": "2026-08-28"
+  },
+  "frozenBands_s": {
+    "A": [
+      0.000891,
+      0.001111
+    ],
+    "B": [
+      0.004188,
+      0.005222
+    ]
+  },
+  "kind": "ordivon.computing.laboratory-e0b-measurement-information-contrast",
+  "loadingAnalysis": {
+    "conclusion": "AD3 loading shifts tau by <0.5% and both loaded tau values remain inside the already-frozen tolerance bands, while the expected DC distinction is smaller than the conservative single-reading planning accuracy bound.",
+    "dcDifference_v": 0.012140740716434895,
+    "loadedTauSeparationRatio": 4.682691350651936,
+    "models": [
+      {
+        "R_ohm": 1000.0,
+        "ad3LoadedC_f": 1.000024e-06,
+        "ad3LoadedR_ohm": 999.0009990009991,
+        "ad3LoadedTau_s": 0.000999024975024975,
+        "loadedDcVoutAtNominalVin_v": 3.2967032967032965,
+        "modelId": "A",
+        "nominalTau_s": 0.001,
+        "tauShiftFraction": -0.0009750249750248852
+      },
+      {
+        "R_ohm": 4700.0,
+        "ad3LoadedC_f": 1.000024e-06,
+        "ad3LoadedR_ohm": 4678.013337314622,
+        "ad3LoadedTau_s": 0.004678125609634718,
+        "loadedDcVoutAtNominalVin_v": 3.2845625559868616,
+        "modelId": "B",
+        "nominalTau_s": 0.0047,
+        "tauShiftFraction": -0.0046541256096345185
+      }
+    ],
+    "planningPerReadingAccuracyBoundAt3p3V_v": 0.026500000000000003,
+    "twoReadingWorstCaseDifferenceBound_v": 0.053000000000000005
+  },
+  "nonClaims": [
+    "does not prove every static measurement is insufficient",
+    "does not prove more bandwidth/sensors are always better",
+    "does not use the datasheet planning accuracy as the physical run measurement-validity receipt",
+    "does not establish the physical bridge before arrival/execution",
+    "does not widen E0-B to a universal autonomous-laboratory theorem"
+  ],
+  "schemaVersion": 1,
+  "standing": "PREREGISTERED_PRE_PHYSICAL_DATA__STATIC_AMBIGUOUS_ACTIVE_DYNAMIC_DISCRIMINATING"
+}

@@ -1,4 +1,4 @@
-# Laboratory E0-B Synthetic ↔ Physical Bridge Preregistration v0.2 — 2026-08-28
+# Laboratory E0-B Synthetic ↔ Physical Bridge Preregistration v0.3 — 2026-08-28
 
 ## Standing
 
@@ -62,3 +62,5 @@ frozen synthetic candidate consequence
 It would **not** establish general circuit-model truth, universal instrument validity, or autonomous-laboratory competence. A physical mismatch is scientifically useful evidence and must remain visible rather than being repaired away.
 
 The post-delivery admission ladder is frozen separately in `LABORATORY-E0B-ARRIVAL-REENTRY-CONTRACT-20260828.md`; physical execution remains unauthorized until its arrival/identity/binding/measurement gates can be observed from real carriers.
+
+The measurement-information contrast is frozen in `LABORATORY-E0B-MEASUREMENT-INFORMATION-CONTRAST-20260828.md`: the blinded classifier must first establish `STATIC_AMBIGUOUS` before dynamic waveform evidence is exposed; otherwise the intended active-information-gain claim is falsified rather than assumed.
