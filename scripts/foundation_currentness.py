@@ -180,10 +180,28 @@ def inspect_project(
     return project
 
 
-def build_report(projects_root: Path, *, fetch: bool, live_runtime: bool) -> dict[str, Any]:
+def parse_project_spec(value: str) -> tuple[str, Path]:
+    project_id, separator, repository = value.partition("=")
+    project_id = project_id.strip()
+    repository = repository.strip()
+    if separator != "=" or not project_id or not repository:
+        raise argparse.ArgumentTypeError("--project must be PROJECT_ID=REPOSITORY")
+    return project_id, Path(repository).expanduser()
+
+
+def build_report(
+    projects_root: Path,
+    *,
+    fetch: bool,
+    live_runtime: bool,
+    project_specs: list[tuple[str, Path]] | None = None,
+) -> dict[str, Any]:
+    selected_projects = project_specs or [
+        (project_id, projects_root / directory) for project_id, directory in FOUNDATION_PROJECTS
+    ]
     projects = [
-        inspect_project(project_id, projects_root / directory, fetch=fetch, live_runtime=live_runtime)
-        for project_id, directory in FOUNDATION_PROJECTS
+        inspect_project(project_id, repo, fetch=fetch, live_runtime=live_runtime)
+        for project_id, repo in selected_projects
     ]
     non_exact = []
     dirty = []
@@ -201,7 +219,10 @@ def build_report(projects_root: Path, *, fetch: bool, live_runtime: bool) -> dic
         "kind": "ordivon.foundation-currentness",
         "generatedAtMs": int(time.time() * 1000),
         "projectsRoot": str(projects_root),
+        "projectSelection": "explicit" if project_specs else "foundation-defaults",
         "remoteFreshnessClaimed": fetch,
+        "sourceAuthoritySelection": "not_performed",
+        "semanticCurrentnessClaimed": False,
         "projects": projects,
         "summary": {
             "projectCount": len(projects),
@@ -227,6 +248,15 @@ def main() -> int:
         default=Path(os.environ.get("ORDIVON_PROJECTS_ROOT", "/root/projects")),
     )
     parser.add_argument(
+        "--project",
+        action="append",
+        type=parse_project_spec,
+        help=(
+            "observe an explicit repository as PROJECT_ID=REPOSITORY; repeatable. "
+            "When supplied, replaces the default foundation-project set without selecting source authority."
+        ),
+    )
+    parser.add_argument(
         "--fetch",
         action="store_true",
         help="refresh origin/main before projection; without this flag remote freshness is explicitly not claimed",
@@ -238,7 +268,12 @@ def main() -> int:
     )
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    report = build_report(args.projects_root, fetch=args.fetch, live_runtime=args.live_runtime)
+    report = build_report(
+        args.projects_root,
+        fetch=args.fetch,
+        live_runtime=args.live_runtime,
+        project_specs=args.project,
+    )
     payload = json.dumps(report, indent=2, sort_keys=True) + "\n"
     if args.output is not None:
         args.output.parent.mkdir(parents=True, exist_ok=True)

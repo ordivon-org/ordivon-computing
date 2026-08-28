@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 import subprocess
 import tempfile
@@ -10,7 +11,7 @@ import sys
 SCRIPTS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(SCRIPTS))
 
-from foundation_currentness import relation  # noqa: E402
+from foundation_currentness import build_report, parse_project_spec, relation  # noqa: E402
 
 
 class FoundationCurrentnessTests(unittest.TestCase):
@@ -43,6 +44,33 @@ class FoundationCurrentnessTests(unittest.TestCase):
         temp, repo, first, second = self._repo()
         with temp:
             self.assertEqual(relation(repo, second, first), {"state": "left_ahead", "ahead": 1, "behind": 0})
+
+    def test_explicit_project_observation_does_not_select_source_authority(self) -> None:
+        temp, repo, _, second = self._repo()
+        with temp:
+            report = build_report(
+                Path("/unused"),
+                fetch=False,
+                live_runtime=False,
+                project_specs=[("test-owner", repo)],
+            )
+            self.assertEqual(report["projectSelection"], "explicit")
+            self.assertEqual(report["sourceAuthoritySelection"], "not_performed")
+            self.assertFalse(report["semanticCurrentnessClaimed"])
+            self.assertEqual(report["projects"][0]["refs"]["localMain"], second)
+            self.assertIsNone(report["projects"][0]["refs"]["originMain"])
+            self.assertEqual(
+                report["projects"][0]["refs"]["localMainToOriginMain"]["state"],
+                "unavailable",
+            )
+
+    def test_project_spec_requires_id_and_repository(self) -> None:
+        project_id, repo = parse_project_spec("finance=/root/projects/ordivon-finance")
+        self.assertEqual(project_id, "finance")
+        self.assertEqual(repo, Path("/root/projects/ordivon-finance"))
+        for invalid in ("missing-separator", "=missing-id", "missing-path="):
+            with self.assertRaises(argparse.ArgumentTypeError):
+                parse_project_spec(invalid)
 
 
 if __name__ == "__main__":
