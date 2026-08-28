@@ -102,3 +102,5 @@ Mechanical response-loss becomes a replication of E0-C; explicit controller rese
 E1 remains **R2 / JIT**. This contraction creates no purchase line, does not restore the detached geometry file, and does not preselect a motor, load cell, camera or fixture system.
 
 The next E1 design should be compiled **after Reality has taught us something through E0**, rather than forcing Reality to fit a drawing frozen before the first physical experiment.
+
+`LABORATORY-PREPHYSICAL-DESIGN-CLOSEOUT-20260828.md` now places this dormant E1 behind the same Reality boundary: no E1 compilation occurs until R0/E0 evidence and a unique cross-physics consumer exist.

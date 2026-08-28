@@ -97,3 +97,5 @@ consumer pressure
 ```
 
 This ordering keeps acquisition subordinate to capability evidence rather than turning the approved portfolio into a completion checklist.
+
+The current phase stop rule is recorded in `LABORATORY-PREPHYSICAL-DESIGN-CLOSEOUT-20260828.md`: R0 physical-carrier Reality is the minimum blocking cut; staging does not imply continuous checkout refresh or automatic purchase.
