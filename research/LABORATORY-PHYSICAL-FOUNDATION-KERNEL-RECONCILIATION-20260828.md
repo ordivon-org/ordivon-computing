@@ -86,3 +86,5 @@ Future restoration from detached Laboratory history should require a current con
 The remaining detached Laboratory corpus is dispositioned in `LABORATORY-DETACHED-RESEARCH-CARRIER-AUDIT-CLOSEOUT-20260828.md`; historical predecessor/companion mentions are explicitly distinguished from modern load-bearing dependencies, so no recursive F01–F15 restoration is implied.
 
 Current E0-A–E0-E disposition is owned by `LABORATORY-E0-PROGRAMME-CONTRACTION-20260828.md`: the historical frozen programme remains exact, while E0-E is no longer a mandatory first-programme gate after E0-B v0.3 and E0-D now needs only two controllers total.
+
+E1 is now explicitly reconciled by `LABORATORY-E1-ADMISSION-CONTRACTION-20260828.md`: the historical programme remains a derivation source, while the detached geometry is retained as a candidate hypothesis and not restored as current apparatus authority.

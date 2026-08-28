@@ -79,7 +79,7 @@ Promote with concrete fixture geometry, dimensional evidence, controlled imaging
 
 ## R2 — JIT after E0
 
-Keep downstream hardware pressure-driven: E1 actuator/load-cell hardware, RF/VNA/spectrum, high-power/electronic load, source-measure, thermal/high-speed/machine vision, production reflow/fabrication and similar specialized carriers.
+Keep downstream hardware pressure-driven: E1 remains dormant until contracted E0 physical evidence plus a unique cross-physics consumer earns a fresh apparatus compilation; only then select actuator/force/motion/safety carriers from current Reality. RF/VNA/spectrum, high-power/electronic load, source-measure, thermal/high-speed/machine vision, production reflow/fabrication and similar specialized carriers remain equally JIT.
 
 ## Transaction rule
 

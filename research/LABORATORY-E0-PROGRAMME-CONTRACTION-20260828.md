@@ -85,3 +85,5 @@ E0-B primary physical information bridge
 E0-E is not a mandatory closure gate because E0-B now supplies the target-relative measurement-information evidence.
 
 This also means E0 closure alone does **not** justify buying SDS824X HD, SDM3055X-E or SPD4323X. Those remain R1 carriers whose own consumers must promote them.
+
+E1 activation and apparatus geometry are separately contracted by `LABORATORY-E1-ADMISSION-CONTRACTION-20260828.md`: only four cross-physics claims remain unique, and historical numeric/product geometry is not current authority before E0 consequence and inventory Reality.
