@@ -74,6 +74,12 @@ Replayability
 
 The full 93-commit detached side therefore remains outside current active Computing main. Only the evidence chain required to recover and challenge the EDA result is preserved here.
 
+## Current narrow KiCad role standing
+
+A 2026-08-28 current revision-loop experiment now supports `P5 ROLE_VALIDATED` for one deliberately narrow role: **bounded semantic schematic revision with fabrication-preserving verification and exact recovery**. The operation is source-digest fenced, binds one exact wire UUID/endpoint, produces `/GRID_A` while preserving target connectivity, passes the current ERC/PCB DRC/parity/BOM/Gerber/drill/PCB-body STEP chain, rejects reuse of the stale precondition, and returns the complete project content tree exactly to baseline before provider re-entry.
+
+This standing does not widen to arbitrary schematic creation, component/value/topology authoring, PCB geometry/layout authoring, component-complete 3D assembly, or full-schematic simulation. P5 is role-relative; P6 bridge depth does not change those breadth boundaries.
+
 ## Remaining Laboratory frontier
 
 This reconciliation closes lineage/evidence-loss pressure only. It leaves separate current questions:

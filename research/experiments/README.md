@@ -66,6 +66,8 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 - [`eda-kicad-ngspice-bridge-v0/`](eda-kicad-ngspice-bridge-v0/) — bounded P6 cross-provider bridge: KiCad 10.0.5 freshly exports an owner-selected R3/C2 passive subnetwork, an explicit bridge maps GND/node aliases and adds only the testbench, ngspice 47 solves at the analytic cutoff, and the observed 0.5+j0.5 output matches the independent first-order high-pass oracle without claiming full ECC83 simulation or arbitrary schematic-to-SPICE admission.
 
+- [`eda-kicad-bounded-revision-loop-v0/`](eda-kicad-bounded-revision-loop-v0/) — narrow KiCad P5 role receipt for a precondition-fenced semantic schematic revision: exact `GRID_A` label realization preserves target connectivity, passes ERC + PCB DRC/parity + BOM + fabrication outputs, rejects stale repeat application, and returns byte-for-byte/project-tree-exactly to baseline under the inverse operation; broader schematic creation and PCB geometry authoring remain open.
+
 ## Deferred experiment families
 
 Dynamic Task dataflow, branch/join coordination, adaptation, and additional World or Security experiments remain deferred until the generated portfolio admits a concrete falsifier and consuming workload. Historical Edge/Link or generic second-backend plans are not active promises.
