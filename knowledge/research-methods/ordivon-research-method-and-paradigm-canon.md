@@ -88,6 +88,8 @@ For an imported result, distinguish five questions instead of re-proving it by d
 4. is any local implementation faithful to those assumptions?
 5. does Ordivon need new architecture/materialization, or can existing owners/consumers use the result directly?
 
+Availability or retrieval of relevant evidence does not imply that its decision-relevant relation has already been represented; Research may still need to compose or generate a candidate relation from the evidence, and that candidate remains a hypothesis until claim-appropriate validation.
+
 These gates are independent. External prior art may eliminate an originality claim while leaving the referent question open; conversely, mature theory may resolve the current referent and justify `NO_CHANGE` or `STOP`. Do not continue research merely to make an imported solution Ordivon-origin.
 
 At closeout, preserve any load-bearing imported solution components, scope/applicability conditions, competing accounts and composition assumptions needed by future consumers. A `REDUCED`, `ABSORBED`, `NO_NEW_*`, prior-art, or owner-sufficient verdict must not erase the positive knowledge that made that verdict possible.
