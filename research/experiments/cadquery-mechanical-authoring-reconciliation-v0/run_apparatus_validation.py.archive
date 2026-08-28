@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import json
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+TASKS = ROOT / "tasks.json"
+CANDIDATE = ROOT / "cadquery_reference_candidate.py"
+ORACLE = ROOT / "oracle.py"
+OUT = ROOT / "apparatus-validation"
+
+
+def run(cmd: list[str]) -> float:
+    start = time.perf_counter()
+    subprocess.run(cmd, check=True)
+    return time.perf_counter() - start
+
+
+def main() -> None:
+    OUT.mkdir(parents=True, exist_ok=True)
+    suite = json.loads(TASKS.read_text())
+    rows = []
+    for task in suite["tasks"]:
+        for case in ("base", "revision"):
+            stem = f"{task['id']}--{case}"
+            step = OUT / f"{stem}.step"
+            verify = OUT / f"{stem}.json"
+            gen_s = run([sys.executable, str(CANDIDATE), "--tasks", str(TASKS), "--task-id", task["id"], "--case", case, "--output-step", str(step)])
+            verify_s = run([sys.executable, str(ORACLE), "--tasks", str(TASKS), "--task-id", task["id"], "--case", case, "--candidate-step", str(step), "--output", str(verify)])
+            result = json.loads(verify.read_text())
+            rows.append({
+                "taskId": task["id"],
+                "case": case,
+                "generationSeconds": gen_s,
+                "verificationSeconds": verify_s,
+                "stepBytes": step.stat().st_size,
+                "pass": result["comparison"]["pass"],
+                "volumetricIoU": result["comparison"]["volumetricIoU"],
+                "volumeRelativeError": result["comparison"]["volumeRelativeError"],
+                "bboxAbsoluteError": result["comparison"]["bboxAbsoluteError"]
+            })
+    summary = {
+        "schemaVersion": 1,
+        "kind": "ordivon.aeb.cad-apparatus-validation",
+        "suiteId": suite["suiteId"],
+        "candidate": "known-correct CadQuery reference candidate; NOT a provider tournament score",
+        "cases": rows,
+        "passedCases": sum(1 for r in rows if r["pass"]),
+        "totalCases": len(rows),
+        "status": "passed" if all(r["pass"] for r in rows) else "failed"
+    }
+    (OUT / "summary.json").write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
+    print(json.dumps(summary, indent=2, sort_keys=True))
+    raise SystemExit(0 if summary["status"] == "passed" else 1)
+
+
+if __name__ == "__main__":
+    main()

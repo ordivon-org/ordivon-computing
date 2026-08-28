@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import json
+import math
+from pathlib import Path
+
+import cadquery as cq
+
+
+def build_reference(family: str, p: dict) -> cq.Workplane:
+    if family == "perforated_plate":
+        obj = cq.Workplane("XY").box(p["length"], p["width"], p["thickness"], centered=(True, True, False))
+        pts = [(sx * p["pitch_x"] / 2.0, sy * p["pitch_y"] / 2.0) for sx in (-1, 1) for sy in (-1, 1)]
+        return obj.faces(">Z").workplane().pushPoints(pts).hole(p["hole_diameter"])
+
+    if family == "bolt_circle_flange":
+        obj = cq.Workplane("XY").circle(p["outer_diameter"] / 2.0).extrude(p["thickness"])
+        obj = obj.faces(">Z").workplane().hole(p["center_bore_diameter"])
+        r = p["bolt_circle_diameter"] / 2.0
+        pts = [(r * math.cos(2 * math.pi * i / p["bolt_count"]), r * math.sin(2 * math.pi * i / p["bolt_count"])) for i in range(p["bolt_count"])]
+        return obj.faces(">Z").workplane().pushPoints(pts).hole(p["bolt_hole_diameter"])
+
+    if family == "l_bracket":
+        t = p["thickness"]
+        base = cq.Workplane("XY").box(p["length"], p["base_depth"], t, centered=(True, True, False))
+        wall = cq.Workplane("XY").box(p["length"], t, p["wall_height"], centered=(True, True, False)).translate((0, p["base_depth"] / 2.0 - t / 2.0, 0))
+        obj = base.union(wall)
+        pts = [(-p["base_hole_pitch_x"] / 2.0, p["base_hole_y"]), (p["base_hole_pitch_x"] / 2.0, p["base_hole_y"])]
+        return obj.faces(">Z[-2]").workplane().pushPoints(pts).hole(p["base_hole_diameter"])
+
+    if family == "stepped_hollow_shaft":
+        z = 0.0
+        obj = None
+        for d, length in zip(p["diameters"], p["lengths"]):
+            stage = cq.Workplane("XY").circle(d / 2.0).extrude(length).translate((0, 0, z))
+            obj = stage if obj is None else obj.union(stage)
+            z += length
+        assert obj is not None
+        bore = cq.Workplane("XY").circle(p["bore_diameter"] / 2.0).extrude(z)
+        return obj.cut(bore)
+
+    if family == "triangular_gusset":
+        pts = [(0.0, 0.0), (p["leg_x"], 0.0), (0.0, p["leg_y"])]
+        obj = cq.Workplane("XY").polyline(pts).close().extrude(p["thickness"])
+        return obj.faces(">Z").workplane().pushPoints([tuple(p["hole_1"]), tuple(p["hole_2"])]).hole(p["hole_diameter"])
+
+    raise ValueError(f"unknown family: {family}")
+
+
+def single_shape(wp: cq.Workplane) -> cq.Shape:
+    vals = wp.vals()
+    if len(vals) != 1:
+        raise ValueError(f"expected one top-level shape, got {len(vals)}")
+    shape = vals[0]
+    if not shape.isValid():
+        raise ValueError("invalid shape")
+    return shape
+
+
+def bbox(shape: cq.Shape) -> dict:
+    b = shape.BoundingBox()
+    return {"x": b.xlen, "y": b.ylen, "z": b.zlen}
+
+
+def compare(candidate: cq.Shape, reference: cq.Shape) -> dict:
+    common = candidate.intersect(reference)
+    fused = candidate.fuse(reference)
+    cv = candidate.Volume()
+    rv = reference.Volume()
+    iv = common.Volume()
+    uv = fused.Volume()
+    iou = iv / uv if uv > 0 else 0.0
+    cb, rb = bbox(candidate), bbox(reference)
+    bbox_abs = {axis: abs(cb[axis] - rb[axis]) for axis in "xyz"}
+    volume_rel = abs(cv - rv) / rv if rv > 0 else 0.0
+    return {
+        "valid": candidate.isValid(),
+        "candidateVolume": cv,
+        "referenceVolume": rv,
+        "volumeRelativeError": volume_rel,
+        "volumetricIoU": iou,
+        "candidateBBox": cb,
+        "referenceBBox": rb,
+        "bboxAbsoluteError": bbox_abs,
+        "pass": bool(iou >= 0.999 and volume_rel <= 1e-5 and max(bbox_abs.values()) <= 1e-4),
+    }
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--tasks", required=True)
+    ap.add_argument("--task-id", required=True)
+    ap.add_argument("--case", choices=["base", "revision"], required=True)
+    ap.add_argument("--candidate-step", required=True)
+    ap.add_argument("--output", required=True)
+    args = ap.parse_args()
+
+    suite = json.loads(Path(args.tasks).read_text())
+    task = next(t for t in suite["tasks"] if t["id"] == args.task_id)
+    reference = single_shape(build_reference(task["family"], task[args.case]))
+    candidate = single_shape(cq.importers.importStep(args.candidate_step))
+    result = {
+        "schemaVersion": 1,
+        "kind": "ordivon.aeb.cad-verifier-result",
+        "suiteId": suite["suiteId"],
+        "taskId": task["id"],
+        "case": args.case,
+        "comparison": compare(candidate, reference),
+        "standingBoundary": "CAD synthetic geometry only; no manufacturability/tolerance/physical standing inferred"
+    }
+    Path(args.output).write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+    print(json.dumps(result, indent=2, sort_keys=True))
+    raise SystemExit(0 if result["comparison"]["pass"] else 1)
+
+
+if __name__ == "__main__":
+    main()

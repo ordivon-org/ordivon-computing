@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+"""Known-correct CadQuery apparatus candidate.
+
+This file validates the benchmark machinery. It is not a fair provider-tournament Agent submission,
+because it is authored alongside the verifier during apparatus construction.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import math
+from pathlib import Path
+
+import cadquery as cq
+
+
+def build(family: str, p: dict) -> cq.Workplane:
+    if family == "perforated_plate":
+        plate = cq.Workplane("XY").box(p["length"], p["width"], p["thickness"], centered=(True, True, False))
+        points = [(x * p["pitch_x"] / 2, y * p["pitch_y"] / 2) for x in (-1, 1) for y in (-1, 1)]
+        return plate.faces(">Z").workplane().pushPoints(points).hole(p["hole_diameter"])
+    if family == "bolt_circle_flange":
+        flange = cq.Workplane("XY").circle(p["outer_diameter"] / 2).extrude(p["thickness"])
+        flange = flange.faces(">Z").workplane().hole(p["center_bore_diameter"])
+        r = p["bolt_circle_diameter"] / 2
+        holes = [(r * math.cos(2 * math.pi * i / p["bolt_count"]), r * math.sin(2 * math.pi * i / p["bolt_count"])) for i in range(p["bolt_count"])]
+        return flange.faces(">Z").workplane().pushPoints(holes).hole(p["bolt_hole_diameter"])
+    if family == "l_bracket":
+        t = p["thickness"]
+        base = cq.Workplane("XY").box(p["length"], p["base_depth"], t, centered=(True, True, False))
+        wall = cq.Workplane("XY").box(p["length"], t, p["wall_height"], centered=(True, True, False)).translate((0, p["base_depth"] / 2 - t / 2, 0))
+        bracket = base.union(wall)
+        holes = [(-p["base_hole_pitch_x"] / 2, p["base_hole_y"]), (p["base_hole_pitch_x"] / 2, p["base_hole_y"])]
+        return bracket.faces(">Z[-2]").workplane().pushPoints(holes).hole(p["base_hole_diameter"])
+    if family == "stepped_hollow_shaft":
+        z = 0.0
+        result = None
+        for d, length in zip(p["diameters"], p["lengths"]):
+            stage = cq.Workplane("XY").circle(d / 2).extrude(length).translate((0, 0, z))
+            result = stage if result is None else result.union(stage)
+            z += length
+        bore = cq.Workplane("XY").circle(p["bore_diameter"] / 2).extrude(z)
+        return result.cut(bore)
+    if family == "triangular_gusset":
+        body = cq.Workplane("XY").polyline([(0, 0), (p["leg_x"], 0), (0, p["leg_y"])]).close().extrude(p["thickness"])
+        return body.faces(">Z").workplane().pushPoints([tuple(p["hole_1"]), tuple(p["hole_2"])]).hole(p["hole_diameter"])
+    raise ValueError(family)
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--tasks", required=True)
+    ap.add_argument("--task-id", required=True)
+    ap.add_argument("--case", choices=["base", "revision"], required=True)
+    ap.add_argument("--output-step", required=True)
+    args = ap.parse_args()
+    suite = json.loads(Path(args.tasks).read_text())
+    task = next(t for t in suite["tasks"] if t["id"] == args.task_id)
+    model = build(task["family"], task[args.case])
+    cq.exporters.export(model, args.output_step)
+
+
+if __name__ == "__main__":
+    main()

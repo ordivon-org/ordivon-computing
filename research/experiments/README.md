@@ -68,6 +68,8 @@ Experiments connect falsifiable Ordivon Computing questions to executable artifa
 
 - [`eda-kicad-bounded-revision-loop-v0/`](eda-kicad-bounded-revision-loop-v0/) — narrow KiCad P5 role receipt for a precondition-fenced semantic schematic revision: exact `GRID_A` label realization preserves target connectivity, passes ERC + PCB DRC/parity + BOM + fabrication outputs, rejects stale repeat application, and returns byte-for-byte/project-tree-exactly to baseline under the inverse operation; broader schematic creation and PCB geometry authoring remain open.
 
+- [`cadquery-mechanical-authoring-reconciliation-v0/`](cadquery-mechanical-authoring-reconciliation-v0/) — current CadQuery 2.8.0 narrow P5 reconciliation: the frozen five-family CAD-v0 apparatus replays 10/10 base/revision STEP cases with historical-equivalent geometry metrics and current negative controls reject missing-hole and +2 mm length artifacts; exact apparatus bytes are retained non-executable, and no CadQuery-vs-build123d tournament winner is inferred.
+
 ## Deferred experiment families
 
 Dynamic Task dataflow, branch/join coordination, adaptation, and additional World or Security experiments remain deferred until the generated portfolio admits a concrete falsifier and consuming workload. Historical Edge/Link or generic second-backend plans are not active promises.
