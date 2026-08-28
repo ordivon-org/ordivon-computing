@@ -1,0 +1,53 @@
+{
+  "kind": "ordivon.computing.kicad-ngspice-subnetwork-bridge-contract",
+  "lowering": {
+    "C_f": 6.800000000000001e-07,
+    "R_ohm": 100000.0,
+    "cutoffFrequency_hz": 2.340513868998461,
+    "nodeMapping": {
+      "GND": "0",
+      "Net-_P2-P1_": "OUT",
+      "Net-_U1A-K_": "IN"
+    },
+    "tau_s": 0.068,
+    "testbenchAddition": {
+      "analysis": "single-point AC at analytic cutoff frequency",
+      "source": "VTEST IN 0 AC 1"
+    }
+  },
+  "nonClaims": [
+    "not full-schematic KiCad-to-ngspice execution",
+    "unselected KiCad symbols/components are not simulated",
+    "testbench source is bridge-owned, not extracted from the source schematic",
+    "synthetic solver consequence is not physical truth"
+  ],
+  "operation": "simulate-owner-selected-passive-subnetwork",
+  "schemaVersion": 1,
+  "selection": {
+    "allowAdditionalSelectedReferences": false,
+    "authority": "experiment-owner-explicit",
+    "requiredReferences": [
+      "R3",
+      "C2"
+    ],
+    "requiredTopology": {
+      "R3FirstNodeEqualsOneC2Endpoint": true,
+      "R3SecondNode": "GND"
+    },
+    "selectedProviderLines": {
+      "C2": "C2 Net-_P2-P1_ Net-_U1A-K_ 680n",
+      "R3": "R3 Net-_P2-P1_ GND 100k"
+    }
+  },
+  "source": {
+    "kicadExportPath": "kicad-export.spice",
+    "kicadExportSha256": "sha256:1d0eb18231d366de1559679bc212c515d38e02000fdf75a50e159d76c28586ad",
+    "provider": {
+      "name": "KiCad",
+      "version": "10.0.5",
+      "wrapperSha256": "sha256:52f95c6f329742b5d34c012d3f24adddf40b1c2c0fcc2dd27c8ba307b62e9799"
+    },
+    "schematicPath": "research/experiments/eda-open-basis-reconciliation-v0/detached-source/eda-kicad-v0.1/baseline/project/ecc83-pp_v2.kicad_sch",
+    "schematicSha256": "sha256:80576c542e9ce473538c30ed24b7cd7e9152fe7922ebdb518928aa815b858ff1"
+  }
+}

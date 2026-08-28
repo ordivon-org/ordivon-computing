@@ -1,0 +1,61 @@
+{
+  "absoluteError": {
+    "frequency_hz": 1.310015393940489e-07,
+    "magnitude": 1.1102230246251565e-16,
+    "phase_deg": 0.0
+  },
+  "analyticOracle": {
+    "C_f": 6.800000000000001e-07,
+    "R_ohm": 100000.0,
+    "cutoffFrequency_hz": 2.340513868998461,
+    "expectedAtCutoff": {
+      "magnitude": 0.7071067811865475,
+      "phase_deg": 45.0
+    },
+    "network": "first-order RC high-pass, output across R",
+    "tau_s": 0.068
+  },
+  "bridgeDeckSha256": "sha256:02d850173f7f5e41115221ac9f301e4d34b67df9ea3c0e70df7f8b89d6340456",
+  "kicadExportSha256": "sha256:1d0eb18231d366de1559679bc212c515d38e02000fdf75a50e159d76c28586ad",
+  "kind": "ordivon.computing.kicad-ngspice-cross-provider-bridge-result",
+  "ngspiceLogSha256": "sha256:031771e30cb7d9358b803154c0804237ea5f94ed7905d25b763d98cb64bd09be",
+  "nonClaims": [
+    "does not establish full ECC83 schematic simulation",
+    "does not establish KiCad simulation-model completeness",
+    "does not admit arbitrary schematic-to-SPICE transformation",
+    "does not establish physical circuit truth"
+  ],
+  "observed": {
+    "frequency_hz": 2.340514,
+    "imagVout": 0.5,
+    "magnitude": 0.7071067811865476,
+    "phase_deg": 45.0,
+    "realVout": 0.5
+  },
+  "observedDate": "2026-08-28",
+  "pass": true,
+  "providers": {
+    "kicad": {
+      "version": "10.0.5",
+      "wrapperSha256": "sha256:52f95c6f329742b5d34c012d3f24adddf40b1c2c0fcc2dd27c8ba307b62e9799"
+    },
+    "ngspice": {
+      "executableSha256": "sha256:4bf0daa1d113cd0e7484f2b91e2273c7d085e5ee3e85c62b77e2c2daf4cd081c",
+      "version": "47"
+    }
+  },
+  "recoveryNote": {
+    "firstProbeIssue": "ngspice 47 batch .meas did not accept vm()/vp() expressions and therefore ran no AC analysis",
+    "firstProbeStanding": "FAILED_MEASUREMENT_SYNTAX",
+    "repair": "preserved identical circuit/mapping and switched observation to supported .print ac vr(OUT) vi(OUT); no circuit or oracle change"
+  },
+  "responsibilityBoundary": {
+    "analyticOracle": "independently checks consequence at omega*R*C=1",
+    "bridge": "selects exact owner-named refs, maps KiCad GND to SPICE 0, assigns aliases, adds test source/analysis",
+    "kicad": "emits component identity/value/topology artifact",
+    "ngspice": "solves the resulting bounded network"
+  },
+  "schemaVersion": 1,
+  "sourceContractSha256": "sha256:99193fb4754c935201bfc60076a5564c452403dc3b2f2bf4423dfceb1ad2c0f6",
+  "standing": "P6_BRIDGED_BOUNDED_SUBNETWORK"
+}

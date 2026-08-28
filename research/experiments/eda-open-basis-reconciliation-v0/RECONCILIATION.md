@@ -81,7 +81,7 @@ This reconciliation closes lineage/evidence-loss pressure only. It leaves separa
 1. expose already-materialized Laboratory providers through the Workstation node-local capability surface without granting domain admission;
 2. keep the 2026-08-28 current grammar replay receipt as the timing/currentness coordinate: the 96-candidate output is byte-identical to history, while full enumeration took 58,499 ms under the current Runtime and the historical unlabeled `1200 ms` field is not transported as equivalent wall time;
 3. current deterministic lowering is now replayed through ERC, PCB DRC/parity, BOM, Gerber, Drill and PCB-body STEP; component-complete STEP remains open because the frozen fixture intentionally excludes its referenced 3D-model environment closure; the remaining authoring frontier is structured design intent/revision/recovery rather than fabrication export mechanics;
-4. bridge electronic design intent/consequence to ngspice and later physical evidence under owner-specific admission.
+4. a bounded KiCad→ngspice P6 bridge is now established for one owner-selected R3/C2 passive subnetwork with independent analytic consequence checking; full-schematic simulation-model closure and later synthetic↔physical evidence remain open under separate admission.
 
 ## Executable-apparatus contraction
 
