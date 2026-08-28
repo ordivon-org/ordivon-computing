@@ -1,0 +1,156 @@
+{
+  "canonicalComputingBase": "3fa7af0fe248004f2fb636f06ffd368c91d9f854",
+  "experiment": {
+    "bridgeAdmission": "A synthetic\u2194physical bridge is admitted only if exact physical carrier identity/config is retained, the physical waveform is measurement-valid for this tolerance decision, one preregistered model is selected without post-data retuning, and post-reveal object identity agrees. A mismatch is a valid negative result, not a failed apparatus to be rewritten.",
+    "classification": {
+      "primaryStatistic": "t63 from normalized physical output transition, using measured pre/post levels",
+      "reveal": "resistor identity/static reference check occurs after classification and is retained separately",
+      "rule": "classify only if observed t63 lies inside exactly one preregistered model band; outside both => MODEL_OR_MEASUREMENT_MISMATCH, never tune the model after seeing data"
+    },
+    "componentAdmission": {
+      "capacitorKind": "documented 1 uF film",
+      "capacitorToleranceMaxFraction": 0.1,
+      "note": "If the received capacitor exceeds the <=10% prereg tolerance or lacks identity, do not silently widen the band; select/measure/admit a suitable component or revise the experiment before physical data.",
+      "resistorToleranceMaxFraction": 0.01,
+      "samePhysicalCapacitorAcrossModelVariantsPreferred": true
+    },
+    "hypotheses": [
+      {
+        "id": "A",
+        "network": "series R=1 kOhm, shunt C=1 uF film, observe C voltage",
+        "nominalFc_hz": 159.15494309189532,
+        "nominalTau_s": 0.001
+      },
+      {
+        "id": "B",
+        "network": "series R=4.7 kOhm, same shunt C=1 uF film, observe C voltage",
+        "nominalFc_hz": 33.862753849339434,
+        "nominalTau_s": 0.0047
+      }
+    ],
+    "id": "laboratory-e0b-rc-hidden-resistor-v0",
+    "observation": {
+      "minimumSampleRate_samples_per_s": 1000000,
+      "primary": "SIGLENT SDS824X HD captures Vin and Vout simultaneously as raw waveform",
+      "requiredMetadata": [
+        "instrument exact identity/serial",
+        "firmware/config",
+        "probe identity/attenuation",
+        "timebase/sample rate",
+        "vertical range/coupling",
+        "raw waveform",
+        "execution timestamps"
+      ],
+      "staticReference": "UNI-T UT61E+ or a separately admitted equivalent is used only after classification/reveal to verify resistor/DC plausibility"
+    },
+    "predeclaredNominalToleranceBands": {
+      "A": {
+        "tauHigh_s": 0.0011110000000000002,
+        "tauLow_s": 0.000891
+      },
+      "B": {
+        "tauHigh_s": 0.005221700000000001,
+        "tauLow_s": 0.0041877
+      }
+    },
+    "purpose": "First bounded synthetic\u2194physical bridge and physical evidence-production discriminator after closure of the synthetic engineering floor.",
+    "stimulus": {
+      "carrier": "Analog Discovery 3 Pro Bundle AWG",
+      "command": "0 V -> 3.0 V step",
+      "highDuration_s": 0.03,
+      "period_s": 0.06,
+      "requirement": "actual Vin waveform must be captured; classification uses observed transition timing/amplitude rather than trusting command acknowledgement"
+    },
+    "whyDiscriminating": "Both candidates converge to essentially the same DC output under a high-impedance observer, while the transient time constant differs by 4.7x. Active step excitation plus time-resolved observation is therefore decision-relevant."
+  },
+  "historicalPlanningEvidence": [
+    {
+      "bytes": 36179,
+      "gitBlob": "5ac74100b511aeb663f3d68eb193ea2dfdb0b152",
+      "path": "research/LABORATORY-FIRST-ORDER-ACQUISITION-SHEET-20260827.md",
+      "revision": "22f6c33",
+      "sha256": "sha256:9cc75486102f69bc9894294508053d532fd5df68a892a8ff6592d00872ed95e4"
+    },
+    {
+      "bytes": 11138,
+      "gitBlob": "ad4b520c362d825bb17d21544443e6f5d7ced1dc",
+      "path": "research/LABORATORY-FIRST-ORDER-CHECKOUT-CURRENTNESS-RECEIPT-20260827.md",
+      "revision": "22f6c33",
+      "sha256": "sha256:8c438a1127de9a8777d58c482c7af0d81b13620b7abb8d739e4041aef451a17b"
+    },
+    {
+      "bytes": 38636,
+      "gitBlob": "cdd145c662e375ce4d1a2ec5bbc34484f8560634",
+      "path": "research/LABORATORY-PHYSICAL-FALSIFIER-MAP-20260826.md",
+      "revision": "22f6c33",
+      "sha256": "sha256:7897bcd9cdec6526e37d2a734cf786dd410b47ffc4bf6db2b7f25d70bb67ea02"
+    }
+  ],
+  "kind": "ordivon.computing.laboratory-e0b-synthetic-physical-preregistration",
+  "minimumPhysicalCarriersBeforeExecution": [
+    "Analog Discovery 3 Pro Bundle 471-060 received and identity/binding receipted",
+    "SIGLENT SDS824X HD received and identity/config/raw-waveform path receipted",
+    "independent static electrical reference such as UT61E+ received/fitness receipted",
+    "breadboard and known 1% 1 kOhm / 4.7 kOhm resistors",
+    "documented <=10% 1 uF film capacitor",
+    "known-good low-voltage leads/grabbers"
+  ],
+  "nonClaims": [
+    "does not claim any ordered item has arrived",
+    "does not infer asset absence from empty local-linux USB presentation",
+    "does not establish physical truth before execution",
+    "does not require soldering or custom PCB",
+    "does not generalize one RC bridge to broad autonomous laboratory validity"
+  ],
+  "observedDate": "2026-08-28",
+  "readiness": {
+    "currentLocalLinuxSerialEndpoints": [],
+    "currentLocalLinuxUsbEnumeration": [],
+    "negativeProbeBoundary": "No visible local-linux serial/USB Laboratory endpoint is only a current presentation probe; it does not prove that no physical asset exists elsewhere or is disconnected.",
+    "prePaymentEvidence": "Historical checkout-currentness receipt explicitly states PURCHASE NOT YET EXECUTED; no later canonical arrival/serial/inventory receipt was found in the active Laboratory continuity surface.",
+    "reason": "E0-B is intentionally breadboard/low-voltage and does not require soldering; the blocking gate is admitted physical carrier arrival/identity/binding, not the direct-exhaust site gate.",
+    "solderFacilityNeeded": false
+  },
+  "schemaVersion": 1,
+  "standing": "PREREGISTERED_SYNTHETIC_TARGETS__PHYSICAL_EXECUTION_BLOCKED_BY_ACQUISITION_AND_RECEIPT",
+  "syntheticPredictions": {
+    "models": [
+      {
+        "C_f": 1e-06,
+        "R_ohm": 1000.0,
+        "VinCommand_v": 3.0,
+        "analyticFc_hz": 159.15494309189532,
+        "analyticTau_s": 0.001,
+        "analyticVAtTauForIdeal3V_v": 1.896361676485673,
+        "deckPath": "research/evidence/laboratory-e0b-prereg-v0/model-A.cir",
+        "deckSha256": "sha256:f00044b6a3710fdfc3537d29768d2808732ccd006d4e318ce3f4b76d6f9c0200",
+        "logPath": "research/evidence/laboratory-e0b-prereg-v0/model-A.log",
+        "logSha256": "sha256:949ed969b7b0c36d6ca53eb558a3312cc9a849e10e93f6977c23db1566a70233",
+        "modelId": "A",
+        "ngspiceT63_s": 0.001,
+        "ngspiceVAtTau_v": 1.89636
+      },
+      {
+        "C_f": 1e-06,
+        "R_ohm": 4700.0,
+        "VinCommand_v": 3.0,
+        "analyticFc_hz": 33.862753849339434,
+        "analyticTau_s": 0.0047,
+        "analyticVAtTauForIdeal3V_v": 1.896361676485673,
+        "deckPath": "research/evidence/laboratory-e0b-prereg-v0/model-B.cir",
+        "deckSha256": "sha256:098fa5dec739faa357eb1958e82d622faee5e8a6787359d3294efda666382b63",
+        "logPath": "research/evidence/laboratory-e0b-prereg-v0/model-B.log",
+        "logSha256": "sha256:4e5264d3acb7bc02ce9262d0906a542df71f90750913ab58582aecaa20f627b1",
+        "modelId": "B",
+        "ngspiceT63_s": 0.0047,
+        "ngspiceVAtTau_v": 1.89636
+      }
+    ],
+    "provider": {
+      "executableSha256": "sha256:4bf0daa1d113cd0e7484f2b91e2273c7d085e5ee3e85c62b77e2c2daf4cd081c",
+      "name": "ngspice",
+      "version": "47"
+    },
+    "tauRatio": 4.7
+  }
+}

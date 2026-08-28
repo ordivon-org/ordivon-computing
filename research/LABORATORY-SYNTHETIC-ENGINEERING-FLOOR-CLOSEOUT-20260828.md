@@ -47,3 +47,5 @@ SyntheticEngineeringFloorClosed
 ```
 
 The practical consequence is that the Laboratory should now spend marginal effort on **Reality contact, experimental discrimination, recovery and cross-layer consequence**, not on making the software catalogue look broader.
+
+The immediate next bridge is now preregistered in `LABORATORY-E0B-SYNTHETIC-PHYSICAL-BRIDGE-PREREGISTRATION-20260828.md`; its synthetic A/B targets are frozen, while physical execution remains fail-closed until actual instrument/component arrival, identity and binding receipts exist.
