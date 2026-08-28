@@ -60,3 +60,5 @@ frozen synthetic candidate consequence
 ```
 
 It would **not** establish general circuit-model truth, universal instrument validity, or autonomous-laboratory competence. A physical mismatch is scientifically useful evidence and must remain visible rather than being repaired away.
+
+The post-delivery admission ladder is frozen separately in `LABORATORY-E0B-ARRIVAL-REENTRY-CONTRACT-20260828.md`; physical execution remains unauthorized until its arrival/identity/binding/measurement gates can be observed from real carriers.

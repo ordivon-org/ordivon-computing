@@ -1,0 +1,197 @@
+{
+  "canonicalBase": "80036078b3a9dc802bb81ec74c27d7fd52d9bff2",
+  "date": "2026-08-28",
+  "experimentId": "laboratory-e0b-rc-hidden-resistor-v0.2",
+  "explicitlyNotRequiredForE0BFirstContact": [
+    "SIGLENT SDS824X HD",
+    "SIGLENT SPD4323X",
+    "soldering station/exhaust path",
+    "custom PCB",
+    "E1 electromechanical target hardware"
+  ],
+  "gates": [
+    {
+      "fail": "WAITING_FOR_ARRIVAL",
+      "id": "G0",
+      "name": "transaction-and-arrival",
+      "owner": "Laboratory physical inventory / source receipt",
+      "pass": "each required first-contact carrier has a concrete arrived object identity",
+      "required": [
+        "source/seller and transaction evidence",
+        "exact ordered SKU where identity is load-bearing",
+        "arrival timestamp",
+        "photo or equivalent bounded physical evidence",
+        "package/accessory completeness and visible-damage check"
+      ]
+    },
+    {
+      "fail": "IDENTITY_INSUFFICIENT",
+      "id": "G1",
+      "name": "physical-object-identity",
+      "owner": "Laboratory",
+      "pass": "future evidence can refer to the exact objects used rather than product classes",
+      "required": [
+        "Pico 2 physical identity sufficient to distinguish the selected board from spares",
+        "AD3 exact model/SKU + serial or manufacturer-native unique identity if exposed",
+        "UT61E+ or replacement reference exact physical identity",
+        "component lot/object labels for candidate resistors and selected film capacitor"
+      ]
+    },
+    {
+      "fail": "ATTACHMENT_OR_BINDING_UNKNOWN",
+      "id": "G2",
+      "name": "node-attachment-binding",
+      "owner": "Workstation",
+      "pass": "Workstation can project the current local physical attachment/binding without claiming calibration or experiment validity",
+      "pressure": "This is the first concrete consumer for the Workstation future-USB-instrument responsibility. Implement the smallest owner-native projection only after real device arrival reveals actual endpoint/driver semantics.",
+      "required": [
+        "current local attachment/endpoint enumeration for Pico 2 when connected",
+        "current local attachment/endpoint/driver binding for AD3 when connected",
+        "driver/provider identity needed to address each device",
+        "binding currentness observed from the execution node"
+      ]
+    },
+    {
+      "fail": "GENERATION_OR_REENTRY_UNKNOWN",
+      "id": "G3",
+      "name": "programmable-carrier-generation",
+      "owner": "Laboratory + provider evidence",
+      "pass": "the exact programmable generation can be reconstructed/re-entered",
+      "required": [
+        "Pico 2 firmware/source artifact digest and build/flash/re-entry recipe",
+        "AD3 WaveForms/runtime/SDK generation actually used, plus callable acquisition path",
+        "device firmware version where exposed and decision-relevant",
+        "reconnect/rebind smoke receipt after one deliberate disconnect or process restart if safe"
+      ]
+    },
+    {
+      "fail": "STATIC_REFERENCE_NOT_FIT",
+      "id": "G4",
+      "name": "manual-static-reference-fitness",
+      "owner": "Laboratory measurement evidence",
+      "pass": "static reveal path is valid and comfortably discriminates the two resistor classes",
+      "required": [
+        "UT61E+ or replacement reference basic continuity/DC/resistance fitness check",
+        "range/mode used for post-classification resistor reveal",
+        "documented reason this path is adequate for distinguishing ~1 kOhm from ~4.7 kOhm; no universal calibration claim required"
+      ]
+    },
+    {
+      "fail": "COMPONENT_OR_ASSEMBLY_OUTSIDE_PREREG",
+      "id": "G5",
+      "name": "component-and-assembly-admission",
+      "owner": "Laboratory",
+      "pass": "the physical network lies inside the preregistered component/tolerance envelope before classification data are collected",
+      "required": [
+        "1 kOhm and 4.7 kOhm candidates documented <=1% or independently measured before blinding by the preparation side",
+        "selected 1 uF film capacitor documented <=10% or separately admitted before blinding",
+        "breadboard/leads visually inspected and continuity/plausibility checked",
+        "shared ground/reference topology documented",
+        "no resistor/capacitor power/voltage rating violation under Pico 3.3 V excitation"
+      ]
+    },
+    {
+      "fail": "BLINDING_COMPROMISED",
+      "id": "G6",
+      "name": "blinding-and-information-boundary",
+      "owner": "experiment procedure",
+      "pass": "classification cannot be replaced by reading the component label/inventory truth",
+      "required": [
+        "one preparation-side record binds opaque candidateObjectId to physical resistor identity before waveform capture",
+        "classification-side context receives candidateObjectId and allowed setup metadata but not resistor value/label/source record",
+        "reveal record remains inaccessible to classifier until classification receipt is committed",
+        "same physical capacitor is used across A/B candidates when practical, or capacitor identity is separately frozen per candidate"
+      ]
+    },
+    {
+      "fail": "MEASUREMENT_NOT_ADMITTED",
+      "id": "G7",
+      "name": "measurement-path-admission",
+      "owner": "Laboratory measurement evidence",
+      "pass": "waveform is valid enough for the bounded A-vs-B time-constant decision",
+      "required": [
+        "AD3 captures physical Vin and Vout simultaneously",
+        "sample rate >= 1,000,000 samples/s",
+        "input range/coupling/channel mapping recorded",
+        "raw unrounded waveform retained",
+        "pre/post levels and edge window sufficient to compute normalized t63",
+        "observed signal remains within provider input limits",
+        "measurement path shows no clipping/obvious saturation/dropout or unresolved aliasing that could move t63 across preregistered bands"
+      ]
+    },
+    {
+      "fail": "SAFETY_OR_SCOPE_NOT_ADMITTED",
+      "id": "G8",
+      "name": "low-energy-operation-admission",
+      "owner": "Laboratory safety/operation boundary",
+      "pass": "E0-B remains a bounded low-energy bench experiment",
+      "required": [
+        "Pico GPIO is the only experiment excitation unless contract is revised before data",
+        "nominal low-voltage 0\u21943.3 V regime",
+        "common reference/ground topology checked before connection",
+        "no mains, bench PSU, soldering, custom PCB or E1 mechanics required by this experiment",
+        "all instrument connections stay inside documented input/output limits"
+      ]
+    },
+    {
+      "fail": "NO_PRE_REVEAL_CLASSIFICATION",
+      "id": "G9",
+      "name": "classification-commit",
+      "owner": "Computing experiment contract + Laboratory evidence",
+      "pass": "classification exists independently of physical resistor identity reveal",
+      "required": [
+        "derive t63 from normalized measured output using captured pre/post levels",
+        "compare only against already-frozen bands A=0.891\u20131.111 ms and B=4.188\u20135.222 ms",
+        "commit exactly one of MODEL_A / MODEL_B / MODEL_OR_MEASUREMENT_MISMATCH / MEASUREMENT_NOT_ADMITTED before reveal"
+      ]
+    },
+    {
+      "fail": "NEGATIVE_OR_INCONCLUSIVE_RESULT_RETAINED",
+      "id": "G10",
+      "name": "reveal-and-bridge-adjudication",
+      "owner": "Laboratory/Computing interpretation",
+      "pass": "bounded synthetic\u2194physical bridge may be admitted only when measurement was admitted and pre-reveal model classification agrees with post-reveal identity",
+      "required": [
+        "post-classification reveal binds candidateObjectId to resistor identity/static-reference result",
+        "compare classification with reveal without retuning model parameters",
+        "retain mismatch as a first-class negative consequence",
+        "retain synthetic prediction, physical waveform, measurement-validity standing, classification and reveal as separate referenced artifacts"
+      ]
+    }
+  ],
+  "invariants": [
+    "ordered != arrived",
+    "arrived != identified",
+    "identified != attached",
+    "attached != driver/provider-serviceable",
+    "serviceable != measurement-valid",
+    "measurement-valid != fit-for-this-decision",
+    "can-execute != experiment-admitted",
+    "commanded-input != physically-observed-input",
+    "classification != reveal",
+    "synthetic-match != universal-physical-truth"
+  ],
+  "kind": "ordivon.computing.laboratory-e0b-arrival-reentry-contract",
+  "minimumArrivedPhysicalSet": [
+    "Raspberry Pi Pico 2 with headers / SC1632 x1",
+    "Digilent Analog Discovery 3 Pro Bundle / 471-060 x1",
+    "UNI-T UT61E+ x1 or separately admitted equivalent static reference",
+    "breadboard",
+    "1 kOhm <=1% resistor candidate",
+    "4.7 kOhm <=1% resistor candidate",
+    "1 uF film capacitor <=10%",
+    "known-good data/test leads"
+  ],
+  "nonClaims": [
+    "not a procurement order",
+    "not an inventory database",
+    "not a Workstation USB-binding implementation",
+    "not a calibration certificate schema",
+    "not physical execution",
+    "not a guarantee the preregistered RC model will match Reality"
+  ],
+  "purpose": "Define the evidence gates that convert purchased/arrived objects into one admissible E0-B physical execution without creating a generic device registry or silently promoting asset presence into measurement validity.",
+  "reentryTrigger": "Reopen physical execution only when G0/G1 evidence exists for the minimum arrived physical set. Do not schedule or poll for arrival here; re-observe actual owner/source evidence when the user reports delivery or another current inventory carrier appears.",
+  "schemaVersion": 1,
+  "standing": "WAITING_FOR_PHYSICAL_ARRIVAL__NO_EXECUTION_AUTHORITY"
+}
