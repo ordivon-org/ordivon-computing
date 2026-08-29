@@ -131,6 +131,69 @@ def validate_protocol_revision(
         )
 
 
+def validate_candidate_declaration(
+    candidate_config: dict[str, Any],
+    candidate: dict[str, Any],
+) -> None:
+    require(candidate.get("schemaVersion") == 1, "protocol candidate schema differs")
+    require(candidate.get("kind") == "ordivon.protocol-candidate", "protocol candidate kind differs")
+    require(candidate.get("version") == candidate_config.get("version"), "protocol candidate version declaration differs")
+    require(candidate.get("status") == candidate_config.get("status") == "unreleased", "protocol candidate status declaration differs")
+    require(candidate.get("baseRelease", {}).get("version") == candidate_config.get("base_release"), "protocol candidate base-release declaration differs")
+    require(candidate.get("automaticConsumerUpgrade") is False, "protocol candidate may not auto-upgrade consumers")
+    require(candidate.get("requiredOwnerAdmission") == candidate_config.get("required_owner_admission"), "protocol candidate owner-admission boundary differs")
+    require(
+        candidate.get("integrity", {}).get("payloadDigest")
+        == integrity(candidate)["payloadDigest"],
+        "protocol candidate manifest digest differs",
+    )
+
+
+def validate_current_protocol_revision(
+    computing: Path,
+    revision: str,
+    *,
+    release: dict[str, Any],
+    release_artifacts: dict[str, str],
+    candidate: dict[str, Any] | None,
+    label: str,
+) -> str:
+    """Validate one current consumer pin and return its declared migration standing."""
+    require(bool(REVISION.fullmatch(revision)), f"{label} protocol revision is invalid")
+    package_manifest = tomllib.loads(
+        git_bytes(
+            computing,
+            revision,
+            "packages/ordivon-protocol/pyproject.toml",
+        ).decode("utf-8")
+    )
+    observed_version = package_manifest["project"]["version"]
+    if observed_version == release["version"]:
+        standing = "release"
+    else:
+        require(candidate is not None, f"{label} protocol pin resolves to undeclared candidate version")
+        require(candidate["status"] == "unreleased", "current protocol candidate must remain unreleased")
+        require(
+            candidate["baseRelease"]["version"] == release["version"],
+            "current protocol candidate base release differs",
+        )
+        require(
+            candidate.get("unchangedReleaseArtifacts") is True,
+            "current protocol candidate does not preserve released artifacts",
+        )
+        require(
+            observed_version == candidate["version"],
+            f"{label} protocol pin resolves to undeclared candidate version",
+        )
+        standing = "candidate"
+    for path, expected in release_artifacts.items():
+        require(
+            sha256(git_bytes(computing, revision, path)) == expected,
+            f"{label} protocol pin differs from released artifact: {path}",
+        )
+    return standing
+
+
 def validate_game_binding(
     *,
     computing: Path,
@@ -273,6 +336,13 @@ def main() -> int:
         release_consumers = {
             item["repositoryId"]: item for item in release["consumers"]
         }
+        candidate_config = conformance.get("protocol_candidate")
+        candidate = None
+        if candidate_config is not None:
+            candidate = json.loads(
+                (computing / candidate_config["manifest"]).read_text()
+            )
+            validate_candidate_declaration(candidate_config, candidate)
         game_project = next(
             item for item in conformance["projects"] if item["id"] == "ordivon-game"
         )
@@ -355,11 +425,12 @@ def main() -> int:
             (host / "pyproject.toml").read_text(),
             "current Host",
         )
-        validate_protocol_revision(
+        host_current_standing = validate_current_protocol_revision(
             computing,
             host_current_pin,
             release=release,
             release_artifacts=release_artifacts,
+            candidate=candidate,
             label="current Host",
         )
         steps.append(
@@ -369,6 +440,7 @@ def main() -> int:
                 "status": "passed",
                 "consumerRevision": revisions["ordivon-host"],
                 "protocolRevision": host_current_pin,
+                "protocolStanding": host_current_standing,
             }
         )
 
@@ -407,6 +479,7 @@ def main() -> int:
                 "status": "passed",
                 "consumerRevision": revisions["ordivon-game"],
                 "protocolRevision": game_current_pin,
+                "protocolStanding": "release",
             }
         )
 
