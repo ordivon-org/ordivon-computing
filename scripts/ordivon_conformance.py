@@ -490,12 +490,10 @@ def _managed_markdown_paths() -> list[str]:
 
 def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     python = sys.executable
-    ruff = shutil.which("ruff")
     vale = shutil.which("vale")
     markdownlint = shutil.which("markdownlint-cli2")
     cspell = shutil.which("cspell")
     lychee = shutil.which("lychee")
-    require(ruff is not None, "ruff is required for the conformance gate")
     require(vale is not None, "vale is required for the content gate; run mise install")
     require(markdownlint is not None, "markdownlint-cli2 is required for the content gate; run mise install")
     require(cspell is not None, "cspell is required for the content gate; run mise install")
@@ -537,7 +535,7 @@ def _gate_commands() -> list[tuple[str, list[str], Path, dict[str, str]]]:
     ]
     return [
         ("compileall", [python, "-m", "compileall", "-q", *compile_paths], ROOT, {}),
-        ("ruff", [ruff, "check", *ruff_paths], ROOT, {}),
+        ("ruff", [python, "-m", "ruff", "check", *ruff_paths], ROOT, {}),
         ("content-cli-tests", [python, "-m", "unittest", "discover", "-s", "packages/content-cli/tests"], ROOT, {"PYTHONPATH": "packages/content-cli/src"}),
         ("observation-core-tests", [python, "-m", "unittest", "discover", "-s", "packages/ordivon-observation-core/tests"], ROOT, {"PYTHONPATH": "packages/ordivon-observation-core/src"}),
         ("rsi-lab-tests", [python, "-m", "unittest", "scripts.tests.test_ordivon_lab"], ROOT, {}),

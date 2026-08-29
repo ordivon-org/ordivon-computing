@@ -242,6 +242,11 @@ class GateLauncherContractTests(unittest.TestCase):
         self.assertIn("jsonschema==4.25.1", lock)
         self.assertIn("ruff==0.15.14", lock)
 
+    def test_gate_uses_owner_python_for_locked_ruff(self) -> None:
+        source = (ROOT / "scripts" / "ordivon_conformance.py").read_text()
+        self.assertIn('(\"ruff\", [python, \"-m\", \"ruff\", \"check\", *ruff_paths]', source)
+        self.assertNotIn('shutil.which(\"ruff\")', source)
+
 
 if __name__ == "__main__":
     unittest.main()
