@@ -67,6 +67,125 @@ class CleanWorktreeTests(unittest.TestCase):
                 self.assertEqual(git(checkout, "status", "--porcelain=v1"), "")
 
 
+class CandidateDeclarationTests(unittest.TestCase):
+    def _candidate(self) -> tuple[dict[str, object], dict[str, object]]:
+        config: dict[str, object] = {
+            "version": "0.4.0.dev0",
+            "status": "unreleased",
+            "base_release": "0.3.0",
+            "required_owner_admission": ["ordivon-host"],
+        }
+        candidate: dict[str, object] = {
+            "schemaVersion": 1,
+            "kind": "ordivon.protocol-candidate",
+            "version": "0.4.0.dev0",
+            "status": "unreleased",
+            "baseRelease": {"version": "0.3.0"},
+            "automaticConsumerUpgrade": False,
+            "requiredOwnerAdmission": ["ordivon-host"],
+            "unchangedReleaseArtifacts": True,
+        }
+        candidate["integrity"] = CONSUMERS.integrity(candidate)
+        return config, candidate
+
+    def test_candidate_declaration_is_self_authenticating_for_consumer_gate(self) -> None:
+        config, candidate = self._candidate()
+        CONSUMERS.validate_candidate_declaration(config, candidate)
+
+    def test_candidate_declaration_rejects_digest_tamper(self) -> None:
+        config, candidate = self._candidate()
+        candidate["version"] = "0.4.0.dev1"
+        with self.assertRaisesRegex(ValueError, "version declaration differs|manifest digest differs"):
+            CONSUMERS.validate_candidate_declaration(config, candidate)
+
+
+class CurrentProtocolStandingTests(unittest.TestCase):
+    def _computing_fixture(self, root: Path, version: str) -> tuple[Path, str, dict[str, str]]:
+        computing = root / "computing"
+        init_repository(computing)
+        package = computing / "packages" / "ordivon-protocol"
+        package.mkdir(parents=True)
+        (package / "pyproject.toml").write_text(
+            f'[project]\nname = "ordivon-protocol"\nversion = "{version}"\n',
+            encoding="utf-8",
+        )
+        artifact = package / "artifact.json"
+        artifact.write_text('{"stable":true}\n', encoding="utf-8")
+        revision = commit_all(computing, version)
+        artifacts = {
+            "packages/ordivon-protocol/artifact.json": CONSUMERS.sha256(artifact.read_bytes())
+        }
+        return computing, revision, artifacts
+
+    def test_current_release_consumer_keeps_release_standing(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            computing, revision, artifacts = self._computing_fixture(Path(temporary), "0.3.0")
+            standing = CONSUMERS.validate_current_protocol_revision(
+                computing,
+                revision,
+                release={"version": "0.3.0"},
+                release_artifacts=artifacts,
+                candidate=None,
+                label="current Host",
+            )
+            self.assertEqual(standing, "release")
+
+    def test_current_declared_candidate_consumer_is_distinct_from_release(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            computing, revision, artifacts = self._computing_fixture(Path(temporary), "0.4.0.dev0")
+            standing = CONSUMERS.validate_current_protocol_revision(
+                computing,
+                revision,
+                release={"version": "0.3.0"},
+                release_artifacts=artifacts,
+                candidate={
+                    "version": "0.4.0.dev0",
+                    "status": "unreleased",
+                    "baseRelease": {"version": "0.3.0"},
+                    "unchangedReleaseArtifacts": True,
+                },
+                label="current Host",
+            )
+            self.assertEqual(standing, "candidate")
+
+    def test_candidate_cannot_drift_released_artifacts(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            computing, revision, artifacts = self._computing_fixture(Path(temporary), "0.4.0.dev0")
+            artifacts["packages/ordivon-protocol/artifact.json"] = "sha256:" + "0" * 64
+            with self.assertRaisesRegex(ValueError, "differs from released artifact"):
+                CONSUMERS.validate_current_protocol_revision(
+                    computing,
+                    revision,
+                    release={"version": "0.3.0"},
+                    release_artifacts=artifacts,
+                    candidate={
+                        "version": "0.4.0.dev0",
+                        "status": "unreleased",
+                        "baseRelease": {"version": "0.3.0"},
+                        "unchangedReleaseArtifacts": True,
+                    },
+                    label="current Host",
+                )
+
+    def test_undeclared_candidate_version_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            computing, revision, artifacts = self._computing_fixture(Path(temporary), "9.9.9.dev0")
+            with self.assertRaisesRegex(ValueError, "undeclared candidate version"):
+                CONSUMERS.validate_current_protocol_revision(
+                    computing,
+                    revision,
+                    release={"version": "0.3.0"},
+                    release_artifacts=artifacts,
+                    candidate={
+                        "version": "0.4.0.dev0",
+                        "status": "unreleased",
+                        "baseRelease": {"version": "0.3.0"},
+                        "unchangedReleaseArtifacts": True,
+                    },
+                    label="current Host",
+                )
+
+
 class GameBindingTests(unittest.TestCase):
     def test_current_binding_is_checked_independently_from_frozen_revision(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
