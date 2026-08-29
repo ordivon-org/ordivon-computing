@@ -44,6 +44,20 @@ def commit_all(root: Path, message: str) -> str:
     return git(root, "rev-parse", "HEAD")
 
 
+class WorkflowScopeTests(unittest.TestCase):
+    def test_consumer_workflow_tracks_protocol_relation_not_general_conformance_launcher(self) -> None:
+        workflow = (ROOT / ".github/workflows/protocol-consumers.yml").read_text(encoding="utf-8")
+        for required in (
+            '"packages/ordivon-protocol/**"',
+            '"projects/conformance.toml"',
+            '"research/evidence/tests/test_protocol_consumer_gate.py"',
+            '"scripts/check_protocol_release.py"',
+            '"scripts/check_protocol_consumers.py"',
+        ):
+            self.assertIn(required, workflow)
+        self.assertNotIn('"scripts/ordivon_conformance.py"', workflow)
+
+
 class CleanWorktreeTests(unittest.TestCase):
     def test_untracked_empty_directory_does_not_change_commit_under_test(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
